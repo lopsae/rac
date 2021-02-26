@@ -21,7 +21,7 @@
 }(typeof self !== 'undefined' ? self : this, function () {
 
   // Ruler and Compass - 0.9.9.x
-  let version = '0.9.9';
+  let version = '0.9.10-dev';
 
   class Rac {
 
