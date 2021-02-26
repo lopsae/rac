@@ -25,11 +25,13 @@
 
   class Rac {
 
-    constructor (p5Obj) {
+    constructor () {
       this.version = version;
 
-      // TODO: temporary holder for P5, figure out if an abstraction is needed
-      this.p5 = p5Obj;
+      // MAICTODO: rename to drawer
+      this.defaultDrawer = null;
+
+      // TODO: tau, replace .PI
 
       // Used to determine equality between measures for some operations, like
       // calculating the slope of a segment. Values too close can result in odd
@@ -52,16 +54,31 @@
         invalidObjectToDraw: "Invalid object to draw"}
     }
 
+    setupDrawer(p5Instance) {
+      this.defaultDrawer = new this.P5Drawer(this, p5Instance)
+    }
+
   }
 
   // Makes a rac object with a RacP5Drawer instance as default drawer.
-  let makeRac = function makeRac(p5Obj) {
-    let rac = new Rac(p5Obj);
+  let makeRac = function makeRac() {
+    let rac = new Rac();
 
-    // Draws using p5js canvas
-    rac.Drawer = class RacDrawer {
+    // Drawer that uses a P5 instance for all drawing operations.
+    rac.P5Drawer = class RacP5Drawer {
 
-      // Encapsulates the drawing function to be used for a specific class.
+      // Encapsulates the drawing function and options to be used for a
+      // specific class.
+      // The required elements of a routine are the `classObj`, and its
+      // associated `drawFunction`.
+      // Optionally a `style` can be asigned to always be applied when
+      // drawing a class, this style will be applied before any styles
+      // passed onto the `draw` function.
+      // Optionally a `requiresPushPop` for a routine can be toggled to
+      // `true`, in which case a `push` and `pop` are always performed
+      // before and after all the style and drawing in the routine. This
+      // is intended for drawing operations that may need to push
+      // transformation in order to draw.
       static Routine = class RacDrawerRoutine {
         constructor (classObj, drawFunction) {
           this.classObj = classObj;
@@ -73,10 +90,13 @@
         }
       }
 
-      constructor() {
+      constructor(rac, p5) {
+        this.p5 = p5;
         this.routines = [];
         this.enabled = true;
         this.debugStyle = null;
+
+        this.setupAllDrawFunctions(rac);
       }
 
       // Adds a routine for the given class. The `drawFunction` function will be
@@ -87,7 +107,7 @@
 
         let routine;
         if (index === -1) {
-          routine = new rac.Drawer.Routine(classObj, drawFunction);
+          routine = new RacP5Drawer.Routine(classObj, drawFunction);
         } else {
           routine = this.routines[index];
           routine.drawFunction = drawFunction;
@@ -134,18 +154,18 @@
           || style !== null
           || routine.style !== null)
         {
-          rac.p5.push();
+          this.p5.push();
           if (routine.style !== null) {
             routine.style.apply();
           }
           if (style !== null) {
             style.apply();
           }
-          routine.drawFunction.call(element);
-          rac.p5.pop();
+          routine.drawFunction.call(element, this);
+          this.p5.pop();
         } else {
           // No push-pull
-          routine.drawFunction.call(element);
+          routine.drawFunction.call(element, this);
         }
       }
 
@@ -153,16 +173,90 @@
         this.drawElement(element, this.debugStyle);
       }
 
+      // Adds all the drawing routines for rac clases.
+      setupAllDrawFunctions(rac) {
+        // TODO: funcions should receive drawn element, instead of this
+        // Point
+        this.setDrawFunction(rac.Point, function(drawer) {
+          drawer.p5.point(this.x, this.y);
+        });
+
+        // Text
+        this.setDrawFunction(rac.Text, function(drawer) {
+          this.format.apply(this.point);
+          drawer.p5.text(this.string, 0, 0);
+        });
+        this.setDrawOptions(rac.Text, {requiresPushPop: true});
+
+        // Segment
+        this.setDrawFunction(rac.Segment, function(drawer) {
+          drawer.p5.line(
+            this.start.x, this.start.y,
+            this.end.x,   this.end.y);
+        });
+
+        // Arc
+        this.setDrawFunction(rac.Arc, function(drawer) {
+          if (this.isCircle()) {
+            let startRad = this.start.radians();
+            let endRad = startRad + (Math.PI * 2);
+            drawer.p5.arc(
+              this.center.x, this.center.y,
+              this.radius * 2, this.radius * 2,
+              startRad, endRad);
+            return;
+          }
+
+          let start = this.start;
+          let end = this.end;
+          if (!this.clockwise) {
+            start = this.end;
+            end = this.start;
+          }
+
+          drawer.p5.arc(
+            this.center.x, this.center.y,
+            this.radius * 2, this.radius * 2,
+            start.radians(), end.radians());
+        });
+
+        // Bezier
+        this.setDrawFunction(rac.Bezier, function(drawer) {
+          drawer.p5.bezier(
+            this.start.x, this.start.y,
+            this.startAnchor.x, this.startAnchor.y,
+            this.endAnchor.x, this.endAnchor.y,
+            this.end.x, this.end.y);
+        });
+
+        // Composite
+        this.setDrawFunction(rac.Composite, function(drawer) {
+          this.sequence.forEach(item => item.draw());
+        });
+
+        // Shape
+        this.setDrawFunction(rac.Shape, function(drawer) {
+          drawer.p5.beginShape();
+          this.outline.vertex();
+
+          if (this.contour.isNotEmpty()) {
+            drawer.p5.beginContour();
+            this.contour.vertex();
+            drawer.p5.endContour();
+          }
+          drawer.p5.endShape();
+        });
+
+      }
+
     }
-
-    rac.defaultDrawer = new rac.Drawer();
-
 
 
     // Container for prototype functions
     rac.protoFunctions = {};
 
     rac.protoFunctions.draw = function(style = null){
+      // TODO: add error if drawer has not been set
       rac.defaultDrawer.drawElement(this, style);
       return this;
     };
@@ -302,12 +396,13 @@
         return new rac.Stroke(this, weight);
       }
 
+      // TODO: applies should also go through the drawer
       applyBackground() {
-        rac.p5.background(this.r * 255, this.g * 255, this.b * 255);
+        rac.defaultDrawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
       }
 
       applyFill = function() {
-        rac.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+        rac.defaultDrawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
       }
 
       withAlpha(alpha) {
@@ -364,16 +459,16 @@
 
       apply() {
         if (this.color === null) {
-          rac.p5.noStroke();
+          rac.defaultDrawer.p5.noStroke();
           return;
         }
 
-        rac.p5.stroke(
+        rac.defaultDrawer.p5.stroke(
           this.color.r * 255,
           this.color.g * 255,
           this.color.b * 255,
           this.color.alpha * 255);
-        rac.p5.strokeWeight(this.weight);
+        rac.defaultDrawer.p5.strokeWeight(this.weight);
       }
 
       styleWithFill(fill) {
@@ -393,7 +488,7 @@
 
       apply() {
         if (this.color === null) {
-          rac.p5.noFill();
+          rac.defaultDrawer.p5.noFill();
           return;
         }
 
@@ -460,7 +555,7 @@
     }
 
     rac.Angle.fromRadians = function(radians) {
-      return new rac.Angle(radians / rac.p5.TWO_PI);
+      return new rac.Angle(radians / rac.defaultDrawer.p5.TWO_PI);
     };
 
     rac.Angle.fromPoint = function(point) {
@@ -551,7 +646,7 @@
     };
 
     rac.Angle.prototype.radians = function() {
-      return this.turn * rac.p5.TWO_PI;
+      return this.turn * rac.defaultDrawer.p5.TWO_PI;
     };
 
     rac.Angle.prototype.degrees = function() {
@@ -602,7 +697,7 @@
       }
 
       vertex() {
-        rac.p5.vertex(this.x, this.y);
+        rac.defaultDrawer.p5.vertex(this.x, this.y);
         return this;
       }
 
@@ -643,16 +738,14 @@
 
 
 
+      // TODO: how to make these functions dependant on P5 drawer?
+      // TODO: implemenent drawingAreaCenter, rename to pointer
       static mouse() {
-        return new rac.Point(rac.p5.mouseX, rac.p5.mouseY);
+        return new rac.Point(rac.defaultDrawer.p5.mouseX, rac.defaultDrawer.p5.mouseY);
       }
 
     }
 
-
-    rac.defaultDrawer.setDrawFunction(rac.Point, function() {
-      rac.p5.point(this.x, this.y);
-    });
 
     rac.setupProtoFunctions(rac.Point);
 
@@ -848,11 +941,6 @@
 
     }
 
-    rac.defaultDrawer.setDrawFunction(rac.Text, function() {
-      this.format.apply(this.point);
-      rac.p5.text(this.string, 0, 0);
-    });
-    rac.defaultDrawer.setDrawOptions(rac.Text, {requiresPushPop: true});
 
     rac.setupProtoFunctions(rac.Text);
 
@@ -940,13 +1028,9 @@
 
     }
 
-    rac.defaultDrawer.setDrawFunction(rac.Segment, function() {
-      rac.p5.line(
-        this.start.x, this.start.y,
-        this.end.x,   this.end.y);
-    });
 
     rac.setupProtoFunctions(rac.Segment);
+
 
     rac.Segment.prototype.withStart = function(newStart) {
       return new rac.Segment(newStart, this.end);
@@ -1378,30 +1462,6 @@
     }
 
 
-    rac.defaultDrawer.setDrawFunction(rac.Arc, function() {
-      if (this.isCircle()) {
-        let startRad = this.start.radians();
-        let endRad = startRad + (Math.PI * 2);
-        rac.p5.arc(
-          this.center.x, this.center.y,
-          this.radius * 2, this.radius * 2,
-          startRad, endRad);
-        return;
-      }
-
-      let start = this.start;
-      let end = this.end;
-      if (!this.clockwise) {
-        start = this.end;
-        end = this.start;
-      }
-
-      rac.p5.arc(
-        this.center.x, this.center.y,
-        this.radius * 2, this.radius * 2,
-        start.radians(), end.radians());
-    });
-
     rac.setupProtoFunctions(rac.Arc);
 
 
@@ -1707,7 +1767,7 @@
       // length of tangent:
       // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
       let parsPerTurn = 1 / partTurn;
-      let tangent = this.radius * (4/3) * Math.tan(rac.p5.PI/(parsPerTurn*2));
+      let tangent = this.radius * (4/3) * Math.tan(rac.defaultDrawer.p5.PI/(parsPerTurn*2));
 
       let beziers = [];
       let segments = this.divideToSegments(bezierCount);
@@ -1738,13 +1798,6 @@
       this.end = end;
     };
 
-    rac.defaultDrawer.setDrawFunction(rac.Bezier, function() {
-      rac.p5.bezier(
-        this.start.x, this.start.y,
-        this.startAnchor.x, this.startAnchor.y,
-        this.endAnchor.x, this.endAnchor.y,
-        this.end.x, this.end.y);
-    });
 
     rac.setupProtoFunctions(rac.Bezier);
 
@@ -1760,7 +1813,7 @@
 
     rac.Bezier.prototype.vertex = function() {
       this.start.vertex()
-      rac.p5.bezierVertex(
+      rac.defaultDrawer.p5.bezierVertex(
         this.startAnchor.x, this.startAnchor.y,
         this.endAnchor.x, this.endAnchor.y,
         this.end.x, this.end.y);
@@ -1778,11 +1831,9 @@
       this.sequence = sequence;
     };
 
-    rac.defaultDrawer.setDrawFunction(rac.Composite, function() {
-      this.sequence.forEach(item => item.draw());
-    });
 
     rac.setupProtoFunctions(rac.Composite);
+
 
     rac.Composite.prototype.vertex = function() {
       this.sequence.forEach(item => item.vertex());
@@ -1812,19 +1863,9 @@
       this.contour = new rac.Composite();
     }
 
-    rac.defaultDrawer.setDrawFunction(rac.Shape, function () {
-      rac.p5.beginShape();
-      this.outline.vertex();
-
-      if (this.contour.isNotEmpty()) {
-        rac.p5.beginContour();
-        this.contour.vertex();
-        rac.p5.endContour();
-      }
-      rac.p5.endShape();
-    });
 
     rac.setupProtoFunctions(rac.Shape);
+
 
     rac.Shape.prototype.vertex = function() {
       this.outline.vertex();
@@ -2652,7 +2693,7 @@
 
       // Pointer pressed
       let pointerCenter = rac.Point.mouse();
-      if (rac.p5.mouseIsPressed) {
+      if (rac.defaultDrawer.p5.mouseIsPressed) {
         if (rac.Control.selection === null) {
           pointerCenter.arc(10).draw(pointerStyle);
         } else {
