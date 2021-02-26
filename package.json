@@ -1,0 +1,15 @@
+{
+  "name": "rulerandcompass",
+  "version": "0.9.10-dev",
+  "description": "Ruler and Compass",
+  "main": "src/rac.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maic López Sáenz",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.3.0",
+    "grunt-contrib-connect": "^3.0.0"
+  }
+}
