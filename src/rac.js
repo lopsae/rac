@@ -54,17 +54,18 @@
 
   }
 
-
+  // Makes a rac object with a RacP5Drawer instance as default drawer.
   let makeRac = function makeRac(p5Obj) {
     let rac = new Rac(p5Obj);
 
     // Draws using p5js canvas
     rac.Drawer = class RacDrawer {
 
+      // Encapsulates the drawing function to be used for a specific class.
       static Routine = class RacDrawerRoutine {
-        constructor (classObj, drawElement) {
+        constructor (classObj, drawFunction) {
           this.classObj = classObj;
-          this.drawElement = drawElement
+          this.drawFunction = drawFunction
           this.style = null;
 
           // Options
@@ -78,18 +79,18 @@
         this.debugStyle = null;
       }
 
-      // Adds a routine for the given class. The `drawElement` function will be
+      // Adds a routine for the given class. The `drawFunction` function will be
       // called passing the element to be drawn as `this`.
-      setDrawFunction(classObj, drawElement) {
+      setDrawFunction(classObj, drawFunction) {
         let index = this.routines
           .findIndex(routine => routine.classObj === classObj);
 
         let routine;
         if (index === -1) {
-          routine = new rac.Drawer.Routine(classObj, drawElement);
+          routine = new rac.Drawer.Routine(classObj, drawFunction);
         } else {
           routine = this.routines[index];
-          routine.drawElement = drawElement;
+          routine.drawFunction = drawFunction;
           // Delete routine
           this.routine.splice(index, 1);
         }
@@ -140,11 +141,11 @@
           if (style !== null) {
             style.apply();
           }
-          routine.drawElement.call(element);
+          routine.drawFunction.call(element);
           rac.p5.pop();
         } else {
           // No push-pull
-          routine.drawElement.call(element);
+          routine.drawFunction.call(element);
         }
       }
 
