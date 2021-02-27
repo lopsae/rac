@@ -173,7 +173,7 @@
         this.drawElement(element, this.debugStyle);
       }
 
-      // Adds all the drawing routines for rac clases.
+      // Sets up all drawing routines for rac clases.
       setupAllDrawFunctions(rac) {
         // TODO: funcions should receive drawn element, instead of this
         // Point
@@ -350,18 +350,14 @@
       throw rac.Error.invalidObjectToConvert;
     };
 
+
+    // Adds to the given class prototype all the functions contained in
+    // `rac.protoFunctions`. These are functions shared by all visual
+    // objects like `draw()` and `debug()`.
     rac.setupProtoFunctions = function(classObj) {
-      classObj.prototype.draw                = rac.protoFunctions.draw;
-      classObj.prototype.debug               = rac.protoFunctions.debug;
-      classObj.prototype.push                = rac.protoFunctions.push;
-      classObj.prototype.pop                 = rac.protoFunctions.pop;
-      classObj.prototype.peek                = rac.protoFunctions.peek;
-      classObj.prototype.attachTo            = rac.protoFunctions.attachTo;
-      classObj.prototype.attachToShape       = rac.protoFunctions.attachToShape;
-      classObj.prototype.popShape            = rac.protoFunctions.popShape;
-      classObj.prototype.popShapeToComposite = rac.protoFunctions.popShapeToComposite;
-      classObj.prototype.attachToComposite   = rac.protoFunctions.attachToComposite;
-      classObj.prototype.popComposite        = rac.protoFunctions.popComposite;
+      Object.keys(rac.protoFunctions).forEach(name => {
+        classObj.prototype[name] = rac.protoFunctions[name];
+      });
     }
 
 
