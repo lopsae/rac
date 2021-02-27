@@ -21,17 +21,25 @@
 }(typeof self !== 'undefined' ? self : this, function () {
 
   // Ruler and Compass - 0.9.9.x
-  let version = '0.9.10-dev';
+  const version = '0.9.10-dev';
+
+
+  function addEnumConstant(obj, prop, value) {
+    Object.defineProperty(obj, prop, {
+      enumerable: true,
+      configurable: false,
+      writable: false,
+      value: value
+    });
+  }
+
 
   class Rac {
 
     constructor () {
-      this.version = version;
-
-      // MAICTODO: rename to drawer
-      this.defaultDrawer = null;
-
-      // TODO: tau, replace .PI
+      addEnumConstant(this, 'version', version);
+      // https://tauday.com/tau-manifesto
+      addEnumConstant(this, `TAU`, Math.PI * 2);
 
       // Used to determine equality between measures for some operations, like
       // calculating the slope of a segment. Values too close can result in odd
@@ -44,6 +52,9 @@
 
       // Length for elements that need an arbitrary value.
       this.arbitraryLength = 100;
+
+      // MAICTODO: rename to drawer
+      this.defaultDrawer = null;
 
       // Error identifiers
       this.Error = {
@@ -199,7 +210,7 @@
         this.setDrawFunction(rac.Arc, function(drawer) {
           if (this.isCircle()) {
             let startRad = this.start.radians();
-            let endRad = startRad + (Math.PI * 2);
+            let endRad = startRad + (rac.TAU);
             drawer.p5.arc(
               this.center.x, this.center.y,
               this.radius * 2, this.radius * 2,
@@ -551,7 +562,7 @@
     }
 
     rac.Angle.fromRadians = function(radians) {
-      return new rac.Angle(radians / rac.defaultDrawer.p5.TWO_PI);
+      return new rac.Angle(radians / rac.TAU);
     };
 
     rac.Angle.fromPoint = function(point) {
@@ -642,7 +653,7 @@
     };
 
     rac.Angle.prototype.radians = function() {
-      return this.turn * rac.defaultDrawer.p5.TWO_PI;
+      return this.turn * rac.TAU;
     };
 
     rac.Angle.prototype.degrees = function() {
@@ -1763,7 +1774,7 @@
       // length of tangent:
       // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
       let parsPerTurn = 1 / partTurn;
-      let tangent = this.radius * (4/3) * Math.tan(rac.defaultDrawer.p5.PI/(parsPerTurn*2));
+      let tangent = this.radius * (4/3) * Math.tan(Math.PI/(parsPerTurn*2));
 
       let beziers = [];
       let segments = this.divideToSegments(bezierCount);
@@ -2712,7 +2723,8 @@
     return rac;
   }; // makeRac
 
-  makeRac.version = version;
+
+  addEnumConstant(makeRac, 'version', version)
   return makeRac
 
 }));
