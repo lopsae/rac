@@ -78,29 +78,6 @@
     // Drawer that uses a P5 instance for all drawing operations.
     rac.P5Drawer = class RacP5Drawer {
 
-      // Encapsulates the drawing function and options to be used for a
-      // specific class.
-      // The required elements of a routine are the `classObj`, and its
-      // associated `drawFunction`.
-      // Optionally a `style` can be asigned to always be applied when
-      // drawing a class, this style will be applied before any styles
-      // passed onto the `draw` function.
-      // Optionally a `requiresPushPop` for a routine can be toggled to
-      // `true`, in which case a `push` and `pop` are always performed
-      // before and after all the style and drawing in the routine. This
-      // is intended for drawing operations that may need to push
-      // transformation in order to draw.
-      static Routine = class RacDrawerRoutine {
-        constructor (classObj, drawFunction) {
-          this.classObj = classObj;
-          this.drawFunction = drawFunction
-          this.style = null;
-
-          // Options
-          this.requiresPushPop = false;
-        }
-      }
-
       constructor(rac, p5) {
         this.p5 = p5;
         this.routines = [];
@@ -172,11 +149,11 @@
           if (style !== null) {
             style.apply();
           }
-          routine.drawFunction.call(element, this);
+          routine.drawFunction(this, element);
           this.p5.pop();
         } else {
           // No push-pull
-          routine.drawFunction.call(element, this);
+          routine.drawFunction(this, element);
         }
       }
 
@@ -186,81 +163,104 @@
 
       // Sets up all drawing routines for rac clases.
       setupAllDrawFunctions(rac) {
-        // TODO: funcions should receive drawn element, instead of this
         // Point
-        this.setDrawFunction(rac.Point, function(drawer) {
-          drawer.p5.point(this.x, this.y);
+        this.setDrawFunction(rac.Point, (drawer, point) => {
+          drawer.p5.point(point.x, point.y);
         });
 
         // Text
-        this.setDrawFunction(rac.Text, function(drawer) {
-          this.format.apply(this.point);
-          drawer.p5.text(this.string, 0, 0);
+        this.setDrawFunction(rac.Text, (drawer, text) => {
+          text.format.apply(text.point);
+          drawer.p5.text(text.string, 0, 0);
         });
         this.setDrawOptions(rac.Text, {requiresPushPop: true});
 
         // Segment
-        this.setDrawFunction(rac.Segment, function(drawer) {
+        this.setDrawFunction(rac.Segment, (drawer, segment) => {
           drawer.p5.line(
-            this.start.x, this.start.y,
-            this.end.x,   this.end.y);
+            segment.start.x, segment.start.y,
+            segment.end.x,   segment.end.y);
         });
 
         // Arc
-        this.setDrawFunction(rac.Arc, function(drawer) {
-          if (this.isCircle()) {
-            let startRad = this.start.radians();
+        this.setDrawFunction(rac.Arc, (drawer, arc) => {
+          if (arc.isCircle()) {
+            let startRad = arc.start.radians();
             let endRad = startRad + (rac.TAU);
             drawer.p5.arc(
-              this.center.x, this.center.y,
-              this.radius * 2, this.radius * 2,
+              arc.center.x, arc.center.y,
+              arc.radius * 2, arc.radius * 2,
               startRad, endRad);
             return;
           }
 
-          let start = this.start;
-          let end = this.end;
-          if (!this.clockwise) {
-            start = this.end;
-            end = this.start;
+          let start = arc.start;
+          let end = arc.end;
+          if (!arc.clockwise) {
+            start = arc.end;
+            end = arc.start;
           }
 
           drawer.p5.arc(
-            this.center.x, this.center.y,
-            this.radius * 2, this.radius * 2,
+            arc.center.x, arc.center.y,
+            arc.radius * 2, arc.radius * 2,
             start.radians(), end.radians());
         });
 
         // Bezier
-        this.setDrawFunction(rac.Bezier, function(drawer) {
+        this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
           drawer.p5.bezier(
-            this.start.x, this.start.y,
-            this.startAnchor.x, this.startAnchor.y,
-            this.endAnchor.x, this.endAnchor.y,
-            this.end.x, this.end.y);
+            bezier.start.x, bezier.start.y,
+            bezier.startAnchor.x, bezier.startAnchor.y,
+            bezier.endAnchor.x, bezier.endAnchor.y,
+            bezier.end.x, bezier.end.y);
         });
 
         // Composite
-        this.setDrawFunction(rac.Composite, function(drawer) {
-          this.sequence.forEach(item => item.draw());
+        this.setDrawFunction(rac.Composite, (drawer, composite) => {
+          composite.sequence.forEach(item => item.draw());
         });
 
         // Shape
-        this.setDrawFunction(rac.Shape, function(drawer) {
+        this.setDrawFunction(rac.Shape, (drawer, shape) => {
           drawer.p5.beginShape();
-          this.outline.vertex();
+          shape.outline.vertex();
 
-          if (this.contour.isNotEmpty()) {
+          if (shape.contour.isNotEmpty()) {
             drawer.p5.beginContour();
-            this.contour.vertex();
+            shape.contour.vertex();
             drawer.p5.endContour();
           }
           drawer.p5.endShape();
         });
 
+      } // setupAllDrawFunctions
+
+
+      // Encapsulates the drawing function and options for a specific class.
+      // The draw function is called with an instance of the drawer, and
+      // the object to draw.
+      //
+      // Optionally a `style` can be asigned to always be applied when
+      // drawing an instance of the associated class. This style will be
+      // applied before any styles provided to the `draw` function.
+      //
+      // Optionally `requiresPushPop` can be set to `true` to always peform
+      // a `push` and `pop` before and after all the style and drawing in
+      // the routine. This is intended for objects which drawing operations
+      // may need to push transformation to the stack.
+      static Routine = class RacDrawerRoutine {
+        constructor (classObj, drawFunction) {
+          this.classObj = classObj;
+          this.drawFunction = drawFunction
+          this.style = null;
+
+          // Options
+          this.requiresPushPop = false;
+        }
       }
 
-    }
+    } // RacP5Drawer
 
 
     // Container for prototype functions
