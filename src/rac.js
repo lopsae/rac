@@ -24,6 +24,7 @@
   const version = '0.9.10-dev';
 
 
+  // Adds an enumerable constant to the given object.
   function addEnumConstant(obj, prop, value) {
     Object.defineProperty(obj, prop, {
       enumerable: true,
@@ -54,7 +55,7 @@
       this.arbitraryLength = 100;
 
       // MAICTODO: rename to drawer
-      this.defaultDrawer = null;
+      this.drawer = null;
 
       // Error identifiers
       this.Error = {
@@ -65,13 +66,22 @@
         invalidObjectToDraw: "Invalid object to draw"}
     }
 
+    // Sets the drawer for the instance. Currently only a p5.js instance
+    // is supported.
+    // TODO: This function will also populate some of the clases with
+    // prototype functions specific to the drawer. For p5.js this include
+    // `apply` functions for colors and style elements, and `vertex`
+    // functions for
     setupDrawer(p5Instance) {
-      this.defaultDrawer = new this.P5Drawer(this, p5Instance)
+      this.drawer = new this.P5Drawer(this, p5Instance)
     }
 
   }
 
-  // Makes a rac object with a RacP5Drawer instance as default drawer.
+  // Makes a new RAC object populated with all RAC classes and features.
+  //
+  // The new RAC object does not have a `drawer` setup, call `setupDrawer`
+  // to enable drawing functionality.
   let makeRac = function makeRac() {
     let rac = new Rac();
 
@@ -268,12 +278,12 @@
 
     rac.protoFunctions.draw = function(style = null){
       // TODO: add error if drawer has not been set
-      rac.defaultDrawer.drawElement(this, style);
+      rac.drawer.drawElement(this, style);
       return this;
     };
 
     rac.protoFunctions.debug = function(){
-      rac.defaultDrawer.debugElement(this);
+      rac.drawer.debugElement(this);
       return this;
     };
 
@@ -405,11 +415,11 @@
 
       // TODO: applies should also go through the drawer
       applyBackground() {
-        rac.defaultDrawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
+        rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
       }
 
       applyFill = function() {
-        rac.defaultDrawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+        rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
       }
 
       withAlpha(alpha) {
@@ -466,16 +476,16 @@
 
       apply() {
         if (this.color === null) {
-          rac.defaultDrawer.p5.noStroke();
+          rac.drawer.p5.noStroke();
           return;
         }
 
-        rac.defaultDrawer.p5.stroke(
+        rac.drawer.p5.stroke(
           this.color.r * 255,
           this.color.g * 255,
           this.color.b * 255,
           this.color.alpha * 255);
-        rac.defaultDrawer.p5.strokeWeight(this.weight);
+        rac.drawer.p5.strokeWeight(this.weight);
       }
 
       styleWithFill(fill) {
@@ -495,7 +505,7 @@
 
       apply() {
         if (this.color === null) {
-          rac.defaultDrawer.p5.noFill();
+          rac.drawer.p5.noFill();
           return;
         }
 
@@ -528,7 +538,7 @@
       }
 
       applyToClass(classObj) {
-        rac.defaultDrawer.setClassStyle(classObj, this);
+        rac.drawer.setClassStyle(classObj, this);
       }
 
       withStroke(stroke) {
@@ -704,7 +714,7 @@
       }
 
       vertex() {
-        rac.defaultDrawer.p5.vertex(this.x, this.y);
+        rac.drawer.p5.vertex(this.x, this.y);
         return this;
       }
 
@@ -748,7 +758,7 @@
       // TODO: how to make these functions dependant on P5 drawer?
       // TODO: implemenent drawingAreaCenter, rename to pointer
       static mouse() {
-        return new rac.Point(rac.defaultDrawer.p5.mouseX, rac.defaultDrawer.p5.mouseY);
+        return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       }
 
     }
@@ -1820,7 +1830,7 @@
 
     rac.Bezier.prototype.vertex = function() {
       this.start.vertex()
-      rac.defaultDrawer.p5.bezierVertex(
+      rac.drawer.p5.bezierVertex(
         this.startAnchor.x, this.startAnchor.y,
         this.endAnchor.x, this.endAnchor.y,
         this.end.x, this.end.y);
@@ -2700,7 +2710,7 @@
 
       // Pointer pressed
       let pointerCenter = rac.Point.mouse();
-      if (rac.defaultDrawer.p5.mouseIsPressed) {
+      if (rac.drawer.p5.mouseIsPressed) {
         if (rac.Control.selection === null) {
           pointerCenter.arc(10).draw(pointerStyle);
         } else {
