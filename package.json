@@ -2,9 +2,9 @@
   "name": "rulerandcompass",
   "version": "0.9.10-dev",
   "description": "Ruler and Compass",
-  "main": "src/rac.js",
+  "main": "src/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/test.js"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",
@@ -12,5 +12,8 @@
     "grunt": "^1.3.0",
     "grunt-browserify": "^5.3.0",
     "grunt-contrib-connect": "^3.0.0"
+  },
+  "dependencies": {
+    "npm": "^7.6.0"
   }
 }
