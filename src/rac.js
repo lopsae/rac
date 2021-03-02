@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 
 // Ruler and Compass - 0.9.10
@@ -67,8 +67,8 @@ class Rac {
 let makeRac = function makeRac() {
   let rac = new Rac();
 
-  // Drawer that uses a P5 instance for all drawing operations.
-rac.P5Drawer = require(`./P5Drawer`);
+  rac.P5Drawer = require(`./P5Drawer`);
+
 
 
   // Container for prototype functions

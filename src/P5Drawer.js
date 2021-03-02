@@ -1,6 +1,7 @@
-"use strict";
+'use strict';
 
 
+// Drawer that uses a P5 instance for all drawing operations.
 module.exports = class RacP5Drawer {
 
   constructor(rac, p5){
