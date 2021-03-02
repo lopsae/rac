@@ -22,7 +22,7 @@
   }
 }(typeof self !== 'undefined' ? self : this, function () {
 
-return require(`./rac.js`);
+return require(`./rac`);
 
 }));
 
