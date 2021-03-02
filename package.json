@@ -4,7 +4,8 @@
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "scripts": {
-    "test": "node tests/test.js"
+    "test": "node tests/test.js",
+    "dist": "grunt browserify connect:server"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",

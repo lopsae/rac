@@ -1,7 +1,7 @@
 "use strict";
 
 
-// Ruler and Compass - 0.9.9.x
+// Ruler and Compass - 0.9.10
 const version = '0.9.10-dev';
 
 
@@ -35,7 +35,8 @@ class Rac {
     // Length for elements that need an arbitrary value.
     this.arbitraryLength = 100;
 
-    // MAICTODO: rename to drawer
+    // Drawer for the instance. This object handles the drawing of any
+    // visual object.
     this.drawer = null;
 
     // Error identifiers
@@ -61,8 +62,8 @@ class Rac {
 
 // Makes a new RAC object populated with all RAC classes and features.
 //
-// The new RAC object does not have a `drawer` setup, call `setupDrawer`
-// to enable drawing functionality.
+// The new RAC object will not have a `drawer`, call `setupDrawer` to
+// enable drawing functionality.
 let makeRac = function makeRac() {
   let rac = new Rac();
 
@@ -232,7 +233,7 @@ let makeRac = function makeRac() {
     // The draw function is called with an instance of the drawer, and
     // the object to draw.
     //
-    // Optionally a `style` can be asigned to always be applied when
+    // Optionally a `style` can be asigned to always be applied before
     // drawing an instance of the associated class. This style will be
     // applied before any styles provided to the `draw` function.
     //
