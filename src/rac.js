@@ -62,79 +62,35 @@ class Rac {
 
 // Makes a new RAC object populated with all RAC classes and features.
 //
-// The new RAC object will not have a `drawer`, call `setupDrawer` to
-// enable drawing functionality.
+// The RAC object is initialized without a `drawer`. Call `setupDrawer`
+// to enable drawing  functionality, otherwise an error will be thrown if
+// any drawing is attempted.
 let makeRac = function makeRac() {
   let rac = new Rac();
 
-  rac.P5Drawer = require('./P5Drawer');
+  rac.P5Drawer = require('./P5Drawer')(rac);
 
   let attachProtoFunctions = require('./protoFunctions');
   attachProtoFunctions(rac);
 
 
-  // Returns the constructor name of `obj`, or its type name.
+  // Convenience function for logging, returns the constructor name of
+  // `obj`, or its type name.
   rac.typeName = function(obj) {
     return obj.constructor.name ?? typeof obj
   };
 
 
-  rac.Color = class RacColor {
+  rac.Color = require('./Color')(rac);
 
-    constructor(r, g, b, alpha = 1) {
-      this.r = r;
-      this.g = g;
-      this.b = b;
-      this.alpha = alpha;
-    }
-
-    static fromRgba(r, g, b, a = 255) {
-      return new rac.Color(r/255, g/255, b/255, a/255);
-    }
-
-    copy() {
-      return new rac.Color(this.r, this.g, this.b, this.alpha);
-    }
-
-    fill() {
-      return new rac.Fill(this);
-    }
-
-    stroke(weight = 1) {
-      return new rac.Stroke(this, weight);
-    }
-
-    // TODO: applies should also go through the drawer
-    applyBackground() {
-      rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
-    }
-
-    applyFill = function() {
-      rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
-    }
-
-    withAlpha(alpha) {
-      let copy = this.copy();
-      copy.alpha = alpha;
-      return copy;
-    }
-
-    withAlphaRatio(ratio) {
-      let copy = this.copy();
-      copy.alpha = this.color.alpha * ratio;
-      return copy;
-    }
-
+  // TODO: applies should also go through the drawer
+  rac.Color.prototype.applyBackground = function() {
+    rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
   }
 
-  rac.Color.black   = new rac.Color(0, 0, 0);
-  rac.Color.red     = new rac.Color(1, 0, 0);
-  rac.Color.green   = new rac.Color(0, 1, 0);
-  rac.Color.blue    = new rac.Color(0, 0, 1);
-  rac.Color.yellow  = new rac.Color(1, 1, 0);
-  rac.Color.magenta = new rac.Color(1, 0, 1);
-  rac.Color.cyan    = new rac.Color(0, 1, 1);
-  rac.Color.white   = new rac.Color(1, 1, 1);
+  rac.Color.prototype.applyFill = function() {
+    rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+  }
 
 
   rac.Stroke = class RacStroke {

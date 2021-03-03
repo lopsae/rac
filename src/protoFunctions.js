@@ -1,7 +1,6 @@
 'use strict';
 
 
-
 module.exports = function attachProtoFunctions(rac) {
 
   // Container for prototype functions
