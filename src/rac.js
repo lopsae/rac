@@ -66,12 +66,8 @@ class Rac {
 // to enable drawing  functionality, otherwise an error will be thrown if
 // any drawing is attempted.
 let makeRac = function makeRac() {
+
   let rac = new Rac();
-
-  rac.P5Drawer = require('./P5Drawer')(rac);
-
-  let attachProtoFunctions = require('./protoFunctions');
-  attachProtoFunctions(rac);
 
 
   // Convenience function for logging, returns the constructor name of
@@ -81,7 +77,13 @@ let makeRac = function makeRac() {
   };
 
 
-  rac.Color = require('./Color')(rac);
+  let attachProtoFunctions = require('./protoFunctions');
+  attachProtoFunctions(rac);
+
+
+  rac.P5Drawer = require('./makeP5Drawer')(rac);
+
+  rac.Color = require('./makeColor')(rac);
 
   // TODO: applies should also go through the drawer
   rac.Color.prototype.applyBackground = function() {
