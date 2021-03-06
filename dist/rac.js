@@ -5,30 +5,200 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // https://github.com/amdjs/amdjs-api/blob/master/AMD.md
+    // https://requirejs.org/docs/whyamd.html
     // AMD. Register as an anonymous module.
     console.log(`Loading RAC for AMD - define:${typeof define}`);
     define([], factory);
+    return;
+  }
 
-  } else if (typeof module === 'object' && module.exports) {
+  if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
     console.log(`Loading RAC for Node - module:${typeof module}`);
     module.exports = factory();
-
-  } else {
-    // Browser globals (root is window)
-    console.log(`Loading RAC into self - root:${typeof root}`);
-    root.makeRac = factory();
+    return;
   }
+
+  // Browser globals (root is window)
+  console.log(`Loading RAC into self - root:${typeof root}`);
+  root.makeRac = factory();
+
 }(typeof self !== 'undefined' ? self : this, function () {
 
-return require('./rac');
+  return require('./rac');
 
 }));
 
 
-},{"./rac":7}],2:[function(require,module,exports){
+},{"./rac":11}],2:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeAngle(rac) {
+
+  let RacAngle = function RacAngle(turn) {
+    this.set(turn);
+  };
+
+  RacAngle.from = function(something) {
+    if (something instanceof RacAngle) {
+      return something;
+    }
+    if (typeof something === "number") {
+      return new RacAngle(something);
+    }
+    if (something instanceof rac.Segment) {
+      return something.angle();
+    }
+
+    console.trace(`Cannot convert to rac.Angle - something-type:${rac.typeName(something)}`);
+    throw rac.Error.invalidObjectToConvert;
+  }
+
+  RacAngle.fromRadians = function(radians) {
+    return new RacAngle(radians / rac.TAU);
+  };
+
+  RacAngle.fromPoint = function(point) {
+    return RacAngle.fromRadians(Math.atan2(point.y, point.x));
+  };
+
+  RacAngle.fromSegment = function(segment) {
+    return segment.start.angleToPoint(segment.end);
+  };
+
+  // TODO: rename to setTurn
+  RacAngle.prototype.set = function(turn) {
+    this.turn = turn % 1;
+    if (this.turn < 0) {
+      this.turn = (this.turn + 1) % 1;
+    }
+    return this;
+  };
+
+  // If `turn`` is zero returns 1 instead, otherwise returns `turn`.
+  RacAngle.prototype.turnOne = function() {
+    if (this.turn === 0) { return 1; }
+    return this.turn;
+  }
+
+  RacAngle.prototype.add = function(someAngle) {
+    let other = RacAngle.from(someAngle);
+    return new RacAngle(this.turn + other.turn);
+  };
+
+  RacAngle.prototype.substract = function(someAngle) {
+    let other = RacAngle.from(someAngle);
+    return new RacAngle(this.turn - other.turn);
+  };
+
+  RacAngle.prototype.sub = function(someAngle) {
+    return this.substract(someAngle);
+  };
+
+  // Returns the equivalent to `someAngle` shifted to have `this` as the
+  // origin, in the `clockwise` orientation.
+  //
+  // For angle at `0.1`, `shift(0.5)` will return a `0.6` angle.
+  // For a clockwise orientation, equivalent to `this + someAngle`.
+  RacAngle.prototype.shift = function(someAngle, clockwise = true) {
+    let angle = RacAngle.from(someAngle);
+    return clockwise
+      ? this.add(angle)
+      : this.sub(angle);
+  };
+
+  // Returns the equivalent of `this` when `someOrigin` is considered the
+  // origin, in the `clockwise` orientation.
+  RacAngle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
+    let origin = RacAngle.from(someOrigin);
+    return origin.shift(this, clockwise);
+  };
+
+  RacAngle.prototype.mult = function(factor) {
+    return new RacAngle(this.turn * factor);
+  };
+
+  // If `turn` is zero multiplies by 1, otherwise multiplies by `turn`.
+  RacAngle.prototype.multOne = function(factor) {
+    return new RacAngle(this.turnOne() * factor);
+  };
+
+  // Returns `this` adding half a turn.
+  RacAngle.prototype.inverse = function() {
+    return this.add(RacAngle.inverse);
+  };
+
+  RacAngle.prototype.negative = function() {
+    return new RacAngle(-this.turn);
+  };
+
+  RacAngle.prototype.perpendicular = function(clockwise = true) {
+    return this.shift(RacAngle.square, clockwise);
+  };
+
+  // Returns an Angle that represents the distance from `this` to `someAngle`
+  // traveling in the `clockwise` orientation.
+  RacAngle.prototype.distance = function(someAngle, clockwise = true) {
+    let other = RacAngle.from(someAngle);
+    let distance = other.substract(this);
+    return clockwise
+      ? distance
+      : distance.negative();
+  };
+
+  RacAngle.prototype.radians = function() {
+    return this.turn * rac.TAU;
+  };
+
+  RacAngle.prototype.degrees = function() {
+    return this.turn * 360;
+  };
+
+  RacAngle.zero =    new RacAngle(0.0);
+  RacAngle.square =  new RacAngle(1/4);
+  RacAngle.inverse = new RacAngle(1/2);
+
+  RacAngle.half =    new RacAngle(1/2);
+  RacAngle.quarter = new RacAngle(1/4);
+  RacAngle.eighth =  new RacAngle(1/8);
+
+  RacAngle.n = new RacAngle(3/4);
+  RacAngle.e = new RacAngle(0/4);
+  RacAngle.s = new RacAngle(1/4);
+  RacAngle.w = new RacAngle(2/4);
+
+  RacAngle.ne = RacAngle.n.add(1/8);
+  RacAngle.se = RacAngle.e.add(1/8);
+  RacAngle.sw = RacAngle.s.add(1/8);
+  RacAngle.nw = RacAngle.w.add(1/8);
+
+  RacAngle.nne = RacAngle.ne.add(-1/16);
+  RacAngle.ene = RacAngle.ne.add(+1/16);
+
+  RacAngle.ese = RacAngle.se.add(-1/16);
+  RacAngle.sse = RacAngle.se.add(+1/16);
+
+  RacAngle.ssw = RacAngle.sw.add(-1/16);
+  RacAngle.wsw = RacAngle.sw.add(+1/16);
+
+  RacAngle.wnw = RacAngle.nw.add(-1/16);
+  RacAngle.nnw = RacAngle.nw.add(+1/16);
+
+  RacAngle.right = RacAngle.e;
+  RacAngle.down = RacAngle.s;
+  RacAngle.left = RacAngle.w;
+  RacAngle.up = RacAngle.n;
+
+
+  return RacAngle;
+
+} // makeAngle
+
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 
@@ -86,7 +256,30 @@ module.exports = function makeColor(rac) {
 } // makeColor
 
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeFill(rac) {
+
+ return class RacFill {
+
+    static none = new RacFill(null);
+
+    constructor(color = null) {
+      this.color = color;
+    }
+
+    styleWithStroke(stroke) {
+      return new rac.Style(stroke, this);
+    }
+
+  } // RacFill
+
+} // makeFill
+
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 
@@ -282,7 +475,173 @@ module.exports = function makeP5Drawer(rac) {
 
 } // makeP5Drawer
 
-},{}],4:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makePoint(rac) {
+
+  class RacPoint{
+
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    text(string, format, rotation = rac.Angle.zero) {
+      return new rac.Text(string, format, this, rotation);
+    }
+
+    withX(newX) {
+      return new RacPoint(newX, this.y);
+    }
+
+    withY(newY) {
+      return new RacPoint(this.x, newY);
+    }
+
+    // Returns a segment that is tangent to `arc` in the `clockwise`
+    // orientation from the segment formed by `this` and `arc.center`. The
+    // returned segment has `this` as `start` and `end` is a point in `arc`.
+    // `arc` is considered as a complete circle.
+    // Returns `null` if `this` is inside `arc` and thus no tangent segment
+    // is possible.
+    segmentTangentToArc(arc, clockwise = true) {
+      let hypotenuse = this.segmentToPoint(arc.center);
+      let ops = arc.radius;
+
+      let angleSine = ops / hypotenuse.length();
+      if (angleSine > 1) {
+        return null;
+      }
+
+      let angleRadians = Math.asin(angleSine);
+      let opsAngle = rac.Angle.fromRadians(angleRadians);
+      let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
+
+      let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
+      return this.segmentToPoint(end);
+    }
+
+  } // RacPoint
+
+
+  RacPoint.prototype.add = function(other, y = undefined) {
+    if (other instanceof RacPoint && y === undefined) {
+      return new RacPoint(
+      this.x + other.x,
+      this.y + other.y);
+    }
+
+    if (typeof other === "number" && typeof y === "number") {
+      let x = other;
+      return new RacPoint(
+        this.x + x,
+        this.y + y);
+    }
+
+    console.trace(`Invalid parameter combination - other-type:${rac.typeName(other)} y-type:${rac.typeName(y)}`);
+    throw rac.Error.invalidParameterCombination;
+  };
+
+  RacPoint.prototype.substract = function(other, y = undefined) {
+    if (other instanceof RacPoint && y === undefined) {
+      return new RacPoint(
+      this.x - other.x,
+      this.y - other.y);
+    }
+
+    if (typeof other === "number" && typeof y === "number") {
+      let x = other;
+      return new RacPoint(
+        this.x - x,
+        this.y - y);
+    }
+
+    console.trace(`Invalid parameter combination - other-type:${rac.typeName(other)} y-type:${rac.typeName(y)}`);
+    throw rac.Error.invalidParameterCombination;
+  };
+
+
+  RacPoint.prototype.sub = function(other, y = undefined) {
+    this.substract(other, y);
+  };
+
+  RacPoint.prototype.addX = function(x) {
+    return new RacPoint(
+      this.x + x,
+      this.y);
+  };
+
+  RacPoint.prototype.addY = function(y) {
+    return new RacPoint(
+      this.x,
+      this.y + y);
+  };
+
+
+  RacPoint.prototype.negative = function() {
+    return new RacPoint(-this.x, -this.y);
+  };
+
+  RacPoint.prototype.angleToPoint = function(other) {
+    let offset = other.add(this.negative());
+    return rac.Angle.fromPoint(offset);
+  };
+
+  RacPoint.prototype.distanceToPoint = function(other) {
+    let x = Math.pow((other.x - this.x), 2);
+    let y = Math.pow((other.y - this.y), 2);
+    return Math.sqrt(x+y);
+  };
+
+  RacPoint.prototype.pointPerpendicular = function(clockwise = true) {
+    return clockwise
+      ? new RacPoint(-this.y, this.x)
+      : new RacPoint(this.y, -this.x);
+  };
+
+  RacPoint.prototype.pointToAngle = function(someAngle, distance) {
+    let angle = rac.Angle.from(someAngle);
+    let distanceX = distance * Math.cos(angle.radians());
+    let distanceY = distance * Math.sin(angle.radians());
+    return new RacPoint(this.x + distanceX, this.y + distanceY);
+  };
+
+  RacPoint.prototype.segmentToPoint = function(point) {
+    return new rac.Segment(this, point);
+  };
+
+  RacPoint.prototype.segmentToAngle = function(someAngle, distance) {
+    let end = this.pointToAngle(someAngle, distance);
+    return new rac.Segment(this, end);
+  };
+
+  RacPoint.prototype.segmentToAngleToIntersectionWithSegment = function(someAngle, segment) {
+    let unit = this.segmentToAngle(someAngle, 1);
+    return unit.segmentToIntersectionWithSegment(segment);
+  }
+
+  RacPoint.prototype.segmentPerpendicularToSegment = function(segment) {
+    let projectedPoint = segment.projectedPoint(this);
+    return this.segmentToPoint(projectedPoint);
+  };
+
+  RacPoint.prototype.arc = function(radius, start = rac.Angle.zero, end = start, clockwise = true) {
+    return new rac.Arc(this, radius, start, end, clockwise);
+  };
+
+
+  RacPoint.zero = new RacPoint(0, 0);
+  RacPoint.origin = RacPoint.zero;
+
+
+  return RacPoint;
+
+} // makePoint
+
+
+},{}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -640,7 +999,7 @@ module.exports = function makeX(rac) {
 } // makeSegment
 
 
-},{}],5:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 
@@ -685,7 +1044,33 @@ module.exports = function makeStroke(rac) {
 } // makeStroke
 
 
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeStyle(rac) {
+
+return class RacStyle {
+
+    constructor(stroke = null, fill = null) {
+      this.stroke = stroke;
+      this.fill = fill;
+    }
+
+    withStroke(stroke) {
+      return new RacStyle(stroke, this.fill);
+    }
+
+    withFill(fill) {
+      return new RacStyle(this.stroke, fill);
+    }
+
+  } // RacStyle
+
+} // makeStyle
+
+
+},{}],10:[function(require,module,exports){
 'use strict';
 
 
@@ -801,7 +1186,7 @@ module.exports = function attachProtoFunctions(rac) {
 
 }
 
-},{}],7:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 
@@ -885,8 +1270,11 @@ let makeRac = function makeRac() {
   attachProtoFunctions(rac);
 
 
+  // P5Drawer
   rac.P5Drawer = require('./makeP5Drawer')(rac);
 
+
+  // Color
   rac.Color = require('./makeColor')(rac);
 
   // TODO: applies should also go through the drawer
@@ -899,6 +1287,7 @@ let makeRac = function makeRac() {
   };
 
 
+  // Stroke
   rac.Stroke = require('./makeStroke')(rac);
 
   rac.Stroke.prototype.apply = function(){
@@ -916,471 +1305,105 @@ let makeRac = function makeRac() {
   };
 
 
-  rac.Fill = class RacFill {
+  // Fill
+  rac.Fill = require('./makeFill')(rac);
 
-    constructor(color = null) {
-      this.color = color;
+  rac.Fill.prototype.apply = function() {
+    if (this.color === null) {
+      rac.drawer.p5.noFill();
+      return;
     }
 
-    apply() {
-      if (this.color === null) {
-        rac.drawer.p5.noFill();
-        return;
-      }
-
-      this.color.applyFill();
-    }
-
-    styleWithStroke(stroke) {
-      return new rac.Style(stroke, this);
-    }
-
-  }
-
-  rac.Fill.none = new rac.Fill(null);
-
-
-  rac.Style = class RacStyle {
-
-    constructor(stroke = null, fill = null) {
-      this.stroke = stroke;
-      this.fill = fill;
-    }
-
-    apply() {
-      if (this.stroke !== null) {
-        this.stroke.apply();
-      }
-      if (this.fill !== null) {
-        this.fill.apply();
-      }
-    }
-
-    applyToClass(classObj) {
-      rac.drawer.setClassStyle(classObj, this);
-    }
-
-    withStroke(stroke) {
-      return new rac.Style(stroke, this.fill);
-    }
-
-    withFill(fill) {
-      return new rac.Style(this.stroke, fill);
-    }
-
+    this.color.applyFill();
   }
 
 
-  rac.Angle = function RacAngle(turn) {
-    this.set(turn);
-  };
+  // Style
+  rac.Style = require('./makeStyle')(rac);
 
-  rac.Angle.from = function(something) {
-    if (something instanceof rac.Angle) {
-      return something;
+  rac.Style.prototype.apply = function() {
+    if (this.stroke !== null) {
+      this.stroke.apply();
     }
-    if (typeof something === "number") {
-      return new rac.Angle(something);
+    if (this.fill !== null) {
+      this.fill.apply();
     }
-    if (something instanceof rac.Segment) {
-      return something.angle();
-    }
-
-    console.trace(`Cannot convert to rac.Angle - something-type:${rac.typeName(something)}`);
-    throw rac.Error.invalidObjectToConvert;
   }
 
-  rac.Angle.fromRadians = function(radians) {
-    return new rac.Angle(radians / rac.TAU);
-  };
-
-  rac.Angle.fromPoint = function(point) {
-    return rac.Angle.fromRadians(Math.atan2(point.y, point.x));
-  };
-
-  rac.Angle.fromSegment = function(segment) {
-    return segment.start.angleToPoint(segment.end);
-  };
-
-  rac.Angle.prototype.set = function(turn) {
-    this.turn = turn % 1;
-    if (this.turn < 0) {
-      this.turn = (this.turn + 1) % 1;
-    }
-    return this;
-  };
-
-  // If `turn`` is zero returns 1 instead, otherwise returns `turn`.
-  rac.Angle.prototype.turnOne = function() {
-    if (this.turn === 0) { return 1; }
-    return this.turn;
-  }
-
-  rac.Angle.prototype.add = function(someAngle) {
-    let other = rac.Angle.from(someAngle);
-    return new rac.Angle(this.turn + other.turn);
-  };
-
-  rac.Angle.prototype.substract = function(someAngle) {
-    let other = rac.Angle.from(someAngle);
-    return new rac.Angle(this.turn - other.turn);
-  };
-
-  rac.Angle.prototype.sub = function(someAngle) {
-    return this.substract(someAngle);
-  };
-
-  // Returns the equivalent to `someAngle` shifted to have `this` as the
-  // origin, in the `clockwise` orientation.
-  //
-  // For angle at `0.1`, `shift(0.5)` will return a `0.6` angle.
-  // For a clockwise orientation, equivalent to `this + someAngle`.
-  rac.Angle.prototype.shift = function(someAngle, clockwise = true) {
-    let angle = rac.Angle.from(someAngle);
-    return clockwise
-      ? this.add(angle)
-      : this.sub(angle);
-  };
-
-  // Returns the equivalent of `this` when `someOrigin` is considered the
-  // origin, in the `clockwise` orientation.
-  rac.Angle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
-    let origin = rac.Angle.from(someOrigin);
-    return origin.shift(this, clockwise);
-  };
-
-  rac.Angle.prototype.mult = function(factor) {
-    return new rac.Angle(this.turn * factor);
-  };
-
-  // If `turn` is zero multiplies by 1, otherwise multiplies by `turn`.
-  rac.Angle.prototype.multOne = function(factor) {
-    return new rac.Angle(this.turnOne() * factor);
-  };
-
-  // Returns `this` adding half a turn.
-  rac.Angle.prototype.inverse = function() {
-    return this.add(rac.Angle.inverse);
-  };
-
-  rac.Angle.prototype.negative = function() {
-    return new rac.Angle(-this.turn);
-  };
-
-  rac.Angle.prototype.perpendicular = function(clockwise = true) {
-    return this.shift(rac.Angle.square, clockwise);
-  };
-
-  // Returns an Angle that represents the distance from `this` to `someAngle`
-  // traveling in the `clockwise` orientation.
-  rac.Angle.prototype.distance = function(someAngle, clockwise = true) {
-    let other = rac.Angle.from(someAngle);
-    let distance = other.substract(this);
-    return clockwise
-      ? distance
-      : distance.negative();
-  };
-
-  rac.Angle.prototype.radians = function() {
-    return this.turn * rac.TAU;
-  };
-
-  rac.Angle.prototype.degrees = function() {
-    return this.turn * 360;
-  };
-
-  rac.Angle.zero =    new rac.Angle(0.0);
-  rac.Angle.square =  new rac.Angle(1/4);
-  rac.Angle.inverse = new rac.Angle(1/2);
-
-  rac.Angle.half =    new rac.Angle(1/2);
-  rac.Angle.quarter = new rac.Angle(1/4);
-  rac.Angle.eighth =  new rac.Angle(1/8);
-
-  rac.Angle.n = new rac.Angle(3/4);
-  rac.Angle.e = new rac.Angle(0/4);
-  rac.Angle.s = new rac.Angle(1/4);
-  rac.Angle.w = new rac.Angle(2/4);
-
-  rac.Angle.ne = rac.Angle.n.add(1/8);
-  rac.Angle.se = rac.Angle.e.add(1/8);
-  rac.Angle.sw = rac.Angle.s.add(1/8);
-  rac.Angle.nw = rac.Angle.w.add(1/8);
-
-  rac.Angle.nne = rac.Angle.ne.add(-1/16);
-  rac.Angle.ene = rac.Angle.ne.add(+1/16);
-
-  rac.Angle.ese = rac.Angle.se.add(-1/16);
-  rac.Angle.sse = rac.Angle.se.add(+1/16);
-
-  rac.Angle.ssw = rac.Angle.sw.add(-1/16);
-  rac.Angle.wsw = rac.Angle.sw.add(+1/16);
-
-  rac.Angle.wnw = rac.Angle.nw.add(-1/16);
-  rac.Angle.nnw = rac.Angle.nw.add(+1/16);
-
-  rac.Angle.right = rac.Angle.e;
-  rac.Angle.down = rac.Angle.s;
-  rac.Angle.left = rac.Angle.w;
-  rac.Angle.up = rac.Angle.n;
-
-
-  rac.Point = class RacPoint{
-
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-    }
-
-    vertex() {
-      rac.drawer.p5.vertex(this.x, this.y);
-      return this;
-    }
-
-    text(string, format, rotation = rac.Angle.zero) {
-      return new rac.Text(string, format, this, rotation);
-    }
-
-    withX(newX) {
-      return new rac.Point(newX, this.y);
-    }
-
-    withY(newY) {
-      return new rac.Point(this.x, newY);
-    }
-
-    // Returns a segment that is tangent to `arc` in the `clockwise`
-    // orientation from the segment formed by `this` and `arc.center`. The
-    // returned segment has `this` as `start` and `end` is a point in `arc`.
-    // `arc` is considered as a complete circle.
-    // Returns `null` if `this` is inside `arc` and thus no tangent segment
-    // is possible.
-    segmentTangentToArc(arc, clockwise = true) {
-      let hypotenuse = this.segmentToPoint(arc.center);
-      let ops = arc.radius;
-
-      let angleSine = ops / hypotenuse.length();
-      if (angleSine > 1) {
-        return null;
-      }
-
-      let angleRadians = Math.asin(angleSine);
-      let opsAngle = rac.Angle.fromRadians(angleRadians);
-      let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
-
-      let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
-      return this.segmentToPoint(end);
-    }
-
-
-
-    // TODO: how to make these functions dependant on P5 drawer?
-    // TODO: implemenent drawingAreaCenter, rename to pointer
-    static mouse() {
-      return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
-    }
-
+  rac.Style.prototype.applyToClass = function(classObj) {
+    rac.drawer.setClassStyle(classObj, this);
   }
 
 
+  // Angle
+  rac.Angle = require('./makeAngle')(rac);
+
+
+  // Point
+  rac.Point = require('./makePoint')(rac);
   rac.setupProtoFunctions(rac.Point);
 
-
-  rac.Point.prototype.add = function(other, y = undefined) {
-    if (other instanceof rac.Point && y === undefined) {
-      return new rac.Point(
-      this.x + other.x,
-      this.y + other.y);
-    }
-
-    if (typeof other === "number" && typeof y === "number") {
-      let x = other;
-      return new rac.Point(
-        this.x + x,
-        this.y + y);
-    }
-
-    console.trace(`Invalid parameter combination - other-type:${rac.typeName(other)} y-type:${rac.typeName(y)}`);
-    throw rac.Error.invalidParameterCombination;
-  };
-
-  rac.Point.prototype.substract = function(other, y = undefined) {
-    if (other instanceof rac.Point && y === undefined) {
-      return new rac.Point(
-      this.x - other.x,
-      this.y - other.y);
-    }
-
-    if (typeof other === "number" && typeof y === "number") {
-      let x = other;
-      return new rac.Point(
-        this.x - x,
-        this.y - y);
-    }
-
-    console.trace(`Invalid parameter combination - other-type:${rac.typeName(other)} y-type:${rac.typeName(y)}`);
-    throw rac.Error.invalidParameterCombination;
-  };
-
-
-  rac.Point.prototype.sub = function(other, y = undefined) {
-    this.substract(other, y);
-  };
-
-  rac.Point.prototype.addX = function(x) {
-    return new rac.Point(
-      this.x + x,
-      this.y);
-  };
-
-  rac.Point.prototype.addY = function(y) {
-    return new rac.Point(
-      this.x,
-      this.y + y);
-  };
-
-
-  rac.Point.prototype.negative = function() {
-    return new rac.Point(-this.x, -this.y);
-  };
-
-  rac.Point.prototype.angleToPoint = function(other) {
-    let offset = other.add(this.negative());
-    return rac.Angle.fromPoint(offset);
-  };
-
-  rac.Point.prototype.distanceToPoint = function(other) {
-    let x = Math.pow((other.x - this.x), 2);
-    let y = Math.pow((other.y - this.y), 2);
-    return Math.sqrt(x+y);
-  };
-
-  rac.Point.prototype.pointPerpendicular = function(clockwise = true) {
-    return clockwise
-      ? new rac.Point(-this.y, this.x)
-      : new rac.Point(this.y, -this.x);
-  };
-
-  rac.Point.prototype.pointToAngle = function(someAngle, distance) {
-    let angle = rac.Angle.from(someAngle);
-    let distanceX = distance * Math.cos(angle.radians());
-    let distanceY = distance * Math.sin(angle.radians());
-    return new rac.Point(this.x + distanceX, this.y + distanceY);
-  };
-
-  rac.Point.prototype.segmentToPoint = function(point) {
-    return new rac.Segment(this, point);
-  };
-
-  rac.Point.prototype.segmentToAngle = function(someAngle, distance) {
-    let end = this.pointToAngle(someAngle, distance);
-    return new rac.Segment(this, end);
-  };
-
-  rac.Point.prototype.segmentToAngleToIntersectionWithSegment = function(someAngle, segment) {
-    let unit = this.segmentToAngle(someAngle, 1);
-    return unit.segmentToIntersectionWithSegment(segment);
+  // TODO: functions should be added by P5 drawer
+  // TODO: implemenent drawingAreaCenter, rename to pointer
+  rac.Point.mouse = function() {
+    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
   }
 
-  rac.Point.prototype.segmentPerpendicularToSegment = function(segment) {
-    let projectedPoint = segment.projectedPoint(this);
-    return this.segmentToPoint(projectedPoint);
-  };
+  rac.Point.center = function() {
+    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+  }
 
-  rac.Point.prototype.arc = function(radius, start = rac.Angle.zero, end = start, clockwise = true) {
-    return new rac.Arc(this, radius, start, end, clockwise);
-  };
-
-
-  rac.Point.zero = new rac.Point(0, 0);
-  rac.Point.origin = rac.Point.zero;
-
-
-
-  rac.Text = class RacText {
-
-    constructor(string, format, point) {
-      this.string = string;
-      this.format = format;
-      this.point = point;
-    }
-
-    static Format = class RacTextFormat {
-
-      static defaultSize = 15;
-
-      static horizontal = {
-        left: "left",
-        center: "horizontalCenter",
-        right: "right"
-      };
-
-      static vertical = {
-        top: "top",
-        bottom: "bottom",
-        center: "verticalCenter",
-        baseline: "baseline"
-      };
-
-      constructor(
-        horizontal, vertical,
-        font = null,
-        rotation = rac.Angle.zero,
-        size = rac.Text.Format.defaultSize)
-      {
-        this.horizontal = horizontal;
-        this.vertical = vertical;
-        this.font = font;
-        this.rotation = rotation;
-        this.size = size;
-      }
-
-      apply(point) {
-        let hAlign;
-        let hOptions = rac.Text.Format.horizontal;
-        switch (this.horizontal) {
-          case hOptions.left:   hAlign = LEFT;   break;
-          case hOptions.center: hAlign = CENTER; break;
-          case hOptions.right:  hAlign = RIGHT;  break;
-          default:
-            console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-            throw rac.Error.invalidObjectConfiguration;
-        }
-
-        let vAlign;
-        let vOptions = rac.Text.Format.vertical;
-        switch (this.vertical) {
-          case vOptions.top:      vAlign = TOP;      break;
-          case vOptions.bottom:   vAlign = BOTTOM;   break;
-          case vOptions.center:   vAlign = CENTER;   break;
-          case vOptions.baseline: vAlign = BASELINE; break;
-          default:
-            console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-            throw rac.Error.invalidObjectConfiguration;
-        }
-
-        // Text properties
-        textAlign(hAlign, vAlign);
-        textSize(this.size);
-        if (this.font !== null) {
-          textFont(this.font);
-        }
-
-        // Positioning
-        translate(point.x, point.y);
-        if (this.rotation.turn != 0) {
-          rotate(this.rotation.radians());
-        }
-      }
-
-    }
-
+  rac.Point.prototype.vertex = function() {
+    rac.drawer.p5.vertex(this.x, this.y);
+    return this;
   }
 
 
+  // Text
+  rac.Text = require('./visual/makeText.js')(rac);
   rac.setupProtoFunctions(rac.Text);
 
+  // TODO: should be added by drawerp5
+  rac.Text.Format.prototype.apply = function(point) {
+    let hAlign;
+    let hOptions = rac.Text.Format.horizontal;
+    switch (this.horizontal) {
+      case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
+      case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
+      case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
+      default:
+        console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+        throw rac.Error.invalidObjectConfiguration;
+    }
 
+    let vAlign;
+    let vOptions = rac.Text.Format.vertical;
+    switch (this.vertical) {
+      case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
+      case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
+      case vOptions.center:   vAlign = rac.drawer.p5.CENTER;   break;
+      case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
+      default:
+        console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+        throw rac.Error.invalidObjectConfiguration;
+    }
+
+    // Text properties
+    rac.drawer.p5.textAlign(hAlign, vAlign);
+    rac.drawer.p5.textSize(this.size);
+    if (this.font !== null) {
+      rac.drawer.p5.textFont(this.font);
+    }
+
+    // Positioning
+    rac.drawer.p5.translate(point.x, point.y);
+    if (this.rotation.turn != 0) {
+      rac.drawer.p5.rotate(this.rotation.radians());
+    }
+  }
+
+
+  // Segment
   rac.Segment = require('./makeSegment')(rac)
   rac.setupProtoFunctions(rac.Segment);
 
@@ -2811,4 +2834,55 @@ addEnumConstant(makeRac, 'version', version);
 module.exports = makeRac;
 
 
-},{"./makeColor":2,"./makeP5Drawer":3,"./makeSegment":4,"./makeStroke":5,"./protoFunctions":6}]},{},[1]);
+},{"./makeAngle":2,"./makeColor":3,"./makeFill":4,"./makeP5Drawer":5,"./makePoint":6,"./makeSegment":7,"./makeStroke":8,"./makeStyle":9,"./protoFunctions":10,"./visual/makeText.js":12}],12:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeText(rac) {
+
+  return class RacText {
+
+    constructor(string, format, point) {
+      this.string = string;
+      this.format = format;
+      this.point = point;
+    }
+
+    static Format = class RacTextFormat {
+
+      static defaultSize = 15;
+
+      static horizontal = {
+        left: "left",
+        center: "horizontalCenter",
+        right: "right"
+      };
+
+      static vertical = {
+        top: "top",
+        bottom: "bottom",
+        center: "verticalCenter",
+        baseline: "baseline"
+      };
+
+      constructor(
+        horizontal, vertical,
+        font = null,
+        rotation = rac.Angle.zero,
+        size = RacText.Format.defaultSize)
+      {
+        this.horizontal = horizontal;
+        this.vertical = vertical;
+        this.font = font;
+        this.rotation = rotation;
+        this.size = size;
+      }
+
+    } // RacTextFormat
+
+  } // RacText
+
+} // makeText
+
+
+},{}]},{},[1]);
