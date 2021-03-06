@@ -86,7 +86,7 @@ let makeRac = function makeRac() {
 
 
   // Color
-  rac.Color = require('./makeColor')(rac);
+  rac.Color = require('./visual/makeColor')(rac);
 
   // TODO: applies should also go through the drawer
   rac.Color.prototype.applyBackground = function() {
@@ -99,7 +99,7 @@ let makeRac = function makeRac() {
 
 
   // Stroke
-  rac.Stroke = require('./makeStroke')(rac);
+  rac.Stroke = require('./visual/makeStroke')(rac);
 
   rac.Stroke.prototype.apply = function(){
     if (this.color === null) {
@@ -117,7 +117,7 @@ let makeRac = function makeRac() {
 
 
   // Fill
-  rac.Fill = require('./makeFill')(rac);
+  rac.Fill = require('./visual/makeFill')(rac);
 
   rac.Fill.prototype.apply = function() {
     if (this.color === null) {
@@ -130,7 +130,7 @@ let makeRac = function makeRac() {
 
 
   // Style
-  rac.Style = require('./makeStyle')(rac);
+  rac.Style = require('./visual/makeStyle')(rac);
 
   rac.Style.prototype.apply = function() {
     if (this.stroke !== null) {
@@ -143,30 +143,6 @@ let makeRac = function makeRac() {
 
   rac.Style.prototype.applyToClass = function(classObj) {
     rac.drawer.setClassStyle(classObj, this);
-  }
-
-
-  // Angle
-  rac.Angle = require('./makeAngle')(rac);
-
-
-  // Point
-  rac.Point = require('./makePoint')(rac);
-  rac.setupProtoFunctions(rac.Point);
-
-  // TODO: functions should be added by P5 drawer
-  // TODO: implemenent drawingAreaCenter, rename to pointer
-  rac.Point.mouse = function() {
-    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
-  }
-
-  rac.Point.center = function() {
-    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
-  }
-
-  rac.Point.prototype.vertex = function() {
-    rac.drawer.p5.vertex(this.x, this.y);
-    return this;
   }
 
 
@@ -214,8 +190,32 @@ let makeRac = function makeRac() {
   }
 
 
+  // Angle
+  rac.Angle = require('./geometry/makeAngle')(rac);
+
+
+  // Point
+  rac.Point = require('./geometry/makePoint')(rac);
+  rac.setupProtoFunctions(rac.Point);
+
+  // TODO: functions should be added by P5 drawer
+  // TODO: implemenent drawingAreaCenter, rename to pointer
+  rac.Point.mouse = function() {
+    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
+  }
+
+  rac.Point.center = function() {
+    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+  }
+
+  rac.Point.prototype.vertex = function() {
+    rac.drawer.p5.vertex(this.x, this.y);
+    return this;
+  }
+
+
   // Segment
-  rac.Segment = require('./makeSegment')(rac)
+  rac.Segment = require('./geometry/makeSegment')(rac)
   rac.setupProtoFunctions(rac.Segment);
 
 
