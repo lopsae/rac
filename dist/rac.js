@@ -1,38 +1,4 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-
-
-// https://github.com/umdjs/umd/blob/master/templates/returnExports.js
-(function (root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // https://github.com/amdjs/amdjs-api/blob/master/AMD.md
-    // https://requirejs.org/docs/whyamd.html
-    // AMD. Register as an anonymous module.
-    console.log(`Loading RAC for AMD - define:${typeof define}`);
-    define([], factory);
-    return;
-  }
-
-  if (typeof module === 'object' && module.exports) {
-    // Node. Does not work with strict CommonJS, but
-    // only CommonJS-like environments that support module.exports,
-    // like Node.
-    console.log(`Loading RAC for Node - module:${typeof module}`);
-    module.exports = factory();
-    return;
-  }
-
-  // Browser globals (root is window)
-  console.log(`Loading RAC into self - root:${typeof root}`);
-  root.makeRac = factory();
-
-}(typeof self !== 'undefined' ? self : this, function () {
-
-  return require('./rac');
-
-}));
-
-
-},{"./rac":11}],2:[function(require,module,exports){
 'use strict';
 
 
@@ -198,284 +164,7 @@ module.exports = function makeAngle(rac) {
 } // makeAngle
 
 
-},{}],3:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeColor(rac) {
-
-  return class RacColor {
-
-    static black   = new RacColor(0, 0, 0);
-    static red     = new RacColor(1, 0, 0);
-    static green   = new RacColor(0, 1, 0);
-    static blue    = new RacColor(0, 0, 1);
-    static yellow  = new RacColor(1, 1, 0);
-    static magenta = new RacColor(1, 0, 1);
-    static cyan    = new RacColor(0, 1, 1);
-    static white   = new RacColor(1, 1, 1);
-
-
-    constructor(r, g, b, alpha = 1) {
-      this.r = r;
-      this.g = g;
-      this.b = b;
-      this.alpha = alpha;
-    }
-
-    static fromRgba(r, g, b, a = 255) {
-      return new RacColor(r/255, g/255, b/255, a/255);
-    }
-
-    copy() {
-      return new RacColor(this.r, this.g, this.b, this.alpha);
-    }
-
-    fill() {
-      return new rac.Fill(this);
-    }
-
-    stroke(weight = 1) {
-      return new rac.Stroke(this, weight);
-    }
-
-    withAlpha(alpha) {
-      let copy = this.copy();
-      copy.alpha = alpha;
-      return copy;
-    }
-
-    withAlphaRatio(ratio) {
-      let copy = this.copy();
-      copy.alpha = this.color.alpha * ratio;
-      return copy;
-    }
-
-  } // RacColor
-
-} // makeColor
-
-
-},{}],4:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeFill(rac) {
-
- return class RacFill {
-
-    static none = new RacFill(null);
-
-    constructor(color = null) {
-      this.color = color;
-    }
-
-    styleWithStroke(stroke) {
-      return new rac.Style(stroke, this);
-    }
-
-  } // RacFill
-
-} // makeFill
-
-
-},{}],5:[function(require,module,exports){
-'use strict';
-
-
-
-module.exports = function makeP5Drawer(rac) {
-
-  // Drawer that uses a P5 instance for all drawing operations.
-  return class RacP5Drawer {
-
-    constructor(rac, p5){
-      this.p5 = p5;
-      this.routines = [];
-      this.enabled = true;
-      this.debugStyle = null;
-
-      this.setupAllDrawFunctions(rac);
-    }
-
-    // Adds a routine for the given class. The `drawFunction` function will be
-    // called passing the element to be drawn as `this`.
-    setDrawFunction(classObj, drawFunction) {
-      let index = this.routines
-        .findIndex(routine => routine.classObj === classObj);
-
-      let routine;
-      if (index === -1) {
-        routine = new RacP5Drawer.Routine(classObj, drawFunction);
-      } else {
-        routine = this.routines[index];
-        routine.drawFunction = drawFunction;
-        // Delete routine
-        this.routine.splice(index, 1);
-      }
-
-      this.routines.push(routine);
-    }
-
-    setDrawOptions(classObj, options) {
-      let routine = this.routines
-        .find(routine => routine.classObj === classObj);
-      if (routine === undefined) {
-        console.log(`Cannot find routine for class - className:${classObj.name}`);
-        throw rac.Error.invalidObjectConfiguration
-      }
-
-      if (options.requiresPushPop !== undefined) {
-        routine.requiresPushPop = options.requiresPushPop;
-      }
-    }
-
-    setClassStyle(classObj, style) {
-      let routine = this.routines
-        .find(routine => routine.classObj === classObj);
-      if (routine === undefined) {
-        console.log(`Cannot find routine for class - className:${classObj.name}`);
-        throw rac.Error.invalidObjectConfiguration
-      }
-
-      routine.style = style;
-    }
-
-    drawElement(element, style = null) {
-      let routine = this.routines
-        .find(routine => element instanceof routine.classObj);
-      if (routine === undefined) {
-        console.trace(`Cannot draw element - element-type:${rac.typeName(element)}`);
-        throw rac.Error.invalidObjectToDraw;
-      }
-
-      if (routine.requiresPushPop === true
-        || style !== null
-        || routine.style !== null)
-      {
-        this.p5.push();
-        if (routine.style !== null) {
-          routine.style.apply();
-        }
-        if (style !== null) {
-          style.apply();
-        }
-        routine.drawFunction(this, element);
-        this.p5.pop();
-      } else {
-        // No push-pull
-        routine.drawFunction(this, element);
-      }
-    }
-
-    debugElement(element) {
-      this.drawElement(element, this.debugStyle);
-    }
-
-    // Sets up all drawing routines for rac clases.
-    setupAllDrawFunctions(rac) {
-      // Point
-      this.setDrawFunction(rac.Point, (drawer, point) => {
-        drawer.p5.point(point.x, point.y);
-      });
-
-      // Text
-      this.setDrawFunction(rac.Text, (drawer, text) => {
-        text.format.apply(text.point);
-        drawer.p5.text(text.string, 0, 0);
-      });
-      this.setDrawOptions(rac.Text, {requiresPushPop: true});
-
-      // Segment
-      this.setDrawFunction(rac.Segment, (drawer, segment) => {
-        drawer.p5.line(
-          segment.start.x, segment.start.y,
-          segment.end.x,   segment.end.y);
-      });
-
-      // Arc
-      this.setDrawFunction(rac.Arc, (drawer, arc) => {
-        if (arc.isCircle()) {
-          let startRad = arc.start.radians();
-          let endRad = startRad + (rac.TAU);
-          drawer.p5.arc(
-            arc.center.x, arc.center.y,
-            arc.radius * 2, arc.radius * 2,
-            startRad, endRad);
-          return;
-        }
-
-        let start = arc.start;
-        let end = arc.end;
-        if (!arc.clockwise) {
-          start = arc.end;
-          end = arc.start;
-        }
-
-        drawer.p5.arc(
-          arc.center.x, arc.center.y,
-          arc.radius * 2, arc.radius * 2,
-          start.radians(), end.radians());
-      });
-
-      // Bezier
-      this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
-        drawer.p5.bezier(
-          bezier.start.x, bezier.start.y,
-          bezier.startAnchor.x, bezier.startAnchor.y,
-          bezier.endAnchor.x, bezier.endAnchor.y,
-          bezier.end.x, bezier.end.y);
-      });
-
-      // Composite
-      this.setDrawFunction(rac.Composite, (drawer, composite) => {
-        composite.sequence.forEach(item => item.draw());
-      });
-
-      // Shape
-      this.setDrawFunction(rac.Shape, (drawer, shape) => {
-        drawer.p5.beginShape();
-        shape.outline.vertex();
-
-        if (shape.contour.isNotEmpty()) {
-          drawer.p5.beginContour();
-          shape.contour.vertex();
-          drawer.p5.endContour();
-        }
-        drawer.p5.endShape();
-      });
-
-    } // setupAllDrawFunctions
-
-
-      // Encapsulates the drawing function and options for a specific class.
-      // The draw function is called with an instance of the drawer, and
-      // the object to draw.
-      //
-      // Optionally a `style` can be asigned to always be applied before
-      // drawing an instance of the associated class. This style will be
-      // applied before any styles provided to the `draw` function.
-      //
-      // Optionally `requiresPushPop` can be set to `true` to always peform
-      // a `push` and `pop` before and after all the style and drawing in
-      // the routine. This is intended for objects which drawing operations
-      // may need to push transformation to the stack.
-    static Routine = class RacDrawerRoutine {
-      constructor (classObj, drawFunction) {
-        this.classObj = classObj;
-        this.drawFunction = drawFunction
-        this.style = null;
-
-        // Options
-        this.requiresPushPop = false;
-      }
-    }
-
-  } // RacP5Drawer
-
-} // makeP5Drawer
-
-},{}],6:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 'use strict';
 
 
@@ -641,7 +330,7 @@ module.exports = function makePoint(rac) {
 } // makePoint
 
 
-},{}],7:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict';
 
 
@@ -999,78 +688,237 @@ module.exports = function makeX(rac) {
 } // makeSegment
 
 
-},{}],8:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
+
+
+// https://github.com/umdjs/umd/blob/master/templates/returnExports.js
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // https://github.com/amdjs/amdjs-api/blob/master/AMD.md
+    // https://requirejs.org/docs/whyamd.html
+    // AMD. Register as an anonymous module.
+    console.log(`Loading RAC for AMD - define:${typeof define}`);
+    define([], factory);
+    return;
+  }
+
+  if (typeof module === 'object' && module.exports) {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    console.log(`Loading RAC for Node - module:${typeof module}`);
+    module.exports = factory();
+    return;
+  }
+
+  // Browser globals (root is window)
+  console.log(`Loading RAC into self - root:${typeof root}`);
+  root.makeRac = factory();
+
+}(typeof self !== 'undefined' ? self : this, function () {
+
+  return require('./rac');
+
+}));
+
+
+},{"./rac":7}],5:[function(require,module,exports){
 'use strict';
 
 
-module.exports = function makeStroke(rac) {
 
-  return class RacStroke {
+module.exports = function makeP5Drawer(rac) {
 
-    static none = new RacStroke(null);
+  // Drawer that uses a P5 instance for all drawing operations.
+  return class RacP5Drawer {
 
-    constructor(color = null, weight = 1) {
-      this.color = color;
-      this.weight = weight;
+    constructor(rac, p5){
+      this.p5 = p5;
+      this.routines = [];
+      this.enabled = true;
+      this.debugStyle = null;
+
+      this.setupAllDrawFunctions(rac);
     }
 
-    copy() {
-      let colorCopy = null;
-      if (this.color !== null) {
-        colorCopy = this.color.copy();
+    // Adds a routine for the given class. The `drawFunction` function will be
+    // called passing the element to be drawn as `this`.
+    setDrawFunction(classObj, drawFunction) {
+      let index = this.routines
+        .findIndex(routine => routine.classObj === classObj);
+
+      let routine;
+      if (index === -1) {
+        routine = new RacP5Drawer.Routine(classObj, drawFunction);
+      } else {
+        routine = this.routines[index];
+        routine.drawFunction = drawFunction;
+        // Delete routine
+        this.routine.splice(index, 1);
       }
-      return new RacStroke(colorCopy, this.weight);
+
+      this.routines.push(routine);
     }
 
-    withWeight(weight) {
-      return new RacStroke(this.color, weight);
-    }
-
-    withAlpha(alpha) {
-      if (this.color === null) {
-        return new RacStroke(null, this.weight);
+    setDrawOptions(classObj, options) {
+      let routine = this.routines
+        .find(routine => routine.classObj === classObj);
+      if (routine === undefined) {
+        console.log(`Cannot find routine for class - className:${classObj.name}`);
+        throw rac.Error.invalidObjectConfiguration
       }
 
-      let newColor = this.color.withAlpha(alpha);
-      return new RacStroke(newColor, this.weight);
+      if (options.requiresPushPop !== undefined) {
+        routine.requiresPushPop = options.requiresPushPop;
+      }
     }
 
-    styleWithFill(fill) {
-      return new rac.Style(this, fill);
+    setClassStyle(classObj, style) {
+      let routine = this.routines
+        .find(routine => routine.classObj === classObj);
+      if (routine === undefined) {
+        console.log(`Cannot find routine for class - className:${classObj.name}`);
+        throw rac.Error.invalidObjectConfiguration
+      }
+
+      routine.style = style;
     }
 
-  } // RacStroke
+    drawElement(element, style = null) {
+      let routine = this.routines
+        .find(routine => element instanceof routine.classObj);
+      if (routine === undefined) {
+        console.trace(`Cannot draw element - element-type:${rac.typeName(element)}`);
+        throw rac.Error.invalidObjectToDraw;
+      }
 
-} // makeStroke
-
-
-},{}],9:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeStyle(rac) {
-
-return class RacStyle {
-
-    constructor(stroke = null, fill = null) {
-      this.stroke = stroke;
-      this.fill = fill;
+      if (routine.requiresPushPop === true
+        || style !== null
+        || routine.style !== null)
+      {
+        this.p5.push();
+        if (routine.style !== null) {
+          routine.style.apply();
+        }
+        if (style !== null) {
+          style.apply();
+        }
+        routine.drawFunction(this, element);
+        this.p5.pop();
+      } else {
+        // No push-pull
+        routine.drawFunction(this, element);
+      }
     }
 
-    withStroke(stroke) {
-      return new RacStyle(stroke, this.fill);
+    debugElement(element) {
+      this.drawElement(element, this.debugStyle);
     }
 
-    withFill(fill) {
-      return new RacStyle(this.stroke, fill);
+    // Sets up all drawing routines for rac clases.
+    setupAllDrawFunctions(rac) {
+      // Point
+      this.setDrawFunction(rac.Point, (drawer, point) => {
+        drawer.p5.point(point.x, point.y);
+      });
+
+      // Text
+      this.setDrawFunction(rac.Text, (drawer, text) => {
+        text.format.apply(text.point);
+        drawer.p5.text(text.string, 0, 0);
+      });
+      this.setDrawOptions(rac.Text, {requiresPushPop: true});
+
+      // Segment
+      this.setDrawFunction(rac.Segment, (drawer, segment) => {
+        drawer.p5.line(
+          segment.start.x, segment.start.y,
+          segment.end.x,   segment.end.y);
+      });
+
+      // Arc
+      this.setDrawFunction(rac.Arc, (drawer, arc) => {
+        if (arc.isCircle()) {
+          let startRad = arc.start.radians();
+          let endRad = startRad + (rac.TAU);
+          drawer.p5.arc(
+            arc.center.x, arc.center.y,
+            arc.radius * 2, arc.radius * 2,
+            startRad, endRad);
+          return;
+        }
+
+        let start = arc.start;
+        let end = arc.end;
+        if (!arc.clockwise) {
+          start = arc.end;
+          end = arc.start;
+        }
+
+        drawer.p5.arc(
+          arc.center.x, arc.center.y,
+          arc.radius * 2, arc.radius * 2,
+          start.radians(), end.radians());
+      });
+
+      // Bezier
+      this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
+        drawer.p5.bezier(
+          bezier.start.x, bezier.start.y,
+          bezier.startAnchor.x, bezier.startAnchor.y,
+          bezier.endAnchor.x, bezier.endAnchor.y,
+          bezier.end.x, bezier.end.y);
+      });
+
+      // Composite
+      this.setDrawFunction(rac.Composite, (drawer, composite) => {
+        composite.sequence.forEach(item => item.draw());
+      });
+
+      // Shape
+      this.setDrawFunction(rac.Shape, (drawer, shape) => {
+        drawer.p5.beginShape();
+        shape.outline.vertex();
+
+        if (shape.contour.isNotEmpty()) {
+          drawer.p5.beginContour();
+          shape.contour.vertex();
+          drawer.p5.endContour();
+        }
+        drawer.p5.endShape();
+      });
+
+    } // setupAllDrawFunctions
+
+
+      // Encapsulates the drawing function and options for a specific class.
+      // The draw function is called with an instance of the drawer, and
+      // the object to draw.
+      //
+      // Optionally a `style` can be asigned to always be applied before
+      // drawing an instance of the associated class. This style will be
+      // applied before any styles provided to the `draw` function.
+      //
+      // Optionally `requiresPushPop` can be set to `true` to always peform
+      // a `push` and `pop` before and after all the style and drawing in
+      // the routine. This is intended for objects which drawing operations
+      // may need to push transformation to the stack.
+    static Routine = class RacDrawerRoutine {
+      constructor (classObj, drawFunction) {
+        this.classObj = classObj;
+        this.drawFunction = drawFunction
+        this.style = null;
+
+        // Options
+        this.requiresPushPop = false;
+      }
     }
 
-  } // RacStyle
+  } // RacP5Drawer
 
-} // makeStyle
+} // makeP5Drawer
 
-
-},{}],10:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 
@@ -1186,7 +1034,7 @@ module.exports = function attachProtoFunctions(rac) {
 
 }
 
-},{}],11:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -1275,7 +1123,7 @@ let makeRac = function makeRac() {
 
 
   // Color
-  rac.Color = require('./makeColor')(rac);
+  rac.Color = require('./visual/makeColor')(rac);
 
   // TODO: applies should also go through the drawer
   rac.Color.prototype.applyBackground = function() {
@@ -1288,7 +1136,7 @@ let makeRac = function makeRac() {
 
 
   // Stroke
-  rac.Stroke = require('./makeStroke')(rac);
+  rac.Stroke = require('./visual/makeStroke')(rac);
 
   rac.Stroke.prototype.apply = function(){
     if (this.color === null) {
@@ -1306,7 +1154,7 @@ let makeRac = function makeRac() {
 
 
   // Fill
-  rac.Fill = require('./makeFill')(rac);
+  rac.Fill = require('./visual/makeFill')(rac);
 
   rac.Fill.prototype.apply = function() {
     if (this.color === null) {
@@ -1319,7 +1167,7 @@ let makeRac = function makeRac() {
 
 
   // Style
-  rac.Style = require('./makeStyle')(rac);
+  rac.Style = require('./visual/makeStyle')(rac);
 
   rac.Style.prototype.apply = function() {
     if (this.stroke !== null) {
@@ -1332,30 +1180,6 @@ let makeRac = function makeRac() {
 
   rac.Style.prototype.applyToClass = function(classObj) {
     rac.drawer.setClassStyle(classObj, this);
-  }
-
-
-  // Angle
-  rac.Angle = require('./makeAngle')(rac);
-
-
-  // Point
-  rac.Point = require('./makePoint')(rac);
-  rac.setupProtoFunctions(rac.Point);
-
-  // TODO: functions should be added by P5 drawer
-  // TODO: implemenent drawingAreaCenter, rename to pointer
-  rac.Point.mouse = function() {
-    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
-  }
-
-  rac.Point.center = function() {
-    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
-  }
-
-  rac.Point.prototype.vertex = function() {
-    rac.drawer.p5.vertex(this.x, this.y);
-    return this;
   }
 
 
@@ -1403,8 +1227,32 @@ let makeRac = function makeRac() {
   }
 
 
+  // Angle
+  rac.Angle = require('./geometry/makeAngle')(rac);
+
+
+  // Point
+  rac.Point = require('./geometry/makePoint')(rac);
+  rac.setupProtoFunctions(rac.Point);
+
+  // TODO: functions should be added by P5 drawer
+  // TODO: implemenent drawingAreaCenter, rename to pointer
+  rac.Point.mouse = function() {
+    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
+  }
+
+  rac.Point.center = function() {
+    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+  }
+
+  rac.Point.prototype.vertex = function() {
+    rac.drawer.p5.vertex(this.x, this.y);
+    return this;
+  }
+
+
   // Segment
-  rac.Segment = require('./makeSegment')(rac)
+  rac.Segment = require('./geometry/makeSegment')(rac)
   rac.setupProtoFunctions(rac.Segment);
 
 
@@ -2834,7 +2682,159 @@ addEnumConstant(makeRac, 'version', version);
 module.exports = makeRac;
 
 
-},{"./makeAngle":2,"./makeColor":3,"./makeFill":4,"./makeP5Drawer":5,"./makePoint":6,"./makeSegment":7,"./makeStroke":8,"./makeStyle":9,"./protoFunctions":10,"./visual/makeText.js":12}],12:[function(require,module,exports){
+},{"./geometry/makeAngle":1,"./geometry/makePoint":2,"./geometry/makeSegment":3,"./makeP5Drawer":5,"./protoFunctions":6,"./visual/makeColor":8,"./visual/makeFill":9,"./visual/makeStroke":10,"./visual/makeStyle":11,"./visual/makeText.js":12}],8:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeColor(rac) {
+
+  return class RacColor {
+
+    static black   = new RacColor(0, 0, 0);
+    static red     = new RacColor(1, 0, 0);
+    static green   = new RacColor(0, 1, 0);
+    static blue    = new RacColor(0, 0, 1);
+    static yellow  = new RacColor(1, 1, 0);
+    static magenta = new RacColor(1, 0, 1);
+    static cyan    = new RacColor(0, 1, 1);
+    static white   = new RacColor(1, 1, 1);
+
+
+    constructor(r, g, b, alpha = 1) {
+      this.r = r;
+      this.g = g;
+      this.b = b;
+      this.alpha = alpha;
+    }
+
+    static fromRgba(r, g, b, a = 255) {
+      return new RacColor(r/255, g/255, b/255, a/255);
+    }
+
+    copy() {
+      return new RacColor(this.r, this.g, this.b, this.alpha);
+    }
+
+    fill() {
+      return new rac.Fill(this);
+    }
+
+    stroke(weight = 1) {
+      return new rac.Stroke(this, weight);
+    }
+
+    withAlpha(alpha) {
+      let copy = this.copy();
+      copy.alpha = alpha;
+      return copy;
+    }
+
+    withAlphaRatio(ratio) {
+      let copy = this.copy();
+      copy.alpha = this.color.alpha * ratio;
+      return copy;
+    }
+
+  } // RacColor
+
+} // makeColor
+
+
+},{}],9:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeFill(rac) {
+
+ return class RacFill {
+
+    static none = new RacFill(null);
+
+    constructor(color = null) {
+      this.color = color;
+    }
+
+    styleWithStroke(stroke) {
+      return new rac.Style(stroke, this);
+    }
+
+  } // RacFill
+
+} // makeFill
+
+
+},{}],10:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeStroke(rac) {
+
+  return class RacStroke {
+
+    static none = new RacStroke(null);
+
+    constructor(color = null, weight = 1) {
+      this.color = color;
+      this.weight = weight;
+    }
+
+    copy() {
+      let colorCopy = null;
+      if (this.color !== null) {
+        colorCopy = this.color.copy();
+      }
+      return new RacStroke(colorCopy, this.weight);
+    }
+
+    withWeight(weight) {
+      return new RacStroke(this.color, weight);
+    }
+
+    withAlpha(alpha) {
+      if (this.color === null) {
+        return new RacStroke(null, this.weight);
+      }
+
+      let newColor = this.color.withAlpha(alpha);
+      return new RacStroke(newColor, this.weight);
+    }
+
+    styleWithFill(fill) {
+      return new rac.Style(this, fill);
+    }
+
+  } // RacStroke
+
+} // makeStroke
+
+
+},{}],11:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeStyle(rac) {
+
+return class RacStyle {
+
+    constructor(stroke = null, fill = null) {
+      this.stroke = stroke;
+      this.fill = fill;
+    }
+
+    withStroke(stroke) {
+      return new RacStyle(stroke, this.fill);
+    }
+
+    withFill(fill) {
+      return new RacStyle(this.stroke, fill);
+    }
+
+  } // RacStyle
+
+} // makeStyle
+
+
+},{}],12:[function(require,module,exports){
 'use strict';
 
 
@@ -2885,4 +2885,4 @@ module.exports = function makeText(rac) {
 } // makeText
 
 
-},{}]},{},[1]);
+},{}]},{},[4]);
