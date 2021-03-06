@@ -45,7 +45,7 @@ module.exports = function makePoint(rac) {
       return this.segmentToPoint(end);
     }
 
-  }
+  } // RacPoint
 
 
   RacPoint.prototype.add = function(other, y = undefined) {

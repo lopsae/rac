@@ -171,90 +171,50 @@ let makeRac = function makeRac() {
 
 
   // Text
-  rac.Text = class RacText {
+  rac.Text = require('./visual/makeText.js')(rac);
+  rac.setupProtoFunctions(rac.Text);
 
-    constructor(string, format, point) {
-      this.string = string;
-      this.format = format;
-      this.point = point;
+  // TODO: should be added by drawerp5
+  rac.Text.Format.prototype.apply = function(point) {
+    let hAlign;
+    let hOptions = rac.Text.Format.horizontal;
+    switch (this.horizontal) {
+      case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
+      case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
+      case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
+      default:
+        console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+        throw rac.Error.invalidObjectConfiguration;
     }
 
-    static Format = class RacTextFormat {
-
-      static defaultSize = 15;
-
-      static horizontal = {
-        left: "left",
-        center: "horizontalCenter",
-        right: "right"
-      };
-
-      static vertical = {
-        top: "top",
-        bottom: "bottom",
-        center: "verticalCenter",
-        baseline: "baseline"
-      };
-
-      constructor(
-        horizontal, vertical,
-        font = null,
-        rotation = rac.Angle.zero,
-        size = rac.Text.Format.defaultSize)
-      {
-        this.horizontal = horizontal;
-        this.vertical = vertical;
-        this.font = font;
-        this.rotation = rotation;
-        this.size = size;
-      }
-
-      apply(point) {
-        let hAlign;
-        let hOptions = rac.Text.Format.horizontal;
-        switch (this.horizontal) {
-          case hOptions.left:   hAlign = LEFT;   break;
-          case hOptions.center: hAlign = CENTER; break;
-          case hOptions.right:  hAlign = RIGHT;  break;
-          default:
-            console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-            throw rac.Error.invalidObjectConfiguration;
-        }
-
-        let vAlign;
-        let vOptions = rac.Text.Format.vertical;
-        switch (this.vertical) {
-          case vOptions.top:      vAlign = TOP;      break;
-          case vOptions.bottom:   vAlign = BOTTOM;   break;
-          case vOptions.center:   vAlign = CENTER;   break;
-          case vOptions.baseline: vAlign = BASELINE; break;
-          default:
-            console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-            throw rac.Error.invalidObjectConfiguration;
-        }
-
-        // Text properties
-        textAlign(hAlign, vAlign);
-        textSize(this.size);
-        if (this.font !== null) {
-          textFont(this.font);
-        }
-
-        // Positioning
-        translate(point.x, point.y);
-        if (this.rotation.turn != 0) {
-          rotate(this.rotation.radians());
-        }
-      }
-
+    let vAlign;
+    let vOptions = rac.Text.Format.vertical;
+    switch (this.vertical) {
+      case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
+      case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
+      case vOptions.center:   vAlign = rac.drawer.p5.CENTER;   break;
+      case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
+      default:
+        console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+        throw rac.Error.invalidObjectConfiguration;
     }
 
+    // Text properties
+    rac.drawer.p5.textAlign(hAlign, vAlign);
+    rac.drawer.p5.textSize(this.size);
+    if (this.font !== null) {
+      rac.drawer.p5.textFont(this.font);
+    }
+
+    // Positioning
+    rac.drawer.p5.translate(point.x, point.y);
+    if (this.rotation.turn != 0) {
+      rac.drawer.p5.rotate(this.rotation.radians());
+    }
   }
 
 
-  rac.setupProtoFunctions(rac.Text);
-
-
+  // Segment
   rac.Segment = require('./makeSegment')(rac)
   rac.setupProtoFunctions(rac.Segment);
 

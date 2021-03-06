@@ -15,7 +15,7 @@ module.exports = function makeFill(rac) {
       return new rac.Style(stroke, this);
     }
 
-  }
+  } // RacFill
 
 } // makeFill
 
