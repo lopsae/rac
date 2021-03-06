@@ -14,12 +14,6 @@ module.exports = function makeX(rac) {
       return new RacSegment(this.start, this.end);
     }
 
-    vertex() {
-      this.start.vertex();
-      this.end.vertex();
-      return this;
-    }
-
     withAngleAdd(someAngle) {
       let newAngle = this.angle().add(someAngle);
       let newEnd = this.start.pointToAngle(newAngle, this.length());
