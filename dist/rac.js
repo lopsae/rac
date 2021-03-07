@@ -1271,7 +1271,6 @@ module.exports = function makeShape(rac) {
 
   return RacShape;
 
-
 } // makeShape
 
 
@@ -2810,7 +2809,6 @@ module.exports = function makeEaseFunction(rac) {
 
 
   return RacEaseFunction;
-
 
 } // makeEaseFunction
 

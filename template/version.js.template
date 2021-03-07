@@ -1,0 +1,4 @@
+'useStrict';
+
+module.exports = '<%= pkgVersion %>-<%= commitCount %>-<%= shortHash %>'
+
