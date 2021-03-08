@@ -54,19 +54,18 @@ module.exports = function(grunt) {
           grunt.log.writeln(`Git commit count: ${commitCount}`);
         }
       }, // commitCount
-      filesWithStatus: {
+      statusCount: {
         cmd: 'git status --porcelain | wc -l',
         stdout: false,
         callback: function(error, stdout, stderr) {
           if (error !== null) return;
 
-          let filesWithStatus = parseInt(stdout.trim());
-          grunt.config('exec.filesWithStatus.value', filesWithStatus);
-          grunt.log.writeln(`Files with git status: ${filesWithStatus}`);
+          let statusCount = parseInt(stdout.trim());
+          grunt.config('exec.statusCount.value', statusCount);
+          grunt.log.writeln(`Git status count: ${statusCount}`);
         }
-      } // filesWithStatus
+      } // statusCount
     } // exec
-
   });
 
 
@@ -75,22 +74,23 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
 
-  grunt.registerTask('makeVersionFile', function() {
+  grunt.registerTask('makeVersionFile', function(target) {
     grunt.config.requires(
       'pkg.version',
       'exec.shortHash.value',
       'exec.shortHash.parentHash',
       'exec.commitCount.value',
-      'exec.filesWithStatus.value');
+      'exec.statusCount.value');
 
     let pkgVersion = grunt.config('pkg.version');
     let shortHash = grunt.config('exec.shortHash.value');
     let parentHash = grunt.config('exec.shortHash.parentHash');
     let commitCount = grunt.config('exec.commitCount.value');
-    let filesWithStatus = grunt.config('exec.filesWithStatus.value');
+    let statusCount = grunt.config('exec.statusCount.value');
+    let clean = target === 'clean';
 
     let versionString;
-    if (filesWithStatus == 0) {
+    if (statusCount == 0 || clean) {
       versionString =`${pkgVersion}-${commitCount}-${shortHash}`;
     } else {
       let now = new Date();
@@ -104,14 +104,29 @@ module.exports = function(grunt) {
 
     let outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
-    grunt.log.writeln(`Saved version file: ${versionString}`);
+    grunt.log.writeln(`Saved ${clean?"clean ":""}version file: ${versionString}`);
+  });
+
+
+  grunt.registerTask('versionFile', function(target) {
+    let makeVersionFile = target === undefined
+      ? 'makeVersionFile'
+      : `makeVersionFile:${target}`;
+    grunt.task.run(
+      'exec:shortHash',
+      'exec:commitCount',
+      'exec:statusCount',
+      makeVersionFile);
+    if (target === undefined) {
+      grunt.log.writeln(`Queued versionFile tasks`);
+    } else {
+      grunt.log.writeln(`Queued versionFile tasks - target:${target}`);
+    }
+
   });
 
 
   grunt.registerTask('default', ['browserify']);
-
-  grunt.registerTask('versionFile', [
-    'exec:shortHash', 'exec:commitCount', 'exec:filesWithStatus', 'makeVersionFile']);
 
   grunt.registerTask('serve', [
     'versionFile']);//, 'exec:shortHash', 'exec:commitCount', 'makeVersionFile']);
