@@ -56,7 +56,6 @@ module.exports = function(grunt) {
   });
 
 
-  // grunt.loadNpmTasks('grunt-ejs');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -85,23 +84,5 @@ module.exports = function(grunt) {
     grunt.log.writeln(`Saving to file: ${outputFile}`);
     grunt.file.write(outputFile, processedTemplate);
   });
-
-// TODO: cleanup
-  // grunt.registerTask('hash', function() {
-  //   var done = this.async();
-  //   // let gitCmd = 'git --no-pager log --max-count=1 --format="%h"';
-  //   let options = {
-  //     cmd:'git',
-  //     args: ['--no-pager', 'log', '--max-count=1', '--format="%h"'],
-  //     fallback:"none"};
-  //   grunt.util.spawn(options, function(error, result, code) {
-  //       grunt.log.writeln(error);
-  //       grunt.log.writeln(result.stdout);
-  //       grunt.log.writeln(result.stderr);
-  //       grunt.log.writeln(result);
-  //       grunt.log.writeln(code);
-  //       done();
-  //     })
-  // });
 
 };
