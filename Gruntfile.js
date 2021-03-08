@@ -22,7 +22,6 @@ module.exports = function(grunt) {
             path: './',
             options: {icons: true, view: 'detail'}
           },
-          keepalive: true,
           debug: true
         }
       } // server
@@ -65,12 +64,19 @@ module.exports = function(grunt) {
           grunt.log.writeln(`Git status count: ${statusCount}`);
         }
       } // statusCount
-    } // exec
+    }, // exec
+    watch: {
+      serve: {
+        files: ['src/**/*.js'],
+        tasks: ['versionFile', 'browserify']
+      }
+    } // watch
   });
 
 
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
 
@@ -129,13 +135,11 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['browserify']);
 
   grunt.registerTask('serve', [
-    'versionFile']);//, 'exec:shortHash', 'exec:commitCount', 'makeVersionFile']);
+    'versionFile', 'browserify', 'connect:server', 'watch:serve']);
 
   grunt.registerTask('dist', ['versionFile', 'browserify', 'connect:server']);
 
-
 };
 
-// TODO: task that makes version, serves file, and keeps serving, can the bundle be deleted afterwards?
 // TODO: task that makes bundle and commits it for the current hash, make version
 // bundle file, commit, serve. check for no modified files when bundling, check for bundle producing an aleady commited file
