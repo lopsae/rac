@@ -2,7 +2,7 @@
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.9.11-dev-39-cf4c65a'
+module.exports = '0.9.11-dev-44-5fb7527'
 
 
 },{}],2:[function(require,module,exports){
