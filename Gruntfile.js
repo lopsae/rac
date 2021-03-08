@@ -30,14 +30,17 @@ module.exports = function(grunt) {
 
     exec: {
       shortHash: {
-        cmd: 'git --no-pager log --max-count=1 --format="%h"',
+        cmd: 'git --no-pager log --max-count=2 --format="%h"',
         stdout: false,
         callback: function(error, stdout, stderr) {
           if (error !== null) return;
 
-          let shortHash = stdout.trim();
+          let hashes = stdout.trim().split('\n');
+          let shortHash = hashes[0];
+          let parentHash = hashes[1];
           grunt.config('exec.shortHash.value', shortHash);
-          grunt.log.writeln(`Git short hash: ${shortHash}`);
+          grunt.config('exec.shortHash.parentHash', parentHash);
+          grunt.log.writeln(`Git short hashes - value:${shortHash} parent:${parentHash}`);
         }
       }, // shortHash
       commitCount: {
@@ -50,7 +53,18 @@ module.exports = function(grunt) {
           grunt.config('exec.commitCount.value', commitCount);
           grunt.log.writeln(`Git commit count: ${commitCount}`);
         }
-      } // commitCount
+      }, // commitCount
+      filesWithStatus: {
+        cmd: 'git status --porcelain | wc -l',
+        stdout: false,
+        callback: function(error, stdout, stderr) {
+          if (error !== null) return;
+
+          let filesWithStatus = parseInt(stdout.trim());
+          grunt.config('exec.filesWithStatus.value', filesWithStatus);
+          grunt.log.writeln(`Files with git status: ${filesWithStatus}`);
+        }
+      } // filesWithStatus
     } // exec
 
   });
@@ -63,32 +77,50 @@ module.exports = function(grunt) {
 
   grunt.registerTask('makeVersionFile', function() {
     grunt.config.requires(
+      'pkg.version',
       'exec.shortHash.value',
+      'exec.shortHash.parentHash',
       'exec.commitCount.value',
-      'pkg.version');
+      'exec.filesWithStatus.value');
 
-    let shortHash = grunt.config('exec.shortHash.value');
-    let commitCount = grunt.config('exec.commitCount.value');
     let pkgVersion = grunt.config('pkg.version');
+    let shortHash = grunt.config('exec.shortHash.value');
+    let parentHash = grunt.config('exec.shortHash.parentHash');
+    let commitCount = grunt.config('exec.commitCount.value');
+    let filesWithStatus = grunt.config('exec.filesWithStatus.value');
+
+    let versionString;
+    if (filesWithStatus == 0) {
+      versionString =`${pkgVersion}-${commitCount}-${shortHash}`;
+    } else {
+      let now = new Date();
+      let localTime = `${now.getHours()}:${now.getMinutes()}`;
+      versionString =`${pkgVersion}-${localTime}-${commitCount}-${shortHash}`;
+    }
 
     let templateContents = grunt.file.read('template/version.js.template');
     let processedTemplate = grunt.template.process(templateContents, {data: {
-      pkgVersion: pkgVersion,
-      shortHash: shortHash,
-      commitCount: commitCount}});
+      versionString: versionString}});
 
     let outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
-    grunt.log.writeln(`Saved version file: ${pkgVersion}-${commitCount}-${shortHash}`);
+    grunt.log.writeln(`Saved version file: ${versionString}`);
   });
 
 
   grunt.registerTask('default', ['browserify']);
 
   grunt.registerTask('versionFile', [
-    'exec:shortHash', 'exec:commitCount', 'makeVersionFile']);
+    'exec:shortHash', 'exec:commitCount', 'exec:filesWithStatus', 'makeVersionFile']);
+
+  grunt.registerTask('serve', [
+    'versionFile']);//, 'exec:shortHash', 'exec:commitCount', 'makeVersionFile']);
 
   grunt.registerTask('dist', ['versionFile', 'browserify', 'connect:server']);
 
 
 };
+
+// TODO: task that makes version, serves file, and keeps serving, can the bundle be deleted afterwards?
+// TODO: task that makes bundle and commits it for the current hash, make version
+// bundle file, commit, serve. check for no modified files when bundling, check for bundle producing an aleady commited file
