@@ -1,10 +1,714 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
-module.exports = '0.9.11-dev-37-4a08f2e'
+// Ruler and Compass - version
+module.exports = '0.9.11-dev-39-cf4c65a'
 
 
 },{}],2:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeArcControl(rac) {
+
+  // Control that uses an Arc as anchor.
+  return class RacArcControl extends rac.Control {
+
+    // Creates a new Control instance with the given `value` and an
+    // `arcLength` from `someArcLength`.
+    // By default the value range is [0,1] and limits are set to be the equal
+    // as `startValue` and `endValue`.
+    constructor(value, someArcLength, startValue = 0, endValue = 1) {
+      super(value, startValue, endValue);
+
+      // ArcLength for the copied anchor shape.
+      this.arcLength = rac.Angle.from(someArcLength);
+
+      // Arc to which the control will be anchored. When the control is
+      // drawn and interacted a copy of the anchor is created with the
+      // control's `arcLength`.
+      this.anchor = null;
+    }
+
+    setValueWithArcLength(arcLengthValue) {
+      arcLengthValue = rac.Angle.from(arcLengthValue)
+      let arcLengthRatio = arcLengthValue.turn / this.arcLength.turnOne();
+      this.value = this.valueOf(arcLengthRatio);
+    }
+
+    setLimitsWithArcLengthInsets(startInset, endInset) {
+      startInset = rac.Angle.from(startInset);
+      endInset = rac.Angle.from(endInset);
+      this.startLimit = this.valueOf(startInset.turn / this.arcLength.turnOne());
+      this.endLimit = this.valueOf((this.arcLength.turnOne() - endInset.turn) / this.arcLength.turnOne());
+    }
+
+    // Returns the distance from `anchor.start` to the control center.
+    distance() {
+      return this.arcLength.multOne(this.ratioValue());
+    }
+
+    center() {
+      // Not posible to calculate a center
+      if (this.anchor === null) { return null; }
+      return this.anchor.withArcLength(this.distance()).endPoint();
+    }
+
+    // Creates a copy of the current `anchor` with the control's `arcLength`.
+    copyAnchor() {
+      // No anchor to copy
+      if (this.anchor === null) { return null; }
+      return this.anchor.withArcLength(this.arcLength);
+    }
+
+    draw() {
+      let anchorCopy = this.copyAnchor();
+      anchorCopy.draw(this.style.withFill(rac.Fill.none));
+
+      let center = this.center();
+      let angle = anchorCopy.center.angleToPoint(center);
+
+      // Value markers
+      this.markers.forEach(item => {
+        let markerRatio = this.ratioOf(item);
+        if (markerRatio < 0 || markerRatio > 1) { return }
+        let markerArcLength = this.arcLength.multOne(markerRatio);
+        let markerAngle = anchorCopy.shiftAngle(markerArcLength);
+        let point = anchorCopy.pointAtAngle(markerAngle);
+        rac.Control.makeValueMarker(point, markerAngle.perpendicular(!anchorCopy.clockwise))
+          .attachToComposite();
+      }, this);
+
+      // Control button
+      center.arc(rac.Control.radius)
+        .attachToComposite();
+
+      let ratioValue = this.ratioValue();
+
+      // Negative arrow
+      if (ratioValue >= this.ratioStartLimit() + rac.equalityThreshold) {
+        let negAngle = angle.perpendicular(anchorCopy.clockwise).inverse();
+        rac.Control.makeArrowShape(center, negAngle)
+          .attachToComposite();
+      }
+
+      // Positive arrow
+      if (ratioValue <= this.ratioEndLimit() - rac.equalityThreshold) {
+        let posAngle = angle.perpendicular(anchorCopy.clockwise);
+        rac.Control.makeArrowShape(center, posAngle)
+          .attachToComposite();
+      }
+
+      rac.popComposite().draw(this.style);
+
+      // Selection
+      if (this.isSelected()) {
+        center.arc(rac.Control.radius * 1.5).draw(rac.Control.pointerStyle);
+      }
+    }
+
+    updateWithPointer(pointerControlCenter, anchorCopy) {
+      let arcLength = anchorCopy.arcLength();
+      let startInset = arcLength.multOne(this.ratioStartLimit());
+      let endInset = arcLength.multOne(1 - this.ratioEndLimit());
+
+      let selectionAngle = anchorCopy.center
+        .angleToPoint(pointerControlCenter);
+      selectionAngle = anchorCopy.clampToInsets(selectionAngle,
+        startInset, endInset);
+      let newDistance = anchorCopy.distanceFromStart(selectionAngle);
+
+      // Update control with new distance
+      let lengthRatio = newDistance.turn / this.arcLength.turnOne();
+      this.value = this.valueOf(lengthRatio);
+    }
+
+    drawSelection(pointerCenter, anchorCopy, pointerOffset) {
+      anchorCopy.attachToComposite();
+
+      let arcLength = anchorCopy.arcLength();
+
+      // Value markers
+      this.markers.forEach(item => {
+        let markerRatio = this.ratioOf(item);
+        if (markerRatio < 0 || markerRatio > 1) { return }
+        let markerAngle = anchorCopy.shiftAngle(arcLength.multOne(markerRatio));
+        let markerPoint = anchorCopy.pointAtAngle(markerAngle);
+        rac.Control.makeValueMarker(markerPoint, markerAngle.perpendicular(!anchorCopy.clockwise))
+          .attachToComposite();
+      });
+
+      // Limit markers
+      let ratioStartLimit = this.ratioStartLimit();
+      if (ratioStartLimit > 0) {
+        let minAngle = anchorCopy.shiftAngle(arcLength.multOne(ratioStartLimit));
+        let minPoint = anchorCopy.pointAtAngle(minAngle);
+        let markerAngle = minAngle.perpendicular(anchorCopy.clockwise);
+        rac.Control.makeLimitMarker(minPoint, markerAngle)
+          .attachToComposite();
+      }
+
+      let ratioEndLimit = this.ratioEndLimit();
+      if (ratioEndLimit < 1) {
+        let maxAngle = anchorCopy.shiftAngle(arcLength.multOne(ratioEndLimit));
+        let maxPoint = anchorCopy.pointAtAngle(maxAngle);
+        let markerAngle = maxAngle.perpendicular(!anchorCopy.clockwise);
+        rac.Control.makeLimitMarker(maxPoint, markerAngle)
+          .attachToComposite();
+      }
+
+      // Segment from pointer to control dragged center
+      let draggedCenter = pointerOffset
+        .translateToStart(pointerCenter)
+        .end;
+
+      // Control dragged center, attached to pointer
+      draggedCenter.arc(2)
+        .attachToComposite();
+
+      // TODO: implement arc control dragging visuals!
+
+      rac.popComposite().draw(rac.Control.pointerStyle);
+    }
+
+  } // RacArcControl
+
+} // makeArcControl
+
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeControl(rac) {
+
+  // Parent class for all controls for manipulating a value with the pointer.
+  // Represents a control with a value, value-range, limits, markers, and
+  // drawing style. By default the control returns a `value` in the range
+  // [0,1] coresponding to the location of the control center in relation to
+  // the anchor shape. The value-range is defined by `startValue` and
+  // `endValue`.
+  class RacControl {
+
+    // Radius of the cicle drawn for the control center.
+    static radius = 22;
+
+    // Collection of all controls that are drawn with `drawControls()`
+    // and evaluated for selection with the `pointer...()` functions.
+    static controls = [];
+
+    // Last Point of the pointer position when it was pressed, or last
+    // Control interacted with. Set to `null` when there has been no
+    // interaction yet and while there is a selected control.
+    static lastPointer = null;
+
+    // Style used for visual elements related to selection and pointer
+    // interaction.
+    static pointerStyle = null;
+
+    // Selection information for the currently selected control, or `null` if
+    // there is no selection.
+    static selection = null;
+
+
+    static Selection = class RacControlSelection{
+      constructor(control) {
+        // Selected control instance.
+        this.control = control;
+        // Copy of the control anchor, so that the control can move tied to
+        // the drawing, while the interaction range remains fixed.
+        this.anchorCopy = control.copyAnchor();
+        // Segment from the captured pointer position to the contro center,
+        // used to attach the control to the point where interaction started.
+        // Pointer is at `segment.start` and control center is at `segment.end`.
+        this.pointerOffset = rac.Point.mouse().segmentToPoint(control.center());
+      }
+
+      drawSelection(pointerCenter) {
+        this.control.drawSelection(pointerCenter, this.anchorCopy, this.pointerOffset);
+      }
+    }
+
+
+    // Creates a new Control instance with the given `value`, a default
+    // value-range of [0,1], and limits set equal to the value-range.
+    constructor(value, startValue = 0, endValue = 1) {
+      // Value is a number between startValue and endValue.
+      this.value = value;
+
+      // Start and end of the value range.
+      this.startValue = startValue;
+      this.endValue = endValue;
+
+      // Limits to which the control can be dragged. Interpreted as values in
+      // the value-range.
+      this.startLimit = startValue;
+      this.endLimit = endValue;
+
+      // Collection of values at which markers are drawn.
+      this.markers = [];
+
+      this.style = null;
+    }
+
+    // Returns the `value` of the control in a [0,1] range.
+    ratioValue() {
+      return this.ratioOf(this.value);
+    }
+
+    // Returns the `startLimit` of the control in a [0,1] range.
+    ratioStartLimit() {
+      return this.ratioOf(this.startLimit);
+    }
+
+    // Returns the `endLimit` of the control in a [0,1] range.
+    ratioEndLimit() {
+      return this.ratioOf(this.endLimit);
+    }
+
+    // Returns the equivalent of the given `value` in a [0,1] range.
+    ratioOf(value) {
+      return (value - this.startValue) / this.valueRange();
+    }
+
+    // Returns the equivalent of the given ratio in the range [0,1] to a value
+    // in the value range.
+    valueOf(ratio) {
+      return (ratio * this.valueRange()) + this.startValue;
+    }
+
+    valueRange() {
+      return this.endValue - this.startValue;
+    }
+
+    // Sets `startLimit` and `endLimit` with two inset values relative to
+    // `startValue` and `endValue`.
+    setLimitsWithValueInsets(startInset, endInset) {
+      let rangeDirection = this.valueRange() >= 0 ? 1 : -1;
+
+      this.startLimit = this.startValue + (startInset * rangeDirection);
+      this.endLimit = this.endValue - (endInset * rangeDirection);
+    }
+
+    // Sets `startLimit` and `endLimit` with two inset values relative to the
+    // [0,1] range.
+    setLimitsWithRatioInsets(startInset, endInset) {
+      this.startLimit = this.valueOf(startInset);
+      this.endLimit = this.valueOf(1 - endInset);
+    }
+
+    // Adds a marker at the current `value`.
+    addMarkerAtCurrentValue() {
+      this.markers.push(this.value);
+    }
+
+    // Returns `true` if this control is the currently selected control.
+    isSelected() {
+      if (RacControl.selection === null) {
+        return false;
+      }
+      return RacControl.selection.control === this;
+    }
+
+    // Abstract function.
+    // Returns the center of the control hitpoint.
+    center() {
+      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
+      throw rac.Error.abstractFunctionCalled;
+    }
+
+    // Abstract function.
+    // Returns the persistent copy of the control anchor to be used during
+    // user interaction.
+    copyAnchor() {
+      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
+      throw rac.Error.abstractFunctionCalled;
+    }
+
+    // Abstract function.
+    // Draws the current state of the control.
+    draw() {
+      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
+      throw rac.Error.abstractFunctionCalled;
+    }
+
+    // Abstract function.
+    // Updates the control value with `pointerControlCenter` in relation to
+    // `anchorCopy`. Called by `pointerDragged` as the user interacts with a
+    // selected control.
+    updateWithPointer(pointerControlCenter, anchorCopy) {
+      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
+      throw rac.Error.abstractFunctionCalled;
+    }
+
+    // Abstract function.
+    // Draws the selection state for the control, along with pointer
+    // interaction visuals. Called by `drawControls` for the currently
+    // selected control.
+    drawSelection(pointerCenter, anchorCopy, pointerOffset) {
+      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
+      throw rac.Error.abstractFunctionCalled;
+    }
+
+  } // RacControl
+
+
+  // Controls shared drawing elements
+
+  RacControl.makeArrowShape = function(center, angle) {
+    // Arc
+    let arcLength = rac.Angle.from(1/22);
+    let arc = center.arc(RacControl.radius * 1.5,
+      angle.sub(arcLength), angle.add(arcLength));
+
+    // Arrow walls
+    let pointAngle = rac.Angle.from(1/8);
+    let rightWall = arc.startPoint().segmentToAngle(angle.add(pointAngle), 100);
+    let leftWall = arc.endPoint().segmentToAngle(angle.sub(pointAngle), 100);
+
+    // Arrow point
+    let point = rightWall.pointAtIntersectionWithSegment(leftWall);
+
+    // Shape
+    let arrow = new rac.Shape();
+    point.segmentToPoint(arc.startPoint())
+      .attachTo(arrow);
+    arc.attachTo(arrow)
+      .endPoint().segmentToPoint(point)
+      .attachTo(arrow);
+
+      return arrow;
+  };
+
+  RacControl.makeLimitMarker = function(point, someAngle) {
+    let angle = rac.Angle.from(someAngle);
+    let perpendicular = angle.perpendicular(false);
+    let composite = new rac.Composite();
+
+    point.segmentToAngle(perpendicular, 4)
+      .withStartExtended(4)
+      .attachTo(composite);
+    point.pointToAngle(perpendicular, 8).arc(3)
+      .attachTo(composite);
+
+    return composite;
+  };
+
+  RacControl.makeValueMarker = function(point, someAngle) {
+    let angle = rac.Angle.from(someAngle);
+    return point.segmentToAngle(angle.perpendicular(), 3)
+      .withStartExtended(3);
+  };
+
+
+  // Control pointer and interaction
+
+  // Call to signal the pointer being pressed. If the ponter hits a control
+  // it will be considered selected. When a control is selected a copy of its
+  // anchor is stored as to allow interaction with a fixed anchor.
+  RacControl.pointerPressed = function(pointerCenter) {
+    RacControl.lastPointer = null;
+
+    // Test pointer hit
+    let selected = RacControl.controls.find(item => {
+      let controlCenter = item.center();
+      if (controlCenter === null) { return false; }
+      if (controlCenter.distanceToPoint(pointerCenter) <= RacControl.radius) {
+        return true;
+      }
+      return false;
+    });
+
+    if (selected === undefined) {
+      return;
+    }
+
+    RacControl.selection = new RacControl.Selection(selected, pointerCenter);
+  };
+
+
+  // Call to signal the pointer being dragged. As the pointer moves the
+  // selected control is updated with a new `distance`.
+  RacControl.pointerDragged = function(pointerCenter){
+    if (RacControl.selection === null) {
+      return;
+    }
+
+    let control = RacControl.selection.control;
+    let anchorCopy = RacControl.selection.anchorCopy;
+
+    // Center of dragged control in the pointer current position
+    let currentPointerControlCenter = RacControl.selection.pointerOffset
+      .translateToStart(pointerCenter)
+      .end;
+
+    control.updateWithPointer(currentPointerControlCenter, anchorCopy);
+  };
+
+
+  // Call to signal the pointer being released. Upon release the selected
+  // control is cleared.
+  RacControl.pointerReleased = function(pointerCenter) {
+    if (RacControl.selection === null) {
+      RacControl.lastPointer = pointerCenter;
+      return;
+    }
+
+    RacControl.lastPointer = RacControl.selection.control;
+    RacControl.selection = null;
+  };
+
+
+  // Draws controls and the visuals of pointer and control selection. Usually
+  // called at the end of `draw` so that controls sits on top of the drawing.
+  RacControl.drawControls = function() {
+    let pointerStyle = RacControl.pointerStyle;
+
+    // Last pointer or control
+    if (RacControl.lastPointer instanceof rac.Point) {
+      RacControl.lastPointer.arc(12).draw(pointerStyle);
+    }
+    if (RacControl.lastPointer instanceof RacControl) {
+      // TODO: implement last selected control state
+    }
+
+    // Pointer pressed
+    let pointerCenter = rac.Point.mouse();
+    if (rac.drawer.p5.mouseIsPressed) {
+      if (RacControl.selection === null) {
+        pointerCenter.arc(10).draw(pointerStyle);
+      } else {
+        pointerCenter.arc(5).draw(pointerStyle);
+      }
+    }
+
+    // All controls in display
+    RacControl.controls.forEach(item => item.draw());
+
+    // Rest is Control selection visuals
+    if (RacControl.selection === null) {
+      return;
+    }
+
+    RacControl.selection.drawSelection(pointerCenter);
+  };
+
+
+  return RacControl;
+
+} // makeControl
+
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeSegmentControl(rac) {
+
+  // Control that uses a Segment as anchor.
+  return class RacSegmentControl extends rac.Control {
+
+    // Creates a new Control instance with the given `value` and `length`.
+    // By default the value range is [0,1] and limits are set to be the equal
+    // as `startValue` and `endValue`.
+    constructor(value, length, startValue = 0, endValue = 1) {
+      super(value, startValue, endValue);
+
+      // Length for the copied anchor shape.
+      this.length = length;
+
+      // Segment to which the control will be anchored. When the control is
+      // drawn and interacted a copy of the anchor is created with the
+      // control's `length`.
+      this.anchor = null;
+    }
+
+    setValueWithLength(lengthValue) {
+      let lengthRatio = lengthValue / this.length;
+      this.value = this.valueOf(lengthRatio);
+    }
+
+    // Sets `startLimit` and `endLimit` with two inset values relative to
+    // zero and `length`.
+    setLimitsWithLengthInsets(startInset, endInset) {
+      this.startLimit = this.valueOf(startInset / this.length);
+      this.endLimit = this.valueOf((this.length - endInset) / this.length);
+    }
+
+
+    // Returns the distance from `anchor.start` to the control center.
+    distance() {
+      return this.length * this.ratioValue();
+    }
+
+    center() {
+      // Not posible to calculate a center
+      if (this.anchor === null) { return null; }
+      return this.anchor.withLength(this.distance()).end;
+    }
+
+    // Creates a copy of the current `anchor` with the control `length`.
+    copyAnchor() {
+      // No anchor to copy
+      if (this.anchor === null) { return null; }
+      return this.anchor.withLength(this.length);
+    }
+
+    draw() {
+      let anchorCopy = this.copyAnchor();
+      anchorCopy.draw(this.style);
+
+      let center = this.center();
+      let angle = anchorCopy.angle();
+
+      // Value markers
+      this.markers.forEach(item => {
+        let markerRatio = this.ratioOf(item);
+        if (markerRatio < 0 || markerRatio > 1) { return }
+        let point = anchorCopy.start.pointToAngle(angle, this.length * markerRatio);
+        rac.Control.makeValueMarker(point, angle)
+          .attachToComposite();
+      }, this);
+
+      // Control button
+      center.arc(rac.Control.radius)
+        .attachToComposite();
+
+      let ratioValue = this.ratioValue();
+
+      // Negative arrow
+      if (ratioValue >= this.ratioStartLimit() + rac.equalityThreshold) {
+        rac.Control.makeArrowShape(center, angle.inverse())
+          .attachToComposite();
+      }
+
+      // Positive arrow
+      if (ratioValue <= this.ratioEndLimit() - rac.equalityThreshold) {
+        rac.Control.makeArrowShape(center, angle)
+          .attachToComposite();
+      }
+
+      rac.popComposite().draw(this.style);
+
+      // Selection
+      if (this.isSelected()) {
+        center.arc(rac.Control.radius * 1.5).draw(rac.Control.pointerStyle);
+      }
+    }
+
+    updateWithPointer(pointerControlCenter, anchorCopy) {
+      let length = anchorCopy.length();
+      let startInset = length * this.ratioStartLimit();
+      let endInset = length * (1 - this.ratioEndLimit());
+
+      // New value from the current pointer position, relative to anchorCopy
+      let newDistance = anchorCopy
+        .lengthToProjectedPoint(pointerControlCenter);
+      // Clamping value (javascript has no Math.clamp)
+      newDistance = anchorCopy.clampToLengthInsets(newDistance,
+        startInset, endInset);
+
+      // Update control with new distance
+      let lengthRatio = newDistance / length;
+      this.value = this.valueOf(lengthRatio);
+    }
+
+    drawSelection(pointerCenter, anchorCopy, pointerOffset) {
+      anchorCopy.attachToComposite();
+
+      let angle = anchorCopy.angle();
+      let length = anchorCopy.length();
+
+      // Value markers
+      this.markers.forEach(item => {
+        let markerRatio = this.ratioOf(item);
+        if (markerRatio < 0 || markerRatio > 1) { return }
+        let markerPoint = anchorCopy.start.pointToAngle(angle, length * markerRatio);
+        rac.Control.makeValueMarker(markerPoint, angle)
+          .attachToComposite();
+      });
+
+      // Limit markers
+      let ratioStartLimit = this.ratioStartLimit();
+      if (ratioStartLimit > 0) {
+        let minPoint = anchorCopy.start.pointToAngle(angle, length * ratioStartLimit);
+        rac.Control.makeLimitMarker(minPoint, angle)
+          .attachToComposite();
+      }
+
+      let ratioEndLimit = this.ratioEndLimit();
+      if (ratioEndLimit < 1) {
+        let maxPoint = anchorCopy.start.pointToAngle(angle, length * ratioEndLimit);
+        rac.Control.makeLimitMarker(maxPoint, angle.inverse())
+          .attachToComposite();
+      }
+
+      // Segment from pointer to control dragged center
+      let draggedCenter = pointerOffset
+        .translateToStart(pointerCenter)
+        .end;
+
+      // Control dragged center, attached to pointer
+      draggedCenter.arc(2)
+        .attachToComposite();
+
+      // Constrained length clamped to limits
+      let constrainedLength = anchorCopy
+        .lengthToProjectedPoint(draggedCenter);
+      let startInset = length * ratioStartLimit;
+      let endInset = length * (1 - ratioEndLimit);
+      constrainedLength = anchorCopy.clampToLengthInsets(constrainedLength,
+        startInset, endInset);
+
+      let constrainedAnchorCenter = anchorCopy
+        .withLength(constrainedLength)
+        .end;
+
+      // Control center constrained to anchor
+      constrainedAnchorCenter.arc(rac.Control.radius)
+        .attachToComposite();
+
+      // Dragged shadow center, semi attached to pointer
+      // always perpendicular to anchor
+      let draggedShadowCenter = draggedCenter
+        .segmentPerpendicularToSegment(anchorCopy)
+        // reverse and translated to constraint to anchor
+        .reverse()
+        .translateToStart(constrainedAnchorCenter)
+        // Segment from constrained center to shadow center
+        .attachToComposite()
+        .end;
+
+      // Control shadow center
+      draggedShadowCenter.arc(rac.Control.radius / 2)
+        .attachToComposite();
+
+      // Ease for segment to dragged shadow center
+      let easeOut = rac.EaseFunction.makeEaseOut();
+      easeOut.postBehavior = rac.EaseFunction.Behavior.clamp;
+
+      // Tail will stop stretching at 2x the max tail length
+      let maxDraggedTailLength = rac.Control.radius * 5;
+      easeOut.inRange = maxDraggedTailLength * 2;
+      easeOut.outRange = maxDraggedTailLength;
+
+      // Segment to dragged shadow center
+      let draggedTail = draggedShadowCenter
+        .segmentToPoint(draggedCenter);
+
+      let easedLength = easeOut.easeValue(draggedTail.length());
+      draggedTail.withLength(easedLength).attachToComposite();
+
+      // Draw all!
+      rac.popComposite().draw(rac.Control.pointerStyle);
+    }
+
+  } // RacSegmentControl
+
+} // makeSegmentControl
+
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 
@@ -170,7 +874,7 @@ module.exports = function makeAngle(rac) {
 } // makeAngle
 
 
-},{}],3:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 
@@ -663,7 +1367,7 @@ module.exports = function makeArc(rac) {
 } // makeArc
 
 
-},{}],4:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -699,7 +1403,7 @@ module.exports = function makeBezier(rac) {
 } // makeBezier
 
 
-},{}],5:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 
@@ -736,7 +1440,7 @@ module.exports = function makeComposite(rac) {
 } // makeComposite
 
 
-},{}],6:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 
@@ -902,7 +1606,7 @@ module.exports = function makePoint(rac) {
 } // makePoint
 
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 
@@ -1254,7 +1958,7 @@ module.exports = function makeX(rac) {
 } // makeSegment
 
 
-},{}],8:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 
@@ -1280,7 +1984,7 @@ module.exports = function makeShape(rac) {
 } // makeShape
 
 
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 
 
 // https://github.com/umdjs/umd/blob/master/templates/returnExports.js
@@ -1314,7 +2018,7 @@ module.exports = function makeShape(rac) {
 }));
 
 
-},{"./rac":12}],10:[function(require,module,exports){
+},{"./rac":15}],13:[function(require,module,exports){
 'use strict';
 
 
@@ -1510,7 +2214,7 @@ module.exports = function makeP5Drawer(rac) {
 
 } // makeP5Drawer
 
-},{}],11:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 
@@ -1626,7 +2330,7 @@ module.exports = function attachProtoFunctions(rac) {
 
 }
 
-},{}],12:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 
@@ -1910,683 +2614,20 @@ let makeRac = function makeRac() {
   rac.EaseFunction = require('./visual/makeEaseFunction')(rac);
 
 
-  // Parent class for all controls for manipulating a value with the pointer.
-  // Represents a control with a value, value-range, limits, markers, and
-  // drawing style. By default the control returns a `value` in the range
-  // [0,1] coresponding to the location of the control center in relation to
-  // the anchor shape. The value-range is defined by `startValue` and
-  // `endValue`.
-  rac.Control = class RacControl {
+  // Control
+  rac.Control = require('./control/makeControl')(rac);
 
-    // Radius of the cicle drawn for the control center.
-    static radius = 22;
 
-    // Collection of all controls that are drawn with `drawControls()`
-    // and evaluated for selection with the `pointer...()` functions.
-    static controls = [];
+  // SegmentControl
+  rac.SegmentControl = require('./control/makeSegmentControl')(rac);
 
-    // Last Point of the pointer position when it was pressed, or last
-    // Control interacted with. Set to `null` when there has been no
-    // interaction yet and while there is a selected control.
-    static lastPointer = null;
 
-    // Style used for visual elements related to selection and pointer
-    // interaction.
-    static pointerStyle = null;
-
-    // Selection information for the currently selected control, or `null` if
-    // there is no selection.
-    static selection = null;
-
-
-    static Selection = class RacControlSelection{
-      constructor(control) {
-        // Selected control instance.
-        this.control = control;
-        // Copy of the control anchor, so that the control can move tied to
-        // the drawing, while the interaction range remains fixed.
-        this.anchorCopy = control.copyAnchor();
-        // Segment from the captured pointer position to the contro center,
-        // used to attach the control to the point where interaction started.
-        // Pointer is at `segment.start` and control center is at `segment.end`.
-        this.pointerOffset = rac.Point.mouse().segmentToPoint(control.center());
-      }
-
-      drawSelection(pointerCenter) {
-        this.control.drawSelection(pointerCenter, this.anchorCopy, this.pointerOffset);
-      }
-    }
-
-
-    // Creates a new Control instance with the given `value`, a default
-    // value-range of [0,1], and limits set equal to the value-range.
-    constructor(value, startValue = 0, endValue = 1) {
-      // Value is a number between startValue and endValue.
-      this.value = value;
-
-      // Start and end of the value range.
-      this.startValue = startValue;
-      this.endValue = endValue;
-
-      // Limits to which the control can be dragged. Interpreted as values in
-      // the value-range.
-      this.startLimit = startValue;
-      this.endLimit = endValue;
-
-      // Collection of values at which markers are drawn.
-      this.markers = [];
-
-      this.style = null;
-    }
-
-    // Returns the `value` of the control in a [0,1] range.
-    ratioValue() {
-      return this.ratioOf(this.value);
-    }
-
-    // Returns the `startLimit` of the control in a [0,1] range.
-    ratioStartLimit() {
-      return this.ratioOf(this.startLimit);
-    }
-
-    // Returns the `endLimit` of the control in a [0,1] range.
-    ratioEndLimit() {
-      return this.ratioOf(this.endLimit);
-    }
-
-    // Returns the equivalent of the given `value` in a [0,1] range.
-    ratioOf(value) {
-      return (value - this.startValue) / this.valueRange();
-    }
-
-    // Returns the equivalent of the given ratio in the range [0,1] to a value
-    // in the value range.
-    valueOf(ratio) {
-      return (ratio * this.valueRange()) + this.startValue;
-    }
-
-    valueRange() {
-      return this.endValue - this.startValue;
-    }
-
-    // Sets `startLimit` and `endLimit` with two inset values relative to
-    // `startValue` and `endValue`.
-    setLimitsWithValueInsets(startInset, endInset) {
-      let rangeDirection = this.valueRange() >= 0 ? 1 : -1;
-
-      this.startLimit = this.startValue + (startInset * rangeDirection);
-      this.endLimit = this.endValue - (endInset * rangeDirection);
-    }
-
-    // Sets `startLimit` and `endLimit` with two inset values relative to the
-    // [0,1] range.
-    setLimitsWithRatioInsets(startInset, endInset) {
-      this.startLimit = this.valueOf(startInset);
-      this.endLimit = this.valueOf(1 - endInset);
-    }
-
-    // Adds a marker at the current `value`.
-    addMarkerAtCurrentValue() {
-      this.markers.push(this.value);
-    }
-
-    // Returns `true` if this control is the currently selected control.
-    isSelected() {
-      if (rac.Control.selection === null) {
-        return false;
-      }
-      return rac.Control.selection.control === this;
-    }
-
-    // Abstract function.
-    // Returns the center of the control hitpoint.
-    center() {
-      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
-      throw rac.Error.abstractFunctionCalled;
-    }
-
-    // Abstract function.
-    // Returns the persistent copy of the control anchor to be used during
-    // user interaction.
-    copyAnchor() {
-      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
-      throw rac.Error.abstractFunctionCalled;
-    }
-
-    // Abstract function.
-    // Draws the current state of the control.
-    draw() {
-      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
-      throw rac.Error.abstractFunctionCalled;
-    }
-
-    // Abstract function.
-    // Updates the control value with `pointerControlCenter` in relation to
-    // `anchorCopy`. Called by `pointerDragged` as the user interacts with a
-    // selected control.
-    updateWithPointer(pointerControlCenter, anchorCopy) {
-      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
-      throw rac.Error.abstractFunctionCalled;
-    }
-
-    // Abstract function.
-    // Draws the selection state for the control, along with pointer
-    // interaction visuals. Called by `drawControls` for the currently
-    // selected control.
-    drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-      console.trace(`Abstract function called - this-type:${rac.typeName(this)}`);
-      throw rac.Error.abstractFunctionCalled;
-    }
-
-  }
-
-
-  // Control that uses a Segment as anchor.
-  rac.SegmentControl = class RacSegmentControl extends rac.Control {
-
-    // Creates a new Control instance with the given `value` and `length`.
-    // By default the value range is [0,1] and limits are set to be the equal
-    // as `startValue` and `endValue`.
-    constructor(value, length, startValue = 0, endValue = 1) {
-      super(value, startValue, endValue);
-
-      // Length for the copied anchor shape.
-      this.length = length;
-
-      // Segment to which the control will be anchored. When the control is
-      // drawn and interacted a copy of the anchor is created with the
-      // control's `length`.
-      this.anchor = null;
-    }
-
-    setValueWithLength(lengthValue) {
-      let lengthRatio = lengthValue / this.length;
-      this.value = this.valueOf(lengthRatio);
-    }
-
-    // Sets `startLimit` and `endLimit` with two inset values relative to
-    // zero and `length`.
-    setLimitsWithLengthInsets(startInset, endInset) {
-      this.startLimit = this.valueOf(startInset / this.length);
-      this.endLimit = this.valueOf((this.length - endInset) / this.length);
-    }
-
-
-    // Returns the distance from `anchor.start` to the control center.
-    distance() {
-      return this.length * this.ratioValue();
-    }
-
-    center() {
-      // Not posible to calculate a center
-      if (this.anchor === null) { return null; }
-      return this.anchor.withLength(this.distance()).end;
-    }
-
-    // Creates a copy of the current `anchor` with the control `length`.
-    copyAnchor() {
-      // No anchor to copy
-      if (this.anchor === null) { return null; }
-      return this.anchor.withLength(this.length);
-    }
-
-    draw() {
-      let anchorCopy = this.copyAnchor();
-      anchorCopy.draw(this.style);
-
-      let center = this.center();
-      let angle = anchorCopy.angle();
-
-      // Value markers
-      this.markers.forEach(item => {
-        let markerRatio = this.ratioOf(item);
-        if (markerRatio < 0 || markerRatio > 1) { return }
-        let point = anchorCopy.start.pointToAngle(angle, this.length * markerRatio);
-        rac.Control.makeValueMarker(point, angle)
-          .attachToComposite();
-      }, this);
-
-      // Control button
-      center.arc(rac.Control.radius)
-        .attachToComposite();
-
-      let ratioValue = this.ratioValue();
-
-      // Negative arrow
-      if (ratioValue >= this.ratioStartLimit() + rac.equalityThreshold) {
-        rac.Control.makeArrowShape(center, angle.inverse())
-          .attachToComposite();
-      }
-
-      // Positive arrow
-      if (ratioValue <= this.ratioEndLimit() - rac.equalityThreshold) {
-        rac.Control.makeArrowShape(center, angle)
-          .attachToComposite();
-      }
-
-      rac.popComposite().draw(this.style);
-
-      // Selection
-      if (this.isSelected()) {
-        center.arc(rac.Control.radius * 1.5).draw(rac.Control.pointerStyle);
-      }
-    }
-
-    updateWithPointer(pointerControlCenter, anchorCopy) {
-      let length = anchorCopy.length();
-      let startInset = length * this.ratioStartLimit();
-      let endInset = length * (1 - this.ratioEndLimit());
-
-      // New value from the current pointer position, relative to anchorCopy
-      let newDistance = anchorCopy
-        .lengthToProjectedPoint(pointerControlCenter);
-      // Clamping value (javascript has no Math.clamp)
-      newDistance = anchorCopy.clampToLengthInsets(newDistance,
-        startInset, endInset);
-
-      // Update control with new distance
-      let lengthRatio = newDistance / length;
-      this.value = this.valueOf(lengthRatio);
-    }
-
-    drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-      anchorCopy.attachToComposite();
-
-      let angle = anchorCopy.angle();
-      let length = anchorCopy.length();
-
-      // Value markers
-      this.markers.forEach(item => {
-        let markerRatio = this.ratioOf(item);
-        if (markerRatio < 0 || markerRatio > 1) { return }
-        let markerPoint = anchorCopy.start.pointToAngle(angle, length * markerRatio);
-        rac.Control.makeValueMarker(markerPoint, angle)
-          .attachToComposite();
-      });
-
-      // Limit markers
-      let ratioStartLimit = this.ratioStartLimit();
-      if (ratioStartLimit > 0) {
-        let minPoint = anchorCopy.start.pointToAngle(angle, length * ratioStartLimit);
-        rac.Control.makeLimitMarker(minPoint, angle)
-          .attachToComposite();
-      }
-
-      let ratioEndLimit = this.ratioEndLimit();
-      if (ratioEndLimit < 1) {
-        let maxPoint = anchorCopy.start.pointToAngle(angle, length * ratioEndLimit);
-        rac.Control.makeLimitMarker(maxPoint, angle.inverse())
-          .attachToComposite();
-      }
-
-      // Segment from pointer to control dragged center
-      let draggedCenter = pointerOffset
-        .translateToStart(pointerCenter)
-        .end;
-
-      // Control dragged center, attached to pointer
-      draggedCenter.arc(2)
-        .attachToComposite();
-
-      // Constrained length clamped to limits
-      let constrainedLength = anchorCopy
-        .lengthToProjectedPoint(draggedCenter);
-      let startInset = length * ratioStartLimit;
-      let endInset = length * (1 - ratioEndLimit);
-      constrainedLength = anchorCopy.clampToLengthInsets(constrainedLength,
-        startInset, endInset);
-
-      let constrainedAnchorCenter = anchorCopy
-        .withLength(constrainedLength)
-        .end;
-
-      // Control center constrained to anchor
-      constrainedAnchorCenter.arc(rac.Control.radius)
-        .attachToComposite();
-
-      // Dragged shadow center, semi attached to pointer
-      // always perpendicular to anchor
-      let draggedShadowCenter = draggedCenter
-        .segmentPerpendicularToSegment(anchorCopy)
-        // reverse and translated to constraint to anchor
-        .reverse()
-        .translateToStart(constrainedAnchorCenter)
-        // Segment from constrained center to shadow center
-        .attachToComposite()
-        .end;
-
-      // Control shadow center
-      draggedShadowCenter.arc(rac.Control.radius / 2)
-        .attachToComposite();
-
-      // Ease for segment to dragged shadow center
-      let easeOut = rac.EaseFunction.makeEaseOut();
-      easeOut.postBehavior = rac.EaseFunction.Behavior.clamp;
-
-      // Tail will stop stretching at 2x the max tail length
-      let maxDraggedTailLength = rac.Control.radius * 5;
-      easeOut.inRange = maxDraggedTailLength * 2;
-      easeOut.outRange = maxDraggedTailLength;
-
-      // Segment to dragged shadow center
-      let draggedTail = draggedShadowCenter
-        .segmentToPoint(draggedCenter);
-
-      let easedLength = easeOut.easeValue(draggedTail.length());
-      draggedTail.withLength(easedLength).attachToComposite();
-
-      // Draw all!
-      rac.popComposite().draw(rac.Control.pointerStyle);
-    }
-
-  }
-
-
-  // Control that uses an Arc as anchor.
-  rac.ArcControl = class RacArcControl extends rac.Control {
-
-    // Creates a new Control instance with the given `value` and an
-    // `arcLength` from `someArcLength`.
-    // By default the value range is [0,1] and limits are set to be the equal
-    // as `startValue` and `endValue`.
-    constructor(value, someArcLength, startValue = 0, endValue = 1) {
-      super(value, startValue, endValue);
-
-      // ArcLength for the copied anchor shape.
-      this.arcLength = rac.Angle.from(someArcLength);
-
-      // Arc to which the control will be anchored. When the control is
-      // drawn and interacted a copy of the anchor is created with the
-      // control's `arcLength`.
-      this.anchor = null;
-    }
-
-    setValueWithArcLength(arcLengthValue) {
-      arcLengthValue = rac.Angle.from(arcLengthValue)
-      let arcLengthRatio = arcLengthValue.turn / this.arcLength.turnOne();
-      this.value = this.valueOf(arcLengthRatio);
-    }
-
-    setLimitsWithArcLengthInsets(startInset, endInset) {
-      startInset = rac.Angle.from(startInset);
-      endInset = rac.Angle.from(endInset);
-      this.startLimit = this.valueOf(startInset.turn / this.arcLength.turnOne());
-      this.endLimit = this.valueOf((this.arcLength.turnOne() - endInset.turn) / this.arcLength.turnOne());
-    }
-
-    // Returns the distance from `anchor.start` to the control center.
-    distance() {
-      return this.arcLength.multOne(this.ratioValue());
-    }
-
-    center() {
-      // Not posible to calculate a center
-      if (this.anchor === null) { return null; }
-      return this.anchor.withArcLength(this.distance()).endPoint();
-    }
-
-    // Creates a copy of the current `anchor` with the control's `arcLength`.
-    copyAnchor() {
-      // No anchor to copy
-      if (this.anchor === null) { return null; }
-      return this.anchor.withArcLength(this.arcLength);
-    }
-
-    draw() {
-      let anchorCopy = this.copyAnchor();
-      anchorCopy.draw(this.style.withFill(rac.Fill.none));
-
-      let center = this.center();
-      let angle = anchorCopy.center.angleToPoint(center);
-
-      // Value markers
-      this.markers.forEach(item => {
-        let markerRatio = this.ratioOf(item);
-        if (markerRatio < 0 || markerRatio > 1) { return }
-        let markerArcLength = this.arcLength.multOne(markerRatio);
-        let markerAngle = anchorCopy.shiftAngle(markerArcLength);
-        let point = anchorCopy.pointAtAngle(markerAngle);
-        rac.Control.makeValueMarker(point, markerAngle.perpendicular(!anchorCopy.clockwise))
-          .attachToComposite();
-      }, this);
-
-      // Control button
-      center.arc(rac.Control.radius)
-        .attachToComposite();
-
-      let ratioValue = this.ratioValue();
-
-      // Negative arrow
-      if (ratioValue >= this.ratioStartLimit() + rac.equalityThreshold) {
-        let negAngle = angle.perpendicular(anchorCopy.clockwise).inverse();
-        rac.Control.makeArrowShape(center, negAngle)
-          .attachToComposite();
-      }
-
-      // Positive arrow
-      if (ratioValue <= this.ratioEndLimit() - rac.equalityThreshold) {
-        let posAngle = angle.perpendicular(anchorCopy.clockwise);
-        rac.Control.makeArrowShape(center, posAngle)
-          .attachToComposite();
-      }
-
-      rac.popComposite().draw(this.style);
-
-      // Selection
-      if (this.isSelected()) {
-        center.arc(rac.Control.radius * 1.5).draw(rac.Control.pointerStyle);
-      }
-    }
-
-    updateWithPointer(pointerControlCenter, anchorCopy) {
-      let arcLength = anchorCopy.arcLength();
-      let startInset = arcLength.multOne(this.ratioStartLimit());
-      let endInset = arcLength.multOne(1 - this.ratioEndLimit());
-
-      let selectionAngle = anchorCopy.center
-        .angleToPoint(pointerControlCenter);
-      selectionAngle = anchorCopy.clampToInsets(selectionAngle,
-        startInset, endInset);
-      let newDistance = anchorCopy.distanceFromStart(selectionAngle);
-
-      // Update control with new distance
-      let lengthRatio = newDistance.turn / this.arcLength.turnOne();
-      this.value = this.valueOf(lengthRatio);
-    }
-
-    drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-      anchorCopy.attachToComposite();
-
-      let arcLength = anchorCopy.arcLength();
-
-      // Value markers
-      this.markers.forEach(item => {
-        let markerRatio = this.ratioOf(item);
-        if (markerRatio < 0 || markerRatio > 1) { return }
-        let markerAngle = anchorCopy.shiftAngle(arcLength.multOne(markerRatio));
-        let markerPoint = anchorCopy.pointAtAngle(markerAngle);
-        rac.Control.makeValueMarker(markerPoint, markerAngle.perpendicular(!anchorCopy.clockwise))
-          .attachToComposite();
-      });
-
-      // Limit markers
-      let ratioStartLimit = this.ratioStartLimit();
-      if (ratioStartLimit > 0) {
-        let minAngle = anchorCopy.shiftAngle(arcLength.multOne(ratioStartLimit));
-        let minPoint = anchorCopy.pointAtAngle(minAngle);
-        let markerAngle = minAngle.perpendicular(anchorCopy.clockwise);
-        rac.Control.makeLimitMarker(minPoint, markerAngle)
-          .attachToComposite();
-      }
-
-      let ratioEndLimit = this.ratioEndLimit();
-      if (ratioEndLimit < 1) {
-        let maxAngle = anchorCopy.shiftAngle(arcLength.multOne(ratioEndLimit));
-        let maxPoint = anchorCopy.pointAtAngle(maxAngle);
-        let markerAngle = maxAngle.perpendicular(!anchorCopy.clockwise);
-        rac.Control.makeLimitMarker(maxPoint, markerAngle)
-          .attachToComposite();
-      }
-
-      // Segment from pointer to control dragged center
-      let draggedCenter = pointerOffset
-        .translateToStart(pointerCenter)
-        .end;
-
-      // Control dragged center, attached to pointer
-      draggedCenter.arc(2)
-        .attachToComposite();
-
-      // TODO: implement arc control dragging visuals!
-
-      rac.popComposite().draw(rac.Control.pointerStyle);
-    }
-
-  }
-
-
-  // Controls shared drawing elements
-
-  rac.Control.makeArrowShape = function(center, angle) {
-    // Arc
-    let arcLength = rac.Angle.from(1/22);
-    let arc = center.arc(rac.Control.radius * 1.5,
-      angle.sub(arcLength), angle.add(arcLength));
-
-    // Arrow walls
-    let pointAngle = rac.Angle.from(1/8);
-    let rightWall = arc.startPoint().segmentToAngle(angle.add(pointAngle), 100);
-    let leftWall = arc.endPoint().segmentToAngle(angle.sub(pointAngle), 100);
-
-    // Arrow point
-    let point = rightWall.pointAtIntersectionWithSegment(leftWall);
-
-    // Shape
-    let arrow = new rac.Shape();
-    point.segmentToPoint(arc.startPoint())
-      .attachTo(arrow);
-    arc.attachTo(arrow)
-      .endPoint().segmentToPoint(point)
-      .attachTo(arrow);
-
-      return arrow;
-  };
-
-  rac.Control.makeLimitMarker = function(point, someAngle) {
-    let angle = rac.Angle.from(someAngle);
-    let perpendicular = angle.perpendicular(false);
-    let composite = new rac.Composite();
-
-    point.segmentToAngle(perpendicular, 4)
-      .withStartExtended(4)
-      .attachTo(composite);
-    point.pointToAngle(perpendicular, 8).arc(3)
-      .attachTo(composite);
-
-    return composite;
-  };
-
-  rac.Control.makeValueMarker = function(point, someAngle) {
-    let angle = rac.Angle.from(someAngle);
-    return point.segmentToAngle(angle.perpendicular(), 3)
-      .withStartExtended(3);
-  };
-
-
-  // Control pointer and interaction
-
-  // Call to signal the pointer being pressed. If the ponter hits a control
-  // it will be considered selected. When a control is selected a copy of its
-  // anchor is stored as to allow interaction with a fixed anchor.
-  rac.Control.pointerPressed = function(pointerCenter) {
-    rac.Control.lastPointer = null;
-
-    // Test pointer hit
-    let selected = rac.Control.controls.find(item => {
-      let controlCenter = item.center();
-      if (controlCenter === null) { return false; }
-      if (controlCenter.distanceToPoint(pointerCenter) <= rac.Control.radius) {
-        return true;
-      }
-      return false;
-    });
-
-    if (selected === undefined) {
-      return;
-    }
-
-    rac.Control.selection = new rac.Control.Selection(selected, pointerCenter);
-  };
-
-
-  // Call to signal the pointer being dragged. As the pointer moves the
-  // selected control is updated with a new `distance`.
-  rac.Control.pointerDragged = function(pointerCenter){
-    if (rac.Control.selection === null) {
-      return;
-    }
-
-    let control = rac.Control.selection.control;
-    let anchorCopy = rac.Control.selection.anchorCopy;
-
-    // Center of dragged control in the pointer current position
-    let currentPointerControlCenter = rac.Control.selection.pointerOffset
-      .translateToStart(pointerCenter)
-      .end;
-
-    control.updateWithPointer(currentPointerControlCenter, anchorCopy);
-  };
-
-
-  // Call to signal the pointer being released. Upon release the selected
-  // control is cleared.
-  rac.Control.pointerReleased = function(pointerCenter) {
-    if (rac.Control.selection === null) {
-      rac.Control.lastPointer = pointerCenter;
-      return;
-    }
-
-    rac.Control.lastPointer = rac.Control.selection.control;
-    rac.Control.selection = null;
-  };
-
-
-  // Draws controls and the visuals of pointer and control selection. Usually
-  // called at the end of `draw` so that controls sits on top of the drawing.
-  rac.Control.drawControls = function() {
-    let pointerStyle = rac.Control.pointerStyle;
-
-    // Last pointer or control
-    if (rac.Control.lastPointer instanceof rac.Point) {
-      rac.Control.lastPointer.arc(12).draw(pointerStyle);
-    }
-    if (rac.Control.lastPointer instanceof rac.Control) {
-      // TODO: implement last selected control state
-    }
-
-    // Pointer pressed
-    let pointerCenter = rac.Point.mouse();
-    if (rac.drawer.p5.mouseIsPressed) {
-      if (rac.Control.selection === null) {
-        pointerCenter.arc(10).draw(pointerStyle);
-      } else {
-        pointerCenter.arc(5).draw(pointerStyle);
-      }
-    }
-
-    // All controls in display
-    rac.Control.controls.forEach(item => item.draw());
-
-    // Rest is Control selection visuals
-    if (rac.Control.selection === null) {
-      return;
-    }
-
-    rac.Control.selection.drawSelection(pointerCenter);
-  };
+  // ArcControl
+  rac.ArcControl = require('./control/makeArcControl')(rac);
 
 
   return rac;
+
 }; // makeRac
 
 
@@ -2594,7 +2635,7 @@ addEnumConstant(makeRac, 'version', version);
 module.exports = makeRac;
 
 
-},{"../built/version":1,"./geometry/makeAngle":2,"./geometry/makeArc":3,"./geometry/makeBezier":4,"./geometry/makeComposite":5,"./geometry/makePoint":6,"./geometry/makeSegment":7,"./geometry/makeShape":8,"./makeP5Drawer":10,"./protoFunctions":11,"./visual/makeColor":13,"./visual/makeEaseFunction":14,"./visual/makeFill":15,"./visual/makeStroke":16,"./visual/makeStyle":17,"./visual/makeText.js":18}],13:[function(require,module,exports){
+},{"../built/version":1,"./control/makeArcControl":2,"./control/makeControl":3,"./control/makeSegmentControl":4,"./geometry/makeAngle":5,"./geometry/makeArc":6,"./geometry/makeBezier":7,"./geometry/makeComposite":8,"./geometry/makePoint":9,"./geometry/makeSegment":10,"./geometry/makeShape":11,"./makeP5Drawer":13,"./protoFunctions":14,"./visual/makeColor":16,"./visual/makeEaseFunction":17,"./visual/makeFill":18,"./visual/makeStroke":19,"./visual/makeStyle":20,"./visual/makeText.js":21}],16:[function(require,module,exports){
 'use strict';
 
 
@@ -2652,7 +2693,7 @@ module.exports = function makeColor(rac) {
 } // makeColor
 
 
-},{}],14:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 
@@ -2819,7 +2860,7 @@ module.exports = function makeEaseFunction(rac) {
 } // makeEaseFunction
 
 
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 
@@ -2842,7 +2883,7 @@ module.exports = function makeFill(rac) {
 } // makeFill
 
 
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 
@@ -2887,7 +2928,7 @@ module.exports = function makeStroke(rac) {
 } // makeStroke
 
 
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 
@@ -2913,7 +2954,7 @@ return class RacStyle {
 } // makeStyle
 
 
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 
@@ -2964,4 +3005,4 @@ module.exports = function makeText(rac) {
 } // makeText
 
 
-},{}]},{},[9]);
+},{}]},{},[12]);
