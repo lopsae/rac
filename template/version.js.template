@@ -1,4 +1,5 @@
 'useStrict';
 
+// Ruler and Compass - version
 module.exports = '<%= pkgVersion %>-<%= commitCount %>-<%= shortHash %>'
 
