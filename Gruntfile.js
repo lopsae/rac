@@ -36,8 +36,8 @@ module.exports = function(grunt) {
           if (error !== null) return;
 
           let shortHash = stdout.trim();
-          grunt.log.writeln(`Git short hash: ${shortHash}`);
           grunt.config('exec.shortHash.value', shortHash);
+          grunt.log.writeln(`Git short hash: ${shortHash}`);
         }
       }, // shortHash
       commitCount: {
@@ -47,8 +47,8 @@ module.exports = function(grunt) {
           if (error !== null) return;
 
           let commitCount = stdout.trim();
-          grunt.log.write(`Git commit count: ${commitCount}`);
           grunt.config('exec.commitCount.value', commitCount);
+          grunt.log.writeln(`Git commit count: ${commitCount}`);
         }
       } // commitCount
     } // exec
@@ -61,28 +61,34 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
 
-  grunt.registerTask('default', ['browserify']);
-
-  grunt.registerTask('makeVersionFile', [
-    'exec:shortHash', 'exec:commitCount', 'buildVersion']);
-
-  grunt.registerTask('buildVersion', function() {
+  grunt.registerTask('makeVersionFile', function() {
     grunt.config.requires(
       'exec.shortHash.value',
       'exec.commitCount.value',
       'pkg.version');
-    grunt.log.writeln(`Making a version file!`);
-    let templateContents = grunt.file.read('template/version.js.template');
-    // grunt.log.write(`Template: ${templateContents}`);
-    let processedTemplate = grunt.template.process(templateContents, {data: {
-      pkgVersion: grunt.config('pkg.version'),
-      shortHash: grunt.config('exec.shortHash.value'),
-      commitCount: grunt.config('exec.commitCount.value')}});
 
-    // grunt.log.write(`processedTemplate: ${processedTemplate}`);
+    let shortHash = grunt.config('exec.shortHash.value');
+    let commitCount = grunt.config('exec.commitCount.value');
+    let pkgVersion = grunt.config('pkg.version');
+
+    let templateContents = grunt.file.read('template/version.js.template');
+    let processedTemplate = grunt.template.process(templateContents, {data: {
+      pkgVersion: pkgVersion,
+      shortHash: shortHash,
+      commitCount: commitCount}});
+
     let outputFile = 'built/version.js';
-    grunt.log.writeln(`Saving to file: ${outputFile}`);
     grunt.file.write(outputFile, processedTemplate);
+    grunt.log.writeln(`Saved version file: ${pkgVersion}-${commitCount}-${shortHash}`);
   });
+
+
+  grunt.registerTask('default', ['browserify']);
+
+  grunt.registerTask('versionFile', [
+    'exec:shortHash', 'exec:commitCount', 'makeVersionFile']);
+
+  grunt.registerTask('dist', ['versionFile', 'browserify', 'connect:server']);
+
 
 };

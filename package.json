@@ -5,7 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "node tests/test.js",
-    "dist": "grunt browserify connect:server"
+    "dist": "grunt dist"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",

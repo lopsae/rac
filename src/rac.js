@@ -1,8 +1,8 @@
 'use strict';
 
 
-// Ruler and Compass - 0.9.10
-const version = '0.9.10-dev';
+// Ruler and Compass
+const version = require('../built/version');
 
 
 // Adds an enumerable constant to the given object.
