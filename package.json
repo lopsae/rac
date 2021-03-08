@@ -5,6 +5,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "node tests/test.js",
+    "serve": "grunt serve",
     "dist": "grunt dist"
   },
   "author": "Maic López Sáenz",

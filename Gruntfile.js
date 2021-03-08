@@ -132,12 +132,12 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('default', ['browserify']);
+  grunt.registerTask('default', ['serve']);
 
   grunt.registerTask('serve', [
     'versionFile', 'browserify', 'connect:server', 'watch:serve']);
 
-  grunt.registerTask('dist', ['versionFile', 'browserify', 'connect:server']);
+  grunt.registerTask('dist', ['versionFile:clean', 'browserify', 'connect:server:keepalive']);
 
 };
 
