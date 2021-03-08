@@ -1,4 +1,10 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+'useStrict';
+
+module.exports = '0.9.11-dev-37-4a08f2e'
+
+
+},{}],2:[function(require,module,exports){
 'use strict';
 
 
@@ -164,7 +170,7 @@ module.exports = function makeAngle(rac) {
 } // makeAngle
 
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 'use strict';
 
 
@@ -657,7 +663,7 @@ module.exports = function makeArc(rac) {
 } // makeArc
 
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 
@@ -693,7 +699,7 @@ module.exports = function makeBezier(rac) {
 } // makeBezier
 
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 
@@ -730,7 +736,7 @@ module.exports = function makeComposite(rac) {
 } // makeComposite
 
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 
@@ -896,7 +902,7 @@ module.exports = function makePoint(rac) {
 } // makePoint
 
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -1248,7 +1254,7 @@ module.exports = function makeX(rac) {
 } // makeSegment
 
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 
@@ -1274,7 +1280,7 @@ module.exports = function makeShape(rac) {
 } // makeShape
 
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 
 // https://github.com/umdjs/umd/blob/master/templates/returnExports.js
@@ -1308,7 +1314,7 @@ module.exports = function makeShape(rac) {
 }));
 
 
-},{"./rac":11}],9:[function(require,module,exports){
+},{"./rac":12}],10:[function(require,module,exports){
 'use strict';
 
 
@@ -1504,7 +1510,7 @@ module.exports = function makeP5Drawer(rac) {
 
 } // makeP5Drawer
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 
@@ -1620,12 +1626,12 @@ module.exports = function attachProtoFunctions(rac) {
 
 }
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 
-// Ruler and Compass - 0.9.10
-const version = '0.9.10-dev';
+// Ruler and Compass
+const version = require('../built/version');
 
 
 // Adds an enumerable constant to the given object.
@@ -2588,7 +2594,7 @@ addEnumConstant(makeRac, 'version', version);
 module.exports = makeRac;
 
 
-},{"./geometry/makeAngle":1,"./geometry/makeArc":2,"./geometry/makeBezier":3,"./geometry/makeComposite":4,"./geometry/makePoint":5,"./geometry/makeSegment":6,"./geometry/makeShape":7,"./makeP5Drawer":9,"./protoFunctions":10,"./visual/makeColor":12,"./visual/makeEaseFunction":13,"./visual/makeFill":14,"./visual/makeStroke":15,"./visual/makeStyle":16,"./visual/makeText.js":17}],12:[function(require,module,exports){
+},{"../built/version":1,"./geometry/makeAngle":2,"./geometry/makeArc":3,"./geometry/makeBezier":4,"./geometry/makeComposite":5,"./geometry/makePoint":6,"./geometry/makeSegment":7,"./geometry/makeShape":8,"./makeP5Drawer":10,"./protoFunctions":11,"./visual/makeColor":13,"./visual/makeEaseFunction":14,"./visual/makeFill":15,"./visual/makeStroke":16,"./visual/makeStyle":17,"./visual/makeText.js":18}],13:[function(require,module,exports){
 'use strict';
 
 
@@ -2646,7 +2652,7 @@ module.exports = function makeColor(rac) {
 } // makeColor
 
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 
@@ -2813,7 +2819,7 @@ module.exports = function makeEaseFunction(rac) {
 } // makeEaseFunction
 
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 
@@ -2836,7 +2842,7 @@ module.exports = function makeFill(rac) {
 } // makeFill
 
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 
@@ -2881,7 +2887,7 @@ module.exports = function makeStroke(rac) {
 } // makeStroke
 
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 
@@ -2907,7 +2913,7 @@ return class RacStyle {
 } // makeStyle
 
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 
@@ -2958,4 +2964,4 @@ module.exports = function makeText(rac) {
 } // makeText
 
 
-},{}]},{},[8]);
+},{}]},{},[9]);
