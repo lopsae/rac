@@ -50,8 +50,7 @@ module.exports = function makeP5Drawer(rac) {
       }
     }
 
-    // TODO: rename to setClassDrawStyle
-    setClassStyle(classObj, style) {
+    setClassDrawStyle(classObj, style) {
       let routine = this.drawRoutines
         .find(routine => routine.classObj === classObj);
       if (routine === undefined) {
@@ -245,7 +244,7 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       rac.Style.prototype.applyToClass = function(classObj) {
-        rac.drawer.setClassStyle(classObj, this);
+        rac.drawer.setClassDrawStyle(classObj, this);
       }
 
     } // setupAllApplyFunctions
