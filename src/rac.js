@@ -46,6 +46,7 @@ class Rac {
       invalidObjectConfiguration: 'Invalid object configuration',
       invalidObjectToConvert: 'Invalid object to convert',
       invalidObjectToDraw: 'Invalid object to draw',
+      invalidObjectToApply: 'Invalid object to apply',
       drawerNotSetup: 'Drawer not setup'}
   }
 
@@ -79,8 +80,8 @@ let makeRac = function makeRac() {
 
 
 // TODO: rename to attachProtoFunction
-  let attachProtoFunctions = require('./protoFunctions');
-  attachProtoFunctions(rac);
+  // Prototype functions
+  require('./protoFunctions')(rac);
 
 
   // P5Drawer
@@ -90,62 +91,20 @@ let makeRac = function makeRac() {
   // Color
   rac.Color = require('./visual/makeColor')(rac);
 
-  // TODO: applies should also go through the drawer
-  rac.Color.prototype.applyBackground = function() {
-    rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
-  };
-
-  rac.Color.prototype.applyFill = function() {
-    rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
-  };
-
 
   // Stroke
   rac.Stroke = require('./visual/makeStroke')(rac);
-
-  rac.Stroke.prototype.apply = function(){
-    if (this.color === null) {
-      rac.drawer.p5.noStroke();
-      return;
-    }
-
-    rac.drawer.p5.stroke(
-      this.color.r * 255,
-      this.color.g * 255,
-      this.color.b * 255,
-      this.color.alpha * 255);
-    rac.drawer.p5.strokeWeight(this.weight);
-  };
+  rac.setupStyleProtoFunctions(rac.Stroke);
 
 
   // Fill
   rac.Fill = require('./visual/makeFill')(rac);
-
-  rac.Fill.prototype.apply = function() {
-    if (this.color === null) {
-      rac.drawer.p5.noFill();
-      return;
-    }
-
-    this.color.applyFill();
-  }
+  rac.setupStyleProtoFunctions(rac.Fill);
 
 
   // Style
   rac.Style = require('./visual/makeStyle')(rac);
-
-  rac.Style.prototype.apply = function() {
-    if (this.stroke !== null) {
-      this.stroke.apply();
-    }
-    if (this.fill !== null) {
-      this.fill.apply();
-    }
-  }
-
-  rac.Style.prototype.applyToClass = function(classObj) {
-    rac.drawer.setClassStyle(classObj, this);
-  }
+  rac.setupStyleProtoFunctions(rac.Style);
 
 
   // Text

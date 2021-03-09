@@ -3,15 +3,16 @@
 
 module.exports = function attachProtoFunctions(rac) {
 
-  // Container for prototype functions
-  rac.drawableProtoFunctions = {};
-
   function checkDrawer(rac) {
     if (rac.drawer === null) {
       console.trace(`Drawer is not setup - element-type:${rac.typeName(this)}`);
       throw rac.Error.drawerNotSetup;
     }
   }
+
+
+  // Container of prototype functions for drawable classes.
+  rac.drawableProtoFunctions = {};
 
   // Adds to the given class prototype all the functions contained in
   // `rac.drawableProtoFunctions`. These are functions shared by all
@@ -119,6 +120,25 @@ module.exports = function attachProtoFunctions(rac) {
 
     console.trace(`Cannot attachTo composite - someComposite-type:${rac.typeName(someComposite)}`);
     throw rac.Error.invalidObjectToConvert;
+  };
+
+
+  // Container of prototype functions for style classes.
+  rac.styleProtoFunctions = {};
+
+  // Adds to the given class prototype all the functions contained in
+  // `rac.styleProtoFunctions`. These are functions shared by all
+  // style objects (E.g. `apply()`).
+  rac.setupStyleProtoFunctions = function(classObj) {
+    Object.keys(rac.styleProtoFunctions).forEach(name => {
+      classObj.prototype[name] = rac.styleProtoFunctions[name];
+    });
+  }
+
+
+  rac.styleProtoFunctions.apply = function(){
+    checkDrawer(rac);
+    rac.drawer.applyElement(this);
   };
 
 }

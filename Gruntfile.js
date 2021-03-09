@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 
     let outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
-    grunt.log.writeln(`Saved ${clean?"clean ":""}version file: ${versionString}`);
+    grunt.log.writeln(`Saved ${clean?"clean ".green.bold:""}version file: ${versionString.green.bold}`);
   });
 
 

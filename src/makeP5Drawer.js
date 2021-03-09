@@ -9,34 +9,36 @@ module.exports = function makeP5Drawer(rac) {
 
     constructor(rac, p5){
       this.p5 = p5;
-      this.routines = [];
+      this.drawRoutines = [];
+      this.applyRoutines = [];
       this.enabled = true;
       this.debugStyle = null;
 
       this.setupAllDrawFunctions(rac);
+      this.setupAllApplyFunctions(rac);
     }
 
     // Adds a routine for the given class. The `drawFunction` function will be
     // called passing the element to be drawn as `this`.
     setDrawFunction(classObj, drawFunction) {
-      let index = this.routines
+      let index = this.drawRoutines
         .findIndex(routine => routine.classObj === classObj);
 
       let routine;
       if (index === -1) {
         routine = new RacP5Drawer.DrawRoutine(classObj, drawFunction);
       } else {
-        routine = this.routines[index];
+        routine = this.drawRoutines[index];
         routine.drawFunction = drawFunction;
         // Delete routine
-        this.routine.splice(index, 1);
+        this.drawRoutines.splice(index, 1);
       }
 
-      this.routines.push(routine);
+      this.drawRoutines.push(routine);
     }
 
     setDrawOptions(classObj, options) {
-      let routine = this.routines
+      let routine = this.drawRoutines
         .find(routine => routine.classObj === classObj);
       if (routine === undefined) {
         console.log(`Cannot find routine for class - className:${classObj.name}`);
@@ -48,8 +50,9 @@ module.exports = function makeP5Drawer(rac) {
       }
     }
 
+    // TODO: rename to setClassDrawStyle
     setClassStyle(classObj, style) {
-      let routine = this.routines
+      let routine = this.drawRoutines
         .find(routine => routine.classObj === classObj);
       if (routine === undefined) {
         console.log(`Cannot find routine for class - className:${classObj.name}`);
@@ -59,8 +62,25 @@ module.exports = function makeP5Drawer(rac) {
       routine.style = style;
     }
 
+    setApplyFunction(classObj, applyFunction) {
+      let index = this.applyRoutines
+        .findIndex(routine => routine.classObj === classObj);
+
+      let routine;
+      if (index === -1) {
+        routine = new RacP5Drawer.ApplyRoutine(classObj, applyFunction);
+      } else {
+        routine = this.applyRoutines[index];
+        routine.drawFunction = drawFunction;
+        // Delete routine
+        this.applyRoutines.splice(index, 1);
+      }
+
+      this.applyRoutines.push(routine);
+    }
+
     drawElement(element, style = null) {
-      let routine = this.routines
+      let routine = this.drawRoutines
         .find(routine => element instanceof routine.classObj);
       if (routine === undefined) {
         console.trace(`Cannot draw element - element-type:${rac.typeName(element)}`);
@@ -88,6 +108,17 @@ module.exports = function makeP5Drawer(rac) {
 
     debugElement(element) {
       this.drawElement(element, this.debugStyle);
+    }
+
+    applyElement(element) {
+      let routine = this.applyRoutines
+        .find(routine => element instanceof routine.classObj);
+      if (routine === undefined) {
+        console.trace(`Cannot apply element - element-type:${rac.typeName(element)}`);
+        throw rac.Error.invalidObjectToApply;
+      }
+
+      routine.applyFunction(this, element);
     }
 
     // Sets up all drawing routines for rac drawable clases.
@@ -167,12 +198,57 @@ module.exports = function makeP5Drawer(rac) {
 
 
     // Sets up all applying routines for rac style clases.
+    // Also attaches additional prototype functions in relevant classes.
     setupAllApplyFunctions(rac) {
+      // Color prototype functions
+      rac.Color.prototype.applyBackground = function() {
+        rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
+      };
 
-    }
+      rac.Color.prototype.applyFill = function() {
+        rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      };
 
+      rac.Color.prototype.applyStroke = function() {
+        rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      };
 
+      // Stroke
+      this.setApplyFunction(rac.Stroke, (drawer, stroke) => {
+        if (stroke.color === null) {
+          drawer.p5.noStroke();
+          return;
+        }
 
+        stroke.color.applyStroke();
+        drawer.p5.strokeWeight(stroke.weight);
+      });
+
+      // Fill
+      this.setApplyFunction(rac.Fill, (drawer, fill) => {
+        if (fill.color === null) {
+          rac.drawer.p5.noFill();
+          return;
+        }
+
+        fill.color.applyFill();
+      });
+
+      // Style
+      this.setApplyFunction(rac.Style, (drawer, style) => {
+        if (style.stroke !== null) {
+          style.stroke.apply();
+        }
+        if (style.fill !== null) {
+          style.fill.apply();
+        }
+      });
+
+      rac.Style.prototype.applyToClass = function(classObj) {
+        rac.drawer.setClassStyle(classObj, this);
+      }
+
+    } // setupAllApplyFunctions
 
 
       // Encapsulates the drawing function and options for a specific class.
@@ -209,3 +285,4 @@ module.exports = function makeP5Drawer(rac) {
   } // RacP5Drawer
 
 } // makeP5Drawer
+
