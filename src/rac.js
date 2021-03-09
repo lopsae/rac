@@ -119,15 +119,6 @@ let makeRac = function makeRac() {
   rac.setupDrawableProtoFunctions(rac.Point);
 
   // TODO: functions should be added by P5 drawer
-  // TODO: implemenent drawingAreaCenter, rename to pointer
-  rac.Point.mouse = function() {
-    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
-  }
-
-  rac.Point.center = function() {
-    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
-  }
-
   rac.Point.prototype.vertex = function() {
     rac.drawer.p5.vertex(this.x, this.y);
     return this;

@@ -120,11 +120,21 @@ module.exports = function makeP5Drawer(rac) {
     }
 
     // Sets up all drawing routines for rac drawable clases.
+    // Also attaches additional prototype and static functions in relevant
+    // classes.
     setupAllDrawFunctions(rac) {
       // Point
       this.setDrawFunction(rac.Point, (drawer, point) => {
         drawer.p5.point(point.x, point.y);
       });
+
+      rac.Point.pointer = function() {
+        return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
+      };
+
+      rac.Point.canvasCenter = function() {
+        return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+      };
 
       // Segment
       this.setDrawFunction(rac.Segment, (drawer, segment) => {

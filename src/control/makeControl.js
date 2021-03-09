@@ -42,7 +42,7 @@ module.exports = function makeControl(rac) {
         // Segment from the captured pointer position to the contro center,
         // used to attach the control to the point where interaction started.
         // Pointer is at `segment.start` and control center is at `segment.end`.
-        this.pointerOffset = rac.Point.mouse().segmentToPoint(control.center());
+        this.pointerOffset = rac.Point.pointer().segmentToPoint(control.center());
       }
 
       drawSelection(pointerCenter) {
@@ -294,7 +294,7 @@ module.exports = function makeControl(rac) {
     }
 
     // Pointer pressed
-    let pointerCenter = rac.Point.mouse();
+    let pointerCenter = rac.Point.pointer();
     if (rac.drawer.p5.mouseIsPressed) {
       if (RacControl.selection === null) {
         pointerCenter.arc(10).draw(pointerStyle);
