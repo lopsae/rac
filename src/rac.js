@@ -109,45 +109,6 @@ let makeRac = function makeRac() {
   rac.Text = require('./visual/makeText.js')(rac);
   rac.setupDrawableProtoFunctions(rac.Text);
 
-  // TODO: should be added by drawerp5
-  rac.Text.Format.prototype.apply = function(point) {
-    let hAlign;
-    let hOptions = rac.Text.Format.horizontal;
-    switch (this.horizontal) {
-      case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
-      case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
-      case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
-      default:
-        console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-        throw rac.Error.invalidObjectConfiguration;
-    }
-
-    let vAlign;
-    let vOptions = rac.Text.Format.vertical;
-    switch (this.vertical) {
-      case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
-      case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
-      case vOptions.center:   vAlign = rac.drawer.p5.CENTER;   break;
-      case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
-      default:
-        console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-        throw rac.Error.invalidObjectConfiguration;
-    }
-
-    // Text properties
-    rac.drawer.p5.textAlign(hAlign, vAlign);
-    rac.drawer.p5.textSize(this.size);
-    if (this.font !== null) {
-      rac.drawer.p5.textFont(this.font);
-    }
-
-    // Positioning
-    rac.drawer.p5.translate(point.x, point.y);
-    if (this.rotation.turn != 0) {
-      rac.drawer.p5.rotate(this.rotation.radians());
-    }
-  }
-
 
   // Angle
   rac.Angle = require('./geometry/makeAngle')(rac);
