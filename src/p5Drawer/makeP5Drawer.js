@@ -128,6 +128,10 @@ module.exports = function makeP5Drawer(rac) {
         drawer.p5.point(point.x, point.y);
       });
 
+      rac.Point.prototype.vertex = function() {
+        rac.drawer.p5.vertex(this.x, this.y);
+      };
+
       rac.Point.pointer = function() {
         return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       };
@@ -142,6 +146,11 @@ module.exports = function makeP5Drawer(rac) {
           segment.start.x, segment.start.y,
           segment.end.x,   segment.end.y);
       });
+
+      rac.Segment.prototype.vertex = function() {
+        this.start.vertex();
+        this.end.vertex();
+      };
 
       // Arc
       this.setDrawFunction(rac.Arc, (drawer, arc) => {
@@ -168,6 +177,17 @@ module.exports = function makeP5Drawer(rac) {
           start.radians(), end.radians());
       });
 
+      rac.Arc.prototype.vertex = function() {
+        let arcLength = this.arcLength();
+        let beziersPerTurn = 5;
+        let divisions = arcLength.turn == 0
+          ? beziersPerTurn
+          // TODO: use turnOne? when possible to test
+          : Math.ceil(arcLength.turn * beziersPerTurn);
+
+        this.divideToBeziers(divisions).vertex();
+      };
+
       // Bezier
       this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
         drawer.p5.bezier(
@@ -177,10 +197,22 @@ module.exports = function makeP5Drawer(rac) {
           bezier.end.x, bezier.end.y);
       });
 
+      rac.Bezier.prototype.vertex = function() {
+        this.start.vertex()
+        rac.drawer.p5.bezierVertex(
+          this.startAnchor.x, this.startAnchor.y,
+          this.endAnchor.x, this.endAnchor.y,
+          this.end.x, this.end.y);
+      };
+
       // Composite
       this.setDrawFunction(rac.Composite, (drawer, composite) => {
         composite.sequence.forEach(item => item.draw());
       });
+
+      rac.Composite.prototype.vertex = function() {
+        this.sequence.forEach(item => item.vertex());
+      };
 
       // Shape
       this.setDrawFunction(rac.Shape, (drawer, shape) => {
@@ -194,6 +226,11 @@ module.exports = function makeP5Drawer(rac) {
         }
         drawer.p5.endShape();
       });
+
+      rac.Shape.prototype.vertex = function() {
+        this.outline.vertex();
+        this.contour.vertex();
+      };
 
       // Text
       this.setDrawFunction(rac.Text, (drawer, text) => {

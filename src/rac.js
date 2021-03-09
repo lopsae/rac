@@ -118,74 +118,30 @@ let makeRac = function makeRac() {
   rac.Point = require('./drawable/makePoint')(rac);
   rac.setupDrawableProtoFunctions(rac.Point);
 
-  // TODO: functions should be added by P5 drawer
-  rac.Point.prototype.vertex = function() {
-    rac.drawer.p5.vertex(this.x, this.y);
-    return this;
-  }
-
 
   // Segment
   rac.Segment = require('./drawable/makeSegment')(rac);
   rac.setupDrawableProtoFunctions(rac.Segment);
 
-  // TODO: should be added by p5drawer
-  rac.Segment.prototype.vertex = function() {
-    this.start.vertex();
-    this.end.vertex();
-    return this;
-  }
 
-
+  // Arc
   rac.Arc = require('./drawable/makeArc')(rac);
   rac.setupDrawableProtoFunctions(rac.Arc);
-
-  // TODO: should be added by p5drawer
-  rac.Arc.prototype.vertex = function() {
-    let arcLength = this.arcLength();
-    let beziersPerTurn = 5;
-    let divisions = arcLength.turn == 0
-      ? beziersPerTurn
-      // TODO: use turnOne? when possible to test
-      : Math.ceil(arcLength.turn * beziersPerTurn);
-
-    this.divideToBeziers(divisions).vertex();
-    return this;
-  }
 
 
   // Bezier
   rac.Bezier = require('./drawable/makeBezier')(rac);
   rac.setupDrawableProtoFunctions(rac.Bezier);
 
-  rac.Bezier.prototype.vertex = function() {
-    this.start.vertex()
-    rac.drawer.p5.bezierVertex(
-      this.startAnchor.x, this.startAnchor.y,
-      this.endAnchor.x, this.endAnchor.y,
-      this.end.x, this.end.y);
-  };
-
 
   // Composite
   rac.Composite = require('./drawable/makeComposite')(rac);
   rac.setupDrawableProtoFunctions(rac.Composite);
 
-  // TODO: should be added by drawerp5
-  rac.Composite.prototype.vertex = function() {
-    this.sequence.forEach(item => item.vertex());
-  };
-
 
   // Shape
   rac.Shape = require('./drawable/makeShape')(rac);
   rac.setupDrawableProtoFunctions(rac.Shape);
-
-  // TODO: should be added by drawerp5
-  rac.Shape.prototype.vertex = function() {
-    this.outline.vertex();
-    this.contour.vertex();
-  };
 
 
   // EaseFunction
