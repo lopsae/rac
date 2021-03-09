@@ -83,39 +83,39 @@ let makeRac = function makeRac() {
 
 
   // P5Drawer
-  rac.P5Drawer = require('./makeP5Drawer')(rac);
+  rac.P5Drawer = require('./p5Drawer/makeP5Drawer')(rac);
 
 
   // Color
-  rac.Color = require('./visual/makeColor')(rac);
+  rac.Color = require('./style/makeColor')(rac);
 
 
   // Stroke
-  rac.Stroke = require('./visual/makeStroke')(rac);
+  rac.Stroke = require('./style/makeStroke')(rac);
   rac.setupStyleProtoFunctions(rac.Stroke);
 
 
   // Fill
-  rac.Fill = require('./visual/makeFill')(rac);
+  rac.Fill = require('./style/makeFill')(rac);
   rac.setupStyleProtoFunctions(rac.Fill);
 
 
   // Style
-  rac.Style = require('./visual/makeStyle')(rac);
+  rac.Style = require('./style/makeStyle')(rac);
   rac.setupStyleProtoFunctions(rac.Style);
 
 
   // Text
-  rac.Text = require('./visual/makeText.js')(rac);
+  rac.Text = require('./drawable/makeText.js')(rac);
   rac.setupDrawableProtoFunctions(rac.Text);
 
 
   // Angle
-  rac.Angle = require('./geometry/makeAngle')(rac);
+  rac.Angle = require('./drawable/makeAngle')(rac);
 
 
   // Point
-  rac.Point = require('./geometry/makePoint')(rac);
+  rac.Point = require('./drawable/makePoint')(rac);
   rac.setupDrawableProtoFunctions(rac.Point);
 
   // TODO: functions should be added by P5 drawer
@@ -126,7 +126,7 @@ let makeRac = function makeRac() {
 
 
   // Segment
-  rac.Segment = require('./geometry/makeSegment')(rac);
+  rac.Segment = require('./drawable/makeSegment')(rac);
   rac.setupDrawableProtoFunctions(rac.Segment);
 
   // TODO: should be added by p5drawer
@@ -137,7 +137,7 @@ let makeRac = function makeRac() {
   }
 
 
-  rac.Arc = require('./geometry/makeArc')(rac);
+  rac.Arc = require('./drawable/makeArc')(rac);
   rac.setupDrawableProtoFunctions(rac.Arc);
 
   // TODO: should be added by p5drawer
@@ -155,7 +155,7 @@ let makeRac = function makeRac() {
 
 
   // Bezier
-  rac.Bezier = require('./geometry/makeBezier')(rac);
+  rac.Bezier = require('./drawable/makeBezier')(rac);
   rac.setupDrawableProtoFunctions(rac.Bezier);
 
   rac.Bezier.prototype.vertex = function() {
@@ -168,7 +168,7 @@ let makeRac = function makeRac() {
 
 
   // Composite
-  rac.Composite = require('./geometry/makeComposite')(rac);
+  rac.Composite = require('./drawable/makeComposite')(rac);
   rac.setupDrawableProtoFunctions(rac.Composite);
 
   // TODO: should be added by drawerp5
@@ -178,7 +178,7 @@ let makeRac = function makeRac() {
 
 
   // Shape
-  rac.Shape = require('./geometry/makeShape')(rac);
+  rac.Shape = require('./drawable/makeShape')(rac);
   rac.setupDrawableProtoFunctions(rac.Shape);
 
   // TODO: should be added by drawerp5
@@ -189,7 +189,7 @@ let makeRac = function makeRac() {
 
 
   // EaseFunction
-  rac.EaseFunction = require('./visual/makeEaseFunction')(rac);
+  rac.EaseFunction = require('./util/makeEaseFunction')(rac);
 
 
   // Control
