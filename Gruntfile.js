@@ -141,5 +141,3 @@ module.exports = function(grunt) {
 
 };
 
-// TODO: task that makes bundle and commits it for the current hash, make version
-// bundle file, commit, serve. check for no modified files when bundling, check for bundle producing an aleady commited file

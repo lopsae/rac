@@ -4,25 +4,35 @@
 module.exports = function attachProtoFunctions(rac) {
 
   // Container for prototype functions
-  rac.protoFunctions = {};
+  rac.drawableProtoFunctions = {};
+
+  function checkDrawer(rac) {
+    if (rac.drawer === null) {
+      console.trace(`Drawer is not setup - element-type:${rac.typeName(this)}`);
+      throw rac.Error.drawerNotSetup;
+    }
+  }
 
   // Adds to the given class prototype all the functions contained in
-  // `rac.protoFunctions`. These are functions shared by all visual
-  // objects like `draw()` and `debug()`.
-  rac.setupProtoFunctions = function(classObj) {
-    Object.keys(rac.protoFunctions).forEach(name => {
-      classObj.prototype[name] = rac.protoFunctions[name];
+  // `rac.drawableProtoFunctions`. These are functions shared by all
+  // drawable objects (E.g. `draw()` and `debug()`).
+  rac.setupDrawableProtoFunctions = function(classObj) {
+    Object.keys(rac.drawableProtoFunctions).forEach(name => {
+      classObj.prototype[name] = rac.drawableProtoFunctions[name];
     });
   }
 
 
-  rac.protoFunctions.draw = function(style = null){
-    // TODO: add error if drawer has not been set
+  rac.drawableProtoFunctions.draw = function(style = null){
+    checkDrawer(rac);
+
     rac.drawer.drawElement(this, style);
     return this;
   };
 
-  rac.protoFunctions.debug = function(){
+  rac.drawableProtoFunctions.debug = function(){
+    checkDrawer(rac);
+
     rac.drawer.debugElement(this);
     return this;
   };
@@ -34,16 +44,16 @@ module.exports = function attachProtoFunctions(rac) {
     return rac.stack[rac.stack.length - 1];
   }
 
-  rac.protoFunctions.push = function() {
+  rac.drawableProtoFunctions.push = function() {
     rac.stack.push(this);
     return this;
   }
 
-  rac.protoFunctions.pop = function() {
+  rac.drawableProtoFunctions.pop = function() {
     return rac.stack.pop();
   }
 
-  rac.protoFunctions.peek = function() {
+  rac.drawableProtoFunctions.peek = function() {
     return rac.stack.peek();
   }
 
@@ -64,7 +74,7 @@ module.exports = function attachProtoFunctions(rac) {
     return composite;
   }
 
-  rac.protoFunctions.attachToShape = function() {
+  rac.drawableProtoFunctions.attachToShape = function() {
     if (rac.currentShape === null) {
       rac.currentShape = new rac.Shape();
     }
@@ -73,17 +83,17 @@ module.exports = function attachProtoFunctions(rac) {
     return this;
   }
 
-  rac.protoFunctions.popShape = function() {
+  rac.drawableProtoFunctions.popShape = function() {
     return rac.popShape();
   }
 
-  rac.protoFunctions.popShapeToComposite = function() {
+  rac.drawableProtoFunctions.popShapeToComposite = function() {
     let shape = rac.popShape();
     shape.attachToComposite();
     return this;
   }
 
-  rac.protoFunctions.attachToComposite = function() {
+  rac.drawableProtoFunctions.attachToComposite = function() {
     if (rac.currentComposite === null) {
       rac.currentComposite = new rac.Composite();
     }
@@ -92,11 +102,11 @@ module.exports = function attachProtoFunctions(rac) {
     return this;
   }
 
-  rac.protoFunctions.popComposite = function() {
+  rac.drawableProtoFunctions.popComposite = function() {
     return rac.popComposite();
   }
 
-  rac.protoFunctions.attachTo = function(someComposite) {
+  rac.drawableProtoFunctions.attachTo = function(someComposite) {
     if (someComposite instanceof rac.Composite) {
       someComposite.add(this);
       return this;

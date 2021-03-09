@@ -24,7 +24,7 @@ module.exports = function makeP5Drawer(rac) {
 
       let routine;
       if (index === -1) {
-        routine = new RacP5Drawer.Routine(classObj, drawFunction);
+        routine = new RacP5Drawer.DrawRoutine(classObj, drawFunction);
       } else {
         routine = this.routines[index];
         routine.drawFunction = drawFunction;
@@ -90,7 +90,7 @@ module.exports = function makeP5Drawer(rac) {
       this.drawElement(element, this.debugStyle);
     }
 
-    // Sets up all drawing routines for rac clases.
+    // Sets up all drawing routines for rac drawable clases.
     setupAllDrawFunctions(rac) {
       // Point
       this.setDrawFunction(rac.Point, (drawer, point) => {
@@ -166,9 +166,18 @@ module.exports = function makeP5Drawer(rac) {
     } // setupAllDrawFunctions
 
 
+    // Sets up all applying routines for rac style clases.
+    setupAllApplyFunctions(rac) {
+
+    }
+
+
+
+
+
       // Encapsulates the drawing function and options for a specific class.
-      // The draw function is called with an instance of the drawer, and
-      // the object to draw.
+      // The draw function is called with two parameters: the instance of the
+      // drawer, and the object to draw.
       //
       // Optionally a `style` can be asigned to always be applied before
       // drawing an instance of the associated class. This style will be
@@ -178,7 +187,7 @@ module.exports = function makeP5Drawer(rac) {
       // a `push` and `pop` before and after all the style and drawing in
       // the routine. This is intended for objects which drawing operations
       // may need to push transformation to the stack.
-    static Routine = class RacDrawerRoutine {
+    static DrawRoutine = class RacDrawerP5DrawRoutine {
       constructor (classObj, drawFunction) {
         this.classObj = classObj;
         this.drawFunction = drawFunction
@@ -186,6 +195,14 @@ module.exports = function makeP5Drawer(rac) {
 
         // Options
         this.requiresPushPop = false;
+      }
+    }
+
+
+    static ApplyRoutine = class RacDrawerP5ApplyRoutine {
+      constructor (classObj, applyFunction) {
+        this.classObj = classObj;
+        this.applyFunction = applyFunction
       }
     }
 

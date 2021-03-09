@@ -41,11 +41,12 @@ class Rac {
 
     // Error identifiers
     this.Error = {
-      abstractFunctionCalled: "Abstract function called",
-      invalidParameterCombination: "Invalid parameter combination",
-      invalidObjectConfiguration: "Invalid object configuration",
-      invalidObjectToConvert: "Invalid object to convert",
-      invalidObjectToDraw: "Invalid object to draw"}
+      abstractFunctionCalled: 'Abstract function called',
+      invalidParameterCombination: 'Invalid parameter combination',
+      invalidObjectConfiguration: 'Invalid object configuration',
+      invalidObjectToConvert: 'Invalid object to convert',
+      invalidObjectToDraw: 'Invalid object to draw',
+      drawerNotSetup: 'Drawer not setup'}
   }
 
   // Sets the drawer for the instance. Currently only a p5.js instance
@@ -77,6 +78,7 @@ let makeRac = function makeRac() {
   };
 
 
+// TODO: rename to attachProtoFunction
   let attachProtoFunctions = require('./protoFunctions');
   attachProtoFunctions(rac);
 
@@ -148,7 +150,7 @@ let makeRac = function makeRac() {
 
   // Text
   rac.Text = require('./visual/makeText.js')(rac);
-  rac.setupProtoFunctions(rac.Text);
+  rac.setupDrawableProtoFunctions(rac.Text);
 
   // TODO: should be added by drawerp5
   rac.Text.Format.prototype.apply = function(point) {
@@ -196,7 +198,7 @@ let makeRac = function makeRac() {
 
   // Point
   rac.Point = require('./geometry/makePoint')(rac);
-  rac.setupProtoFunctions(rac.Point);
+  rac.setupDrawableProtoFunctions(rac.Point);
 
   // TODO: functions should be added by P5 drawer
   // TODO: implemenent drawingAreaCenter, rename to pointer
@@ -216,7 +218,7 @@ let makeRac = function makeRac() {
 
   // Segment
   rac.Segment = require('./geometry/makeSegment')(rac);
-  rac.setupProtoFunctions(rac.Segment);
+  rac.setupDrawableProtoFunctions(rac.Segment);
 
   // TODO: should be added by p5drawer
   rac.Segment.prototype.vertex = function() {
@@ -227,7 +229,7 @@ let makeRac = function makeRac() {
 
 
   rac.Arc = require('./geometry/makeArc')(rac);
-  rac.setupProtoFunctions(rac.Arc);
+  rac.setupDrawableProtoFunctions(rac.Arc);
 
   // TODO: should be added by p5drawer
   rac.Arc.prototype.vertex = function() {
@@ -245,7 +247,7 @@ let makeRac = function makeRac() {
 
   // Bezier
   rac.Bezier = require('./geometry/makeBezier')(rac);
-  rac.setupProtoFunctions(rac.Bezier);
+  rac.setupDrawableProtoFunctions(rac.Bezier);
 
   rac.Bezier.prototype.vertex = function() {
     this.start.vertex()
@@ -258,7 +260,7 @@ let makeRac = function makeRac() {
 
   // Composite
   rac.Composite = require('./geometry/makeComposite')(rac);
-  rac.setupProtoFunctions(rac.Composite);
+  rac.setupDrawableProtoFunctions(rac.Composite);
 
   // TODO: should be added by drawerp5
   rac.Composite.prototype.vertex = function() {
@@ -268,7 +270,7 @@ let makeRac = function makeRac() {
 
   // Shape
   rac.Shape = require('./geometry/makeShape')(rac);
-  rac.setupProtoFunctions(rac.Shape);
+  rac.setupDrawableProtoFunctions(rac.Shape);
 
   // TODO: should be added by drawerp5
   rac.Shape.prototype.vertex = function() {
