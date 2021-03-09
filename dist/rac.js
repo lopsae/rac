@@ -2,10 +2,156 @@
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.9.11-dev-47-5f0bbef'
+module.exports = '0.9.11-dev-55-c76a28e'
 
 
 },{}],2:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function attachProtoFunctions(rac) {
+
+  function checkDrawer(rac) {
+    if (rac.drawer === null) {
+      console.trace(`Drawer is not setup`);
+      throw rac.Error.drawerNotSetup;
+    }
+  }
+
+
+  // Container of prototype functions for drawable classes.
+  rac.drawableProtoFunctions = {};
+
+  // Adds to the given class prototype all the functions contained in
+  // `rac.drawableProtoFunctions`. These are functions shared by all
+  // drawable objects (E.g. `draw()` and `debug()`).
+  rac.setupDrawableProtoFunctions = function(classObj) {
+    Object.keys(rac.drawableProtoFunctions).forEach(name => {
+      classObj.prototype[name] = rac.drawableProtoFunctions[name];
+    });
+  }
+
+
+  rac.drawableProtoFunctions.draw = function(style = null){
+    checkDrawer(rac);
+
+    rac.drawer.drawObject(this, style);
+    return this;
+  };
+
+  rac.drawableProtoFunctions.debug = function(){
+    checkDrawer(rac);
+
+    rac.drawer.debugObject(this);
+    return this;
+  };
+
+
+  rac.stack = [];
+
+  rac.stack.peek = function() {
+    return rac.stack[rac.stack.length - 1];
+  }
+
+  rac.drawableProtoFunctions.push = function() {
+    rac.stack.push(this);
+    return this;
+  }
+
+  rac.drawableProtoFunctions.pop = function() {
+    return rac.stack.pop();
+  }
+
+  rac.drawableProtoFunctions.peek = function() {
+    return rac.stack.peek();
+  }
+
+  // TODO: shape and composite should be stacks, so that several can be
+  // started in different contexts
+  rac.currentShape = null;
+  rac.currentComposite = null;
+
+  rac.popShape = function() {
+    let shape = rac.currentShape;
+    rac.currentShape = null;
+    return shape;
+  }
+
+  rac.popComposite = function() {
+    let composite = rac.currentComposite;
+    rac.currentComposite = null;
+    return composite;
+  }
+
+  rac.drawableProtoFunctions.attachToShape = function() {
+    if (rac.currentShape === null) {
+      rac.currentShape = new rac.Shape();
+    }
+
+    this.attachTo(rac.currentShape);
+    return this;
+  }
+
+  rac.drawableProtoFunctions.popShape = function() {
+    return rac.popShape();
+  }
+
+  rac.drawableProtoFunctions.popShapeToComposite = function() {
+    let shape = rac.popShape();
+    shape.attachToComposite();
+    return this;
+  }
+
+  rac.drawableProtoFunctions.attachToComposite = function() {
+    if (rac.currentComposite === null) {
+      rac.currentComposite = new rac.Composite();
+    }
+
+    this.attachTo(rac.currentComposite);
+    return this;
+  }
+
+  rac.drawableProtoFunctions.popComposite = function() {
+    return rac.popComposite();
+  }
+
+  rac.drawableProtoFunctions.attachTo = function(someComposite) {
+    if (someComposite instanceof rac.Composite) {
+      someComposite.add(this);
+      return this;
+    }
+
+    if (someComposite instanceof rac.Shape) {
+      someComposite.addOutline(this);
+      return this;
+    }
+
+    console.trace(`Cannot attachTo composite - someComposite-type:${rac.typeName(someComposite)}`);
+    throw rac.Error.invalidObjectToConvert;
+  };
+
+
+  // Container of prototype functions for style classes.
+  rac.styleProtoFunctions = {};
+
+  // Adds to the given class prototype all the functions contained in
+  // `rac.styleProtoFunctions`. These are functions shared by all
+  // style objects (E.g. `apply()`).
+  rac.setupStyleProtoFunctions = function(classObj) {
+    Object.keys(rac.styleProtoFunctions).forEach(name => {
+      classObj.prototype[name] = rac.styleProtoFunctions[name];
+    });
+  }
+
+
+  rac.styleProtoFunctions.apply = function(){
+    checkDrawer(rac);
+    rac.drawer.applyObject(this);
+  };
+
+} // attachProtoFunctions
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 
@@ -176,7 +322,7 @@ module.exports = function makeArcControl(rac) {
 } // makeArcControl
 
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 
@@ -221,7 +367,7 @@ module.exports = function makeControl(rac) {
         // Segment from the captured pointer position to the contro center,
         // used to attach the control to the point where interaction started.
         // Pointer is at `segment.start` and control center is at `segment.end`.
-        this.pointerOffset = rac.Point.mouse().segmentToPoint(control.center());
+        this.pointerOffset = rac.Point.pointer().segmentToPoint(control.center());
       }
 
       drawSelection(pointerCenter) {
@@ -473,7 +619,7 @@ module.exports = function makeControl(rac) {
     }
 
     // Pointer pressed
-    let pointerCenter = rac.Point.mouse();
+    let pointerCenter = rac.Point.pointer();
     if (rac.drawer.p5.mouseIsPressed) {
       if (RacControl.selection === null) {
         pointerCenter.arc(10).draw(pointerStyle);
@@ -499,7 +645,7 @@ module.exports = function makeControl(rac) {
 } // makeControl
 
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 
@@ -708,14 +854,14 @@ module.exports = function makeSegmentControl(rac) {
 } // makeSegmentControl
 
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 
 module.exports = function makeAngle(rac) {
 
   let RacAngle = function RacAngle(turn) {
-    this.set(turn);
+    this.setTurn(turn);
   };
 
   RacAngle.from = function(something) {
@@ -745,8 +891,7 @@ module.exports = function makeAngle(rac) {
     return segment.start.angleToPoint(segment.end);
   };
 
-  // TODO: rename to setTurn
-  RacAngle.prototype.set = function(turn) {
+  RacAngle.prototype.setTurn = function(turn) {
     this.turn = turn % 1;
     if (this.turn < 0) {
       this.turn = (this.turn + 1) % 1;
@@ -874,7 +1019,7 @@ module.exports = function makeAngle(rac) {
 } // makeAngle
 
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -1367,7 +1512,7 @@ module.exports = function makeArc(rac) {
 } // makeArc
 
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 
@@ -1403,7 +1548,7 @@ module.exports = function makeBezier(rac) {
 } // makeBezier
 
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 
@@ -1440,7 +1585,7 @@ module.exports = function makeComposite(rac) {
 } // makeComposite
 
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 
@@ -1606,7 +1751,7 @@ module.exports = function makePoint(rac) {
 } // makePoint
 
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 
@@ -1958,7 +2103,7 @@ module.exports = function makeX(rac) {
 } // makeSegment
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 
@@ -1984,7 +2129,58 @@ module.exports = function makeShape(rac) {
 } // makeShape
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeText(rac) {
+
+  return class RacText {
+
+    constructor(string, format, point) {
+      this.string = string;
+      this.format = format;
+      this.point = point;
+    }
+
+    static Format = class RacTextFormat {
+
+      static defaultSize = 15;
+
+      static horizontal = {
+        left: "left",
+        center: "horizontalCenter",
+        right: "right"
+      };
+
+      static vertical = {
+        top: "top",
+        bottom: "bottom",
+        center: "verticalCenter",
+        baseline: "baseline"
+      };
+
+      constructor(
+        horizontal, vertical,
+        font = null,
+        rotation = rac.Angle.zero,
+        size = RacText.Format.defaultSize)
+      {
+        this.horizontal = horizontal;
+        this.vertical = vertical;
+        this.font = font;
+        this.rotation = rotation;
+        this.size = size;
+      }
+
+    } // RacTextFormat
+
+  } // RacText
+
+} // makeText
+
+
+},{}],14:[function(require,module,exports){
 
 
 // https://github.com/umdjs/umd/blob/master/templates/returnExports.js
@@ -2018,7 +2214,7 @@ module.exports = function makeShape(rac) {
 }));
 
 
-},{"./rac":15}],13:[function(require,module,exports){
+},{"./rac":16}],15:[function(require,module,exports){
 'use strict';
 
 
@@ -2039,8 +2235,7 @@ module.exports = function makeP5Drawer(rac) {
       this.setupAllApplyFunctions(rac);
     }
 
-    // Adds a routine for the given class. The `drawFunction` function will be
-    // called passing the element to be drawn as `this`.
+    // Adds a routine for the given class.
     setDrawFunction(classObj, drawFunction) {
       let index = this.drawRoutines
         .findIndex(routine => routine.classObj === classObj);
@@ -2071,8 +2266,7 @@ module.exports = function makeP5Drawer(rac) {
       }
     }
 
-    // TODO: rename to setClassDrawStyle
-    setClassStyle(classObj, style) {
+    setClassDrawStyle(classObj, style) {
       let routine = this.drawRoutines
         .find(routine => routine.classObj === classObj);
       if (routine === undefined) {
@@ -2100,11 +2294,11 @@ module.exports = function makeP5Drawer(rac) {
       this.applyRoutines.push(routine);
     }
 
-    drawElement(element, style = null) {
+    drawObject(object, style = null) {
       let routine = this.drawRoutines
-        .find(routine => element instanceof routine.classObj);
+        .find(routine => object instanceof routine.classObj);
       if (routine === undefined) {
-        console.trace(`Cannot draw element - element-type:${rac.typeName(element)}`);
+        console.trace(`Cannot draw object - object-type:${rac.typeName(object)}`);
         throw rac.Error.invalidObjectToDraw;
       }
 
@@ -2119,42 +2313,49 @@ module.exports = function makeP5Drawer(rac) {
         if (style !== null) {
           style.apply();
         }
-        routine.drawFunction(this, element);
+        routine.drawFunction(this, object);
         this.p5.pop();
       } else {
         // No push-pull
-        routine.drawFunction(this, element);
+        routine.drawFunction(this, object);
       }
     }
 
-    debugElement(element) {
-      this.drawElement(element, this.debugStyle);
+    debugObject(object) {
+      this.drawObject(object, this.debugStyle);
     }
 
-    applyElement(element) {
+    applyObject(object) {
       let routine = this.applyRoutines
-        .find(routine => element instanceof routine.classObj);
+        .find(routine => object instanceof routine.classObj);
       if (routine === undefined) {
-        console.trace(`Cannot apply element - element-type:${rac.typeName(element)}`);
+        console.trace(`Cannot apply object - object-type:${rac.typeName(object)}`);
         throw rac.Error.invalidObjectToApply;
       }
 
-      routine.applyFunction(this, element);
+      routine.applyFunction(this, object);
     }
 
     // Sets up all drawing routines for rac drawable clases.
+    // Also attaches additional prototype and static functions in relevant
+    // classes.
     setupAllDrawFunctions(rac) {
       // Point
       this.setDrawFunction(rac.Point, (drawer, point) => {
         drawer.p5.point(point.x, point.y);
       });
 
-      // Text
-      this.setDrawFunction(rac.Text, (drawer, text) => {
-        text.format.apply(text.point);
-        drawer.p5.text(text.string, 0, 0);
-      });
-      this.setDrawOptions(rac.Text, {requiresPushPop: true});
+      rac.Point.prototype.vertex = function() {
+        rac.drawer.p5.vertex(this.x, this.y);
+      };
+
+      rac.Point.pointer = function() {
+        return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
+      };
+
+      rac.Point.canvasCenter = function() {
+        return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+      };
 
       // Segment
       this.setDrawFunction(rac.Segment, (drawer, segment) => {
@@ -2162,6 +2363,11 @@ module.exports = function makeP5Drawer(rac) {
           segment.start.x, segment.start.y,
           segment.end.x,   segment.end.y);
       });
+
+      rac.Segment.prototype.vertex = function() {
+        this.start.vertex();
+        this.end.vertex();
+      };
 
       // Arc
       this.setDrawFunction(rac.Arc, (drawer, arc) => {
@@ -2188,6 +2394,17 @@ module.exports = function makeP5Drawer(rac) {
           start.radians(), end.radians());
       });
 
+      rac.Arc.prototype.vertex = function() {
+        let arcLength = this.arcLength();
+        let beziersPerTurn = 5;
+        let divisions = arcLength.turn == 0
+          ? beziersPerTurn
+          // TODO: use turnOne? when possible to test
+          : Math.ceil(arcLength.turn * beziersPerTurn);
+
+        this.divideToBeziers(divisions).vertex();
+      };
+
       // Bezier
       this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
         drawer.p5.bezier(
@@ -2197,10 +2414,22 @@ module.exports = function makeP5Drawer(rac) {
           bezier.end.x, bezier.end.y);
       });
 
+      rac.Bezier.prototype.vertex = function() {
+        this.start.vertex()
+        rac.drawer.p5.bezierVertex(
+          this.startAnchor.x, this.startAnchor.y,
+          this.endAnchor.x, this.endAnchor.y,
+          this.end.x, this.end.y);
+      };
+
       // Composite
       this.setDrawFunction(rac.Composite, (drawer, composite) => {
         composite.sequence.forEach(item => item.draw());
       });
+
+      rac.Composite.prototype.vertex = function() {
+        this.sequence.forEach(item => item.vertex());
+      };
 
       // Shape
       this.setDrawFunction(rac.Shape, (drawer, shape) => {
@@ -2214,6 +2443,58 @@ module.exports = function makeP5Drawer(rac) {
         }
         drawer.p5.endShape();
       });
+
+      rac.Shape.prototype.vertex = function() {
+        this.outline.vertex();
+        this.contour.vertex();
+      };
+
+      // Text
+      this.setDrawFunction(rac.Text, (drawer, text) => {
+        text.format.apply(text.point);
+        drawer.p5.text(text.string, 0, 0);
+      });
+      this.setDrawOptions(rac.Text, {requiresPushPop: true});
+
+      // Applies all text properties and translates to the given `point`.
+      // After the format is applied the text should be drawn at the origin.
+      rac.Text.Format.prototype.apply = function(point) {
+        let hAlign;
+        let hOptions = rac.Text.Format.horizontal;
+        switch (this.horizontal) {
+          case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
+          case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
+          case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
+          default:
+            console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+            throw rac.Error.invalidObjectConfiguration;
+        }
+
+        let vAlign;
+        let vOptions = rac.Text.Format.vertical;
+        switch (this.vertical) {
+          case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
+          case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
+          case vOptions.center:   vAlign = rac.drawer.p5.CENTER;   break;
+          case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
+          default:
+            console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+            throw rac.Error.invalidObjectConfiguration;
+        }
+
+        // Text properties
+        rac.drawer.p5.textAlign(hAlign, vAlign);
+        rac.drawer.p5.textSize(this.size);
+        if (this.font !== null) {
+          rac.drawer.p5.textFont(this.font);
+        }
+
+        // Positioning
+        rac.drawer.p5.translate(point.x, point.y);
+        if (this.rotation.turn != 0) {
+          rac.drawer.p5.rotate(this.rotation.radians());
+        }
+      } // rac.Text.Format.prototype.apply
 
     } // setupAllDrawFunctions
 
@@ -2266,7 +2547,7 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       rac.Style.prototype.applyToClass = function(classObj) {
-        rac.drawer.setClassStyle(classObj, this);
+        rac.drawer.setClassDrawStyle(classObj, this);
       }
 
     } // setupAllApplyFunctions
@@ -2308,153 +2589,7 @@ module.exports = function makeP5Drawer(rac) {
 } // makeP5Drawer
 
 
-},{}],14:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function attachProtoFunctions(rac) {
-
-  function checkDrawer(rac) {
-    if (rac.drawer === null) {
-      console.trace(`Drawer is not setup - element-type:${rac.typeName(this)}`);
-      throw rac.Error.drawerNotSetup;
-    }
-  }
-
-
-  // Container of prototype functions for drawable classes.
-  rac.drawableProtoFunctions = {};
-
-  // Adds to the given class prototype all the functions contained in
-  // `rac.drawableProtoFunctions`. These are functions shared by all
-  // drawable objects (E.g. `draw()` and `debug()`).
-  rac.setupDrawableProtoFunctions = function(classObj) {
-    Object.keys(rac.drawableProtoFunctions).forEach(name => {
-      classObj.prototype[name] = rac.drawableProtoFunctions[name];
-    });
-  }
-
-
-  rac.drawableProtoFunctions.draw = function(style = null){
-    checkDrawer(rac);
-
-    rac.drawer.drawElement(this, style);
-    return this;
-  };
-
-  rac.drawableProtoFunctions.debug = function(){
-    checkDrawer(rac);
-
-    rac.drawer.debugElement(this);
-    return this;
-  };
-
-
-  rac.stack = [];
-
-  rac.stack.peek = function() {
-    return rac.stack[rac.stack.length - 1];
-  }
-
-  rac.drawableProtoFunctions.push = function() {
-    rac.stack.push(this);
-    return this;
-  }
-
-  rac.drawableProtoFunctions.pop = function() {
-    return rac.stack.pop();
-  }
-
-  rac.drawableProtoFunctions.peek = function() {
-    return rac.stack.peek();
-  }
-
-  // TODO: shape and composite should be stacks, so that several can be
-  // started in different contexts
-  rac.currentShape = null;
-  rac.currentComposite = null;
-
-  rac.popShape = function() {
-    let shape = rac.currentShape;
-    rac.currentShape = null;
-    return shape;
-  }
-
-  rac.popComposite = function() {
-    let composite = rac.currentComposite;
-    rac.currentComposite = null;
-    return composite;
-  }
-
-  rac.drawableProtoFunctions.attachToShape = function() {
-    if (rac.currentShape === null) {
-      rac.currentShape = new rac.Shape();
-    }
-
-    this.attachTo(rac.currentShape);
-    return this;
-  }
-
-  rac.drawableProtoFunctions.popShape = function() {
-    return rac.popShape();
-  }
-
-  rac.drawableProtoFunctions.popShapeToComposite = function() {
-    let shape = rac.popShape();
-    shape.attachToComposite();
-    return this;
-  }
-
-  rac.drawableProtoFunctions.attachToComposite = function() {
-    if (rac.currentComposite === null) {
-      rac.currentComposite = new rac.Composite();
-    }
-
-    this.attachTo(rac.currentComposite);
-    return this;
-  }
-
-  rac.drawableProtoFunctions.popComposite = function() {
-    return rac.popComposite();
-  }
-
-  rac.drawableProtoFunctions.attachTo = function(someComposite) {
-    if (someComposite instanceof rac.Composite) {
-      someComposite.add(this);
-      return this;
-    }
-
-    if (someComposite instanceof rac.Shape) {
-      someComposite.addOutline(this);
-      return this;
-    }
-
-    console.trace(`Cannot attachTo composite - someComposite-type:${rac.typeName(someComposite)}`);
-    throw rac.Error.invalidObjectToConvert;
-  };
-
-
-  // Container of prototype functions for style classes.
-  rac.styleProtoFunctions = {};
-
-  // Adds to the given class prototype all the functions contained in
-  // `rac.styleProtoFunctions`. These are functions shared by all
-  // style objects (E.g. `apply()`).
-  rac.setupStyleProtoFunctions = function(classObj) {
-    Object.keys(rac.styleProtoFunctions).forEach(name => {
-      classObj.prototype[name] = rac.styleProtoFunctions[name];
-    });
-  }
-
-
-  rac.styleProtoFunctions.apply = function(){
-    checkDrawer(rac);
-    rac.drawer.applyElement(this);
-  };
-
-}
-
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 
@@ -2509,10 +2644,9 @@ class Rac {
 
   // Sets the drawer for the instance. Currently only a p5.js instance
   // is supported.
-  // TODO: This function will also populate some of the clases with
-  // prototype functions specific to the drawer. For p5.js this include
-  // `apply` functions for colors and style elements, and `vertex`
-  // functions for
+  // The drawer will also populate some classes with prototype functions
+  // relevant to the drawer. For p5.js this include `apply` functions for
+  // colors and style object, and `vertex` functions for drawable objects.
   setupDrawer(p5Instance) {
     this.drawer = new this.P5Drawer(this, p5Instance)
   }
@@ -2536,167 +2670,74 @@ let makeRac = function makeRac() {
   };
 
 
-// TODO: rename to attachProtoFunction
   // Prototype functions
-  require('./protoFunctions')(rac);
+  require('./attachProtoFunction')(rac);
 
 
   // P5Drawer
-  rac.P5Drawer = require('./makeP5Drawer')(rac);
+  rac.P5Drawer = require('./p5Drawer/makeP5Drawer')(rac);
 
 
   // Color
-  rac.Color = require('./visual/makeColor')(rac);
+  rac.Color = require('./style/makeColor')(rac);
 
 
   // Stroke
-  rac.Stroke = require('./visual/makeStroke')(rac);
+  rac.Stroke = require('./style/makeStroke')(rac);
   rac.setupStyleProtoFunctions(rac.Stroke);
 
 
   // Fill
-  rac.Fill = require('./visual/makeFill')(rac);
+  rac.Fill = require('./style/makeFill')(rac);
   rac.setupStyleProtoFunctions(rac.Fill);
 
 
   // Style
-  rac.Style = require('./visual/makeStyle')(rac);
+  rac.Style = require('./style/makeStyle')(rac);
   rac.setupStyleProtoFunctions(rac.Style);
 
 
   // Text
-  rac.Text = require('./visual/makeText.js')(rac);
+  rac.Text = require('./drawable/makeText.js')(rac);
   rac.setupDrawableProtoFunctions(rac.Text);
-
-  // TODO: should be added by drawerp5
-  rac.Text.Format.prototype.apply = function(point) {
-    let hAlign;
-    let hOptions = rac.Text.Format.horizontal;
-    switch (this.horizontal) {
-      case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
-      case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
-      case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
-      default:
-        console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-        throw rac.Error.invalidObjectConfiguration;
-    }
-
-    let vAlign;
-    let vOptions = rac.Text.Format.vertical;
-    switch (this.vertical) {
-      case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
-      case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
-      case vOptions.center:   vAlign = rac.drawer.p5.CENTER;   break;
-      case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
-      default:
-        console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-        throw rac.Error.invalidObjectConfiguration;
-    }
-
-    // Text properties
-    rac.drawer.p5.textAlign(hAlign, vAlign);
-    rac.drawer.p5.textSize(this.size);
-    if (this.font !== null) {
-      rac.drawer.p5.textFont(this.font);
-    }
-
-    // Positioning
-    rac.drawer.p5.translate(point.x, point.y);
-    if (this.rotation.turn != 0) {
-      rac.drawer.p5.rotate(this.rotation.radians());
-    }
-  }
 
 
   // Angle
-  rac.Angle = require('./geometry/makeAngle')(rac);
+  rac.Angle = require('./drawable/makeAngle')(rac);
 
 
   // Point
-  rac.Point = require('./geometry/makePoint')(rac);
+  rac.Point = require('./drawable/makePoint')(rac);
   rac.setupDrawableProtoFunctions(rac.Point);
-
-  // TODO: functions should be added by P5 drawer
-  // TODO: implemenent drawingAreaCenter, rename to pointer
-  rac.Point.mouse = function() {
-    return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
-  }
-
-  rac.Point.center = function() {
-    return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
-  }
-
-  rac.Point.prototype.vertex = function() {
-    rac.drawer.p5.vertex(this.x, this.y);
-    return this;
-  }
 
 
   // Segment
-  rac.Segment = require('./geometry/makeSegment')(rac);
+  rac.Segment = require('./drawable/makeSegment')(rac);
   rac.setupDrawableProtoFunctions(rac.Segment);
 
-  // TODO: should be added by p5drawer
-  rac.Segment.prototype.vertex = function() {
-    this.start.vertex();
-    this.end.vertex();
-    return this;
-  }
 
-
-  rac.Arc = require('./geometry/makeArc')(rac);
+  // Arc
+  rac.Arc = require('./drawable/makeArc')(rac);
   rac.setupDrawableProtoFunctions(rac.Arc);
-
-  // TODO: should be added by p5drawer
-  rac.Arc.prototype.vertex = function() {
-    let arcLength = this.arcLength();
-    let beziersPerTurn = 5;
-    let divisions = arcLength.turn == 0
-      ? beziersPerTurn
-      // TODO: use turnOne? when possible to test
-      : Math.ceil(arcLength.turn * beziersPerTurn);
-
-    this.divideToBeziers(divisions).vertex();
-    return this;
-  }
 
 
   // Bezier
-  rac.Bezier = require('./geometry/makeBezier')(rac);
+  rac.Bezier = require('./drawable/makeBezier')(rac);
   rac.setupDrawableProtoFunctions(rac.Bezier);
-
-  rac.Bezier.prototype.vertex = function() {
-    this.start.vertex()
-    rac.drawer.p5.bezierVertex(
-      this.startAnchor.x, this.startAnchor.y,
-      this.endAnchor.x, this.endAnchor.y,
-      this.end.x, this.end.y);
-  };
 
 
   // Composite
-  rac.Composite = require('./geometry/makeComposite')(rac);
+  rac.Composite = require('./drawable/makeComposite')(rac);
   rac.setupDrawableProtoFunctions(rac.Composite);
-
-  // TODO: should be added by drawerp5
-  rac.Composite.prototype.vertex = function() {
-    this.sequence.forEach(item => item.vertex());
-  };
 
 
   // Shape
-  rac.Shape = require('./geometry/makeShape')(rac);
+  rac.Shape = require('./drawable/makeShape')(rac);
   rac.setupDrawableProtoFunctions(rac.Shape);
-
-  // TODO: should be added by drawerp5
-  rac.Shape.prototype.vertex = function() {
-    this.outline.vertex();
-    this.contour.vertex();
-  };
 
 
   // EaseFunction
-  rac.EaseFunction = require('./visual/makeEaseFunction')(rac);
+  rac.EaseFunction = require('./util/makeEaseFunction')(rac);
 
 
   // Control
@@ -2720,7 +2761,7 @@ addEnumConstant(makeRac, 'version', version);
 module.exports = makeRac;
 
 
-},{"../built/version":1,"./control/makeArcControl":2,"./control/makeControl":3,"./control/makeSegmentControl":4,"./geometry/makeAngle":5,"./geometry/makeArc":6,"./geometry/makeBezier":7,"./geometry/makeComposite":8,"./geometry/makePoint":9,"./geometry/makeSegment":10,"./geometry/makeShape":11,"./makeP5Drawer":13,"./protoFunctions":14,"./visual/makeColor":16,"./visual/makeEaseFunction":17,"./visual/makeFill":18,"./visual/makeStroke":19,"./visual/makeStyle":20,"./visual/makeText.js":21}],16:[function(require,module,exports){
+},{"../built/version":1,"./attachProtoFunction":2,"./control/makeArcControl":3,"./control/makeControl":4,"./control/makeSegmentControl":5,"./drawable/makeAngle":6,"./drawable/makeArc":7,"./drawable/makeBezier":8,"./drawable/makeComposite":9,"./drawable/makePoint":10,"./drawable/makeSegment":11,"./drawable/makeShape":12,"./drawable/makeText.js":13,"./p5Drawer/makeP5Drawer":15,"./style/makeColor":17,"./style/makeFill":18,"./style/makeStroke":19,"./style/makeStyle":20,"./util/makeEaseFunction":21}],17:[function(require,module,exports){
 'use strict';
 
 
@@ -2778,7 +2819,101 @@ module.exports = function makeColor(rac) {
 } // makeColor
 
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeFill(rac) {
+
+ return class RacFill {
+
+    static none = new RacFill(null);
+
+    constructor(color = null) {
+      this.color = color;
+    }
+
+    styleWithStroke(stroke) {
+      return new rac.Style(stroke, this);
+    }
+
+  } // RacFill
+
+} // makeFill
+
+
+},{}],19:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeStroke(rac) {
+
+  return class RacStroke {
+
+    static none = new RacStroke(null);
+
+    constructor(color = null, weight = 1) {
+      this.color = color;
+      this.weight = weight;
+    }
+
+    copy() {
+      let colorCopy = null;
+      if (this.color !== null) {
+        colorCopy = this.color.copy();
+      }
+      return new RacStroke(colorCopy, this.weight);
+    }
+
+    withWeight(weight) {
+      return new RacStroke(this.color, weight);
+    }
+
+    withAlpha(alpha) {
+      if (this.color === null) {
+        return new RacStroke(null, this.weight);
+      }
+
+      let newColor = this.color.withAlpha(alpha);
+      return new RacStroke(newColor, this.weight);
+    }
+
+    styleWithFill(fill) {
+      return new rac.Style(this, fill);
+    }
+
+  } // RacStroke
+
+} // makeStroke
+
+
+},{}],20:[function(require,module,exports){
+'use strict';
+
+
+module.exports = function makeStyle(rac) {
+
+return class RacStyle {
+
+    constructor(stroke = null, fill = null) {
+      this.stroke = stroke;
+      this.fill = fill;
+    }
+
+    withStroke(stroke) {
+      return new RacStyle(stroke, this.fill);
+    }
+
+    withFill(fill) {
+      return new RacStyle(this.stroke, fill);
+    }
+
+  } // RacStyle
+
+} // makeStyle
+
+
+},{}],21:[function(require,module,exports){
 'use strict';
 
 
@@ -2945,149 +3080,4 @@ module.exports = function makeEaseFunction(rac) {
 } // makeEaseFunction
 
 
-},{}],18:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeFill(rac) {
-
- return class RacFill {
-
-    static none = new RacFill(null);
-
-    constructor(color = null) {
-      this.color = color;
-    }
-
-    styleWithStroke(stroke) {
-      return new rac.Style(stroke, this);
-    }
-
-  } // RacFill
-
-} // makeFill
-
-
-},{}],19:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeStroke(rac) {
-
-  return class RacStroke {
-
-    static none = new RacStroke(null);
-
-    constructor(color = null, weight = 1) {
-      this.color = color;
-      this.weight = weight;
-    }
-
-    copy() {
-      let colorCopy = null;
-      if (this.color !== null) {
-        colorCopy = this.color.copy();
-      }
-      return new RacStroke(colorCopy, this.weight);
-    }
-
-    withWeight(weight) {
-      return new RacStroke(this.color, weight);
-    }
-
-    withAlpha(alpha) {
-      if (this.color === null) {
-        return new RacStroke(null, this.weight);
-      }
-
-      let newColor = this.color.withAlpha(alpha);
-      return new RacStroke(newColor, this.weight);
-    }
-
-    styleWithFill(fill) {
-      return new rac.Style(this, fill);
-    }
-
-  } // RacStroke
-
-} // makeStroke
-
-
-},{}],20:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeStyle(rac) {
-
-return class RacStyle {
-
-    constructor(stroke = null, fill = null) {
-      this.stroke = stroke;
-      this.fill = fill;
-    }
-
-    withStroke(stroke) {
-      return new RacStyle(stroke, this.fill);
-    }
-
-    withFill(fill) {
-      return new RacStyle(this.stroke, fill);
-    }
-
-  } // RacStyle
-
-} // makeStyle
-
-
-},{}],21:[function(require,module,exports){
-'use strict';
-
-
-module.exports = function makeText(rac) {
-
-  return class RacText {
-
-    constructor(string, format, point) {
-      this.string = string;
-      this.format = format;
-      this.point = point;
-    }
-
-    static Format = class RacTextFormat {
-
-      static defaultSize = 15;
-
-      static horizontal = {
-        left: "left",
-        center: "horizontalCenter",
-        right: "right"
-      };
-
-      static vertical = {
-        top: "top",
-        bottom: "bottom",
-        center: "verticalCenter",
-        baseline: "baseline"
-      };
-
-      constructor(
-        horizontal, vertical,
-        font = null,
-        rotation = rac.Angle.zero,
-        size = RacText.Format.defaultSize)
-      {
-        this.horizontal = horizontal;
-        this.vertical = vertical;
-        this.font = font;
-        this.rotation = rotation;
-        this.size = size;
-      }
-
-    } // RacTextFormat
-
-  } // RacText
-
-} // makeText
-
-
-},{}]},{},[12]);
+},{}]},{},[14]);
