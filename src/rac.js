@@ -78,9 +78,8 @@ let makeRac = function makeRac() {
   };
 
 
-// TODO: rename to attachProtoFunction
   // Prototype functions
-  require('./protoFunctions')(rac);
+  require('./attachProtoFunction')(rac);
 
 
   // P5Drawer
