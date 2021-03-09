@@ -4,7 +4,7 @@
 module.exports = function makeAngle(rac) {
 
   let RacAngle = function RacAngle(turn) {
-    this.set(turn);
+    this.setTurn(turn);
   };
 
   RacAngle.from = function(something) {
@@ -34,8 +34,7 @@ module.exports = function makeAngle(rac) {
     return segment.start.angleToPoint(segment.end);
   };
 
-  // TODO: rename to setTurn
-  RacAngle.prototype.set = function(turn) {
+  RacAngle.prototype.setTurn = function(turn) {
     this.turn = turn % 1;
     if (this.turn < 0) {
       this.turn = (this.turn + 1) % 1;

@@ -18,8 +18,7 @@ module.exports = function makeP5Drawer(rac) {
       this.setupAllApplyFunctions(rac);
     }
 
-    // Adds a routine for the given class. The `drawFunction` function will be
-    // called passing the element to be drawn as `this`.
+    // Adds a routine for the given class.
     setDrawFunction(classObj, drawFunction) {
       let index = this.drawRoutines
         .findIndex(routine => routine.classObj === classObj);
@@ -78,11 +77,11 @@ module.exports = function makeP5Drawer(rac) {
       this.applyRoutines.push(routine);
     }
 
-    drawElement(element, style = null) {
+    drawObject(object, style = null) {
       let routine = this.drawRoutines
-        .find(routine => element instanceof routine.classObj);
+        .find(routine => object instanceof routine.classObj);
       if (routine === undefined) {
-        console.trace(`Cannot draw element - element-type:${rac.typeName(element)}`);
+        console.trace(`Cannot draw object - object-type:${rac.typeName(object)}`);
         throw rac.Error.invalidObjectToDraw;
       }
 
@@ -97,27 +96,27 @@ module.exports = function makeP5Drawer(rac) {
         if (style !== null) {
           style.apply();
         }
-        routine.drawFunction(this, element);
+        routine.drawFunction(this, object);
         this.p5.pop();
       } else {
         // No push-pull
-        routine.drawFunction(this, element);
+        routine.drawFunction(this, object);
       }
     }
 
-    debugElement(element) {
-      this.drawElement(element, this.debugStyle);
+    debugObject(object) {
+      this.drawObject(object, this.debugStyle);
     }
 
-    applyElement(element) {
+    applyObject(object) {
       let routine = this.applyRoutines
-        .find(routine => element instanceof routine.classObj);
+        .find(routine => object instanceof routine.classObj);
       if (routine === undefined) {
-        console.trace(`Cannot apply element - element-type:${rac.typeName(element)}`);
+        console.trace(`Cannot apply object - object-type:${rac.typeName(object)}`);
         throw rac.Error.invalidObjectToApply;
       }
 
-      routine.applyFunction(this, element);
+      routine.applyFunction(this, object);
     }
 
     // Sets up all drawing routines for rac drawable clases.

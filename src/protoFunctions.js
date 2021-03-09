@@ -5,7 +5,7 @@ module.exports = function attachProtoFunctions(rac) {
 
   function checkDrawer(rac) {
     if (rac.drawer === null) {
-      console.trace(`Drawer is not setup - element-type:${rac.typeName(this)}`);
+      console.trace(`Drawer is not setup`);
       throw rac.Error.drawerNotSetup;
     }
   }
@@ -27,14 +27,14 @@ module.exports = function attachProtoFunctions(rac) {
   rac.drawableProtoFunctions.draw = function(style = null){
     checkDrawer(rac);
 
-    rac.drawer.drawElement(this, style);
+    rac.drawer.drawObject(this, style);
     return this;
   };
 
   rac.drawableProtoFunctions.debug = function(){
     checkDrawer(rac);
 
-    rac.drawer.debugElement(this);
+    rac.drawer.debugObject(this);
     return this;
   };
 
@@ -138,7 +138,7 @@ module.exports = function attachProtoFunctions(rac) {
 
   rac.styleProtoFunctions.apply = function(){
     checkDrawer(rac);
-    rac.drawer.applyElement(this);
+    rac.drawer.applyObject(this);
   };
 
 }

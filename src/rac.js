@@ -52,10 +52,9 @@ class Rac {
 
   // Sets the drawer for the instance. Currently only a p5.js instance
   // is supported.
-  // TODO: This function will also populate some of the clases with
-  // prototype functions specific to the drawer. For p5.js this include
-  // `apply` functions for colors and style elements, and `vertex`
-  // functions for
+  // The drawer will also populate some classes with prototype functions
+  // relevant to the drawer. For p5.js this include `apply` functions for
+  // colors and style object, and `vertex` functions for drawable objects.
   setupDrawer(p5Instance) {
     this.drawer = new this.P5Drawer(this, p5Instance)
   }
