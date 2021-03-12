@@ -51,8 +51,8 @@ module.exports = function makePoint(rac) {
   RacPoint.prototype.add = function(other, y = undefined) {
     if (other instanceof RacPoint && y === undefined) {
       return new RacPoint(
-      this.x + other.x,
-      this.y + other.y);
+        this.x + other.x,
+        this.y + other.y);
     }
 
     if (typeof other === "number" && typeof y === "number") {
@@ -69,8 +69,8 @@ module.exports = function makePoint(rac) {
   RacPoint.prototype.substract = function(other, y = undefined) {
     if (other instanceof RacPoint && y === undefined) {
       return new RacPoint(
-      this.x - other.x,
-      this.y - other.y);
+        this.x - other.x,
+        this.y - other.y);
     }
 
     if (typeof other === "number" && typeof y === "number") {

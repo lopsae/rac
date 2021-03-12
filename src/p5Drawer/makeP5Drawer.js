@@ -140,6 +140,10 @@ module.exports = function makeP5Drawer(rac) {
         return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
       };
 
+      rac.Point.canvasEnd = function() {
+        return new rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
+      };
+
       // Segment
       this.setDrawFunction(rac.Segment, (drawer, segment) => {
         drawer.p5.line(
