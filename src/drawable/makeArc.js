@@ -315,10 +315,12 @@ module.exports = function makeArc(rac) {
   };
 
   RacArc.prototype.startPoint = function() {
+    // TODO: use pointAtAngle?
     return this.center.segmentToAngle(this.start, this.radius).end;
   };
 
   RacArc.prototype.endPoint = function() {
+    // TODO: use pointAtAngle?
     return this.center.segmentToAngle(this.end, this.radius).end;
   };
 
