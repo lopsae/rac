@@ -55,8 +55,11 @@ module.exports = function makeArcControl(rac) {
 
     draw() {
       let anchorCopy = this.copyAnchor();
-      // TODO: BUG: fails if the control does not have a setup style
-      anchorCopy.draw(this.style.withFill(rac.Fill.none));
+
+      let anchorStyle = this.style !== null
+        ? this.style.withFill(rac.Fill.none)
+        : null;
+      anchorCopy.draw(anchorStyle);
 
       let center = this.center();
       let angle = anchorCopy.center.angleToPoint(center);
