@@ -17,3 +17,4 @@ Functions that return the same object type with a modified property start with `
 
 Functions that return a different object type start or end with that object?
 + point.pointPerpendicular or point.perpendicularPoint?
++ arc.chordSegment or arc.segmentChord?
