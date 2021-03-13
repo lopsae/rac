@@ -161,6 +161,42 @@ module.exports = function makeArc(rac) {
       }
     }
 
+    // Returns an Angle that represents the distance between `this.start`
+    // and `this.end`, in the orientation of the arc.
+    angleDistance() {
+      return this.start.distance(this.end, this.clockwise);
+    }
+
+    startPoint() {
+      return this.pointAtAngle(this.start);
+    }
+
+    endPoint() {
+      return this.pointAtAngle(this.end);
+    }
+
+    // Returns the segment from `center` to `startPoint()`.
+    //
+    // Note that the segment starts at `center`, in contrast to
+    // `endSegment` which ends at `center`.
+    startSegment() {
+      return new rac.Segment(this.center, this.startPoint());
+    }
+
+    // Returns the segment from `endPoint` to `center`.
+    //
+    // Note that the segment ends at `center`, in contrast to
+    // `startSegment` which starts at `center`.
+    endSegment() {
+      return new rac.Segment(this.endPoint(), this.center);
+    }
+
+    // Returns the segment from `startPoint()` to `endPoint()`. Note that
+    // for complete-circle arcs this segment will have a length of zero.
+    chordSegment() {
+      return new rac.Segment(this.startPoint(), this.endPoint());
+    }
+
   } // RacArc
 
 
@@ -312,30 +348,6 @@ module.exports = function makeArc(rac) {
     let centerOrientation = segment.pointOrientation(this.center);
     let perpendicular = segment.angle().perpendicular(!centerOrientation);
     return this.pointAtAngle(perpendicular);
-  };
-
-  // Returns an Angle that represents the distance between `this.start` and
-  // `this.end`, in the orientation of the arc.
-  RacArc.prototype.angleDistance = function() {
-    return this.start.distance(this.end, this.clockwise);
-  };
-
-  RacArc.prototype.startPoint = function() {
-    // TODO: use pointAtAngle?
-    return this.center.segmentToAngle(this.start, this.radius).end;
-  };
-
-  RacArc.prototype.endPoint = function() {
-    // TODO: use pointAtAngle?
-    return this.center.segmentToAngle(this.end, this.radius).end;
-  };
-
-  RacArc.prototype.startSegment = function() {
-    return new rac.Segment(this.center, this.startPoint());
-  };
-
-  RacArc.prototype.endSegment = function() {
-    return new rac.Segment(this.endPoint(), this.center);
   };
 
   RacArc.prototype.radiusSegmentAtAngle = function(someAngle) {
