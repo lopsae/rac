@@ -388,12 +388,15 @@ module.exports = function makeP5Drawer(rac) {
         // Clockwise marker
         arc.startSegment()
           .withEndExtended(this.debugRadius)
-          .arcWithEnd(arc.start.shift(1/16, arc.clockwise), arc.clockwise)
+          .arc(arc.clockwise)
+          .withLength(this.debugRadius*2)
           .draw();
 
         // End point marker
+        let internalLength = Math.min(this.debugRadius/2, arc.radius)
         arc.endPoint()
           .segmentToAngle(arc.end, this.debugRadius/2)
+          .withStartExtended(internalLength)
           .draw();
       });
 
