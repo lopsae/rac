@@ -225,12 +225,12 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       rac.Arc.prototype.vertex = function() {
-        let arcLength = this.arcLength();
+        let angleDistance = this.angleDistance();
         let beziersPerTurn = 5;
-        let divisions = arcLength.turn == 0
+        let divisions = angleDistance.turn == 0
           ? beziersPerTurn
           // TODO: use turnOne? when possible to test
-          : Math.ceil(arcLength.turn * beziersPerTurn);
+          : Math.ceil(angleDistance.turn * beziersPerTurn);
 
         this.divideToBeziers(divisions).vertex();
       };

@@ -72,10 +72,10 @@ module.exports = function makeX(rac) {
     // or `false` if located counter-clockwise.
     pointOrientation(point) {
       let angle = this.start.angleToPoint(point);
-      let arcLength = angle.substract(this.angle());
+      let angleDistance = angle.substract(this.angle());
       // [0 to 0.5) is considered clockwise
       // [0.5, 1) is considered counter-clockwise
-      return arcLength.turn < 0.5;
+      return angleDistance.turn < 0.5;
     }
 
   } // RacSegment
@@ -286,10 +286,10 @@ module.exports = function makeX(rac) {
   // Returns an Arc using this segment `start` as center, `length()` as
   // radius, starting from the `angle()` to the arc distance of the given
   // angle and orientation.
-  RacSegment.prototype.arcWithArcLength = function(someAngleArcLength, clockwise = true) {
-    let arcLength = rac.Angle.from(someAngleArcLength);
+  RacSegment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
+    let angleDistance = rac.Angle.from(someAngleDistance);
     let arcStart = this.angle();
-    let arcEnd = arcStart.shift(arcLength, clockwise);
+    let arcEnd = arcStart.shift(angleDistance, clockwise);
 
     return new rac.Arc(
       this.start, this.length(),

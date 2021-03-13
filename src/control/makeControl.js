@@ -178,9 +178,9 @@ module.exports = function makeControl(rac) {
 
   RacControl.makeArrowShape = function(center, angle) {
     // Arc
-    let arcLength = rac.Angle.from(1/22);
+    let angleDistance = rac.Angle.from(1/22);
     let arc = center.arc(RacControl.radius * 1.5,
-      angle.sub(arcLength), angle.add(arcLength));
+      angle.sub(angleDistance), angle.add(angleDistance));
 
     // Arrow walls
     let pointAngle = rac.Angle.from(1/8);

@@ -69,8 +69,8 @@ module.exports = function makeArc(rac) {
         this.clockwise);
     }
 
-    withArcLength(newArcLength) {
-      let newEnd = this.angleAtArcLength(newArcLength);
+    withAngleDistance(newAngleDistance) {
+      let newEnd = this.angleAtAngleDistance(newAngleDistance);
       return new RacArc(
         this.center, this.radius,
         this.start, newEnd,
@@ -138,7 +138,7 @@ module.exports = function makeArc(rac) {
       // All comparisons are made in a clockwise orientation
       let shiftedAngle = this.distanceFromStart(angle);
       let shiftedStartClamp = startInset;
-      let shiftedEndClamp = this.arcLength().substract(endInset);
+      let shiftedEndClamp = this.angleDistance().substract(endInset);
 
       if (shiftedAngle.turn >= shiftedStartClamp.turn && shiftedAngle.turn <= shiftedEndClamp.turn) {
         // Inside clamp range
@@ -310,7 +310,7 @@ module.exports = function makeArc(rac) {
 
   // Returns an Angle that represents the distance between `this.start` and
   // `this.end`, in the orientation of the arc.
-  RacArc.prototype.arcLength = function() {
+  RacArc.prototype.angleDistance = function() {
     return this.start.distance(this.end, this.clockwise);
   };
 
@@ -366,23 +366,23 @@ module.exports = function makeArc(rac) {
 
   // Returns the Angle at the given arc length from `start`. Equivalent to
   // `shiftAngle(someAngle)`.
-  RacArc.prototype.angleAtArcLength = function(someAngle) {
+  RacArc.prototype.angleAtAngleDistance = function(someAngle) {
     return this.shiftAngle(someAngle);
   }
 
   // Returns the point in the arc at the given angle shifted by `this.start`
   // in the arc orientation. The arc is considered a complete circle.
-  RacArc.prototype.pointAtArcLength = function(someAngle) {
+  RacArc.prototype.pointAtAngleDistance = function(someAngle) {
     let shiftedAngle = this.shiftAngle(someAngle);
     return this.pointAtAngle(shiftedAngle);
   };
 
   // Returns the point in the arc at the current arc length multiplied by
-  // `arcLengthRatio` and then shifted by `this.start` in the arc
+  // `angleDistanceRatio` and then shifted by `this.start` in the arc
   // orientation. The arc is considered a complete circle.
-  RacArc.prototype.pointAtArcLengthRatio = function(arcLengthRatio) {
-    let newArcLength = this.arcLength().mult(arcLengthRatio);
-    let shiftedAngle = this.shiftAngle(newArcLength);
+  RacArc.prototype.pointAtAngleDistanceRatio = function(angleDistanceRatio) {
+    let newAngleDistance = this.angleDistance().multOne(angleDistanceRatio);
+    let shiftedAngle = this.shiftAngle(newAngleDistance);
     return this.pointAtAngle(shiftedAngle);
   };
 
@@ -429,11 +429,11 @@ module.exports = function makeArc(rac) {
   };
 
   RacArc.prototype.divideToSegments = function(segmentCount) {
-    let arcLength = this.arcLength();
-    let partTurn = arcLength.turn == 0
+    let angleDistance = this.angleDistance();
+    let partTurn = angleDistance.turn == 0
     // TODO: use turnOne? when possible to test
       ? 1 / segmentCount
-      : arcLength.turn / segmentCount;
+      : angleDistance.turn / segmentCount;
 
     let partAngle = new rac.Angle(partTurn);
     if (!this.clockwise) {
@@ -453,11 +453,11 @@ module.exports = function makeArc(rac) {
   }
 
   RacArc.prototype.divideToBeziers = function(bezierCount) {
-    let arcLength = this.arcLength();
-    let partTurn = arcLength.turn == 0
+    let angleDistance = this.angleDistance();
+    let partTurn = angleDistance.turn == 0
     // TODO: use turnOne? when possible to test
       ? 1 / bezierCount
-      : arcLength.turn / bezierCount;
+      : angleDistance.turn / bezierCount;
 
     // length of tangent:
     // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
