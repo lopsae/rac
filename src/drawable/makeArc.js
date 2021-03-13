@@ -77,6 +77,12 @@ module.exports = function makeArc(rac) {
         this.clockwise);
     }
 
+    withLength(newLength) {
+      let circumference = this.radius * rac.TAU;
+      let newAngleDistance = newLength / circumference;
+      return this.withAngleDistance(newAngleDistance);
+    }
+
     withClockwise(newClockwise) {
       return new RacArc(
         this.center, this.radius,
