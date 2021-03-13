@@ -12,14 +12,13 @@ module.exports = function makeP5Drawer(rac) {
       this.drawRoutines = [];
       this.debugRoutines = [];
       this.applyRoutines = [];
-      this.enabled = true;
 
       // Style used for debug drawing, if null the style already applied
       // is used.
       this.debugStyle = null;
       // Radius of point markers for debug drawing.
       this.debugPointRadius = 4;
-      // Radius of location markers for debug drawing.
+      // Radius of main visual elements for debug drawing.
       this.debugRadius = 22;
 
       this.setupAllDrawFunctions(rac);
