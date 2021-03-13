@@ -377,8 +377,13 @@ module.exports = function makeP5Drawer(rac) {
       this.setDebugFunction(rac.Arc, (drawer, arc) => {
         arc.draw();
 
+        let centerArcRadius = this.debugRadius * 2/3;
+        if (arc.radius > this.debugRadius/3 && arc.radius < this.debugRadius) {
+          centerArcRadius = arc.radius + this.debugRadius/3;
+        }
+
         // Center start marker
-        let centerArc = arc.withRadius(this.debugRadius* 2/3);
+        let centerArc = arc.withRadius(centerArcRadius);
         centerArc.startSegment().draw();
 
         let totalArcsPerTurn = 11;
