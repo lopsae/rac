@@ -81,11 +81,20 @@ module.exports = function makeAngle(rac) {
     return origin.shift(this, clockwise);
   };
 
+  // Returns `factor * turn`.
   RacAngle.prototype.mult = function(factor) {
     return new RacAngle(this.turn * factor);
   };
 
-  // If `turn` is zero multiplies by 1, otherwise multiplies by `turn`.
+  // Returns `factor * turnOne()`, where `turn` is considered in the
+  // range (0, 1].
+  // Useful when doing ratio calculation where a zero angle corresponds to
+  // a complete-circle since:
+  // ```
+  // rac.Angle(0).mult(0.5) // returns rac.Angle(0)
+  // // whereas
+  // rac.Angle(0).multOne(0.5) // return rac.Angle(0.5)
+  // ```
   RacAngle.prototype.multOne = function(factor) {
     return new RacAngle(this.turnOne() * factor);
   };
