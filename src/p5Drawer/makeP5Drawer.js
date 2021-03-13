@@ -328,6 +328,7 @@ module.exports = function makeP5Drawer(rac) {
       // Point
       this.setDebugFunction(rac.Point, (drawer, point) => {
         point.draw();
+
         let arc = point
           .arc(this.debugRadius, rac.Angle.s, rac.Angle.e)
           .draw();
@@ -341,6 +342,8 @@ module.exports = function makeP5Drawer(rac) {
 
       // Segment
       this.setDebugFunction(rac.Segment, (drawer, segment) => {
+        segment.draw();
+
         let perpAngle = segment.angle().perpendicular();
         let arc = segment.start
           .arc(this.debugRadius, perpAngle, perpAngle.inverse())
@@ -351,7 +354,6 @@ module.exports = function makeP5Drawer(rac) {
         arc.endSegment()
           .withLengthRatio(0.5)
           .draw();
-        segment.draw();
         segment.nextSegmentPerpendicular()
           .withLength(this.debugRadius/2)
           .withStartExtended(this.debugRadius/2)
@@ -359,45 +361,38 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       // Arc
-      // this.setDrawFunction(rac.Arc, (drawer, arc) => {
-      //   if (arc.isCircle()) {
-      //     let startRad = arc.start.radians();
-      //     let endRad = startRad + (rac.TAU);
-      //     drawer.p5.arc(
-      //       arc.center.x, arc.center.y,
-      //       arc.radius * 2, arc.radius * 2,
-      //       startRad, endRad);
-      //     return;
-      //   }
+      this.setDebugFunction(rac.Arc, (drawer, arc) => {
+        arc.draw();
 
-      //   let start = arc.start;
-      //   let end = arc.end;
-      //   if (!arc.clockwise) {
-      //     start = arc.end;
-      //     end = arc.start;
-      //   }
+        arc.startPoint()
+          .segmentToAngle(arc.start, this.debugRadius)
+          .withStartExtended(-this.debugRadius/2)
+          .draw();
+        arc.startSegment()
+          .withEndExtended(this.debugRadius)
+          .arcWithEnd(arc.start.shift(1/16, arc.clockwise), arc.clockwise)
+          .draw();
 
-      //   drawer.p5.arc(
-      //     arc.center.x, arc.center.y,
-      //     arc.radius * 2, arc.radius * 2,
-      //     start.radians(), end.radians());
-      // });
+        arc.endPoint()
+          .segmentToAngle(arc.end, this.debugRadius/2)
+          .draw();
+      });
 
       // Bezier
-      // this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
+      // this.setDebugFunction(rac.Bezier, (drawer, bezier) => {
       // });
 
       // Composite
-      // this.setDrawFunction(rac.Composite, (drawer, composite) => {
+      // this.setDebugFunction(rac.Composite, (drawer, composite) => {
       // });
 
 
       // Shape
-      // this.setDrawFunction(rac.Shape, (drawer, shape) => {
+      // this.setDebugFunction(rac.Shape, (drawer, shape) => {
       // });
 
       // Text
-      // this.setDrawFunction(rac.Text, (drawer, text) => {
+      // this.setDebugFunction(rac.Text, (drawer, text) => {
       // });
     } // setupAllDebugFunctions
 
