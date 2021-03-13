@@ -433,19 +433,23 @@ module.exports = function makeP5Drawer(rac) {
 
       // Bezier
       // this.setDebugFunction(rac.Bezier, (drawer, bezier) => {
+      // TODO: debug routine of Bezier
       // });
 
       // Composite
       // this.setDebugFunction(rac.Composite, (drawer, composite) => {
+      // TODO: debug routine of Composite
       // });
 
 
       // Shape
       // this.setDebugFunction(rac.Shape, (drawer, shape) => {
+      // TODO: debug routine of Shape
       // });
 
       // Text
       // this.setDebugFunction(rac.Text, (drawer, text) => {
+      // TODO: debug routine of Text
       // });
     } // setupAllDebugFunctions
 
