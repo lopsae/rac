@@ -377,6 +377,21 @@ module.exports = function makeP5Drawer(rac) {
       this.setDebugFunction(rac.Arc, (drawer, arc) => {
         arc.draw();
 
+        // Center start marker
+        let centerArc = arc.withRadius(this.debugRadius* 2/3);
+        centerArc.startSegment().draw();
+
+        // Mini arc markers
+        let arcs = centerArc.divideToArcs(5).filter((item, index) => {
+          return index % 2 == 0;
+        });
+        arcs.forEach(item => item.draw());
+
+        // Center end marker
+        if (!arc.isCircle()) {
+          centerArc.endSegment().withLengthRatio(1/2).draw();
+        }
+
         // Start point marker
         arc.startPoint()
           .arc(this.debugPointRadius).draw();
