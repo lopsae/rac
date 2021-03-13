@@ -20,6 +20,12 @@ module.exports = function makeX(rac) {
       return new RacSegment(this.start, newEnd);
     }
 
+    withAngleShift(someAngle, clockwise = true) {
+      let newAngle = this.angle().shift(someAngle, clockwise);
+      let newEnd = this.start.pointToAngle(newAngle, this.length());
+      return new RacSegment(this.start, newEnd);
+    }
+
     withStartExtended(length) {
       let newStart = this.reverse().nextSegmentWithLength(length).end;
       return new RacSegment(newStart, this.end);
@@ -29,6 +35,13 @@ module.exports = function makeX(rac) {
       let newEnd = this.nextSegmentWithLength(length).end;
       return new RacSegment(this.start, newEnd);
     }
+
+
+    // Returns a new segment from `this.start`, with the same length, that is
+    // perpendicular to `this` in the `clockwise` orientation.
+    withPerpendicularAngle(clockwise = true) {
+      return this.withAngleShift(rac.Angle.square, clockwise);
+    };
 
     // Returns `value` clamped to the given insets from zero and the length
     // of the segment.
@@ -253,6 +266,7 @@ module.exports = function makeX(rac) {
 
   // Returns a new segment from `this.end`, with the same length, that is
   // perpendicular to `this` in the `clockwise` orientation.
+  // TODO: rename to nextPerpendicularSegment?
   RacSegment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
     let offset = this.start.add(this.end.negative());
     let newEnd = this.end.add(offset.pointPerpendicular(clockwise));
