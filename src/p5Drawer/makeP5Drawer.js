@@ -323,9 +323,7 @@ module.exports = function makeP5Drawer(rac) {
     } // setupAllDrawFunctions
 
 
-    // Sets up all drawing routines for rac drawable clases.
-    // Also attaches additional prototype and static functions in relevant
-    // classes.
+    // Sets up all debug routines for rac drawable clases.
     setupAllDebugFunctions(rac) {
       // Point
       this.setDebugFunction(rac.Point, (drawer, point) => {
@@ -333,8 +331,7 @@ module.exports = function makeP5Drawer(rac) {
         let arc = point
           .arc(this.debugRadius, rac.Angle.s, rac.Angle.e)
           .draw();
-        arc.startSegment()
-          .reverse()
+        arc.startSegment().reverse()
           .withLengthRatio(0.5)
           .draw();
         arc.endSegment()
@@ -343,11 +340,23 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       // Segment
-      // this.setDebugFunction(rac.Segment, (drawer, segment) => {
-      //   drawer.p5.line(
-      //     segment.start.x, segment.start.y,
-      //     segment.end.x,   segment.end.y);
-      // });
+      this.setDebugFunction(rac.Segment, (drawer, segment) => {
+        let perpAngle = segment.angle().perpendicular();
+        let arc = segment.start
+          .arc(this.debugRadius, perpAngle, perpAngle.inverse())
+          .draw();
+        arc.startSegment().reverse()
+          .withLengthRatio(0.5)
+          .draw();
+        arc.endSegment()
+          .withLengthRatio(0.5)
+          .draw();
+        segment.draw();
+        segment.nextSegmentPerpendicular()
+          .withLength(this.debugRadius/2)
+          .withStartExtended(this.debugRadius/2)
+          .draw();
+      });
 
       // Arc
       // this.setDrawFunction(rac.Arc, (drawer, arc) => {
