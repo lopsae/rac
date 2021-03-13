@@ -381,8 +381,12 @@ module.exports = function makeP5Drawer(rac) {
         let centerArc = arc.withRadius(this.debugRadius* 2/3);
         centerArc.startSegment().draw();
 
+        let totalArcsPerTurn = 11;
+        let arcCount = Math.ceil(arc.angleDistance().turnOne() * totalArcsPerTurn);
+        // Corrects up to the nearest odd number
+        arcCount = 1 + Math.floor(arcCount/2) * 2;
         // Mini arc markers
-        let arcs = centerArc.divideToArcs(5).filter((item, index) => {
+        let arcs = centerArc.divideToArcs(arcCount).filter((item, index) => {
           return index % 2 == 0;
         });
         arcs.forEach(item => item.draw());
