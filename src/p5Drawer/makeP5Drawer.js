@@ -13,7 +13,13 @@ module.exports = function makeP5Drawer(rac) {
       this.debugRoutines = [];
       this.applyRoutines = [];
       this.enabled = true;
+
+      // Style used for debug drawing, if null the style already applied
+      // is used.
       this.debugStyle = null;
+      // Radius of point markers for debug drawing.
+      this.debugPointRadius = 4;
+      // Radius of location markers for debug drawing.
       this.debugRadius = 22;
 
       this.setupAllDrawFunctions(rac);
@@ -329,6 +335,8 @@ module.exports = function makeP5Drawer(rac) {
       this.setDebugFunction(rac.Point, (drawer, point) => {
         point.draw();
 
+        point.arc(this.debugPointRadius).draw();
+
         let arc = point
           .arc(this.debugRadius, rac.Angle.s, rac.Angle.e)
           .draw();
@@ -344,6 +352,9 @@ module.exports = function makeP5Drawer(rac) {
       this.setDebugFunction(rac.Segment, (drawer, segment) => {
         segment.draw();
 
+        segment.start.arc(this.debugPointRadius).draw();
+
+        // Half circle start marker
         let perpAngle = segment.angle().perpendicular();
         let arc = segment.start
           .arc(this.debugRadius, perpAngle, perpAngle.inverse())
@@ -354,6 +365,8 @@ module.exports = function makeP5Drawer(rac) {
         arc.endSegment()
           .withLengthRatio(0.5)
           .draw();
+
+        // Perpendicular end marker
         segment.nextSegmentPerpendicular()
           .withLength(this.debugRadius/2)
           .withStartExtended(this.debugRadius/2)
@@ -364,15 +377,21 @@ module.exports = function makeP5Drawer(rac) {
       this.setDebugFunction(rac.Arc, (drawer, arc) => {
         arc.draw();
 
+        // Start point marker
+        arc.startPoint()
+          .arc(this.debugPointRadius).draw();
         arc.startPoint()
           .segmentToAngle(arc.start, this.debugRadius)
           .withStartExtended(-this.debugRadius/2)
           .draw();
+
+        // Clockwise marker
         arc.startSegment()
           .withEndExtended(this.debugRadius)
           .arcWithEnd(arc.start.shift(1/16, arc.clockwise), arc.clockwise)
           .draw();
 
+        // End point marker
         arc.endPoint()
           .segmentToAngle(arc.end, this.debugRadius/2)
           .draw();
