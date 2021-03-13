@@ -14,6 +14,7 @@ module.exports = function makeP5Drawer(rac) {
       this.applyRoutines = [];
       this.enabled = true;
       this.debugStyle = null;
+      this.debugRadius = 22;
 
       this.setupAllDrawFunctions(rac);
       this.setupAllDebugFunctions(rac);
@@ -134,7 +135,14 @@ module.exports = function makeP5Drawer(rac) {
         return;
       }
 
-      routine.debugFunction(this, object);
+      if (this.debugStyle !== null) {
+        this.p5.push();
+        this.debugStyle.apply();
+        routine.debugFunction(this, object);
+        this.p5.pop();
+      } else {
+        routine.debugFunction(this, object);
+      }
     }
 
     applyObject(object) {
@@ -319,7 +327,69 @@ module.exports = function makeP5Drawer(rac) {
     // Also attaches additional prototype and static functions in relevant
     // classes.
     setupAllDebugFunctions(rac) {
+      // Point
+      this.setDebugFunction(rac.Point, (drawer, point) => {
+        point.draw();
+        let arc = point
+          .arc(this.debugRadius, rac.Angle.s, rac.Angle.e)
+          .draw();
+        arc.startSegment()
+          .reverse()
+          .withLengthRatio(0.5)
+          .draw();
+        arc.endSegment()
+          .withLengthRatio(0.5)
+          .draw();
+      });
 
+      // Segment
+      // this.setDebugFunction(rac.Segment, (drawer, segment) => {
+      //   drawer.p5.line(
+      //     segment.start.x, segment.start.y,
+      //     segment.end.x,   segment.end.y);
+      // });
+
+      // Arc
+      // this.setDrawFunction(rac.Arc, (drawer, arc) => {
+      //   if (arc.isCircle()) {
+      //     let startRad = arc.start.radians();
+      //     let endRad = startRad + (rac.TAU);
+      //     drawer.p5.arc(
+      //       arc.center.x, arc.center.y,
+      //       arc.radius * 2, arc.radius * 2,
+      //       startRad, endRad);
+      //     return;
+      //   }
+
+      //   let start = arc.start;
+      //   let end = arc.end;
+      //   if (!arc.clockwise) {
+      //     start = arc.end;
+      //     end = arc.start;
+      //   }
+
+      //   drawer.p5.arc(
+      //     arc.center.x, arc.center.y,
+      //     arc.radius * 2, arc.radius * 2,
+      //     start.radians(), end.radians());
+      // });
+
+      // Bezier
+      // this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
+      // });
+
+      // Composite
+      // this.setDrawFunction(rac.Composite, (drawer, composite) => {
+      // });
+
+
+      // Shape
+      // this.setDrawFunction(rac.Shape, (drawer, shape) => {
+      // });
+
+      // Text
+      // this.setDrawFunction(rac.Text, (drawer, text) => {
+      // });
     } // setupAllDebugFunctions
 
 
