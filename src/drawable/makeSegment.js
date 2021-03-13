@@ -228,10 +228,9 @@ module.exports = function makeX(rac) {
     return new RacSegment(this.start, this.pointAtBisector());
   };
 
-  // TODO: rename to withLengthRatio, when there is a chance to test
   // Returns a new segment from `start` to a length determined by
   // `ratio*length`.
-  RacSegment.prototype.segmentWithRatioOfLength = function(ratio) {
+  RacSegment.prototype.withLengthRatio = function(ratio) {
     return this.start.segmentToAngle(this.angle(), this.length() * ratio);
   };
 
