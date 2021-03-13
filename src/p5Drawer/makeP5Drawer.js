@@ -64,20 +64,20 @@ module.exports = function makeP5Drawer(rac) {
 
     // Adds a DebugRoutine for the given class.
     setDebugFunction(classObj, debugFunction) {
-      // let index = this.drawRoutines
-      //   .findIndex(routine => routine.classObj === classObj);
+      let index = this.debugRoutines
+        .findIndex(routine => routine.classObj === classObj);
 
-      // let routine;
-      // if (index === -1) {
-      //   routine = new RacP5Drawer.DebugRoutine(classObj, drawFunction);
-      // } else {
-      //   routine = this.drawRoutines[index];
-      //   routine.drawFunction = drawFunction;
-      //   // Delete routine
-      //   this.drawRoutines.splice(index, 1);
-      // }
+      let routine;
+      if (index === -1) {
+        routine = new DebugRoutine(classObj, debugFunction);
+      } else {
+        routine = this.debugRoutines[index];
+        routine.debugFunction = debugFunction;
+        // Delete routine
+        this.debugRoutines.splice(index, 1);
+      }
 
-      // this.drawRoutines.push(routine);
+      this.debugRoutines.push(routine);
     }
 
     // Adds a ApplyRoutine for the given class.
@@ -126,7 +126,15 @@ module.exports = function makeP5Drawer(rac) {
     }
 
     debugObject(object) {
-      this.drawObject(object, this.debugStyle);
+      let routine = this.debugRoutines
+        .find(routine => object instanceof routine.classObj);
+      if (routine === undefined) {
+        // No routine, just draw object with debug style
+        this.drawObject(object, this.debugStyle);
+        return;
+      }
+
+      routine.debugFunction(this, object);
     }
 
     applyObject(object) {
