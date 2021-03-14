@@ -348,6 +348,25 @@ module.exports = function makeP5Drawer(rac) {
       this.setDebugFunction(rac.Point, functions.debugPoint);
       this.setDebugFunction(rac.Segment, functions.debugSegment);
       this.setDebugFunction(rac.Arc, functions.debugArc);
+
+      let drawer = this;
+      rac.Angle.prototype.debug = function(point, drawsText = false) {
+        if (drawer.debugStyle !== null) {
+          drawer.p5.push();
+          drawer.debugStyle.apply();
+          // TODO: could this be a good option to implement splatting arguments
+          // into the debugFunction?
+          functions.debugAngle(drawer, this, point, drawsText);
+          drawer.p5.pop();
+        } else {
+          functions.debugAngle(drawer, this, point, drawsText);
+        }
+      };
+
+      rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
+        let angle = rac.Angle.from(someAngle);
+        angle.debug(this, drawsText);
+      };
     } // setupAllDebugFunctions
 
 

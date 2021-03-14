@@ -1,5 +1,31 @@
 'use strict';
 
+exports.debugAngle = function(drawer, angle, point, drawsText) {
+  let rac = drawer.rac;
+
+  point.arc(drawer.debugPointRadius).draw();
+
+  point
+    .segmentToAngle(rac.Angle.zero, drawer.debugRadius * 1.5)
+    .withStartExtended(-drawer.debugPointRadius)
+    .draw();
+  point
+    .segmentToAngle(angle, drawer.debugRadius * 1.5)
+    .withStartExtended(-drawer.debugPointRadius)
+    .draw();
+
+  // Mini arc markers
+  let totalArcsPerTurn = 18;
+  let arcCount = Math.ceil(angle.turnOne() * totalArcsPerTurn);
+  // Ups to the nearest odd number
+  arcCount = 1 + Math.floor(arcCount/2) * 2;
+  let angleArc = point.arc(drawer.debugRadius, rac.Angle.zero, angle);
+  let arcs = angleArc.divideToArcs(arcCount).filter((item, index) => {
+    return index % 2 == 0;
+  });
+  arcs.forEach(item => item.draw());
+}; // debugAngle
+
 
 exports.debugPoint = function(drawer, point, drawsText) {
   let rac = drawer.rac;
@@ -18,7 +44,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     .draw();
 
   // Text
-  if (!drawsText) { return; }
+  if (drawsText !== true) { return; }
 
   let string = `x:${drawer.debugNumber(point.x)}\ny:${drawer.debugNumber(point.y)}`;
   let format = new rac.Text.Format(
@@ -69,7 +95,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .draw();
 
   // Text
-  if (!drawsText) { return; }
+  if (drawsText !== true) { return; }
 
   let angle = segment.angle();
   let lengthFormat;
@@ -135,7 +161,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Mini arc markers
   let totalArcsPerTurn = 18;
   let arcCount = Math.ceil(arc.angleDistance().turnOne() * totalArcsPerTurn);
-  // Corrects up to the nearest odd number
+  // Ups to the nearest odd number
   arcCount = 1 + Math.floor(arcCount/2) * 2;
   let arcs = centerArc.divideToArcs(arcCount).filter((item, index) => {
     return index % 2 == 0;
