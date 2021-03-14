@@ -16,7 +16,15 @@ module.exports = function makeP5Drawer(rac) {
       // Style used for debug drawing, if null the style already applied
       // is used.
       this.debugStyle = null;
+      // Style used for text for debug drawing, if null the style already
+      // applied is used.
+      this.debugTextStyle = null;
       // Radius of point markers for debug drawing.
+      this.debugTextOptions = {
+        font: "Courier New",
+        size: rac.Text.Format.defaultSize
+      };
+
       this.debugPointRadius = 4;
       // Radius of main visual elements for debug drawing.
       this.debugRadius = 22;
@@ -340,11 +348,23 @@ module.exports = function makeP5Drawer(rac) {
           .arc(this.debugRadius, rac.Angle.s, rac.Angle.e)
           .draw();
         arc.startSegment().reverse()
-          .withLengthRatio(0.5)
+          .withLengthRatio(1/2)
           .draw();
         arc.endSegment()
-          .withLengthRatio(0.5)
+          .withLengthRatio(1/2)
           .draw();
+
+        let string = `x:${point.x.toFixed(3)}\ny:${point.y.toFixed(3)}`;
+        let format = new rac.Text.Format(
+          rac.Text.Format.horizontal.left,
+          rac.Text.Format.vertical.top,
+          this.debugTextOptions.font,
+          rac.Angle.e,
+          this.debugTextOptions.size);
+        point
+          .pointToAngle(rac.Angle.se, this.debugRadius/2)
+          .text(string, format)
+          .draw(this.debugTextStyle);
       });
 
       // Segment
@@ -385,7 +405,7 @@ module.exports = function makeP5Drawer(rac) {
         let centerArc = arc.withRadius(centerArcRadius);
         centerArc.startSegment().draw();
 
-        let totalArcsPerTurn = 11;
+        let totalArcsPerTurn = 18;
         let arcCount = Math.ceil(arc.angleDistance().turnOne() * totalArcsPerTurn);
         // Corrects up to the nearest odd number
         arcCount = 1 + Math.floor(arcCount/2) * 2;
