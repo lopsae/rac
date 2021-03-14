@@ -21,7 +21,7 @@ module.exports = function makeP5Drawer(rac) {
       this.debugTextStyle = null;
       // Radius of point markers for debug drawing.
       this.debugTextOptions = {
-        font: "Courier New",
+        font: 'monospace',
         size: rac.Text.Format.defaultSize
       };
 
@@ -403,6 +403,37 @@ module.exports = function makeP5Drawer(rac) {
         segment.end
           .arc(drawer.debugPointRadius, endMarkerStart, endMarkerEnd)
           .draw();
+
+        // Text
+        if (!drawsText) { return; }
+
+        let angle = segment.angle();
+
+        // Length
+        let lengthString = `l:${segment.length().toFixed(3)}`;
+        let lengthFormat = new rac.Text.Format(
+          rac.Text.Format.horizontal.left,
+          rac.Text.Format.vertical.bottom,
+          drawer.debugTextOptions.font,
+          angle,
+          drawer.debugTextOptions.size);
+        segment.start
+          .pointToAngle(angle.sub(1/8), drawer.debugRadius/2)
+          .text(lengthString, lengthFormat)
+          .draw(drawer.debugTextStyle);
+
+          // Angle
+        let angleString = `a:${angle.turn.toFixed(3)}`;
+        let angleFormat = new rac.Text.Format(
+          rac.Text.Format.horizontal.left,
+          rac.Text.Format.vertical.top,
+          drawer.debugTextOptions.font,
+          angle,
+          drawer.debugTextOptions.size);
+        segment.start
+          .pointToAngle(angle.add(1/8), drawer.debugRadius/2)
+          .text(angleString, angleFormat)
+          .draw(drawer.debugTextStyle);
       });
 
       // Arc
