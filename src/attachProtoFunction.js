@@ -31,10 +31,10 @@ module.exports = function attachProtoFunctions(rac) {
     return this;
   };
 
-  rac.drawableProtoFunctions.debug = function(){
+  rac.drawableProtoFunctions.debug = function(drawsText = false){
     checkDrawer(rac);
 
-    rac.drawer.debugObject(this);
+    rac.drawer.debugObject(this, drawsText);
     return this;
   };
 
