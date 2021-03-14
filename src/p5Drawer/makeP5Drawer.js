@@ -408,15 +408,40 @@ module.exports = function makeP5Drawer(rac) {
         if (!drawsText) { return; }
 
         let angle = segment.angle();
+        let lengthFormat;
+        let angleFormat;
+        if (angle.turn >= 3/4 || angle.turn <= 1/4) {
+          // Normal orientation
+          lengthFormat = new rac.Text.Format(
+            rac.Text.Format.horizontal.left,
+            rac.Text.Format.vertical.bottom,
+            drawer.debugTextOptions.font,
+            angle,
+            drawer.debugTextOptions.size);
+          angleFormat = new rac.Text.Format(
+            rac.Text.Format.horizontal.left,
+            rac.Text.Format.vertical.top,
+            drawer.debugTextOptions.font,
+            angle,
+            drawer.debugTextOptions.size);
+        } else {
+          // Reverse orientation
+          lengthFormat = new rac.Text.Format(
+            rac.Text.Format.horizontal.right,
+            rac.Text.Format.vertical.top,
+            drawer.debugTextOptions.font,
+            angle.inverse(),
+            drawer.debugTextOptions.size);
+          angleFormat = new rac.Text.Format(
+            rac.Text.Format.horizontal.right,
+            rac.Text.Format.vertical.bottom,
+            drawer.debugTextOptions.font,
+            angle.inverse(),
+            drawer.debugTextOptions.size);
+        }
 
         // Length
         let lengthString = `l:${segment.length().toFixed(3)}`;
-        let lengthFormat = new rac.Text.Format(
-          rac.Text.Format.horizontal.left,
-          rac.Text.Format.vertical.bottom,
-          drawer.debugTextOptions.font,
-          angle,
-          drawer.debugTextOptions.size);
         segment.start
           .pointToAngle(angle.sub(1/8), drawer.debugRadius/2)
           .text(lengthString, lengthFormat)
@@ -424,12 +449,6 @@ module.exports = function makeP5Drawer(rac) {
 
           // Angle
         let angleString = `a:${angle.turn.toFixed(3)}`;
-        let angleFormat = new rac.Text.Format(
-          rac.Text.Format.horizontal.left,
-          rac.Text.Format.vertical.top,
-          drawer.debugTextOptions.font,
-          angle,
-          drawer.debugTextOptions.size);
         segment.start
           .pointToAngle(angle.add(1/8), drawer.debugRadius/2)
           .text(angleString, angleFormat)
