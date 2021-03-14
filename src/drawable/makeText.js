@@ -32,7 +32,7 @@ module.exports = function makeText(rac) {
         horizontal, vertical,
         font = null,
         rotation = rac.Angle.zero,
-        size = RacText.Format.defaultSize)
+        size = RacTextFormat.defaultSize)
       {
         this.horizontal = horizontal;
         this.vertical = vertical;

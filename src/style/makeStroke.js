@@ -33,7 +33,8 @@ module.exports = function makeStroke(rac) {
       return new RacStroke(newColor, this.weight);
     }
 
-    styleWithFill(fill) {
+    styleWithFill(someFill) {
+      let fill = rac.Fill.from(someFill);
       return new rac.Style(this, fill);
     }
 
