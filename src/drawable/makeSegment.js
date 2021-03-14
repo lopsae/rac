@@ -200,6 +200,11 @@ module.exports = function makeX(rac) {
     return new RacSegment(this.start.add(offset), this.end.add(offset));
   };
 
+  RacSegment.prototype.translateToLength = function(distance) {
+    let offset = rac.Point.zero.pointToAngle(this.angle(), distance);
+    return new RacSegment(this.start.add(offset), this.end.add(offset));
+  };
+
   RacSegment.prototype.translatePerpendicular = function(distance, clockwise = true) {
     let perpendicular = this.angle().perpendicular(clockwise);
     return this.translateToAngle(perpendicular, distance);
