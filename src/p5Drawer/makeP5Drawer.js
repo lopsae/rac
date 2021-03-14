@@ -8,12 +8,13 @@ module.exports = function makeP5Drawer(rac) {
   class RacP5Drawer {
 
     constructor(rac, p5){
+      this.rac = rac;
       this.p5 = p5;
       this.drawRoutines = [];
       this.debugRoutines = [];
       this.applyRoutines = [];
 
-      // Style used for debug drawing, if null the style already applied
+      // Style used for debug drawing, if null thise style already applied
       // is used.
       this.debugStyle = null;
       // Style used for text for debug drawing, if null the style already
@@ -22,7 +23,8 @@ module.exports = function makeP5Drawer(rac) {
       // Radius of point markers for debug drawing.
       this.debugTextOptions = {
         font: 'monospace',
-        size: rac.Text.Format.defaultSize
+        size: rac.Text.Format.defaultSize,
+        toFixed: 2
       };
 
       this.debugPointRadius = 4;
@@ -137,6 +139,10 @@ module.exports = function makeP5Drawer(rac) {
         // No push-pull
         routine.drawFunction(this, object);
       }
+    }
+
+    debugNumber(number) {
+      return number.toFixed(this.debugTextOptions.toFixed);
     }
 
     debugObject(object, drawsText) {
@@ -338,220 +344,10 @@ module.exports = function makeP5Drawer(rac) {
 
     // Sets up all debug routines for rac drawable clases.
     setupAllDebugFunctions(rac) {
-      // Point
-      this.setDebugFunction(rac.Point, (drawer, point, drawsText) => {
-        // Point marker
-        point.arc(drawer.debugPointRadius).draw();
-
-        // Point reticule marker
-        let arc = point
-          .arc(drawer.debugRadius, rac.Angle.s, rac.Angle.e)
-          .draw();
-        arc.startSegment().reverse()
-          .withLengthRatio(1/2)
-          .draw();
-        arc.endSegment()
-          .withLengthRatio(1/2)
-          .draw();
-
-        // Text
-        if (!drawsText) { return; }
-
-        let string = `x:${point.x.toFixed(3)}\ny:${point.y.toFixed(3)}`;
-        let format = new rac.Text.Format(
-          rac.Text.Format.horizontal.left,
-          rac.Text.Format.vertical.top,
-          drawer.debugTextOptions.font,
-          rac.Angle.e,
-          drawer.debugTextOptions.size);
-        point
-          .pointToAngle(rac.Angle.se, drawer.debugRadius/2)
-          .text(string, format)
-          .draw(drawer.debugTextStyle);
-      });
-
-      // Segment
-      this.setDebugFunction(rac.Segment, (drawer, segment, drawsText) => {
-        // Half circle start marker
-        segment.start.arc(drawer.debugPointRadius).draw();
-
-        // Half circle start segment
-        let perpAngle = segment.angle().perpendicular();
-        let arc = segment.start
-          .arc(drawer.debugRadius, perpAngle, perpAngle.inverse())
-          .draw();
-        arc.startSegment().reverse()
-          .withLengthRatio(0.5)
-          .draw();
-        arc.endSegment()
-          .withLengthRatio(0.5)
-          .draw();
-
-        // Perpendicular end marker
-        let endMarkerStart = segment
-          .nextSegmentPerpendicular()
-          .withLength(drawer.debugRadius/2)
-          .withStartExtended(-drawer.debugPointRadius)
-          .draw()
-          .angle();
-        let endMarkerEnd = segment
-          .nextSegmentPerpendicular(false)
-          .withLength(drawer.debugRadius/2)
-          .withStartExtended(-drawer.debugPointRadius)
-          .draw()
-          .angle();
-        segment.end
-          .arc(drawer.debugPointRadius, endMarkerStart, endMarkerEnd)
-          .draw();
-
-        // Text
-        if (!drawsText) { return; }
-
-        let angle = segment.angle();
-        let lengthFormat;
-        let angleFormat;
-        if (angle.turn >= 3/4 || angle.turn <= 1/4) {
-          // Normal orientation
-          lengthFormat = new rac.Text.Format(
-            rac.Text.Format.horizontal.left,
-            rac.Text.Format.vertical.bottom,
-            drawer.debugTextOptions.font,
-            angle,
-            drawer.debugTextOptions.size);
-          angleFormat = new rac.Text.Format(
-            rac.Text.Format.horizontal.left,
-            rac.Text.Format.vertical.top,
-            drawer.debugTextOptions.font,
-            angle,
-            drawer.debugTextOptions.size);
-        } else {
-          // Reverse orientation
-          lengthFormat = new rac.Text.Format(
-            rac.Text.Format.horizontal.right,
-            rac.Text.Format.vertical.top,
-            drawer.debugTextOptions.font,
-            angle.inverse(),
-            drawer.debugTextOptions.size);
-          angleFormat = new rac.Text.Format(
-            rac.Text.Format.horizontal.right,
-            rac.Text.Format.vertical.bottom,
-            drawer.debugTextOptions.font,
-            angle.inverse(),
-            drawer.debugTextOptions.size);
-        }
-
-        // Length
-        let lengthString = `l:${segment.length().toFixed(3)}`;
-        segment.start
-          .pointToAngle(angle.sub(1/8), drawer.debugRadius/2)
-          .text(lengthString, lengthFormat)
-          .draw(drawer.debugTextStyle);
-
-          // Angle
-        let angleString = `a:${angle.turn.toFixed(3)}`;
-        segment.start
-          .pointToAngle(angle.add(1/8), drawer.debugRadius/2)
-          .text(angleString, angleFormat)
-          .draw(drawer.debugTextStyle);
-      });
-
-      // Arc
-      this.setDebugFunction(rac.Arc, (drawer, arc, drawsText) => {
-        // Center markers
-        let centerArcRadius = drawer.debugRadius * 2/3;
-        if (arc.radius > drawer.debugRadius/3 && arc.radius < drawer.debugRadius) {
-          centerArcRadius = arc.radius + drawer.debugRadius/3;
-        }
-
-        // Center start segment
-        let centerArc = arc.withRadius(centerArcRadius);
-        centerArc.startSegment().draw();
-
-        // Mini arc markers
-        let totalArcsPerTurn = 18;
-        let arcCount = Math.ceil(arc.angleDistance().turnOne() * totalArcsPerTurn);
-        // Corrects up to the nearest odd number
-        arcCount = 1 + Math.floor(arcCount/2) * 2;
-        let arcs = centerArc.divideToArcs(arcCount).filter((item, index) => {
-          return index % 2 == 0;
-        });
-        arcs.forEach(item => item.draw());
-
-        // Center end segment
-        if (!arc.isCircle()) {
-          centerArc.endSegment().withLengthRatio(1/2).draw();
-        }
-
-        // Start point marker
-        let startPoint = arc.startPoint();
-        startPoint
-          .arc(drawer.debugPointRadius).draw();
-        startPoint
-          .segmentToAngle(arc.start, drawer.debugRadius)
-          .withStartExtended(-drawer.debugRadius/2)
-          .draw();
-
-        // Orientation marker
-        let orientationArc = arc
-          .startSegment()
-          .withEndExtended(drawer.debugRadius)
-          .arc(arc.clockwise)
-          .withLength(drawer.debugRadius*2)
-          .draw();
-        let arrowCenter = orientationArc
-          .reverse()
-          .withLength(drawer.debugRadius/2)
-          .chordSegment();
-        let arrowAngle = 3/32;
-        arrowCenter.withAngleShift(-arrowAngle).draw();
-        arrowCenter.withAngleShift(arrowAngle).draw();
-
-        // Internal end point marker
-        let endPoint = arc.endPoint();
-        let internalLength = Math.min(drawer.debugRadius/2, arc.radius);
-        internalLength -= drawer.debugPointRadius;
-        if (internalLength > rac.equalityThreshold) {
-          endPoint
-            .segmentToAngle(arc.end.inverse(), internalLength)
-            .translateToLength(drawer.debugPointRadius)
-            .draw();
-        }
-
-        // External end point marker
-        let externalLength = drawer.debugRadius/2 - drawer.debugPointRadius;
-        endPoint
-          .segmentToAngle(arc.end, externalLength)
-          .translateToLength(drawer.debugPointRadius)
-          .draw();
-
-        // End point little arc
-        if (!arc.isCircle()) {
-          endPoint
-            .arc(drawer.debugPointRadius, arc.end, arc.end.inverse(), arc.clockwise)
-            .draw();
-        }
-      });
-
-      // Bezier
-      // this.setDebugFunction(rac.Bezier, (drawer, bezier, drawsText) => {
-      // TODO: debug routine of Bezier
-      // });
-
-      // Composite
-      // this.setDebugFunction(rac.Composite, (drawer, composite, drawsText) => {
-      // TODO: debug routine of Composite
-      // });
-
-
-      // Shape
-      // this.setDebugFunction(rac.Shape, (drawer, shape, drawsText) => {
-      // TODO: debug routine of Shape
-      // });
-
-      // Text
-      // this.setDebugFunction(rac.Text, (drawer, text, drawsText) => {
-      // TODO: debug routine of Text
-      // });
+      let functions = require('./debugFunctions');
+      this.setDebugFunction(rac.Point, functions.debugPoint);
+      this.setDebugFunction(rac.Segment, functions.debugSegment);
+      this.setDebugFunction(rac.Arc, functions.debugArc);
     } // setupAllDebugFunctions
 
 
