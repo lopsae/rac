@@ -355,6 +355,8 @@ module.exports = function makeP5Drawer(rac) {
           .draw();
 
         // Text
+        if (!drawsText) { return; }
+
         let string = `x:${point.x.toFixed(3)}\ny:${point.y.toFixed(3)}`;
         let format = new rac.Text.Format(
           rac.Text.Format.horizontal.left,
@@ -386,9 +388,20 @@ module.exports = function makeP5Drawer(rac) {
           .draw();
 
         // Perpendicular end marker
-        segment.nextSegmentPerpendicular()
+        let endMarkerStart = segment
+          .nextSegmentPerpendicular()
           .withLength(drawer.debugRadius/2)
-          .withStartExtended(drawer.debugRadius/2)
+          .withStartExtended(-drawer.debugPointRadius)
+          .draw()
+          .angle();
+        let endMarkerEnd = segment
+          .nextSegmentPerpendicular(false)
+          .withLength(drawer.debugRadius/2)
+          .withStartExtended(-drawer.debugPointRadius)
+          .draw()
+          .angle();
+        segment.end
+          .arc(drawer.debugPointRadius, endMarkerStart, endMarkerEnd)
           .draw();
       });
 
@@ -420,9 +433,10 @@ module.exports = function makeP5Drawer(rac) {
         }
 
         // Start point marker
-        arc.startPoint()
+        let startPoint = arc.startPoint();
+        startPoint
           .arc(drawer.debugPointRadius).draw();
-        arc.startPoint()
+        startPoint
           .segmentToAngle(arc.start, drawer.debugRadius)
           .withStartExtended(-drawer.debugRadius/2)
           .draw();
@@ -442,12 +456,30 @@ module.exports = function makeP5Drawer(rac) {
         arrowCenter.withAngleShift(-arrowAngle).draw();
         arrowCenter.withAngleShift(arrowAngle).draw();
 
-        // End point marker
-        let internalLength = Math.min(drawer.debugRadius/2, arc.radius)
-        arc.endPoint()
-          .segmentToAngle(arc.end, drawer.debugRadius/2)
-          .withStartExtended(internalLength)
+        // Internal end point marker
+        let endPoint = arc.endPoint();
+        let internalLength = Math.min(drawer.debugRadius/2, arc.radius);
+        internalLength -= drawer.debugPointRadius;
+        if (internalLength > rac.equalityThreshold) {
+          endPoint
+            .segmentToAngle(arc.end.inverse(), internalLength)
+            .translateToLength(drawer.debugPointRadius)
+            .draw();
+        }
+
+        // External end point marker
+        let externalLength = drawer.debugRadius/2 - drawer.debugPointRadius;
+        endPoint
+          .segmentToAngle(arc.end, externalLength)
+          .translateToLength(drawer.debugPointRadius)
           .draw();
+
+        // End point little arc
+        if (!arc.isCircle()) {
+          endPoint
+            .arc(drawer.debugPointRadius, arc.end, arc.end.inverse(), arc.clockwise)
+            .draw();
+        }
       });
 
       // Bezier
