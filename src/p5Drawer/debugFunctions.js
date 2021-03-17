@@ -3,15 +3,19 @@
 exports.debugAngle = function(drawer, angle, point, drawsText) {
   let rac = drawer.rac;
 
-  point.arc(drawer.debugPointRadius).draw();
-
+  // Zero segment
   point
-    .segmentToAngle(rac.Angle.zero, drawer.debugRadius * 1.5)
-    .withStartExtended(-drawer.debugPointRadius)
+    .segmentToAngle(rac.Angle.zero, drawer.debugRadius)
     .draw();
-  point
-    .segmentToAngle(angle, drawer.debugRadius * 1.5)
-    .withStartExtended(-drawer.debugPointRadius)
+
+  // Angle segment
+  let angleSegment = point
+    .segmentToAngle(angle, drawer.debugRadius * 1.5);
+  angleSegment.end
+    .arc(drawer.debugPointRadius, angle, angle.inverse(), false)
+    .draw();
+  angleSegment
+    .withEndExtended(drawer.debugPointRadius)
     .draw();
 
   // Mini arc markers
@@ -24,11 +28,43 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     return index % 2 == 0;
   });
   arcs.forEach(item => item.draw());
+
+  // Text
+  if (drawsText !== true) { return; }
+
+  let format;
+  if (angle.turn >= 3/4 || angle.turn <= 1/4) {
+    // Normal orientation
+    format = new rac.Text.Format(
+      rac.Text.Format.horizontal.left,
+      rac.Text.Format.vertical.center,
+      drawer.debugTextOptions.font,
+      angle,
+      drawer.debugTextOptions.size);
+  } else {
+    // Reverse orientation
+    format = new rac.Text.Format(
+      rac.Text.Format.horizontal.right,
+      rac.Text.Format.vertical.center,
+      drawer.debugTextOptions.font,
+      angle.inverse(),
+      drawer.debugTextOptions.size);
+  }
+
+  // Turn text
+  let turnString = `turn:${drawer.debugNumber(angle.turn)}`;
+  point
+    .pointToAngle(angle, drawer.debugRadius*2)
+    .text(turnString, format)
+    .draw(drawer.debugTextStyle);
 }; // debugAngle
 
 
 exports.debugPoint = function(drawer, point, drawsText) {
   let rac = drawer.rac;
+
+  point.draw();
+
   // Point marker
   point.arc(drawer.debugPointRadius).draw();
 
@@ -62,6 +98,9 @@ exports.debugPoint = function(drawer, point, drawsText) {
 
 exports.debugSegment = function(drawer, segment, drawsText) {
   let rac = drawer.rac;
+
+  segment.draw();
+
   // Half circle start marker
   segment.start.arc(drawer.debugPointRadius).draw();
 
@@ -148,6 +187,9 @@ exports.debugSegment = function(drawer, segment, drawsText) {
 
 exports.debugArc = function(drawer, arc, drawsText) {
   let rac = drawer.rac;
+
+  arc.draw();
+
   // Center markers
   let centerArcRadius = drawer.debugRadius * 2/3;
   if (arc.radius > drawer.debugRadius/3 && arc.radius < drawer.debugRadius) {
