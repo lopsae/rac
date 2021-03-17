@@ -32,23 +32,16 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let format;
-  if (angle.turn >= 3/4 || angle.turn <= 1/4) {
-    // Normal orientation
-    format = new rac.Text.Format(
-      rac.Text.Format.horizontal.left,
-      rac.Text.Format.vertical.center,
-      drawer.debugTextOptions.font,
-      angle,
-      drawer.debugTextOptions.size);
-  } else {
+  // Normal orientation
+  let format = new rac.Text.Format(
+    rac.Text.Format.horizontal.left,
+    rac.Text.Format.vertical.center,
+    drawer.debugTextOptions.font,
+    angle,
+    drawer.debugTextOptions.size);
+  if (angle.turn < 3/4 && angle.turn > 1/4) {
     // Reverse orientation
-    format = new rac.Text.Format(
-      rac.Text.Format.horizontal.right,
-      rac.Text.Format.vertical.center,
-      drawer.debugTextOptions.font,
-      angle.inverse(),
-      drawer.debugTextOptions.size);
+    format = format.inverse();
   }
 
   // Turn text
@@ -137,36 +130,23 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   if (drawsText !== true) { return; }
 
   let angle = segment.angle();
-  let lengthFormat;
-  let angleFormat;
-  if (angle.turn >= 3/4 || angle.turn <= 1/4) {
-    // Normal orientation
-    lengthFormat = new rac.Text.Format(
-      rac.Text.Format.horizontal.left,
-      rac.Text.Format.vertical.bottom,
-      drawer.debugTextOptions.font,
-      angle,
-      drawer.debugTextOptions.size);
-    angleFormat = new rac.Text.Format(
-      rac.Text.Format.horizontal.left,
-      rac.Text.Format.vertical.top,
-      drawer.debugTextOptions.font,
-      angle,
-      drawer.debugTextOptions.size);
-  } else {
+  // Normal orientation
+  let lengthFormat = new rac.Text.Format(
+    rac.Text.Format.horizontal.left,
+    rac.Text.Format.vertical.bottom,
+    drawer.debugTextOptions.font,
+    angle,
+    drawer.debugTextOptions.size);
+  let angleFormat = new rac.Text.Format(
+    rac.Text.Format.horizontal.left,
+    rac.Text.Format.vertical.top,
+    drawer.debugTextOptions.font,
+    angle,
+    drawer.debugTextOptions.size);
+  if (angle.turn < 3/4 && angle.turn > 1/4) {
     // Reverse orientation
-    lengthFormat = new rac.Text.Format(
-      rac.Text.Format.horizontal.right,
-      rac.Text.Format.vertical.top,
-      drawer.debugTextOptions.font,
-      angle.inverse(),
-      drawer.debugTextOptions.size);
-    angleFormat = new rac.Text.Format(
-      rac.Text.Format.horizontal.right,
-      rac.Text.Format.vertical.bottom,
-      drawer.debugTextOptions.font,
-      angle.inverse(),
-      drawer.debugTextOptions.size);
+    lengthFormat = lengthFormat.inverse();
+    angleFormat = angleFormat.inverse();
   }
 
   // Length
@@ -238,6 +218,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let arrowAngle = 3/32;
   arrowCenter.withAngleShift(-arrowAngle).draw();
   arrowCenter.withAngleShift(arrowAngle).draw();
+
+  // Text
+  if (drawsText === true) {
+    // TODO: text
+  }
 
   // Internal end point marker
   let endPoint = arc.endPoint();
