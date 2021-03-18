@@ -19,15 +19,12 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     .draw();
 
   // Mini arc markers
-  let totalArcsPerTurn = 18;
-  let arcCount = Math.ceil(angle.turnOne() * totalArcsPerTurn);
-  // Ups to the nearest odd number
-  arcCount = 1 + Math.floor(arcCount/2) * 2;
   let angleArc = point.arc(drawer.debugRadius, rac.Angle.zero, angle);
-  let arcs = angleArc.divideToArcs(arcCount).filter((item, index) => {
-    return index % 2 == 0;
-  });
-  arcs.forEach(item => item.draw());
+  let context = drawer.p5.drawingContext;
+  context.save();
+  context.setLineDash([6, 6]);
+  angleArc.draw();
+  context.restore();
 
   // Text
   if (drawsText !== true) { return; }
@@ -181,14 +178,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
   centerArc.startSegment().draw();
 
   // Mini arc markers
-  let totalArcsPerTurn = 18;
-  let arcCount = Math.ceil(arc.angleDistance().turnOne() * totalArcsPerTurn);
-  // Ups to the nearest odd number
-  arcCount = 1 + Math.floor(arcCount/2) * 2;
-  let arcs = centerArc.divideToArcs(arcCount).filter((item, index) => {
-    return index % 2 == 0;
-  });
-  arcs.forEach(item => item.draw());
+  let context = drawer.p5.drawingContext;
+  context.save();
+  context.setLineDash([6, 6]);
+  centerArc.draw();
+  context.restore();
 
   // Center end segment
   if (!arc.isCircle()) {
