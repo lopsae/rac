@@ -205,11 +205,12 @@ exports.debugArc = function(drawer, arc, drawsText) {
     .draw();
 
   // Orientation marker
+  let orientationLength = drawer.debugRadius*2;
   let orientationArc = arc
     .startSegment()
     .withEndExtended(drawer.debugRadius)
     .arc(arc.clockwise)
-    .withLength(drawer.debugRadius*2)
+    .withLength(orientationLength)
     .draw();
   let arrowCenter = orientationArc
     .reverse()
@@ -231,7 +232,10 @@ exports.debugArc = function(drawer, arc, drawsText) {
   }
 
   // External end point marker
-  let externalLength = drawsText === true
+  let lengthAtOrientationArc = orientationArc
+    .withEnd(arc.end)
+    .length();
+  let externalLength = lengthAtOrientationArc > orientationLength && drawsText === true
     ? drawer.debugRadius - drawer.debugPointRadius
     : drawer.debugRadius/2 - drawer.debugPointRadius;
 
@@ -241,6 +245,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
     .draw();
 
   // End point little arc
+
   if (!arc.isCircle()) {
     endPoint
       .arc(drawer.debugPointRadius, arc.end, arc.end.inverse(), arc.clockwise)
@@ -284,11 +289,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let endString = `end:${drawer.debugNumber(arc.end.turn)}`;
   let distanceString = `distance:${drawer.debugNumber(arc.angleDistance().turn)}`;
   let tailString = `${distanceString}\n${endString}`;
-
-  let orientationLength = orientationArc
-    .withEnd(arc.end)
-    .length();
-  if (orientationLength >= drawer.debugRadius*2) {
+  if (lengthAtOrientationArc > orientationLength) {
     // Draw strings separately
     orientationArc.startPoint()
       .pointToAngle(arc.start, drawer.debugRadius/2)
