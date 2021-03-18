@@ -219,11 +219,6 @@ exports.debugArc = function(drawer, arc, drawsText) {
   arrowCenter.withAngleShift(-arrowAngle).draw();
   arrowCenter.withAngleShift(arrowAngle).draw();
 
-  // Text
-  if (drawsText === true) {
-    // TODO: text
-  }
-
   // Internal end point marker
   let endPoint = arc.endPoint();
   let internalLength = Math.min(drawer.debugRadius/2, arc.radius);
@@ -236,7 +231,10 @@ exports.debugArc = function(drawer, arc, drawsText) {
   }
 
   // External end point marker
-  let externalLength = drawer.debugRadius/2 - drawer.debugPointRadius;
+  let externalLength = drawsText === true
+    ? drawer.debugRadius - drawer.debugPointRadius
+    : drawer.debugRadius/2 - drawer.debugPointRadius;
+
   endPoint
     .segmentToAngle(arc.end, externalLength)
     .translateToLength(drawer.debugPointRadius)
@@ -248,6 +246,43 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .arc(drawer.debugPointRadius, arc.end, arc.end.inverse(), arc.clockwise)
       .draw();
   }
+
+  // Text
+  if (drawsText !== true) { return; }
+
+  // Normal orientation
+  let startFormat = new rac.Text.Format(
+    rac.Text.Format.horizontal.left,
+    rac.Text.Format.vertical.center,
+    drawer.debugTextOptions.font,
+    arc.start,
+    drawer.debugTextOptions.size);
+  let endFormat = new rac.Text.Format(
+    rac.Text.Format.horizontal.left,
+    rac.Text.Format.vertical.center,
+    drawer.debugTextOptions.font,
+    arc.end,
+    drawer.debugTextOptions.size);
+
+  // Reverse orientation
+  if (arc.start.turn < 3/4 && arc.start.turn > 1/4) {
+    startFormat = startFormat.inverse();
+  }
+  if (arc.end.turn < 3/4 && arc.end.turn > 1/4) {
+    endFormat = endFormat.inverse();
+  }
+
+  let startString = `start:${drawer.debugNumber(arc.start.turn)}`;
+  orientationArc.startPoint()
+    .pointToAngle(arc.start.shift(1/8, arc.clockwise), drawer.debugRadius/2)
+    .text(startString, startFormat)
+    .draw(drawer.debugTextStyle);
+  let endString = `end:${drawer.debugNumber(arc.end.turn)}`;
+  orientationArc.pointAtAngle(arc.end)
+    .pointToAngle(arc.end.shift(-1/8, arc.clockwise), drawer.debugRadius/2)
+    .text(endString, endFormat)
+    .draw(drawer.debugTextStyle);
+
 }; // debugArc
 
 // TODO: debug routine of Bezier
