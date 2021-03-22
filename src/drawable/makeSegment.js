@@ -1,7 +1,7 @@
 'use strict';
 
 
-module.exports = function makeX(rac) {
+module.exports = function makeSegment(rac) {
 
   class RacSegment {
 
