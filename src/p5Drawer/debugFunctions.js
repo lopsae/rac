@@ -84,7 +84,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     rac.Angle.e,
     drawer.debugTextOptions.size);
   point
-    .pointToAngle(rac.Angle.se, drawer.debugRadius/2)
+    .pointToAngle(rac.Angle.se, drawer.debugPointRadius*2)
     .text(string, format)
     .draw(drawer.debugTextStyle);
 }; // debugPoint
@@ -153,14 +153,14 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Length
   let lengthString = `length:${drawer.debugNumber(segment.length())}`;
   segment.start
-    .pointToAngle(angle.sub(1/8), drawer.debugRadius/2)
+    .pointToAngle(angle.sub(1/8), drawer.debugPointRadius*2)
     .text(lengthString, lengthFormat)
     .draw(drawer.debugTextStyle);
 
     // Angle
   let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
   segment.start
-    .pointToAngle(angle.add(1/8), drawer.debugRadius/2)
+    .pointToAngle(angle.add(1/8), drawer.debugPointRadius*2)
     .text(angleString, angleFormat)
     .draw(drawer.debugTextStyle);
 }; // debugSegment
@@ -267,60 +267,86 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let startVertical = arc.clockwise
-    ? rac.Text.Format.vertical.top
-    : rac.Text.Format.vertical.bottom;
+  let hFormat = rac.Text.Format.horizontal;
+  let vFormat = rac.Text.Format.vertical;
 
-  let endVertical = arc.clockwise
-    ? rac.Text.Format.vertical.bottom
-    : rac.Text.Format.vertical.top;
+  let headVertical = arc.clockwise
+    ? vFormat.top
+    : vFormat.bottom;
+  let tailVertical = arc.clockwise
+    ? vFormat.bottom
+    : vFormat.top;
+  let radiusVertical = arc.clockwise
+    ? vFormat.bottom
+    : vFormat.top;
 
   // Normal orientation
-  let startFormat = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    startVertical,
+  let headFormat = new rac.Text.Format(
+    hFormat.left,
+    headVertical,
     drawer.debugTextOptions.font,
     arc.start,
     drawer.debugTextOptions.size);
-  let endFormat = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    endVertical,
+  let tailFormat = new rac.Text.Format(
+    hFormat.left,
+    tailVertical,
     drawer.debugTextOptions.font,
     arc.end,
+    drawer.debugTextOptions.size);
+  let radiusFormat = new rac.Text.Format(
+    hFormat.left,
+    radiusVertical,
+    drawer.debugTextOptions.font,
+    arc.start,
     drawer.debugTextOptions.size);
 
   // Reverse orientation
   if (reversesText(arc.start)) {
-    startFormat = startFormat.inverse();
+    headFormat = headFormat.inverse();
+    radiusFormat = radiusFormat.inverse();
   }
   if (reversesText(arc.end)) {
-    endFormat = endFormat.inverse();
+    tailFormat = tailFormat.inverse();
   }
 
   let startString = `start:${drawer.debugNumber(arc.start.turn)}`;
   let radiusString = `radius:${drawer.debugNumber(arc.radius)}`;
   let endString = `end:${drawer.debugNumber(arc.end.turn)}`;
-  let distanceString = `distance:${drawer.debugNumber(arc.angleDistance().turn)}`;
 
-  let headString = `${startString}\n${radiusString}`;
+  let angleDistance = arc.angleDistance();
+  let distanceString = `distance:${drawer.debugNumber(angleDistance.turn)}`;
+
   let tailString = `${distanceString}\n${endString}`;
+  let headString;
+  if (angleDistance.turn <= 3/4 && !arc.isCircle()) {
+    // Radius drawn separately
+    let radiusTextAngle = arc.start.shift(1/8, !arc.clockwise);
+    arc.center
+      .pointToAngle(radiusTextAngle, drawer.debugPointRadius)
+      .text(radiusString, radiusFormat)
+      .draw(drawer.debugTextStyle);
+    headString = startString;
+  } else {
+    // Radius joined to head
+    headString = `${startString}\n${radiusString}`;
+  }
 
   if (lengthAtOrientationArc > textJoinThreshold) {
     // Draw strings separately
     orientationArc.startPoint()
       .pointToAngle(arc.start, drawer.debugRadius/2)
-      .text(headString, startFormat)
+      .text(headString, headFormat)
       .draw(drawer.debugTextStyle);
     orientationArc.pointAtAngle(arc.end)
       .pointToAngle(arc.end, drawer.debugRadius/2)
-      .text(tailString, endFormat)
+      .text(tailString, tailFormat)
       .draw(drawer.debugTextStyle);
   } else {
     // Draw strings together
     let allStrings = `${headString}\n${tailString}`;
     orientationArc.startPoint()
       .pointToAngle(arc.start, drawer.debugRadius/2)
-      .text(allStrings, startFormat)
+      .text(allStrings, headFormat)
       .draw(drawer.debugTextStyle);
   }
 
