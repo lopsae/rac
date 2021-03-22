@@ -2,7 +2,7 @@
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.9.12-dev-108-46bc687'
+module.exports = '0.9.13-dev-119-bc8fb58'
 
 
 },{}],2:[function(require,module,exports){
@@ -939,6 +939,7 @@ module.exports = function makeAngle(rac) {
 
   // Returns the equivalent of `this` when `someOrigin` is considered the
   // origin, in the `clockwise` orientation.
+  // TODO: add example and difference to shift
   RacAngle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
     let origin = RacAngle.from(someOrigin);
     return origin.shift(this, clockwise);
@@ -1016,30 +1017,56 @@ module.exports = function makeAngle(rac) {
   RacAngle.sw = RacAngle.s.add(1/8);
   RacAngle.nw = RacAngle.w.add(1/8);
 
+  // North north-east
   RacAngle.nne = RacAngle.ne.add(-1/16);
+  // East north-east
   RacAngle.ene = RacAngle.ne.add(+1/16);
+  // North-east north
   RacAngle.nen = RacAngle.nne;
+  // North-east east
   RacAngle.nee = RacAngle.ene;
 
+  // East south-east
   RacAngle.ese = RacAngle.se.add(-1/16);
+  // South south-east
   RacAngle.sse = RacAngle.se.add(+1/16);
-  RacAngle.ese = RacAngle.see;
-  RacAngle.sse = RacAngle.ses;
+  // South-east east
+  RacAngle.see = RacAngle.ese;
+  // South-east south
+  RacAngle.ses = RacAngle.sse;
 
+  // South south-west
   RacAngle.ssw = RacAngle.sw.add(-1/16);
+  // West south-west
   RacAngle.wsw = RacAngle.sw.add(+1/16);
-  RacAngle.ssw = RacAngle.sws;
-  RacAngle.wsw = RacAngle.sww;
+  // South-west south
+  RacAngle.sws = RacAngle.ssw;
+  // South-west west
+  RacAngle.sww = RacAngle.wsw;
 
+  // West north-west
   RacAngle.wnw = RacAngle.nw.add(-1/16);
+  // North north-west
   RacAngle.nnw = RacAngle.nw.add(+1/16);
-  RacAngle.wnw = RacAngle.nww;
-  RacAngle.nnw = RacAngle.nwn;
+  // Nort-hwest west
+  RacAngle.nww = RacAngle.wnw;
+  // North-west north
+  RacAngle.nwn = RacAngle.nnw;
 
   RacAngle.right = RacAngle.e;
   RacAngle.down  = RacAngle.s;
   RacAngle.left  = RacAngle.w;
   RacAngle.up    = RacAngle.n;
+
+  RacAngle.r = RacAngle.right;
+  RacAngle.d = RacAngle.down;
+  RacAngle.l = RacAngle.left;
+  RacAngle.u = RacAngle.up;
+
+  RacAngle.top    = RacAngle.up;
+  RacAngle.bottom = RacAngle.down;
+  RacAngle.t      = RacAngle.top;
+  RacAngle.b      = RacAngle.bottom;
 
 
   return RacAngle;
@@ -1566,10 +1593,10 @@ module.exports = function makeArc(rac) {
       let endRay = new rac.Segment(this.center, item.end);
 
       let startAnchor = startRay
-        .segmentToRelativeAngle(rac.Angle.square, tangent, !this.clockwise)
+        .nextSegmentToAngleShift(rac.Angle.square, tangent, !this.clockwise)
         .end;
       let endAnchor = endRay
-        .segmentToRelativeAngle(rac.Angle.square, tangent, this.clockwise)
+        .nextSegmentToAngleShift(rac.Angle.square, tangent, this.clockwise)
         .end;
 
       beziers.push(new rac.Bezier(
@@ -2155,11 +2182,10 @@ module.exports = function makeX(rac) {
     return new RacSegment(this.start, end);
   };
 
-  // TODO: rename maybe to nextSegment? reevaluate "relative" vs shift
-  RacSegment.prototype.segmentToRelativeAngle = function(
-    relativeAngle, distance, clockwise = true)
+  RacSegment.prototype.nextSegmentToAngleShift = function(
+    angleShift, distance, clockwise = true)
   {
-    let angle = this.reverseAngle().shift(relativeAngle, clockwise);
+    let angle = this.reverseAngle().shift(angleShift, clockwise);
     return this.end.segmentToAngle(angle, distance);
   };
 
@@ -2170,7 +2196,7 @@ module.exports = function makeX(rac) {
     let angle = rac.Angle.fromRadians(radians);
 
     let hypSegment = this.reverse()
-      .segmentToRelativeAngle(angle, hypotenuse, !clockwise);
+      .nextSegmentToAngleShift(angle, hypotenuse, !clockwise);
     return this.end.segmentToPoint(hypSegment.end);
   };
 
@@ -2430,7 +2456,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     rac.Angle.e,
     drawer.debugTextOptions.size);
   point
-    .pointToAngle(rac.Angle.se, drawer.debugRadius/2)
+    .pointToAngle(rac.Angle.se, drawer.debugPointRadius*2)
     .text(string, format)
     .draw(drawer.debugTextStyle);
 }; // debugPoint
@@ -2461,17 +2487,32 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .nextSegmentPerpendicular()
     .withLength(drawer.debugRadius/2)
     .withStartExtended(-drawer.debugPointRadius)
-    .draw()
-    .angle();
+    .draw();
   let endMarkerEnd = segment
     .nextSegmentPerpendicular(false)
     .withLength(drawer.debugRadius/2)
     .withStartExtended(-drawer.debugPointRadius)
-    .draw()
-    .angle();
-  segment.end
-    .arc(drawer.debugPointRadius, endMarkerStart, endMarkerEnd)
     .draw();
+  // Little end half circle
+  segment.end
+    .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
+    .draw();
+
+  // Forming end arrow
+  let arrowAngleShift = rac.Angle.from(1/7);
+  let endArrowStart = endMarkerStart
+    .nextSegmentToAngleShift(arrowAngleShift, 100, false);
+  let endArrowEnd = endMarkerEnd
+    .nextSegmentToAngleShift(arrowAngleShift, 100, true);
+  let endArrowPoint = endArrowStart
+    .pointAtIntersectionWithSegment(endArrowEnd);
+  // End arrow
+  endMarkerStart
+    .nextSegmentToPoint(endArrowPoint)
+    .draw()
+    .nextSegmentToPoint(endMarkerEnd.end)
+    .draw();
+
 
   // Text
   if (drawsText !== true) { return; }
@@ -2499,14 +2540,16 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Length
   let lengthString = `length:${drawer.debugNumber(segment.length())}`;
   segment.start
-    .pointToAngle(angle.sub(1/8), drawer.debugRadius/2)
+    .pointToAngle(angle, drawer.debugPointRadius)
+    .pointToAngle(angle.sub(1/4), drawer.debugRadius/2)
     .text(lengthString, lengthFormat)
     .draw(drawer.debugTextStyle);
 
     // Angle
   let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
   segment.start
-    .pointToAngle(angle.add(1/8), drawer.debugRadius/2)
+    .pointToAngle(angle, drawer.debugPointRadius)
+    .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
     .text(angleString, angleFormat)
     .draw(drawer.debugTextStyle);
 }; // debugSegment
@@ -2613,60 +2656,89 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let startVertical = arc.clockwise
-    ? rac.Text.Format.vertical.top
-    : rac.Text.Format.vertical.bottom;
+  let hFormat = rac.Text.Format.horizontal;
+  let vFormat = rac.Text.Format.vertical;
 
-  let endVertical = arc.clockwise
-    ? rac.Text.Format.vertical.bottom
-    : rac.Text.Format.vertical.top;
+  let headVertical = arc.clockwise
+    ? vFormat.top
+    : vFormat.bottom;
+  let tailVertical = arc.clockwise
+    ? vFormat.bottom
+    : vFormat.top;
+  let radiusVertical = arc.clockwise
+    ? vFormat.bottom
+    : vFormat.top;
 
   // Normal orientation
-  let startFormat = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    startVertical,
+  let headFormat = new rac.Text.Format(
+    hFormat.left,
+    headVertical,
     drawer.debugTextOptions.font,
     arc.start,
     drawer.debugTextOptions.size);
-  let endFormat = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    endVertical,
+  let tailFormat = new rac.Text.Format(
+    hFormat.left,
+    tailVertical,
     drawer.debugTextOptions.font,
     arc.end,
+    drawer.debugTextOptions.size);
+  let radiusFormat = new rac.Text.Format(
+    hFormat.left,
+    radiusVertical,
+    drawer.debugTextOptions.font,
+    arc.start,
     drawer.debugTextOptions.size);
 
   // Reverse orientation
   if (reversesText(arc.start)) {
-    startFormat = startFormat.inverse();
+    headFormat = headFormat.inverse();
+    radiusFormat = radiusFormat.inverse();
   }
   if (reversesText(arc.end)) {
-    endFormat = endFormat.inverse();
+    tailFormat = tailFormat.inverse();
   }
 
   let startString = `start:${drawer.debugNumber(arc.start.turn)}`;
   let radiusString = `radius:${drawer.debugNumber(arc.radius)}`;
   let endString = `end:${drawer.debugNumber(arc.end.turn)}`;
-  let distanceString = `distance:${drawer.debugNumber(arc.angleDistance().turn)}`;
 
-  let headString = `${startString}\n${radiusString}`;
+  let angleDistance = arc.angleDistance();
+  let distanceString = `distance:${drawer.debugNumber(angleDistance.turn)}`;
+
   let tailString = `${distanceString}\n${endString}`;
+  let headString;
+
+  // Radius label
+  if (angleDistance.turn <= 3/4 && !arc.isCircle()) {
+    // Radius drawn separately
+    let perpAngle = arc.start.perpendicular(!arc.clockwise);
+    arc.center
+      .pointToAngle(arc.start, drawer.debugPointRadius)
+      .pointToAngle(perpAngle, drawer.debugPointRadius*2)
+      .text(radiusString, radiusFormat)
+      .draw(drawer.debugTextStyle);
+    headString = startString;
+  } else {
+    // Radius joined to head
+    headString = `${startString}\n${radiusString}`;
+  }
 
   if (lengthAtOrientationArc > textJoinThreshold) {
     // Draw strings separately
     orientationArc.startPoint()
       .pointToAngle(arc.start, drawer.debugRadius/2)
-      .text(headString, startFormat)
+      .text(headString, headFormat)
       .draw(drawer.debugTextStyle);
     orientationArc.pointAtAngle(arc.end)
       .pointToAngle(arc.end, drawer.debugRadius/2)
-      .text(tailString, endFormat)
+      .text(tailString, tailFormat)
       .draw(drawer.debugTextStyle);
   } else {
     // Draw strings together
     let allStrings = `${headString}\n${tailString}`;
     orientationArc.startPoint()
       .pointToAngle(arc.start, drawer.debugRadius/2)
-      .text(allStrings, startFormat)
+      .text(allStrings, headFormat)
       .draw(drawer.debugTextStyle);
   }
 
