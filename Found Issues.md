@@ -15,6 +15,10 @@ Functions that return the same object type with a modified property start with `
 + segment.withPerpendicularAngle
 
 
+When object retured is same type, ommit type in function name
++ Not: `ray.perpendicularRay()`
++ Instead: `ray.perpendicular()`
+
 Functions that return a different object type start or end with that object?
 + point.pointPerpendicular or point.perpendicularPoint?
 + arc.chordSegment or arc.segmentChord?

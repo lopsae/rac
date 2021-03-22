@@ -119,6 +119,11 @@ let makeRac = function makeRac() {
   rac.setupDrawableProtoFunctions(rac.Point);
 
 
+  // Ray
+  rac.Ray = require('./drawable/makeRay')(rac);
+  rac.setupDrawableProtoFunctions(rac.Ray);
+
+
   // Segment
   rac.Segment = require('./drawable/makeSegment')(rac);
   rac.setupDrawableProtoFunctions(rac.Segment);
