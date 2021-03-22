@@ -21,7 +21,7 @@ class Rac {
   constructor () {
     addEnumConstant(this, 'version', version);
     // https://tauday.com/tau-manifesto
-    addEnumConstant(this, `TAU`, Math.PI * 2);
+    addEnumConstant(this, 'TAU', Math.PI * 2);
 
     // Used to determine equality between measures for some operations, like
     // calculating the slope of a segment. Values too close can result in odd

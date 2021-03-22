@@ -5,27 +5,45 @@
 module.exports = function makeP5Drawer(rac) {
 
   // Drawer that uses a P5 instance for all drawing operations.
-  return class RacP5Drawer {
+  class RacP5Drawer {
 
     constructor(rac, p5){
+      this.rac = rac;
       this.p5 = p5;
       this.drawRoutines = [];
+      this.debugRoutines = [];
       this.applyRoutines = [];
-      this.enabled = true;
+
+      // Style used for debug drawing, if null thise style already applied
+      // is used.
       this.debugStyle = null;
+      // Style used for text for debug drawing, if null the style already
+      // applied is used.
+      this.debugTextStyle = null;
+      // Radius of point markers for debug drawing.
+      this.debugTextOptions = {
+        font: 'monospace',
+        size: rac.Text.Format.defaultSize,
+        toFixed: 2
+      };
+
+      this.debugPointRadius = 4;
+      // Radius of main visual elements for debug drawing.
+      this.debugRadius = 22;
 
       this.setupAllDrawFunctions(rac);
+      this.setupAllDebugFunctions(rac);
       this.setupAllApplyFunctions(rac);
     }
 
-    // Adds a routine for the given class.
+    // Adds a DrawRoutine for the given class.
     setDrawFunction(classObj, drawFunction) {
       let index = this.drawRoutines
         .findIndex(routine => routine.classObj === classObj);
 
       let routine;
       if (index === -1) {
-        routine = new RacP5Drawer.DrawRoutine(classObj, drawFunction);
+        routine = new DrawRoutine(classObj, drawFunction);
       } else {
         routine = this.drawRoutines[index];
         routine.drawFunction = drawFunction;
@@ -60,13 +78,32 @@ module.exports = function makeP5Drawer(rac) {
       routine.style = style;
     }
 
+    // Adds a DebugRoutine for the given class.
+    setDebugFunction(classObj, debugFunction) {
+      let index = this.debugRoutines
+        .findIndex(routine => routine.classObj === classObj);
+
+      let routine;
+      if (index === -1) {
+        routine = new DebugRoutine(classObj, debugFunction);
+      } else {
+        routine = this.debugRoutines[index];
+        routine.debugFunction = debugFunction;
+        // Delete routine
+        this.debugRoutines.splice(index, 1);
+      }
+
+      this.debugRoutines.push(routine);
+    }
+
+    // Adds a ApplyRoutine for the given class.
     setApplyFunction(classObj, applyFunction) {
       let index = this.applyRoutines
         .findIndex(routine => routine.classObj === classObj);
 
       let routine;
       if (index === -1) {
-        routine = new RacP5Drawer.ApplyRoutine(classObj, applyFunction);
+        routine = new ApplyRoutine(classObj, applyFunction);
       } else {
         routine = this.applyRoutines[index];
         routine.drawFunction = drawFunction;
@@ -104,8 +141,27 @@ module.exports = function makeP5Drawer(rac) {
       }
     }
 
-    debugObject(object) {
-      this.drawObject(object, this.debugStyle);
+    debugNumber(number) {
+      return number.toFixed(this.debugTextOptions.toFixed);
+    }
+
+    debugObject(object, drawsText) {
+      let routine = this.debugRoutines
+        .find(routine => object instanceof routine.classObj);
+      if (routine === undefined) {
+        // No routine, just draw object with debug style
+        this.drawObject(object, this.debugStyle);
+        return;
+      }
+
+      if (this.debugStyle !== null) {
+        this.p5.push();
+        this.debugStyle.apply();
+        routine.debugFunction(this, object, drawsText);
+        this.p5.pop();
+      } else {
+        routine.debugFunction(this, object, drawsText);
+      }
     }
 
     applyObject(object) {
@@ -138,6 +194,10 @@ module.exports = function makeP5Drawer(rac) {
 
       rac.Point.canvasCenter = function() {
         return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+      };
+
+      rac.Point.canvasEnd = function() {
+        return new rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
       };
 
       // Segment
@@ -178,12 +238,12 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       rac.Arc.prototype.vertex = function() {
-        let arcLength = this.arcLength();
+        let angleDistance = this.angleDistance();
         let beziersPerTurn = 5;
-        let divisions = arcLength.turn == 0
+        let divisions = angleDistance.turn == 0
           ? beziersPerTurn
           // TODO: use turnOne? when possible to test
-          : Math.ceil(arcLength.turn * beziersPerTurn);
+          : Math.ceil(angleDistance.turn * beziersPerTurn);
 
         this.divideToBeziers(divisions).vertex();
       };
@@ -282,6 +342,35 @@ module.exports = function makeP5Drawer(rac) {
     } // setupAllDrawFunctions
 
 
+    // Sets up all debug routines for rac drawable clases.
+    setupAllDebugFunctions(rac) {
+      let functions = require('./debugFunctions');
+      this.setDebugFunction(rac.Point, functions.debugPoint);
+      this.setDebugFunction(rac.Segment, functions.debugSegment);
+      this.setDebugFunction(rac.Arc, functions.debugArc);
+
+      let drawer = this;
+      rac.Angle.prototype.debug = function(point, drawsText = false) {
+        if (drawer.debugStyle !== null) {
+          drawer.p5.push();
+          drawer.debugStyle.apply();
+          // TODO: could this be a good option to implement splatting arguments
+          // into the debugFunction?
+          functions.debugAngle(drawer, this, point, drawsText);
+          drawer.p5.pop();
+        } else {
+          functions.debugAngle(drawer, this, point, drawsText);
+        }
+      };
+
+      rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
+        let angle = rac.Angle.from(someAngle);
+        angle.debug(this, drawsText);
+        return this;
+      };
+    } // setupAllDebugFunctions
+
+
     // Sets up all applying routines for rac style clases.
     // Also attaches additional prototype functions in relevant classes.
     setupAllApplyFunctions(rac) {
@@ -335,39 +424,50 @@ module.exports = function makeP5Drawer(rac) {
 
     } // setupAllApplyFunctions
 
-
-      // Encapsulates the drawing function and options for a specific class.
-      // The draw function is called with two parameters: the instance of the
-      // drawer, and the object to draw.
-      //
-      // Optionally a `style` can be asigned to always be applied before
-      // drawing an instance of the associated class. This style will be
-      // applied before any styles provided to the `draw` function.
-      //
-      // Optionally `requiresPushPop` can be set to `true` to always peform
-      // a `push` and `pop` before and after all the style and drawing in
-      // the routine. This is intended for objects which drawing operations
-      // may need to push transformation to the stack.
-    static DrawRoutine = class RacDrawerP5DrawRoutine {
-      constructor (classObj, drawFunction) {
-        this.classObj = classObj;
-        this.drawFunction = drawFunction
-        this.style = null;
-
-        // Options
-        this.requiresPushPop = false;
-      }
-    }
-
-
-    static ApplyRoutine = class RacDrawerP5ApplyRoutine {
-      constructor (classObj, applyFunction) {
-        this.classObj = classObj;
-        this.applyFunction = applyFunction
-      }
-    }
-
   } // RacP5Drawer
+
+
+  // Encapsulates the drawing function and options for a specific class.
+  // The draw function is called with two parameters: the instance of the
+  // drawer, and the object to draw.
+  //
+  // Optionally a `style` can be asigned to always be applied before
+  // drawing an instance of the associated class. This style will be
+  // applied before any styles provided to the `draw` function.
+  //
+  // Optionally `requiresPushPop` can be set to `true` to always peform
+  // a `push` and `pop` before and after all the style and drawing in
+  // the routine. This is intended for objects which drawing operations
+  // may need to push transformation to the stack.
+  class DrawRoutine {
+    constructor (classObj, drawFunction) {
+      this.classObj = classObj;
+      this.drawFunction = drawFunction;
+      this.style = null;
+
+      // Options
+      this.requiresPushPop = false;
+    }
+  } // DrawRoutine
+
+
+  class DebugRoutine {
+    constructor (classObj, debugFunction) {
+      this.classObj = classObj;
+      this.debugFunction = debugFunction;
+    }
+  }
+
+
+  class ApplyRoutine {
+    constructor (classObj, applyFunction) {
+      this.classObj = classObj;
+      this.applyFunction = applyFunction;
+    }
+  }
+
+
+  return RacP5Drawer;
 
 } // makeP5Drawer
 

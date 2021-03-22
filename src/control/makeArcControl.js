@@ -7,55 +7,61 @@ module.exports = function makeArcControl(rac) {
   return class RacArcControl extends rac.Control {
 
     // Creates a new Control instance with the given `value` and an
-    // `arcLength` from `someArcLength`.
+    // `angleDistance` from `someAngleDistance`.
     // By default the value range is [0,1] and limits are set to be the equal
     // as `startValue` and `endValue`.
-    constructor(value, someArcLength, startValue = 0, endValue = 1) {
+    constructor(value, someAngleDistance, startValue = 0, endValue = 1) {
       super(value, startValue, endValue);
 
-      // ArcLength for the copied anchor shape.
-      this.arcLength = rac.Angle.from(someArcLength);
+      // Angle distance for the copied anchor object.
+      this.angleDistance = rac.Angle.from(someAngleDistance);
 
-      // Arc to which the control will be anchored. When the control is
+      // `Arc`` to which the control will be anchored. When the control is
       // drawn and interacted a copy of the anchor is created with the
-      // control's `arcLength`.
+      // control's `angleDistance`.
       this.anchor = null;
     }
 
-    setValueWithArcLength(arcLengthValue) {
-      arcLengthValue = rac.Angle.from(arcLengthValue)
-      let arcLengthRatio = arcLengthValue.turn / this.arcLength.turnOne();
-      this.value = this.valueOf(arcLengthRatio);
+    setValueWithAngleDistance(someAngleDistance) {
+      let angleDistance = rac.Angle.from(someAngleDistance)
+      let angleDistanceRatio = angleDistance.turn / this.angleDistance.turnOne();
+      this.value = this.valueOf(angleDistanceRatio);
     }
 
-    setLimitsWithArcLengthInsets(startInset, endInset) {
+    setLimitsWithAngleDistanceInsets(startInset, endInset) {
       startInset = rac.Angle.from(startInset);
       endInset = rac.Angle.from(endInset);
-      this.startLimit = this.valueOf(startInset.turn / this.arcLength.turnOne());
-      this.endLimit = this.valueOf((this.arcLength.turnOne() - endInset.turn) / this.arcLength.turnOne());
+      this.startLimit = this.valueOf(startInset.turn / this.angleDistance.turnOne());
+      this.endLimit = this.valueOf((this.angleDistance.turnOne() - endInset.turn) / this.angleDistance.turnOne());
     }
 
-    // Returns the distance from `anchor.start` to the control center.
+    // TODO: rename control.center to control.knob or similar
+    // Returns the angle distance from `anchor.start` to the control center.
     distance() {
-      return this.arcLength.multOne(this.ratioValue());
+      return this.angleDistance.multOne(this.ratioValue());
     }
 
     center() {
       // Not posible to calculate a center
       if (this.anchor === null) { return null; }
-      return this.anchor.withArcLength(this.distance()).endPoint();
+      return this.anchor.withAngleDistance(this.distance()).endPoint();
     }
 
-    // Creates a copy of the current `anchor` with the control's `arcLength`.
+    // Creates a copy of the current `anchor` with the control's
+    // `angleDistance`.
     copyAnchor() {
       // No anchor to copy
       if (this.anchor === null) { return null; }
-      return this.anchor.withArcLength(this.arcLength);
+      return this.anchor.withAngleDistance(this.angleDistance);
     }
 
     draw() {
       let anchorCopy = this.copyAnchor();
-      anchorCopy.draw(this.style.withFill(rac.Fill.none));
+
+      let anchorStyle = this.style !== null
+        ? this.style.withFill(rac.Fill.none)
+        : null;
+      anchorCopy.draw(anchorStyle);
 
       let center = this.center();
       let angle = anchorCopy.center.angleToPoint(center);
@@ -64,8 +70,8 @@ module.exports = function makeArcControl(rac) {
       this.markers.forEach(item => {
         let markerRatio = this.ratioOf(item);
         if (markerRatio < 0 || markerRatio > 1) { return }
-        let markerArcLength = this.arcLength.multOne(markerRatio);
-        let markerAngle = anchorCopy.shiftAngle(markerArcLength);
+        let markerAngleDistance = this.angleDistance.multOne(markerRatio);
+        let markerAngle = anchorCopy.shiftAngle(markerAngleDistance);
         let point = anchorCopy.pointAtAngle(markerAngle);
         rac.Control.makeValueMarker(point, markerAngle.perpendicular(!anchorCopy.clockwise))
           .attachToComposite();
@@ -100,9 +106,9 @@ module.exports = function makeArcControl(rac) {
     }
 
     updateWithPointer(pointerControlCenter, anchorCopy) {
-      let arcLength = anchorCopy.arcLength();
-      let startInset = arcLength.multOne(this.ratioStartLimit());
-      let endInset = arcLength.multOne(1 - this.ratioEndLimit());
+      let angleDistance = anchorCopy.angleDistance();
+      let startInset = angleDistance.multOne(this.ratioStartLimit());
+      let endInset = angleDistance.multOne(1 - this.ratioEndLimit());
 
       let selectionAngle = anchorCopy.center
         .angleToPoint(pointerControlCenter);
@@ -111,20 +117,20 @@ module.exports = function makeArcControl(rac) {
       let newDistance = anchorCopy.distanceFromStart(selectionAngle);
 
       // Update control with new distance
-      let lengthRatio = newDistance.turn / this.arcLength.turnOne();
+      let lengthRatio = newDistance.turn / this.angleDistance.turnOne();
       this.value = this.valueOf(lengthRatio);
     }
 
     drawSelection(pointerCenter, anchorCopy, pointerOffset) {
       anchorCopy.attachToComposite();
 
-      let arcLength = anchorCopy.arcLength();
+      let angleDistance = anchorCopy.angleDistance();
 
       // Value markers
       this.markers.forEach(item => {
         let markerRatio = this.ratioOf(item);
         if (markerRatio < 0 || markerRatio > 1) { return }
-        let markerAngle = anchorCopy.shiftAngle(arcLength.multOne(markerRatio));
+        let markerAngle = anchorCopy.shiftAngle(angleDistance.multOne(markerRatio));
         let markerPoint = anchorCopy.pointAtAngle(markerAngle);
         rac.Control.makeValueMarker(markerPoint, markerAngle.perpendicular(!anchorCopy.clockwise))
           .attachToComposite();
@@ -133,7 +139,7 @@ module.exports = function makeArcControl(rac) {
       // Limit markers
       let ratioStartLimit = this.ratioStartLimit();
       if (ratioStartLimit > 0) {
-        let minAngle = anchorCopy.shiftAngle(arcLength.multOne(ratioStartLimit));
+        let minAngle = anchorCopy.shiftAngle(angleDistance.multOne(ratioStartLimit));
         let minPoint = anchorCopy.pointAtAngle(minAngle);
         let markerAngle = minAngle.perpendicular(anchorCopy.clockwise);
         rac.Control.makeLimitMarker(minPoint, markerAngle)
@@ -142,7 +148,7 @@ module.exports = function makeArcControl(rac) {
 
       let ratioEndLimit = this.ratioEndLimit();
       if (ratioEndLimit < 1) {
-        let maxAngle = anchorCopy.shiftAngle(arcLength.multOne(ratioEndLimit));
+        let maxAngle = anchorCopy.shiftAngle(angleDistance.multOne(ratioEndLimit));
         let maxPoint = anchorCopy.pointAtAngle(maxAngle);
         let markerAngle = maxAngle.perpendicular(!anchorCopy.clockwise);
         rac.Control.makeLimitMarker(maxPoint, markerAngle)

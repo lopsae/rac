@@ -100,7 +100,7 @@ module.exports = function(grunt) {
       versionString =`${pkgVersion}-${commitCount}-${shortHash}`;
     } else {
       let now = new Date();
-      let localTime = `${now.getHours()}:${now.getMinutes()}`;
+      let localTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
       versionString =`${pkgVersion}-${localTime}-${commitCount}-${shortHash}`;
     }
 

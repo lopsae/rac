@@ -1,11 +1,12 @@
 {
   "name": "rulerandcompass",
-  "version": "0.9.11-dev",
+  "version": "0.9.12-dev",
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "scripts": {
     "test": "node tests/test.js",
     "serve": "grunt serve",
+    "start": "grunt serve",
     "dist": "grunt dist"
   },
   "author": "Maic López Sáenz",
