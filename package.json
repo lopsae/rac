@@ -1,6 +1,6 @@
 {
   "name": "rulerandcompass",
-  "version": "0.9.14-dev",
+  "version": "0.10.0-dev",
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "scripts": {
