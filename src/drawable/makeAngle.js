@@ -153,30 +153,56 @@ module.exports = function makeAngle(rac) {
   RacAngle.sw = RacAngle.s.add(1/8);
   RacAngle.nw = RacAngle.w.add(1/8);
 
+  // North north-east
   RacAngle.nne = RacAngle.ne.add(-1/16);
+  // East north-east
   RacAngle.ene = RacAngle.ne.add(+1/16);
+  // North-east north
   RacAngle.nen = RacAngle.nne;
+  // North-east east
   RacAngle.nee = RacAngle.ene;
 
+  // East south-east
   RacAngle.ese = RacAngle.se.add(-1/16);
+  // South south-east
   RacAngle.sse = RacAngle.se.add(+1/16);
-  RacAngle.ese = RacAngle.see;
-  RacAngle.sse = RacAngle.ses;
+  // South-east east
+  RacAngle.see = RacAngle.ese;
+  // South-east south
+  RacAngle.ses = RacAngle.sse;
 
+  // South south-west
   RacAngle.ssw = RacAngle.sw.add(-1/16);
+  // West south-west
   RacAngle.wsw = RacAngle.sw.add(+1/16);
-  RacAngle.ssw = RacAngle.sws;
-  RacAngle.wsw = RacAngle.sww;
+  // South-west south
+  RacAngle.sws = RacAngle.ssw;
+  // South-west west
+  RacAngle.sww = RacAngle.wsw;
 
+  // West north-west
   RacAngle.wnw = RacAngle.nw.add(-1/16);
+  // North north-west
   RacAngle.nnw = RacAngle.nw.add(+1/16);
-  RacAngle.wnw = RacAngle.nww;
-  RacAngle.nnw = RacAngle.nwn;
+  // Nort-hwest west
+  RacAngle.nww = RacAngle.wnw;
+  // North-west north
+  RacAngle.nwn = RacAngle.nnw;
 
   RacAngle.right = RacAngle.e;
   RacAngle.down  = RacAngle.s;
   RacAngle.left  = RacAngle.w;
   RacAngle.up    = RacAngle.n;
+
+  RacAngle.r = RacAngle.right;
+  RacAngle.d = RacAngle.down;
+  RacAngle.l = RacAngle.left;
+  RacAngle.u = RacAngle.up;
+
+  RacAngle.top    = RacAngle.up;
+  RacAngle.bottom = RacAngle.down;
+  RacAngle.t      = RacAngle.top;
+  RacAngle.b      = RacAngle.bottom;
 
 
   return RacAngle;
