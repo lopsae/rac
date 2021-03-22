@@ -516,10 +516,10 @@ module.exports = function makeArc(rac) {
       let endRay = new rac.Segment(this.center, item.end);
 
       let startAnchor = startRay
-        .segmentToRelativeAngle(rac.Angle.square, tangent, !this.clockwise)
+        .nextSegmentToAngleShift(rac.Angle.square, tangent, !this.clockwise)
         .end;
       let endAnchor = endRay
-        .segmentToRelativeAngle(rac.Angle.square, tangent, this.clockwise)
+        .nextSegmentToAngleShift(rac.Angle.square, tangent, this.clockwise)
         .end;
 
       beziers.push(new rac.Bezier(

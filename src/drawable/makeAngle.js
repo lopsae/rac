@@ -76,6 +76,7 @@ module.exports = function makeAngle(rac) {
 
   // Returns the equivalent of `this` when `someOrigin` is considered the
   // origin, in the `clockwise` orientation.
+  // TODO: add example and difference to shift
   RacAngle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
     let origin = RacAngle.from(someOrigin);
     return origin.shift(this, clockwise);

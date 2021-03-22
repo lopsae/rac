@@ -326,11 +326,10 @@ module.exports = function makeX(rac) {
     return new RacSegment(this.start, end);
   };
 
-  // TODO: rename maybe to nextSegment? reevaluate "relative" vs shift
-  RacSegment.prototype.segmentToRelativeAngle = function(
-    relativeAngle, distance, clockwise = true)
+  RacSegment.prototype.nextSegmentToAngleShift = function(
+    angleShift, distance, clockwise = true)
   {
-    let angle = this.reverseAngle().shift(relativeAngle, clockwise);
+    let angle = this.reverseAngle().shift(angleShift, clockwise);
     return this.end.segmentToAngle(angle, distance);
   };
 
@@ -341,7 +340,7 @@ module.exports = function makeX(rac) {
     let angle = rac.Angle.fromRadians(radians);
 
     let hypSegment = this.reverse()
-      .segmentToRelativeAngle(angle, hypotenuse, !clockwise);
+      .nextSegmentToAngleShift(angle, hypotenuse, !clockwise);
     return this.end.segmentToPoint(hypSegment.end);
   };
 
