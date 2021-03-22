@@ -153,14 +153,16 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Length
   let lengthString = `length:${drawer.debugNumber(segment.length())}`;
   segment.start
-    .pointToAngle(angle.sub(1/8), drawer.debugPointRadius*2)
+    .pointToAngle(angle, drawer.debugPointRadius)
+    .pointToAngle(angle.sub(1/4), drawer.debugRadius/2)
     .text(lengthString, lengthFormat)
     .draw(drawer.debugTextStyle);
 
     // Angle
   let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
   segment.start
-    .pointToAngle(angle.add(1/8), drawer.debugPointRadius*2)
+    .pointToAngle(angle, drawer.debugPointRadius)
+    .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
     .text(angleString, angleFormat)
     .draw(drawer.debugTextStyle);
 }; // debugSegment
@@ -318,11 +320,14 @@ exports.debugArc = function(drawer, arc, drawsText) {
 
   let tailString = `${distanceString}\n${endString}`;
   let headString;
+
+  // Radius label
   if (angleDistance.turn <= 3/4 && !arc.isCircle()) {
     // Radius drawn separately
-    let radiusTextAngle = arc.start.shift(1/8, !arc.clockwise);
+    let perpAngle = arc.start.perpendicular(!arc.clockwise);
     arc.center
-      .pointToAngle(radiusTextAngle, drawer.debugPointRadius)
+      .pointToAngle(arc.start, drawer.debugPointRadius)
+      .pointToAngle(perpAngle, drawer.debugPointRadius*2)
       .text(radiusString, radiusFormat)
       .draw(drawer.debugTextStyle);
     headString = startString;
