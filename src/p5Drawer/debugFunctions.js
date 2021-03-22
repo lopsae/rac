@@ -115,17 +115,32 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .nextSegmentPerpendicular()
     .withLength(drawer.debugRadius/2)
     .withStartExtended(-drawer.debugPointRadius)
-    .draw()
-    .angle();
+    .draw();
   let endMarkerEnd = segment
     .nextSegmentPerpendicular(false)
     .withLength(drawer.debugRadius/2)
     .withStartExtended(-drawer.debugPointRadius)
-    .draw()
-    .angle();
-  segment.end
-    .arc(drawer.debugPointRadius, endMarkerStart, endMarkerEnd)
     .draw();
+  // Little end half circle
+  segment.end
+    .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
+    .draw();
+
+  // Forming end arrow
+  let arrowAngleShift = rac.Angle.from(1/7);
+  let endArrowStart = endMarkerStart
+    .nextSegmentToAngleShift(arrowAngleShift, 100, false);
+  let endArrowEnd = endMarkerEnd
+    .nextSegmentToAngleShift(arrowAngleShift, 100, true);
+  let endArrowPoint = endArrowStart
+    .pointAtIntersectionWithSegment(endArrowEnd);
+  // End arrow
+  endMarkerStart
+    .nextSegmentToPoint(endArrowPoint)
+    .draw()
+    .nextSegmentToPoint(endMarkerEnd.end)
+    .draw();
+
 
   // Text
   if (drawsText !== true) { return; }
