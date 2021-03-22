@@ -366,6 +366,7 @@ module.exports = function makeP5Drawer(rac) {
       rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
         let angle = rac.Angle.from(someAngle);
         angle.debug(this, drawsText);
+        return this;
       };
     } // setupAllDebugFunctions
 
