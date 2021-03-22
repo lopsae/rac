@@ -2,7 +2,7 @@
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.9.12-dev-103-291058e'
+module.exports = '0.9.12-dev-108-46bc687'
 
 
 },{}],2:[function(require,module,exports){
@@ -2346,6 +2346,10 @@ module.exports = function makeText(rac) {
 },{"./rac":17}],15:[function(require,module,exports){
 'use strict';
 
+function reversesText(angle) {
+  return angle.turn < 3/4 && angle.turn >= 1/4;
+}
+
 exports.debugAngle = function(drawer, angle, point, drawsText) {
   let rac = drawer.rac;
 
@@ -2365,15 +2369,12 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     .draw();
 
   // Mini arc markers
-  let totalArcsPerTurn = 18;
-  let arcCount = Math.ceil(angle.turnOne() * totalArcsPerTurn);
-  // Ups to the nearest odd number
-  arcCount = 1 + Math.floor(arcCount/2) * 2;
   let angleArc = point.arc(drawer.debugRadius, rac.Angle.zero, angle);
-  let arcs = angleArc.divideToArcs(arcCount).filter((item, index) => {
-    return index % 2 == 0;
-  });
-  arcs.forEach(item => item.draw());
+  let context = drawer.p5.drawingContext;
+  context.save();
+  context.setLineDash([6, 6]);
+  angleArc.draw();
+  context.restore();
 
   // Text
   if (drawsText !== true) { return; }
@@ -2385,7 +2386,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     drawer.debugTextOptions.font,
     angle,
     drawer.debugTextOptions.size);
-  if (angle.turn < 3/4 && angle.turn > 1/4) {
+  if (reversesText(angle)) {
     // Reverse orientation
     format = format.inverse();
   }
@@ -2489,7 +2490,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     drawer.debugTextOptions.font,
     angle,
     drawer.debugTextOptions.size);
-  if (angle.turn < 3/4 && angle.turn > 1/4) {
+  if (reversesText(angle)) {
     // Reverse orientation
     lengthFormat = lengthFormat.inverse();
     angleFormat = angleFormat.inverse();
@@ -2519,6 +2520,8 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Center markers
   let centerArcRadius = drawer.debugRadius * 2/3;
   if (arc.radius > drawer.debugRadius/3 && arc.radius < drawer.debugRadius) {
+    // If radius is to close to the center-arc markers
+    // Make the center-arc be outside of the arc
     centerArcRadius = arc.radius + drawer.debugRadius/3;
   }
 
@@ -2526,15 +2529,24 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let centerArc = arc.withRadius(centerArcRadius);
   centerArc.startSegment().draw();
 
+  // Radius
+  let radiusMarkerLength = arc.radius
+    - centerArcRadius
+    - drawer.debugRadius/2
+    - drawer.debugPointRadius*2;
+  if (radiusMarkerLength > 0) {
+    arc.startSegment()
+      .withLength(radiusMarkerLength)
+      .translateToLength(centerArcRadius + drawer.debugPointRadius*2)
+      .draw();
+  }
+
   // Mini arc markers
-  let totalArcsPerTurn = 18;
-  let arcCount = Math.ceil(arc.angleDistance().turnOne() * totalArcsPerTurn);
-  // Ups to the nearest odd number
-  arcCount = 1 + Math.floor(arcCount/2) * 2;
-  let arcs = centerArc.divideToArcs(arcCount).filter((item, index) => {
-    return index % 2 == 0;
-  });
-  arcs.forEach(item => item.draw());
+  let context = drawer.p5.drawingContext;
+  context.save();
+  context.setLineDash([6, 6]);
+  centerArc.draw();
+  context.restore();
 
   // Center end segment
   if (!arc.isCircle()) {
@@ -2551,11 +2563,12 @@ exports.debugArc = function(drawer, arc, drawsText) {
     .draw();
 
   // Orientation marker
+  let orientationLength = drawer.debugRadius*2;
   let orientationArc = arc
     .startSegment()
     .withEndExtended(drawer.debugRadius)
     .arc(arc.clockwise)
-    .withLength(drawer.debugRadius*2)
+    .withLength(orientationLength)
     .draw();
   let arrowCenter = orientationArc
     .reverse()
@@ -2577,7 +2590,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
   }
 
   // External end point marker
-  let externalLength = drawsText === true
+  let textJoinThreshold = drawer.debugRadius*3;
+  let lengthAtOrientationArc = orientationArc
+    .withEnd(arc.end)
+    .length();
+  let externalLength = lengthAtOrientationArc > textJoinThreshold && drawsText === true
     ? drawer.debugRadius - drawer.debugPointRadius
     : drawer.debugRadius/2 - drawer.debugPointRadius;
 
@@ -2596,38 +2613,64 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
+  let startVertical = arc.clockwise
+    ? rac.Text.Format.vertical.top
+    : rac.Text.Format.vertical.bottom;
+
+  let endVertical = arc.clockwise
+    ? rac.Text.Format.vertical.bottom
+    : rac.Text.Format.vertical.top;
+
   // Normal orientation
   let startFormat = new rac.Text.Format(
     rac.Text.Format.horizontal.left,
-    rac.Text.Format.vertical.center,
+    startVertical,
     drawer.debugTextOptions.font,
     arc.start,
     drawer.debugTextOptions.size);
   let endFormat = new rac.Text.Format(
     rac.Text.Format.horizontal.left,
-    rac.Text.Format.vertical.center,
+    endVertical,
     drawer.debugTextOptions.font,
     arc.end,
     drawer.debugTextOptions.size);
 
   // Reverse orientation
-  if (arc.start.turn < 3/4 && arc.start.turn > 1/4) {
+  if (reversesText(arc.start)) {
     startFormat = startFormat.inverse();
   }
-  if (arc.end.turn < 3/4 && arc.end.turn > 1/4) {
+  if (reversesText(arc.end)) {
     endFormat = endFormat.inverse();
   }
 
   let startString = `start:${drawer.debugNumber(arc.start.turn)}`;
-  orientationArc.startPoint()
-    .pointToAngle(arc.start.shift(1/8, arc.clockwise), drawer.debugRadius/2)
-    .text(startString, startFormat)
-    .draw(drawer.debugTextStyle);
+  let radiusString = `radius:${drawer.debugNumber(arc.radius)}`;
   let endString = `end:${drawer.debugNumber(arc.end.turn)}`;
-  orientationArc.pointAtAngle(arc.end)
-    .pointToAngle(arc.end.shift(-1/8, arc.clockwise), drawer.debugRadius/2)
-    .text(endString, endFormat)
-    .draw(drawer.debugTextStyle);
+  let distanceString = `distance:${drawer.debugNumber(arc.angleDistance().turn)}`;
+
+  let headString = `${startString}\n${radiusString}`;
+  let tailString = `${distanceString}\n${endString}`;
+
+  if (lengthAtOrientationArc > textJoinThreshold) {
+    // Draw strings separately
+    orientationArc.startPoint()
+      .pointToAngle(arc.start, drawer.debugRadius/2)
+      .text(headString, startFormat)
+      .draw(drawer.debugTextStyle);
+    orientationArc.pointAtAngle(arc.end)
+      .pointToAngle(arc.end, drawer.debugRadius/2)
+      .text(tailString, endFormat)
+      .draw(drawer.debugTextStyle);
+  } else {
+    // Draw strings together
+    let allStrings = `${headString}\n${tailString}`;
+    orientationArc.startPoint()
+      .pointToAngle(arc.start, drawer.debugRadius/2)
+      .text(allStrings, startFormat)
+      .draw(drawer.debugTextStyle);
+  }
+
+
 
 }; // debugArc
 
@@ -3006,6 +3049,7 @@ module.exports = function makeP5Drawer(rac) {
       rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
         let angle = rac.Angle.from(someAngle);
         angle.debug(this, drawsText);
+        return this;
       };
     } // setupAllDebugFunctions
 
