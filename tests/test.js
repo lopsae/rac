@@ -45,6 +45,50 @@ expect.extend({
         pass: false,
       };
     }
+  },
+  equalsSegment(segment, startX, startY, endX, endY) {
+    const pass =
+      rac.equals(segment.start.x, startX)
+      && rac.equals(segment.start.y, startY)
+      && rac.equals(segment.end.x, endX)
+      && rac.equals(segment.end.y, endY);
+    if (pass) {
+      return {
+        message: () =>
+          `expected segment ((${segment.start.x},${segment.start.y}),(${segment.end.x},${segment.end.y})) not to equal to ((${startX},${startY})(${endX},${endY}))`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () =>
+          `expected segment ((${segment.start.x},${segment.start.y}),(${segment.end.x},${segment.end.y})) to equal to ((${startX},${startY})(${endX},${endY}))`,
+        pass: false,
+      };
+    }
+  },
+  equalsArc(arc, centerX, centerY, radius, someStartAngle, someEndAngle, clockwise) {
+    let startAngle = rac.Angle.from(someStartAngle);
+    let endAngle = rac.Angle.from(someEndAngle);
+    const pass =
+      rac.equals(arc.center.x, centerX)
+      && rac.equals(arc.center.y, centerY)
+      && rac.equals(arc.radius, radius)
+      && rac.equals(arc.start.turn, startAngle.turn)
+      && rac.equals(arc.end.turn, endAngle.turn)
+      && clockwise === clockwise;
+    if (pass) {
+      return {
+        message: () =>
+          `expected arc ((${arc.center.x},${arc.center.x}) r:${arc.radius} s:${arc.start.turn} e:${arc.end.turn} c:${arc.clockwise}) not to equal to ((${centerX},${centerY}) r:${radius} s:${startAngle.turn} e:${endAngle.turn} c:${clockwise})`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () =>
+          `expected arc ((${arc.center.x},${arc.center.x}) r:${arc.radius} s:${arc.start.turn} e:${arc.end.turn} c:${arc.clockwise}) to equal to ((${centerX},${centerY}) r:${radius} s:${startAngle.turn} e:${endAngle.turn} c:${clockwise})`,
+        pass: false,
+      };
+    }
   }
 });
 
@@ -108,17 +152,25 @@ describe('Point', () => {
     expect(point.distanceToPoint(new rac.Point(200, 100)))
       .toBe(100);
 
+    expect(point.segmentToPoint(fifty))
+      .equalsSegment(100, 100, 55, 55);
 
+    expect(point.segmentToAngle(rac.Angle.s, 55))
+      .equalsSegment(100, 100, 100, 155);
 
-    expect(point).equalsPoint(100, 100);
+    let intersector = point
+      .addX(200) // x is 300
+      .segmentToAngle(rac.Angle.s, 100);
+
+    expect(point.segmentToAngleToIntersectionWithSegment(rac.Angle.zero, intersector))
+      .equalsSegment(100, 100, 300, 100);
+
+    expect(point.segmentPerpendicularToSegment(intersector))
+      .equalsSegment(100, 100, 300, 100);
+
+    expect(point.arc(155, rac.Angle.e, rac.Angle.n, false))
+      .equalsArc(100, 100, 155, 0, 3/4, false);
   });
-
-
-  test.todo('segmentToPoint');
-  test.todo('segmentToAngle');
-  test.todo('segmentToAngleToIntersectionWithSegment');
-  test.todo('segmentPerpendicularToSegment');
-  test.todo('arc');
 
 });
 
