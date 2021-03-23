@@ -274,7 +274,7 @@ module.exports = function makeSegment(rac) {
   // TODO: rename to nextPerpendicularSegment?
   RacSegment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
     let offset = this.start.add(this.end.negative());
-    let newEnd = this.end.add(offset.pointPerpendicular(clockwise));
+    let newEnd = this.end.add(offset.perpendicular(clockwise));
     return this.end.segmentToPoint(newEnd);
   };
 

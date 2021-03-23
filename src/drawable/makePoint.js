@@ -86,7 +86,7 @@ module.exports = function makePoint(rac) {
 
 
   RacPoint.prototype.sub = function(other, y = undefined) {
-    this.substract(other, y);
+    return this.substract(other, y);
   };
 
   RacPoint.prototype.addX = function(x) {
@@ -117,7 +117,7 @@ module.exports = function makePoint(rac) {
     return Math.sqrt(x+y);
   };
 
-  RacPoint.prototype.pointPerpendicular = function(clockwise = true) {
+  RacPoint.prototype.perpendicular = function(clockwise = true) {
     return clockwise
       ? new RacPoint(-this.y, this.x)
       : new RacPoint(this.y, -this.x);

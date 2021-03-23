@@ -59,6 +59,12 @@ class Rac {
     this.drawer = new this.P5Drawer(this, p5Instance)
   }
 
+
+  equals(value, expected) {
+    let diff = Math.abs(value-expected);
+    return diff < this.equalityThreshold;
+  }
+
 }
 
 // Makes a new RAC object populated with all RAC classes and features.
