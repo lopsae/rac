@@ -1,23 +1,53 @@
 
 console.log(`✳️  tests running!`);
 
-let makeRac = require('rulerandcompass');
+const makeRac = require('rulerandcompass');
 console.log(`Loaded RAC - version:${makeRac.version}`);
 
-let fail = 1;
+// let fail = 1;
 
-if (makeRac.version === undefined || makeRac.version === null) {
-  process.exit(fail);
-}
+test('RAC version', () => {
+  expect(makeRac.version).toBeTruthy();
+});
+
+
+// if (makeRac.version === undefined || makeRac.version === null) {
+//   process.exit(fail);
+// }
 
 let rac = makeRac();
 
-let point = new rac.Point(100, 100);
-if (point.x !== 100 && point.y !== 100) {
-  process.exit(fail);
-}
+
+expect.extend({
+  equalsPoint(received, x, y) {
+    const pass = received.x == x && received.y == y;
+    if (pass) {
+      return {
+        message: () =>
+          `passed maic`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () =>
+          `failed maic`,
+        pass: false,
+      };
+    }
+  },
+});
 
 
-console.log(`✅ tests finished!`);
-process.exit(0);
+test('Point', () => {
+  let point = new rac.Point(100, 100);
+  expect(point.x).toBe(100);
+  expect(point.y).toBe(100);
+  expect(point).equalsPoint(100, 100);
+});
+
+
+
+
+// console.log(`✅ tests finished!`);
+// process.exit(0);
 

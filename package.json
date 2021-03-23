@@ -4,7 +4,7 @@
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "scripts": {
-    "test": "node tests/test.js",
+    "test": "jest tests/*",
     "serve": "grunt serve",
     "start": "grunt serve",
     "dist": "grunt dist"
@@ -16,7 +16,8 @@
     "grunt-browserify": "^5.3.0",
     "grunt-contrib-connect": "^3.0.0",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-exec": "^3.0.0"
+    "grunt-exec": "^3.0.0",
+    "jest": "^26.6.3"
   },
   "dependencies": {
     "npm": "^7.6.0"
