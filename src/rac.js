@@ -69,7 +69,7 @@ class Rac {
 
 
   Point(x, y) {
-    return new Rac.Point(rac, x, y);
+    return new Rac.Point(this, x, y);
   }
 
 } // class Rac

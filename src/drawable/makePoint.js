@@ -147,7 +147,7 @@ module.exports = RacPoint;
 
   RacPoint.prototype.pointToAngle = function(someAngle, distance) {
     // console.log(`someangle:${rac.typeName(someAngle)}`);
-    let angle = rac.Angle.from(someAngle);
+    let angle = Rac.Angle.from(someAngle);
     // console.log(`angleTurn:${angle.turn}`);
     let distanceX = distance * Math.cos(angle.radians());
     let distanceY = distance * Math.sin(angle.radians());

@@ -5,6 +5,7 @@ const rac = new Rac();
 
 
 test('RAC version', () => {
+  // TODO: attach version to class
   // expect(makeRac.version).toBeTruthy();
   expect(rac.version).toBeTruthy();
   // expect(makeRac.version).toBe(rac.version);
@@ -94,8 +95,8 @@ expect.extend({
 
 
 describe('Point', () => {
-  let point = new Rac.Point(100, 100);
-  let fifty = new Rac.Point(55, 55);
+  let point = rac.Point(100, 100);
+  let fifty = rac.Point(55, 55);
 
   test('withX functions', () => {
     expect(point.withX(77))
@@ -149,9 +150,9 @@ describe('Point', () => {
   test.skip('misc', () => {
     expect(point.angleToPoint(fifty)).equalsAngle(Rac.Angle.nw);
 
-    expect(point.distanceToPoint(new Rac.Point(100, 200)))
+    expect(point.distanceToPoint(rac.Point(100, 200)))
       .toBe(100);
-    expect(point.distanceToPoint(new Rac.Point(200, 100)))
+    expect(point.distanceToPoint(rac.Point(200, 100)))
       .toBe(100);
 
     expect(point.segmentToPoint(fifty))
