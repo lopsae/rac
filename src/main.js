@@ -29,7 +29,7 @@
 
 }(typeof self !== 'undefined' ? self : this, function () {
 
-  return require('./rac');
+  return require('./Rac');
 
 }));
 

@@ -79,7 +79,7 @@ module.exports = function(grunt) {
     jsdoc : {
       dist : {
         src: [
-          'src/rac.js',
+          'src/Rac.js',
           'src/drawable/Point.js',
           'src/util/utils.js',
           'src/p5Drawer/makeP5Drawer.js'],

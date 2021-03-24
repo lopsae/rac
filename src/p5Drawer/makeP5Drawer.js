@@ -1,7 +1,7 @@
 'use strict';
 
 
-let Rac = require('../rac');
+let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
