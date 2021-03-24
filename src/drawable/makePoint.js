@@ -8,7 +8,7 @@ let utils = require('../util/utils');
 // module.exports = function makePoint(rac) {
 
 /**
-* This is racPoint class.
+* Point in a two dimentional coordinate system.
 */
 class RacPoint{
 
@@ -20,6 +20,9 @@ class RacPoint{
       this.y = y;
     }
 
+    /**
+    * Returns a string representation of `this` for human consumption.
+    */
     describe() {
       return `Point(${this.x},${this.y})`;
     }
@@ -28,6 +31,9 @@ class RacPoint{
       return new Rac.Text(this.rac, string, format, this, rotation);
     }
 
+    /**
+    * Returns a new `Point` with the `x` set to `newX`.
+    */
     withX(newX) {
       return new RacPoint(this.rac, newX, this.y);
     }
@@ -64,6 +70,9 @@ class RacPoint{
 module.exports = RacPoint;
 
 
+  /**
+  * Returns a new `Point` adding given `x` and `y` values.
+  */
   RacPoint.prototype.add = function(other, y = undefined) {
     if (other instanceof RacPoint && y === undefined) {
       return new RacPoint(

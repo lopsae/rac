@@ -8,8 +8,17 @@ const version = require('../built/version');
 const utils = require(`./util/utils`);
 
 
+/**
+* Root class of RAC. All drawable, style, control, and drawer classes are
+* contained under this class.
+*/
 class Rac {
 
+  /**
+  * Builds a new instance of Rac. The new instance will not contain a `drawer`.
+  * In order to enable drawing operations call `setupDrawer` with a valid
+  * object.
+  */
   constructor () {
     utils.addConstant(this, 'version', version);
 
@@ -43,11 +52,14 @@ class Rac {
       drawerNotSetup: 'Drawer not setup'}
   }
 
-  // Sets the drawer for the instance. Currently only a p5.js instance
-  // is supported.
-  // The drawer will also populate some classes with prototype functions
-  // relevant to the drawer. For p5.js this include `apply` functions for
-  // colors and style object, and `vertex` functions for drawable objects.
+  /**
+  * Sets the drawer for the instance. Currently only a p5.js instance is
+  * supported.
+  *
+  * The drawer will also populate some classes with prototype functions
+  * relevant to the drawer. For p5.js this include `apply` functions for
+  * colors and style object, and `vertex` functions for drawable objects.
+  */
   setupDrawer(p5Instance) {
     this.drawer = new Rac.P5Drawer(this, p5Instance)
   }
@@ -59,6 +71,9 @@ class Rac {
   }
 
 
+  /**
+  * Creates a new `Point` instance using `this`.
+  */
   Point(x, y) {
     return new Rac.Point(this, x, y);
   }
