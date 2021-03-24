@@ -86,6 +86,8 @@ module.exports = function(grunt) {
         options: {
           destination: 'out',
           verbose: true,
+          // pedantic: true,
+          // debug: true,
           // explain: true,
           configure: './jsdoc.json'
         }

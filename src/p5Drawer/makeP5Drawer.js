@@ -191,24 +191,31 @@ let utils = require('../util/utils');
 
       /**
       * Calls the `p5.vertex` function for this `Point`.
-      * @name vertex
-      * @memberof Point#
-      * @function
+      *
+      * Added by `Rac.P5Drawer` when setup as `rac.drawer`.
       */
       Rac.Point.prototype.vertex = function() {
         rac.drawer.p5.vertex(this.x, this.y);
       };
 
-      // TODO: why? catch!
       /**
-      * Bad documentation, not printed
+      * Returns the `Point` at cursor current position.
+      *
+      * Added by `Rac.P5Drawer` when setup as `rac.drawer`.
+      *
+      * @name Point.pointer
+      * @memberof! Rac#
+      * @function
       */
-      Rac.Point.pointer = function() {
+      rac.Point.pointer = function() {
         return new Rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       };
 
       /**
       * Returns the `Point` at the center of the canvas.
+      *
+      * Added by `Rac.P5Drawer` when setup as `rac.drawer`.
+      *
       * @name Point.canvasCenter
       * @memberof! Rac#
       * @function
