@@ -1,9 +1,14 @@
 'use strict';
 
+let rac = require('../rac');
 
-module.exports = function makePoint(rac) {
+// module.exports = function makePoint(rac) {
 
-  class RacPoint{
+/**
+* This is racPoint class.
+*/
+class RacPoint{
+
 
     constructor(x, y) {
       this.x = x;
@@ -46,6 +51,8 @@ module.exports = function makePoint(rac) {
     }
 
   } // RacPoint
+
+module.exports = RacPoint;
 
 
   RacPoint.prototype.add = function(other, y = undefined) {
@@ -124,9 +131,12 @@ module.exports = function makePoint(rac) {
   };
 
   RacPoint.prototype.pointToAngle = function(someAngle, distance) {
+    // console.log(`someangle:${rac.typeName(someAngle)}`);
     let angle = rac.Angle.from(someAngle);
+    // console.log(`angleTurn:${angle.turn}`);
     let distanceX = distance * Math.cos(angle.radians());
     let distanceY = distance * Math.sin(angle.radians());
+    // console.log(`angle.radians():${angle.radians()}`);
     return new RacPoint(this.x + distanceX, this.y + distanceY);
   };
 
@@ -158,7 +168,7 @@ module.exports = function makePoint(rac) {
   RacPoint.origin = RacPoint.zero;
 
 
-  return RacPoint;
+  // return RacPoint;
 
-} // makePoint
+// } // makePoint
 

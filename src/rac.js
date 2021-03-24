@@ -18,6 +18,8 @@ function addEnumConstant(obj, prop, value) {
 
 class Rac {
 
+  static TAU = Math.PI * 2;
+
   constructor () {
     addEnumConstant(this, 'version', version);
     // https://tauday.com/tau-manifesto
@@ -65,117 +67,123 @@ class Rac {
     return diff < this.equalityThreshold;
   }
 
-}
+} // class Rac
+
+
+module.exports = Rac;
 
 // Makes a new RAC object populated with all RAC classes and features.
 //
 // The RAC object is initialized without a `drawer`. Call `setupDrawer`
 // to enable drawing  functionality, otherwise an error will be thrown if
 // any drawing is attempted.
-let makeRac = function makeRac() {
+// let makeRac = function makeRac() {
 
-  let rac = new Rac();
+//   let rac = new Rac();
 
 
   // Convenience function for logging, returns the constructor name of
   // `obj`, or its type name.
-  rac.typeName = function(obj) {
+  Rac.typeName = function(obj) {
     return obj.constructor.name ?? typeof obj
   };
 
 
   // Prototype functions
-  require('./attachProtoFunction')(rac);
+  require('./attachProtoFunction')(Rac);
 
 
   // P5Drawer
-  rac.P5Drawer = require('./p5Drawer/makeP5Drawer')(rac);
+  Rac.P5Drawer = require('./p5Drawer/makeP5Drawer')(Rac);
 
 
   // Color
-  rac.Color = require('./style/makeColor')(rac);
+  Rac.Color = require('./style/makeColor')(Rac);
 
 
   // Stroke
-  rac.Stroke = require('./style/makeStroke')(rac);
-  rac.setupStyleProtoFunctions(rac.Stroke);
+  Rac.Stroke = require('./style/makeStroke')(Rac);
+  Rac.setupStyleProtoFunctions(Rac.Stroke);
 
 
   // Fill
-  rac.Fill = require('./style/makeFill')(rac);
-  rac.setupStyleProtoFunctions(rac.Fill);
+  Rac.Fill = require('./style/makeFill')(Rac);
+  Rac.setupStyleProtoFunctions(Rac.Fill);
 
 
   // Style
-  rac.Style = require('./style/makeStyle')(rac);
-  rac.setupStyleProtoFunctions(rac.Style);
+  Rac.Style = require('./style/makeStyle')(Rac);
+  Rac.setupStyleProtoFunctions(Rac.Style);
 
 
   // Text
-  rac.Text = require('./drawable/makeText.js')(rac);
-  rac.setupDrawableProtoFunctions(rac.Text);
+  Rac.Text = require('./drawable/makeText.js')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Text);
 
 
   // Angle
-  rac.Angle = require('./drawable/makeAngle')(rac);
+  Rac.Angle = require('./drawable/makeAngle')(Rac);
 
 
   // Point
-  rac.Point = require('./drawable/makePoint')(rac);
-  rac.setupDrawableProtoFunctions(rac.Point);
+  Rac.Point = require('./drawable/makePoint');
+  Rac.setupDrawableProtoFunctions(Rac.Point);
 
 
   // Ray
-  rac.Ray = require('./drawable/makeRay')(rac);
-  rac.setupDrawableProtoFunctions(rac.Ray);
+  Rac.Ray = require('./drawable/makeRay')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Ray);
 
 
   // Segment
-  rac.Segment = require('./drawable/makeSegment')(rac);
-  rac.setupDrawableProtoFunctions(rac.Segment);
+  Rac.Segment = require('./drawable/makeSegment')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Segment);
 
 
   // Arc
-  rac.Arc = require('./drawable/makeArc')(rac);
-  rac.setupDrawableProtoFunctions(rac.Arc);
+  Rac.Arc = require('./drawable/makeArc')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Arc);
 
 
   // Bezier
-  rac.Bezier = require('./drawable/makeBezier')(rac);
-  rac.setupDrawableProtoFunctions(rac.Bezier);
+  Rac.Bezier = require('./drawable/makeBezier')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Bezier);
 
 
   // Composite
-  rac.Composite = require('./drawable/makeComposite')(rac);
-  rac.setupDrawableProtoFunctions(rac.Composite);
+  Rac.Composite = require('./drawable/makeComposite')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Composite);
 
 
   // Shape
-  rac.Shape = require('./drawable/makeShape')(rac);
-  rac.setupDrawableProtoFunctions(rac.Shape);
+  Rac.Shape = require('./drawable/makeShape')(Rac);
+  Rac.setupDrawableProtoFunctions(Rac.Shape);
 
 
   // EaseFunction
-  rac.EaseFunction = require('./util/makeEaseFunction')(rac);
+  Rac.EaseFunction = require('./util/makeEaseFunction')(Rac);
 
 
   // Control
-  rac.Control = require('./control/makeControl')(rac);
+  Rac.Control = require('./control/makeControl')(Rac);
 
 
   // SegmentControl
-  rac.SegmentControl = require('./control/makeSegmentControl')(rac);
+  Rac.SegmentControl = require('./control/makeSegmentControl')(Rac);
 
 
   // ArcControl
-  rac.ArcControl = require('./control/makeArcControl')(rac);
+  Rac.ArcControl = require('./control/makeArcControl')(Rac);
 
 
-  return rac;
-
-}; // makeRac
+  // console.log('rac.js finished');
 
 
-addEnumConstant(makeRac, 'version', version);
-module.exports = makeRac;
+  // return rac;
+
+// }; // makeRac
+
+
+// addEnumConstant(makeRac, 'version', version);
+// module.exports = makeRac;
 
