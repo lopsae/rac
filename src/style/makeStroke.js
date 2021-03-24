@@ -1,13 +1,21 @@
 'use strict';
 
 
-module.exports = function makeStroke(rac) {
+let Rac = require('../rac');
+let utils = require('../util/utils');
 
-  return class RacStroke {
 
-    static none = new RacStroke(null);
+// module.exports = function makeStroke(rac) {
 
-    constructor(color = null, weight = 1) {
+module.exports = class RacStroke {
+
+    // TODO: figure out
+    // static none = new RacStroke(null);
+
+    constructor(rac, color = null, weight = 1) {
+      utils.checkDefined(rac, weight);
+
+      this.rac = rac
       this.color = color;
       this.weight = weight;
     }
@@ -17,28 +25,28 @@ module.exports = function makeStroke(rac) {
       if (this.color !== null) {
         colorCopy = this.color.copy();
       }
-      return new RacStroke(colorCopy, this.weight);
+      return new RacStroke(this.rac, colorCopy, this.weight);
     }
 
     withWeight(weight) {
-      return new RacStroke(this.color, weight);
+      return new RacStroke(this.rac, this.color, weight);
     }
 
     withAlpha(alpha) {
       if (this.color === null) {
-        return new RacStroke(null, this.weight);
+        return new RacStroke(this.rac, null, this.weight);
       }
 
       let newColor = this.color.withAlpha(alpha);
-      return new RacStroke(newColor, this.weight);
+      return new RacStroke(this.rac, newColor, this.weight);
     }
 
     styleWithFill(someFill) {
-      let fill = rac.Fill.from(someFill);
-      return new rac.Style(this, fill);
+      let fill = Rac.Fill.from(this.rac, someFill);
+      return new Rac.Style(this.rac, this, fill);
     }
 
   } // RacStroke
 
-} // makeStroke
+// } // makeStroke
 

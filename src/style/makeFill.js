@@ -1,25 +1,32 @@
 'use strict';
 
 
-module.exports = function makeFill(rac) {
+let Rac = require('../rac');
+let utils = require('../util/utils');
 
- return class RacFill {
 
-    static none = new RacFill(null);
+// module.exports = function makeFill(rac) {
 
-    constructor(color = null) {
+module.exports = class RacFill {
+
+    // TODO: figure out
+    // static none = new RacFill(null);
+
+    constructor(rac, color = null) {
+      utils.checkDefined(rac);
+      this.rac = rac;
       this.color = color;
     }
 
-    static from(something) {
+    static from(rac, something) {
       if (something instanceof RacFill) {
-        return new RacFill(something.color);
+        return new RacFill(rac, something.color);
       }
-      if (something instanceof rac.Stroke) {
-        return new RacFill(something.color);
+      if (something instanceof Rac.Stroke) {
+        return new RacFill(rac, something.color);
       }
-      if (something instanceof rac.Color) {
-        return new RacFill(something);
+      if (something instanceof Rac.Color) {
+        return new RacFill(rac, something);
       }
 
       console.trace(`Cannot convert to rac.Fill - something-type:${rac.typeName(something)}`);
@@ -27,10 +34,10 @@ module.exports = function makeFill(rac) {
     }
 
     styleWithStroke(stroke) {
-      return new rac.Style(stroke, this);
+      return new Rac.Style(this.rac, stroke, this);
     }
 
   } // RacFill
 
-} // makeFill
+// } // makeFill
 

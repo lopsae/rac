@@ -1,6 +1,9 @@
 'use strict';
 
-let rac = require('../rac');
+
+let Rac = require('../rac');
+let utils = require('../util/utils');
+
 
 // module.exports = function makePoint(rac) {
 
@@ -10,21 +13,27 @@ let rac = require('../rac');
 class RacPoint{
 
 
-    constructor(x, y) {
+    constructor(rac, x, y) {
+      utils.checkDefined(rac, x, y);
+      this.rac = rac;
       this.x = x;
       this.y = y;
     }
 
-    text(string, format, rotation = rac.Angle.zero) {
-      return new rac.Text(string, format, this, rotation);
+    describe() {
+      return `Point(${this.x},${this.y})`;
+    }
+
+    text(string, format, rotation = Rac.Angle.zero) {
+      return new Rac.Text(this.rac, string, format, this, rotation);
     }
 
     withX(newX) {
-      return new RacPoint(newX, this.y);
+      return new RacPoint(this.rac, newX, this.y);
     }
 
     withY(newY) {
-      return new RacPoint(this.x, newY);
+      return new RacPoint(this.rac, this.x, newY);
     }
 
     // Returns a segment that is tangent to `arc` in the `clockwise`
@@ -43,7 +52,7 @@ class RacPoint{
       }
 
       let angleRadians = Math.asin(angleSine);
-      let opsAngle = rac.Angle.fromRadians(angleRadians);
+      let opsAngle = Rac.Angle.fromRadians(angleRadians);
       let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
 
       let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
@@ -58,6 +67,7 @@ module.exports = RacPoint;
   RacPoint.prototype.add = function(other, y = undefined) {
     if (other instanceof RacPoint && y === undefined) {
       return new RacPoint(
+        this.rac,
         this.x + other.x,
         this.y + other.y);
     }
@@ -65,6 +75,7 @@ module.exports = RacPoint;
     if (typeof other === "number" && typeof y === "number") {
       let x = other;
       return new RacPoint(
+        this.rac,
         this.x + x,
         this.y + y);
     }
@@ -76,6 +87,7 @@ module.exports = RacPoint;
   RacPoint.prototype.substract = function(other, y = undefined) {
     if (other instanceof RacPoint && y === undefined) {
       return new RacPoint(
+        this.rac,
         this.x - other.x,
         this.y - other.y);
     }
@@ -83,12 +95,13 @@ module.exports = RacPoint;
     if (typeof other === "number" && typeof y === "number") {
       let x = other;
       return new RacPoint(
+        this.rac,
         this.x - x,
         this.y - y);
     }
 
-    console.trace(`Invalid parameter combination - other-type:${rac.typeName(other)} y-type:${rac.typeName(y)}`);
-    throw rac.Error.invalidParameterCombination;
+    console.trace(`Invalid parameter combination - other-type:${this.rac.typeName(other)} y-type:${rac.typeName(y)}`);
+    throw this.rac.Error.invalidParameterCombination;
   };
 
 
@@ -98,24 +111,26 @@ module.exports = RacPoint;
 
   RacPoint.prototype.addX = function(x) {
     return new RacPoint(
+      this.rac,
       this.x + x,
       this.y);
   };
 
   RacPoint.prototype.addY = function(y) {
     return new RacPoint(
+      this.rac,
       this.x,
       this.y + y);
   };
 
 
   RacPoint.prototype.negative = function() {
-    return new RacPoint(-this.x, -this.y);
+    return new RacPoint(this.rac, -this.x, -this.y);
   };
 
   RacPoint.prototype.angleToPoint = function(other) {
     let offset = other.add(this.negative());
-    return rac.Angle.fromPoint(offset);
+    return Rac.Angle.fromPoint(offset);
   };
 
   RacPoint.prototype.distanceToPoint = function(other) {
@@ -126,8 +141,8 @@ module.exports = RacPoint;
 
   RacPoint.prototype.perpendicular = function(clockwise = true) {
     return clockwise
-      ? new RacPoint(-this.y, this.x)
-      : new RacPoint(this.y, -this.x);
+      ? new RacPoint(this.rac, -this.y, this.x)
+      : new RacPoint(this.rac, this.y, -this.x);
   };
 
   RacPoint.prototype.pointToAngle = function(someAngle, distance) {
@@ -137,16 +152,16 @@ module.exports = RacPoint;
     let distanceX = distance * Math.cos(angle.radians());
     let distanceY = distance * Math.sin(angle.radians());
     // console.log(`angle.radians():${angle.radians()}`);
-    return new RacPoint(this.x + distanceX, this.y + distanceY);
+    return new RacPoint(this.rac, this.x + distanceX, this.y + distanceY);
   };
 
   RacPoint.prototype.segmentToPoint = function(point) {
-    return new rac.Segment(this, point);
+    return new Rac.Segment(this.rac, this, point);
   };
 
   RacPoint.prototype.segmentToAngle = function(someAngle, distance) {
     let end = this.pointToAngle(someAngle, distance);
-    return new rac.Segment(this, end);
+    return new Rac.Segment(this.rac, this, end);
   };
 
   RacPoint.prototype.segmentToAngleToIntersectionWithSegment = function(someAngle, segment) {
@@ -160,12 +175,13 @@ module.exports = RacPoint;
   };
 
   RacPoint.prototype.arc = function(radius, start = rac.Angle.zero, end = start, clockwise = true) {
-    return new rac.Arc(this, radius, start, end, clockwise);
+    return new Rac.Arc(this.rac, this, radius, start, end, clockwise);
   };
 
 
-  RacPoint.zero = new RacPoint(0, 0);
-  RacPoint.origin = RacPoint.zero;
+  // TODO: figure out
+  // RacPoint.zero = new RacPoint(0, 0);
+  // RacPoint.origin = RacPoint.zero;
 
 
   // return RacPoint;

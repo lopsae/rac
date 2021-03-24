@@ -1,12 +1,15 @@
 'use strict';
 
 
+let utils = require('./util/utils');
+
+
 module.exports = function attachProtoFunctions(rac) {
 
   function checkDrawer(rac) {
     if (rac.drawer === null) {
       console.trace(`Drawer is not setup`);
-      throw rac.Error.drawerNotSetup;
+      throw Rac.Error.drawerNotSetup;
     }
   }
 
@@ -25,16 +28,15 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   rac.drawableProtoFunctions.draw = function(style = null){
-    checkDrawer(rac);
-
-    rac.drawer.drawObject(this, style);
+    checkDrawer(this.rac);
+    this.rac.drawer.drawObject(this, style);
     return this;
   };
 
   rac.drawableProtoFunctions.debug = function(drawsText = false){
-    checkDrawer(rac);
+    checkDrawer(this.rac);
 
-    rac.drawer.debugObject(this, drawsText);
+    this.rac.drawer.debugObject(this, drawsText);
     return this;
   };
 
@@ -118,7 +120,7 @@ module.exports = function attachProtoFunctions(rac) {
       return this;
     }
 
-    console.trace(`Cannot attachTo composite - someComposite-type:${rac.typeName(someComposite)}`);
+    console.trace(`Cannot attachTo composite - someComposite-type:${this.rac.typeName(someComposite)}`);
     throw rac.Error.invalidObjectToConvert;
   };
 
@@ -137,8 +139,9 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   rac.styleProtoFunctions.apply = function(){
-    checkDrawer(rac);
-    rac.drawer.applyObject(this);
+    checkDrawer(this.rac);
+    this.rac.drawer.applyObject(this);
   };
 
 } // attachProtoFunctions
+

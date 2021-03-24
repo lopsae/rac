@@ -1,8 +1,11 @@
 'use strict';
 
 
+let Rac = require('../rac');
+let utils = require('../util/utils');
 
-module.exports = function makeP5Drawer(rac) {
+
+// module.exports = function makeP5Drawer(rac) {
 
   // Drawer that uses a P5 instance for all drawing operations.
   class RacP5Drawer {
@@ -23,7 +26,7 @@ module.exports = function makeP5Drawer(rac) {
       // Radius of point markers for debug drawing.
       this.debugTextOptions = {
         font: 'monospace',
-        size: rac.Text.Format.defaultSize,
+        size: Rac.Text.Format.defaultSize,
         toFixed: 2
       };
 
@@ -59,7 +62,7 @@ module.exports = function makeP5Drawer(rac) {
         .find(routine => routine.classObj === classObj);
       if (routine === undefined) {
         console.log(`Cannot find routine for class - className:${classObj.name}`);
-        throw rac.Error.invalidObjectConfiguration
+        throw Rac.Error.invalidObjectConfiguration
       }
 
       if (options.requiresPushPop !== undefined) {
@@ -72,7 +75,7 @@ module.exports = function makeP5Drawer(rac) {
         .find(routine => routine.classObj === classObj);
       if (routine === undefined) {
         console.log(`Cannot find routine for class - className:${classObj.name}`);
-        throw rac.Error.invalidObjectConfiguration
+        throw Rac.Error.invalidObjectConfiguration
       }
 
       routine.style = style;
@@ -118,8 +121,8 @@ module.exports = function makeP5Drawer(rac) {
       let routine = this.drawRoutines
         .find(routine => object instanceof routine.classObj);
       if (routine === undefined) {
-        console.trace(`Cannot draw object - object-type:${rac.typeName(object)}`);
-        throw rac.Error.invalidObjectToDraw;
+        console.trace(`Cannot draw object - object-type:${this.rac.typeName(object)}`);
+        throw Rac.Error.invalidObjectToDraw;
       }
 
       if (routine.requiresPushPop === true
@@ -168,8 +171,8 @@ module.exports = function makeP5Drawer(rac) {
       let routine = this.applyRoutines
         .find(routine => object instanceof routine.classObj);
       if (routine === undefined) {
-        console.trace(`Cannot apply object - object-type:${rac.typeName(object)}`);
-        throw rac.Error.invalidObjectToApply;
+        console.trace(`Cannot apply object - object-type:${this.rac.typeName(object)}`);
+        throw Rac.Error.invalidObjectToApply;
       }
 
       routine.applyFunction(this, object);
@@ -180,40 +183,40 @@ module.exports = function makeP5Drawer(rac) {
     // classes.
     setupAllDrawFunctions(rac) {
       // Point
-      this.setDrawFunction(rac.Point, (drawer, point) => {
+      this.setDrawFunction(Rac.Point, (drawer, point) => {
         drawer.p5.point(point.x, point.y);
       });
 
-      rac.Point.prototype.vertex = function() {
+      Rac.Point.prototype.vertex = function() {
         rac.drawer.p5.vertex(this.x, this.y);
       };
 
-      rac.Point.pointer = function() {
-        return new rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
+      Rac.Point.pointer = function() {
+        return new Rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       };
 
-      rac.Point.canvasCenter = function() {
-        return new rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+      Rac.Point.canvasCenter = function() {
+        return new Rac.Point(rac, rac.drawer.p5.width/2, rac.drawer.p5.height/2);
       };
 
-      rac.Point.canvasEnd = function() {
-        return new rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
+      Rac.Point.canvasEnd = function() {
+        return new Rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
       };
 
       // Segment
-      this.setDrawFunction(rac.Segment, (drawer, segment) => {
+      this.setDrawFunction(Rac.Segment, (drawer, segment) => {
         drawer.p5.line(
           segment.start.x, segment.start.y,
           segment.end.x,   segment.end.y);
       });
 
-      rac.Segment.prototype.vertex = function() {
+      Rac.Segment.prototype.vertex = function() {
         this.start.vertex();
         this.end.vertex();
       };
 
       // Arc
-      this.setDrawFunction(rac.Arc, (drawer, arc) => {
+      this.setDrawFunction(Rac.Arc, (drawer, arc) => {
         if (arc.isCircle()) {
           let startRad = arc.start.radians();
           let endRad = startRad + (rac.TAU);
@@ -237,7 +240,7 @@ module.exports = function makeP5Drawer(rac) {
           start.radians(), end.radians());
       });
 
-      rac.Arc.prototype.vertex = function() {
+      Rac.Arc.prototype.vertex = function() {
         let angleDistance = this.angleDistance();
         let beziersPerTurn = 5;
         let divisions = angleDistance.turn == 0
@@ -249,7 +252,7 @@ module.exports = function makeP5Drawer(rac) {
       };
 
       // Bezier
-      this.setDrawFunction(rac.Bezier, (drawer, bezier) => {
+      this.setDrawFunction(Rac.Bezier, (drawer, bezier) => {
         drawer.p5.bezier(
           bezier.start.x, bezier.start.y,
           bezier.startAnchor.x, bezier.startAnchor.y,
@@ -257,7 +260,7 @@ module.exports = function makeP5Drawer(rac) {
           bezier.end.x, bezier.end.y);
       });
 
-      rac.Bezier.prototype.vertex = function() {
+      Rac.Bezier.prototype.vertex = function() {
         this.start.vertex()
         rac.drawer.p5.bezierVertex(
           this.startAnchor.x, this.startAnchor.y,
@@ -266,16 +269,16 @@ module.exports = function makeP5Drawer(rac) {
       };
 
       // Composite
-      this.setDrawFunction(rac.Composite, (drawer, composite) => {
+      this.setDrawFunction(Rac.Composite, (drawer, composite) => {
         composite.sequence.forEach(item => item.draw());
       });
 
-      rac.Composite.prototype.vertex = function() {
+      Rac.Composite.prototype.vertex = function() {
         this.sequence.forEach(item => item.vertex());
       };
 
       // Shape
-      this.setDrawFunction(rac.Shape, (drawer, shape) => {
+      this.setDrawFunction(Rac.Shape, (drawer, shape) => {
         drawer.p5.beginShape();
         shape.outline.vertex();
 
@@ -287,34 +290,34 @@ module.exports = function makeP5Drawer(rac) {
         drawer.p5.endShape();
       });
 
-      rac.Shape.prototype.vertex = function() {
+      Rac.Shape.prototype.vertex = function() {
         this.outline.vertex();
         this.contour.vertex();
       };
 
       // Text
-      this.setDrawFunction(rac.Text, (drawer, text) => {
+      this.setDrawFunction(Rac.Text, (drawer, text) => {
         text.format.apply(text.point);
         drawer.p5.text(text.string, 0, 0);
       });
-      this.setDrawOptions(rac.Text, {requiresPushPop: true});
+      this.setDrawOptions(Rac.Text, {requiresPushPop: true});
 
       // Applies all text properties and translates to the given `point`.
       // After the format is applied the text should be drawn at the origin.
-      rac.Text.Format.prototype.apply = function(point) {
+      Rac.Text.Format.prototype.apply = function(point) {
         let hAlign;
-        let hOptions = rac.Text.Format.horizontal;
+        let hOptions = Rac.Text.Format.horizontal;
         switch (this.horizontal) {
           case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
           case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
           case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
           default:
             console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-            throw rac.Error.invalidObjectConfiguration;
+            throw Rac.Error.invalidObjectConfiguration;
         }
 
         let vAlign;
-        let vOptions = rac.Text.Format.vertical;
+        let vOptions = Rac.Text.Format.vertical;
         switch (this.vertical) {
           case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
           case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
@@ -322,7 +325,7 @@ module.exports = function makeP5Drawer(rac) {
           case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
           default:
             console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-            throw rac.Error.invalidObjectConfiguration;
+            throw Rac.Error.invalidObjectConfiguration;
         }
 
         // Text properties
@@ -345,12 +348,12 @@ module.exports = function makeP5Drawer(rac) {
     // Sets up all debug routines for rac drawable clases.
     setupAllDebugFunctions(rac) {
       let functions = require('./debugFunctions');
-      this.setDebugFunction(rac.Point, functions.debugPoint);
-      this.setDebugFunction(rac.Segment, functions.debugSegment);
-      this.setDebugFunction(rac.Arc, functions.debugArc);
+      this.setDebugFunction(Rac.Point, functions.debugPoint);
+      this.setDebugFunction(Rac.Segment, functions.debugSegment);
+      this.setDebugFunction(Rac.Arc, functions.debugArc);
 
       let drawer = this;
-      rac.Angle.prototype.debug = function(point, drawsText = false) {
+      Rac.Angle.prototype.debug = function(point, drawsText = false) {
         if (drawer.debugStyle !== null) {
           drawer.p5.push();
           drawer.debugStyle.apply();
@@ -363,7 +366,7 @@ module.exports = function makeP5Drawer(rac) {
         }
       };
 
-      rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
+      Rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
         let angle = rac.Angle.from(someAngle);
         angle.debug(this, drawsText);
         return this;
@@ -375,20 +378,20 @@ module.exports = function makeP5Drawer(rac) {
     // Also attaches additional prototype functions in relevant classes.
     setupAllApplyFunctions(rac) {
       // Color prototype functions
-      rac.Color.prototype.applyBackground = function() {
+      Rac.Color.prototype.applyBackground = function() {
         rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
       };
 
-      rac.Color.prototype.applyFill = function() {
+      Rac.Color.prototype.applyFill = function() {
         rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
       };
 
-      rac.Color.prototype.applyStroke = function() {
+      Rac.Color.prototype.applyStroke = function() {
         rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
       };
 
       // Stroke
-      this.setApplyFunction(rac.Stroke, (drawer, stroke) => {
+      this.setApplyFunction(Rac.Stroke, (drawer, stroke) => {
         if (stroke.color === null) {
           drawer.p5.noStroke();
           return;
@@ -399,7 +402,7 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       // Fill
-      this.setApplyFunction(rac.Fill, (drawer, fill) => {
+      this.setApplyFunction(Rac.Fill, (drawer, fill) => {
         if (fill.color === null) {
           rac.drawer.p5.noFill();
           return;
@@ -409,7 +412,7 @@ module.exports = function makeP5Drawer(rac) {
       });
 
       // Style
-      this.setApplyFunction(rac.Style, (drawer, style) => {
+      this.setApplyFunction(Rac.Style, (drawer, style) => {
         if (style.stroke !== null) {
           style.stroke.apply();
         }
@@ -418,13 +421,15 @@ module.exports = function makeP5Drawer(rac) {
         }
       });
 
-      rac.Style.prototype.applyToClass = function(classObj) {
+      Rac.Style.prototype.applyToClass = function(classObj) {
         rac.drawer.setClassDrawStyle(classObj, this);
       }
 
     } // setupAllApplyFunctions
 
   } // RacP5Drawer
+
+module.exports = RacP5Drawer;
 
 
   // Encapsulates the drawing function and options for a specific class.
@@ -467,7 +472,9 @@ module.exports = function makeP5Drawer(rac) {
   }
 
 
-  return RacP5Drawer;
+  // return RacP5Drawer;
 
-} // makeP5Drawer
+
+
+// } // makeP5Drawer
 

@@ -58,13 +58,18 @@ class Rac {
   // relevant to the drawer. For p5.js this include `apply` functions for
   // colors and style object, and `vertex` functions for drawable objects.
   setupDrawer(p5Instance) {
-    this.drawer = new this.P5Drawer(this, p5Instance)
+    this.drawer = new Rac.P5Drawer(this, p5Instance)
   }
 
 
   equals(value, expected) {
     let diff = Math.abs(value-expected);
     return diff < this.equalityThreshold;
+  }
+
+
+  Point(x, y) {
+    return new Rac.Point(rac, x, y);
   }
 
 } // class Rac
@@ -94,20 +99,20 @@ module.exports = Rac;
 
 
   // P5Drawer
-  Rac.P5Drawer = require('./p5Drawer/makeP5Drawer')(Rac);
+  Rac.P5Drawer = require('./p5Drawer/makeP5Drawer');
 
 
   // Color
-  Rac.Color = require('./style/makeColor')(Rac);
+  Rac.Color = require('./style/makeColor');
 
 
   // Stroke
-  Rac.Stroke = require('./style/makeStroke')(Rac);
+  Rac.Stroke = require('./style/makeStroke');
   Rac.setupStyleProtoFunctions(Rac.Stroke);
 
 
   // Fill
-  Rac.Fill = require('./style/makeFill')(Rac);
+  Rac.Fill = require('./style/makeFill');
   Rac.setupStyleProtoFunctions(Rac.Fill);
 
 
