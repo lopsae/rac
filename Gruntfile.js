@@ -8,7 +8,11 @@ module.exports = function(grunt) {
       dev: {
         src: 'src/main.js',
         dest: 'dist/rac.js',
-        options: {}
+        options: {
+          browserifyOptions: {
+            debug: true
+          }
+        }
       }
     },
 
