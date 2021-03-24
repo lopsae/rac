@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       dist : {
         src: [
           'src/rac.js',
-          'src/drawable/makePoint.js',
+          'src/drawable/Point.js',
           'src/util/utils.js',
           'src/p5Drawer/makeP5Drawer.js'],
         options: {
