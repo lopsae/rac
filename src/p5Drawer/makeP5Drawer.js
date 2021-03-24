@@ -190,23 +190,27 @@ let utils = require('../util/utils');
       });
 
       /**
+      * Calls the `p5.vertex` function for this `Point`.
       * @name vertex
-      * @description Is this functioned picked up?
-      * @memberof Point.prototype
-      * @function vertex
+      * @memberof Point#
+      * @function
       */
       Rac.Point.prototype.vertex = function() {
         rac.drawer.p5.vertex(this.x, this.y);
       };
 
+      // TODO: why? catch!
+      /**
+      * Bad documentation, not printed
+      */
       Rac.Point.pointer = function() {
         return new Rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       };
 
       /**
-      * Is this functioned picked up?
-      * @name canvasCenter
-      * @memberof Point.prototype
+      * Returns the `Point` at the center of the canvas.
+      * @name Point.canvasCenter
+      * @memberof! Rac#
       * @function
       */
       rac.Point.canvasCenter = function() {
