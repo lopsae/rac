@@ -12,7 +12,22 @@ exports.assertExists = function(...checks) {
 
 
 // TODO: replace all calls to rac.typeName
+/**
+* Convenience function for logging, returns the constructor name of
+* `obj`, or its type name.
+*/
 exports.typeName = function(obj) {
   return obj.constructor.name ?? typeof obj
+}
+
+
+// Adds a constant to the given object.
+exports.addConstant = function(obj, propName, value) {
+  Object.defineProperty(obj, propName, {
+    enumerable: false,
+    configurable: false,
+    writable: false,
+    value: value
+  });
 }
 

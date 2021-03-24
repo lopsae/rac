@@ -5,25 +5,16 @@
 const version = require('../built/version');
 
 
-// Adds an enumerable constant to the given object.
-function addEnumConstant(obj, prop, value) {
-  Object.defineProperty(obj, prop, {
-    enumerable: true,
-    configurable: false,
-    writable: false,
-    value: value
-  });
-}
+const utils = require(`./util/utils`);
 
 
 class Rac {
 
-  static TAU = Math.PI * 2;
-
   constructor () {
-    addEnumConstant(this, 'version', version);
-    // https://tauday.com/tau-manifesto
-    addEnumConstant(this, 'TAU', Math.PI * 2);
+    utils.addConstant(this, 'version', version);
+
+    // TODO: remove, leave only static one when Angle is migrated
+    utils.addConstant(this, 'TAU', Math.PI * 2);
 
     // Used to determine equality between measures for some operations, like
     // calculating the slope of a segment. Values too close can result in odd
@@ -77,6 +68,15 @@ class Rac {
 
 module.exports = Rac;
 
+
+utils.addConstant(Rac, 'version', version);
+
+// https://tauday.com/tau-manifesto
+utils.addConstant(Rac, 'TAU', Math.PI * 2);
+
+
+
+
 // Makes a new RAC object populated with all RAC classes and features.
 //
 // The RAC object is initialized without a `drawer`. Call `setupDrawer`
@@ -87,8 +87,7 @@ module.exports = Rac;
 //   let rac = new Rac();
 
 
-  // Convenience function for logging, returns the constructor name of
-  // `obj`, or its type name.
+
   Rac.typeName = function(obj) {
     return obj.constructor.name ?? typeof obj
   };

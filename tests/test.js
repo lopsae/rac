@@ -5,10 +5,9 @@ const rac = new Rac();
 
 
 test('RAC version', () => {
-  // TODO: attach version to class
-  // expect(makeRac.version).toBeTruthy();
+  expect(Rac.version).toBeTruthy();
   expect(rac.version).toBeTruthy();
-  // expect(makeRac.version).toBe(rac.version);
+  expect(Rac.version).toBe(rac.version);
 });
 
 
