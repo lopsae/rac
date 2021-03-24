@@ -82,7 +82,7 @@ module.exports = function(grunt) {
           'src/Rac.js',
           'src/drawable/Point.js',
           'src/util/utils.js',
-          'src/p5Drawer/makeP5Drawer.js'],
+          'src/p5Drawer/P5Drawer.js'],
         options: {
           destination: 'out',
           verbose: true,

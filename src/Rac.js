@@ -113,7 +113,7 @@ require('./attachProtoFunction')(Rac);
 
 
 // P5Drawer
-Rac.P5Drawer = require('./p5Drawer/makeP5Drawer');
+Rac.P5Drawer = require('./p5Drawer/P5Drawer');
 
 
 // Color
