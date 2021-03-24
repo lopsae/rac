@@ -8,7 +8,7 @@
     "serve": "grunt serve",
     "start": "grunt serve",
     "dist": "grunt dist",
-    "docs": "jsdoc -c jsdoc.json src/rac.js src/drawable/makePoint.js src/util/utils.js"
+    "docs": "jsdoc --verbose -c jsdoc.json src/rac.js src/drawable/makePoint.js src/util/utils.js src/p5Drawer/makeP5Drawer.js"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",

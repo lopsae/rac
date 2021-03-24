@@ -9,6 +9,7 @@ let utils = require('../util/utils');
 
 /**
 * Point in a two dimentional coordinate system.
+* @alias Point
 */
 class RacPoint{
 

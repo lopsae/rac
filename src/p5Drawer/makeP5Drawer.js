@@ -7,7 +7,9 @@ let utils = require('../util/utils');
 
 // module.exports = function makeP5Drawer(rac) {
 
-  // Drawer that uses a P5 instance for all drawing operations.
+  /**
+  * Drawer that uses a P5 instance for all drawing operations.
+  */
   class RacP5Drawer {
 
     constructor(rac, p5){
@@ -187,6 +189,12 @@ let utils = require('../util/utils');
         drawer.p5.point(point.x, point.y);
       });
 
+      /**
+      * @name vertex
+      * @description Is this functioned picked up?
+      * @memberof Point.prototype
+      * @function vertex
+      */
       Rac.Point.prototype.vertex = function() {
         rac.drawer.p5.vertex(this.x, this.y);
       };
@@ -195,6 +203,12 @@ let utils = require('../util/utils');
         return new Rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       };
 
+      /**
+      * Is this functioned picked up?
+      * @name canvasCenter
+      * @memberof Point.prototype
+      * @function
+      */
       rac.Point.canvasCenter = function() {
       // Rac.Point.canvasCenter = function() {
         return rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
