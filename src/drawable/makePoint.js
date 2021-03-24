@@ -14,7 +14,7 @@ class RacPoint{
 
 
     constructor(rac, x, y) {
-      utils.checkDefined(rac, x, y);
+      utils.assertExists(rac, x, y);
       this.rac = rac;
       this.x = x;
       this.y = y;

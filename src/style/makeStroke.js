@@ -13,7 +13,7 @@ module.exports = class RacStroke {
     // static none = new RacStroke(null);
 
     constructor(rac, color = null, weight = 1) {
-      utils.checkDefined(rac, weight);
+      utils.assertExists(rac, weight);
 
       this.rac = rac
       this.color = color;

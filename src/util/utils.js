@@ -1,8 +1,7 @@
 'use strict';
 
 
-// TODO: rename mustExist
-exports.checkDefined = function(...checks) {
+exports.assertExists = function(...checks) {
   checks.forEach((item, index) => {
     if (item === null || item === undefined) {
       console.trace(`Undefined element at index ${index}`)

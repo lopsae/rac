@@ -21,7 +21,7 @@ module.exports = class RacColor {
 
 
     constructor(rac, r, g, b, alpha = 1) {
-      utils.checkDefined(rac, r, g, b, alpha);
+      utils.assertExists(rac, r, g, b, alpha);
       this.rac = rac;
       this.r = r;
       this.g = g;

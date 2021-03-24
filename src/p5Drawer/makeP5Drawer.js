@@ -195,8 +195,9 @@ let utils = require('../util/utils');
         return new Rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
       };
 
-      Rac.Point.canvasCenter = function() {
-        return new Rac.Point(rac, rac.drawer.p5.width/2, rac.drawer.p5.height/2);
+      rac.Point.canvasCenter = function() {
+      // Rac.Point.canvasCenter = function() {
+        return rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
       };
 
       Rac.Point.canvasEnd = function() {

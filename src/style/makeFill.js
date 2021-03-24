@@ -13,7 +13,7 @@ module.exports = class RacFill {
     // static none = new RacFill(null);
 
     constructor(rac, color = null) {
-      utils.checkDefined(rac);
+      utils.assertExists(rac);
       this.rac = rac;
       this.color = color;
     }
