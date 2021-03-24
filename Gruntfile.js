@@ -74,7 +74,22 @@ module.exports = function(grunt) {
         files: ['src/**/*.js'],
         tasks: ['versionFile', 'browserify']
       }
-    } // watch
+    }, // watch
+
+    jsdoc : {
+      dist : {
+        src: [
+          'src/rac.js',
+          'src/drawable/makePoint.js',
+          'src/util/utils.js',
+          'src/p5Drawer/makeP5Drawer.js'],
+        options: {
+          destination: 'out',
+          verbose: true,
+          configure: './jsdoc.json'
+        }
+      }
+    } // jsdoc
   });
 
 
@@ -82,6 +97,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
 
   grunt.registerTask('makeVersionFile', function(target) {
