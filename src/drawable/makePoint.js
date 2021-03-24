@@ -91,7 +91,7 @@ Point.prototype.add = function(otherOrX, y = undefined) {
       this.y + otherOrX.y);
   }
 
-  if (typeof other === "number" && typeof y === "number") {
+  if (typeof otherOrX === "number" && typeof y === "number") {
     let x = otherOrX;
     return new Point(
       this.rac,
@@ -99,7 +99,7 @@ Point.prototype.add = function(otherOrX, y = undefined) {
       this.y + y);
   }
 
-  console.trace(`Invalid parameter combination - other-type:${rac.typeName(other)} y-type:${rac.typeName(y)}`);
+  console.trace(`Invalid parameter combination - other-type:${utils.typeName(other)} y-type:${utils.typeName(y)}`);
   throw rac.Error.invalidParameterCombination;
 };
 
@@ -119,7 +119,7 @@ Point.prototype.substract = function(other, y = undefined) {
       this.y - y);
   }
 
-  console.trace(`Invalid parameter combination - other-type:${this.rac.typeName(other)} y-type:${rac.typeName(y)}`);
+  console.trace(`Invalid parameter combination - other-type:${utils.typeName(other)} y-type:${utils.typeName(y)}`);
   throw this.rac.Error.invalidParameterCombination;
 };
 
@@ -165,12 +165,9 @@ Point.prototype.perpendicular = function(clockwise = true) {
 };
 
 Point.prototype.pointToAngle = function(someAngle, distance) {
-  // console.log(`someangle:${rac.typeName(someAngle)}`);
   let angle = Rac.Angle.from(someAngle);
-  // console.log(`angleTurn:${angle.turn}`);
   let distanceX = distance * Math.cos(angle.radians());
   let distanceY = distance * Math.sin(angle.radians());
-  // console.log(`angle.radians():${angle.radians()}`);
   return new Point(this.rac, this.x + distanceX, this.y + distanceY);
 };
 
