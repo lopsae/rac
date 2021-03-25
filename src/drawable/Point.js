@@ -194,8 +194,3 @@ Point.prototype.arc = function(radius, start = rac.Angle.zero, end = start, cloc
   return new Rac.Arc(this.rac, this, radius, start, end, clockwise);
 };
 
-
-// TODO: figure out, since it needs rac
-// Point.zero = new Point(0, 0);
-// Point.origin = Point.zero;
-

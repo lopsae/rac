@@ -65,7 +65,9 @@ class Rac {
       invalidObjectToConvert: 'Invalid object to convert',
       invalidObjectToDraw: 'Invalid object to draw',
       invalidObjectToApply: 'Invalid object to apply',
-      drawerNotSetup: 'Drawer not setup'}
+      drawerNotSetup: 'Drawer not setup'};
+
+    require('./drawable/attachRacPoint')(this);
   }
 
   /**

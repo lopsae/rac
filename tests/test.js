@@ -97,6 +97,13 @@ describe('Point', () => {
   let point = rac.Point(100, 100);
   let fifty = rac.Point(55, 55);
 
+  test('identity', () => {
+    expect(point).equalsPoint(100, 100);
+    expect(fifty).equalsPoint(55, 55);
+    expect(rac.Point.zero).equalsPoint(0, 0);
+    expect(rac.Point.origin).equalsPoint(0, 0);
+  });
+
   test('withX functions', () => {
     expect(point.withX(77))
       .equalsPoint(77, 100);
