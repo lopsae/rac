@@ -2,6 +2,7 @@
 
 
 const Rac = require('rulerandcompass');
+const tools = require('./expectTools');
 
 
 describe('Utils', () => {
