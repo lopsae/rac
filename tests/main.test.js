@@ -11,23 +11,45 @@ test('RAC version', () => {
 });
 
 
+function pass(messageFunc) {
+  return {
+    pass: true,
+    message: messageFunc
+  };
+}
+
+
+function fail(messageFunc) {
+  return {
+    message: messageFunc,
+    pass: false
+  };
+}
+
+
+function done(isPass, messageFunc) {
+  return isPass
+    ? pass(messageFunc)
+    : fail(messageFunc);
+}
+
 
 expect.extend({
   equalsPoint(point, x, y) {
-    const pass = rac.equals(point.x, x) && rac.equals(point.y, y);
-    if (pass) {
-      return {
-        message: () =>
-          `expected point at (${point.x},${point.y}) not to equal (${x},${y})`,
-        pass: true,
-      };
-    } else {
-      return {
-        message: () =>
-          `expected point at (${point.x},${point.y}) to equal (${x},${y})`,
-        pass: false,
-      };
+    const options = {
+      comment: 'equal Point properties',
+      isNot: this.isNot
+    };
+    const expected = rac.Point(x, y);
+    if (point == null) {
+      return fail(() =>
+        this.utils.matcherHint('equalsPoint', 'null', expected.describe(), options));
     }
+
+    const isEqual = rac.equals(point.x, expected.x) && rac.equals(point.y, expected.y);
+
+    return done(isEqual, () =>
+        this.utils.matcherHint('equalsPoint', point.describe(), expected.describe(), options));
   },
   equalsAngle(angle, someAngle) {
     let other = Rac.Angle.from(someAngle);
@@ -98,8 +120,10 @@ describe('Point', () => {
   let fifty = rac.Point(55, 55);
 
   test('identity', () => {
+    expect(null).not.equalsPoint(100, 100);
+
     expect(point).equalsPoint(100, 100);
-    expect(fifty).equalsPoint(55, 55);
+    expect(fifty).not.equalsPoint(100, 100);
     expect(rac.Point.zero).equalsPoint(0, 0);
     expect(rac.Point.origin).equalsPoint(0, 0);
   });
