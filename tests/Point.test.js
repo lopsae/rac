@@ -17,6 +17,10 @@ test('identity', () => {
   expect(fifty).not.equalsPoint(100, 100);
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
+
+  let string = rac.Point(111, 222).toString();
+  expect(string).toMatch('111');
+  expect(string).toMatch('222');
 });
 
 test('withX functions', () => {
@@ -30,12 +34,12 @@ test('withX functions', () => {
 
 
 test('add/sub', () => {
-  expect(hunty.add(fifty))
+  expect(hunty.addPoint(fifty))
     .equalsPoint(155, 155);
   expect(hunty.add(11, 11))
     .equalsPoint(111, 111);
 
-  expect(hunty.sub(fifty))
+  expect(hunty.subPoint(fifty))
     .equalsPoint(45, 45);
   expect(hunty.sub(1, 1))
     .equalsPoint(99, 99);
@@ -57,7 +61,7 @@ test('transforms', () => {
   expect(hunty.negative()).equalsPoint(-100, -100);
 
   // Clockwise
-  expect(hunty.perpendicular(true)).equalsPoint(-100, 100);
+  expect(hunty.perpendicular()).equalsPoint(-100, 100);
   // Counter-clockwise
   expect(hunty.perpendicular(false)).equalsPoint(100, -100);
 
@@ -96,4 +100,7 @@ test('misc', () => {
   expect(hunty.arc(155, Rac.Angle.e, Rac.Angle.n, false))
     .equalsArc(100, 100, 155, 0, 3/4, false);
 });
+
+
+test.todo('segmentTangentToArc');
 

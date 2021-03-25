@@ -49,6 +49,56 @@ class Point{
     return new Point(this.rac, this.x, newY);
   }
 
+
+  /**
+  * Returns a new `Point` by adding the components of `other`.
+  * @param {Rac.Point} other A `Point` to add
+  */
+  addPoint(other) {
+    return new Point(
+      this.rac,
+      this.x + other.x,
+      this.y + other.y);
+  }
+
+
+  /**
+  * Returns a new `Point` by adding the `x` and `y` components.
+  * @param {number} x The x coodinate to add
+  * @param {number} y The y coodinate to add
+  */
+  add(x, y) {
+    return new Point(
+      this.rac,
+      this.x + x,
+      this.y + y);
+  }
+
+
+  /**
+  * Returns a new `Point` by substracting the components of `other`.
+  * @param {Rac.Point} other A `Point` to substract
+  */
+  subPoint(other) {
+    return new Point(
+      this.rac,
+      this.x - other.x,
+      this.y - other.y);
+  }
+
+
+  /**
+  * Returns a new `Point` by substracting the `x` and `y` components.
+  * @param {number} x The x coodinate to substract
+  * @param {number} y The y coodinate to substract
+  */
+  sub(x, y) {
+    return new Point(
+      this.rac,
+      this.x - x,
+      this.y - y);
+  }
+
   // Returns a segment that is tangent to `arc` in the `clockwise`
   // orientation from the segment formed by `this` and `arc.center`. The
   // returned segment has `this` as `start` and `end` is a point in `arc`.
@@ -72,62 +122,11 @@ class Point{
     return this.segmentToPoint(end);
   }
 
-} // Point
+} // class Point
 
 
 module.exports = Point;
 
-
-// TODO: separate into add and addValues, or translate
-/**
-* Returns a new `Point` adding the given `Point`, or coordinates.
-* @param {Rac.Point|number} otherOrX a `Point` or the x coodinate to add
-* @param {number} y The y coodinate to add
-*/
-Point.prototype.add = function(otherOrX, y = undefined) {
-  if (otherOrX instanceof Point && y === undefined) {
-    return new Point(
-      this.rac,
-      this.x + otherOrX.x,
-      this.y + otherOrX.y);
-  }
-
-  if (typeof otherOrX === "number" && typeof y === "number") {
-    let x = otherOrX;
-    return new Point(
-      this.rac,
-      this.x + x,
-      this.y + y);
-  }
-
-  console.trace(`Invalid parameter combination - other-type:${utils.typeName(other)} y-type:${utils.typeName(y)}`);
-  throw rac.Error.invalidParameterCombination;
-};
-
-Point.prototype.substract = function(other, y = undefined) {
-  if (other instanceof Point && y === undefined) {
-    return new Point(
-      this.rac,
-      this.x - other.x,
-      this.y - other.y);
-  }
-
-  if (typeof other === "number" && typeof y === "number") {
-    let x = other;
-    return new Point(
-      this.rac,
-      this.x - x,
-      this.y - y);
-  }
-
-  console.trace(`Invalid parameter combination - other-type:${utils.typeName(other)} y-type:${utils.typeName(y)}`);
-  throw this.rac.Error.invalidParameterCombination;
-};
-
-
-Point.prototype.sub = function(other, y = undefined) {
-  return this.substract(other, y);
-};
 
 Point.prototype.addX = function(x) {
   return new Point(
@@ -149,7 +148,7 @@ Point.prototype.negative = function() {
 };
 
 Point.prototype.angleToPoint = function(other) {
-  let offset = other.add(this.negative());
+  let offset = other.subPoint(this);
   return Rac.Angle.fromPoint(offset);
 };
 
