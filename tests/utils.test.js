@@ -15,6 +15,7 @@ describe('Utils', () => {
       .toThrow('FailedAssert');
   });
 
+
   test('typeName', () => {
     let Duck = class Duck {};
     let duck = new Duck();
@@ -46,6 +47,20 @@ describe('Utils', () => {
   });
 
 
-  test.todo('addConstant');
+  test('addConstant', () => {
+    let obj = {};
+    expect(obj).not.toHaveProperty('prop');
+
+    Rac.utils.addConstant(obj, 'prop', 'value');
+    expect(obj).toHaveProperty('prop', 'value');
+
+    let propDesc = Object.getOwnPropertyDescriptor(obj, 'prop');
+    expect(propDesc.writable).toBe(false);
+
+    obj.assigned = 'other';
+    expect(obj).toHaveProperty('assigned', 'other');
+    propDesc = Object.getOwnPropertyDescriptor(obj, 'assigned');
+    expect(propDesc.writable).toBe(true);
+  });
 
 });
