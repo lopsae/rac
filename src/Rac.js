@@ -121,8 +121,14 @@ utils.addConstant(Rac, 'version', version);
 utils.addConstant(Rac, 'TAU', Math.PI * 2);
 
 
+/**
+* Container of utility functions. See `{@link utils}` for the available
+* members.
+*/
+Rac.utils = utils;
 
 
+// Replace with utils
 Rac.typeName = function(obj) {
   return obj.constructor.name ?? typeof obj
 };

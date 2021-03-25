@@ -1,4 +1,4 @@
-
+'use strict';
 
 const Rac = require('rulerandcompass');
 const rac = new Rac();
@@ -181,6 +181,6 @@ describe('Point', () => {
       .equalsArc(100, 100, 155, 0, 3/4, false);
   });
 
-});
+}); // describe Point
 
 

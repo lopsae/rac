@@ -4,7 +4,7 @@
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "scripts": {
-    "test": "jest tests/*",
+    "test": "jest",
     "serve": "grunt serve",
     "start": "grunt serve",
     "dist": "grunt dist",
@@ -25,6 +25,7 @@
     "npm": "^7.6.0"
   },
   "jest": {
-    "collectCoverage": false
+    "collectCoverage": false,
+    "testMatch": ["**/tests/**/*.test.js"]
   }
 }
