@@ -11,7 +11,7 @@
     "serve": "grunt serve",
     "start": "grunt serve",
     "dist": "grunt dist",
-    "docs": "grunt --debug jsdoc"
+    "docs": "grunt --debug jsdoc && open ./docs/index.html"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",

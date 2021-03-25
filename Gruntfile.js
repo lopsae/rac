@@ -48,7 +48,7 @@ module.exports = function(grunt) {
           'src/util/utils.js',
           'src/p5Drawer/P5Drawer.js'],
         options: {
-          destination: 'out',
+          destination: 'docs',
           verbose: true,
           // pedantic: true,
           // debug: true,
