@@ -5,6 +5,9 @@
   "main": "src/main.js",
   "scripts": {
     "test": "jest",
+    "test:clean": "rm -rf ./coverage; jest",
+    "test:coverage": "jest --coverage && open ./coverage/lcov-report/index.html",
+    "test:cc": "rm -rf ./coverage; npm run test:coverage",
     "serve": "grunt serve",
     "start": "grunt serve",
     "dist": "grunt dist",
@@ -25,7 +28,6 @@
     "npm": "^7.6.0"
   },
   "jest": {
-    "collectCoverage": false,
     "testMatch": ["**/tests/**/*.test.js"]
   }
 }
