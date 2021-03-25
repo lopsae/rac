@@ -25,7 +25,7 @@ class Point{
   }
 
   /**
-  * Returns a string representation of `this` intended for human consumption.
+  * Returns a string representation intended for human consumption.
   */
   describe() {
     return `Point(${this.x},${this.y})`;
@@ -73,6 +73,7 @@ class Point{
   }
 
 } // Point
+
 
 module.exports = Point;
 

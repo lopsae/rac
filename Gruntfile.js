@@ -80,6 +80,7 @@ module.exports = function(grunt) {
       dist : {
         src: [
           'src/Rac.js',
+          'src/style/Color.js',
           'src/drawable/Point.js',
           'src/drawable/attachRacPoint.js',
           'src/util/utils.js',
