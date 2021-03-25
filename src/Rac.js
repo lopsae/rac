@@ -11,16 +11,16 @@ const utils = require(`./util/utils`);
 /**
 * This namespace lists container-functions attached to an instance of
 * `{@link Rac}`. Since drawable and other objects require a reference to a
-* parent `rac` in order to perform drawing operations, these
-* container-functions provide conveniece methods and properties for objects
-* already setup with their `rac` parent instance.
+* `rac` instance in order to perform drawing operations, these function
+* contain conveniece methods and properties that provide objects already
+* setup with the `rac` parent instance.
 * @namespace rac
 */
 
 
 /**
 * Root class of RAC. All drawable, style, control, and drawer classes are
-* contained under this class.
+* contained in this class.
 */
 class Rac {
 
@@ -137,7 +137,7 @@ Rac.P5Drawer = require('./p5Drawer/P5Drawer');
 
 
 // Color
-Rac.Color = require('./style/makeColor');
+Rac.Color = require('./style/Color');
 
 
 // Stroke
