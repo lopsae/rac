@@ -198,12 +198,12 @@ class P5Drawer {
     };
 
     /**
-    * Returns the `Point` at cursor current position.
+    * Returns the `Point` at the current position of the pointer.
     *
     * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
     *
-    * @name Point.pointer
-    * @memberof! Rac#
+    * @name pointer
+    * @memberof rac.Point#
     * @function
     */
     rac.Point.pointer = function() {
@@ -215,8 +215,8 @@ class P5Drawer {
     *
     * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
     *
-    * @name Point.canvasCenter
-    * @memberof! Rac#
+    * @name canvasCenter
+    * @memberof rac.Point#
     * @function
     */
     rac.Point.canvasCenter = function() {
@@ -230,8 +230,8 @@ class P5Drawer {
     *
     * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
     *
-    * @name Point.canvasEnd
-    * @memberof! Rac#
+    * @name canvasEnd
+    * @memberof rac.Point#
     * @function
     */
     Rac.Point.canvasEnd = function() {

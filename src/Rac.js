@@ -9,6 +9,16 @@ const utils = require(`./util/utils`);
 
 
 /**
+* This namespace lists container-functions attached to an instance of
+* `{@link Rac}`. Since drawable and other objects require a reference to a
+* parent `rac` in order to perform drawing operations, these
+* container-functions provide conveniece methods and properties for objects
+* already setup with their `rac` parent instance.
+* @namespace rac
+*/
+
+
+/**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained under this class.
 */
@@ -76,9 +86,17 @@ class Rac {
     return diff < this.equalityThreshold;
   }
 
+  /**
+  * The `rac.Point` function-container holds several convenience methods and
+  * properties for creating `{@link Rac.Point}` objects.
+  * @namespace rac.Point
+  */
 
   /**
-  * Creates a new `Point` using `this`.
+  * Convenience function that creates a new `Point` using `this`.
+  *
+  * This function is also the container of other convenience methods and
+  * properties listed in `{@link rac.Point}`.
   */
   Point(x, y) {
     return new Rac.Point(this, x, y);
