@@ -178,7 +178,7 @@ describe('Point', () => {
     expect(hunty).equalsPoint(100, 100);
   });
 
-  test.skip('misc', () => {
+  test('misc', () => {
     expect(hunty.angleToPoint(fifty)).equalsAngle(Rac.Angle.nw);
 
     expect(hunty.distanceToPoint(rac.Point(100, 200)))
@@ -192,7 +192,7 @@ describe('Point', () => {
     expect(hunty.segmentToAngle(Rac.Angle.s, 55))
       .equalsSegment(100, 100, 100, 155);
 
-    let intersector = point
+    let intersector = hunty
       .addX(200) // x is 300
       .segmentToAngle(Rac.Angle.s, 100);
 
