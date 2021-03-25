@@ -9,11 +9,13 @@ const utils = require(`./util/utils`);
 
 
 /**
-* This namespace lists container-functions attached to an instance of
-* `{@link Rac}`. Since drawable and other objects require a reference to a
-* `rac` instance in order to perform drawing operations, these function
-* contain conveniece methods and properties that provide objects already
-* setup with the `rac` parent instance.
+* This namespace contains functions attached to an instance of
+* `{@link Rac}` that in turn contain convenience methods and properties.
+*
+* Drawable and related objects require a reference to a `rac` instance in
+* order to perform drawing operations. These functions contain convenience
+* methods and properties that provide objects already setup with a `rac`
+* instance.
 * @namespace rac
 */
 
@@ -88,6 +90,24 @@ class Rac {
     return diff < this.equalityThreshold;
   }
 
+
+  /**
+  * The `rac.Angle` function-container holds several convenience methods and
+  * properties for creating `{@link Rac.Angle}` objects.
+  * @namespace rac.Angle
+  */
+
+  /**
+  * Convenience function that creates a new `Angle` using `this`.
+  *
+  * This function is also the container of other convenience methods and
+  * properties listed in `{@link rac.Angle}`.
+  */
+  Angle(turn) {
+    return new Rac.Angle(this, turn);
+  }
+
+
   /**
   * The `rac.Point` function-container holds several convenience methods and
   * properties for creating `{@link Rac.Point}` objects.
@@ -103,6 +123,41 @@ class Rac {
   Point(x, y) {
     return new Rac.Point(this, x, y);
   }
+
+
+  /**
+  * The `rac.Segment` function-container holds several convenience methods
+  * and properties for creating `{@link Rac.Segment}` objects.
+  * @namespace rac.Segment
+  */
+
+  /**
+  * Convenience function that creates a new `Segment` using `this`.
+  *
+  * This function is also the container of other convenience methods and
+  * properties listed in `{@link rac.Segment}`.
+  */
+  Segment(start, end) {
+    return new Rac.Segment(this, start, end);
+  }
+
+
+  /**
+  * The `rac.Arc` function-container holds several convenience methods
+  * and properties for creating `{@link Rac.Arc}` objects.
+  * @namespace rac.Arc
+  */
+
+  /**
+  * Convenience function that creates a new `Arc` using `this`.
+  *
+  * This function is also the container of other convenience methods and
+  * properties listed in `{@link rac.Arc}`.
+  */
+  Arc(center, radius, start = this.Arc.zero, end = start, clockwise = true) {
+    return new Rac.Arc(this, center, radius, start, end, clockwise);
+  }
+
 
 } // class Rac
 
