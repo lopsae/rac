@@ -43,13 +43,13 @@ expect.extend({
     const expected = rac.Point(x, y);
     if (point == null) {
       return fail(() =>
-        this.utils.matcherHint('equalsPoint', 'null', expected.describe(), options));
+        this.utils.matcherHint('equalsPoint', 'null', expected.toString(), options));
     }
 
     const isEqual = rac.equals(point.x, expected.x) && rac.equals(point.y, expected.y);
 
     return done(isEqual, () =>
-        this.utils.matcherHint('equalsPoint', point.describe(), expected.describe(), options));
+        this.utils.matcherHint('equalsPoint', point.toString(), expected.toString(), options));
   },
   equalsAngle(angle, someAngle) {
     let other = Rac.Angle.from(someAngle);

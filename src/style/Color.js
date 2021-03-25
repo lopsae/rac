@@ -34,7 +34,7 @@ class Color {
   /**
   * Returns a string representation intended for human consumption.
   */
-  describe() {
+  toString() {
     return `Color(${this.r},${this.g},${this.b},${this.alpha})`;
   }
 

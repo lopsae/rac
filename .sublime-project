@@ -3,7 +3,11 @@
   [
     {
       "path": ".",
-      "folder_exclude_patterns": ["built", "node_modules"],
+      "folder_exclude_patterns": [
+      	"built",
+      	"node_modules",
+      	"out",
+      	"coverage"],
       "index_exclude_patterns": ["dist/*"]
     }
   ]
