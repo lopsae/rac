@@ -181,7 +181,7 @@ Rac.setupDrawableProtoFunctions(Rac.Ray);
 
 
 // Segment
-Rac.Segment = require('./drawable/Segment')(Rac);
+Rac.Segment = require('./drawable/Segment');
 Rac.setupDrawableProtoFunctions(Rac.Segment);
 
 

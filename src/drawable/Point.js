@@ -173,14 +173,12 @@ Point.prototype.pointToAngle = function(someAngle, distance) {
 };
 
 Point.prototype.segmentToPoint = function(point) {
-  // TODO: will be Rac.Segment(this.rac, this, point);
-  return new Rac.Segment(this, point);
+  return new Rac.Segment(this.rac, this, point);
 };
 
 Point.prototype.segmentToAngle = function(someAngle, distance) {
   let end = this.pointToAngle(someAngle, distance);
-  // TODO: will be Rac.Segment(this.rac, this, end)
-  return new Rac.Segment(this, end);
+  return new Rac.Segment(this.rac, this, end);
 };
 
 Point.prototype.segmentToAngleToIntersectionWithSegment = function(someAngle, segment) {

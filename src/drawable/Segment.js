@@ -5,44 +5,54 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
-class RacSegment {
+class Segment {
 
-  constructor(start, end) {
+  constructor(rac, start, end) {
+    // TODO: || throw new Error(err.missingParameters)
+    utils.assertExists(rac, start, end);
+    this.rac = rac;
     this.start = start;
     this.end = end;
   }
 
+  /**
+  * Returns a string representation intended for human consumption.
+  */
+  toString() {
+    return `Segment((${this.start.x},${this.start.y}),(${this.end.x},${this.end.y}))`;
+  }
+
   copy() {
-    return new RacSegment(this.start, this.end);
+    return new Segment(this.rac, this.start, this.end);
   }
 
   withAngleAdd(someAngle) {
     let newAngle = this.angle().add(someAngle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
-    return new RacSegment(this.start, newEnd);
+    return new Segment(this.rac, this.start, newEnd);
   }
 
   withAngleShift(someAngle, clockwise = true) {
     let newAngle = this.angle().shift(someAngle, clockwise);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
-    return new RacSegment(this.start, newEnd);
+    return new Segment(this.rac, this.start, newEnd);
   }
 
   withStartExtended(length) {
     let newStart = this.reverse().nextSegmentWithLength(length).end;
-    return new RacSegment(newStart, this.end);
+    return new Segment(this.rac, newStart, this.end);
   }
 
   withEndExtended(length) {
     let newEnd = this.nextSegmentWithLength(length).end;
-    return new RacSegment(this.start, newEnd);
+    return new Segment(this.rac, this.start, newEnd);
   }
 
 
   // Returns a new segment from `this.start`, with the same length, that is
   // perpendicular to `this` in the `clockwise` orientation.
   withPerpendicularAngle(clockwise = true) {
-    return this.withAngleShift(rac.Angle.square, clockwise);
+    return this.withAngleShift(Rac.Angle.square, clockwise);
   };
 
   // Returns `value` clamped to the given insets from zero and the length
@@ -60,7 +70,7 @@ class RacSegment {
 
   projectedPoint(point) {
     let perpendicular = this.angle().perpendicular();
-    return point.segmentToAngle(perpendicular, rac.arbitraryLength)
+    return point.segmentToAngle(perpendicular, this.rac.arbitraryLength)
       .pointAtIntersectionWithSegment(this);
   }
 
@@ -71,7 +81,7 @@ class RacSegment {
     let projected = this.projectedPoint(point);
     let segment = this.start.segmentToPoint(projected);
 
-    if (segment.length() < rac.equalityThreshold) {
+    if (segment.length() < this.rac.equalityThreshold) {
       return 0;
     }
 
@@ -93,46 +103,46 @@ class RacSegment {
     return angleDistance.turn < 0.5;
   }
 
-} // RacSegment
+} // Segment
 
 
 module.exports = Segment;
 
 
-RacSegment.prototype.withStart = function(newStart) {
-  return new RacSegment(newStart, this.end);
+Segment.prototype.withStart = function(newStart) {
+  return new Segment(this.rac, newStart, this.end);
 };
 
-RacSegment.prototype.withEnd = function(newEnd) {
-  return new RacSegment(this.start, newEnd);
+Segment.prototype.withEnd = function(newEnd) {
+  return new Segment(this.rac, this.start, newEnd);
 };
 
-RacSegment.prototype.withLength = function(newLength) {
+Segment.prototype.withLength = function(newLength) {
   let newEnd = this.start.pointToAngle(this.angle(), newLength);
-  return new RacSegment(this.start, newEnd);
+  return new Segment(this.rac, this.start, newEnd);
 };
 
-RacSegment.prototype.pointAtBisector = function() {
-  return new rac.Point(
+Segment.prototype.pointAtBisector = function() {
+  return new Rac.Point(
     this.start.x + (this.end.x - this.start.x) /2,
     this.start.y + (this.end.y - this.start.y) /2);
 };
 
-RacSegment.prototype.length = function() {
+Segment.prototype.length = function() {
   return this.start.distanceToPoint(this.end);
 };
 
-RacSegment.prototype.angle = function() {
-  return rac.Angle.fromSegment(this);
+Segment.prototype.angle = function() {
+  return Rac.Angle.fromSegment(this);
 };
 
 // Returns the slope of the segment, or `null` if the segment is part of a
 // vertical line.
-RacSegment.prototype.slope = function() {
+Segment.prototype.slope = function() {
   let dx = this.end.x - this.start.x;
   let dy = this.end.y - this.start.y;
-  if (Math.abs(dx) < rac.equalityThreshold) {
-    if(Math.abs(dy) < rac.equalityThreshold) {
+  if (Math.abs(dx) < this.rac.equalityThreshold) {
+    if(Math.abs(dy) < this.rac.equalityThreshold) {
       // Segment with equal end and start returns a default angle of 0
       // Equivalent slope is 0
       return 0;
@@ -145,7 +155,7 @@ RacSegment.prototype.slope = function() {
 
 // Returns the y-intercept, or `null` if the segment is part of a
 // vertical line.
-RacSegment.prototype.yIntercept = function() {
+Segment.prototype.yIntercept = function() {
   let slope = this.slope();
   if (slope === null) {
     return null;
@@ -156,68 +166,68 @@ RacSegment.prototype.yIntercept = function() {
 };
 
 
-RacSegment.prototype.pointAtX = function(x) {
+Segment.prototype.pointAtX = function(x) {
   let slope = this.slope();
   if (slope === null) {
     return null;
   }
 
   let y = slope*x + this.yIntercept();
-  return new rac.Point(x, y);
+  return new Rac.Point(this.rac, x, y);
 }
 
-RacSegment.prototype.reverseAngle = function() {
-  return rac.Angle.fromSegment(this).inverse();
+Segment.prototype.reverseAngle = function() {
+  return Rac.Angle.fromSegment(this).inverse();
 };
 
-RacSegment.prototype.reverse = function() {
-  return new RacSegment(this.end, this.start);
+Segment.prototype.reverse = function() {
+  return new Segment(this.rac, this.end, this.start);
 };
 
 // Translates the segment by the entire `point`, or by the given `x` and
 // `y` components.
-RacSegment.prototype.translate = function(point, y = undefined) {
-  if (point instanceof rac.Point && y === undefined) {
-    return new RacSegment(
+Segment.prototype.translate = function(point, y = undefined) {
+  if (point instanceof Rac.Point && y === undefined) {
+    return new Segment(this.rac,
       this.start.add(point),
       this.end.add(point));
   }
 
   if (typeof point === "number" && typeof y === "number") {
     let x = point;
-    return new RacSegment(
+    return new Segment(this.rac,
       this.start.add(x, y),
       this.end.add(x, y));
   }
 
-  console.trace(`Invalid parameter combination - point-type:${rac.typeName(point)} y-type:${rac.typeName(y)}`);
-  throw rac.Error.invalidParameterCombination;
+  console.trace(`Invalid parameter combination - point-type:${utils.typeName(point)} y-type:${utils.typeName(y)}`);
+  throw this.rac.Error.invalidParameterCombination;
 }
 
-RacSegment.prototype.translateToStart = function(newStart) {
+Segment.prototype.translateToStart = function(newStart) {
   let offset = newStart.substract(this.start);
-  return new RacSegment(this.start.add(offset), this.end.add(offset));
+  return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
 };
 
-RacSegment.prototype.translateToAngle = function(someAngle, distance) {
-  let angle = rac.Angle.from(someAngle);
-  let offset = rac.Point.zero.pointToAngle(angle, distance);
-  return new RacSegment(this.start.add(offset), this.end.add(offset));
+Segment.prototype.translateToAngle = function(someAngle, distance) {
+  let angle = this.rac.Angle.from(someAngle);
+  let offset = this.rac.Point.zero.pointToAngle(angle, distance);
+  return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
 };
 
-RacSegment.prototype.translateToLength = function(distance) {
-  let offset = rac.Point.zero.pointToAngle(this.angle(), distance);
-  return new RacSegment(this.start.add(offset), this.end.add(offset));
+Segment.prototype.translateToLength = function(distance) {
+  let offset = this.rac.Point.zero.pointToAngle(this.angle(), distance);
+  return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
 };
 
-RacSegment.prototype.translatePerpendicular = function(distance, clockwise = true) {
+Segment.prototype.translatePerpendicular = function(distance, clockwise = true) {
   let perpendicular = this.angle().perpendicular(clockwise);
   return this.translateToAngle(perpendicular, distance);
 };
 
 // Returns the intersecting point of `this` and `other`. Both segments are
 // considered lines without endpoints.
-RacSegment.prototype.pointAtIntersectionWithSegment = function(other) {
+Segment.prototype.pointAtIntersectionWithSegment = function(other) {
   // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
   let a = this.slope();
   let b = other.slope();
@@ -234,42 +244,42 @@ RacSegment.prototype.pointAtIntersectionWithSegment = function(other) {
 
   let x = (d - c) / (a - b);
   let y = a * x + c;
-  return new rac.Point(x, y);
+  return new Rac.Point(x, y);
 };
 
-RacSegment.prototype.pointAtLength = function(length) {
+Segment.prototype.pointAtLength = function(length) {
   return this.start.pointToAngle(this.angle(), length);
 };
 
-RacSegment.prototype.pointAtLengthRatio = function(lengthRatio) {
+Segment.prototype.pointAtLengthRatio = function(lengthRatio) {
   let newLength = this.length() * lengthRatio;
   return this.start.pointToAngle(this.angle(), newLength);
 };
 
 // Returns a new segment from `start` to `pointAtBisector`.
-RacSegment.prototype.segmentToBisector = function() {
-  return new RacSegment(this.start, this.pointAtBisector());
+Segment.prototype.segmentToBisector = function() {
+  return new Segment(this.rac, this.start, this.pointAtBisector());
 };
 
 // Returns a new segment from `start` to a length determined by
 // `ratio*length`.
-RacSegment.prototype.withLengthRatio = function(ratio) {
+Segment.prototype.withLengthRatio = function(ratio) {
   return this.start.segmentToAngle(this.angle(), this.length() * ratio);
 };
 
 // Returns a new segment from `end` with the given `length` with the same
 // angle as `this`.
-RacSegment.prototype.nextSegmentWithLength = function(length) {
+Segment.prototype.nextSegmentWithLength = function(length) {
   return this.end.segmentToAngle(this.angle(), length);
 };
 
 // Returns a new segment from `end` to the given `nextEnd`.
-RacSegment.prototype.nextSegmentToPoint = function(nextEnd) {
-  return new RacSegment(this.end, nextEnd);
+Segment.prototype.nextSegmentToPoint = function(nextEnd) {
+  return new Segment(this.rac, this.end, nextEnd);
 }
 
 // Returns a new segment from `end` to the given `someAngle` and `distance`.
-RacSegment.prototype.nextSegmentToAngle = function(someAngle, distance) {
+Segment.prototype.nextSegmentToAngle = function(someAngle, distance) {
   return this.end.segmentToAngle(someAngle, distance);
 }
 
@@ -277,7 +287,7 @@ RacSegment.prototype.nextSegmentToAngle = function(someAngle, distance) {
 // Returns a new segment from `this.end`, with the same length, that is
 // perpendicular to `this` in the `clockwise` orientation.
 // TODO: rename to nextPerpendicularSegment?
-RacSegment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
+Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
   let offset = this.start.add(this.end.negative());
   let newEnd = this.end.add(offset.perpendicular(clockwise));
   return this.end.segmentToPoint(newEnd);
@@ -285,9 +295,9 @@ RacSegment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
 
 // Returns an complete circle Arc using this segment `start` as center,
 // `length()` as radiusm, and `angle()` as start and end angles.
-RacSegment.prototype.arc = function(clockwise = true) {
+Segment.prototype.arc = function(clockwise = true) {
   let angle = this.angle();
-  return new rac.Arc(
+  return new Rac.Arc(
     this.start, this.length(),
     angle, angle,
     clockwise);
@@ -295,13 +305,13 @@ RacSegment.prototype.arc = function(clockwise = true) {
 
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle()` to the given angle and orientation.
-RacSegment.prototype.arcWithEnd = function(
+Segment.prototype.arcWithEnd = function(
   someAngleEnd = this.angle(),
   clockwise = true)
 {
   let arcEnd = rac.Angle.from(someAngleEnd);
   let arcStart = rac.Angle.fromSegment(this);
-  return new rac.Arc(
+  return new Rac.Arc(
     this.start, this.length(),
     arcStart, arcEnd,
     clockwise);
@@ -310,12 +320,12 @@ RacSegment.prototype.arcWithEnd = function(
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle()` to the arc distance of the given
 // angle and orientation.
-RacSegment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
+Segment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
   let angleDistance = rac.Angle.from(someAngleDistance);
   let arcStart = this.angle();
   let arcEnd = arcStart.shift(angleDistance, clockwise);
 
-  return new rac.Arc(
+  return new Rac.Arc(
     this.start, this.length(),
     arcStart, arcEnd,
     clockwise);
@@ -323,26 +333,26 @@ RacSegment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwis
 
 // Returns a segment from `this.start` to the intersection between `this`
 // and `other`.
-RacSegment.prototype.segmentToIntersectionWithSegment = function(other) {
+Segment.prototype.segmentToIntersectionWithSegment = function(other) {
   let end = this.pointAtIntersectionWithSegment(other);
   if (end === null) {
     return null;
   }
-  return new RacSegment(this.start, end);
+  return new Segment(this.rac, this.start, end);
 };
 
-RacSegment.prototype.nextSegmentToAngleShift = function(
+Segment.prototype.nextSegmentToAngleShift = function(
   angleShift, distance, clockwise = true)
 {
   let angle = this.reverseAngle().shift(angleShift, clockwise);
   return this.end.segmentToAngle(angle, distance);
 };
 
-RacSegment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
+Segment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
   // cos = ady / hyp
   // acos can error if hypotenuse is smaller that length
   let radians = Math.acos(this.length() / hypotenuse);
-  let angle = rac.Angle.fromRadians(radians);
+  let angle = this.rac.Angle.fromRadians(radians);
 
   let hypSegment = this.reverse()
     .nextSegmentToAngleShift(angle, hypotenuse, !clockwise);
@@ -351,16 +361,16 @@ RacSegment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
 
 // Returns a new segment that starts from `pointAtBisector` in the given
 // `clockwise` orientation.
-RacSegment.prototype.segmentFromBisector = function(length, clockwise = true) {
+Segment.prototype.segmentFromBisector = function(length, clockwise = true) {
   let angle = clockwise
-    ? this.angle().add(rac.Angle.square)
-    : this.angle().add(rac.Angle.square.negative());
+    ? this.angle().add(this.rac.Angle.square)
+    : this.angle().add(this.rac.Angle.square.negative());
   return this.pointAtBisector().segmentToAngle(angle, length);
 };
 
-RacSegment.prototype.bezierCentralAnchor = function(distance, clockwise = true) {
+Segment.prototype.bezierCentralAnchor = function(distance, clockwise = true) {
   let bisector = this.segmentFromBisector(distance, clockwise);
-  return new rac.Bezier(
+  return new Rac.Bezier(
     this.start, bisector.end,
     bisector.end, this.end);
 };
