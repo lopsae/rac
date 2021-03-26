@@ -17,6 +17,7 @@ module.exports = function attachRacAngle(rac) {
   * `{@link Rac.Angle.from}` using `this`.
   * @name from
   * @memberof rac.Angle#
+  * @function
   */
   rac.Angle.from = function(something) {
     return Rac.Angle.from(rac, something);

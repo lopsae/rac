@@ -69,8 +69,8 @@ class Rac {
       invalidObjectToApply: 'Invalid object to apply',
       drawerNotSetup: 'Drawer not setup'};
 
-    require('./drawable/attachRacPoint')(this);
-    require('./drawable/attachRacAngle')(this);
+    require('./drawable/racPoint')(this);
+    require('./drawable/racAngle')(this);
   }
 
   /**

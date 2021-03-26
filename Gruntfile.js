@@ -44,9 +44,9 @@ module.exports = function(grunt) {
           'src/Rac.js',
           'src/style/Color.js',
           'src/drawable/Point.js',
-          'src/drawable/attachRacPoint.js',
+          'src/drawable/racPoint.js',
           'src/drawable/Angle.js',
-          'src/drawable/attachRacAngle.js',
+          'src/drawable/racAngle.js',
           'src/util/utils.js',
           'src/p5Drawer/P5Drawer.js'],
         options: {

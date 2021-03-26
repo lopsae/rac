@@ -6,7 +6,7 @@
       "folder_exclude_patterns": [
       	"built",
       	"node_modules",
-      	"out",
+      	"docs",
       	"coverage"],
       "index_exclude_patterns": ["dist/*"]
     }
