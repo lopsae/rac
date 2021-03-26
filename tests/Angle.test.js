@@ -34,5 +34,17 @@ test('identity', () => {
 });
 
 
+test('errors', () => {
+  expect(() => {new Rac.Angle(null, 1/2);})
+    .toThrow();
+  expect(() => {new Rac.Angle(rac, null);})
+    .toThrow();
+  expect(() => {Rac.Angle.from(rac, 'unsuported');})
+    .toThrow();
+  expect(() => {Rac.Angle.from(null, 1/2);})
+    .toThrow();
+});
+
+
 test.todo('Angle.from')
 

@@ -66,7 +66,7 @@ Angle.from = function(rac, something) {
     return something.angle();
   }
 
-  console.trace(`Cannot convert to Rac.Angle - something-type:${utils.typeName(something)}`);
+  // console.trace(`Cannot convert to Rac.Angle - something-type:${utils.typeName(something)}`);
   throw rac.Error.invalidObjectToConvert;
 };
 

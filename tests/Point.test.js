@@ -26,6 +26,14 @@ test('identity', () => {
 });
 
 
+test('errors', () => {
+  expect(() => {new Rac.Point(null, 100, 100);})
+    .toThrow();
+  expect(() => {new Rac.Point(rac, null, 100);})
+    .toThrow();
+});
+
+
 test('withX functions', () => {
   expect(hunty.withX(77))
     .equalsPoint(77, 100);
