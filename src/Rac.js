@@ -253,12 +253,12 @@ Rac.setupDrawableProtoFunctions(Rac.Bezier);
 
 
 // Composite
-Rac.Composite = require('./drawable/Composite')(Rac);
+Rac.Composite = require('./drawable/Composite');
 Rac.setupDrawableProtoFunctions(Rac.Composite);
 
 
 // Shape
-Rac.Shape = require('./drawable/Shape')(Rac);
+Rac.Shape = require('./drawable/Shape');
 Rac.setupDrawableProtoFunctions(Rac.Shape);
 
 

@@ -1,24 +1,20 @@
 'use strict';
 
 
-module.exports = function makeShape(rac) {
-
-  let RacShape = function RacShape() {
-    this.outline = new rac.Composite();
-    this.contour = new rac.Composite();
-  }
+function Shape() {
+  this.outline = new rac.Composite();
+  this.contour = new rac.Composite();
+}
 
 
-  RacShape.prototype.addOutline = function(element) {
-    this.outline.add(element);
-  };
-
-  RacShape.prototype.addContour = function(element) {
-    this.contour.add(element);
-  };
+module.exports = Shape;
 
 
-  return RacShape;
+RacShape.prototype.addOutline = function(element) {
+  this.outline.add(element);
+};
 
-} // makeShape
+RacShape.prototype.addContour = function(element) {
+  this.contour.add(element);
+};
 
