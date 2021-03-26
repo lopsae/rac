@@ -5,7 +5,10 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
-function Bezier(start, startAnchor, endAnchor, end) {
+function Bezier(rac, start, startAnchor, endAnchor, end) {
+  utils.assertExists(rac, start, startAnchor, endAnchor, end);
+
+  this.rac = rac;
   this.start = start;
   this.startAnchor = startAnchor;
   this.endAnchor = endAnchor;
@@ -13,7 +16,7 @@ function Bezier(start, startAnchor, endAnchor, end) {
 };
 
 
-RacBezier.prototype.drawAnchors = function(style = undefined) {
+Bezier.prototype.drawAnchors = function(style = undefined) {
   push();
   if (style !== undefined) {
     style.apply();
@@ -23,8 +26,8 @@ RacBezier.prototype.drawAnchors = function(style = undefined) {
   pop();
 };
 
-RacBezier.prototype.reverse = function() {
-  return new RacBezier(
+Bezier.prototype.reverse = function() {
+  return new Bezier(this.rac,
     this.end, this.endAnchor,
     this.startAnchor, this.start);
 };
