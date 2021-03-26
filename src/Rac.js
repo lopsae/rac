@@ -222,7 +222,7 @@ Rac.setupDrawableProtoFunctions(Rac.Text);
 
 
 // Angle
-Rac.Angle = require('./drawable/makeAngle')(Rac);
+Rac.Angle = require('./drawable/Angle')(Rac);
 
 
 // Point
