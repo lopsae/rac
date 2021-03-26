@@ -13,6 +13,10 @@ class Angle {
 
   constructor(rac, turn) {
     utils.assertExists(rac, turn);
+    // TODO: keep check?
+    if (isNaN(turn)) {
+      throw new Error(`received nan - turn:${turn}`);
+    }
     this.rac = rac;
     this.setTurn(turn);
   }

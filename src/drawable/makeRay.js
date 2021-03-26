@@ -144,18 +144,18 @@ module.exports = function makeRay(rac) {
 
   RacRay.prototype.translateToStart = function(newStart) {
     let offset = newStart.substract(this.start);
-    return new RacRay(this.start.add(offset), this.angle);
+    return new RacRay(this.start.addPoint(offset), this.angle);
   };
 
   RacRay.prototype.translateToAngle = function(someAngle, distance) {
     let angle = rac.Angle.from(someAngle);
     let offset = rac.Point.zero.pointToAngle(angle, distance);
-    return new RacRay(this.start.add(offset), this.angle);
+    return new RacRay(this.start.addPoint(offset), this.angle);
   };
 
   RacRay.prototype.translateToDistance = function(distance) {
     let offset = rac.Point.zero.pointToAngle(this.angle, distance);
-    return new RacRay(this.start.add(offset), this.angle);
+    return new RacRay(this.start.addPoint(offset), this.angle);
   };
 
   RacRay.prototype.translatePerpendicular = function(distance, clockwise = true) {

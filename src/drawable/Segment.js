@@ -193,8 +193,8 @@ Segment.prototype.reverse = function() {
 Segment.prototype.translate = function(point, y = undefined) {
   if (point instanceof Rac.Point && y === undefined) {
     return new Segment(this.rac,
-      this.start.add(point),
-      this.end.add(point));
+      this.start.addPoint(point),
+      this.end.addPoint(point));
   }
 
   if (typeof point === "number" && typeof y === "number") {
@@ -210,13 +210,17 @@ Segment.prototype.translate = function(point, y = undefined) {
 
 Segment.prototype.translateToStart = function(newStart) {
   let offset = newStart.subPoint(this.start);
-  return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
+  let transStart = this.start.addPoint(offset);
+  let transEnd = this.end.addPoint(offset)
+  return new Segment(this.rac, transStart, transEnd);
 };
 
 Segment.prototype.translateToAngle = function(someAngle, distance) {
   let angle = this.rac.Angle.from(someAngle);
   let offset = this.rac.Point.zero.pointToAngle(angle, distance);
-  return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
+  let transStart = this.start.addPoint(offset);
+  let transEnd = this.end.addPoint(offset)
+  return new Segment(this.rac, transStart, transEnd);
 };
 
 Segment.prototype.translateToLength = function(distance) {
@@ -292,8 +296,8 @@ Segment.prototype.nextSegmentToAngle = function(someAngle, distance) {
 // perpendicular to `this` in the `clockwise` orientation.
 // TODO: rename to nextPerpendicularSegment?
 Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
-  let offset = this.start.add(this.end.negative());
-  let newEnd = this.end.add(offset.perpendicular(clockwise));
+  let offset = this.start.subPoint(this.end);
+  let newEnd = this.end.addPoint(offset.perpendicular(clockwise));
   return this.end.segmentToPoint(newEnd);
 };
 
