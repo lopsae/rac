@@ -254,13 +254,13 @@ Rac.EaseFunction = require('./util/makeEaseFunction')(Rac);
 
 
 // Control
-Rac.Control = require('./control/makeControl')(Rac);
+Rac.Control = require('./control/Control')(Rac);
 
 
 // SegmentControl
-Rac.SegmentControl = require('./control/makeSegmentControl')(Rac);
+Rac.SegmentControl = require('./control/SegmentControl')(Rac);
 
 
 // ArcControl
-Rac.ArcControl = require('./control/makeArcControl')(Rac);
+Rac.ArcControl = require('./control/ArcControl')(Rac);
 
