@@ -539,10 +539,10 @@ Arc.prototype.divideToBeziers = function(bezierCount) {
     let endRay = new Rac.Segment(this.rac, this.center, item.end);
 
     let startAnchor = startRay
-      .nextSegmentToAngleShift(rac.Angle.square, tangent, !this.clockwise)
+      .nextSegmentToAngleShift(this.rac.Angle.square, tangent, !this.clockwise)
       .end;
     let endAnchor = endRay
-      .nextSegmentToAngleShift(rac.Angle.square, tangent, this.clockwise)
+      .nextSegmentToAngleShift(this.rac.Angle.square, tangent, this.clockwise)
       .end;
 
     beziers.push(new Rac.Bezier(this.rac,

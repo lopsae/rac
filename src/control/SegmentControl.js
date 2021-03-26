@@ -93,7 +93,7 @@ class SegmentControl extends Rac.Control {
         .attachToComposite();
     }
 
-    this.rac.popComposite().draw(this.style);
+    Rac.popComposite().draw(this.style);
 
     // Selection
     if (this.isSelected()) {

@@ -1,9 +1,16 @@
 'use strict';
 
 
+let Rac = require('../Rac');
+let utils = require('../util/utils');
+
+
   // Contains a sequence of geometry objects which can be drawn or vertex
   // together.
-function Composite(sequence = []) {
+function Composite(rac, sequence = []) {
+  utils.assertExists(rac, sequence);
+
+  this.rac = rac;
   this.sequence = sequence;
 };
 
@@ -11,11 +18,11 @@ function Composite(sequence = []) {
 module.exports = Composite;
 
 
-RacComposite.prototype.isNotEmpty = function() {
+Composite.prototype.isNotEmpty = function() {
   return this.sequence.length != 0;
 };
 
-RacComposite.prototype.add = function(element) {
+Composite.prototype.add = function(element) {
   if (element instanceof Array) {
     element.forEach(item => this.sequence.push(item));
     return
@@ -23,9 +30,9 @@ RacComposite.prototype.add = function(element) {
   this.sequence.push(element);
 };
 
-RacComposite.prototype.reverse = function() {
+Composite.prototype.reverse = function() {
   let reversed = this.sequence.map(item => item.reverse())
     .reverse();
-  return new RacComposite(reversed);
+  return new Composite(this.rac, reversed);
 };
 

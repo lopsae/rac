@@ -204,7 +204,7 @@ Control.makeArrowShape = function(rac, center, angle) {
   let point = rightWall.pointAtIntersectionWithSegment(leftWall);
 
   // Shape
-  let arrow = new rac.Shape();
+  let arrow = new Rac.Shape(rac);
   point.segmentToPoint(arc.startPoint())
     .attachTo(arrow);
   arc.attachTo(arrow)
@@ -217,7 +217,7 @@ Control.makeArrowShape = function(rac, center, angle) {
 Control.makeLimitMarker = function(rac, point, someAngle) {
   let angle = rac.Angle.from(someAngle);
   let perpendicular = angle.perpendicular(false);
-  let composite = new rac.Composite();
+  let composite = new Rac.Composite(rac);
 
   point.segmentToAngle(perpendicular, 4)
     .withStartExtended(4)

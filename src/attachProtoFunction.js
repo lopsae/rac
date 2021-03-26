@@ -6,9 +6,9 @@ let utils = require('./util/utils');
 
 module.exports = function attachProtoFunctions(rac) {
 
-  function checkDrawer(rac) {
-    if (rac.drawer === null) {
-      console.trace(`Drawer is not setup`);
+  function checkDrawer(drawable) {
+    if (drawable.rac == null || drawable.rac.drawer == null) {
+      console.trace(`Drawer is not setup - drawable-type:${utils.typeName(drawable)}`);
       throw Rac.Error.drawerNotSetup;
     }
   }
@@ -28,13 +28,13 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   rac.drawableProtoFunctions.draw = function(style = null){
-    checkDrawer(this.rac);
+    checkDrawer(this);
     this.rac.drawer.drawObject(this, style);
     return this;
   };
 
   rac.drawableProtoFunctions.debug = function(drawsText = false){
-    checkDrawer(this.rac);
+    checkDrawer(this);
 
     this.rac.drawer.debugObject(this, drawsText);
     return this;
@@ -100,7 +100,7 @@ module.exports = function attachProtoFunctions(rac) {
 
   rac.drawableProtoFunctions.attachToComposite = function() {
     if (rac.currentComposite === null) {
-      rac.currentComposite = new rac.Composite();
+      rac.currentComposite = new rac.Composite(this.rac);
     }
 
     this.attachTo(rac.currentComposite);
@@ -141,7 +141,7 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   rac.styleProtoFunctions.apply = function(){
-    checkDrawer(this.rac);
+    checkDrawer(this);
     this.rac.drawer.applyObject(this);
   };
 
