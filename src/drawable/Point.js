@@ -198,6 +198,6 @@ Point.prototype.arc = function(
   clockwise = true)
 {
   // TODO: will be Rac.Arc(this.rac, this, radius, start, end, clockwise);
-  return new Rac.Arc(this, radius, start, end, clockwise);
+  return new Rac.Arc(this.rac, radius, start, end, clockwise);
 };
 

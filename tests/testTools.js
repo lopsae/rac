@@ -112,8 +112,22 @@ expect.extend({ equalsSegment(segment, startX, startY, endX, endY) {
 
 
 expect.extend({ equalsArc(arc, centerX, centerY, radius, someStartAngle, someEndAngle, clockwise) {
-  let startAngle = Rac.Angle.from(someStartAngle);
-  let endAngle = Rac.Angle.from(someEndAngle);
+  const options = {
+    comment: 'equal Arc properties',
+    isNot: this.isNot
+  };
+
+  let center = rac.Point(centerX, centerY);
+  let startAngle = rac.Angle.from(someStartAngle);
+  let endAngle = rac.Angle.from(someEndAngle);
+  let expected = rac.Arc(center, radius, startAngle, endAngle, clockwise);
+  if (arc == null) {
+    return fail(() =>
+      this.utils.matcherHint('equalsArc',
+        'null', expected.toString(),
+        options));
+  }
+
   const pass =
     rac.equals(arc.center.x, centerX)
     && rac.equals(arc.center.y, centerY)

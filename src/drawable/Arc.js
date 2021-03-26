@@ -18,18 +18,29 @@ class Arc{
     end = start,
     clockwise = true)
   {
+    utils.assertExists(rac, center, radius, start, end, clockwise);
+
     this.rac = rac;
     this.center = center;
     this.radius = radius;
     // Start angle of the arc. Arc will draw from this angle towards `end`
     // in the `clockwise` orientaton.
-    this.start = rac.Angle.from(start);
+    this.start = Rac.Angle.from(rac, start);
     // End angle of the arc. Arc will draw from `start` to this angle in
     // the `clockwise` orientaton.
-    this.end = rac.Angle.from(end);
+    this.end = Rac.Angle.from(rac, end);
     // Orientation of the arc
     this.clockwise = clockwise;
   }
+
+
+  /**
+  * Returns a string representation intended for human consumption.
+  */
+  toString() {
+    return `Arc((${this.center.x},${this.center.y}) r:${this.radius} s:${this.start.turn} e:${this.end.turn} c:${this.clockwise}})`;
+  }
+
 
   copy() {
     return new Arc(
