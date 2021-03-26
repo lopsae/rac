@@ -63,7 +63,7 @@ expect.extend({ equalsPoint(point, x, y) {
 
 expect.extend({ equalsAngle(angle, someAngle) {
   const options = {
-    comment: 'equal Point properties',
+    comment: 'equal Angle properties',
     isNot: this.isNot
   };
 
@@ -85,24 +85,29 @@ expect.extend({ equalsAngle(angle, someAngle) {
 
 
 expect.extend({ equalsSegment(segment, startX, startY, endX, endY) {
-  const pass =
-    rac.equals(segment.start.x, startX)
+  const options = {
+    comment: 'equal Segment properties',
+    isNot: this.isNot
+  };
+
+  let start = rac.Point(startX, startY);
+  let end = rac.Point(endX, endY);
+  let expected = rac.Segment(start, end);
+  if (segment == null) {
+    return fail(() =>
+      this.utils.matcherHint('equalsSegment',
+        'null', expected.toString(),
+        options));
+  }
+
+  const isEqual = rac.equals(segment.start.x, startX)
     && rac.equals(segment.start.y, startY)
     && rac.equals(segment.end.x, endX)
     && rac.equals(segment.end.y, endY);
-  if (pass) {
-    return {
-      message: () =>
-        `expected segment ((${segment.start.x},${segment.start.y}),(${segment.end.x},${segment.end.y})) not to equal to ((${startX},${startY})(${endX},${endY}))`,
-      pass: true,
-    };
-  } else {
-    return {
-      message: () =>
-        `expected segment ((${segment.start.x},${segment.start.y}),(${segment.end.x},${segment.end.y})) to equal to ((${startX},${startY})(${endX},${endY}))`,
-      pass: false,
-    };
-  }
+  return done(isEqual, () =>
+    this.utils.matcherHint('equalsSegment',
+      segment.toString(), expected.toString(),
+      options));
 }}); // equalsSegment
 
 
