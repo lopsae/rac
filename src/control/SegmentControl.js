@@ -189,7 +189,7 @@ class SegmentControl extends Rac.Control {
       .attachToComposite();
 
     // Ease for segment to dragged shadow center
-    let easeOut = new Rac.EaseFunction.makeEaseOut();
+    let easeOut = Rac.EaseFunction.makeEaseOut();
     easeOut.postBehavior = Rac.EaseFunction.Behavior.clamp;
 
     // Tail will stop stretching at 2x the max tail length
@@ -205,7 +205,7 @@ class SegmentControl extends Rac.Control {
     draggedTail.withLength(easedLength).attachToComposite();
 
     // Draw all!
-    this.rac.popComposite().draw(Rac.Control.pointerStyle);
+    Rac.popComposite().draw(Rac.Control.pointerStyle);
   }
 
 } // class SegmentControl
