@@ -18,6 +18,19 @@ class Angle {
   }
 
 
+  /**
+  * Returns a string representation intended for human consumption.
+  * @param {number=} digits The number of digits to appear after the
+  * decimal point, if ommited all digits are printed.
+  */
+  toString(digits = null) {
+    let turnString = digits === null
+      ? this.turn.toString()
+      : this.turn.toFixed(digits);
+    return `Angle(${turnString})`;
+  }
+
+
   setTurn(turn) {
     this.turn = turn % 1;
     if (this.turn < 0) {

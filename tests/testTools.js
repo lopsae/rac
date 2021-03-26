@@ -8,6 +8,9 @@ const rac = new Rac();
 exports.rac = rac;
 
 
+const digits = 3;
+
+
 function pass(messageFunc) {
   return {
     pass: true,
@@ -39,35 +42,45 @@ expect.extend({ equalsPoint(point, x, y) {
     comment: 'equal Point properties',
     isNot: this.isNot
   };
+
   const expected = rac.Point(x, y);
   if (point == null) {
     return fail(() =>
-      this.utils.matcherHint('equalsPoint', 'null', expected.toString(), options));
+      this.utils.matcherHint('equalsPoint',
+        'null', expected.toString(),
+        options));
   }
 
-  const isEqual = rac.equals(point.x, expected.x) && rac.equals(point.y, expected.y);
+  const isEqual = rac.equals(point.x, expected.x)
+    && rac.equals(point.y, expected.y);
 
   return done(isEqual, () =>
-      this.utils.matcherHint('equalsPoint', point.toString(), expected.toString(), options));
+    this.utils.matcherHint('equalsPoint',
+      point.toString(), expected.toString(),
+      options));
 }}); // equalsPoint
 
 
 expect.extend({ equalsAngle(angle, someAngle) {
-  let other = rac.Angle.from(someAngle);
-  const pass = rac.equals(angle.turn, other.turn);
-  if (pass) {
-    return {
-      message: () =>
-        `expected angle (turn:${angle.turn}) not to equal to (turn:${other.turn})`,
-      pass: true,
-    };
-  } else {
-    return {
-      message: () =>
-        `expected angle (turn:${angle.turn}) to equal to (turn:${other.turn})`,
-      pass: false,
-    };
+  const options = {
+    comment: 'equal Point properties',
+    isNot: this.isNot
+  };
+
+  let expected = rac.Angle.from(someAngle);
+  if (angle == null) {
+    return fail(() =>
+      this.utils.matcherHint('equalsAngle',
+        'null', expected.toString(digits),
+        options));
   }
+
+  // TODO: make a equals for angles specifically
+  const isEqual = rac.equals(angle.turn, expected.turn);
+  return done(isEqual, () =>
+    this.utils.matcherHint('equalsAngle',
+      angle.toString(digits), expected.toString(digits),
+      options));
 }}); // equalsAngle
 
 
