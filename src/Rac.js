@@ -93,12 +93,6 @@ class Rac {
 
 
   /**
-  * The `rac.Angle` function-container holds several convenience methods and
-  * properties for creating `{@link Rac.Angle}` objects.
-  * @namespace rac.Angle
-  */
-
-  /**
   * Convenience function that creates a new `Angle` using `this`.
   *
   * This function is also the container of other convenience methods and
@@ -108,12 +102,6 @@ class Rac {
     return new Rac.Angle(this, turn);
   }
 
-
-  /**
-  * The `rac.Point` function-container holds several convenience methods and
-  * properties for creating `{@link Rac.Point}` objects.
-  * @namespace rac.Point
-  */
 
   /**
   * Convenience function that creates a new `Point` using `this`.

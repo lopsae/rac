@@ -1,6 +1,11 @@
 'use strict';
 
 
+/**
+* The `rac.Point` function-container holds several convenience methods and
+* properties for creating `{@link Rac.Point}` objects.
+* @namespace rac.Point
+*/
 module.exports = function attachRacPoint(rac) {
 
   /**

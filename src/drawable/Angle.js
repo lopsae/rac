@@ -5,6 +5,10 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
+/**
+* Angle measured with a `turn` value in the `[0,1)` range.
+* @alias Rac.Angle
+*/
 class Angle {
 
   constructor(rac, turn) {
@@ -26,19 +30,37 @@ class Angle {
 
 module.exports = Angle;
 
+/**
+* Returns an `Angle` produced with `something`.
+*
+* + If `something` is an instance of `Angle` that same object is returned.
+* + If `something` is a `number`, it is used as `turn` value.
+* + If `something` is a `{@link Rac.Segment}`, returns its angle.
+* + Otherwise an error is thrown.
+*
+* @param {Rac} rac Instance to pass along to newly created objects
+* @param {number|Rac.Angle|Rac.Segment} something Object to use to produce
+* an `Angle`.
+*/
+Angle.from = function(rac, something) {
+  if (something instanceof Rac.Angle) {
+    return something;
+  }
+  if (typeof something === 'number') {
+    return new Angle(rac, something);
+  }
+  if (something instanceof Rac.Segment) {
+    return something.angle();
+  }
+
+  console.trace(`Cannot convert to Rac.Angle - something-type:${utils.typeName(something)}`);
+  throw rac.Error.invalidObjectToConvert;
+};
+
 
 Angle.fromRadians = function(rac, radians) {
   return new Angle(rac, radians / Rac.TAU);
 };
-
-// TODO: ambiguous? delete?
-// Angle.fromPoint = function(rac, point) {
-//   return Angle.fromRadians(rac, Math.atan2(point.y, point.x));
-// };
-
-// Angle.fromSegment = function(rac, segment) {
-//   return segment.start.angleToPoint(rac, segment.end);
-// };
 
 
 // If `turn`` is zero returns 1 instead, otherwise returns `turn`.

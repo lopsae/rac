@@ -5,25 +5,28 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
+/**
+* The `rac.Angle` function-container holds several convenience methods and
+* properties for creating `{@link Rac.Angle}` objects.
+* @namespace rac.Angle
+*/
 module.exports = function attachRacAngle(rac) {
 
-
+  /**
+  * Returns an `Angle` produced with `something`. Calls
+  * `{@link Rac.Angle.from}` using `this`.
+  * @name from
+  * @memberof rac.Angle#
+  */
   rac.Angle.from = function(something) {
-    if (something instanceof Rac.Angle) {
-      return something;
-    }
-    if (typeof something === 'number') {
-      return rac.Angle(something);
-    }
-    if (something instanceof Rac.Segment) {
-      return something.angle();
-    }
-
-    console.trace(`Cannot convert to Rac.Angle - something-type:${utils.typeName(something)}`);
-    throw rac.Error.invalidObjectToConvert;
+    return Rac.Angle.from(rac, something);
   };
 
-
+  /**
+  * An `Angle` with turn `0`.
+  * @name zero
+  * @memberof rac.Angle#
+  */
   rac.Angle.zero =    rac.Angle(0.0);
   rac.Angle.square =  rac.Angle(1/4);
   rac.Angle.inverse = rac.Angle(1/2);
