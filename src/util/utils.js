@@ -35,6 +35,9 @@ exports.assertExists = function(...checks) {
 * @function
 */
 exports.typeName = function(obj) {
+  if (obj === undefined) {
+    return 'undefined';
+  }
   if (typeof obj === 'function' && obj.name != null) {
     return obj.name == ''
       ? `function`

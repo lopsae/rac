@@ -53,7 +53,7 @@ expect.extend({ equalsPoint(point, x, y) {
 
 
 expect.extend({ equalsAngle(angle, someAngle) {
-  let other = Rac.Angle.from(someAngle);
+  let other = rac.Angle.from(someAngle);
   const pass = rac.equals(angle.turn, other.turn);
   if (pass) {
     return {

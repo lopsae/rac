@@ -1,212 +1,129 @@
 'use strict';
 
 
-module.exports = function makeAngle(rac) {
+let Rac = require('../Rac');
+let utils = require('../util/utils');
 
-  let RacAngle = function RacAngle(turn) {
+
+class Angle {
+
+  constructor(rac, turn) {
+    utils.assertExists(rac, turn);
+    this.rac = rac;
     this.setTurn(turn);
-  };
-
-  RacAngle.from = function(something) {
-    if (something instanceof RacAngle) {
-      return something;
-    }
-    if (typeof something === "number") {
-      return new RacAngle(something);
-    }
-    if (something instanceof rac.Segment) {
-      return something.angle();
-    }
-
-    console.trace(`Cannot convert to rac.Angle - something-type:${rac.typeName(something)}`);
-    throw rac.Error.invalidObjectToConvert;
   }
 
-  RacAngle.fromRadians = function(radians) {
-    return new RacAngle(radians / rac.TAU);
-  };
 
-  RacAngle.fromPoint = function(point) {
-    return RacAngle.fromRadians(Math.atan2(point.y, point.x));
-  };
-
-  RacAngle.fromSegment = function(segment) {
-    return segment.start.angleToPoint(segment.end);
-  };
-
-  RacAngle.prototype.setTurn = function(turn) {
+  setTurn(turn) {
     this.turn = turn % 1;
     if (this.turn < 0) {
       this.turn = (this.turn + 1) % 1;
     }
     return this;
-  };
-
-  // If `turn`` is zero returns 1 instead, otherwise returns `turn`.
-  RacAngle.prototype.turnOne = function() {
-    if (this.turn === 0) { return 1; }
-    return this.turn;
   }
 
-  RacAngle.prototype.add = function(someAngle) {
-    let other = RacAngle.from(someAngle);
-    return new RacAngle(this.turn + other.turn);
-  };
+} // class Angle
 
-  RacAngle.prototype.substract = function(someAngle) {
-    let other = RacAngle.from(someAngle);
-    return new RacAngle(this.turn - other.turn);
-  };
-
-  RacAngle.prototype.sub = function(someAngle) {
-    return this.substract(someAngle);
-  };
-
-  // Returns the equivalent to `someAngle` shifted to have `this` as the
-  // origin, in the `clockwise` orientation.
-  //
-  // For angle at `0.1`, `shift(0.5)` will return a `0.6` angle.
-  // For a clockwise orientation, equivalent to `this + someAngle`.
-  RacAngle.prototype.shift = function(someAngle, clockwise = true) {
-    let angle = RacAngle.from(someAngle);
-    return clockwise
-      ? this.add(angle)
-      : this.sub(angle);
-  };
-
-  // Returns the equivalent of `this` when `someOrigin` is considered the
-  // origin, in the `clockwise` orientation.
-  // TODO: add example and difference to shift
-  RacAngle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
-    let origin = RacAngle.from(someOrigin);
-    return origin.shift(this, clockwise);
-  };
-
-  // Returns `factor * turn`.
-  RacAngle.prototype.mult = function(factor) {
-    return new RacAngle(this.turn * factor);
-  };
-
-  // Returns `factor * turnOne()`, where `turn` is considered in the
-  // range (0, 1].
-  // Useful when doing ratio calculation where a zero angle corresponds to
-  // a complete-circle since:
-  // ```
-  // rac.Angle(0).mult(0.5) // returns rac.Angle(0)
-  // // whereas
-  // rac.Angle(0).multOne(0.5) // return rac.Angle(0.5)
-  // ```
-  RacAngle.prototype.multOne = function(factor) {
-    return new RacAngle(this.turnOne() * factor);
-  };
-
-  // Returns `this` adding half a turn.
-  RacAngle.prototype.inverse = function() {
-    return this.add(RacAngle.inverse);
-  };
-
-  RacAngle.prototype.negative = function() {
-    return new RacAngle(-this.turn);
-  };
-
-  RacAngle.prototype.perpendicular = function(clockwise = true) {
-    return this.shift(RacAngle.square, clockwise);
-  };
-
-  // Returns an Angle that represents the distance from `this` to `someAngle`
-  // traveling in the `clockwise` orientation.
-  RacAngle.prototype.distance = function(someAngle, clockwise = true) {
-    let other = RacAngle.from(someAngle);
-    let distance = other.substract(this);
-    return clockwise
-      ? distance
-      : distance.negative();
-  };
-
-  RacAngle.prototype.radians = function() {
-    return this.turn * rac.TAU;
-  };
-
-  RacAngle.prototype.degrees = function() {
-    return this.turn * 360;
-  };
-
-  RacAngle.zero =    new RacAngle(0.0);
-  RacAngle.square =  new RacAngle(1/4);
-  RacAngle.inverse = new RacAngle(1/2);
-
-  RacAngle.half =    new RacAngle(1/2);
-  RacAngle.quarter = new RacAngle(1/4);
-  RacAngle.eighth =  new RacAngle(1/8);
-
-  RacAngle.e = new RacAngle(0/4);
-  RacAngle.s = new RacAngle(1/4);
-  RacAngle.w = new RacAngle(2/4);
-  RacAngle.n = new RacAngle(3/4);
-
-  RacAngle.east  = RacAngle.e;
-  RacAngle.south = RacAngle.s;
-  RacAngle.west  = RacAngle.w;
-  RacAngle.north = RacAngle.n;
-
-  RacAngle.ne = RacAngle.n.add(1/8);
-  RacAngle.se = RacAngle.e.add(1/8);
-  RacAngle.sw = RacAngle.s.add(1/8);
-  RacAngle.nw = RacAngle.w.add(1/8);
-
-  // North north-east
-  RacAngle.nne = RacAngle.ne.add(-1/16);
-  // East north-east
-  RacAngle.ene = RacAngle.ne.add(+1/16);
-  // North-east north
-  RacAngle.nen = RacAngle.nne;
-  // North-east east
-  RacAngle.nee = RacAngle.ene;
-
-  // East south-east
-  RacAngle.ese = RacAngle.se.add(-1/16);
-  // South south-east
-  RacAngle.sse = RacAngle.se.add(+1/16);
-  // South-east east
-  RacAngle.see = RacAngle.ese;
-  // South-east south
-  RacAngle.ses = RacAngle.sse;
-
-  // South south-west
-  RacAngle.ssw = RacAngle.sw.add(-1/16);
-  // West south-west
-  RacAngle.wsw = RacAngle.sw.add(+1/16);
-  // South-west south
-  RacAngle.sws = RacAngle.ssw;
-  // South-west west
-  RacAngle.sww = RacAngle.wsw;
-
-  // West north-west
-  RacAngle.wnw = RacAngle.nw.add(-1/16);
-  // North north-west
-  RacAngle.nnw = RacAngle.nw.add(+1/16);
-  // Nort-hwest west
-  RacAngle.nww = RacAngle.wnw;
-  // North-west north
-  RacAngle.nwn = RacAngle.nnw;
-
-  RacAngle.right = RacAngle.e;
-  RacAngle.down  = RacAngle.s;
-  RacAngle.left  = RacAngle.w;
-  RacAngle.up    = RacAngle.n;
-
-  RacAngle.r = RacAngle.right;
-  RacAngle.d = RacAngle.down;
-  RacAngle.l = RacAngle.left;
-  RacAngle.u = RacAngle.up;
-
-  RacAngle.top    = RacAngle.up;
-  RacAngle.bottom = RacAngle.down;
-  RacAngle.t      = RacAngle.top;
-  RacAngle.b      = RacAngle.bottom;
+module.exports = Angle;
 
 
-  return RacAngle;
+Angle.fromRadians = function(rac, radians) {
+  return new Angle(rac, radians / Rac.TAU);
+};
 
-} // makeAngle
+// TODO: ambiguous? delete?
+// Angle.fromPoint = function(rac, point) {
+//   return Angle.fromRadians(rac, Math.atan2(point.y, point.x));
+// };
+
+// Angle.fromSegment = function(rac, segment) {
+//   return segment.start.angleToPoint(rac, segment.end);
+// };
+
+
+// If `turn`` is zero returns 1 instead, otherwise returns `turn`.
+Angle.prototype.turnOne = function() {
+  if (this.turn === 0) { return 1; }
+  return this.turn;
+}
+
+Angle.prototype.add = function(someAngle) {
+  let other = this.rac.Angle.from(someAngle);
+  return new Angle(this.rac, this.turn + other.turn);
+};
+
+Angle.prototype.sub = function(someAngle) {
+  let other = this.rac.Angle.from(someAngle);
+  return new Angle(this.rac, this.turn - other.turn);
+};
+
+
+// Returns the equivalent to `someAngle` shifted to have `this` as the
+// origin, in the `clockwise` orientation.
+//
+// For angle at `0.1`, `shift(0.5)` will return a `0.6` angle.
+// For a clockwise orientation, equivalent to `this + someAngle`.
+Angle.prototype.shift = function(someAngle, clockwise = true) {
+  let angle = this.rac.Angle.from(someAngle);
+  return clockwise
+    ? this.add(angle)
+    : this.sub(angle);
+};
+
+// Returns the equivalent of `this` when `someOrigin` is considered the
+// origin, in the `clockwise` orientation.
+// TODO: add example and difference to shift
+Angle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
+  let origin = this.rac.Angle.from(someOrigin);
+  return origin.shift(this, clockwise);
+};
+
+// Returns `factor * turn`.
+Angle.prototype.mult = function(factor) {
+  return new Angle(this.rac, this.turn * factor);
+};
+
+// Returns `factor * turnOne()`, where `turn` is considered in the
+// range (0, 1].
+// Useful when doing ratio calculation where a zero angle corresponds to
+// a complete-circle since:
+// ```
+// rac.Angle(0).mult(0.5) // returns rac.Angle(0)
+// // whereas
+// rac.Angle(0).multOne(0.5) // return rac.Angle(0.5)
+// ```
+Angle.prototype.multOne = function(factor) {
+  return new Angle(this.rac, this.turnOne() * factor);
+};
+
+// Returns `this` adding half a turn.
+Angle.prototype.inverse = function() {
+  return this.add(Angle.inverse);
+};
+
+Angle.prototype.negative = function() {
+  return new Angle(this.rac, -this.turn);
+};
+
+Angle.prototype.perpendicular = function(clockwise = true) {
+  return this.shift(this.rac.Angle.square, clockwise);
+};
+
+// Returns an Angle that represents the distance from `this` to `someAngle`
+// traveling in the `clockwise` orientation.
+Angle.prototype.distance = function(someAngle, clockwise = true) {
+  let other = this.rac.Angle.from(someAngle);
+  let distance = other.sub(this);
+  return clockwise
+    ? distance
+    : distance.negative();
+};
+
+Angle.prototype.radians = function() {
+  return this.turn * Rac.TAU;
+};
+
+Angle.prototype.degrees = function() {
+  return this.turn * 360;
+};
 

@@ -133,7 +133,7 @@ Segment.prototype.length = function() {
 };
 
 Segment.prototype.angle = function() {
-  return Rac.Angle.fromSegment(this);
+  return this.start.angleToPoint(this.end);
 };
 
 // Returns the slope of the segment, or `null` if the segment is part of a

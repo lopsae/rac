@@ -31,7 +31,7 @@ class Point{
     return `Point(${this.x},${this.y})`;
   }
 
-  text(string, format, rotation = Rac.Angle.zero) {
+  text(string, format, rotation = this.rac.Angle.zero) {
     return new Rac.Text(this.rac, string, format, this, rotation);
   }
 
@@ -115,7 +115,7 @@ class Point{
     }
 
     let angleRadians = Math.asin(angleSine);
-    let opsAngle = Rac.Angle.fromRadians(angleRadians);
+    let opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
     let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
 
     let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
@@ -149,7 +149,8 @@ Point.prototype.negative = function() {
 
 Point.prototype.angleToPoint = function(other) {
   let offset = other.subPoint(this);
-  return Rac.Angle.fromPoint(offset);
+  let radians = Math.atan2(offset.y, offset.x);
+  return Rac.Angle.fromRadians(this.rac, radians);
 };
 
 Point.prototype.distanceToPoint = function(other) {
@@ -165,7 +166,7 @@ Point.prototype.perpendicular = function(clockwise = true) {
 };
 
 Point.prototype.pointToAngle = function(someAngle, distance) {
-  let angle = Rac.Angle.from(someAngle);
+  let angle = this.rac.Angle.from(someAngle);
   let distanceX = distance * Math.cos(angle.radians());
   let distanceY = distance * Math.sin(angle.radians());
   return new Point(this.rac, this.x + distanceX, this.y + distanceY);
@@ -190,7 +191,12 @@ Point.prototype.segmentPerpendicularToSegment = function(segment) {
   return this.segmentToPoint(projectedPoint);
 };
 
-Point.prototype.arc = function(radius, start = rac.Angle.zero, end = start, clockwise = true) {
+Point.prototype.arc = function(
+  radius,
+  start = this.rac.Angle.zero,
+  end = start,
+  clockwise = true)
+{
   // TODO: will be Rac.Arc(this.rac, this, radius, start, end, clockwise);
   return new Rac.Arc(this, radius, start, end, clockwise);
 };

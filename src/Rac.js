@@ -70,6 +70,7 @@ class Rac {
       drawerNotSetup: 'Drawer not setup'};
 
     require('./drawable/attachRacPoint')(this);
+    require('./drawable/attachRacAngle')(this);
   }
 
   /**
@@ -222,7 +223,7 @@ Rac.setupDrawableProtoFunctions(Rac.Text);
 
 
 // Angle
-Rac.Angle = require('./drawable/Angle')(Rac);
+Rac.Angle = require('./drawable/Angle');
 
 
 // Point

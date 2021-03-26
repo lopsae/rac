@@ -6,11 +6,13 @@ module.exports = function makeArc(rac) {
   class RacArc {
 
     constructor(
+      rac,
       center, radius,
       start = rac.Angle.zero,
       end = start,
       clockwise = true)
     {
+      this.rac = rac;
       this.center = center;
       this.radius = radius;
       // Start angle of the arc. Arc will draw from this angle towards `end`
