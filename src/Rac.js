@@ -172,7 +172,7 @@ utils.addConstant(Rac, 'TAU', Math.PI * 2);
 Rac.utils = utils;
 
 
-// Replace with utils
+// TODO: Replace with utils
 Rac.typeName = function(obj) {
   return obj.constructor.name ?? typeof obj
 };
@@ -180,6 +180,19 @@ Rac.typeName = function(obj) {
 
 // Prototype functions
 require('./attachProtoFunction')(Rac);
+
+
+// Errors
+Rac.Error = class RacError extends Error {
+
+  static invalidObjectToConvert = 'InvalidObjectToConvertError';
+
+  constructor(name, message) {
+    super(message);
+    this.name = name;
+  }
+
+}
 
 
 // P5Drawer

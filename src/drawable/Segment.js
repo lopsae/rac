@@ -181,7 +181,7 @@ Segment.prototype.pointAtX = function(x) {
 }
 
 Segment.prototype.reverseAngle = function() {
-  return this.rac.Angle.fromSegment(this).inverse();
+  return this.angle().inverse();
 };
 
 Segment.prototype.reverse = function() {

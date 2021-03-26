@@ -1,14 +1,23 @@
 'use strict';
 
 
-// Control that uses a Segment as anchor.
-return class RacSegmentControl extends rac.Control {
+let Rac = require('../Rac');
+let utils = require('../util/utils');
+
+
+/**
+* Control that uses a Segment as anchor.
+* @alias Rac.SegmentControl
+*/
+class SegmentControl extends Rac.Control {
 
   // Creates a new Control instance with the given `value` and `length`.
   // By default the value range is [0,1] and limits are set to be the equal
   // as `startValue` and `endValue`.
-  constructor(value, length, startValue = 0, endValue = 1) {
-    super(value, startValue, endValue);
+  constructor(rac, value, length, startValue = 0, endValue = 1) {
+    utils.assertExists(rac, value, length, startValue, endValue);
+
+    super(rac, value, startValue, endValue);
 
     // Length for the copied anchor shape.
     this.length = length;
@@ -62,33 +71,33 @@ return class RacSegmentControl extends rac.Control {
       let markerRatio = this.ratioOf(item);
       if (markerRatio < 0 || markerRatio > 1) { return }
       let point = anchorCopy.start.pointToAngle(angle, this.length * markerRatio);
-      rac.Control.makeValueMarker(point, angle)
+      Rac.Control.makeValueMarker(this.rac, point, angle)
         .attachToComposite();
     }, this);
 
     // Control button
-    center.arc(rac.Control.radius)
+    center.arc(Rac.Control.radius)
       .attachToComposite();
 
     let ratioValue = this.ratioValue();
 
     // Negative arrow
-    if (ratioValue >= this.ratioStartLimit() + rac.equalityThreshold) {
-      rac.Control.makeArrowShape(center, angle.inverse())
+    if (ratioValue >= this.ratioStartLimit() + this.rac.equalityThreshold) {
+      Rac.Control.makeArrowShape(this.rac, center, angle.inverse())
         .attachToComposite();
     }
 
     // Positive arrow
-    if (ratioValue <= this.ratioEndLimit() - rac.equalityThreshold) {
-      rac.Control.makeArrowShape(center, angle)
+    if (ratioValue <= this.ratioEndLimit() - this.rac.equalityThreshold) {
+      Rac.Control.makeArrowShape(this.rac, center, angle)
         .attachToComposite();
     }
 
-    rac.popComposite().draw(this.style);
+    this.rac.popComposite().draw(this.style);
 
     // Selection
     if (this.isSelected()) {
-      center.arc(rac.Control.radius * 1.5).draw(rac.Control.pointerStyle);
+      center.arc(Rac.Control.radius * 1.5).draw(Rac.Control.pointerStyle);
     }
   }
 
@@ -120,7 +129,7 @@ return class RacSegmentControl extends rac.Control {
       let markerRatio = this.ratioOf(item);
       if (markerRatio < 0 || markerRatio > 1) { return }
       let markerPoint = anchorCopy.start.pointToAngle(angle, length * markerRatio);
-      rac.Control.makeValueMarker(markerPoint, angle)
+      Rac.Control.makeValueMarker(this.rac, markerPoint, angle)
         .attachToComposite();
     });
 
@@ -128,14 +137,14 @@ return class RacSegmentControl extends rac.Control {
     let ratioStartLimit = this.ratioStartLimit();
     if (ratioStartLimit > 0) {
       let minPoint = anchorCopy.start.pointToAngle(angle, length * ratioStartLimit);
-      rac.Control.makeLimitMarker(minPoint, angle)
+      Rac.Control.makeLimitMarker(this.rac, minPoint, angle)
         .attachToComposite();
     }
 
     let ratioEndLimit = this.ratioEndLimit();
     if (ratioEndLimit < 1) {
       let maxPoint = anchorCopy.start.pointToAngle(angle, length * ratioEndLimit);
-      rac.Control.makeLimitMarker(maxPoint, angle.inverse())
+      Rac.Control.makeLimitMarker(this.rac, maxPoint, angle.inverse())
         .attachToComposite();
     }
 
@@ -161,7 +170,7 @@ return class RacSegmentControl extends rac.Control {
       .end;
 
     // Control center constrained to anchor
-    constrainedAnchorCenter.arc(rac.Control.radius)
+    constrainedAnchorCenter.arc(Rac.Control.radius)
       .attachToComposite();
 
     // Dragged shadow center, semi attached to pointer
@@ -176,15 +185,15 @@ return class RacSegmentControl extends rac.Control {
       .end;
 
     // Control shadow center
-    draggedShadowCenter.arc(rac.Control.radius / 2)
+    draggedShadowCenter.arc(Rac.Control.radius / 2)
       .attachToComposite();
 
     // Ease for segment to dragged shadow center
-    let easeOut = rac.EaseFunction.makeEaseOut();
-    easeOut.postBehavior = rac.EaseFunction.Behavior.clamp;
+    let easeOut = new Rac.EaseFunction.makeEaseOut();
+    easeOut.postBehavior = Rac.EaseFunction.Behavior.clamp;
 
     // Tail will stop stretching at 2x the max tail length
-    let maxDraggedTailLength = rac.Control.radius * 5;
+    let maxDraggedTailLength = Rac.Control.radius * 5;
     easeOut.inRange = maxDraggedTailLength * 2;
     easeOut.outRange = maxDraggedTailLength;
 
@@ -196,11 +205,11 @@ return class RacSegmentControl extends rac.Control {
     draggedTail.withLength(easedLength).attachToComposite();
 
     // Draw all!
-    rac.popComposite().draw(rac.Control.pointerStyle);
+    this.rac.popComposite().draw(Rac.Control.pointerStyle);
   }
 
-} // RacSegmentControl
+} // class SegmentControl
 
 
-module.exports = RacSegmentControl;
+module.exports = SegmentControl;
 

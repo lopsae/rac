@@ -66,8 +66,8 @@ Angle.from = function(rac, something) {
     return something.angle();
   }
 
-  // console.trace(`Cannot convert to Rac.Angle - something-type:${utils.typeName(something)}`);
-  throw rac.Error.invalidObjectToConvert;
+  throw new Rac.Error(Rac.Error.invalidObjectToConvert,
+    `Cannot convert \`something\` to Rac.Angle - something-type:${utils.typeName(something)}`);
 };
 
 
@@ -133,7 +133,7 @@ Angle.prototype.multOne = function(factor) {
 
 // Returns `this` adding half a turn.
 Angle.prototype.inverse = function() {
-  return this.add(Angle.inverse);
+  return this.add(this.rac.Angle.inverse);
 };
 
 Angle.prototype.negative = function() {

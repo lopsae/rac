@@ -41,6 +41,7 @@ module.exports = function attachProtoFunctions(rac) {
   };
 
 
+  // TODO: has to be moved to rac instance
   rac.stack = [];
 
   rac.stack.peek = function() {
@@ -62,6 +63,7 @@ module.exports = function attachProtoFunctions(rac) {
 
   // TODO: shape and composite should be stacks, so that several can be
   // started in different contexts
+  // TODO: has to be moved to rac instance
   rac.currentShape = null;
   rac.currentComposite = null;
 

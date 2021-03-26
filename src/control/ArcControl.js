@@ -1,18 +1,27 @@
 'use strict';
 
 
-// Control that uses an Arc as anchor.
-return class RacArcControl extends rac.Control {
+let Rac = require('../Rac');
+let utils = require('../util/utils');
+
+
+/**
+* Control that uses an Arc as anchor.
+* @alias Rac.ArcControl
+*/
+class ArcControl extends Rac.Control {
 
   // Creates a new Control instance with the given `value` and an
   // `angleDistance` from `someAngleDistance`.
   // By default the value range is [0,1] and limits are set to be the equal
   // as `startValue` and `endValue`.
-  constructor(value, someAngleDistance, startValue = 0, endValue = 1) {
-    super(value, startValue, endValue);
+  constructor(rac, value, someAngleDistance, startValue = 0, endValue = 1) {
+    utils.assertExists(rac, value, someAngleDistance, startValue, endValue);
+
+    super(rac, value, startValue, endValue);
 
     // Angle distance for the copied anchor object.
-    this.angleDistance = rac.Angle.from(someAngleDistance);
+    this.angleDistance = Rac.Angle.from(rac, someAngleDistance);
 
     // `Arc`` to which the control will be anchored. When the control is
     // drawn and interacted a copy of the anchor is created with the
@@ -21,14 +30,14 @@ return class RacArcControl extends rac.Control {
   }
 
   setValueWithAngleDistance(someAngleDistance) {
-    let angleDistance = rac.Angle.from(someAngleDistance)
+    let angleDistance = Rac.Angle.from(this.rac, someAngleDistance)
     let angleDistanceRatio = angleDistance.turn / this.angleDistance.turnOne();
     this.value = this.valueOf(angleDistanceRatio);
   }
 
   setLimitsWithAngleDistanceInsets(startInset, endInset) {
-    startInset = rac.Angle.from(startInset);
-    endInset = rac.Angle.from(endInset);
+    startInset = Rac.Angle.from(this.rac, startInset);
+    endInset = Rac.Angle.from(this.rac, endInset);
     this.startLimit = this.valueOf(startInset.turn / this.angleDistance.turnOne());
     this.endLimit = this.valueOf((this.angleDistance.turnOne() - endInset.turn) / this.angleDistance.turnOne());
   }
@@ -57,7 +66,7 @@ return class RacArcControl extends rac.Control {
     let anchorCopy = this.copyAnchor();
 
     let anchorStyle = this.style !== null
-      ? this.style.withFill(rac.Fill.none)
+      ? this.style.withFill(this.rac.Fill.none)
       : null;
     anchorCopy.draw(anchorStyle);
 
@@ -71,35 +80,35 @@ return class RacArcControl extends rac.Control {
       let markerAngleDistance = this.angleDistance.multOne(markerRatio);
       let markerAngle = anchorCopy.shiftAngle(markerAngleDistance);
       let point = anchorCopy.pointAtAngle(markerAngle);
-      rac.Control.makeValueMarker(point, markerAngle.perpendicular(!anchorCopy.clockwise))
+      Rac.Control.makeValueMarker(this.rac, point, markerAngle.perpendicular(!anchorCopy.clockwise))
         .attachToComposite();
     }, this);
 
     // Control button
-    center.arc(rac.Control.radius)
+    center.arc(Rac.Control.radius)
       .attachToComposite();
 
     let ratioValue = this.ratioValue();
 
     // Negative arrow
-    if (ratioValue >= this.ratioStartLimit() + rac.equalityThreshold) {
+    if (ratioValue >= this.ratioStartLimit() + this.rac.equalityThreshold) {
       let negAngle = angle.perpendicular(anchorCopy.clockwise).inverse();
-      rac.Control.makeArrowShape(center, negAngle)
+      Rac.Control.makeArrowShape(this.rac, center, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
-    if (ratioValue <= this.ratioEndLimit() - rac.equalityThreshold) {
+    if (ratioValue <= this.ratioEndLimit() - this.rac.equalityThreshold) {
       let posAngle = angle.perpendicular(anchorCopy.clockwise);
-      rac.Control.makeArrowShape(center, posAngle)
+      Rac.Control.makeArrowShape(this.rac, center, posAngle)
         .attachToComposite();
     }
 
-    rac.popComposite().draw(this.style);
+    this.rac.popComposite().draw(this.style);
 
     // Selection
     if (this.isSelected()) {
-      center.arc(rac.Control.radius * 1.5).draw(rac.Control.pointerStyle);
+      center.arc(Rac.Control.radius * 1.5).draw(Rac.Control.pointerStyle);
     }
   }
 
@@ -130,7 +139,7 @@ return class RacArcControl extends rac.Control {
       if (markerRatio < 0 || markerRatio > 1) { return }
       let markerAngle = anchorCopy.shiftAngle(angleDistance.multOne(markerRatio));
       let markerPoint = anchorCopy.pointAtAngle(markerAngle);
-      rac.Control.makeValueMarker(markerPoint, markerAngle.perpendicular(!anchorCopy.clockwise))
+      Rac.Control.makeValueMarker(this.rac, markerPoint, markerAngle.perpendicular(!anchorCopy.clockwise))
         .attachToComposite();
     });
 
@@ -140,7 +149,7 @@ return class RacArcControl extends rac.Control {
       let minAngle = anchorCopy.shiftAngle(angleDistance.multOne(ratioStartLimit));
       let minPoint = anchorCopy.pointAtAngle(minAngle);
       let markerAngle = minAngle.perpendicular(anchorCopy.clockwise);
-      rac.Control.makeLimitMarker(minPoint, markerAngle)
+      Rac.Control.makeLimitMarker(this.rac, minPoint, markerAngle)
         .attachToComposite();
     }
 
@@ -149,7 +158,7 @@ return class RacArcControl extends rac.Control {
       let maxAngle = anchorCopy.shiftAngle(angleDistance.multOne(ratioEndLimit));
       let maxPoint = anchorCopy.pointAtAngle(maxAngle);
       let markerAngle = maxAngle.perpendicular(!anchorCopy.clockwise);
-      rac.Control.makeLimitMarker(maxPoint, markerAngle)
+      Rac.Control.makeLimitMarker(this.rac, maxPoint, markerAngle)
         .attachToComposite();
     }
 
@@ -164,11 +173,11 @@ return class RacArcControl extends rac.Control {
 
     // TODO: implement arc control dragging visuals!
 
-    rac.popComposite().draw(rac.Control.pointerStyle);
+    this.rac.popComposite().draw(Rac.Control.pointerStyle);
   }
 
-} // RacArcControl
+} // class ArcControl
 
 
-module.exports = RacArcControl;
+module.exports = ArcControl;
 

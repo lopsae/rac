@@ -207,7 +207,7 @@ class P5Drawer {
     * @function
     */
     rac.Point.pointer = function() {
-      return new Rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
+      return rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
     };
 
     /**
