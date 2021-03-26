@@ -248,7 +248,7 @@ Rac.setupDrawableProtoFunctions(Rac.Arc);
 
 
 // Bezier
-Rac.Bezier = require('./drawable/makeBezier')(Rac);
+Rac.Bezier = require('./drawable/Bezier')(Rac);
 Rac.setupDrawableProtoFunctions(Rac.Bezier);
 
 
