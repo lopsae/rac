@@ -230,7 +230,7 @@ Rac.setupDrawableProtoFunctions(Rac.Segment);
 
 
 // Arc
-Rac.Arc = require('./drawable/makeArc')(Rac);
+Rac.Arc = require('./drawable/Arc')(Rac);
 Rac.setupDrawableProtoFunctions(Rac.Arc);
 
 
