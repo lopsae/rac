@@ -5,6 +5,10 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
+/**
+* Line segment between two points.
+* @alias Rac.Segment
+*/
 class Segment {
 
   constructor(rac, start, end) {
@@ -52,7 +56,7 @@ class Segment {
   // Returns a new segment from `this.start`, with the same length, that is
   // perpendicular to `this` in the `clockwise` orientation.
   withPerpendicularAngle(clockwise = true) {
-    return this.withAngleShift(Rac.Angle.square, clockwise);
+    return this.withAngleShift(this.rac.Angle.square, clockwise);
   };
 
   // Returns `value` clamped to the given insets from zero and the length
@@ -85,7 +89,7 @@ class Segment {
       return 0;
     }
 
-    let angleDiff = this.angle().substract(segment.angle());
+    let angleDiff = this.angle().sub(segment.angle());
     if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
       return segment.length();
     } else {
@@ -97,7 +101,7 @@ class Segment {
   // or `false` if located counter-clockwise.
   pointOrientation(point) {
     let angle = this.start.angleToPoint(point);
-    let angleDistance = angle.substract(this.angle());
+    let angleDistance = angle.sub(this.angle());
     // [0 to 0.5) is considered clockwise
     // [0.5, 1) is considered counter-clockwise
     return angleDistance.turn < 0.5;
@@ -123,7 +127,7 @@ Segment.prototype.withLength = function(newLength) {
 };
 
 Segment.prototype.pointAtBisector = function() {
-  return new Rac.Point(
+  return new Rac.Point(this.rac,
     this.start.x + (this.end.x - this.start.x) /2,
     this.start.y + (this.end.y - this.start.y) /2);
 };
@@ -177,7 +181,7 @@ Segment.prototype.pointAtX = function(x) {
 }
 
 Segment.prototype.reverseAngle = function() {
-  return Rac.Angle.fromSegment(this).inverse();
+  return this.rac.Angle.fromSegment(this).inverse();
 };
 
 Segment.prototype.reverse = function() {
@@ -205,7 +209,7 @@ Segment.prototype.translate = function(point, y = undefined) {
 }
 
 Segment.prototype.translateToStart = function(newStart) {
-  let offset = newStart.substract(this.start);
+  let offset = newStart.subPoint(this.start);
   return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
 };
 
@@ -244,7 +248,7 @@ Segment.prototype.pointAtIntersectionWithSegment = function(other) {
 
   let x = (d - c) / (a - b);
   let y = a * x + c;
-  return new Rac.Point(x, y);
+  return new Rac.Point(this.rac, x, y);
 };
 
 Segment.prototype.pointAtLength = function(length) {
@@ -297,7 +301,7 @@ Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
 // `length()` as radiusm, and `angle()` as start and end angles.
 Segment.prototype.arc = function(clockwise = true) {
   let angle = this.angle();
-  return new Rac.Arc(
+  return new Rac.Arc(this.rac,
     this.start, this.length(),
     angle, angle,
     clockwise);
@@ -309,9 +313,9 @@ Segment.prototype.arcWithEnd = function(
   someAngleEnd = this.angle(),
   clockwise = true)
 {
-  let arcEnd = rac.Angle.from(someAngleEnd);
-  let arcStart = rac.Angle.fromSegment(this);
-  return new Rac.Arc(
+  let arcEnd = this.rac.Angle.from(someAngleEnd);
+  let arcStart = this.angle();
+  return new Rac.Arc(this.rac,
     this.start, this.length(),
     arcStart, arcEnd,
     clockwise);
@@ -321,11 +325,11 @@ Segment.prototype.arcWithEnd = function(
 // radius, starting from the `angle()` to the arc distance of the given
 // angle and orientation.
 Segment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
-  let angleDistance = rac.Angle.from(someAngleDistance);
+  let angleDistance = this.rac.Angle.from(someAngleDistance);
   let arcStart = this.angle();
   let arcEnd = arcStart.shift(angleDistance, clockwise);
 
-  return new Rac.Arc(
+  return new Rac.Arc(this.rac,
     this.start, this.length(),
     arcStart, arcEnd,
     clockwise);
@@ -370,7 +374,7 @@ Segment.prototype.segmentFromBisector = function(length, clockwise = true) {
 
 Segment.prototype.bezierCentralAnchor = function(distance, clockwise = true) {
   let bisector = this.segmentFromBisector(distance, clockwise);
-  return new Rac.Bezier(
+  return new Rac.Bezier(this.rac,
     this.start, bisector.end,
     bisector.end, this.end);
 };
