@@ -9,35 +9,35 @@ const utils = require('../util/utils');
 
 module.exports = class RacFill {
 
-    // TODO: figure out
-    // static none = new RacFill(null);
+  // TODO: figure out
+  // static none = new RacFill(null);
 
-    constructor(rac, color = null) {
-      utils.assertExists(rac);
-      this.rac = rac;
-      this.color = color;
+  constructor(rac, color = null) {
+    utils.assertExists(rac);
+    this.rac = rac;
+    this.color = color;
+  }
+
+  static from(rac, something) {
+    if (something instanceof RacFill) {
+      return new RacFill(rac, something.color);
+    }
+    if (something instanceof Rac.Stroke) {
+      return new RacFill(rac, something.color);
+    }
+    if (something instanceof Rac.Color) {
+      return new RacFill(rac, something);
     }
 
-    static from(rac, something) {
-      if (something instanceof RacFill) {
-        return new RacFill(rac, something.color);
-      }
-      if (something instanceof Rac.Stroke) {
-        return new RacFill(rac, something.color);
-      }
-      if (something instanceof Rac.Color) {
-        return new RacFill(rac, something);
-      }
+    throw Rac.Exception.invalidObjectType.make(
+      `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
+  }
 
-      throw Rac.Exception.invalidObjectType.make(
-        `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
-    }
+  styleWithStroke(stroke) {
+    return new Rac.Style(this.rac, stroke, this);
+  }
 
-    styleWithStroke(stroke) {
-      return new Rac.Style(this.rac, stroke, this);
-    }
-
-  } // RacFill
+} // RacFill
 
 // } // makeFill
 
