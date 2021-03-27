@@ -189,7 +189,7 @@ Rac.setupStyleProtoFunctions(Rac.Fill);
 
 
 // Style
-Rac.Style = require('./style/Style')(Rac);
+Rac.Style = require('./style/Style');
 Rac.setupStyleProtoFunctions(Rac.Style);
 
 

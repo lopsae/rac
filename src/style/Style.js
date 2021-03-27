@@ -5,24 +5,26 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-module.exports = function makeStyle(rac) {
+class Style {
 
-return class RacStyle {
-
-  constructor(stroke = null, fill = null) {
+  constructor(rac, stroke = null, fill = null) {
+    utils.assertExists(rac);
+    this.rac = rac;
     this.stroke = stroke;
     this.fill = fill;
   }
 
   withStroke(stroke) {
-    return new RacStyle(stroke, this.fill);
+    return new Style(stroke, this.fill);
   }
 
-  withFill(fill) {
-    return new RacStyle(this.stroke, fill);
+  withFill(someFill) {
+    let fill = Rac.Fill.from(this.rac, someFill);
+    return new Style(this.stroke, fill);
   }
 
-} // RacStyle
+} // class Style
 
-} // makeStyle
+
+module.exports = Style;
 
