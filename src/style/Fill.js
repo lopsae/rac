@@ -11,9 +11,6 @@ const utils = require('../util/utils');
 */
 class Fill {
 
-  // TODO: figure out
-  // static none = new Fill(null);
-
   constructor(rac, color = null) {
     utils.assertExists(rac);
     this.rac = rac;

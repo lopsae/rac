@@ -56,8 +56,9 @@ class Rac {
     // visual object.
     this.drawer = null;
 
-    require('./drawable/racPoint')(this);
+    require('./style/rac.Fill')(this);
     require('./drawable/racAngle')(this);
+    require('./drawable/racPoint')(this);
   }
 
   /**
@@ -76,6 +77,17 @@ class Rac {
   equals(value, expected) {
     let diff = Math.abs(value-expected);
     return diff < this.equalityThreshold;
+  }
+
+
+  /**
+  * Convenience function that creates a new `Fill` using `this`.
+  *
+  * This function is also the container of other convenience methods and
+  * properties listed in `{@link rac.Fill}`.
+  */
+  Fill(color = null) {
+    return new Rac.Fill(this, color);
   }
 
 

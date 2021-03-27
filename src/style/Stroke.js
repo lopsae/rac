@@ -16,7 +16,6 @@ class Stroke {
 
   constructor(rac, color = null, weight = 1) {
     utils.assertExists(rac, weight);
-
     this.rac = rac
     this.color = color;
     this.weight = weight;
