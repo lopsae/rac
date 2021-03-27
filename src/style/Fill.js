@@ -5,12 +5,14 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-// module.exports = function makeFill(rac) {
-
-module.exports = class RacFill {
+/**
+* Fill color style for drawing.
+* @alias Rac.Fill
+*/
+class Fill {
 
   // TODO: figure out
-  // static none = new RacFill(null);
+  // static none = new Fill(null);
 
   constructor(rac, color = null) {
     utils.assertExists(rac);
@@ -19,14 +21,14 @@ module.exports = class RacFill {
   }
 
   static from(rac, something) {
-    if (something instanceof RacFill) {
-      return new RacFill(rac, something.color);
+    if (something instanceof Fill) {
+      return something;
     }
     if (something instanceof Rac.Stroke) {
-      return new RacFill(rac, something.color);
+      return new Fill(rac, something.color);
     }
     if (something instanceof Rac.Color) {
-      return new RacFill(rac, something);
+      return new Fill(rac, something);
     }
 
     throw Rac.Exception.invalidObjectType.make(
@@ -37,7 +39,8 @@ module.exports = class RacFill {
     return new Rac.Style(this.rac, stroke, this);
   }
 
-} // RacFill
+} // class Fill
 
-// } // makeFill
+
+module.exports = Fill;
 
