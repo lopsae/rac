@@ -70,8 +70,8 @@ Angle.from = function(rac, something) {
     return something.angle();
   }
 
-  throw new Rac.Error(Rac.Error.invalidObjectToConvert,
-    `Cannot convert \`something\` to Rac.Angle - something-type:${utils.typeName(something)}`);
+  throw Rac.Exception.invalidObjectType.make(
+    `Cannot derive Rac.Angle - something-type:${utils.typeName(something)}`);
 };
 
 

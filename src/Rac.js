@@ -5,9 +5,6 @@
 const version = require('../built/version');
 
 
-const utils = require(`./util/utils`);
-
-
 /**
 * This namespace contains functions attached to an instance of
 * `{@link Rac}` that in turn contain convenience methods and properties.
@@ -58,16 +55,6 @@ class Rac {
     // Drawer for the instance. This object handles the drawing of any
     // visual object.
     this.drawer = null;
-
-    // Error identifiers
-    this.Error = {
-      abstractFunctionCalled: 'Abstract function called',
-      invalidParameterCombination: 'Invalid parameter combination',
-      invalidObjectConfiguration: 'Invalid object configuration',
-      invalidObjectToConvert: 'Invalid object to convert',
-      invalidObjectToDraw: 'Invalid object to draw',
-      invalidObjectToApply: 'Invalid object to apply',
-      drawerNotSetup: 'Drawer not setup'};
 
     require('./drawable/racPoint')(this);
     require('./drawable/racAngle')(this);
@@ -147,11 +134,22 @@ class Rac {
     return new Rac.Arc(this, center, radius, start, end, clockwise);
   }
 
-
 } // class Rac
 
 
 module.exports = Rac;
+
+
+// All class (static) properties should be defined outside of the class
+// as to prevent cyclic dependency with Rac.
+
+
+const utils = require(`./util/utils`);
+/**
+* Container of utility functions. See `{@link utils}` for the available
+* members.
+*/
+Rac.utils = utils;
 
 
 /**
@@ -165,11 +163,44 @@ utils.addConstant(Rac, 'version', version);
 utils.addConstant(Rac, 'TAU', Math.PI * 2);
 
 
-/**
-* Container of utility functions. See `{@link utils}` for the available
-* members.
-*/
-Rac.utils = utils;
+// Exceptions
+Rac.Exception = class Exception {
+
+  constructor(name, message) {
+    this.name = name;
+    this.message = message;
+  }
+
+  toString() {
+    return `Exception:${name} - ${message}`;
+  }
+
+  /**
+  * Returns an convenience object for a named `Exception`. The object
+  * will have the property `name` with the given `name` parameter, and
+  * a function `make(message)` to produce a new `Exception` with a given
+  * `message`.
+  */
+  static named(name) {
+    return {
+      name: name,
+      make: message => new Exception(name, message)
+    };
+  }
+
+  static drawerNotSetup =    Exception.named('DrawerNotSetup');
+  static failedAssert =      Exception.named('FailedAssert');
+  static invalidObjectType = Exception.named('invalidObjectType');
+
+  // abstractFunctionCalled: 'Abstract function called',
+  // invalidParameterCombination: 'Invalid parameter combination',
+  // invalidObjectConfiguration: 'Invalid object configuration',
+  // invalidObjectToDraw: 'Invalid object to draw',
+  // invalidObjectToApply: 'Invalid object to apply',
+
+
+
+}
 
 
 // TODO: Replace with utils
@@ -180,20 +211,6 @@ Rac.typeName = function(obj) {
 
 // Prototype functions
 require('./attachProtoFunction')(Rac);
-
-
-// Errors
-Rac.Error = class RacError extends Error {
-
-  static invalidObjectToConvert = 'InvalidObjectToConvertError';
-
-  constructor(name, message) {
-    super(message);
-    this.name = name;
-  }
-
-}
-
 
 // P5Drawer
 Rac.P5Drawer = require('./p5Drawer/P5Drawer');

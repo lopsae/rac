@@ -6,7 +6,7 @@ let utils = require('../util/utils');
 
 
 /**
-* Color with RBGA values.
+* Color with RBGA values, each on the `[0,1]` range.
 * @alias Rac.Color
 */
 class Color {

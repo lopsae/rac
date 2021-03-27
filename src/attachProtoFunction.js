@@ -1,15 +1,16 @@
 'use strict';
 
 
-let utils = require('./util/utils');
+const Rac = require('./Rac');
+const utils = require('./util/utils');
 
 
 module.exports = function attachProtoFunctions(rac) {
 
-  function checkDrawer(drawable) {
+  function assertDrawer(drawable) {
     if (drawable.rac == null || drawable.rac.drawer == null) {
-      console.trace(`Drawer is not setup - drawable-type:${utils.typeName(drawable)}`);
-      throw Rac.Error.drawerNotSetup;
+      throw Rac.Exception.drawerNotSetup.make(
+        `drawable-type:${utils.typeName(drawable)}`);
     }
   }
 
@@ -28,13 +29,13 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   rac.drawableProtoFunctions.draw = function(style = null){
-    checkDrawer(this);
+    assertDrawer(this);
     this.rac.drawer.drawObject(this, style);
     return this;
   };
 
   rac.drawableProtoFunctions.debug = function(drawsText = false){
-    checkDrawer(this);
+    assertDrawer(this);
 
     this.rac.drawer.debugObject(this, drawsText);
     return this;
@@ -122,8 +123,8 @@ module.exports = function attachProtoFunctions(rac) {
       return this;
     }
 
-    console.trace(`Cannot attachTo composite - someComposite-type:${this.rac.typeName(someComposite)}`);
-    throw rac.Error.invalidObjectToConvert;
+    throw Rac.Exception.invalidObjectType.make(
+      `Cannot attachTo composite - someComposite-type:${utils.typeName(someComposite)}`);
   };
 
 
@@ -141,7 +142,7 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   rac.styleProtoFunctions.apply = function(){
-    checkDrawer(this);
+    assertDrawer(this);
     this.rac.drawer.applyObject(this);
   };
 

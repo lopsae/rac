@@ -29,8 +29,8 @@ module.exports = class RacFill {
         return new RacFill(rac, something);
       }
 
-      console.trace(`Cannot convert to rac.Fill - something-type:${rac.typeName(something)}`);
-      throw rac.Error.invalidObjectToConvert;
+      throw Rac.Exception.invalidObjectType.make(
+        `Cannot derive Rac.Fill - something-type:${rac.typeName(something)}`);
     }
 
     styleWithStroke(stroke) {

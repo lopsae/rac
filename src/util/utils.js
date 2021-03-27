@@ -1,6 +1,9 @@
 'use strict';
 
 
+const Rac = require('../Rac');
+
+
 /**
 * Internal utilities.
 * @namespace utils
@@ -18,8 +21,8 @@
 exports.assertExists = function(...checks) {
   checks.forEach((item, index) => {
     if (item === null || item === undefined) {
-      // console.trace(`Undefined element at index ${index}`)
-      throw new Error('FailedAssert');
+      throw Rac.Exception.failedAssert.make(
+        `Missing element at index ${index}`);
     }
   });
 }
