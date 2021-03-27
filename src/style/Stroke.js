@@ -41,7 +41,7 @@ class Stroke {
 
   styleWithFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);
-    return new Rac.Style(this.rac, this.color, fill);
+    return new Rac.Style(this.rac, this, fill);
   }
 
 } // class Stroke
