@@ -180,7 +180,7 @@ Rac.Exception = require('./util/Exception');
 
 
 // Prototype functions
-require('./attachProtoFunction')(Rac);
+require('./attachProtoFunctions')(Rac);
 
 // P5Drawer
 Rac.P5Drawer = require('./p5Drawer/P5Drawer');
