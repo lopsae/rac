@@ -206,7 +206,7 @@ Rac.setupStyleProtoFunctions(Rac.Style);
 
 
 // Text
-Rac.Text = require('./drawable/makeText.js')(Rac);
+Rac.Text = require('./drawable/Text.js')(Rac);
 Rac.setupDrawableProtoFunctions(Rac.Text);
 
 
