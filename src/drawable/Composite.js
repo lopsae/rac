@@ -1,8 +1,8 @@
 'use strict';
 
 
-let Rac = require('../Rac');
-let utils = require('../util/utils');
+const Rac = require('../Rac');
+const utils = require('../util/utils');
 
 
   // Contains a sequence of geometry objects which can be drawn or vertex

@@ -1,6 +1,10 @@
 'use strict';
 
 
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
+
 module.exports = function makeRay(rac) {
 
   class RacRay {
