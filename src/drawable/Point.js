@@ -31,8 +31,8 @@ class Point{
     return `Point(${this.x},${this.y})`;
   }
 
-  text(string, format, rotation = this.rac.Angle.zero) {
-    return new Rac.Text(this.rac, string, format, this, rotation);
+  text(string, format, angle = this.rac.Angle.zero) {
+    return new Rac.Text(this.rac, string, format, this, angle);
   }
 
   /**

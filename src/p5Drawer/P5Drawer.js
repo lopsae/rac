@@ -372,10 +372,10 @@ class P5Drawer {
 
       // Positioning
       rac.drawer.p5.translate(point.x, point.y);
-      if (this.rotation.turn != 0) {
-        rac.drawer.p5.rotate(this.rotation.radians());
+      if (this.angle.turn != 0) {
+        rac.drawer.p5.rotate(this.angle.radians());
       }
-    } // rac.Text.Format.prototype.apply
+    } // Rac.Text.Format.prototype.apply
 
   } // setupAllDrawFunctions
 

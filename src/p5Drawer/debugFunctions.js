@@ -34,9 +34,9 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   if (drawsText !== true) { return; }
 
   // Normal orientation
-  let format = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    rac.Text.Format.vertical.center,
+  let format = new Rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.center,
     drawer.debugTextOptions.font,
     angle,
     drawer.debugTextOptions.size);
@@ -77,9 +77,9 @@ exports.debugPoint = function(drawer, point, drawsText) {
   if (drawsText !== true) { return; }
 
   let string = `x:${drawer.debugNumber(point.x)}\ny:${drawer.debugNumber(point.y)}`;
-  let format = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    rac.Text.Format.vertical.top,
+  let format = new Rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.top,
     drawer.debugTextOptions.font,
     rac.Angle.e,
     drawer.debugTextOptions.size);
@@ -147,15 +147,15 @@ exports.debugSegment = function(drawer, segment, drawsText) {
 
   let angle = segment.angle();
   // Normal orientation
-  let lengthFormat = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    rac.Text.Format.vertical.bottom,
+  let lengthFormat = new Rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.bottom,
     drawer.debugTextOptions.font,
     angle,
     drawer.debugTextOptions.size);
-  let angleFormat = new rac.Text.Format(
-    rac.Text.Format.horizontal.left,
-    rac.Text.Format.vertical.top,
+  let angleFormat = new Rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.top,
     drawer.debugTextOptions.font,
     angle,
     drawer.debugTextOptions.size);
@@ -284,8 +284,8 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let hFormat = rac.Text.Format.horizontal;
-  let vFormat = rac.Text.Format.vertical;
+  let hFormat = Rac.Text.Format.horizontal;
+  let vFormat = Rac.Text.Format.vertical;
 
   let headVertical = arc.clockwise
     ? vFormat.top
@@ -298,19 +298,19 @@ exports.debugArc = function(drawer, arc, drawsText) {
     : vFormat.top;
 
   // Normal orientation
-  let headFormat = new rac.Text.Format(
+  let headFormat = new Rac.Text.Format(
     hFormat.left,
     headVertical,
     drawer.debugTextOptions.font,
     arc.start,
     drawer.debugTextOptions.size);
-  let tailFormat = new rac.Text.Format(
+  let tailFormat = new Rac.Text.Format(
     hFormat.left,
     tailVertical,
     drawer.debugTextOptions.font,
     arc.end,
     drawer.debugTextOptions.size);
-  let radiusFormat = new rac.Text.Format(
+  let radiusFormat = new Rac.Text.Format(
     hFormat.left,
     radiusVertical,
     drawer.debugTextOptions.font,

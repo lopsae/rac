@@ -2,7 +2,7 @@
 
 
 /**
-* The `rac.Fill` function methods and properties for convenience
+* The `rac.Fill` function contains methods and properties for convenience
 * `{@link Rac.Fill}` objects.
 * @namespace rac.Fill
 */

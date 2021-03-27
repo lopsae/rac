@@ -59,6 +59,9 @@ class Rac {
     require('./style/rac.Fill')(this);
     require('./drawable/rac.Angle')(this);
     require('./drawable/rac.Point')(this);
+
+    // Depends on rac.Point and rac.Angle being already setup
+    require('./drawable/rac.Text')(this);
   }
 
   /**
@@ -88,6 +91,17 @@ class Rac {
   */
   Fill(color = null) {
     return new Rac.Fill(this, color);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Text` using `this`.
+  *
+  * This function is also the container of other convenience methods and
+  * properties listed in `{@link rac.Text}`.
+  */
+  Text(string, format, point) {
+    return new Rac.Text(this, string, format, point);
   }
 
 
@@ -206,7 +220,7 @@ Rac.setupStyleProtoFunctions(Rac.Style);
 
 
 // Text
-Rac.Text = require('./drawable/Text.js')(Rac);
+Rac.Text = require('./drawable/Text.js');
 Rac.setupDrawableProtoFunctions(Rac.Text);
 
 

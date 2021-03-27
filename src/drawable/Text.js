@@ -5,9 +5,11 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-module.exports = function makeText(rac) {
-
-class RacTextFormat {
+/**
+* Format for drawing a `Text` object.
+* @alias Rac.Text.Format
+*/
+class TextFormat {
 
   static defaultSize = 15;
 
@@ -27,21 +29,21 @@ class RacTextFormat {
   constructor(
     horizontal, vertical,
     font = null,
-    rotation = rac.Angle.zero,
-    size = RacTextFormat.defaultSize)
+    angle = rac.Angle.zero,
+    size = TextFormat.defaultSize)
   {
     this.horizontal = horizontal;
     this.vertical = vertical;
     this.font = font;
-    this.rotation = rotation;
+    this.angle = angle;
     this.size = size;
   }
 
   // Returns a format to draw text in the same position as `self` with
   // the inverse angle.
   inverse() {
-    let hEnum = RacTextFormat.horizontal;
-    let vEnum = RacTextFormat.vertical;
+    let hEnum = TextFormat.horizontal;
+    let vEnum = TextFormat.vertical;
     let horizontal, vertical;
     switch (this.horizontal) {
       case hEnum.left:
@@ -60,30 +62,34 @@ class RacTextFormat {
         vertical = this.vertical; break;
     }
 
-    return new RacTextFormat(
+    return new TextFormat(
       horizontal, vertical,
       this.font,
-      this.rotation.inverse(),
+      this.angle.inverse(),
       this.size)
   }
 
-} // RacTextFormat
+} // class TextFormat
 
 
-class RacText {
+/**
+* String, format, and position to draw a text.
+* @alias Rac.Text
+*/
+class Text {
 
-  constructor(string, format, point) {
+  constructor(rac, string, format, point) {
+    utils.assertExists(rac, string, format, point);
+    this.rac = rac;
     this.string = string;
     this.format = format;
     this.point = point;
   }
 
-  static Format = RacTextFormat;
+  static Format = TextFormat;
 
-} // RacText
+} // class Text
 
 
-return RacText;
-
-} // makeText
+module.exports = Text;
 
