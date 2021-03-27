@@ -179,7 +179,7 @@ Rac.Color = require('./style/Color');
 
 
 // Stroke
-Rac.Stroke = require('./style/makeStroke');
+Rac.Stroke = require('./style/Stroke');
 Rac.setupStyleProtoFunctions(Rac.Stroke);
 
 
