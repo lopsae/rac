@@ -235,7 +235,7 @@ Rac.setupDrawableProtoFunctions(Rac.Point);
 
 
 // Ray
-Rac.Ray = require('./drawable/Ray')(Rac);
+Rac.Ray = require('./drawable/Ray');
 Rac.setupDrawableProtoFunctions(Rac.Ray);
 
 

@@ -5,37 +5,37 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-module.exports = function makeRay(rac) {
+class Ray {
 
-class RacRay {
-
-  constructor(start, angle) {
+  constructor(rac, start, angle) {
+    utils.assertExists(rac, start, angle);
+    this.rac = rac;
     this.start = start;
     this.angle = angle;
   }
 
   copy() {
-    return new RacRay(this.start, this.angle);
+    return new Ray(this.rac, this.start, this.angle);
   }
 
   withStart(newStart) {
-    return new RacRay(newStart, this.angle);
+    return new Ray(this.rac, newStart, this.angle);
   }
 
   withAngle(someAngle) {
     let newAngle = rac.Angle.from(someAngle);
-    return new RacRay(this.start, newAngle);
+    return new Ray(this.rac, this.start, newAngle);
   }
 
   withAngleAdd(someAngle) {
     let newAngle = this.angle.add(someAngle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
-    return new RacRay(this.start, newEnd);
+    return new Ray(this.rac, this.start, newEnd);
   }
 
   withAngleShift(someAngle, clockwise = true) {
     let newAngle = this.angle.shift(someAngle, clockwise);
-    return new RacRay(this.start, newAngle);
+    return new Ray(this.rac, this.start, newAngle);
   }
 
   perpendicular(clockwise = true) {
@@ -80,14 +80,17 @@ class RacRay {
 
   segment(length) {
     let end = this.start.pointToAngle(this.angle, length);
-    return new rac.Segment(this.start, end);
+    return new Rac.Segment(this.rac, this.start, end);
   }
 
-} // RacRay
+} // class Ray
+
+
+module.exports = Ray;
 
 
 // Returns the slope of the ray, or `null` if the ray is vertical.
-// RacRay.prototype.slope = function() {
+// Ray.prototype.slope = function() {
 //   let dx = this.end.x - this.start.x;
 //   let dy = this.end.y - this.start.y;
 //   if (Math.abs(dx) < rac.equalityThreshold) {
@@ -104,7 +107,7 @@ class RacRay {
 
 // Returns the y-intercept, or `null` if the segment is part of a
 // vertical line.
-// RacRay.prototype.yIntercept = function() {
+// Ray.prototype.yIntercept = function() {
 //   let slope = this.slope();
 //   if (slope === null) {
 //     return null;
@@ -115,29 +118,29 @@ class RacRay {
 // };
 
 
-// RacRay.prototype.pointAtX = function(x) {
+// Ray.prototype.pointAtX = function(x) {
 //   let slope = this.slope();
 //   if (slope === null) {
 //     return null;
 //   }
 
 //   let y = slope*x + this.yIntercept();
-//   return new rac.Point(x, y);
+//   return new Rac.Point(this.rac, x, y);
 // }
 
 
 // Translates the ray by the entire `point`, or by the given `x` and
 // `y` components.
-RacRay.prototype.translate = function(point, y = undefined) {
+Ray.prototype.translate = function(point, y = undefined) {
   if (point instanceof rac.Point && y === undefined) {
-    return new RacRay(
+    return new Ray(this.rac,
       this.start.add(point),
       this.angle);
   }
 
   if (typeof point === "number" && typeof y === "number") {
     let x = point;
-    return new RacRay(
+    return new Ray(this.rac,
       this.start.add(x, y),
       this.angle);
   }
@@ -146,30 +149,30 @@ RacRay.prototype.translate = function(point, y = undefined) {
   throw rac.Error.invalidParameterCombination;
 }
 
-RacRay.prototype.translateToStart = function(newStart) {
+Ray.prototype.translateToStart = function(newStart) {
   let offset = newStart.substract(this.start);
-  return new RacRay(this.start.addPoint(offset), this.angle);
+  return new Ray(this.rac, this.start.addPoint(offset), this.angle);
 };
 
-RacRay.prototype.translateToAngle = function(someAngle, distance) {
+Ray.prototype.translateToAngle = function(someAngle, distance) {
   let angle = rac.Angle.from(someAngle);
   let offset = rac.Point.zero.pointToAngle(angle, distance);
-  return new RacRay(this.start.addPoint(offset), this.angle);
+  return new Ray(this.rac, this.start.addPoint(offset), this.angle);
 };
 
-RacRay.prototype.translateToDistance = function(distance) {
+Ray.prototype.translateToDistance = function(distance) {
   let offset = rac.Point.zero.pointToAngle(this.angle, distance);
-  return new RacRay(this.start.addPoint(offset), this.angle);
+  return new Ray(this.rac, this.start.addPoint(offset), this.angle);
 };
 
-RacRay.prototype.translatePerpendicular = function(distance, clockwise = true) {
+Ray.prototype.translatePerpendicular = function(distance, clockwise = true) {
   let perpendicular = this.angle.perpendicular(clockwise);
   return this.translateToAngle(perpendicular, distance);
 };
 
 // Returns the intersecting point of `this` and `other`. Both segments are
 // considered lines without endpoints.
-// RacRay.prototype.pointAtIntersectionWithSegment = function(other) {
+// Ray.prototype.pointAtIntersectionWithSegment = function(other) {
 //   // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
 //   let a = this.slope();
 //   let b = other.slope();
@@ -186,18 +189,18 @@ RacRay.prototype.translatePerpendicular = function(distance, clockwise = true) {
 
 //   let x = (d - c) / (a - b);
 //   let y = a * x + c;
-//   return new rac.Point(x, y);
+//   return new Rac.Point(this.rac, x, y);
 // };
 
-RacRay.prototype.pointAtDistance = function(distance) {
+Ray.prototype.pointAtDistance = function(distance) {
   return this.start.pointToAngle(this.angle, distance);
 };
 
 
 // Returns an complete circle Arc using this segment `start` as center,
 // `length()` as radiusm, and `angle` as start and end angles.
-RacRay.prototype.arc = function(radius, clockwise = true) {
-  return new rac.Arc(
+Ray.prototype.arc = function(radius, clockwise = true) {
+  return new Rac.Arc(this.rac,
     this.start, radius,
     this.angle, this.angle,
     clockwise);
@@ -205,13 +208,13 @@ RacRay.prototype.arc = function(radius, clockwise = true) {
 
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle` to the given angle and orientation.
-RacRay.prototype.arcWithEnd = function(
+Ray.prototype.arcWithEnd = function(
   radius,
   someAngleEnd = this.angle,
   clockwise = true)
 {
   let arcEnd = rac.Angle.from(someAngleEnd);
-  return new rac.Arc(
+  return new Rac.Arc(this.rac,
     this.start, distance,
     this.angle, arcEnd,
     clockwise);
@@ -220,12 +223,12 @@ RacRay.prototype.arcWithEnd = function(
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle` to the arc distance of the given
 // angle and orientation.
-// RacRay.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
+// Ray.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
 //   let angleDistance = rac.Angle.from(someAngleDistance);
 //   let arcStart = this.angle;
 //   let arcEnd = arcStart.shift(angleDistance, clockwise);
 
-//   return new rac.Arc(
+//   return new Rac.Arc(this.rac,
 //     this.start, this.length(),
 //     arcStart, arcEnd,
 //     clockwise);
@@ -233,16 +236,11 @@ RacRay.prototype.arcWithEnd = function(
 
 // Returns a segment from `this.start` to the intersection between `this`
 // and `other`.
-// RacRay.prototype.segmentToIntersectionWithSegment = function(other) {
+// Ray.prototype.segmentToIntersectionWithSegment = function(other) {
 //   let end = this.pointAtIntersectionWithSegment(other);
 //   if (end === null) {
 //     return null;
 //   }
-//   return new RacRay(this.start, end);
+//   return new Ray(this.rac, this.start, end);
 // };
-
-
-return RacRay
-
-} // makeRay
 
