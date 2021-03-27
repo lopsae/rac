@@ -40,15 +40,7 @@ module.exports = function(grunt) {
 
     jsdoc : {
       dist : {
-        src: [
-          'src/Rac.js',
-          'src/style/Color.js',
-          'src/drawable/Point.js',
-          'src/drawable/racPoint.js',
-          'src/drawable/Angle.js',
-          'src/drawable/racAngle.js',
-          'src/util/utils.js',
-          'src/p5Drawer/P5Drawer.js'],
+        src: ['src/**/*'],
         options: {
           destination: 'docs',
           verbose: true,

@@ -5,6 +5,25 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
+class ControlSelection{
+  constructor(control, pointerCenter) {
+    // Selected control instance.
+    this.control = control;
+    // Copy of the control anchor, so that the control can move tied to
+    // the drawing, while the interaction range remains fixed.
+    this.anchorCopy = control.copyAnchor();
+    // Segment from the captured pointer position to the contro center,
+    // used to attach the control to the point where interaction started.
+    // Pointer is at `segment.start` and control center is at `segment.end`.
+    this.pointerOffset = pointerCenter.segmentToPoint(control.center());
+  }
+
+  drawSelection(pointerCenter) {
+    this.control.drawSelection(pointerCenter, this.anchorCopy, this.pointerOffset);
+  }
+}
+
+
 /**
 * Parent class for all controls for manipulating a value with the pointer.
 * Represents a control with a value, value-range, limits, markers, and
@@ -38,23 +57,7 @@ class Control {
   static selection = null;
 
 
-  static Selection = class ControlSelection{
-    constructor(control, pointerCenter) {
-      // Selected control instance.
-      this.control = control;
-      // Copy of the control anchor, so that the control can move tied to
-      // the drawing, while the interaction range remains fixed.
-      this.anchorCopy = control.copyAnchor();
-      // Segment from the captured pointer position to the contro center,
-      // used to attach the control to the point where interaction started.
-      // Pointer is at `segment.start` and control center is at `segment.end`.
-      this.pointerOffset = pointerCenter.segmentToPoint(control.center());
-    }
-
-    drawSelection(pointerCenter) {
-      this.control.drawSelection(pointerCenter, this.anchorCopy, this.pointerOffset);
-    }
-  }
+  static Selection = ControlSelection;
 
 
   // Creates a new Control instance with the given `value`, a default
