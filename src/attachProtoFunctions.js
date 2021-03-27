@@ -1,11 +1,13 @@
 'use strict';
 
 
-const Rac = require('./Rac');
 const utils = require('./util/utils');
 
 
-module.exports = function attachProtoFunctions(rac) {
+// Attaches functions to attach drawing and apply methods to other
+// prototypes.
+// Intended to receive the Rac class as parameter.
+module.exports = function attachProtoFunctions(Rac) {
 
   function assertDrawer(drawable) {
     if (drawable.rac == null || drawable.rac.drawer == null) {
@@ -16,25 +18,25 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   // Container of prototype functions for drawable classes.
-  rac.drawableProtoFunctions = {};
+  Rac.drawableProtoFunctions = {};
 
   // Adds to the given class prototype all the functions contained in
-  // `rac.drawableProtoFunctions`. These are functions shared by all
+  // `Rac.drawableProtoFunctions`. These are functions shared by all
   // drawable objects (E.g. `draw()` and `debug()`).
-  rac.setupDrawableProtoFunctions = function(classObj) {
-    Object.keys(rac.drawableProtoFunctions).forEach(name => {
-      classObj.prototype[name] = rac.drawableProtoFunctions[name];
+  Rac.setupDrawableProtoFunctions = function(classObj) {
+    Object.keys(Rac.drawableProtoFunctions).forEach(name => {
+      classObj.prototype[name] = Rac.drawableProtoFunctions[name];
     });
   }
 
 
-  rac.drawableProtoFunctions.draw = function(style = null){
+  Rac.drawableProtoFunctions.draw = function(style = null){
     assertDrawer(this);
     this.rac.drawer.drawObject(this, style);
     return this;
   };
 
-  rac.drawableProtoFunctions.debug = function(drawsText = false){
+  Rac.drawableProtoFunctions.debug = function(drawsText = false){
     assertDrawer(this);
 
     this.rac.drawer.debugObject(this, drawsText);
@@ -43,82 +45,82 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   // TODO: has to be moved to rac instance
-  rac.stack = [];
+  Rac.stack = [];
 
-  rac.stack.peek = function() {
-    return rac.stack[rac.stack.length - 1];
+  Rac.stack.peek = function() {
+    return Rac.stack[Rac.stack.length - 1];
   }
 
-  rac.drawableProtoFunctions.push = function() {
-    rac.stack.push(this);
+  Rac.drawableProtoFunctions.push = function() {
+    Rac.stack.push(this);
     return this;
   }
 
-  rac.drawableProtoFunctions.pop = function() {
-    return rac.stack.pop();
+  Rac.drawableProtoFunctions.pop = function() {
+    return Rac.stack.pop();
   }
 
-  rac.drawableProtoFunctions.peek = function() {
-    return rac.stack.peek();
+  Rac.drawableProtoFunctions.peek = function() {
+    return Rac.stack.peek();
   }
 
   // TODO: shape and composite should be stacks, so that several can be
   // started in different contexts
   // TODO: has to be moved to rac instance
-  rac.currentShape = null;
-  rac.currentComposite = null;
+  Rac.currentShape = null;
+  Rac.currentComposite = null;
 
-  rac.popShape = function() {
-    let shape = rac.currentShape;
-    rac.currentShape = null;
+  Rac.popShape = function() {
+    let shape = Rac.currentShape;
+    Rac.currentShape = null;
     return shape;
   }
 
-  rac.popComposite = function() {
-    let composite = rac.currentComposite;
-    rac.currentComposite = null;
+  Rac.popComposite = function() {
+    let composite = Rac.currentComposite;
+    Rac.currentComposite = null;
     return composite;
   }
 
-  rac.drawableProtoFunctions.attachToShape = function() {
-    if (rac.currentShape === null) {
-      rac.currentShape = new rac.Shape();
+  Rac.drawableProtoFunctions.attachToShape = function() {
+    if (Rac.currentShape === null) {
+      Rac.currentShape = new Rac.Shape(this.rac);
     }
 
-    this.attachTo(rac.currentShape);
+    this.attachTo(Rac.currentShape);
     return this;
   }
 
-  rac.drawableProtoFunctions.popShape = function() {
-    return rac.popShape();
+  Rac.drawableProtoFunctions.popShape = function() {
+    return Rac.popShape();
   }
 
-  rac.drawableProtoFunctions.popShapeToComposite = function() {
-    let shape = rac.popShape();
+  Rac.drawableProtoFunctions.popShapeToComposite = function() {
+    let shape = Rac.popShape();
     shape.attachToComposite();
     return this;
   }
 
-  rac.drawableProtoFunctions.attachToComposite = function() {
-    if (rac.currentComposite === null) {
-      rac.currentComposite = new rac.Composite(this.rac);
+  Rac.drawableProtoFunctions.attachToComposite = function() {
+    if (Rac.currentComposite === null) {
+      Rac.currentComposite = new Rac.Composite(this.rac);
     }
 
-    this.attachTo(rac.currentComposite);
+    this.attachTo(Rac.currentComposite);
     return this;
   }
 
-  rac.drawableProtoFunctions.popComposite = function() {
-    return rac.popComposite();
+  Rac.drawableProtoFunctions.popComposite = function() {
+    return Rac.popComposite();
   }
 
-  rac.drawableProtoFunctions.attachTo = function(someComposite) {
-    if (someComposite instanceof rac.Composite) {
+  Rac.drawableProtoFunctions.attachTo = function(someComposite) {
+    if (someComposite instanceof Rac.Composite) {
       someComposite.add(this);
       return this;
     }
 
-    if (someComposite instanceof rac.Shape) {
+    if (someComposite instanceof Rac.Shape) {
       someComposite.addOutline(this);
       return this;
     }
@@ -129,19 +131,19 @@ module.exports = function attachProtoFunctions(rac) {
 
 
   // Container of prototype functions for style classes.
-  rac.styleProtoFunctions = {};
+  Rac.styleProtoFunctions = {};
 
   // Adds to the given class prototype all the functions contained in
-  // `rac.styleProtoFunctions`. These are functions shared by all
+  // `Rac.styleProtoFunctions`. These are functions shared by all
   // style objects (E.g. `apply()`).
-  rac.setupStyleProtoFunctions = function(classObj) {
-    Object.keys(rac.styleProtoFunctions).forEach(name => {
-      classObj.prototype[name] = rac.styleProtoFunctions[name];
+  Rac.setupStyleProtoFunctions = function(classObj) {
+    Object.keys(Rac.styleProtoFunctions).forEach(name => {
+      classObj.prototype[name] = Rac.styleProtoFunctions[name];
     });
   }
 
 
-  rac.styleProtoFunctions.apply = function(){
+  Rac.styleProtoFunctions.apply = function(){
     assertDrawer(this);
     this.rac.drawer.applyObject(this);
   };
