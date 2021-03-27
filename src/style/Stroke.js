@@ -5,48 +5,47 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-// module.exports = function makeStroke(rac) {
+/**
+* Stroke color and weight for drawing.
+* @alias Rac.Stroke
+*/
+class Stroke {
 
-module.exports = class RacStroke {
+  // TODO: figure out
+  // static none = new Stroke(null);
 
-    // TODO: figure out
-    // static none = new RacStroke(null);
+  constructor(rac, color = null, weight = 1) {
+    utils.assertExists(rac, weight);
 
-    constructor(rac, color = null, weight = 1) {
-      utils.assertExists(rac, weight);
+    this.rac = rac
+    this.color = color;
+    this.weight = weight;
+  }
 
-      this.rac = rac
-      this.color = color;
-      this.weight = weight;
+  copy() {
+    return new Stroke(this.rac, this.color, this.weight);
+  }
+
+  withWeight(newWeight) {
+    return new Stroke(this.rac, this.color, newWeight);
+  }
+
+  withAlpha(newAlpha) {
+    if (this.color === null) {
+      return new Stroke(this.rac, null, this.weight);
     }
 
-    copy() {
-      let colorCopy = null;
-      if (this.color !== null) {
-        colorCopy = this.color.copy();
-      }
-      return new RacStroke(this.rac, colorCopy, this.weight);
-    }
+    let newColor = this.color.withAlpha(newAlpha);
+    return new Stroke(this.rac, newColor, this.weight);
+  }
 
-    withWeight(weight) {
-      return new RacStroke(this.rac, this.color, weight);
-    }
+  styleWithFill(someFill) {
+    let fill = Rac.Fill.from(this.rac, someFill);
+    return new Rac.Style(this.rac, this.color, fill);
+  }
 
-    withAlpha(alpha) {
-      if (this.color === null) {
-        return new RacStroke(this.rac, null, this.weight);
-      }
+} // class Stroke
 
-      let newColor = this.color.withAlpha(alpha);
-      return new RacStroke(this.rac, newColor, this.weight);
-    }
 
-    styleWithFill(someFill) {
-      let fill = Rac.Fill.from(this.rac, someFill);
-      return new Rac.Style(this.rac, this, fill);
-    }
-
-  } // RacStroke
-
-// } // makeStroke
+module.exports = Stroke;
 
