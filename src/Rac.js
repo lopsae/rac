@@ -265,7 +265,7 @@ Rac.setupDrawableProtoFunctions(Rac.Shape);
 
 
 // EaseFunction
-Rac.EaseFunction = require('./util/makeEaseFunction')(Rac);
+Rac.EaseFunction = require('./util/EaseFunction')(Rac);
 
 
 // Control
