@@ -150,3 +150,28 @@ expect.extend({ equalsArc(arc, centerX, centerY, radius, someStartAngle, someEnd
   }
 }}); // equalsArc
 
+
+expect.extend({ toThrowException(closure, name) {
+  const options = {
+    comment: 'throws named Exception',
+    isNot: this.isNot
+  };
+
+  let isCorrectThrow = false;
+  let catchedName = 'no-exception';
+  try {
+    closure();
+  } catch (exception) {
+    isCorrectThrow = exception instanceof Rac.Exception
+      && exception.name == name;
+    catchedName = exception instanceof Rac.Exception
+      ? exception.name
+      : exception.toString();
+  }
+
+  return done(isCorrectThrow, () =>
+    this.utils.matcherHint('toThrowException',
+      catchedName, name,
+      options));
+}}); // toThrowException
+

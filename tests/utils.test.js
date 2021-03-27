@@ -11,7 +11,7 @@ test('assertExists', () => {
   expect(() => {Rac.utils.assertExists("one", "two");})
     .not.toThrow();
   expect(() => {Rac.utils.assertExists("one", null, "three");})
-    .toThrow('FailedAssert');
+    .toThrowException(Rac.Exception.failedAssert.name);
 });
 
 
