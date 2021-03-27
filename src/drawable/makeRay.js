@@ -142,7 +142,7 @@ module.exports = function makeRay(rac) {
         this.angle);
     }
 
-    console.trace(`Invalid parameter combination - point-type:${rac.typeName(point)} y-type:${rac.typeName(y)}`);
+    console.trace(`Invalid parameter combination - point-type:${utils.typeName(point)} y-type:${utils.typeName(y)}`);
     throw rac.Error.invalidParameterCombination;
   }
 

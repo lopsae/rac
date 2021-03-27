@@ -30,7 +30,7 @@ module.exports = class RacFill {
       }
 
       throw Rac.Exception.invalidObjectType.make(
-        `Cannot derive Rac.Fill - something-type:${rac.typeName(something)}`);
+        `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
     }
 
     styleWithStroke(stroke) {

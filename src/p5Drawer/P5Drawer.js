@@ -122,7 +122,7 @@ class P5Drawer {
     let routine = this.drawRoutines
       .find(routine => object instanceof routine.classObj);
     if (routine === undefined) {
-      console.trace(`Cannot draw object - object-type:${this.rac.typeName(object)}`);
+      console.trace(`Cannot draw object - object-type:${utils.typeName(object)}`);
       throw Rac.Error.invalidObjectToDraw;
     }
 
@@ -172,7 +172,7 @@ class P5Drawer {
     let routine = this.applyRoutines
       .find(routine => object instanceof routine.classObj);
     if (routine === undefined) {
-      console.trace(`Cannot apply object - object-type:${this.rac.typeName(object)}`);
+      console.trace(`Cannot apply object - object-type:${utils.typeName(object)}`);
       throw Rac.Error.invalidObjectToApply;
     }
 

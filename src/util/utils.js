@@ -28,7 +28,6 @@ exports.assertExists = function(...checks) {
 }
 
 
-// TODO: replace all calls to rac.typeName
 /**
 * Returns the constructor name of `obj`, or its type name.
 * Convenience function for debugging.
