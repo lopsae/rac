@@ -1,7 +1,9 @@
 'use strict';
 
 
-module.exports = function makeEaseFunction(rac) {
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
 
 // Implementation of an ease function with several options to tailor its
 // behaviour. The calculation takes the following steps:
@@ -23,7 +25,7 @@ module.exports = function makeEaseFunction(rac) {
 // Value is adjusted and returned
 //   easedValue = prefix + (easedValue * outRange)
 //   easeValue(value) -> easedValue
-let RacEaseFunction = class RacEaseFunction {
+class EaseFunction {
 
   // Behaviors for the `easeValue` function when `value` falls before the
   // `prefix` and after `inRange`.
@@ -57,9 +59,9 @@ let RacEaseFunction = class RacEaseFunction {
     this.outRange = 1;
 
     // Behavior for values before `prefix`.
-    this.preBehavior = RacEaseFunction.Behavior.pass;
+    this.preBehavior = EaseFunction.Behavior.pass;
     // Behavior for values after `prefix+inRange`.
-    this.postBehavior = RacEaseFunction.Behavior.pass;
+    this.postBehavior = EaseFunction.Behavior.pass;
 
     // For a `preBehavior` of `pass`, the factor applied to values before
     // `prefix`.
@@ -97,7 +99,7 @@ let RacEaseFunction = class RacEaseFunction {
   // Applies the easing function to `value` considering the configuration
   // of the whole instance.
   easeValue(value) {
-    let behavior = RacEaseFunction.Behavior;
+    let behavior = EaseFunction.Behavior;
 
     let shiftedValue = value - this.prefix;
     let ratio = shiftedValue / this.inRange;
@@ -148,7 +150,7 @@ let RacEaseFunction = class RacEaseFunction {
   // The `outRange` value should be `inRange*2` in order for the ease
   // motion to connect with the external motion at the correct velocity.
   static makeEaseOut() {
-    let easeOut = new RacEaseFunction()
+    let easeOut = new EaseFunction()
     easeOut.ratioOffset = 1;
     easeOut.ratioFactor = .5;
     easeOut.easeOffset = -.5;
@@ -156,10 +158,8 @@ let RacEaseFunction = class RacEaseFunction {
     return easeOut;
   }
 
-} // RacEaseFunction
+} // class EaseFunction
 
 
-return RacEaseFunction;
-
-} // makeEaseFunction
+module.exports = EaseFunction;
 
