@@ -196,6 +196,7 @@ Rac.Exception = require('./util/Exception');
 // Prototype functions
 require('./attachProtoFunctions')(Rac);
 
+
 // P5Drawer
 Rac.P5Drawer = require('./p5Drawer/P5Drawer');
 
@@ -220,7 +221,7 @@ Rac.setupStyleProtoFunctions(Rac.Style);
 
 
 // Text
-Rac.Text = require('./drawable/Text.js');
+Rac.Text = require('./drawable/Text');
 Rac.setupDrawableProtoFunctions(Rac.Text);
 
 
