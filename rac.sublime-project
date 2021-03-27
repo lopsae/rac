@@ -5,10 +5,10 @@
       "path": ".",
       "folder_exclude_patterns": [
         "dist",
-      	"built",
-      	"node_modules",
-      	"docs",
-      	"coverage"],
+        "built",
+        "node_modules",
+        "docs",
+        "coverage"],
       "index_exclude_patterns": ["dist/*"]
     }
   ]
