@@ -184,7 +184,7 @@ Rac.setupStyleProtoFunctions(Rac.Stroke);
 
 
 // Fill
-Rac.Fill = require('./style/makeFill');
+Rac.Fill = require('./style/Fill');
 Rac.setupStyleProtoFunctions(Rac.Fill);
 
 
