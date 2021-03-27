@@ -57,8 +57,8 @@ class Rac {
     this.drawer = null;
 
     require('./style/rac.Fill')(this);
-    require('./drawable/racAngle')(this);
-    require('./drawable/racPoint')(this);
+    require('./drawable/rac.Angle')(this);
+    require('./drawable/rac.Point')(this);
   }
 
   /**
