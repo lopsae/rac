@@ -190,16 +190,12 @@ class P5Drawer {
     });
 
     // Segment
+    require('./Segment.functions')(rac);
     this.setDrawFunction(Rac.Segment, (drawer, segment) => {
       drawer.p5.line(
         segment.start.x, segment.start.y,
         segment.end.x,   segment.end.y);
     });
-
-    Rac.Segment.prototype.vertex = function() {
-      this.start.vertex();
-      this.end.vertex();
-    };
 
     // Arc
     this.setDrawFunction(Rac.Arc, (drawer, arc) => {

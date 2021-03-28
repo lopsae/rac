@@ -8,7 +8,7 @@ const utils = require('../util/utils');
 module.exports = function attachPointFunctions(rac) {
 
   /**
-  * Calls the `p5.vertex` function for this `Point`.
+  * Calls `p5.vertex` as to represent this `Point`.
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   */
@@ -17,7 +17,7 @@ module.exports = function attachPointFunctions(rac) {
   };
 
   /**
-  * Returns the `Point` at the current position of the pointer.
+  * Returns a `Point` at the current position of the pointer.
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
@@ -39,7 +39,6 @@ module.exports = function attachPointFunctions(rac) {
   * @function
   */
   rac.Point.canvasCenter = function() {
-  // Rac.Point.canvasCenter = function() {
     return rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
   };
 
