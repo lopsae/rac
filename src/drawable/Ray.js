@@ -134,7 +134,7 @@ module.exports = Ray;
 Ray.prototype.translate = function(point, y = undefined) {
   if (point instanceof rac.Point && y === undefined) {
     return new Ray(this.rac,
-      this.start.add(point),
+      this.start.addPoint(point),
       this.angle);
   }
 

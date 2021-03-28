@@ -225,7 +225,7 @@ Segment.prototype.translateToAngle = function(someAngle, distance) {
 
 Segment.prototype.translateToLength = function(distance) {
   let offset = this.rac.Point.zero.pointToAngle(this.angle(), distance);
-  return new Segment(this.rac, this.start.add(offset), this.end.add(offset));
+  return new Segment(this.rac, this.start.addPoint(offset), this.end.addPoint(offset));
 };
 
 Segment.prototype.translatePerpendicular = function(distance, clockwise = true) {
