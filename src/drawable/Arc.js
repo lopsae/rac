@@ -209,7 +209,7 @@ class Arc{
     // All comparisons are made in a clockwise orientation
     let shiftedAngle = this.distanceFromStart(angle);
     let shiftedStartClamp = startInset;
-    let shiftedEndClamp = this.angleDistance().sub(endInset);
+    let shiftedEndClamp = this.angleDistance().subtract(endInset);
 
     if (shiftedAngle.turn >= shiftedStartClamp.turn && shiftedAngle.turn <= shiftedEndClamp.turn) {
       // Inside clamp range
@@ -240,12 +240,12 @@ Arc.prototype.containsAngle = function(someAngle) {
   if (this.isCircle()) { return true; }
 
   if (this.clockwise) {
-    let offset = angle.sub(this.start);
-    let endOffset = this.end.sub(this.start);
+    let offset = angle.subtract(this.start);
+    let endOffset = this.end.subtract(this.start);
     return offset.turn <= endOffset.turn;
   } else {
-    let offset = angle.sub(this.end);
-    let startOffset = this.start.sub(this.end);
+    let offset = angle.subtract(this.end);
+    let startOffset = this.start.subtract(this.end);
     return offset.turn <= startOffset.turn;
   }
 };

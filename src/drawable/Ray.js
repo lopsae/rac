@@ -60,7 +60,7 @@ class Ray {
   //     return 0;
   //   }
 
-  //   let angleDiff = this.angle.substract(segment.angle);
+  //   let angleDiff = this.angle.subtract(segment.angle);
   //   if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
   //     return segment.length();
   //   } else {
@@ -72,7 +72,7 @@ class Ray {
   // or `false` if located counter-clockwise.
   // pointOrientation(point) {
   //   let angle = this.start.angleToPoint(point);
-  //   let angleDistance = angle.substract(this.angle);
+  //   let angleDistance = angle.subtract(this.angle);
   //   // [0 to 0.5) is considered clockwise
   //   // [0.5, 1) is considered counter-clockwise
   //   return angleDistance.turn < 0.5;
@@ -150,7 +150,7 @@ Ray.prototype.translate = function(point, y = undefined) {
 }
 
 Ray.prototype.translateToStart = function(newStart) {
-  let offset = newStart.substract(this.start);
+  let offset = newStart.subtractPoint(this.start);
   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
 };
 

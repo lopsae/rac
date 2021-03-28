@@ -76,10 +76,10 @@ class Point{
 
 
   /**
-  * Returns a new `Point` by substracting the components of `other`.
-  * @param {Rac.Point} other A `Point` to substract
+  * Returns a new `Point` by subtracting the components of `other`.
+  * @param {Rac.Point} other A `Point` to subtract
   */
-  subPoint(other) {
+  subtractPoint(other) {
     return new Point(
       this.rac,
       this.x - other.x,
@@ -88,11 +88,11 @@ class Point{
 
 
   /**
-  * Returns a new `Point` by substracting the `x` and `y` components.
-  * @param {number} x The x coodinate to substract
-  * @param {number} y The y coodinate to substract
+  * Returns a new `Point` by subtracting the `x` and `y` components.
+  * @param {number} x The x coodinate to subtract
+  * @param {number} y The y coodinate to subtract
   */
-  sub(x, y) {
+  subtract(x, y) {
     return new Point(
       this.rac,
       this.x - x,
@@ -148,7 +148,7 @@ Point.prototype.negative = function() {
 };
 
 Point.prototype.angleToPoint = function(other) {
-  let offset = other.subPoint(this);
+  let offset = other.subtractPoint(this);
   let radians = Math.atan2(offset.y, offset.x);
   return Rac.Angle.fromRadians(this.rac, radians);
 };

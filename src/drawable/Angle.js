@@ -91,7 +91,7 @@ Angle.prototype.add = function(someAngle) {
   return new Angle(this.rac, this.turn + other.turn);
 };
 
-Angle.prototype.sub = function(someAngle) {
+Angle.prototype.subtract = function(someAngle) {
   let other = this.rac.Angle.from(someAngle);
   return new Angle(this.rac, this.turn - other.turn);
 };
@@ -106,7 +106,7 @@ Angle.prototype.shift = function(someAngle, clockwise = true) {
   let angle = this.rac.Angle.from(someAngle);
   return clockwise
     ? this.add(angle)
-    : this.sub(angle);
+    : this.subtract(angle);
 };
 
 // Returns the equivalent of `this` when `someOrigin` is considered the
@@ -152,7 +152,7 @@ Angle.prototype.perpendicular = function(clockwise = true) {
 // traveling in the `clockwise` orientation.
 Angle.prototype.distance = function(someAngle, clockwise = true) {
   let other = this.rac.Angle.from(someAngle);
-  let distance = other.sub(this);
+  let distance = other.subtract(this);
   return clockwise
     ? distance
     : distance.negative();

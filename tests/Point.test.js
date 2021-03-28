@@ -48,9 +48,9 @@ test('add/sub', () => {
   expect(hunty.add(11, 11))
     .equalsPoint(111, 111);
 
-  expect(hunty.subPoint(fifty))
+  expect(hunty.subtractPoint(fifty))
     .equalsPoint(45, 45);
-  expect(hunty.sub(1, 1))
+  expect(hunty.subtract(1, 1))
     .equalsPoint(99, 99);
 });
 

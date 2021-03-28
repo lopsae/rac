@@ -169,7 +169,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   let lengthString = `length:${drawer.debugNumber(segment.length())}`;
   segment.start
     .pointToAngle(angle, drawer.debugPointRadius)
-    .pointToAngle(angle.sub(1/4), drawer.debugRadius/2)
+    .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)
     .text(lengthString, lengthFormat)
     .draw(drawer.debugTextStyle);
 

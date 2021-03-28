@@ -89,7 +89,7 @@ class Segment {
       return 0;
     }
 
-    let angleDiff = this.angle().sub(segment.angle());
+    let angleDiff = this.angle().subtract(segment.angle());
     if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
       return segment.length();
     } else {
@@ -101,7 +101,7 @@ class Segment {
   // or `false` if located counter-clockwise.
   pointOrientation(point) {
     let angle = this.start.angleToPoint(point);
-    let angleDistance = angle.sub(this.angle());
+    let angleDistance = angle.subtract(this.angle());
     // [0 to 0.5) is considered clockwise
     // [0.5, 1) is considered counter-clockwise
     return angleDistance.turn < 0.5;
@@ -209,7 +209,7 @@ Segment.prototype.translate = function(point, y = undefined) {
 }
 
 Segment.prototype.translateToStart = function(newStart) {
-  let offset = newStart.subPoint(this.start);
+  let offset = newStart.subtractPoint(this.start);
   let transStart = this.start.addPoint(offset);
   let transEnd = this.end.addPoint(offset)
   return new Segment(this.rac, transStart, transEnd);
@@ -296,7 +296,7 @@ Segment.prototype.nextSegmentToAngle = function(someAngle, distance) {
 // perpendicular to `this` in the `clockwise` orientation.
 // TODO: rename to nextPerpendicularSegment?
 Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
-  let offset = this.start.subPoint(this.end);
+  let offset = this.start.subtractPoint(this.end);
   let newEnd = this.end.addPoint(offset.perpendicular(clockwise));
   return this.end.segmentToPoint(newEnd);
 };

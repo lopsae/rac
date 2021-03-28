@@ -196,12 +196,12 @@ Control.makeArrowShape = function(rac, center, angle) {
   // Arc
   let angleDistance = rac.Angle.from(1/22);
   let arc = center.arc(Control.radius * 1.5,
-    angle.sub(angleDistance), angle.add(angleDistance));
+    angle.subtract(angleDistance), angle.add(angleDistance));
 
   // Arrow walls
   let pointAngle = rac.Angle.from(1/8);
   let rightWall = arc.startPoint().segmentToAngle(angle.add(pointAngle), 100);
-  let leftWall = arc.endPoint().segmentToAngle(angle.sub(pointAngle), 100);
+  let leftWall = arc.endPoint().segmentToAngle(angle.subtract(pointAngle), 100);
 
   // Arrow point
   let point = rightWall.pointAtIntersectionWithSegment(leftWall);
