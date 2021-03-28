@@ -37,8 +37,6 @@ class Rac {
     */
     utils.addConstant(this, 'version', version);
 
-    // TODO: remove, leave only static one when Angle is migrated
-    utils.addConstant(this, 'TAU', Math.PI * 2);
 
     // Used to determine equality between measures for some operations, like
     // calculating the slope of a segment. Values too close can result in odd
@@ -185,7 +183,13 @@ Rac.utils = utils;
 */
 utils.addConstant(Rac, 'version', version);
 
-// https://tauday.com/tau-manifesto
+
+/**
+* Tau, equal to `Math.PI * 2`.
+* https://tauday.com/tau-manifesto
+* @name TAU
+* @memberof Rac
+*/
 utils.addConstant(Rac, 'TAU', Math.PI * 2);
 
 
