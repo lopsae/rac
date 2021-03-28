@@ -254,7 +254,7 @@ class P5Drawer {
     this.setDrawFunction(Rac.Arc, (drawer, arc) => {
       if (arc.isCircle()) {
         let startRad = arc.start.radians();
-        let endRad = startRad + (rac.TAU);
+        let endRad = startRad + (Rac.TAU);
         drawer.p5.arc(
           arc.center.x, arc.center.y,
           arc.radius * 2, arc.radius * 2,
