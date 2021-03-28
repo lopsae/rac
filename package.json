@@ -5,13 +5,16 @@
   "main": "src/main.js",
   "scripts": {
     "test": "jest",
-    "test:clean": "rm -rf ./coverage; jest",
+    "test:clean": "rm -rf ./coverage",
+    "test:fresh": "npm run test:clean && npm test",
     "test:coverage": "jest --coverage && open ./coverage/lcov-report/index.html",
     "test:cc": "rm -rf ./coverage; npm run test:coverage",
     "serve": "grunt serve",
     "start": "grunt serve",
     "dist": "grunt dist",
-    "docs": "grunt --debug jsdoc && open ./docs/index.html"
+    "docs": "grunt --debug jsdoc && open ./docs/index.html",
+    "docs:clean": "rm -rf ./coverage",
+    "docs:fresh": "npm run docs:clean && npm run docs"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",
