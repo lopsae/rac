@@ -294,7 +294,6 @@ Segment.prototype.nextSegmentToAngle = function(someAngle, distance) {
 
 // Returns a new segment from `this.end`, with the same length, that is
 // perpendicular to `this` in the `clockwise` orientation.
-// TODO: rename to nextPerpendicularSegment?
 Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
   let offset = this.start.subtractPoint(this.end);
   let newEnd = this.end.addPoint(offset.perpendicular(clockwise));

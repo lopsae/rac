@@ -278,11 +278,7 @@ class P5Drawer {
     Rac.Arc.prototype.vertex = function() {
       let angleDistance = this.angleDistance();
       let beziersPerTurn = 5;
-      let divisions = angleDistance.turn == 0
-        ? beziersPerTurn
-        // TODO: use turnOne? when possible to test
-        : Math.ceil(angleDistance.turn * beziersPerTurn);
-
+      let divisions = Math.ceil(angleDistance.turnOne() * beziersPerTurn);
       this.divideToBeziers(divisions).vertex();
     };
 
@@ -387,6 +383,7 @@ class P5Drawer {
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
 
+    // TODO: using an external reference to drawer, should use internal one
     let drawer = this;
     Rac.Angle.prototype.debug = function(point, drawsText = false) {
       if (drawer.debugStyle !== null) {

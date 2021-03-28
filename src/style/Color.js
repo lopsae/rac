@@ -11,7 +11,7 @@ const utils = require('../util/utils');
 */
 class Color {
 
-  // TODO: figure out
+  // TODO: move to rac.Color
   // static black   = new Color(0, 0, 0);
   // static red     = new Color(1, 0, 0);
   // static green   = new Color(0, 1, 0);

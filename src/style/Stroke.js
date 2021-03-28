@@ -11,7 +11,7 @@ const utils = require('../util/utils');
 */
 class Stroke {
 
-  // TODO: figure out
+  // TODO: move to rac.Stroke
   // static none = new Stroke(null);
 
   constructor(rac, color = null, weight = 1) {

@@ -522,10 +522,7 @@ Arc.prototype.divideToSegments = function(segmentCount) {
 
 Arc.prototype.divideToBeziers = function(bezierCount) {
   let angleDistance = this.angleDistance();
-  let partTurn = angleDistance.turn == 0
-  // TODO: use turnOne? when possible to test
-    ? 1 / bezierCount
-    : angleDistance.turn / bezierCount;
+  let partTurn = angleDistance.turnOne() / bezierCount;
 
   // length of tangent:
   // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves

@@ -13,7 +13,7 @@ class Angle {
 
   constructor(rac, turn) {
     utils.assertExists(rac, turn);
-    // TODO: keep check?
+    // TODO: keep check? assertNumeric?
     if (isNaN(turn)) {
       throw new Error(`received nan - turn:${turn}`);
     }
