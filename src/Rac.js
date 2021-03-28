@@ -54,6 +54,7 @@ class Rac {
     // visual object.
     this.drawer = null;
 
+    require('./style/rac.Color')(this);
     require('./style/rac.Fill')(this);
     require('./drawable/rac.Angle')(this);
     require('./drawable/rac.Point')(this);
@@ -82,10 +83,38 @@ class Rac {
 
 
   /**
+  * Convenience function that creates a new `Color` using `this`.
+  *
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Color}`.
+  *
+  * @returns {Rac.Color}
+  */
+  Color(r, g, b, alpha = 1) {
+    return new Rac.Color(this, r, g, b, alpha);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Stroke` using `this`.
+  *
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Stroke}`.
+  *
+  * @returns {Rac.Stroke}
+  */
+  Stroke(color = null, weight = 1) {
+    return new Rac.Color(this, color, weight);
+  }
+
+
+  /**
   * Convenience function that creates a new `Fill` using `this`.
   *
-  * This function is also the container of other convenience methods and
-  * properties listed in `{@link rac.Fill}`.
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Fill}`.
+  *
+  * @returns {Rac.Fill}
   */
   Fill(color = null) {
     return new Rac.Fill(this, color);
@@ -93,10 +122,25 @@ class Rac {
 
 
   /**
+  * Convenience function that creates a new `Style` using `this`.
+  *
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Style}`.
+  *
+  * @returns {Rac.Style}
+  */
+  Style(stroke = null, fill = null) {
+    return new Rac.Style(this, stroke, fill);
+  }
+
+
+  /**
   * Convenience function that creates a new `Text` using `this`.
   *
-  * This function is also the container of other convenience methods and
-  * properties listed in `{@link rac.Text}`.
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Text}`.
+  *
+  * @returns {Rac.Text}
   */
   Text(string, format, point) {
     return new Rac.Text(this, string, format, point);
@@ -106,8 +150,10 @@ class Rac {
   /**
   * Convenience function that creates a new `Angle` using `this`.
   *
-  * This function is also the container of other convenience methods and
-  * properties listed in `{@link rac.Angle}`.
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Angle}`.
+  *
+  * @returns {Rac.Angle}
   */
   Angle(turn) {
     return new Rac.Angle(this, turn);
@@ -117,8 +163,10 @@ class Rac {
   /**
   * Convenience function that creates a new `Point` using `this`.
   *
-  * This function is also the container of other convenience methods and
-  * properties listed in `{@link rac.Point}`.
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Point}`.
+  *
+  * @returns {Rac.Point}
   */
   Point(x, y) {
     return new Rac.Point(this, x, y);
@@ -134,8 +182,10 @@ class Rac {
   /**
   * Convenience function that creates a new `Segment` using `this`.
   *
-  * This function is also the container of other convenience methods and
-  * properties listed in `{@link rac.Segment}`.
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Segment}`.
+  *
+  * @returns {Rac.Segment}
   */
   Segment(start, end) {
     return new Rac.Segment(this, start, end);
@@ -151,8 +201,10 @@ class Rac {
   /**
   * Convenience function that creates a new `Arc` using `this`.
   *
-  * This function is also the container of other convenience methods and
-  * properties listed in `{@link rac.Arc}`.
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Arc}`.
+  *
+  * @returns {Rac.Arc}
   */
   Arc(center, radius, start = this.Arc.zero, end = start, clockwise = true) {
     return new Rac.Arc(this, center, radius, start, end, clockwise);
