@@ -37,6 +37,29 @@ function done(isPass, messageFunc) {
 exports.done = done;
 
 
+expect.extend({ equalsAngle(angle, someAngle) {
+  const options = {
+    comment: 'equal Angle properties',
+    isNot: this.isNot
+  };
+
+  let expected = rac.Angle.from(someAngle);
+  if (angle == null) {
+    return fail(() =>
+      this.utils.matcherHint('equalsAngle',
+        'null', expected.toString(digits),
+        options));
+  }
+
+  // TODO: make a equals for angles specifically
+  const isEqual = rac.equals(angle.turn, expected.turn);
+  return done(isEqual, () =>
+    this.utils.matcherHint('equalsAngle',
+      angle.toString(digits), expected.toString(digits),
+      options));
+}}); // equalsAngle
+
+
 expect.extend({ equalsPoint(point, x, y) {
   const options = {
     comment: 'equal Point properties',
@@ -61,27 +84,29 @@ expect.extend({ equalsPoint(point, x, y) {
 }}); // equalsPoint
 
 
-expect.extend({ equalsAngle(angle, someAngle) {
+expect.extend({ equalsRay(ray, x, y, angle) {
   const options = {
-    comment: 'equal Angle properties',
+    comment: 'equal Ray properties',
     isNot: this.isNot
   };
 
-  let expected = rac.Angle.from(someAngle);
-  if (angle == null) {
+  const expected = rac.Ray(rac.Point(x, y), angle);
+  if (ray == null) {
     return fail(() =>
-      this.utils.matcherHint('equalsAngle',
-        'null', expected.toString(digits),
+      this.utils.matcherHint('equalsRay',
+        'null', expected.toString(),
         options));
   }
 
-  // TODO: make a equals for angles specifically
-  const isEqual = rac.equals(angle.turn, expected.turn);
+  const isEqual = rac.equals(ray.start.x, expected.start.x)
+    && rac.equals(ray.start.x, expected.start.x)
+    && rac.equals(ray.angle.turn, expected.angle.turn);
+
   return done(isEqual, () =>
-    this.utils.matcherHint('equalsAngle',
-      angle.toString(digits), expected.toString(digits),
+    this.utils.matcherHint('equalsRay',
+      ray.toString(), expected.toString(),
       options));
-}}); // equalsAngle
+}}); // equalsRay
 
 
 expect.extend({ equalsSegment(segment, startX, startY, endX, endY) {

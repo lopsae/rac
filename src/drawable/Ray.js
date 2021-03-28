@@ -14,9 +14,11 @@ class Ray {
     this.angle = angle;
   }
 
+  /**
+  * Returns a string representation intended for human consumption.
+  */
   toString() {
-    // TODO: write
-    return "TODO"
+    return `Ray((${this.start.x},${this.start.y}) a:${this.angle.turn})`;
   }
 
   copy() {
