@@ -331,7 +331,7 @@ class P5Drawer {
 
   // Sets up all debug routines for rac drawable clases.
   setupAllDebugFunctions(rac) {
-    let functions = require('./debugFunctions');
+    let functions = require('./debug.functions');
     this.setDebugFunction(Rac.Point, functions.debugPoint);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
