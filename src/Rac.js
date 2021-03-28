@@ -174,6 +174,19 @@ class Rac {
 
 
   /**
+  * Convenience function that creates a new `Ray` using `this`.
+  *
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Ray}`.
+  *
+  * @returns {Rac.Ray}
+  */
+  Ray(start, angle) {
+    return new Rac.Ray(this, start, angle);
+  }
+
+
+  /**
   * The `rac.Segment` function-container holds several convenience methods
   * and properties for creating `{@link Rac.Segment}` objects.
   * @namespace rac.Segment

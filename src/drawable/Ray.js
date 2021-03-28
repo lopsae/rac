@@ -14,6 +14,11 @@ class Ray {
     this.angle = angle;
   }
 
+  toString() {
+    // TODO: write
+    return "TODO"
+  }
+
   copy() {
     return new Ray(this.rac, this.start, this.angle);
   }
@@ -78,7 +83,12 @@ class Ray {
   //   return angleDistance.turn < 0.5;
   // }
 
+  // Ray.prototype.pointAtDistance = function(distance) {
+  //   return this.start.pointToAngle(this.angle, distance);
+  // };
+
   segment(length) {
+    // TODO: write pointAtDistance and use it here
     let end = this.start.pointToAngle(this.angle, length);
     return new Rac.Segment(this.rac, this.start, end);
   }
@@ -131,44 +141,44 @@ module.exports = Ray;
 
 // Translates the ray by the entire `point`, or by the given `x` and
 // `y` components.
-Ray.prototype.translate = function(point, y = undefined) {
-  if (point instanceof rac.Point && y === undefined) {
-    return new Ray(this.rac,
-      this.start.addPoint(point),
-      this.angle);
-  }
+// Ray.prototype.translate = function(point, y = undefined) {
+//   if (point instanceof rac.Point && y === undefined) {
+//     return new Ray(this.rac,
+//       this.start.addPoint(point),
+//       this.angle);
+//   }
 
-  if (typeof point === "number" && typeof y === "number") {
-    let x = point;
-    return new Ray(this.rac,
-      this.start.add(x, y),
-      this.angle);
-  }
+//   if (typeof point === "number" && typeof y === "number") {
+//     let x = point;
+//     return new Ray(this.rac,
+//       this.start.add(x, y),
+//       this.angle);
+//   }
 
-  console.trace(`Invalid parameter combination - point-type:${utils.typeName(point)} y-type:${utils.typeName(y)}`);
-  throw rac.Error.invalidParameterCombination;
-}
+//   console.trace(`Invalid parameter combination - point-type:${utils.typeName(point)} y-type:${utils.typeName(y)}`);
+//   throw rac.Error.invalidParameterCombination;
+// }
 
-Ray.prototype.translateToStart = function(newStart) {
-  let offset = newStart.subtractPoint(this.start);
-  return new Ray(this.rac, this.start.addPoint(offset), this.angle);
-};
+// Ray.prototype.translateToStart = function(newStart) {
+//   let offset = newStart.subtractPoint(this.start);
+//   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
+// };
 
-Ray.prototype.translateToAngle = function(someAngle, distance) {
-  let angle = rac.Angle.from(someAngle);
-  let offset = rac.Point.zero.pointToAngle(angle, distance);
-  return new Ray(this.rac, this.start.addPoint(offset), this.angle);
-};
+// Ray.prototype.translateToAngle = function(someAngle, distance) {
+//   let angle = rac.Angle.from(someAngle);
+//   let offset = rac.Point.zero.pointToAngle(angle, distance);
+//   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
+// };
 
-Ray.prototype.translateToDistance = function(distance) {
-  let offset = rac.Point.zero.pointToAngle(this.angle, distance);
-  return new Ray(this.rac, this.start.addPoint(offset), this.angle);
-};
+// Ray.prototype.translateToDistance = function(distance) {
+//   let offset = rac.Point.zero.pointToAngle(this.angle, distance);
+//   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
+// };
 
-Ray.prototype.translatePerpendicular = function(distance, clockwise = true) {
-  let perpendicular = this.angle.perpendicular(clockwise);
-  return this.translateToAngle(perpendicular, distance);
-};
+// Ray.prototype.translatePerpendicular = function(distance, clockwise = true) {
+//   let perpendicular = this.angle.perpendicular(clockwise);
+//   return this.translateToAngle(perpendicular, distance);
+// };
 
 // Returns the intersecting point of `this` and `other`. Both segments are
 // considered lines without endpoints.
@@ -192,33 +202,31 @@ Ray.prototype.translatePerpendicular = function(distance, clockwise = true) {
 //   return new Rac.Point(this.rac, x, y);
 // };
 
-Ray.prototype.pointAtDistance = function(distance) {
-  return this.start.pointToAngle(this.angle, distance);
-};
+
 
 
 // Returns an complete circle Arc using this segment `start` as center,
 // `length()` as radiusm, and `angle` as start and end angles.
-Ray.prototype.arc = function(radius, clockwise = true) {
-  return new Rac.Arc(this.rac,
-    this.start, radius,
-    this.angle, this.angle,
-    clockwise);
-};
+// Ray.prototype.arc = function(radius, clockwise = true) {
+//   return new Rac.Arc(this.rac,
+//     this.start, radius,
+//     this.angle, this.angle,
+//     clockwise);
+// };
 
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle` to the given angle and orientation.
-Ray.prototype.arcWithEnd = function(
-  radius,
-  someAngleEnd = this.angle,
-  clockwise = true)
-{
-  let arcEnd = rac.Angle.from(someAngleEnd);
-  return new Rac.Arc(this.rac,
-    this.start, distance,
-    this.angle, arcEnd,
-    clockwise);
-};
+// Ray.prototype.arcWithEnd = function(
+//   radius,
+//   someAngleEnd = this.angle,
+//   clockwise = true)
+// {
+//   let arcEnd = rac.Angle.from(someAngleEnd);
+//   return new Rac.Arc(this.rac,
+//     this.start, distance,
+//     this.angle, arcEnd,
+//     clockwise);
+// };
 
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle` to the arc distance of the given

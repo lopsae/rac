@@ -189,6 +189,12 @@ class P5Drawer {
       drawer.p5.point(point.x, point.y);
     });
 
+    // Ray
+    this.setDrawFunction(Rac.Ray, (drawer, ray) => {
+      // TODO: dummy drawing for rays
+      ray.segment(100).draw();
+    });
+
     // Segment
     require('./Segment.functions')(rac);
     this.setDrawFunction(Rac.Segment, (drawer, segment) => {
