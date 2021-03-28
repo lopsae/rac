@@ -3,7 +3,7 @@
 
 /**
 * The `rac.Fill` function contains methods and properties for convenience
-* `{@link Rac.Fill}` objects.
+* `{@link Rac.Fill}` objects with the current `rac` instance.
 * @namespace rac.Fill
 */
 module.exports = function attachRacFill(rac) {

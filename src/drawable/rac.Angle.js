@@ -6,8 +6,8 @@ const utils = require('../util/utils');
 
 
 /**
-* The `rac.Angle` function-container holds several convenience methods and
-* properties for creating `{@link Rac.Angle}` objects.
+* The `rac.Angle` function contains methods and properties for convenience
+* `{@link Rac.Angle}` objects with the current `rac` instance.
 * @namespace rac.Angle
 */
 module.exports = function attachRacAngle(rac) {

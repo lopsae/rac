@@ -6,7 +6,7 @@ const Rac = require('../Rac');
 
 /**
 * The `rac.Text` function contains methods and properties for convenience
-* `{@link Rac.Text}` objects.
+* `{@link Rac.Text}` objects with the current `rac` instance.
 * @namespace rac.Text
 */
 module.exports = function attachRacText(rac) {
