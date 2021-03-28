@@ -36,10 +36,18 @@ module.exports = function attachProtoFunctions(Rac) {
     return this;
   };
 
+
   Rac.drawableProtoFunctions.debug = function(drawsText = false){
     assertDrawer(this);
 
     this.rac.drawer.debugObject(this, drawsText);
+    return this;
+  };
+
+
+  Rac.drawableProtoFunctions.log = function(message = null){
+    let coalescedMessage = message ?? '%o';
+    console.log(coalescedMessage, this);
     return this;
   };
 
