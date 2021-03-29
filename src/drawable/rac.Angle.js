@@ -102,5 +102,14 @@ module.exports = function attachRacAngle(rac) {
   rac.Angle.t      = rac.Angle.top;
   rac.Angle.b      = rac.Angle.bottom;
 
+  rac.Angle.topRight    = rac.Angle.ne;
+  rac.Angle.tr          = rac.Angle.ne;
+  rac.Angle.topLeft     = rac.Angle.nw;
+  rac.Angle.tl          = rac.Angle.nw;
+  rac.Angle.bottomRight = rac.Angle.se;
+  rac.Angle.br          = rac.Angle.se;
+  rac.Angle.bottomLeft  = rac.Angle.sw;
+  rac.Angle.bl          = rac.Angle.sw;
+
 } // attachRacAngle
 
