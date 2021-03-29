@@ -38,15 +38,41 @@ class Rac {
     utils.addConstant(this, 'version', version);
 
 
-    // Used to determine equality between measures for some operations, like
-    // calculating the slope of a segment. Values too close can result in odd
-    // calculations.
-    // When checking for equality x is equal to non-inclusive
-    // (x-equalityThreshold, x+equalityThreshold):
-    // + x is not equal to x±equalityThreshold
-    // + x is equal to x±equalityThreshold/2
+    /**
+    * Value used to determine equality between two numeric values. Used for
+    * values that tend to be integers, like screen coordinates. Used by
+    * `{@link Rac#equals}`.
+    *
+    * When checking for equality `x` is equal to non-inclusive
+    * `(x-equalityThreshold, x+equalityThreshold)`:
+    * + `x` is **not equal** to `x ± equalityThreshold`
+    * + `x` is **equal** to `x ± equalityThreshold/2`
+    *
+    * Due to floating point precision some opertation like intersections
+    * can return odd or oscilating values. This threshold is used to snap
+    * values too close to a limit, as to prevent oscilating efects in
+    * user interaction.
+    *
+    * Value is based on 1/1000 of a point, the minimal perceptible distance
+    * the user can see.
+    */
     this.equalityThreshold = 0.001;
 
+
+
+    /**
+    * Value used to determine equality between two unitary numeric values.
+    * Used for values that tend to exist in the `[0, 1]` range, like
+    * `{@link Rac.Angle#turn}`. Used by `{@link Rac#unitaryEquals}`.
+    *
+    * Equality logic is the same as `{@link Rac#equalityThreshold}`.
+    *
+    * Value is based on 1/000 of the turn of an arc of radius 500 and
+    * lenght of 1: `1/(500*6.28)/1000`
+    */
+    this.unitaryEqualityThreshold = 0.0000003;
+
+    // TODO: will become unnecesary with Ray
     // Length for elements that need an arbitrary value.
     this.arbitraryLength = 100;
 
@@ -76,9 +102,29 @@ class Rac {
   }
 
 
-  equals(value, expected) {
-    let diff = Math.abs(value-expected);
+  /**
+  * Returns `true` if the absolute distance between `a` and `b` is
+  * under `{@link Rac#equalityThreshold}`.
+  * @param {number} a First number to compare
+  * @param {number} b Second number to compare
+  * @returns {boolean}
+  */
+  equals(a, b) {
+    let diff = Math.abs(a-b);
     return diff < this.equalityThreshold;
+  }
+
+
+  /**
+  * Returns `true` if the absolute distance between `a` and `b` is
+  * under `{@link Rac#unitaryEqualityThreshold}`.
+  * @param {number} a First number to compare
+  * @param {number} b Second number to compare
+  * @returns {boolean}
+  */
+  unitaryEquals(a, b) {
+    let diff = Math.abs(a-b);
+    return diff < this.unitaryEqualityThreshold;
   }
 
 
