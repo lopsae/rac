@@ -22,3 +22,22 @@ test('Identity', () => {
   expect(string).toMatch('0.125');
 });
 
+
+test('Slope', () => {
+  let hunty = rac.Point(100, 100);
+  expect(rac.Ray(hunty, rac.Angle.zero).slope()).thresEquals(0);
+  expect(rac.Ray(hunty, rac.Angle.half).slope()).thresEquals(0);
+
+  expect(rac.Ray(hunty, rac.Angle.down).slope()).toBe(null);
+  expect(rac.Ray(hunty, rac.Angle.up).slope()).toBe(null);
+
+  expect(rac.Ray(hunty, rac.Angle.bottomRight).slope()).thresEquals(1);
+  expect(rac.Ray(hunty, rac.Angle.topLeft).slope()).thresEquals(1);
+
+  expect(rac.Ray(hunty, rac.Angle.topRight).slope()).thresEquals(-1);
+  expect(rac.Ray(hunty, rac.Angle.bottomLeft).slope()).thresEquals(-1);
+});
+
+
+test.todo('More!')
+
