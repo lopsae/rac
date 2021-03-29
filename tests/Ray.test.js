@@ -6,8 +6,12 @@ const tools = require('./tools');
 
 const rac = tools.rac;
 
+let diagonal = rac.Ray(rac.Point(55, 55), rac.Angle.eighth);
 
-let diagonal = rac.Ray(rac.Point(55, 55), rac.Angle.se);
+let hunty = rac.Point(100, 100);
+let vertical = rac.Ray(hunty, rac.Angle.square);
+let horizontal = rac.Ray(hunty, rac.Angle.zero);
+
 
 
 test('Identity', () => {
@@ -24,7 +28,7 @@ test('Identity', () => {
 
 
 test('Slope, yIntercept', () => {
-  let hunty = rac.Point(100, 100);
+
   expect(rac.Ray(hunty, rac.Angle.zero).slope()).thresEquals(0);
   expect(rac.Ray(hunty, rac.Angle.half).slope()).thresEquals(0);
 
@@ -49,6 +53,23 @@ test('Slope, yIntercept', () => {
 
   expect(rac.Ray(hunty, rac.Angle.u).yIntercept()).toBe(null);
   expect(rac.Ray(hunty.negative(), rac.Angle.d).yIntercept()).toBe(null);
+});
+
+
+test('Axis intersection', () => {
+  expect(vertical.pointAtIntersectionWithX(55)).toBe(null);
+  expect(vertical.pointAtIntersectionWithY(55)).equalsPoint(100, 55);
+
+  expect(horizontal.pointAtIntersectionWithY(55)).toBe(null);
+  expect(horizontal.pointAtIntersectionWithX(55)).equalsPoint(55, 100);
+
+  expect(diagonal.pointAtIntersectionWithY(55)).equalsPoint(55, 55);
+  expect(diagonal.pointAtIntersectionWithX(55)).equalsPoint(55, 55);
+
+  expect(diagonal.withAngle(rac.Angle.neighth).pointAtIntersectionWithX(0))
+    .equalsPoint(0, 55*2);
+  expect(diagonal.withAngle(rac.Angle.neighth).pointAtIntersectionWithY(0))
+    .equalsPoint(55*2, 0);
 });
 
 

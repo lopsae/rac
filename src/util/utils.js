@@ -50,7 +50,8 @@ exports.typeName = function(obj) {
 
 
 /**
-* Adds a constant to the given object.
+* Adds a constant to the given object, the constant is not enumerable and
+* not configurable.
 *
 * @name addConstant
 * @memberof utils#

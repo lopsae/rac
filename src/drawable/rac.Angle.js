@@ -35,6 +35,7 @@ module.exports = function attachRacAngle(rac) {
   rac.Angle.half =    rac.Angle(1/2);
   rac.Angle.quarter = rac.Angle(1/4);
   rac.Angle.eighth =  rac.Angle(1/8);
+  rac.Angle.neighth =  rac.Angle(-1/8);
 
   rac.Angle.e = rac.Angle(0/4);
   rac.Angle.s = rac.Angle(1/4);

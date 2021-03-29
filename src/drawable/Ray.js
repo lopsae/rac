@@ -32,6 +32,9 @@ class Ray {
 
   /**
   * Returns the slope of the ray, or `null` if the ray is vertical.
+  *
+  * `slope` is `m` in the formula `y = mx + b`.
+  *
   * @returns {?number}
   */
   slope() {
@@ -50,6 +53,9 @@ class Ray {
   * Returns the y-intercept (the point at which the ray, extended in both
   * directions, would intercept with the y-axis), or `null` if the ray is
   * vertical.
+  *
+  * `yIntercept` is `b` in the formula `y = mx + b`.
+  *
   * @returns {?number}
   */
   yIntercept() {
@@ -68,7 +74,7 @@ class Ray {
   }
 
   withAngle(someAngle) {
-    let newAngle = rac.Angle.from(someAngle);
+    let newAngle = this.rac.Angle.from(someAngle);
     return new Ray(this.rac, this.start, newAngle);
   }
 
@@ -131,6 +137,43 @@ class Ray {
     // TODO: write pointAtDistance and use it here
     let end = this.start.pointToAngle(this.angle, length);
     return new Rac.Segment(this.rac, this.start, end);
+  }
+
+
+  pointAtIntersectionWithX(x) {
+    const slope = this.slope();
+    if (slope === null) {
+      // Vertical ray
+      return null;
+    }
+
+    if (this.rac.unitaryEquals(slope, 0)) {
+      // Horizontal ray
+      return this.start.withX(x);
+    }
+
+    // y = mx + b
+    const y = slope * x + this.yIntercept();
+    return new Rac.Point(this.rac, x, y);
+  }
+
+
+  pointAtIntersectionWithY(y) {
+    const slope = this.slope();
+    if (slope === null) {
+      // Vertical ray
+      return this.start.withY(y);
+    }
+
+    if (this.rac.unitaryEquals(slope, 0)) {
+      // Horizontal ray
+      return null;
+    }
+
+    // mx + b = y
+    // x = (y - b)/m
+    const x = (y - this.yIntercept()) / slope;
+    return new Rac.Point(this.rac, x, y);
   }
 
 } // class Ray
@@ -203,29 +246,6 @@ module.exports = Ray;
 //   let perpendicular = this.angle.perpendicular(clockwise);
 //   return this.translateToAngle(perpendicular, distance);
 // };
-
-// Returns the intersecting point of `this` and `other`. Both segments are
-// considered lines without endpoints.
-// Ray.prototype.pointAtIntersectionWithSegment = function(other) {
-//   // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
-//   let a = this.slope();
-//   let b = other.slope();
-//   if (a === b) {
-//     // Parallel lines, no intersection
-//     return null;
-//   }
-
-//   let c = this.yIntercept();
-//   let d = other.yIntercept();
-
-//   if (a === null) { return other.pointAtX(this.start.x); }
-//   if (b === null) { return this.pointAtX(other.start.x); }
-
-//   let x = (d - c) / (a - b);
-//   let y = a * x + c;
-//   return new Rac.Point(this.rac, x, y);
-// };
-
 
 
 
