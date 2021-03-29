@@ -5,6 +5,10 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
+/**
+* Unbounded ray from a point in direction of an angle.
+* @alias Rac.Ray
+*/
 class Ray {
 
   constructor(rac, start, angle) {
@@ -24,6 +28,23 @@ class Ray {
   copy() {
     return new Ray(this.rac, this.start, this.angle);
   }
+
+
+  /**
+  * Returns the slope of the ray, or `null` if the ray is vertical.
+  * @return {?number}
+  */
+  slope() {
+    let isVertical =
+         this.rac.unitaryEquals(this.angle.turn, this.rac.Angle.down.turn)
+      || this.rac.unitaryEquals(this.angle.turn, this.rac.Angle.up.turn);
+    if (isVertical) {
+      return null;
+    }
+
+    return Math.tan(this.angle.radians());
+  }
+
 
   withStart(newStart) {
     return new Ray(this.rac, newStart, this.angle);
@@ -100,22 +121,6 @@ class Ray {
 
 module.exports = Ray;
 
-
-// Returns the slope of the ray, or `null` if the ray is vertical.
-// Ray.prototype.slope = function() {
-//   let dx = this.end.x - this.start.x;
-//   let dy = this.end.y - this.start.y;
-//   if (Math.abs(dx) < rac.equalityThreshold) {
-//     if(Math.abs(dy) < rac.equalityThreshold) {
-//       // Segment with equal end and start returns a default angle of 0
-//       // Equivalent slope is 0
-//       return 0;
-//     }
-//     return null;
-//   }
-
-//   return dy / dx;
-// };
 
 // Returns the y-intercept, or `null` if the segment is part of a
 // vertical line.
