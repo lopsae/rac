@@ -210,7 +210,11 @@ expect.extend({ thresEquals(value, expected) {
   return done(isEqual, () =>
     this.utils.matcherHint('thresEquals',
       value, expected,
-      options));
+      options)
+    + '\n\n'
+    + `distance: ${Math.abs(value-expected)}\n`
+    + `threshold: ${rac.equalityThreshold}`
+    );
 }}); // thresEquals
 
 
