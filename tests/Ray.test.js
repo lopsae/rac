@@ -23,7 +23,7 @@ test('Identity', () => {
 });
 
 
-test('Slope', () => {
+test('Slope, yIntercept', () => {
   let hunty = rac.Point(100, 100);
   expect(rac.Ray(hunty, rac.Angle.zero).slope()).thresEquals(0);
   expect(rac.Ray(hunty, rac.Angle.half).slope()).thresEquals(0);
@@ -36,6 +36,19 @@ test('Slope', () => {
 
   expect(rac.Ray(hunty, rac.Angle.topRight).slope()).thresEquals(-1);
   expect(rac.Ray(hunty, rac.Angle.bottomLeft).slope()).thresEquals(-1);
+
+  expect(rac.Ray(hunty, rac.Angle.tr).yIntercept())
+    .thresEquals(200);
+  expect(rac.Ray(hunty.negative(), rac.Angle.bl).yIntercept())
+    .thresEquals(-200);
+
+  expect(rac.Ray(hunty, rac.Angle.br).yIntercept())
+    .thresEquals(0);
+  expect(rac.Ray(hunty.negative(), rac.Angle.tl).yIntercept())
+    .thresEquals(0);
+
+  expect(rac.Ray(hunty, rac.Angle.u).yIntercept()).toBe(null);
+  expect(rac.Ray(hunty.negative(), rac.Angle.d).yIntercept()).toBe(null);
 });
 
 

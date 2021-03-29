@@ -32,7 +32,7 @@ class Ray {
 
   /**
   * Returns the slope of the ray, or `null` if the ray is vertical.
-  * @return {?number}
+  * @returns {?number}
   */
   slope() {
     let isVertical =
@@ -43,6 +43,23 @@ class Ray {
     }
 
     return Math.tan(this.angle.radians());
+  }
+
+
+  /**
+  * Returns the y-intercept (the point at which the ray, extended in both
+  * directions, would intercept with the y-axis), or `null` if the ray is
+  * vertical.
+  * @returns {?number}
+  */
+  yIntercept() {
+    let slope = this.slope();
+    if (slope === null) {
+      return null;
+    }
+    // y = mx + b
+    // y - mx = b
+    return this.start.y - slope * this.start.x;
   }
 
 
