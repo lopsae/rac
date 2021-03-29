@@ -199,3 +199,35 @@ expect.extend({ toThrowException(closure, name) {
       options));
 }}); // toThrowException
 
+
+expect.extend({ thresEquals(value, expected) {
+  const options = {
+    comment: 'equal values with rac.equals',
+    isNot: this.isNot
+  };
+
+  const isEqual = rac.equals(value, expected);
+  return done(isEqual, () =>
+    this.utils.matcherHint('thresEquals',
+      value, expected,
+      options));
+}}); // thresEquals
+
+
+expect.extend({ uniThresEquals(value, expected) {
+  const options = {
+    comment: 'equal values with rac.unitaryEquals',
+    isNot: this.isNot
+  };
+
+  const isEqual = rac.unitaryEquals(value, expected);
+  return done(isEqual, () =>
+    this.utils.matcherHint('uniThresEquals',
+      value, expected,
+      options)
+    + '\n\n'
+    + `distance: ${Math.abs(value-expected)}\n`
+    + `threshold: ${rac.unitaryEqualityThreshold}`
+    );
+}}); // uniThresEquals
+
