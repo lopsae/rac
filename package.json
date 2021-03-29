@@ -31,6 +31,6 @@
     "npm": "^7.6.0"
   },
   "jest": {
-    "testMatch": ["**/tests/**/*.test.js"]
+    "testMatch": ["**/tests/**/*.tests.js"]
   }
 }
