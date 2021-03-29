@@ -10,7 +10,6 @@ exports.rac = rac;
 
 const digits = 3;
 
-
 function pass(messageFunc) {
   return {
     pass: true,

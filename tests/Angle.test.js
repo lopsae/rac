@@ -1,13 +1,13 @@
 'use strict';
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 const rac = tools.rac;
 
 
-test('identity', () => {
+test('Identity', () => {
   expect(null).not.equalsAngle(0);
   expect(null).not.equalsAngle(1/2);
 
@@ -34,7 +34,7 @@ test('identity', () => {
 });
 
 
-test('errors', () => {
+test('Errors', () => {
   expect(() => {new Rac.Angle(null, 1/2);})
     .toThrow();
   expect(() => {new Rac.Angle(rac, null);})

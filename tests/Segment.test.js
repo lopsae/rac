@@ -1,7 +1,7 @@
 'use strict';
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 const rac = tools.rac;
@@ -11,7 +11,7 @@ let diagonal = rac.Point(55, 55)
   .segmentToPoint(rac.Point(100, 100));
 
 
-test('identity', () => {
+test('Identity', () => {
   expect(null).not.equalsSegment(55, 55, 100, 100);
 
   expect(diagonal).equalsSegment(55, 55, 100, 100);
@@ -23,4 +23,7 @@ test('identity', () => {
   expect(string).toMatch('55');
   expect(string).toMatch('100');
 });
+
+
+test.todo('More!')
 

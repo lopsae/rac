@@ -1,7 +1,7 @@
 'use strict';
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 const rac = tools.rac;
@@ -10,7 +10,7 @@ const rac = tools.rac;
 let diagonal = rac.Ray(rac.Point(55, 55), rac.Angle.se);
 
 
-test('identity', () => {
+test('Identity', () => {
   expect(null).not.equalsRay(55, 55, rac.Angle.se);
 
   expect(diagonal).equalsRay(55, 55, rac.Angle.se);

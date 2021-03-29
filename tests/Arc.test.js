@@ -1,7 +1,7 @@
 'use strict';
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 const rac = tools.rac;
@@ -11,7 +11,7 @@ const rac = tools.rac;
 //   .arc(55, rac.Angle.n, rac.Angle.s);
 
 
-test('identity', () => {
+test('Identity', () => {
   expect(null).not.equalsArc(0, 0, 100, 0, 1/2, true);
 
   // expect(half).equalsArc(100, 100, 55, 3/4, 1/4, true);
@@ -25,4 +25,7 @@ test('identity', () => {
   // expect(string).toMatch('0.75');
   // expect(string).toMatch('true');
 });
+
+
+test.todo('More!')
 

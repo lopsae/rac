@@ -1,7 +1,7 @@
 'use strict';
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 const rac = tools.rac;

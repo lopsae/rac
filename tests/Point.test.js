@@ -1,7 +1,7 @@
 'use strict';
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 const rac = tools.rac;
@@ -11,7 +11,7 @@ let hunty = rac.Point(100, 100);
 let fifty = rac.Point(55, 55);
 
 
-test('identity', () => {
+test('Identity', () => {
   expect(null).not.equalsPoint(100, 100);
 
   expect(hunty).equalsPoint(100, 100);
@@ -26,7 +26,7 @@ test('identity', () => {
 });
 
 
-test('errors', () => {
+test('Errors', () => {
   expect(() => {new Rac.Point(null, 100, 100);})
     .toThrow();
   expect(() => {new Rac.Point(rac, null, 100);})
@@ -34,7 +34,7 @@ test('errors', () => {
 });
 
 
-test('withX functions', () => {
+test('Function withX/Y', () => {
   expect(hunty.withX(77))
     .equalsPoint(77, 100);
   expect(hunty.withY(77))
@@ -42,7 +42,7 @@ test('withX functions', () => {
 });
 
 
-test('add/sub', () => {
+test('Function add/sub', () => {
   expect(hunty.addPoint(fifty))
     .equalsPoint(155, 155);
   expect(hunty.add(11, 11))
@@ -55,7 +55,7 @@ test('add/sub', () => {
 });
 
 
-test('addX/Y', () => {
+test('Function addX/Y', () => {
   expect(hunty.addX(55)).equalsPoint(155, 100);
   expect(hunty.addY(55)).equalsPoint(100, 155);
   expect(hunty.addX(11).addY(11))
@@ -63,7 +63,7 @@ test('addX/Y', () => {
 });
 
 
-test('transforms', () => {
+test('Transformations', () => {
   expect(hunty.negative()).equalsPoint(-100, -100);
 
   // Clockwise
@@ -86,12 +86,12 @@ test('transforms', () => {
 });
 
 
-test('transforms to Angle', () => {
+test('Transforms to Angle', () => {
   expect(hunty.angleToPoint(fifty)).equalsAngle(rac.Angle.nw);
 });
 
 
-test('transforms to Segment', () => {
+test('Transforms to Segment', () => {
   expect(hunty.angleToPoint(fifty)).equalsAngle(rac.Angle.nw);
 
   expect(hunty.segmentToPoint(fifty))
@@ -113,7 +113,7 @@ test('transforms to Segment', () => {
 });
 
 
-test('misc', () => {
+test('Miscelaneous', () => {
   expect(hunty.distanceToPoint(rac.Point(100, 200)))
     .toBe(100);
   expect(hunty.distanceToPoint(rac.Point(200, 100)))

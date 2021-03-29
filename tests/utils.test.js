@@ -2,7 +2,7 @@
 
 
 const Rac = require('rulerandcompass');
-const tools = require('./testTools');
+const tools = require('./tools');
 
 
 test('assertExists', () => {
