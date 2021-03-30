@@ -82,20 +82,24 @@ class Arc{
     return this.pointAtAngle(this.end);
   }
 
-  // Returns the segment from `center` to `startPoint()`.
-  //
-  // Note that the segment starts at `center`, in contrast to
-  // `endSegment` which ends at `center`.
-  startSegment() {
-    return new Rac.Segment(this.rac, this.center, this.startPoint());
+
+  startRay() {
+    return new Rac.Ray(this.rac, this.center, this.start);
   }
 
-  // Returns the segment from `endPoint` to `center`.
-  //
-  // Note that the segment ends at `center`, in contrast to
-  // `startSegment` which starts at `center`.
+
+  endRay() {
+    return new Rac.Ray(this.rac, this.center, this.end);
+  }
+
+  // Returns the segment from `center` to `startPoint()`.
+  startSegment() {
+    return new Rac.Segment(this.rac, this.startRay(), this.radius);
+  }
+
+  // Returns the segment from `center` to `endPoint()`.
   endSegment() {
-    return new Rac.Segment(this.rac, this.endPoint(), this.center);
+    return new Rac.Segment(this.rac, this.endRay(), this.radius);
   }
 
   // Returns the segment from `startPoint()` to `endPoint()`. Note that

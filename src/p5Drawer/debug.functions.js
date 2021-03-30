@@ -83,6 +83,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     .withLengthRatio(1/2)
     .draw();
   arc.endSegment()
+    .reverse()
     .withLengthRatio(1/2)
     .draw();
 
@@ -120,6 +121,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .withLengthRatio(0.5)
     .draw();
   arc.endSegment()
+    .reverse()
     .withLengthRatio(0.5)
     .draw();
 
@@ -245,7 +247,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
 
   // Center end segment
   if (!arc.isCircle()) {
-    centerArc.endSegment().withLengthRatio(1/2).draw();
+    centerArc.endSegment().reverse().withLengthRatio(1/2).draw();
   }
 
   // Start point marker
