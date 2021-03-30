@@ -62,3 +62,8 @@ test('addConstant', () => {
   expect(propDesc.writable).toBe(true);
 });
 
+
+test.todo('assertType');
+test.todo('assertNumber');
+
+

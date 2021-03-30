@@ -37,17 +37,26 @@ exports.assertExists = function(...parameters) {
 */
 exports.assertType = function(type, ...elements) {
   elements.forEach(item => {
-    if (type === Number) {
-      if (typeof item !== 'number') {
-        throw Rac.Exception.failedAssert.make(
-          `Element with unexpected type - element:${item} element-type:${typeName(item)} expected-name:${type.name}`);
-      }
-      return;
-    }
-
     if (!(item instanceof type)) {
       throw Rac.Exception.failedAssert.make(
-        `Element with unexpected type - element:${item} element-type:${typeName(item)} expected-name${type.name}`);
+        `Element is unexpected type - element:${item} element-type:${typeName(item)} expected-name:${type.name}`);
+    }
+  });
+}
+
+
+/**
+* TODO
+*
+* @name assertNumber
+* @memberof utils#
+* @function
+*/
+exports.assertNumber = function(...elements) {
+  elements.forEach(item => {
+    if (typeof item !== 'number') {
+      throw Rac.Exception.failedAssert.make(
+        `Element is unexpected type, expecting Number - element:${item} element-type:${typeName(item)}`);
     }
   });
 }

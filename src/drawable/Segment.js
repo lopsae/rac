@@ -15,7 +15,7 @@ class Segment {
     // TODO: || throw new Error(err.missingParameters)
     utils.assertExists(rac, ray, length);
     utils.assertType(Rac.Ray, ray);
-    utils.assertType(Number, length);
+    utils.assertNumber(length);
     this.rac = rac;
     this.ray = ray;
     this.length = length;
