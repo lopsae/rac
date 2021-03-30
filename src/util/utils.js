@@ -56,7 +56,24 @@ exports.assertNumber = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'number') {
       throw Rac.Exception.failedAssert.make(
-        `Element is unexpected type, expecting Number - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting number primitive - element:${item} element-type:${typeName(item)}`);
+    }
+  });
+}
+
+
+/**
+* TODO
+*
+* @name assertBoolean
+* @memberof utils#
+* @function
+*/
+exports.assertBoolean = function(...elements) {
+  elements.forEach(item => {
+    if (typeof item !== 'boolean') {
+      throw Rac.Exception.failedAssert.make(
+        `Element is unexpected type, expecting boolean primitive - element:${item} element-type:${typeName(item)}`);
     }
   });
 }

@@ -19,6 +19,10 @@ class Arc{
     clockwise = true)
   {
     utils.assertExists(rac, center, radius, start, end, clockwise);
+    utils.assertType(Rac.Point, center);
+    utils.assertNumber(radius);
+    utils.assertType(Rac.Angle, start, end);
+    utils.assertBoolean(clockwise);
 
     this.rac = rac;
     this.center = center;
