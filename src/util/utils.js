@@ -18,11 +18,36 @@ const Rac = require('../Rac');
 * @memberof utils#
 * @function
 */
-exports.assertExists = function(...checks) {
-  checks.forEach((item, index) => {
+exports.assertExists = function(...parameters) {
+  parameters.forEach((item, index) => {
     if (item === null || item === undefined) {
       throw Rac.Exception.failedAssert.make(
         `Missing element at index ${index}`);
+    }
+  });
+}
+
+
+/**
+* TODO
+*
+* @name assertType
+* @memberof utils#
+* @function
+*/
+exports.assertType = function(type, ...elements) {
+  elements.forEach(item => {
+    if (type === Number) {
+      if (typeof item !== 'number') {
+        throw Rac.Exception.failedAssert.make(
+          `Element with unexpected type - element:${item} element-type:${typeName(item)} expected-name:${type.name}`);
+      }
+      return;
+    }
+
+    if (!(item instanceof type)) {
+      throw Rac.Exception.failedAssert.make(
+        `Element with unexpected type - element:${item} element-type:${typeName(item)} expected-name${type.name}`);
     }
   });
 }
@@ -36,7 +61,7 @@ exports.assertExists = function(...checks) {
 * @memberof utils#
 * @function
 */
-exports.typeName = function(obj) {
+function typeName(obj) {
   if (obj === undefined) {
     return 'undefined';
   }
@@ -47,6 +72,7 @@ exports.typeName = function(obj) {
   }
   return obj.constructor.name ?? typeof obj;
 }
+exports.typeName = typeName;
 
 
 /**

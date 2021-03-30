@@ -108,15 +108,16 @@ expect.extend({ equalsRay(ray, x, y, angle) {
 }}); // equalsRay
 
 
-expect.extend({ equalsSegment(segment, startX, startY, endX, endY) {
+expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
   const options = {
     comment: 'equal Segment properties',
     isNot: this.isNot
   };
 
-  let start = rac.Point(startX, startY);
-  let end = rac.Point(endX, endY);
-  let expected = rac.Segment(start, end);
+  const start = rac.Point(x, y);
+  const angle = rac.Angle.from(someAngle);
+  const ray = rac.Ray(start, angle);
+  const expected = rac.Segment(ray, length);
   if (segment == null) {
     return fail(() =>
       this.utils.matcherHint('equalsSegment',
@@ -124,10 +125,10 @@ expect.extend({ equalsSegment(segment, startX, startY, endX, endY) {
         options));
   }
 
-  const isEqual = rac.equals(segment.start.x, startX)
-    && rac.equals(segment.start.y, startY)
-    && rac.equals(segment.end.x, endX)
-    && rac.equals(segment.end.y, endY);
+  const isEqual = rac.equals(segment.ray.start.x, x)
+    && rac.equals(segment.ray.start.y, y)
+    && rac.equals(segment.length, length)
+    && rac.unitaryEquals(segment.ray.angle.turn, angle.turn);
   return done(isEqual, () =>
     this.utils.matcherHint('equalsSegment',
       segment.toString(), expected.toString(),

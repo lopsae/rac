@@ -186,6 +186,9 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Text}`.
   *
+  * @param {string} string
+  * @param {Rac.Text.Format} format
+  * @param {Rac.Point} point
   * @returns {Rac.Text}
   */
   Text(string, format, point) {
@@ -199,6 +202,7 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Angle}`.
   *
+  * @param {number} turn
   * @returns {Rac.Angle}
   */
   Angle(turn) {
@@ -212,6 +216,8 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Point}`.
   *
+  * @param {number} x
+  * @param {number} y
   * @returns {Rac.Point}
   */
   Point(x, y) {
@@ -225,6 +231,7 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Ray}`.
   *
+  * @param {Rac.Point} start
   * @returns {Rac.Ray}
   */
   Ray(start, angle) {
@@ -244,10 +251,12 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Segment}`.
   *
+  * @param {Rac.Ray} ray
+  * @param {number} length
   * @returns {Rac.Segment}
   */
-  Segment(start, end) {
-    return new Rac.Segment(this, start, end);
+  Segment(ray, length) {
+    return new Rac.Segment(this, ray, length);
   }
 
 

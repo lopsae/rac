@@ -6,24 +6,26 @@ const utils = require('../util/utils');
 
 
 /**
-* Line segment between two points.
+* Segment of a ray up to a given length.
 * @alias Rac.Segment
 */
 class Segment {
 
-  constructor(rac, start, end) {
+  constructor(rac, ray, length) {
     // TODO: || throw new Error(err.missingParameters)
-    utils.assertExists(rac, start, end);
+    utils.assertExists(rac, ray, length);
+    utils.assertType(Rac.Ray, ray);
+    utils.assertType(Number, length);
     this.rac = rac;
-    this.start = start;
-    this.end = end;
+    this.ray = ray;
+    this.length = length;
   }
 
   /**
   * Returns a string representation intended for human consumption.
   */
   toString() {
-    return `Segment((${this.start.x},${this.start.y}),(${this.end.x},${this.end.y}))`;
+    return `Segment((${this.ray.start.x},${this.ray.start.y}) a:${this.ray.angle.turn} l:${this.length})`;
   }
 
   copy() {

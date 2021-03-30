@@ -134,9 +134,7 @@ class Ray {
   // };
 
   segment(length) {
-    // TODO: write pointAtDistance and use it here
-    let end = this.start.pointToAngle(this.angle, length);
-    return new Rac.Segment(this.rac, this.start, end);
+    return new Rac.Segment(this.rac, this, length);
   }
 
 
