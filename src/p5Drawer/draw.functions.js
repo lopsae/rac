@@ -7,7 +7,7 @@ exports.drawPoint = function(drawer, point) {
 
 
 exports.drawRay = function(drawer, ray) {
-  const edgeMargin = 50; // Used for debugging
+  const edgeMargin = 0; // Used for debugging
   const turn = ray.angle.turn;
   let endPoint = null;
   if
