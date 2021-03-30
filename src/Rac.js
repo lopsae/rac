@@ -151,6 +151,7 @@ class Rac {
   *
   * @returns {Rac.Stroke}
   */
+  // TODO: update to all primitives
   Stroke(color = null, weight = 1) {
     return new Rac.Color(this, color, weight);
   }
@@ -164,6 +165,7 @@ class Rac {
   *
   * @returns {Rac.Fill}
   */
+  // TODO: update to all primitives
   Fill(color = null) {
     return new Rac.Fill(this, color);
   }
@@ -177,6 +179,7 @@ class Rac {
   *
   * @returns {Rac.Style}
   */
+  // TODO: update to all primitives?
   Style(stroke = null, fill = null) {
     return new Rac.Style(this, stroke, fill);
   }
@@ -193,6 +196,7 @@ class Rac {
   * @param {Rac.Point} point
   * @returns {Rac.Text}
   */
+  // TODO: update to all primitives
   Text(string, format, point) {
     return new Rac.Text(this, string, format, point);
   }
@@ -236,6 +240,7 @@ class Rac {
   * @param {Rac.Point} start
   * @returns {Rac.Ray}
   */
+  // TODO: update to all primitives
   Ray(start, angle) {
     return new Rac.Ray(this, start, angle);
   }
@@ -257,7 +262,9 @@ class Rac {
   * @param {number} length
   * @returns {Rac.Segment}
   */
-  Segment(ray, length) {
+  Segment(x, y, angle, length) {
+    const start = new Rac.Point(this, x, y);
+    const ray = new Rac.Ray(this, start, angle);
     return new Rac.Segment(this, ray, length);
   }
 
@@ -276,6 +283,7 @@ class Rac {
   *
   * @returns {Rac.Arc}
   */
+  // TODO: update to all primitives
   Arc(center, radius, start = this.Arc.zero, end = start, clockwise = true) {
     return new Rac.Arc(this, center, radius, start, end, clockwise);
   }
