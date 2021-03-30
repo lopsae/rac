@@ -29,6 +29,7 @@ class Segment {
   }
 
   copy() {
+    // TODO: update
     return new Segment(this.rac, this.start, this.end);
   }
 
@@ -47,22 +48,26 @@ class Segment {
   withAngleAdd(someAngle) {
     let newAngle = this.angle().add(someAngle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
+    // TODO: needs update
     return new Segment(this.rac, this.start, newEnd);
   }
 
   withAngleShift(someAngle, clockwise = true) {
     let newAngle = this.angle().shift(someAngle, clockwise);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
+    // TODO: needs update
     return new Segment(this.rac, this.start, newEnd);
   }
 
   withStartExtended(length) {
     let newStart = this.reverse().nextSegmentWithLength(length).end;
+    // TODO: needs update
     return new Segment(this.rac, newStart, this.end);
   }
 
   withEndExtended(length) {
     let newEnd = this.nextSegmentWithLength(length).end;
+    // TODO: needs update
     return new Segment(this.rac, this.start, newEnd);
   }
 
@@ -84,6 +89,10 @@ class Segment {
     // Comply at least with minClamp
     clamped = Math.max(clamped, startInset);
     return clamped;
+  }
+
+  pointAtBisector() {
+    return this.ray.pointAtDistance(this.length/2);
   }
 
   projectedPoint(point) {
@@ -122,6 +131,12 @@ class Segment {
   }
 
 
+  // Returns a new segment from `start` to `pointAtBisector`.
+  segmentToBisector() {
+    return new Segment(this.rac, this.ray, this.length/2);
+  }
+
+
   // Returns an complete circle Arc using this segment `start` as center,
   // `length()` as radiusm, and `angle()` as start and end angles.
   // Returns an Arc using this segment `start` as center, `length()` as
@@ -143,22 +158,19 @@ module.exports = Segment;
 
 
 Segment.prototype.withStart = function(newStart) {
+  // TODO: needs update
   return new Segment(this.rac, newStart, this.end);
 };
 
 Segment.prototype.withEnd = function(newEnd) {
+  // TODO: needs update
   return new Segment(this.rac, this.start, newEnd);
 };
 
 Segment.prototype.withLength = function(newLength) {
   let newEnd = this.start.pointToAngle(this.angle(), newLength);
+  // TODO: needs update
   return new Segment(this.rac, this.start, newEnd);
-};
-
-Segment.prototype.pointAtBisector = function() {
-  return new Rac.Point(this.rac,
-    this.start.x + (this.end.x - this.start.x) /2,
-    this.start.y + (this.end.y - this.start.y) /2);
 };
 
 
@@ -204,13 +216,16 @@ Segment.prototype.pointAtX = function(x) {
 
 
 Segment.prototype.reverse = function() {
-  return new Segment(this.rac, this.end, this.start);
+  const end = this.endPoint();
+  const inverseRay = new Rac.Ray(this.rac, end, this.ray.angle.inverse());
+  return new Segment(this.rac, inverseRay, this.length);
 };
 
 // Translates the segment by the entire `point`, or by the given `x` and
 // `y` components.
 Segment.prototype.translate = function(point, y = undefined) {
   if (point instanceof Rac.Point && y === undefined) {
+    // TODO: needs update
     return new Segment(this.rac,
       this.start.addPoint(point),
       this.end.addPoint(point));
@@ -218,6 +233,7 @@ Segment.prototype.translate = function(point, y = undefined) {
 
   if (typeof point === "number" && typeof y === "number") {
     let x = point;
+    // TODO: needs update
     return new Segment(this.rac,
       this.start.add(x, y),
       this.end.add(x, y));
@@ -231,6 +247,7 @@ Segment.prototype.translateToStart = function(newStart) {
   let offset = newStart.subtractPoint(this.start);
   let transStart = this.start.addPoint(offset);
   let transEnd = this.end.addPoint(offset)
+  // TODO: needs update
   return new Segment(this.rac, transStart, transEnd);
 };
 
@@ -239,11 +256,13 @@ Segment.prototype.translateToAngle = function(someAngle, distance) {
   let offset = this.rac.Point.zero.pointToAngle(angle, distance);
   let transStart = this.start.addPoint(offset);
   let transEnd = this.end.addPoint(offset)
+  // TODO: needs update
   return new Segment(this.rac, transStart, transEnd);
 };
 
 Segment.prototype.translateToLength = function(distance) {
   let offset = this.rac.Point.zero.pointToAngle(this.angle(), distance);
+  // TODO: needs update
   return new Segment(this.rac, this.start.addPoint(offset), this.end.addPoint(offset));
 };
 
@@ -283,10 +302,6 @@ Segment.prototype.pointAtLengthRatio = function(lengthRatio) {
   return this.start.pointToAngle(this.angle(), newLength);
 };
 
-// Returns a new segment from `start` to `pointAtBisector`.
-Segment.prototype.segmentToBisector = function() {
-  return new Segment(this.rac, this.start, this.pointAtBisector());
-};
 
 // Returns a new segment from `start` to a length determined by
 // `ratio*length`.
@@ -302,6 +317,7 @@ Segment.prototype.nextSegmentWithLength = function(length) {
 
 // Returns a new segment from `end` to the given `nextEnd`.
 Segment.prototype.nextSegmentToPoint = function(nextEnd) {
+  // TODO: needs update
   return new Segment(this.rac, this.end, nextEnd);
 }
 
@@ -341,6 +357,7 @@ Segment.prototype.segmentToIntersectionWithSegment = function(other) {
   if (end === null) {
     return null;
   }
+  // TODO: needs update
   return new Segment(this.rac, this.start, end);
 };
 
