@@ -81,9 +81,9 @@ test('Transformations', () => {
   expect(hunty.pointToAngle(rac.Angle.up, 100))
     .equalsPoint(100, 0);
 
-  let component = 100 + Math.sqrt(100*100/2);
+  let side = tools.sides(100);
   expect(hunty.pointToAngle(rac.Angle.eighth, 100))
-    .equalsPoint(component, component);
+    .equalsPoint(100+side, 100+side);
 });
 
 
@@ -106,7 +106,7 @@ test('Transforms to Segment', () => {
     .equalsSegment(100, 100, 0.25, 55);
 
   expect(hunty.segmentToPoint(fifty))
-    .equalsSegment(100, 100, rac.Angle.eighth.inverse(), Math.sqrt((45*45*2)));
+    .equalsSegment(100, 100, rac.Angle.eighth.inverse(), tools.hypotenuse(45));
 
   // vertical ray at x:300
   let vertical = hunty

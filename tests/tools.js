@@ -235,3 +235,16 @@ expect.extend({ uniThresEquals(value, expected) {
     );
 }}); // uniThresEquals
 
+
+// Returns the hypotenuse of a triangle with sides a,b, or a,a.
+exports.hypotenuse = function(a, maybeB = null) {
+  const b = maybeB === null ? a : b;
+  return Math.sqrt(a*a + b*b);
+};
+
+
+// Returns the side of a triangle of hypotenuse hyp and equal sides.
+exports.sides = function(hyp) {
+  return Math.sqrt(hyp*hyp/2);
+};
+
