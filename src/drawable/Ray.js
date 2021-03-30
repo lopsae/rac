@@ -89,15 +89,21 @@ class Ray {
     return new Ray(this.rac, this.start, newAngle);
   }
 
+  inverse() {
+    const inverseAngle = this.angle.inverse();
+    return new Ray(this.rac, this.start, inverseAngle);
+  }
+
   perpendicular(clockwise = true) {
-    return this.withAngleShift(rac.Angle.square, clockwise);
+    return this.withAngleShift(this.rac.Angle.square, clockwise);
   }
 
   // projectedPoint(point) {
-  //   let perpendicular = this.angle.perpendicular();
-  //   // TODO: could be ray instead
+  //   const perpendicular = this.angle.perpendicular();
+  //   point.rayToAngle(perpendicular)
+  //   // TODO: fixing
   //   return point.segmentToAngle(perpendicular, rac.arbitraryLength)
-  //     .pointAtIntersectionWithSegment(this);
+  //     .pointAtIntersectionWithRay(this);
   // }
 
   // Returns the length of a segment from `start` to `point` being
@@ -138,7 +144,7 @@ class Ray {
   }
 
 
-  pointAtIntersectionWithX(x) {
+  pointAtX(x) {
     const slope = this.slope();
     if (slope === null) {
       // Vertical ray
@@ -156,7 +162,7 @@ class Ray {
   }
 
 
-  pointAtIntersectionWithY(y) {
+  pointAtY(y) {
     const slope = this.slope();
     if (slope === null) {
       // Vertical ray
@@ -173,6 +179,33 @@ class Ray {
     const x = (y - this.yIntercept()) / slope;
     return new Rac.Point(this.rac, x, y);
   }
+
+
+  // Returns the intersecting point of `this` and `other`. Both rays are
+  // considered lines without endpoints. Returns null if the rays are
+  // parallel.
+  pointAtIntersection(other) {
+    // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
+    const a = this.slope();
+    const b = other.slope();
+    // Parallel lines, no intersection
+    if (a === null && b === null) { return null; }
+    if (this.rac.unitaryEquals(a, b)) { return null; }
+
+    const c = this.yIntercept();
+    const d = other.yIntercept();
+
+
+    if (a === null) { return other.pointAtX(this.start.x); }
+    if (b === null) { return this.pointAtX(other.start.x); }
+
+    const x = (d - c) / (a - b);
+    const y = a * x + c;
+    return new Rac.Point(this.rac, x, y);
+  }
+
+
+  // TODO: segmentToIntersectionWithRay
 
 } // class Ray
 

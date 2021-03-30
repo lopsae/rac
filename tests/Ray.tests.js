@@ -57,21 +57,79 @@ test('Slope, yIntercept', () => {
 
 
 test('Axis intersection', () => {
-  expect(vertical.pointAtIntersectionWithX(55)).toBe(null);
-  expect(vertical.pointAtIntersectionWithY(55)).equalsPoint(100, 55);
+  expect(vertical.pointAtX(55)).toBe(null);
+  expect(vertical.pointAtY(55)).equalsPoint(100, 55);
 
-  expect(horizontal.pointAtIntersectionWithY(55)).toBe(null);
-  expect(horizontal.pointAtIntersectionWithX(55)).equalsPoint(55, 100);
+  expect(horizontal.pointAtY(55)).toBe(null);
+  expect(horizontal.pointAtX(55)).equalsPoint(55, 100);
 
-  expect(diagonal.pointAtIntersectionWithY(55)).equalsPoint(55, 55);
-  expect(diagonal.pointAtIntersectionWithX(55)).equalsPoint(55, 55);
+  expect(diagonal.pointAtY(55)).equalsPoint(55, 55);
+  expect(diagonal.pointAtX(55)).equalsPoint(55, 55);
 
-  expect(diagonal.withAngle(rac.Angle.neighth).pointAtIntersectionWithX(0))
+  expect(diagonal.perpendicular().pointAtX(0))
     .equalsPoint(0, 55*2);
-  expect(diagonal.withAngle(rac.Angle.neighth).pointAtIntersectionWithY(0))
+    expect(diagonal.perpendicular(false).pointAtX(0))
+    .equalsPoint(0, 55*2);
+
+  expect(diagonal.perpendicular().pointAtY(0))
+    .equalsPoint(55*2, 0);
+  expect(diagonal.perpendicular(false).pointAtY(0))
     .equalsPoint(55*2, 0);
 });
 
+
+test ('Ray intersection', () => {
+  expect(diagonal.pointAtIntersection(vertical))
+    .equalsPoint(100, 100);
+  expect(diagonal.inverse().pointAtIntersection(vertical))
+    .equalsPoint(100, 100);
+  expect(vertical.pointAtIntersection(diagonal))
+    .equalsPoint(100, 100);
+  expect(vertical.inverse().pointAtIntersection(diagonal))
+    .equalsPoint(100, 100);
+
+  expect(diagonal.pointAtIntersection(horizontal))
+    .equalsPoint(100, 100);
+  expect(diagonal.inverse().pointAtIntersection(horizontal))
+    .equalsPoint(100, 100);
+  expect(horizontal.pointAtIntersection(diagonal))
+    .equalsPoint(100, 100);
+  expect(horizontal.inverse().pointAtIntersection(diagonal))
+    .equalsPoint(100, 100);
+
+  expect(vertical.pointAtIntersection(horizontal))
+    .equalsPoint(100, 100);
+  expect(vertical.inverse().pointAtIntersection(horizontal))
+    .equalsPoint(100, 100);
+  expect(horizontal.pointAtIntersection(vertical))
+    .equalsPoint(100, 100);
+  expect(horizontal.inverse().pointAtIntersection(vertical))
+    .equalsPoint(100, 100);
+
+  let shiftedVertical = vertical.withStart(rac.Point.zero);
+  expect(shiftedVertical.pointAtIntersection(vertical))
+    .toBe(null);
+  expect(shiftedVertical.pointAtIntersection(vertical.inverse()))
+    .toBe(null);
+
+  let shiftedHorizontal = horizontal.withStart(rac.Point.zero);
+  expect(shiftedHorizontal.pointAtIntersection(horizontal))
+    .toBe(null);
+  expect(shiftedHorizontal.pointAtIntersection(horizontal.inverse()))
+    .toBe(null);
+
+  let shiftedDiagonal = diagonal.withStart(hunty);
+  expect(shiftedDiagonal.pointAtIntersection(diagonal))
+    .toBe(null);
+  expect(shiftedDiagonal.pointAtIntersection(diagonal.inverse()))
+    .toBe(null);
+});
+
+
+// test.only('FIX', () => {
+//   expect(vertical.pointAtIntersection(horizontal))
+//     .equalsPoint(100, 100);
+// });
 
 test.todo('More!')
 
