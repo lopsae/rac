@@ -28,13 +28,13 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   let strokeWeight = context.lineWidth;
   context.save(); {
     context.lineCap = 'butt';
-    context.setLineDash([strokeWeight*3, strokeWeight*2]);
+    context.setLineDash([6, 4]);
     // Angle arc
     angleArc.draw();
 
     if (!angleArc.isCircle()) {
       // Outside angle arc
-      context.setLineDash([strokeWeight*1, strokeWeight*2]);
+      context.setLineDash([2, 4]);
       angleArc
         .withRadius(drawer.debugRadius*3/4)
         .withClockwise(false)
@@ -230,12 +230,12 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let strokeWeight = context.lineWidth;
   context.save(); {
     context.lineCap = 'butt';
-    context.setLineDash([strokeWeight*3, strokeWeight*2]);
+    context.setLineDash([6, 4]);
     centerArc.draw();
 
     if (!centerArc.isCircle()) {
       // Outside angle arc
-      context.setLineDash([strokeWeight*1, strokeWeight*2]);
+      context.setLineDash([2, 4]);
       centerArc
         .withClockwise(!centerArc.clockwise)
         .draw();
