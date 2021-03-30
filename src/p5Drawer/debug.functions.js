@@ -365,7 +365,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
     // Radius drawn separately
     let perpAngle = arc.start.perpendicular(!arc.clockwise);
     arc.center
-      .pointToAngle(arc.start, drawer.debugPointRadius)
+      .pointToAngle(arc.start, drawer.debugRadius)
       .pointToAngle(perpAngle, drawer.debugPointRadius*2)
       .text(radiusString, radiusFormat)
       .draw(drawer.debugTextStyle);
