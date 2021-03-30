@@ -354,11 +354,6 @@ Rac.Style = require('./style/Style');
 Rac.setupStyleProtoFunctions(Rac.Style);
 
 
-// Text
-Rac.Text = require('./drawable/Text');
-Rac.setupDrawableProtoFunctions(Rac.Text);
-
-
 // Angle
 Rac.Angle = require('./drawable/Angle');
 
@@ -381,6 +376,11 @@ Rac.setupDrawableProtoFunctions(Rac.Segment);
 // Arc
 Rac.Arc = require('./drawable/Arc');
 Rac.setupDrawableProtoFunctions(Rac.Arc);
+
+
+// Text
+Rac.Text = require('./drawable/Text');
+Rac.setupDrawableProtoFunctions(Rac.Text);
 
 
 // Bezier

@@ -22,3 +22,36 @@ When object retured is same type, ommit type in function name
 Functions that return a different object type start or end with that object?
 + point.pointPerpendicular or point.perpendicularPoint?
 + arc.chordSegment or arc.segmentChord?
+
+
+Style
+=====
+
+Order of classes:
++ Color
++ Stroke
++ Fill
++ Style
++ Angle
++ Point
++ Ray
++ Segment
++ Arc
++ Text
++ Bezier
++ Composite
++ Shape
++ Control
++ SegmentControl
++ ArcControl
+
+Order of functions in an object:
++ Constructor
++ toString
++ copy
++ accesors (segment.angle())
++ simpleBuilders (segment.startPoint())
++ withX simple modifiers (segment.withStart())
++ withX complex modifiers (segment.withStartExtended())
++ data processing (segment.clamp)
++ other object builder in class orderd
