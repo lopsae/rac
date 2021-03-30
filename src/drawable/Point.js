@@ -173,6 +173,7 @@ Point.prototype.pointToAngle = function(someAngle, distance) {
   return new Point(this.rac, this.x + distanceX, this.y + distanceY);
 };
 
+
 Point.prototype.ray = function(someAngle) {
   const angle = this.rac.Angle.from(someAngle);
   return new Rac.Ray(this.rac, this, angle);
@@ -189,6 +190,7 @@ Point.prototype.segmentToAngle = function(someAngle, length) {
   return new Rac.Segment(this.rac, ray, length);
 };
 
+// TODO: what happens if points are equal?
 Point.prototype.segmentToPoint = function(point) {
   const angle = this.angleToPoint(point);
   const length = this.distanceToPoint(point);
@@ -196,15 +198,9 @@ Point.prototype.segmentToPoint = function(point) {
   return new Rac.Segment(this.rac, ray, length);
 };
 
-Point.prototype.segmentToAngleToIntersectionWithSegment = function(someAngle, segment) {
-  // TODO: recheck after segment migration
-  let unit = this.segmentToAngle(someAngle, 1);
-  return unit.segmentToIntersectionWithSegment(segment);
-}
-
-Point.prototype.segmentPerpendicularToSegment = function(segment) {
-  // TODO: recheck after segment migration
-  let projectedPoint = segment.projectedPoint(this);
+// Returns a segment from this to the point projected in ray
+Point.prototype.segmentToRayProjection = function(ray) {
+  let projectedPoint = ray.pointProjected(this);
   return this.segmentToPoint(projectedPoint);
 };
 

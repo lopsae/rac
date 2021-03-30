@@ -94,25 +94,32 @@ test('Transforms to Angle', () => {
 test.todo('Transforms to Ray');
 
 
-test.only('Transforms to Segment', () => {
+test('Transforms to Segment', () => {
   expect(hunty.segmentToAngle(rac.Angle.s, 55))
     .equalsSegment(100, 100, 0.25, 55);
 
   expect(hunty.segmentToPoint(fifty))
-    .equalsSegment(100, 100, rac.Angle.eighth.inverse(), 63.63961);
+    .equalsSegment(100, 100, rac.Angle.eighth.inverse(), Math.sqrt((45*45*2)));
 
+  // vertical ray at x:300
+  let vertical = hunty
+    .addX(200)
+    .ray(rac.Angle.s);
+  expect(hunty.segmentToRayProjection(vertical))
+    .equalsSegment(100, 100, 0, 200);
 
+  // horizontal ray at x:300
+  let horizontal = hunty
+    .addY(200)
+    .ray(rac.Angle.zero);
+  expect(hunty.segmentToRayProjection(horizontal))
+    .equalsSegment(100, 100, 1/4, 200);
 
-  // // vertical line at x 300
-  // let intersector = hunty
-  //   .addX(200)
-  //   .segmentToAngle(rac.Angle.s, 100);
-
-  // expect(hunty.segmentToAngleToIntersectionWithSegment(rac.Angle.zero, intersector))
-  //   .equalsSegment(100, 100, 300, 100);
-
-  // expect(hunty.segmentPerpendicularToSegment(intersector))
-  //   .equalsSegment(100, 100, 300, 100);
+  // diagonal at zero
+  let diagonal = hunty.ray(rac.Angle.eighth);
+  // TODO: what happens with coliding points?
+  // expect(fifty.segmentToRayProjection(diagonal))
+  //   .equalsSegment(55, 55, )
 });
 
 
