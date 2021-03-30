@@ -45,6 +45,26 @@ class Segment {
     return this.ray.pointAtDistance(this.length);
   }
 
+  withRay(newRay) {
+    return new Segment(this.rac, newRay, this.length);
+  }
+
+  withStartPoint(newStartPoint) {
+    const newRay = this.ray.withStart(newStartPoint);
+    return new Segment(this.rac, newRay, this.length);
+  }
+
+  withEndPoint(newEndPoint) {
+    const newRay = this.ray.rayToPoint(newEndPoint);
+    const newLength = this.ray.start.distanceToPoint(newEndPoint);
+    return new Segment(this.rac, newRay, newLength);
+  }
+
+  withLength(newLength) {
+    return new Segment(this.rac, this.ray, newLength);
+  }
+
+
   withAngleAdd(someAngle) {
     let newAngle = this.angle().add(someAngle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
@@ -155,23 +175,6 @@ class Segment {
 
 
 module.exports = Segment;
-
-
-Segment.prototype.withStart = function(newStart) {
-  // TODO: needs update
-  return new Segment(this.rac, newStart, this.end);
-};
-
-Segment.prototype.withEnd = function(newEnd) {
-  // TODO: needs update
-  return new Segment(this.rac, this.start, newEnd);
-};
-
-Segment.prototype.withLength = function(newLength) {
-  let newEnd = this.start.pointToAngle(this.angle(), newLength);
-  // TODO: needs update
-  return new Segment(this.rac, this.start, newEnd);
-};
 
 
 // Returns the slope of the segment, or `null` if the segment is part of a
