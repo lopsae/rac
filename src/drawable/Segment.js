@@ -36,11 +36,11 @@ class Segment {
     return this.ray.angle;
   }
 
-  start() {
+  startPoint() {
     return this.ray.start;
   }
 
-  end() {
+  endPoint() {
     return this.ray.pointAtDistance(this.length);
   }
 

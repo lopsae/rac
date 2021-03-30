@@ -27,11 +27,11 @@ test('Identity', () => {
 
 
 test('Properties', () => {
-  expect(diagonal.start()).equalsPoint(55, 55);
+  expect(diagonal.startPoint()).equalsPoint(55, 55);
   expect(diagonal.angle()).equalsAngle(1/8);
 
   let side = tools.sides(100);
-  expect(diagonal.end()).equalsPoint(55+side, 55+side);
+  expect(diagonal.endPoint()).equalsPoint(55+side, 55+side);
 });
 
 
