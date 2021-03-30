@@ -6,8 +6,8 @@ const tools = require('./tools');
 
 const rac = tools.rac;
 
-let diagonal = rac.Ray(rac.Point(55, 55), rac.Angle.eighth);
-
+let fifty = rac.Point(55, 55);
+let diagonal = rac.Ray(fifty, rac.Angle.eighth);
 let hunty = rac.Point(100, 100);
 let vertical = rac.Ray(hunty, rac.Angle.square);
 let horizontal = rac.Ray(hunty, rac.Angle.zero);
@@ -129,6 +129,18 @@ test ('Ray parallel intersection', () => {
     .toBe(null);
   expect(shiftedDiagonal.pointAtIntersection(diagonal.inverse()))
     .toBe(null);
+});
+
+
+test ('Point projection', () => {
+  expect(diagonal.pointProjected(hunty)).equalsPoint(100, 100);
+  expect(diagonal.inverse().pointProjected(fifty)).equalsPoint(55, 55);
+
+  expect(vertical.pointProjected(fifty)).equalsPoint(100, 55);
+  expect(vertical.inverse().pointProjected(fifty)).equalsPoint(100, 55);
+
+  expect(horizontal.pointProjected(fifty)).equalsPoint(55, 100);
+  expect(horizontal.inverse().pointProjected(fifty)).equalsPoint(55, 100);
 });
 
 

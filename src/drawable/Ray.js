@@ -95,16 +95,10 @@ class Ray {
   }
 
   perpendicular(clockwise = true) {
-    return this.withAngleShift(this.rac.Angle.square, clockwise);
+    let perpendicular = this.angle.perpendicular(clockwise);
+    return new Ray(this.rac, this.start, perpendicular);
   }
 
-  // projectedPoint(point) {
-  //   const perpendicular = this.angle.perpendicular();
-  //   point.rayToAngle(perpendicular)
-  //   // TODO: fixing
-  //   return point.segmentToAngle(perpendicular, rac.arbitraryLength)
-  //     .pointAtIntersectionWithRay(this);
-  // }
 
   // Returns the length of a segment from `start` to `point` being
   // projected in the segment. The returned length may be negative if the
@@ -138,10 +132,6 @@ class Ray {
   // Ray.prototype.pointAtDistance = function(distance) {
   //   return this.start.pointToAngle(this.angle, distance);
   // };
-
-  segment(length) {
-    return new Rac.Segment(this.rac, this, length);
-  }
 
 
   pointAtX(x) {
@@ -202,6 +192,18 @@ class Ray {
     const x = (d - c) / (a - b);
     const y = a * x + c;
     return new Rac.Point(this.rac, x, y);
+  }
+
+
+  pointProjected(point) {
+    const perpendicular = this.angle.perpendicular();
+    return point.ray(perpendicular)
+      .pointAtIntersection(this);
+  }
+
+
+  segment(length) {
+    return new Rac.Segment(this.rac, this, length);
   }
 
 
