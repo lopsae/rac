@@ -13,8 +13,8 @@ module.exports = function attachSegmentFunctions(rac) {
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   */
   Rac.Segment.prototype.vertex = function() {
-    this.start.vertex();
-    this.end.vertex();
+    this.startPoint().vertex();
+    this.endPoint().vertex();
   };
 
 
@@ -29,9 +29,8 @@ module.exports = function attachSegmentFunctions(rac) {
   * @function
   */
   rac.Segment.canvasTop = function() {
-    let topLeft = rac.Point.zero;
-    let topRight = rac.Point(rac.drawer.p5.width, 0);
-    return rac.Segment(topLeft, topRight);
+    return rac.Point.zero
+      .segmentToAngle(rac.Angle.right, rac.drawer.p5.width);
   };
 
 
@@ -46,9 +45,8 @@ module.exports = function attachSegmentFunctions(rac) {
   * @function
   */
   rac.Segment.canvasLeft = function() {
-    let topLeft = rac.Point.zero;
-    let bottomLeft = rac.Point(0, rac.drawer.p5.height);
-    return rac.Segment(topLeft, bottomLeft);
+    return rac.Point.zero
+      .segmentToAngle(rac.Angle.down, rac.drawer.p5.height);
   };
 
 
@@ -63,9 +61,9 @@ module.exports = function attachSegmentFunctions(rac) {
   * @function
   */
   rac.Segment.canvasRight = function() {
-    let topRight = rac.Point(rac.drawer.p5.width, 0);
-    let bottomRight = rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
-    return rac.Segment(topRight, bottomRight);
+    const topRight = rac.Point(rac.drawer.p5.width, 0);
+    return topRight
+      .segmentToAngle(rac.Angle.down, rac.drawer.p5.height);
   };
 
 
@@ -81,8 +79,8 @@ module.exports = function attachSegmentFunctions(rac) {
   */
   rac.Segment.canvasBottom = function() {
     let bottomLeft = rac.Point(0, rac.drawer.p5.height);
-    let bottomRight = rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
-    return rac.Segment(bottomLeft, bottomRight);
+    return bottomLeft
+      .segmentToAngle(rac.Angle.right, rac.drawer.p5.width);
   };
 
 
