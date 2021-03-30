@@ -129,10 +129,6 @@ class Ray {
   //   return angleDistance.turn < 0.5;
   // }
 
-  // Ray.prototype.pointAtDistance = function(distance) {
-  //   return this.start.pointToAngle(this.angle, distance);
-  // };
-
 
   pointAtX(x) {
     const slope = this.slope();
@@ -168,6 +164,11 @@ class Ray {
     // x = (y - b)/m
     const x = (y - this.yIntercept()) / slope;
     return new Rac.Point(this.rac, x, y);
+  }
+
+
+  pointAtDistance(distance) {
+    return this.start.pointToAngle(this.angle, distance);
   }
 
 

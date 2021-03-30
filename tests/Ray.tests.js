@@ -133,6 +133,10 @@ test ('Ray parallel intersection', () => {
 
 
 test ('Point projection', () => {
+  let distance = Math.sqrt(20*20*2);
+  expect(diagonal.pointAtDistance(distance)).equalsPoint(55+20, 55+20);
+  expect(diagonal.pointAtDistance(-distance)).equalsPoint(55-20, 55-20);
+
   expect(diagonal.pointProjected(hunty)).equalsPoint(100, 100);
   expect(diagonal.inverse().pointProjected(fifty)).equalsPoint(55, 55);
 
@@ -143,11 +147,6 @@ test ('Point projection', () => {
   expect(horizontal.inverse().pointProjected(fifty)).equalsPoint(55, 100);
 });
 
-
-// test.only('FIX', () => {
-//   expect(vertical.pointAtIntersection(horizontal))
-//     .equalsPoint(100, 100);
-// });
 
 test.todo('More!')
 
