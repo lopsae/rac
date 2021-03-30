@@ -203,6 +203,12 @@ class Ray {
   }
 
 
+  rayToPoint(point) {
+    const newAngle = this.start.angleToPoint(point, this.angle);
+    return new Ray(this.rac, this.start, newAngle);
+  }
+
+
   segment(length) {
     return new Rac.Segment(this.rac, this, length);
   }
