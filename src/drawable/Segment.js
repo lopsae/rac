@@ -32,6 +32,18 @@ class Segment {
     return new Segment(this.rac, this.start, this.end);
   }
 
+  angle() {
+    return this.ray.angle;
+  }
+
+  start() {
+    return this.ray.start;
+  }
+
+  end() {
+    return this.ray.pointAtDistance(this.length);
+  }
+
   withAngleAdd(someAngle) {
     let newAngle = this.angle().add(someAngle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
@@ -149,13 +161,6 @@ Segment.prototype.pointAtBisector = function() {
     this.start.y + (this.end.y - this.start.y) /2);
 };
 
-Segment.prototype.length = function() {
-  return this.start.distanceToPoint(this.end);
-};
-
-Segment.prototype.angle = function() {
-  return this.start.angleToPoint(this.end);
-};
 
 // Returns the slope of the segment, or `null` if the segment is part of a
 // vertical line.
@@ -197,9 +202,6 @@ Segment.prototype.pointAtX = function(x) {
   return new Rac.Point(this.rac, x, y);
 }
 
-Segment.prototype.reverseAngle = function() {
-  return this.angle().inverse();
-};
 
 Segment.prototype.reverse = function() {
   return new Segment(this.rac, this.end, this.start);
