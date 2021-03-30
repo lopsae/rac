@@ -227,9 +227,20 @@ exports.debugArc = function(drawer, arc, drawsText) {
 
   // Mini arc markers
   let context = drawer.p5.drawingContext;
-  context.save();
-  context.setLineDash([6, 6]);
-  centerArc.draw();
+  let strokeWeight = context.lineWidth;
+  context.save(); {
+    context.lineCap = 'butt';
+    context.setLineDash([strokeWeight*3, strokeWeight*2]);
+    centerArc.draw();
+
+    if (!centerArc.isCircle()) {
+      // Outside angle arc
+      context.setLineDash([strokeWeight*1, strokeWeight*2]);
+      centerArc
+        .withClockwise(!centerArc.clockwise)
+        .draw();
+    }
+  };
   context.restore();
 
   // Center end segment
