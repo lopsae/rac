@@ -106,6 +106,7 @@ class Point{
   // Returns `null` if `this` is inside `arc` and thus no tangent segment
   // is possible.
   segmentTangentToArc(arc, clockwise = true) {
+    // TODO: recheck after segment migration
     let hypotenuse = this.segmentToPoint(arc.center);
     let ops = arc.radius;
 
@@ -172,21 +173,37 @@ Point.prototype.pointToAngle = function(someAngle, distance) {
   return new Point(this.rac, this.x + distanceX, this.y + distanceY);
 };
 
-Point.prototype.segmentToPoint = function(point) {
-  return new Rac.Segment(this.rac, this, point);
+Point.prototype.ray = function(someAngle) {
+  const angle = this.rac.Angle.from(someAngle);
+  return new Rac.Ray(this.rac, this, angle);
 };
 
-Point.prototype.segmentToAngle = function(someAngle, distance) {
-  let end = this.pointToAngle(someAngle, distance);
-  return new Rac.Segment(this.rac, this, end);
+Point.prototype.rayToPoint = function(point) {
+  const angle = this.angleToPoint(point);
+  return new Rac.Ray(this.rac, this, angle);
+};
+
+Point.prototype.segmentToAngle = function(someAngle, length) {
+  const angle = this.rac.Angle.from(someAngle);
+  const ray = new Rac.Ray(this.rac, this, angle);
+  return new Rac.Segment(this.rac, ray, length);
+};
+
+Point.prototype.segmentToPoint = function(point) {
+  const angle = this.angleToPoint(point);
+  const length = this.distanceToPoint(point);
+  const ray = new Rac.Ray(this.rac, this, angle);
+  return new Rac.Segment(this.rac, ray, length);
 };
 
 Point.prototype.segmentToAngleToIntersectionWithSegment = function(someAngle, segment) {
+  // TODO: recheck after segment migration
   let unit = this.segmentToAngle(someAngle, 1);
   return unit.segmentToIntersectionWithSegment(segment);
 }
 
 Point.prototype.segmentPerpendicularToSegment = function(segment) {
+  // TODO: recheck after segment migration
   let projectedPoint = segment.projectedPoint(this);
   return this.segmentToPoint(projectedPoint);
 };

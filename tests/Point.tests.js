@@ -91,25 +91,28 @@ test('Transforms to Angle', () => {
 });
 
 
-test('Transforms to Segment', () => {
-  expect(hunty.angleToPoint(fifty)).equalsAngle(rac.Angle.nw);
+test.todo('Transforms to Ray');
+
+
+test.only('Transforms to Segment', () => {
+  expect(hunty.segmentToAngle(rac.Angle.s, 55))
+    .equalsSegment(100, 100, 0.25, 55);
 
   expect(hunty.segmentToPoint(fifty))
-    .equalsSegment(100, 100, 55, 55);
+    .equalsSegment(100, 100, rac.Angle.eighth.inverse(), 63.63961);
 
-  expect(hunty.segmentToAngle(rac.Angle.s, 55))
-    .equalsSegment(100, 100, 100, 155);
 
-  // vertical line at x 300
-  let intersector = hunty
-    .addX(200)
-    .segmentToAngle(rac.Angle.s, 100);
 
-  expect(hunty.segmentToAngleToIntersectionWithSegment(rac.Angle.zero, intersector))
-    .equalsSegment(100, 100, 300, 100);
+  // // vertical line at x 300
+  // let intersector = hunty
+  //   .addX(200)
+  //   .segmentToAngle(rac.Angle.s, 100);
 
-  expect(hunty.segmentPerpendicularToSegment(intersector))
-    .equalsSegment(100, 100, 300, 100);
+  // expect(hunty.segmentToAngleToIntersectionWithSegment(rac.Angle.zero, intersector))
+  //   .equalsSegment(100, 100, 300, 100);
+
+  // expect(hunty.segmentPerpendicularToSegment(intersector))
+  //   .equalsSegment(100, 100, 300, 100);
 });
 
 
