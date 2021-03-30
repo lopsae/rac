@@ -19,6 +19,7 @@ class Point{
   */
   constructor(rac, x, y) {
     utils.assertExists(rac, x, y);
+    utils.assertNumber(x, y);
     this.rac = rac;
     this.x = x;
     this.y = y;
