@@ -55,9 +55,11 @@ exports.drawRay = function(drawer, ray) {
 
 
 exports.drawSegment = function(drawer, segment) {
+  const start = segment.ray.start;
+  const end = segment.endPoint();
   drawer.p5.line(
-    segment.start.x, segment.start.y,
-    segment.end.x,   segment.end.y);
+    start.x, start.y,
+    end.x,   end.y);
 }; // drawSegment
 
 
