@@ -14,6 +14,7 @@ class Arc{
   constructor(
     rac,
     center, radius,
+    // TODO: should only accept angle objects, no defaults since rac is not accesible
     start = rac.Angle.zero,
     end = start,
     clockwise = true)
@@ -306,8 +307,8 @@ Arc.prototype.intersectionArc = function(other) {
   let chord = this.intersectionChord(other);
   if (chord === null) { return null; }
 
-  let startAngle = this.center.angleToPoint(chord.start);
-  let endAngle = this.center.angleToPoint(chord.end);
+  let startAngle = this.center.angleToPoint(chord.startPoint());
+  let endAngle = this.center.angleToPoint(chord.endPoint());
 
   if (!this.containsAngle(startAngle)) {
     startAngle = this.start;
@@ -328,7 +329,7 @@ Arc.prototype.intersectingPointsWithArc = function(other) {
   let chord = this.intersectionChord(other);
   if (chord === null) { return []; }
 
-  let intersections = [chord.start, chord.end].filter(function(item) {
+  let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
     return this.containsAngle(this.center.segmentToPoint(item))
       && other.containsAngle(other.center.segmentToPoint(item));
   }, this);
@@ -378,7 +379,7 @@ Arc.prototype.intersectionChordWithSegment = function(segment) {
 Arc.prototype.chordEndOrProjectionWithSegment = function(segment) {
   let chord = this.intersectionChordWithSegment(segment);
   if (chord !== null) {
-    return chord.end;
+    return chord.endPoint();
   }
 
   let centerOrientation = segment.pointOrientation(this.center);
@@ -444,7 +445,7 @@ Arc.prototype.pointAtAngleDistanceRatio = function(angleDistanceRatio) {
 // a complete circle.
 Arc.prototype.pointAtAngle = function(someAngle) {
   let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.center.segmentToAngle(angle, this.radius).end;
+  return this.center.pointToAngle(angle, this.radius);
 };
 
 // Returns a segment that is tangent to both `this` and `otherArc`,
@@ -517,7 +518,7 @@ Arc.prototype.divideToSegments = function(segmentCount) {
   for (let count = 1; count <= segmentCount; count++) {
     let currentAngle = lastRay.angle().add(partAngle);
     let currentRay = this.center.segmentToAngle(currentAngle, this.radius);
-    segments.push(new Rac.Segment(this.rac, lastRay.end, currentRay.end));
+    segments.push(new Rac.Segment(this.rac, lastRay.endPoint(), currentRay.endPoint()));
     lastRay = currentRay;
   }
 
@@ -536,19 +537,19 @@ Arc.prototype.divideToBeziers = function(bezierCount) {
   let beziers = [];
   let segments = this.divideToSegments(bezierCount);
   segments.forEach(function(item) {
-    let startRay = new Rac.Segment(this.rac, this.center, item.start);
-    let endRay = new Rac.Segment(this.rac, this.center, item.end);
+    let startRay = new Rac.Segment(this.rac, this.center, item.startPoint());
+    let endRay = new Rac.Segment(this.rac, this.center, item.endPoint());
 
     let startAnchor = startRay
       .nextSegmentToAngleShift(this.rac.Angle.square, tangent, !this.clockwise)
-      .end;
+      .endPoint();
     let endAnchor = endRay
       .nextSegmentToAngleShift(this.rac.Angle.square, tangent, this.clockwise)
-      .end;
+      .endPoint();
 
     beziers.push(new Rac.Bezier(this.rac,
-      startRay.end, startAnchor,
-      endAnchor, endRay.end));
+      startRay.endPoint(), startAnchor,
+      endAnchor, endRay.endPoint()));
   }, this);
 
   return new Rac.Composite(this.rac, beziers);
