@@ -16,7 +16,7 @@ exports.drawRay = function(drawer, ray) {
     // pointing down
     const downEdge = drawer.p5.height - edgeMargin;
     if (ray.start.y < downEdge) {
-      endPoint = ray.pointAtIntersectionWithY(downEdge);
+      endPoint = ray.pointAtY(downEdge);
     }
   } else if
     (turn >= 3/8 && turn < 5/8)
@@ -24,7 +24,7 @@ exports.drawRay = function(drawer, ray) {
     // pointing left
     const leftEdge = edgeMargin;
     if (ray.start.x >= leftEdge) {
-      endPoint = ray.pointAtIntersectionWithX(leftEdge);
+      endPoint = ray.pointAtX(leftEdge);
     }
   } else if
     (turn >= 5/8 && turn < 7/8)
@@ -32,14 +32,14 @@ exports.drawRay = function(drawer, ray) {
     // pointing up
     const upEdge = edgeMargin;
     if (ray.start.y >= upEdge) {
-      endPoint = ray.pointAtIntersectionWithY(upEdge);
+      endPoint = ray.pointAtY(upEdge);
     }
     // return;
   } else {
     // pointing right
     const rightEdge = drawer.p5.width - edgeMargin;
     if (ray.start.x < rightEdge) {
-      endPoint = ray.pointAtIntersectionWithX(rightEdge);
+      endPoint = ray.pointAtX(rightEdge);
     }
   }
 
