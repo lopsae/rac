@@ -25,9 +25,22 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Mini arc markers
   let angleArc = point.arc(drawer.debugRadius, rac.Angle.zero, angle);
   let context = drawer.p5.drawingContext;
-  context.save();
-  context.setLineDash([6, 6]);
-  angleArc.draw();
+  let strokeWeight = context.lineWidth;
+  context.save(); {
+    context.lineCap = 'butt';
+    context.setLineDash([strokeWeight*3, strokeWeight*2]);
+    // Angle arc
+    angleArc.draw();
+
+    if (!angleArc.isCircle()) {
+      // Outside angle arc
+      context.setLineDash([strokeWeight*1, strokeWeight*2]);
+      angleArc
+        .withRadius(drawer.debugRadius*3/4)
+        .withClockwise(false)
+        .draw();
+    }
+  };
   context.restore();
 
   // Text
