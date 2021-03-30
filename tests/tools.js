@@ -73,8 +73,7 @@ expect.extend({ equalsPoint(point, x, y) {
         options));
   }
 
-  const isEqual = rac.equals(point.x, expected.x)
-    && rac.equals(point.y, expected.y);
+  const isEqual = expected.equals(point);
 
   return done(isEqual, () =>
     this.utils.matcherHint('equalsPoint',

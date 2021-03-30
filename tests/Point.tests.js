@@ -14,10 +14,11 @@ let fifty = rac.Point(55, 55);
 test('Identity', () => {
   expect(null).not.equalsPoint(100, 100);
 
-  expect(hunty).equalsPoint(100, 100);
-  expect(fifty).not.equalsPoint(100, 100);
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
+
+  expect(hunty).equalsPoint(100, 100);
+  expect(fifty).not.equalsPoint(100, 100);
 
   let string = rac.Point(111, 222).toString();
   expect(string).toMatch('Point');

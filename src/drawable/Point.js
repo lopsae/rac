@@ -31,9 +31,12 @@ class Point{
     return `Point(${this.x},${this.y})`;
   }
 
-  text(string, format, angle = this.rac.Angle.zero) {
-    return new Rac.Text(this.rac, string, format, this, angle);
+
+  equals(other) {
+    return this.rac.equals(this.x, other.x)
+      && this.rac.equals(this.y, other.y);
   }
+
 
   /**
   * Returns a new `Point` with `x` set to `newX`.
@@ -121,6 +124,11 @@ class Point{
 
     let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
     return this.segmentToPoint(end);
+  }
+
+
+  text(string, format, angle = this.rac.Angle.zero) {
+    return new Rac.Text(this.rac, string, format, this, angle);
   }
 
 } // class Point
