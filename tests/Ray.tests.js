@@ -79,6 +79,7 @@ test('Axis intersection', () => {
 
 
 test ('Ray intersection', () => {
+  // diagonal-vertical
   expect(diagonal.pointAtIntersection(vertical))
     .equalsPoint(100, 100);
   expect(diagonal.inverse().pointAtIntersection(vertical))
@@ -88,6 +89,7 @@ test ('Ray intersection', () => {
   expect(vertical.inverse().pointAtIntersection(diagonal))
     .equalsPoint(100, 100);
 
+  // diagonal-horizontal
   expect(diagonal.pointAtIntersection(horizontal))
     .equalsPoint(100, 100);
   expect(diagonal.inverse().pointAtIntersection(horizontal))
@@ -97,6 +99,7 @@ test ('Ray intersection', () => {
   expect(horizontal.inverse().pointAtIntersection(diagonal))
     .equalsPoint(100, 100);
 
+  // vertical-horizontal
   expect(vertical.pointAtIntersection(horizontal))
     .equalsPoint(100, 100);
   expect(vertical.inverse().pointAtIntersection(horizontal))
@@ -105,7 +108,10 @@ test ('Ray intersection', () => {
     .equalsPoint(100, 100);
   expect(horizontal.inverse().pointAtIntersection(vertical))
     .equalsPoint(100, 100);
+});
 
+
+test ('Ray parallel intersection', () => {
   let shiftedVertical = vertical.withStart(rac.Point.zero);
   expect(shiftedVertical.pointAtIntersection(vertical))
     .toBe(null);
