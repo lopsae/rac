@@ -26,5 +26,19 @@ test('Identity', () => {
 });
 
 
+test('Transforms to Arc', () => {
+  expect(diagonal.arc()).equalsArc(55, 55, 100, 1/8, 1/8, true);
+
+  expect(diagonal.arc(rac.Angle.half))
+    .equalsArc(55, 55, 100, 1/8, 1/2, true);
+
+  expect(diagonal.arc(rac.Angle.half, false))
+    .equalsArc(55, 55, 100, 1/8, 1/2, false);
+
+  expect(diagonal.arc(null, false))
+    .equalsArc(55, 55, 100, 1/8, 1/8, false);
+});
+
+
 test.todo('More!')
 

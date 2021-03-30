@@ -109,6 +109,21 @@ class Segment {
     return angleDistance.turn < 0.5;
   }
 
+
+  // Returns an complete circle Arc using this segment `start` as center,
+  // `length()` as radiusm, and `angle()` as start and end angles.
+  // Returns an Arc using this segment `start` as center, `length()` as
+  // radius, starting from the `angle()` to the given angle and orientation.
+  arc(someAngleEnd = null, clockwise = true) {
+    let angleEnd = someAngleEnd === null
+      ? this.ray.angle
+      :this.rac.Angle.from(someAngleEnd);
+    return new Rac.Arc(this.rac,
+      this.ray.start, this.length,
+      this.ray.angle, angleEnd,
+      clockwise);
+  }
+
 } // Segment
 
 
@@ -302,29 +317,6 @@ Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
   return this.end.segmentToPoint(newEnd);
 };
 
-// Returns an complete circle Arc using this segment `start` as center,
-// `length()` as radiusm, and `angle()` as start and end angles.
-Segment.prototype.arc = function(clockwise = true) {
-  let angle = this.angle();
-  return new Rac.Arc(this.rac,
-    this.start, this.length(),
-    angle, angle,
-    clockwise);
-};
-
-// Returns an Arc using this segment `start` as center, `length()` as
-// radius, starting from the `angle()` to the given angle and orientation.
-Segment.prototype.arcWithEnd = function(
-  someAngleEnd = this.angle(),
-  clockwise = true)
-{
-  let arcEnd = this.rac.Angle.from(someAngleEnd);
-  let arcStart = this.angle();
-  return new Rac.Arc(this.rac,
-    this.start, this.length(),
-    arcStart, arcEnd,
-    clockwise);
-};
 
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle()` to the arc distance of the given

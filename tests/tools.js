@@ -135,13 +135,13 @@ expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
 }}); // equalsSegment
 
 
-expect.extend({ equalsArc(arc, centerX, centerY, radius, someStartAngle, someEndAngle, clockwise) {
+expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clockwise) {
   const options = {
     comment: 'equal Arc properties',
     isNot: this.isNot
   };
 
-  let center = rac.Point(centerX, centerY);
+  let center = rac.Point(x, y);
   let startAngle = rac.Angle.from(someStartAngle);
   let endAngle = rac.Angle.from(someEndAngle);
   let expected = rac.Arc(center, radius, startAngle, endAngle, clockwise);
@@ -153,11 +153,11 @@ expect.extend({ equalsArc(arc, centerX, centerY, radius, someStartAngle, someEnd
   }
 
   const pass =
-    rac.equals(arc.center.x, centerX)
-    && rac.equals(arc.center.y, centerY)
+    rac.equals(arc.center.x, x)
+    && rac.equals(arc.center.y, y)
     && rac.equals(arc.radius, radius)
-    && rac.equals(arc.start.turn, startAngle.turn)
-    && rac.equals(arc.end.turn, endAngle.turn)
+    && rac.unitaryEquals(arc.start.turn, startAngle.turn)
+    && rac.unitaryEquals(arc.end.turn, endAngle.turn)
     && clockwise === clockwise;
   if (pass) {
     return {
