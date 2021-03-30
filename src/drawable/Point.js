@@ -156,9 +156,15 @@ Point.prototype.negative = function() {
   return new Point(this.rac, -this.x, -this.y);
 };
 
-Point.prototype.angleToPoint = function(other) {
-  let offset = other.subtractPoint(this);
-  let radians = Math.atan2(offset.y, offset.x);
+// Returns the angle to the given point. If this and other are considered
+// equal, then the `someAngle` is returned, which by defalt is zero.
+Point.prototype.angleToPoint = function(other, someAngle = this.rac.Angle.zero) {
+  if (this.equals(other)) {
+    const angle = this.rac.Angle.from(someAngle);
+    return angle;
+  }
+  const offset = other.subtractPoint(this);
+  const radians = Math.atan2(offset.y, offset.x);
   return Rac.Angle.fromRadians(this.rac, radians);
 };
 

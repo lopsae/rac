@@ -89,6 +89,12 @@ test('Transformations', () => {
 
 test('Transforms to Angle', () => {
   expect(hunty.angleToPoint(fifty)).equalsAngle(rac.Angle.nw);
+  expect(fifty.angleToPoint(hunty)).equalsAngle(rac.Angle.se);
+
+  expect(fifty.angleToPoint(fifty)).equalsAngle(rac.Angle.zero);
+  expect(fifty.angleToPoint(fifty, rac.Angle.eighth))
+    .equalsAngle(rac.Angle.eighth);
+
 });
 
 
