@@ -112,21 +112,22 @@ test('Transforms to Segment', () => {
   let vertical = hunty
     .addX(200)
     .ray(rac.Angle.s);
-  expect(hunty.segmentToRayProjection(vertical))
+  expect(hunty.segmentToProjectionInRay(vertical))
     .equalsSegment(100, 100, 0, 200);
 
   // horizontal ray at x:300
   let horizontal = hunty
     .addY(200)
     .ray(rac.Angle.zero);
-  expect(hunty.segmentToRayProjection(horizontal))
+  expect(hunty.segmentToProjectionInRay(horizontal))
     .equalsSegment(100, 100, 1/4, 200);
 
   // diagonal at zero
   let diagonal = hunty.ray(rac.Angle.eighth);
-  // TODO: what happens with coliding points?
-  // expect(fifty.segmentToRayProjection(diagonal))
-  //   .equalsSegment(55, 55, )
+  expect(fifty.segmentToProjectionInRay(diagonal))
+    .equalsSegment(55, 55, rac.Angle.eighth.perpendicular(), 0);
+  expect(hunty.segmentToProjectionInRay(diagonal))
+    .equalsSegment(100, 100, rac.Angle.eighth.perpendicular(), 0);
 });
 
 
