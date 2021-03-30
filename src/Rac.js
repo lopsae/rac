@@ -110,6 +110,7 @@ class Rac {
   * @returns {boolean}
   */
   equals(a, b) {
+    if (a === null || b === null) { return false; }
     let diff = Math.abs(a-b);
     return diff < this.equalityThreshold;
   }
@@ -123,7 +124,8 @@ class Rac {
   * @returns {boolean}
   */
   unitaryEquals(a, b) {
-    let diff = Math.abs(a-b);
+    if (a === null || b === null) { return false; }
+    const diff = Math.abs(a-b);
     return diff < this.unitaryEqualityThreshold;
   }
 

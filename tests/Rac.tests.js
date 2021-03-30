@@ -18,6 +18,10 @@ test('Equality threshold', () => {
   let threshold = rac.equalityThreshold;
   let bump = threshold/16;
 
+  expect(null).not.thresEquals(3);
+  expect(3).not.thresEquals(null);
+  expect(null).not.thresEquals(null);
+
   expect(3).thresEquals(3);
   expect(3).not.thresEquals(4);
   expect(4).not.thresEquals(3);
@@ -33,6 +37,10 @@ test('Equality threshold', () => {
 test('Unitary equality threshold', () => {
   let threshold = rac.unitaryEqualityThreshold;
   let bump = threshold/16;
+
+  expect(null).not.uniThresEquals(3);
+  expect(3).not.uniThresEquals(null);
+  expect(null).not.uniThresEquals(null);
 
   expect(3).uniThresEquals(3);
   expect(3).not.uniThresEquals(4);
