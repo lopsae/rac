@@ -5,17 +5,44 @@ const Rac = require('rulerandcompass');
 const tools = require('./tools');
 
 
-test('assertExists', () => {
+test('Function assertExists', () => {
   expect(() => {Rac.utils.assertExists();})
     .not.toThrow();
   expect(() => {Rac.utils.assertExists("one", "two");})
     .not.toThrow();
+  expect(() => {Rac.utils.assertExists("one", null);})
+    .toThrow();
   expect(() => {Rac.utils.assertExists("one", null, "three");})
-    .toThrowException(Rac.Exception.failedAssert.name);
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 
-test('typeName', () => {
+test('Errors/Exception catched', () => {
+  let storedBuildErrors = Rac.Exception.buildsErrors;
+
+  Rac.Exception.buildsErrors = true;
+  // Throwing error objects
+  expect(() => {Rac.utils.assertExists("one");})
+    .not.toThrow();
+  expect(() => {Rac.utils.assertExists(null);})
+    .toThrow();
+  expect(() => {Rac.utils.assertExists(null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  Rac.Exception.buildsErrors = false;
+  // Throwing Exception objects
+  expect(() => {Rac.utils.assertExists("one");})
+    .not.toThrow();
+  expect(() => {Rac.utils.assertExists(null);})
+    .toThrow();
+  expect(() => {Rac.utils.assertExists(null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName, false);
+
+  Rac.Exception.buildsErrors = storedBuildErrors;
+});
+
+
+test('Function typeName', () => {
   let Duck = class Duck {};
   let duck = new Duck();
 
@@ -73,5 +100,6 @@ test('Function addConstant', () => {
 
 test.todo('assertType');
 test.todo('assertNumber');
+test.todo('assertBoolean');
 
 

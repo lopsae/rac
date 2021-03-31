@@ -177,29 +177,55 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
 }}); // equalsArc
 
 
-expect.extend({ toThrowException(closure, name) {
+expect.extend({ toThrowNamed(closure, name, expectsError = true) {
   const options = {
-    comment: 'throws named Exception',
+    comment: 'throws named Exception or Error',
     isNot: this.isNot
   };
 
-  let isCorrectThrow = false;
-  let catchedName = 'no-exception';
+  const nameToPrint = expectsError
+    ? `Error:${name}`
+    : `Exception:${name}`;
+
+  let catchedObj = null;
   try {
     closure();
-  } catch (exception) {
-    isCorrectThrow = exception instanceof Rac.Exception
-      && exception.name == name;
-    catchedName = exception instanceof Rac.Exception
-      ? exception.name
-      : exception.toString();
+  } catch (obj) {
+    catchedObj = obj;
+  }
+
+  if (catchedObj == null) {
+    return fail(() =>
+      this.utils.matcherHint('toThrowNamed',
+        'no-catch', nameToPrint,
+        options));
+  }
+
+  let isCorrectThrow = false;
+  if (expectsError) {
+    isCorrectThrow = catchedObj instanceof Error
+      && catchedObj.name == name;
+
+  } else {
+    // Expects Exception
+    isCorrectThrow = catchedObj instanceof Rac.Exception
+      && catchedObj.name == name;
+  }
+
+  let catchedName = null;
+  if (catchedObj instanceof Error){
+    catchedName = `Error:${catchedObj.name}`;
+  } else if (catchedObj instanceof Rac.Exception) {
+    catchedName = `Exception:${catchedObj.name}`;
+  } else {
+    catchedName = catchedObj.toString();
   }
 
   return done(isCorrectThrow, () =>
-    this.utils.matcherHint('toThrowException',
-      catchedName, name,
+    this.utils.matcherHint('toThrowNamed',
+      catchedName, nameToPrint,
       options));
-}}); // toThrowException
+}}); // toThrowNamed
 
 
 expect.extend({ thresEquals(value, expected) {

@@ -13,7 +13,7 @@ class Exception {
   }
 
   toString() {
-    return `Exception:${name} - ${message}`;
+    return `Exception:${this.name} - ${this.message}`;
   }
 
   /**
