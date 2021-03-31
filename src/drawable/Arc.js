@@ -518,13 +518,15 @@ Arc.prototype.divideToSegments = function(segmentCount) {
     partAngle = partAngle.negative();
   }
 
-  let lastRay = this.startSegment();
+  let lastArcRay = this.startSegment();
   let segments = [];
   for (let count = 1; count <= segmentCount; count++) {
-    let currentAngle = lastRay.angle().add(partAngle);
-    let currentRay = this.center.segmentToAngle(currentAngle, this.radius);
-    segments.push(new Rac.Segment(this.rac, lastRay.endPoint(), currentRay.endPoint()));
-    lastRay = currentRay;
+    let currentAngle = lastArcRay.angle().add(partAngle);
+    let currentArcRay = this.center.segmentToAngle(currentAngle, this.radius);
+    let chord = lastArcRay.endPoint()
+      .segmentToPoint(currentArcRay.endPoint());
+    segments.push(chord);
+    lastArcRay = currentArcRay;
   }
 
   return segments;
@@ -542,19 +544,19 @@ Arc.prototype.divideToBeziers = function(bezierCount) {
   let beziers = [];
   let segments = this.divideToSegments(bezierCount);
   segments.forEach(function(item) {
-    let startRay = new Rac.Segment(this.rac, this.center, item.startPoint());
-    let endRay = new Rac.Segment(this.rac, this.center, item.endPoint());
+    let startArcRay =  this.center.segmentToPoint(item.startPoint());
+    let endArcRay = this.center.segmentToPoint(item.endPoint());
 
-    let startAnchor = startRay
+    let startAnchor = startArcRay
       .nextSegmentToAngleShift(this.rac.Angle.square, !this.clockwise, tangent)
       .endPoint();
-    let endAnchor = endRay
+    let endAnchor = endArcRay
       .nextSegmentToAngleShift(this.rac.Angle.square, this.clockwise, tangent)
       .endPoint();
 
     beziers.push(new Rac.Bezier(this.rac,
-      startRay.endPoint(), startAnchor,
-      endAnchor, endRay.endPoint()));
+      startArcRay.endPoint(), startAnchor,
+      endAnchor, endArcRay.endPoint()));
   }, this);
 
   return new Rac.Composite(this.rac, beziers);
