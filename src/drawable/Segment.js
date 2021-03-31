@@ -29,8 +29,7 @@ class Segment {
   }
 
   copy() {
-    // TODO: update
-    return new Segment(this.rac, this.start, this.end);
+    return new Segment(this.rac, this.ray, this.length);
   }
 
   angle() {
@@ -72,83 +71,123 @@ class Segment {
     return new Segment(this.rac, this.start, newEnd);
   }
 
-  withAngleShift(someAngle, clockwise = true) {
-    let newAngle = this.angle().shift(someAngle, clockwise);
-    let newEnd = this.start.pointToAngle(newAngle, this.length());
-    // TODO: needs update
-    return new Segment(this.rac, this.start, newEnd);
-  }
+  // TODO: needs update
+  // withAngleShift(someAngle, clockwise = true) {
+  //   let newAngle = this.angle().shift(someAngle, clockwise);
+  //   let newEnd = this.start.pointToAngle(newAngle, this.length());
+  //   return new Segment(this.rac, this.start, newEnd);
+  // }
 
-  withStartExtended(length) {
-    let newStart = this.reverse().nextSegmentWithLength(length).end;
-    // TODO: needs update
-    return new Segment(this.rac, newStart, this.end);
-  }
+  // TODO: needs update
+  // withStartExtended(length) {
+  //   let newStart = this.reverse().nextSegmentWithLength(length).end;
+  //   return new Segment(this.rac, newStart, this.end);
+  // }
 
-  withEndExtended(length) {
-    let newEnd = this.nextSegmentWithLength(length).end;
-    // TODO: needs update
-    return new Segment(this.rac, this.start, newEnd);
-  }
+  // TODO: needs update
+  // withEndExtended(length) {
+  //   let newEnd = this.nextSegmentWithLength(length).end;
+  //   return new Segment(this.rac, this.start, newEnd);
+  // }
 
 
   // Returns a new segment from `this.start`, with the same length, that is
   // perpendicular to `this` in the `clockwise` orientation.
-  withPerpendicularAngle(clockwise = true) {
-    return this.withAngleShift(this.rac.Angle.square, clockwise);
-  };
+  // TODO: needs update
+  // withPerpendicularAngle(clockwise = true) {
+  //   return this.withAngleShift(this.rac.Angle.square, clockwise);
+  // }
+
+
+  reverse() {
+    const end = this.endPoint();
+    const inverseRay = new Rac.Ray(this.rac, end, this.ray.angle.inverse());
+    return new Segment(this.rac, inverseRay, this.length);
+  }
+
+
+  // TODO: implement moveStartPoint, which retains the position of endPoint
+
+
+  translateToCoordinates(x, y) {
+    const newStart = new Rac.Point(this.rac, x, y);
+    return this.withStartPoint(newStart);
+  }
+
+
+  translateToAngle(someAngle, distance) {
+    const angle = this.rac.Angle.from(someAngle);
+    const newStart = this.ray.start.pointToAngle(angle, distance);
+    return this.withStartPoint(newStart);
+  }
+
+
+  translateToLength(distance) {
+    const newStart = this.ray.pointAtDistance(distance);
+    return this.withStartPoint(newStart);
+  }
+
+  translatePerpendicular(distance, clockwise = true) {
+    let perpendicular = this.ray.angle.perpendicular(clockwise);
+    const newStart = this.ray.start.pointToAngle(perpendicular, distance);
+    return this.withStartPoint(newStart);
+  }
 
   // Returns `value` clamped to the given insets from zero and the length
   // of the segment.
   // TODO: invalid range could return a value centered in the insets! more visually congruent
   // If the `min/maxInset` values result in a contradictory range, the
   // returned value will comply with `minInset`.
-  clampToLengthInsets(value, startInset = 0, endInset = 0) {
-    let clamped = value;
-    clamped = Math.min(clamped, this.length() - endInset);
-    // Comply at least with minClamp
-    clamped = Math.max(clamped, startInset);
-    return clamped;
-  }
+  // TODO: needs update
+  // clampToLengthInsets(value, startInset = 0, endInset = 0) {
+  //   let clamped = value;
+  //   clamped = Math.min(clamped, this.length() - endInset);
+  //   // Comply at least with minClamp
+  //   clamped = Math.max(clamped, startInset);
+  //   return clamped;
+  // }
 
   pointAtBisector() {
     return this.ray.pointAtDistance(this.length/2);
   }
 
-  projectedPoint(point) {
-    let perpendicular = this.angle().perpendicular();
-    return point.segmentToAngle(perpendicular, this.rac.arbitraryLength)
-      .pointAtIntersectionWithSegment(this);
-  }
+  // TODO: needs update
+  // projectedPoint(point) {
+  //   let perpendicular = this.angle().perpendicular();
+  //   return point.segmentToAngle(perpendicular, this.rac.arbitraryLength)
+  //     .pointAtIntersectionWithSegment(this);
+  // }
 
   // Returns the length of a segment from `start` to `point` being
   // projected in the segment. The returned length may be negative if the
   // projected point falls behind `start`.
-  lengthToProjectedPoint(point) {
-    let projected = this.projectedPoint(point);
-    let segment = this.start.segmentToPoint(projected);
+  // TODO: needs update
+  // lengthToProjectedPoint(point) {
+  //   let projected = this.projectedPoint(point);
+  //   let segment = this.start.segmentToPoint(projected);
 
-    if (segment.length() < this.rac.equalityThreshold) {
-      return 0;
-    }
+  //   if (segment.length() < this.rac.equalityThreshold) {
+  //     return 0;
+  //   }
 
-    let angleDiff = this.angle().subtract(segment.angle());
-    if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
-      return segment.length();
-    } else {
-      return - segment.length();
-    }
-  }
+  //   let angleDiff = this.angle().subtract(segment.angle());
+  //   if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
+  //     return segment.length();
+  //   } else {
+  //     return - segment.length();
+  //   }
+  // }
 
   // Returns `true` if the given point is located clockwise of the segment,
   // or `false` if located counter-clockwise.
-  pointOrientation(point) {
-    let angle = this.start.angleToPoint(point);
-    let angleDistance = angle.subtract(this.angle());
-    // [0 to 0.5) is considered clockwise
-    // [0.5, 1) is considered counter-clockwise
-    return angleDistance.turn < 0.5;
-  }
+  // TODO: needs update
+  // pointOrientation(point) {
+  //   let angle = this.start.angleToPoint(point);
+  //   let angleDistance = angle.subtract(this.angle());
+  //   // [0 to 0.5) is considered clockwise
+  //   // [0.5, 1) is considered counter-clockwise
+  //   return angleDistance.turn < 0.5;
+  // }
 
 
   // Returns a new segment from `start` to `pointAtBisector`.
@@ -217,62 +256,6 @@ Segment.prototype.pointAtX = function(x) {
   return new Rac.Point(this.rac, x, y);
 }
 
-
-Segment.prototype.reverse = function() {
-  const end = this.endPoint();
-  const inverseRay = new Rac.Ray(this.rac, end, this.ray.angle.inverse());
-  return new Segment(this.rac, inverseRay, this.length);
-};
-
-// Translates the segment by the entire `point`, or by the given `x` and
-// `y` components.
-Segment.prototype.translate = function(point, y = undefined) {
-  if (point instanceof Rac.Point && y === undefined) {
-    // TODO: needs update
-    return new Segment(this.rac,
-      this.start.addPoint(point),
-      this.end.addPoint(point));
-  }
-
-  if (typeof point === "number" && typeof y === "number") {
-    let x = point;
-    // TODO: needs update
-    return new Segment(this.rac,
-      this.start.add(x, y),
-      this.end.add(x, y));
-  }
-
-  console.trace(`Invalid parameter combination - point-type:${utils.typeName(point)} y-type:${utils.typeName(y)}`);
-  throw this.rac.Error.invalidParameterCombination;
-}
-
-Segment.prototype.translateToStart = function(newStart) {
-  let offset = newStart.subtractPoint(this.start);
-  let transStart = this.start.addPoint(offset);
-  let transEnd = this.end.addPoint(offset)
-  // TODO: needs update
-  return new Segment(this.rac, transStart, transEnd);
-};
-
-Segment.prototype.translateToAngle = function(someAngle, distance) {
-  let angle = this.rac.Angle.from(someAngle);
-  let offset = this.rac.Point.zero.pointToAngle(angle, distance);
-  let transStart = this.start.addPoint(offset);
-  let transEnd = this.end.addPoint(offset)
-  // TODO: needs update
-  return new Segment(this.rac, transStart, transEnd);
-};
-
-Segment.prototype.translateToLength = function(distance) {
-  let offset = this.rac.Point.zero.pointToAngle(this.angle(), distance);
-  // TODO: needs update
-  return new Segment(this.rac, this.start.addPoint(offset), this.end.addPoint(offset));
-};
-
-Segment.prototype.translatePerpendicular = function(distance, clockwise = true) {
-  let perpendicular = this.angle().perpendicular(clockwise);
-  return this.translateToAngle(perpendicular, distance);
-};
 
 // Returns the intersecting point of `this` and `other`. Both segments are
 // considered lines without endpoints.

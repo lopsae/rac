@@ -50,8 +50,9 @@ Order of functions in an object:
 + toString
 + copy
 + accesors (segment.angle())
-+ simpleBuilders (segment.startPoint())
++ built properties (segment.startPoint())
 + withX simple modifiers (segment.withStart())
 + withX complex modifiers (segment.withStartExtended())
++ transformations (translates, reverse)
 + data processing (segment.clamp)
 + other object builder in class orderd
