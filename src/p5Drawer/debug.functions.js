@@ -15,7 +15,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Angle segment
   let angleSegment = point
     .segmentToAngle(angle, drawer.debugRadius * 1.5);
-  angleSegment.end
+  angleSegment.endPoint()
     .arc(drawer.debugPointRadius, angle, angle.inverse(), false)
     .draw();
   angleSegment
@@ -110,11 +110,13 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   segment.draw();
 
   // Half circle start marker
-  segment.start.arc(drawer.debugPointRadius).draw();
+  segment.withLength(drawer.debugPointRadius)
+    .arc()
+    .draw();
 
   // Half circle start segment
   let perpAngle = segment.angle().perpendicular();
-  let arc = segment.start
+  let arc = segment.startPoint()
     .arc(drawer.debugRadius, perpAngle, perpAngle.inverse())
     .draw();
   arc.startSegment().reverse()
@@ -137,7 +139,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .withStartExtended(-drawer.debugPointRadius)
     .draw();
   // Little end half circle
-  segment.end
+  segment.endPoint()
     .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
     .draw();
 
@@ -153,7 +155,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   endMarkerStart
     .nextSegmentToPoint(endArrowPoint)
     .draw()
-    .nextSegmentToPoint(endMarkerEnd.end)
+    .nextSegmentToPoint(endMarkerEnd.endPoint())
     .draw();
 
 
@@ -182,7 +184,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
 
   // Length
   let lengthString = `length:${drawer.debugNumber(segment.length())}`;
-  segment.start
+  segment.startPoint()
     .pointToAngle(angle, drawer.debugPointRadius)
     .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)
     .text(lengthString, lengthFormat)
@@ -190,7 +192,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
 
     // Angle
   let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
-  segment.start
+  segment.startPoint()
     .pointToAngle(angle, drawer.debugPointRadius)
     .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
     .text(angleString, angleFormat)
