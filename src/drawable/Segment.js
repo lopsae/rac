@@ -76,19 +76,16 @@ class Segment {
   }
 
 
-  // TODO: needs update
-  // withAngleAdd(someAngle) {
-  //   let newAngle = this.angle().add(someAngle);
-  //   let newEnd = this.start.pointToAngle(newAngle, this.length());
-  //   return new Segment(this.rac, this.start, newEnd);
-  // }
+  withAngleAdd(someAngle) {
+    const newRay = this.ray.withAngleAdd(someAngle, clockwise);
+    return new Segment(this.rac, newRay, this.length);
+  }
 
-  // TODO: needs update
-  // withAngleShift(someAngle, clockwise = true) {
-  //   let newAngle = this.angle().shift(someAngle, clockwise);
-  //   let newEnd = this.start.pointToAngle(newAngle, this.length());
-  //   return new Segment(this.rac, this.start, newEnd);
-  // }
+
+  withAngleShift(someAngle, clockwise = true) {
+    const newRay = this.ray.withAngleShift(someAngle, clockwise);
+    return new Segment(this.rac, newRay, this.length);
+  }
 
 
   withStartExtended(length) {
