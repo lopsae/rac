@@ -28,14 +28,17 @@ test('typeName', () => {
   expect(Rac.utils.typeName(namedFunc))
     .toBe('function:named');
 
+  // Uses container name
   let unnamedFunc = function() {};
   expect(Rac.utils.typeName(unnamedFunc))
     .toBe('function:unnamedFunc');
 
+  // Uses container name
   let anonymousFunc = () => {};
   expect(Rac.utils.typeName(anonymousFunc))
     .toBe('function:anonymousFunc');
 
+  // Without any name
   expect(Rac.utils.typeName(() => {}))
     .toBe('function');
 
@@ -43,10 +46,15 @@ test('typeName', () => {
     .toBe('Number');
   expect(Rac.utils.typeName('string'))
     .toBe('String');
+
+  expect(Rac.utils.typeName(null))
+    .toBe('null');
+  expect(Rac.utils.typeName(undefined))
+    .toBe('undefined');
 });
 
 
-test('addConstant', () => {
+test('Function addConstant', () => {
   let obj = {};
   expect(obj).not.toHaveProperty('prop');
 

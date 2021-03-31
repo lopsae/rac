@@ -88,9 +88,9 @@ exports.assertBoolean = function(...elements) {
 * @function
 */
 function typeName(obj) {
-  if (obj === undefined) {
-    return 'undefined';
-  }
+  if (obj === undefined) { return 'undefined'; }
+  if (obj === null) { return 'null'; }
+
   if (typeof obj === 'function' && obj.name != null) {
     return obj.name == ''
       ? `function`
