@@ -64,6 +64,13 @@ class Segment {
   }
 
 
+  // Returns a new segment from `start` to a length determined by
+  // `ratio*length`.
+  withLengthRatio(ratio) {
+    return new Segment(this.rac, this.ray, this.length * ratio);
+  }
+
+
   withAngleAdd(someAngle) {
     let newAngle = this.angle().add(someAngle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
@@ -288,12 +295,6 @@ Segment.prototype.pointAtLengthRatio = function(lengthRatio) {
   return this.start.pointToAngle(this.angle(), newLength);
 };
 
-
-// Returns a new segment from `start` to a length determined by
-// `ratio*length`.
-Segment.prototype.withLengthRatio = function(ratio) {
-  return this.start.segmentToAngle(this.angle(), this.length() * ratio);
-};
 
 // Returns a new segment from `end` with the given `length` with the same
 // angle as `this`.
