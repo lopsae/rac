@@ -183,7 +183,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   }
 
   // Length
-  let lengthString = `length:${drawer.debugNumber(segment.length())}`;
+  let lengthString = `length:${drawer.debugNumber(segment.length)}`;
   segment.startPoint()
     .pointToAngle(angle, drawer.debugPointRadius)
     .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)

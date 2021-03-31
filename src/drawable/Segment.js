@@ -162,11 +162,10 @@ class Segment {
   // }
 
   // Returns a new segment from `end` to the given `nextEnd`.
-  // TODO: needs update
-  // nextSegmentToPoint(nextEnd) {
-  //   // TODO: needs update
-  //   return new Segment(this.rac, this.end, nextEnd);
-  // }
+  nextSegmentToPoint(nextEnd) {
+    const newStart = this.endPoint();
+    return newStart.segmentToPoint(nextEnd, this.ray.angle);
+  }
 
   // Returns a new segment from `end` to the given `someAngle` and `distance`.
   // TODO: needs update
