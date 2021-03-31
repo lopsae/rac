@@ -105,7 +105,8 @@ class Arc{
   // Returns the segment from `startPoint()` to `endPoint()`. Note that
   // for complete-circle arcs this segment will have a length of zero.
   chordSegment() {
-    return new Rac.Segment(this.rac, this.startPoint(), this.endPoint());
+    let perpendicular = this.start.perpendicular(this.clockwise);
+    return this.startPoint().segmentToPoint(this.endPoint(), perpendicular);
   }
 
   withCenter(newCenter) {

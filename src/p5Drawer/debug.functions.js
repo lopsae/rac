@@ -264,7 +264,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let orientationArc = arc
     .startSegment()
     .withLengthAdd(drawer.debugRadius)
-    .arc(arc.clockwise)
+    .arc(null, arc.clockwise)
     .withLength(orientationLength)
     .draw();
   let arrowCenter = orientationArc
