@@ -28,7 +28,7 @@ class Fill {
       return new Fill(rac, something);
     }
 
-    throw Rac.Exception.invalidObjectType.make(
+    throw Rac.Exception.invalidObjectType(
       `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
   }
 

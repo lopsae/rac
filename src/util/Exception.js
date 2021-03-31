@@ -2,7 +2,7 @@
 
 
 /**
-* Exceptions used in Rac.
+* Exception builder for throwable objects.
 * @alias Rac.Exception
 */
 class Exception {
@@ -17,16 +17,41 @@ class Exception {
   }
 
   /**
-  * Returns an convenience object for a named `Exception`. The object
-  * will have the property `name` with the given `name` parameter, and
-  * a function `make(message)` to produce a new `Exception` with a given
-  * `message`.
+  * When enabled the convenience static functions of this class will
+  * build `Error` objects, instead of `Exception` objects.
+  *
+  * Used for tests runs in Jest, since throwing a custom object like
+  * `Exception` within a matcher results in the expectation hanging
+  * indefinitely.
+  *
+  * On the other hand, throwing an `Error` object in chrome causes the
+  * displayed stack to be relative to the bundled file, instead of the
+  * source map.
+  */
+  static buildsErrors = false;
+
+  /**
+  * Returns an convenience function for building throwable objects.
+  *
+  * The function can can be used as following:
+  * ```
+  * func(message) // returns an `Exception`` object with `name` and `message`
+  * func.exceptionName // returns the `name` of the built throwable objects
+  * ```
   */
   static named(name) {
-    return {
-      name: name,
-      make: message => new Exception(name, message)
+    let func = (message) => {
+      if (Exception.buildsErrors) {
+        const error = new Error(message);
+        error.name = name;
+        return error;
+      }
+
+      return new Exception(name, message);
     };
+
+    func.exceptionName = name;
+    return func;
   }
 
   static drawerNotSetup =    Exception.named('DrawerNotSetup');

@@ -2,7 +2,8 @@
 
 
 const Rac = require('rulerandcompass');
-
+// TODO: can this be set in a better place?
+Rac.Exception.buildsErrors = true;
 
 const rac = new Rac();
 exports.rac = rac;
@@ -117,6 +118,7 @@ expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
   const angle = rac.Angle.from(someAngle);
   const ray = rac.Ray(start, angle);
   const expected = rac.Segment(ray, length);
+
   if (segment == null) {
     return fail(() =>
       this.utils.matcherHint('equalsSegment',

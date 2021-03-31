@@ -11,7 +11,7 @@ module.exports = function attachProtoFunctions(Rac) {
 
   function assertDrawer(drawable) {
     if (drawable.rac == null || drawable.rac.drawer == null) {
-      throw Rac.Exception.drawerNotSetup.make(
+      throw Rac.Exception.drawerNotSetup(
         `drawable-type:${utils.typeName(drawable)}`);
     }
   }
@@ -133,7 +133,7 @@ module.exports = function attachProtoFunctions(Rac) {
       return this;
     }
 
-    throw Rac.Exception.invalidObjectType.make(
+    throw Rac.Exception.invalidObjectType(
       `Cannot attachTo composite - someComposite-type:${utils.typeName(someComposite)}`);
   };
 

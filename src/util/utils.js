@@ -21,7 +21,7 @@ const Rac = require('../Rac');
 exports.assertExists = function(...parameters) {
   parameters.forEach((item, index) => {
     if (item === null || item === undefined) {
-      throw Rac.Exception.failedAssert.make(
+      throw Rac.Exception.failedAssert(
         `Missing element at index ${index}`);
     }
   });
@@ -38,7 +38,7 @@ exports.assertExists = function(...parameters) {
 exports.assertType = function(type, ...elements) {
   elements.forEach(item => {
     if (!(item instanceof type)) {
-      throw Rac.Exception.failedAssert.make(
+      throw Rac.Exception.failedAssert(
         `Element is unexpected type - element:${item} element-type:${typeName(item)} expected-name:${type.name}`);
     }
   });
@@ -55,7 +55,7 @@ exports.assertType = function(type, ...elements) {
 exports.assertNumber = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'number') {
-      throw Rac.Exception.failedAssert.make(
+      throw Rac.Exception.failedAssert(
         `Element is unexpected type, expecting number primitive - element:${item} element-type:${typeName(item)}`);
     }
   });
@@ -72,7 +72,7 @@ exports.assertNumber = function(...elements) {
 exports.assertBoolean = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'boolean') {
-      throw Rac.Exception.failedAssert.make(
+      throw Rac.Exception.failedAssert(
         `Element is unexpected type, expecting boolean primitive - element:${item} element-type:${typeName(item)}`);
     }
   });
