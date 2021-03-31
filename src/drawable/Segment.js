@@ -179,20 +179,25 @@ class Segment {
   // This means that with an angle shift of `0` the next segment will have
   // the inverse angle of `this`, as the angle shift increases the next
   // segment separates from `this`.
-  nextSegmentToAngleShift(angleShift, distance, clockwise = true) {
-    const shiftedAngle = this.ray.angle.inverse().shift(angleShift, clockwise);
-    const newRay = this.ray.withAngle(shiftedAngle);
-    return new Segment(this.rac, newRay, distance);
+  nextSegmentToAngleShift(someAngle, clockwise = true, length = null) {
+    const newLength = length === null ? this.length : length;
+    const angle = this.rac.Angle.from(someAngle);
+    const newRay = this.ray
+      .withStartAtDistance(this.length)
+      .inverse()
+      .withAngleShift(angle, clockwise);
+    return new Segment(this.rac, newRay, newLength);
   }
 
 
   // Returns a new segment from `this.end`, with the same length, that is
-  // perpendicular to `this` in the `clockwise` orientation.
-  nextSegmentPerpendicular(clockwise = true) {
+  // perpendicular to `angle().inverse()` in the `clockwise` orientation.
+  nextSegmentPerpendicular(clockwise = true, length = null) {
+    const newLength = length === null ? this.length : length;
     const newRay = this.ray
       .withStartAtDistance(this.length)
-      .perpendicular(clockwise);
-    return new Segment(this.rac, newRay, this.length);
+      .perpendicular(!clockwise);
+    return new Segment(this.rac, newRay, newLength);
   }
 
   // Returns `value` clamped to the given insets from zero and the length
@@ -343,7 +348,7 @@ Segment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
   let angle = this.rac.Angle.fromRadians(radians);
 
   let hypSegment = this.reverse()
-    .nextSegmentToAngleShift(angle, hypotenuse, !clockwise);
+    .nextSegmentToAngleShift(angle, !clockwise, hypotenuse);
   return this.end.segmentToPoint(hypSegment.end);
 };
 
