@@ -49,7 +49,7 @@ class SegmentControl extends Rac.Control {
   center() {
     // Not posible to calculate a center
     if (this.anchor === null) { return null; }
-    return this.anchor.withLength(this.distance()).end;
+    return this.anchor.withLength(this.distance()).endPoint();
   }
 
   // Creates a copy of the current `anchor` with the control `length`.
