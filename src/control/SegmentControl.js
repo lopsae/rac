@@ -102,7 +102,7 @@ class SegmentControl extends Rac.Control {
   }
 
   updateWithPointer(pointerControlCenter, anchorCopy) {
-    let length = anchorCopy.length();
+    let length = anchorCopy.length;
     let startInset = length * this.ratioStartLimit();
     let endInset = length * (1 - this.ratioEndLimit());
 
@@ -176,7 +176,7 @@ class SegmentControl extends Rac.Control {
     // Dragged shadow center, semi attached to pointer
     // always perpendicular to anchor
     let draggedShadowCenter = draggedCenter
-      .segmentPerpendicularToSegment(anchorCopy)
+      .segmentToProjectionInRay(anchorCopy.ray)
       // reverse and translated to constraint to anchor
       .reverse()
       .withStartPoint(constrainedAnchorCenter)
@@ -201,7 +201,7 @@ class SegmentControl extends Rac.Control {
     let draggedTail = draggedShadowCenter
       .segmentToPoint(draggedCenter);
 
-    let easedLength = easeOut.easeValue(draggedTail.length());
+    let easedLength = easeOut.easeValue(draggedTail.length);
     draggedTail.withLength(easedLength).attachToComposite();
 
     // Draw all!
