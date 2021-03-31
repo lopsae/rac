@@ -153,6 +153,49 @@ class Segment {
     return this.withStartPoint(newStart);
   }
 
+
+  // Returns a new segment from `end` with the given `length` with the same
+  // angle as `this`.
+  // TODO: needs update
+  // nextSegmentWithLength(length) {
+  //   return this.end.segmentToAngle(this.angle(), length);
+  // }
+
+  // Returns a new segment from `end` to the given `nextEnd`.
+  // TODO: needs update
+  // nextSegmentToPoint(nextEnd) {
+  //   // TODO: needs update
+  //   return new Segment(this.rac, this.end, nextEnd);
+  // }
+
+  // Returns a new segment from `end` to the given `someAngle` and `distance`.
+  // TODO: needs update
+  // nextSegmentToAngle(someAngle, distance) {
+  //   return this.end.segmentToAngle(someAngle, distance);
+  // }
+
+  // Returns a new segment from `endPoint()`, with an angle shifted from
+  // `angle().inverse()` in the `clockwise` orientation.
+  //
+  // This means that with an angle shift of `0` the next segment will have
+  // the inverse angle of `this`, as the angle shift increases the next
+  // segment separates from `this`.
+  nextSegmentToAngleShift(angleShift, distance, clockwise = true) {
+    const shiftedAngle = this.ray.angle.inverse().shift(angleShift, clockwise);
+    const newRay = this.ray.withAngle(shiftedAngle);
+    return new Segment(this.rac, newRay, distance);
+  }
+
+
+  // Returns a new segment from `this.end`, with the same length, that is
+  // perpendicular to `this` in the `clockwise` orientation.
+  nextSegmentPerpendicular(clockwise = true) {
+    const newRay = this.ray
+      .withStartAtDistance(this.length)
+      .perpendicular(clockwise);
+    return new Segment(this.rac, newRay, this.length);
+  }
+
   // Returns `value` clamped to the given insets from zero and the length
   // of the segment.
   // TODO: invalid range could return a value centered in the insets! more visually congruent
@@ -268,33 +311,6 @@ Segment.prototype.pointAtLengthRatio = function(lengthRatio) {
 };
 
 
-// Returns a new segment from `end` with the given `length` with the same
-// angle as `this`.
-Segment.prototype.nextSegmentWithLength = function(length) {
-  return this.end.segmentToAngle(this.angle(), length);
-};
-
-// Returns a new segment from `end` to the given `nextEnd`.
-Segment.prototype.nextSegmentToPoint = function(nextEnd) {
-  // TODO: needs update
-  return new Segment(this.rac, this.end, nextEnd);
-}
-
-// Returns a new segment from `end` to the given `someAngle` and `distance`.
-Segment.prototype.nextSegmentToAngle = function(someAngle, distance) {
-  return this.end.segmentToAngle(someAngle, distance);
-}
-
-
-// Returns a new segment from `this.end`, with the same length, that is
-// perpendicular to `this` in the `clockwise` orientation.
-Segment.prototype.nextSegmentPerpendicular = function(clockwise = true) {
-  let offset = this.start.subtractPoint(this.end);
-  let newEnd = this.end.addPoint(offset.perpendicular(clockwise));
-  return this.end.segmentToPoint(newEnd);
-};
-
-
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle()` to the arc distance of the given
 // angle and orientation.
@@ -320,12 +336,6 @@ Segment.prototype.segmentToIntersectionWithSegment = function(other) {
   return new Segment(this.rac, this.start, end);
 };
 
-Segment.prototype.nextSegmentToAngleShift = function(
-  angleShift, distance, clockwise = true)
-{
-  let angle = this.reverseAngle().shift(angleShift, clockwise);
-  return this.end.segmentToAngle(angle, distance);
-};
 
 Segment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
   // cos = ady / hyp
