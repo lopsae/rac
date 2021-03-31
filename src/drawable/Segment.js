@@ -44,6 +44,23 @@ class Segment {
     return this.ray.pointAtDistance(this.length);
   }
 
+  // Returns the slope of the segment, or `null` if the segment is part of a
+  // vertical line.
+  slope() {
+    return this.ray.slope();
+  }
+
+  // Returns the y-intercept, or `null` if the segment is part of a
+  // vertical line.
+  yIntercept() {
+    return this.ray.yIntercept();
+  }
+
+
+  pointAtX(x) {
+    return this.ray.pointAtX(x);
+  }
+
   withRay(newRay) {
     return new Segment(this.rac, newRay, this.length);
   }
@@ -217,47 +234,6 @@ class Segment {
 
 
 module.exports = Segment;
-
-
-// Returns the slope of the segment, or `null` if the segment is part of a
-// vertical line.
-Segment.prototype.slope = function() {
-  let dx = this.end.x - this.start.x;
-  let dy = this.end.y - this.start.y;
-  if (Math.abs(dx) < this.rac.equalityThreshold) {
-    if(Math.abs(dy) < this.rac.equalityThreshold) {
-      // Segment with equal end and start returns a default angle of 0
-      // Equivalent slope is 0
-      return 0;
-    }
-    return null;
-  }
-
-  return dy / dx;
-};
-
-// Returns the y-intercept, or `null` if the segment is part of a
-// vertical line.
-Segment.prototype.yIntercept = function() {
-  let slope = this.slope();
-  if (slope === null) {
-    return null;
-  }
-  // y = mx + b
-  // y - mx = b
-  return this.start.y - slope * this.start.x;
-};
-
-
-Segment.prototype.pointAtX = function(x) {
-  let slope = this.slope();
-  if (slope === null) {
-    return null;
-  }
-
-  let y = slope*x + this.yIntercept();
-  return new Rac.Point(this.rac, x, y);
-}
 
 
 // Returns the intersecting point of `this` and `other`. Both segments are
