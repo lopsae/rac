@@ -114,10 +114,8 @@ expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
     isNot: this.isNot
   };
 
-  const start = rac.Point(x, y);
   const angle = rac.Angle.from(someAngle);
-  const ray = rac.Ray(start, angle);
-  const expected = rac.Segment(ray, length);
+  const expected = rac.Segment(x, y, angle, length);
 
   if (segment == null) {
     return fail(() =>

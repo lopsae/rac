@@ -258,12 +258,15 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Segment}`.
   *
-  * @param {Rac.Ray} ray
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} someAngle
   * @param {number} length
   * @returns {Rac.Segment}
   */
-  Segment(x, y, angle, length) {
+  Segment(x, y, someAngle, length) {
     const start = new Rac.Point(this, x, y);
+    const angle = Rac.Angle.from(this, someAngle);
     const ray = new Rac.Ray(this, start, angle);
     return new Rac.Segment(this, ray, length);
   }

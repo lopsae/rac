@@ -7,8 +7,7 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-let fifty = rac.Point(55, 55);
-let diagonal = rac.Segment(rac.Ray(fifty, rac.Angle.eighth), 100);
+let diagonal = rac.Segment(55, 55, rac.Angle.eighth, 100);
 
 
 test('Identity', () => {
