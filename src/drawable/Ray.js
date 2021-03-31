@@ -89,6 +89,11 @@ class Ray {
     return new Ray(this.rac, this.start, newAngle);
   }
 
+  withStartAtDistance(distance) {
+    const newStart = this.start.pointToAngle(this.angle, distance);
+    return new Ray(this.rac, newStart, this.angle);
+  }
+
   inverse() {
     const inverseAngle = this.angle.inverse();
     return new Ray(this.rac, this.start, inverseAngle);
