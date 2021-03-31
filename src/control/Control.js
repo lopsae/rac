@@ -276,8 +276,8 @@ Control.pointerDragged = function(rac, pointerCenter){
 
   // Center of dragged control in the pointer current position
   let currentPointerControlCenter = Control.selection.pointerOffset
-    .translateToStart(pointerCenter)
-    .end;
+    .withStartPoint(pointerCenter)
+    .endPoint();
 
   control.updateWithPointer(currentPointerControlCenter, anchorCopy);
 };

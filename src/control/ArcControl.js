@@ -164,8 +164,8 @@ class ArcControl extends Rac.Control {
 
     // Segment from pointer to control dragged center
     let draggedCenter = pointerOffset
-      .translateToStart(pointerCenter)
-      .end;
+      .withStartPoint(pointerCenter)
+      .endPoint();
 
     // Control dragged center, attached to pointer
     draggedCenter.arc(2)

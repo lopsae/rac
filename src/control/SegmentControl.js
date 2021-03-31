@@ -150,8 +150,8 @@ class SegmentControl extends Rac.Control {
 
     // Segment from pointer to control dragged center
     let draggedCenter = pointerOffset
-      .translateToStart(pointerCenter)
-      .end;
+      .withStartPoint(pointerCenter)
+      .endPoint();
 
     // Control dragged center, attached to pointer
     draggedCenter.arc(2)
@@ -167,7 +167,7 @@ class SegmentControl extends Rac.Control {
 
     let constrainedAnchorCenter = anchorCopy
       .withLength(constrainedLength)
-      .end;
+      .endPoint();
 
     // Control center constrained to anchor
     constrainedAnchorCenter.arc(Rac.Control.radius)
@@ -179,10 +179,10 @@ class SegmentControl extends Rac.Control {
       .segmentPerpendicularToSegment(anchorCopy)
       // reverse and translated to constraint to anchor
       .reverse()
-      .translateToStart(constrainedAnchorCenter)
+      .withStartPoint(constrainedAnchorCenter)
       // Segment from constrained center to shadow center
       .attachToComposite()
-      .end;
+      .endPoint();
 
     // Control shadow center
     draggedShadowCenter.arc(Rac.Control.radius / 2)

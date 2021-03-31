@@ -271,11 +271,6 @@ module.exports = Ray;
 //   throw rac.Error.invalidParameterCombination;
 // }
 
-// Ray.prototype.translateToStart = function(newStart) {
-//   let offset = newStart.subtractPoint(this.start);
-//   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
-// };
-
 // Ray.prototype.translateToAngle = function(someAngle, distance) {
 //   let angle = rac.Angle.from(someAngle);
 //   let offset = rac.Point.zero.pointToAngle(angle, distance);
