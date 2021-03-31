@@ -203,16 +203,15 @@ class Segment {
   // Returns `value` clamped to the given insets from zero and the length
   // of the segment.
   // TODO: invalid range could return a value centered in the insets! more visually congruent
-  // If the `min/maxInset` values result in a contradictory range, the
-  // returned value will comply with `minInset`.
-  // TODO: needs update
-  // clampToLengthInsets(value, startInset = 0, endInset = 0) {
-  //   let clamped = value;
-  //   clamped = Math.min(clamped, this.length() - endInset);
-  //   // Comply at least with minClamp
-  //   clamped = Math.max(clamped, startInset);
-  //   return clamped;
-  // }
+  // If the `start/endInset` values result in a contradictory range, the
+  // returned value will comply with `startInset`.
+  clampToLengthInsets(value, startInset = 0, endInset = 0) {
+    let clamped = value;
+    clamped = Math.min(clamped, this.length - endInset);
+    // Comply at least with startInset
+    clamped = Math.max(clamped, startInset);
+    return clamped;
+  }
 
   pointAtBisector() {
     return this.ray.pointAtDistance(this.length/2);
