@@ -225,25 +225,14 @@ class Segment {
   //     .pointAtIntersectionWithSegment(this);
   // }
 
-  // Returns the length of a segment from `start` to `point` being
-  // projected in the segment. The returned length may be negative if the
-  // projected point falls behind `start`.
-  // TODO: needs update
-  // lengthToProjectedPoint(point) {
-  //   let projected = this.projectedPoint(point);
-  //   let segment = this.start.segmentToPoint(projected);
 
-  //   if (segment.length() < this.rac.equalityThreshold) {
-  //     return 0;
-  //   }
-
-  //   let angleDiff = this.angle().subtract(segment.angle());
-  //   if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
-  //     return segment.length();
-  //   } else {
-  //     return - segment.length();
-  //   }
-  // }
+  // Returns the length from `startPoint()` to the projection of `point` in
+  // the segment.
+  // The length is positive if the projected point is in the direction
+  // of the segment ray, and negative if it is behind.
+  lengthToProjectedPoint(point) {
+    return this.ray.distanceToProjectedPoint(point);
+  }
 
   // Returns `true` if the given point is located clockwise of the segment,
   // or `false` if located counter-clockwise.

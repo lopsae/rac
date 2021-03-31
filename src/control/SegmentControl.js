@@ -122,7 +122,7 @@ class SegmentControl extends Rac.Control {
     anchorCopy.attachToComposite();
 
     let angle = anchorCopy.angle();
-    let length = anchorCopy.length();
+    let length = anchorCopy.length;
 
     // Value markers
     this.markers.forEach(item => {

@@ -105,36 +105,6 @@ class Ray {
   }
 
 
-  // Returns the length of a segment from `start` to `point` being
-  // projected in the segment. The returned length may be negative if the
-  // projected point falls behind `start`.
-  // distanceToProjectedPoint(point) {
-  //   let projected = this.projectedPoint(point);
-  //   let segment = this.start.segmentToPoint(projected);
-
-  //   if (segment.length() < rac.equalityThreshold) {
-  //     return 0;
-  //   }
-
-  //   let angleDiff = this.angle.subtract(segment.angle);
-  //   if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
-  //     return segment.length();
-  //   } else {
-  //     return - segment.length();
-  //   }
-  // }
-
-  // Returns `true` if the given point is located clockwise of the segment,
-  // or `false` if located counter-clockwise.
-  // pointOrientation(point) {
-  //   let angle = this.start.angleToPoint(point);
-  //   let angleDistance = angle.subtract(this.angle);
-  //   // [0 to 0.5) is considered clockwise
-  //   // [0.5, 1) is considered counter-clockwise
-  //   return angleDistance.turn < 0.5;
-  // }
-
-
   pointAtX(x) {
     const slope = this.slope();
     if (slope === null) {
@@ -206,6 +176,38 @@ class Ray {
     return point.ray(perpendicular)
       .pointAtIntersection(this);
   }
+
+
+  // Returns the distance from `start` to the projection of `point` in the
+  // ray.
+  // The distance is positive if the projected point is in the direction
+  // of the ray, and negative if it is behind.
+  distanceToProjectedPoint(point) {
+    const projected = this.pointProjected(point);
+    const distance = this.start.distanceToPoint(projected);
+
+    if (this.rac.equals(distance, 0)) {
+      return 0;
+    }
+
+    const angleToProjected = this.start.angleToPoint(projected);
+    const angleDiff = this.angle.subtract(angleToProjected);
+    if (angleDiff.turn <= 1/4 || angleDiff.turn > 3/4) {
+      return distance;
+    } else {
+      return -distance;
+    }
+  }
+
+  // Returns `true` if the given point is located clockwise of the segment,
+  // or `false` if located counter-clockwise.
+  // pointOrientation(point) {
+  //   let angle = this.start.angleToPoint(point);
+  //   let angleDistance = angle.subtract(this.angle);
+  //   // [0 to 0.5) is considered clockwise
+  //   // [0.5, 1) is considered counter-clockwise
+  //   return angleDistance.turn < 0.5;
+  // }
 
 
   rayToPoint(point) {
