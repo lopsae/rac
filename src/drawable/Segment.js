@@ -56,11 +56,6 @@ class Segment {
     return this.ray.yIntercept();
   }
 
-
-  pointAtX(x) {
-    return this.ray.pointAtX(x);
-  }
-
   withRay(newRay) {
     return new Segment(this.rac, newRay, this.length);
   }
@@ -123,6 +118,30 @@ class Segment {
     const end = this.endPoint();
     const inverseRay = new Rac.Ray(this.rac, end, this.ray.angle.inverse());
     return new Segment(this.rac, inverseRay, this.length);
+  }
+
+
+  pointAtX(x) {
+    return this.ray.pointAtX(x);
+  }
+
+
+  pointAtLength(length) {
+    return this.start.pointToAngle(this.angle(), length);
+  }
+
+
+  pointAtLengthRatio(lengthRatio) {
+    let newLength = this.length() * lengthRatio;
+    return this.start.pointToAngle(this.angle(), newLength);
+  }
+
+
+  // Returns the intersecting point of `this` and the ray `other`. Both are
+  // considered lines without endpoints. Returns null if the lines are
+  // parallel.
+  pointAtIntersectionWithRay(other) {
+    return this.ray.pointAtIntersection(other);
   }
 
 
@@ -269,38 +288,6 @@ class Segment {
 
 
 module.exports = Segment;
-
-
-// Returns the intersecting point of `this` and `other`. Both segments are
-// considered lines without endpoints.
-Segment.prototype.pointAtIntersectionWithSegment = function(other) {
-  // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
-  let a = this.slope();
-  let b = other.slope();
-  if (a === b) {
-    // Parallel lines, no intersection
-    return null;
-  }
-
-  let c = this.yIntercept();
-  let d = other.yIntercept();
-
-  if (a === null) { return other.pointAtX(this.start.x); }
-  if (b === null) { return this.pointAtX(other.start.x); }
-
-  let x = (d - c) / (a - b);
-  let y = a * x + c;
-  return new Rac.Point(this.rac, x, y);
-};
-
-Segment.prototype.pointAtLength = function(length) {
-  return this.start.pointToAngle(this.angle(), length);
-};
-
-Segment.prototype.pointAtLengthRatio = function(lengthRatio) {
-  let newLength = this.length() * lengthRatio;
-  return this.start.pointToAngle(this.angle(), newLength);
-};
 
 
 // Returns an Arc using this segment `start` as center, `length()` as

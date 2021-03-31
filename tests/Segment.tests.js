@@ -8,6 +8,8 @@ const rac = tools.rac;
 
 
 let diagonal = rac.Segment(55, 55, rac.Angle.eighth, 100);
+let vertical = rac.Segment(100, 100, rac.Angle.down, 100);
+let horizontal = rac.Segment(100, 100, rac.Angle.zero, 100);
 
 
 test('Identity', () => {
@@ -31,6 +33,39 @@ test('Properties', () => {
 
   let side = tools.sides(100);
   expect(diagonal.endPoint()).equalsPoint(55+side, 55+side);
+});
+
+
+test ('Ray intersection', () => {
+  // diagonal-vertical
+  expect(diagonal.pointAtIntersectionWithRay(vertical.ray))
+    .equalsPoint(100, 100);
+  expect(diagonal.reverse().pointAtIntersectionWithRay(vertical.ray))
+    .equalsPoint(100, 100);
+  expect(vertical.pointAtIntersectionWithRay(diagonal.ray))
+    .equalsPoint(100, 100);
+  expect(vertical.reverse().pointAtIntersectionWithRay(diagonal.ray))
+    .equalsPoint(100, 100);
+
+  // diagonal-horizontal
+  expect(diagonal.pointAtIntersectionWithRay(horizontal.ray))
+    .equalsPoint(100, 100);
+  expect(diagonal.reverse().pointAtIntersectionWithRay(horizontal.ray))
+    .equalsPoint(100, 100);
+  expect(horizontal.pointAtIntersectionWithRay(diagonal.ray))
+    .equalsPoint(100, 100);
+  expect(horizontal.reverse().pointAtIntersectionWithRay(diagonal.ray))
+    .equalsPoint(100, 100);
+
+  // vertical-horizontal
+  expect(vertical.pointAtIntersectionWithRay(horizontal.ray))
+    .equalsPoint(100, 100);
+  expect(vertical.reverse().pointAtIntersectionWithRay(horizontal.ray))
+    .equalsPoint(100, 100);
+  expect(horizontal.pointAtIntersectionWithRay(vertical.ray))
+    .equalsPoint(100, 100);
+  expect(horizontal.reverse().pointAtIntersectionWithRay(vertical.ray))
+    .equalsPoint(100, 100);
 });
 
 
