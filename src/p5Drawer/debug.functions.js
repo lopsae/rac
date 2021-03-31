@@ -146,11 +146,13 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Forming end arrow
   let arrowAngleShift = rac.Angle.from(1/7);
   let endArrowStart = endMarkerStart
-    .nextSegmentToAngleShift(arrowAngleShift, 100, false);
+    .reverse()
+    .ray.withAngleShift(arrowAngleShift, false);
   let endArrowEnd = endMarkerEnd
-    .nextSegmentToAngleShift(arrowAngleShift, 100, true);
+    .reverse()
+    .ray.withAngleShift(arrowAngleShift, true);
   let endArrowPoint = endArrowStart
-    .pointAtIntersectionWithSegment(endArrowEnd);
+    .pointAtIntersection(endArrowEnd);
   // End arrow
   endMarkerStart
     .nextSegmentToPoint(endArrowPoint)
