@@ -19,7 +19,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     .arc(drawer.debugPointRadius, angle, angle.inverse(), false)
     .draw();
   angleSegment
-    .withEndExtended(drawer.debugPointRadius)
+    .withLengthAdd(drawer.debugPointRadius)
     .draw();
 
   // Mini arc markers
@@ -263,7 +263,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let orientationLength = drawer.debugRadius*2;
   let orientationArc = arc
     .startSegment()
-    .withEndExtended(drawer.debugRadius)
+    .withLengthAdd(drawer.debugRadius)
     .arc(arc.clockwise)
     .withLength(orientationLength)
     .draw();

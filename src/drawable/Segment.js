@@ -64,6 +64,11 @@ class Segment {
   }
 
 
+  withLengthAdd(addLength) {
+    return new Segment(this.rac, this.ray, this.length + addLength);
+  }
+
+
   // Returns a new segment from `start` to a length determined by
   // `ratio*length`.
   withLengthRatio(ratio) {
@@ -71,12 +76,12 @@ class Segment {
   }
 
 
-  withAngleAdd(someAngle) {
-    let newAngle = this.angle().add(someAngle);
-    let newEnd = this.start.pointToAngle(newAngle, this.length());
-    // TODO: needs update
-    return new Segment(this.rac, this.start, newEnd);
-  }
+  // TODO: needs update
+  // withAngleAdd(someAngle) {
+  //   let newAngle = this.angle().add(someAngle);
+  //   let newEnd = this.start.pointToAngle(newAngle, this.length());
+  //   return new Segment(this.rac, this.start, newEnd);
+  // }
 
   // TODO: needs update
   // withAngleShift(someAngle, clockwise = true) {
@@ -85,17 +90,11 @@ class Segment {
   //   return new Segment(this.rac, this.start, newEnd);
   // }
 
-  // TODO: needs update
-  // withStartExtended(length) {
-  //   let newStart = this.reverse().nextSegmentWithLength(length).end;
-  //   return new Segment(this.rac, newStart, this.end);
-  // }
 
-  // TODO: needs update
-  // withEndExtended(length) {
-  //   let newEnd = this.nextSegmentWithLength(length).end;
-  //   return new Segment(this.rac, this.start, newEnd);
-  // }
+  withStartExtended(length) {
+    const newRay = this.ray.withStartAtDistance(-length);
+    return new Segment(this.rac, newRay, this.length + length);
+  }
 
 
   // Returns a new segment from `this.start`, with the same length, that is
