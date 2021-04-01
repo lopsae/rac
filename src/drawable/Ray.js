@@ -221,6 +221,13 @@ class Ray {
   }
 
 
+  segmentToPoint(point) {
+    const newRay = this.rayToPoint(point);
+    const length = this.start.distanceToPoint(point);
+    return new Rac.Segment(this.rac, newRay, length);
+  }
+
+
   // TODO: segmentToIntersectionWithRay
 
 } // class Ray
@@ -330,8 +337,8 @@ module.exports = Ray;
 
 // Returns a segment from `this.start` to the intersection between `this`
 // and `other`.
-// Ray.prototype.segmentToIntersectionWithSegment = function(other) {
-//   let end = this.pointAtIntersectionWithSegment(other);
+// Ray.prototype.segmentToIntersectionWithRay = function(ray) {
+//   let end = this.pointAtIntersectionWithRay(ray.ray);
 //   if (end === null) {
 //     return null;
 //   }

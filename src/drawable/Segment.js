@@ -240,7 +240,7 @@ class Segment {
   // projectedPoint(point) {
   //   let perpendicular = this.angle().perpendicular();
   //   return point.segmentToAngle(perpendicular, this.rac.arbitraryLength)
-  //     .pointAtIntersectionWithSegment(this);
+  //     .pointAtIntersectionWithRay(this.ray);
   // }
 
 
@@ -267,6 +267,17 @@ class Segment {
   // Returns a new segment from `start` to `pointAtBisector`.
   segmentToBisector() {
     return new Segment(this.rac, this.ray, this.length/2);
+  }
+
+
+  // Returns a segment from `this.start` to the intersection between `this`
+  // and `other`.
+  segmentToIntersectionWithRay(ray) {
+    let intersection = this.pointAtIntersectionWithRay(ray);
+    if (intersection === null) {
+      return null;
+    }
+    return this.ray.segmentToPoint(intersection);
   }
 
 
@@ -302,17 +313,6 @@ Segment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise =
     this.start, this.length(),
     arcStart, arcEnd,
     clockwise);
-};
-
-// Returns a segment from `this.start` to the intersection between `this`
-// and `other`.
-Segment.prototype.segmentToIntersectionWithSegment = function(other) {
-  let end = this.pointAtIntersectionWithSegment(other);
-  if (end === null) {
-    return null;
-  }
-  // TODO: needs update
-  return new Segment(this.rac, this.start, end);
 };
 
 
