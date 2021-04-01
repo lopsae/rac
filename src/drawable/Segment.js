@@ -236,13 +236,9 @@ class Segment {
     return this.ray.pointAtDistance(this.length/2);
   }
 
-  // TODO: needs update
-  // projectedPoint(point) {
-  //   let perpendicular = this.angle().perpendicular();
-  //   return point.segmentToAngle(perpendicular, this.rac.arbitraryLength)
-  //     .pointAtIntersectionWithRay(this.ray);
-  // }
-
+  projectedPoint(point) {
+    return this.ray.projectedPoint(point);
+  }
 
   // Returns the length from `startPoint()` to the projection of `point` in
   // the segment.

@@ -72,12 +72,10 @@ class Rac {
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
-    // TODO: will become unnecesary with Ray
-    // Length for elements that need an arbitrary value.
-    this.arbitraryLength = 100;
-
-    // Drawer for the instance. This object handles the drawing of any
-    // visual object.
+    /**
+    * Drawer of the instance. This object handles the drawing of any
+    * drawable object.
+    */
     this.drawer = null;
 
     require('./style/rac.Color')(this);
