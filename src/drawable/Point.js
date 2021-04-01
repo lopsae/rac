@@ -53,6 +53,15 @@ class Point{
     return new Point(this.rac, this.x, newY);
   }
 
+  addX(x) {
+    return new Point(this.rac,
+      this.x + x, this.y);
+  }
+
+  addY(y) {
+    return new Point(this.rac,
+      this.x, this.y + y);
+  }
 
   /**
   * Returns a new `Point` by adding the components of `other`.
@@ -72,10 +81,8 @@ class Point{
   * @param {number} y The y coodinate to add
   */
   add(x, y) {
-    return new Point(
-      this.rac,
-      this.x + x,
-      this.y + y);
+    return new Point(this.rac,
+      this.x + x, this.y + y);
   }
 
 
@@ -101,6 +108,60 @@ class Point{
       this.rac,
       this.x - x,
       this.y - y);
+  }
+
+  negative() {
+    return new Point(this.rac, -this.x, -this.y);
+  }
+
+
+  perpendicular(clockwise = true) {
+    return clockwise
+      ? new Point(this.rac, -this.y, this.x)
+      : new Point(this.rac, this.y, -this.x);
+  }
+
+  distanceToPoint(other) {
+    let x = Math.pow((other.x - this.x), 2);
+    let y = Math.pow((other.y - this.y), 2);
+    return Math.sqrt(x+y);
+  }
+
+  // Returns the angle to the given point. If this and other are considered
+  // equal, then the `someAngle` is returned, which by defalt is zero.
+  angleToPoint(other, someAngle = this.rac.Angle.zero) {
+    if (this.equals(other)) {
+      const angle = this.rac.Angle.from(someAngle);
+      return angle;
+    }
+    const offset = other.subtractPoint(this);
+    const radians = Math.atan2(offset.y, offset.x);
+    return Rac.Angle.fromRadians(this.rac, radians);
+  }
+
+
+  pointToAngle(someAngle, distance) {
+    let angle = this.rac.Angle.from(someAngle);
+    let distanceX = distance * Math.cos(angle.radians());
+    let distanceY = distance * Math.sin(angle.radians());
+    return new Point(this.rac, this.x + distanceX, this.y + distanceY);
+  }
+
+
+  ray(someAngle) {
+    const angle = this.rac.Angle.from(someAngle);
+    return new Rac.Ray(this.rac, this, angle);
+  }
+
+  rayToPoint(point, someAngle = this.rac.Angle.zero) {
+    const angle = this.angleToPoint(point, someAngle);
+    return new Rac.Ray(this.rac, this, angle);
+  }
+
+  rayToProjectionInRay(ray) {
+    const projected = ray.pointProjected(this);
+    const perpendicular = ray.angle.perpendicular();
+    return this.rayToPoint(projected, perpendicular);
   }
 
   // Returns a segment that is tangent to `arc` in the `clockwise`
@@ -137,73 +198,6 @@ class Point{
 
 module.exports = Point;
 
-
-Point.prototype.addX = function(x) {
-  return new Point(
-    this.rac,
-    this.x + x,
-    this.y);
-};
-
-Point.prototype.addY = function(y) {
-  return new Point(
-    this.rac,
-    this.x,
-    this.y + y);
-};
-
-
-Point.prototype.negative = function() {
-  return new Point(this.rac, -this.x, -this.y);
-};
-
-// Returns the angle to the given point. If this and other are considered
-// equal, then the `someAngle` is returned, which by defalt is zero.
-Point.prototype.angleToPoint = function(other, someAngle = this.rac.Angle.zero) {
-  if (this.equals(other)) {
-    const angle = this.rac.Angle.from(someAngle);
-    return angle;
-  }
-  const offset = other.subtractPoint(this);
-  const radians = Math.atan2(offset.y, offset.x);
-  return Rac.Angle.fromRadians(this.rac, radians);
-};
-
-Point.prototype.distanceToPoint = function(other) {
-  let x = Math.pow((other.x - this.x), 2);
-  let y = Math.pow((other.y - this.y), 2);
-  return Math.sqrt(x+y);
-};
-
-Point.prototype.perpendicular = function(clockwise = true) {
-  return clockwise
-    ? new Point(this.rac, -this.y, this.x)
-    : new Point(this.rac, this.y, -this.x);
-};
-
-Point.prototype.pointToAngle = function(someAngle, distance) {
-  let angle = this.rac.Angle.from(someAngle);
-  let distanceX = distance * Math.cos(angle.radians());
-  let distanceY = distance * Math.sin(angle.radians());
-  return new Point(this.rac, this.x + distanceX, this.y + distanceY);
-};
-
-
-Point.prototype.ray = function(someAngle) {
-  const angle = this.rac.Angle.from(someAngle);
-  return new Rac.Ray(this.rac, this, angle);
-};
-
-Point.prototype.rayToPoint = function(point, someAngle = this.rac.Angle.zero) {
-  const angle = this.angleToPoint(point, someAngle);
-  return new Rac.Ray(this.rac, this, angle);
-};
-
-Point.prototype.rayToProjectionInRay = function(ray) {
-  const projected = ray.pointProjected(this);
-  const perpendicular = ray.angle.perpendicular();
-  return this.rayToPoint(projected, perpendicular);
-};
 
 Point.prototype.segmentToAngle = function(someAngle, length) {
   const angle = this.rac.Angle.from(someAngle);
