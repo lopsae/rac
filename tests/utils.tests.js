@@ -5,18 +5,6 @@ const Rac = require('rulerandcompass');
 const tools = require('./tools');
 
 
-test('Function assertExists', () => {
-  expect(() => {Rac.utils.assertExists();})
-    .not.toThrow();
-  expect(() => {Rac.utils.assertExists("one", "two");})
-    .not.toThrow();
-  expect(() => {Rac.utils.assertExists("one", null);})
-    .toThrow();
-  expect(() => {Rac.utils.assertExists("one", null, "three");})
-    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
-});
-
-
 test('Errors/Exception catched', () => {
   let storedBuildErrors = Rac.Exception.buildsErrors;
 
@@ -39,6 +27,40 @@ test('Errors/Exception catched', () => {
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName, false);
 
   Rac.Exception.buildsErrors = storedBuildErrors;
+});
+
+
+test('Function assertExists', () => {
+  expect(() => {Rac.utils.assertExists();})
+    .not.toThrow();
+  expect(() => {Rac.utils.assertExists(1, true);})
+    .not.toThrow();
+  expect(() => {Rac.utils.assertExists(0, "one", "two", false);})
+    .not.toThrow();
+
+  expect(() => {Rac.utils.assertExists("one", null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertExists("one", null, "three");})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+    expect(() => {Rac.utils.assertExists("one", 2, undefined);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+test('Function assertNumber', () => {
+  expect(() => {Rac.utils.assertNumber(-1, 0, 1, 2);})
+    .not.toThrow();
+
+  expect(() => {Rac.utils.assertNumber(null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertNumber(undefined);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertNumber(true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertNumber(false);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertNumber(NaN);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 
@@ -99,7 +121,6 @@ test('Function addConstant', () => {
 
 
 test.todo('assertType');
-test.todo('assertNumber');
 test.todo('assertBoolean');
 
 

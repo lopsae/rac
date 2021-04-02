@@ -51,8 +51,8 @@ exports.assertType = function(type, ...elements) {
 
 
 /**
-* Asserts that all `elements` are number primitives, otherwise a
-* `{@link Rac.Exception.failedAssert}` is thrown.
+* Asserts that all `elements` are number primitives and not NaN, otherwise
+* a `{@link Rac.Exception.failedAssert}` is thrown.
 *
 * @param {...number} elements
 * @name assertNumber
@@ -61,7 +61,7 @@ exports.assertType = function(type, ...elements) {
 */
 exports.assertNumber = function(...elements) {
   elements.forEach(item => {
-    if (typeof item !== 'number') {
+    if (typeof item !== 'number' || isNaN(item)) {
       throw Rac.Exception.failedAssert(
         `Element is unexpected type, expecting number primitive - element:${item} element-type:${typeName(item)}`);
     }
