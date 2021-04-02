@@ -11,9 +11,6 @@ const utils = require('../util/utils');
 */
 class Stroke {
 
-  // TODO: move to rac.Stroke
-  // static none = new Stroke(null);
-
   constructor(rac, color = null, weight = 1) {
     utils.assertExists(rac, weight);
     this.rac = rac

@@ -79,6 +79,7 @@ class Rac {
     this.drawer = null;
 
     require('./style/rac.Color')(this);
+    require('./style/rac.Stroke')(this);
     require('./style/rac.Fill')(this);
     require('./drawable/rac.Angle')(this);
     require('./drawable/rac.Point')(this);
@@ -134,6 +135,10 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Color}`.
   *
+  * @param {number} r
+  * @param {number} g
+  * @param {number} b
+  * @param {number=} a
   * @returns {Rac.Color}
   */
   Color(r, g, b, alpha = 1) {
@@ -147,11 +152,12 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Stroke}`.
   *
+  * @param {Rac.Color=} color
+  * @param {number=} weight
   * @returns {Rac.Stroke}
   */
-  // TODO: update to all primitives
   Stroke(color = null, weight = 1) {
-    return new Rac.Color(this, color, weight);
+    return new Rac.Stroke(this, color, weight);
   }
 
 
@@ -161,9 +167,9 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Fill}`.
   *
+  * @param {Rac.Color=} color
   * @returns {Rac.Fill}
   */
-  // TODO: update to all primitives
   Fill(color = null) {
     return new Rac.Fill(this, color);
   }
@@ -175,9 +181,10 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Style}`.
   *
+  * @param {Rac.Stroke=} stroke
+  * @param {Rac.Fill=} fill
   * @returns {Rac.Style}
   */
-  // TODO: update to all primitives?
   Style(stroke = null, fill = null) {
     return new Rac.Style(this, stroke, fill);
   }
