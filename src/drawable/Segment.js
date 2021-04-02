@@ -13,6 +13,12 @@ class Segment {
 
   constructor(rac, ray, length) {
     // TODO: || throw new Error(err.missingParameters)
+    // or
+    // checker(msg => { throw Rac.Exception.failedAssert(msg));
+    //   .exists(rac)
+    //   .isType(Rac.Ray, ray)
+    //   .isNumber(length)
+
     utils.assertExists(rac, ray, length);
     utils.assertType(Rac.Ray, ray);
     utils.assertNumber(length);
