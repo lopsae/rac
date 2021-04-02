@@ -82,13 +82,13 @@ class SegmentControl extends Rac.Control {
     let ratioValue = this.ratioValue();
 
     // Negative arrow
-    if (ratioValue >= this.ratioStartLimit() + this.rac.equalityThreshold) {
+    if (ratioValue >= this.ratioStartLimit() + this.rac.unitaryEqualityThreshold) {
       Rac.Control.makeArrowShape(this.rac, center, angle.inverse())
         .attachToComposite();
     }
 
     // Positive arrow
-    if (ratioValue <= this.ratioEndLimit() - this.rac.equalityThreshold) {
+    if (ratioValue <= this.ratioEndLimit() - this.rac.unitaryEqualityThreshold) {
       Rac.Control.makeArrowShape(this.rac, center, angle)
         .attachToComposite();
     }

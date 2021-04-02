@@ -91,14 +91,14 @@ class ArcControl extends Rac.Control {
     let ratioValue = this.ratioValue();
 
     // Negative arrow
-    if (ratioValue >= this.ratioStartLimit() + this.rac.equalityThreshold) {
+    if (ratioValue >= this.ratioStartLimit() + this.rac.unitaryEqualityThreshold) {
       let negAngle = angle.perpendicular(anchorCopy.clockwise).inverse();
       Rac.Control.makeArrowShape(this.rac, center, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
-    if (ratioValue <= this.ratioEndLimit() - this.rac.equalityThreshold) {
+    if (ratioValue <= this.ratioEndLimit() - this.rac.unitaryEqualityThreshold) {
       let posAngle = angle.perpendicular(anchorCopy.clockwise);
       Rac.Control.makeArrowShape(this.rac, center, posAngle)
         .attachToComposite();

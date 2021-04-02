@@ -192,8 +192,7 @@ class Arc{
 
   // Returns `true` if this arc is a complete circle.
   isCircle() {
-    let distance = Math.abs(this.end.turn - this.start.turn);
-    return distance <= this.rac.equalityThreshold;
+    return this.start.equals(this.end);
   }
 
   // Returns `value` clamped to the given insets from zero and the length
@@ -277,12 +276,11 @@ Arc.prototype.intersectionChord = function(other) {
   // https://mathworld.wolfram.com/Circle-CircleIntersection.html
   // R=this, r=other
 
-  let distance = this.center.distanceToPoint(other.center);
-
-  if (distance <= this.rac.equalityThreshold) {
-    // Distance of zero or too close considered as same center
+  if (this.center.equals(other.center)) {
     return null;
   }
+
+  let distance = this.center.distanceToPoint(other.center);
 
   // distanceToChord = (d^2 - r^2 + R^2) / (d*2)
   let distanceToChord = (
@@ -358,7 +356,7 @@ Arc.prototype.intersectionChordWithSegment = function(segment) {
     return null;
   }
 
-  // Segment too close to center, consine calculations may be incorrect
+  // Segment too close to center, cosine calculations may be incorrect
   if (distance < this.rac.equalityThreshold) {
     let segmentAngle = segment.angle();
     let start = this.pointAtAngle(segmentAngle.inverse());
