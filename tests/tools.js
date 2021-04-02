@@ -51,8 +51,7 @@ expect.extend({ equalsAngle(angle, someAngle) {
         options));
   }
 
-  // TODO: make a equals for angles specifically
-  const isEqual = rac.equals(angle.turn, expected.turn);
+  const isEqual = expected.equals(angle);
   return done(isEqual, () =>
     this.utils.matcherHint('equalsAngle',
       angle.toString(digits), expected.toString(digits),

@@ -36,6 +36,15 @@ class Angle {
   }
 
 
+  equals(someAngle) {
+    const other = Angle.from(this.rac, someAngle);
+    const diff = Math.abs(this.turn - other.turn);
+    return diff < this.rac.unitaryEqualityThreshold
+      // For close values that loop around
+      || (1 - diff) < this.rac.unitaryEqualityThreshold;
+  }
+
+
   setTurn(turn) {
     this.turn = turn % 1;
     if (this.turn < 0) {

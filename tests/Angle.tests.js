@@ -35,14 +35,56 @@ test('Identity', () => {
 
 
 test('Errors', () => {
-  expect(() => {new Rac.Angle(null, 1/2);})
+  // TODO: check specific errors
+  expect(() => { new Rac.Angle(null, 1/2); })
     .toThrow();
-  expect(() => {new Rac.Angle(rac, null);})
+  expect(() => { new Rac.Angle(rac, null); })
     .toThrow();
-  expect(() => {Rac.Angle.from(rac, 'unsuported');})
+  expect(() => { Rac.Angle.from(rac, 'unsuported'); })
     .toThrow();
-  expect(() => {Rac.Angle.from(null, 1/2);})
+  expect(() => { Rac.Angle.from(null, 1/2); })
     .toThrow();
+});
+
+
+test('Equality', () => {
+  const threshold = rac.unitaryEqualityThreshold;
+  const bump = threshold/16;
+  const aboveThreshold = threshold + bump;
+  const belowThreshold = threshold - bump;
+
+
+  expect(rac.Angle.zero).equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.half).equalsAngle(rac.Angle.west);
+  expect(rac.Angle.up).not.equalsAngle(rac.Angle.down);
+
+  expect(rac.Angle.down).equalsAngle(1/4);
+  expect(rac.Angle.down).equalsAngle(1/4 + belowThreshold);
+  expect(rac.Angle.down).equalsAngle(1/4 - belowThreshold);
+
+  expect(rac.Angle.down).not.equalsAngle(1/4 + aboveThreshold);
+  expect(rac.Angle.down).not.equalsAngle(1/4 - aboveThreshold);
+
+  expect(rac.Angle.zero).equalsAngle(0);
+  expect(rac.Angle.zero).equalsAngle(1);
+  expect(rac.Angle.zero).equalsAngle(0 + belowThreshold);
+  expect(rac.Angle.zero).equalsAngle(0 - belowThreshold);
+  expect(rac.Angle.zero).equalsAngle(1 + belowThreshold);
+  expect(rac.Angle.zero).equalsAngle(1 - belowThreshold);
+
+  expect(rac.Angle.zero).not.equalsAngle(0 + aboveThreshold);
+  expect(rac.Angle.zero).not.equalsAngle(0 - aboveThreshold);
+  expect(rac.Angle.zero).not.equalsAngle(1 + aboveThreshold);
+  expect(rac.Angle.zero).not.equalsAngle(1 - aboveThreshold);
+
+  const closeToOne = 1 - bump;
+  const angleCloseToOne = rac.Angle.from(closeToOne);
+  expect(angleCloseToOne).equalsAngle(1);
+  expect(angleCloseToOne).equalsAngle(0);
+  expect(angleCloseToOne).equalsAngle(closeToOne + belowThreshold);
+  expect(angleCloseToOne).equalsAngle(closeToOne - belowThreshold);
+  expect(angleCloseToOne).not.equalsAngle(closeToOne + aboveThreshold);
+  expect(angleCloseToOne).not.equalsAngle(closeToOne - aboveThreshold);
 });
 
 
