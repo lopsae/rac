@@ -35,15 +35,20 @@ test('Identity', () => {
 
 
 test('Errors', () => {
-  // TODO: check specific errors
+  expect(() => { new Rac.Angle(rac, 1/2); })
+    .not.toThrow();
+
   expect(() => { new Rac.Angle(null, 1/2); })
-    .toThrow();
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => { new Rac.Angle(rac, null); })
-    .toThrow();
-  expect(() => { Rac.Angle.from(rac, 'unsuported'); })
-    .toThrow();
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => { Rac.Angle.from(null, 1/2); })
-    .toThrow();
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => { Rac.Angle.from(rac, 'unsuported'); })
+    .toThrowNamed(Rac.Exception.invalidObjectType.exceptionName);
+
+  expect(() => { Rac.Angle.from(rac, NaN); })
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 

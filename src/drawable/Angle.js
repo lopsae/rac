@@ -12,12 +12,8 @@ const utils = require('../util/utils');
 class Angle {
 
   constructor(rac, turn) {
-    utils.assertExists(rac, turn);
-    // TODO: keep check? assertNumeric?
-    if (isNaN(turn)) {
-      // TODO: assertNumeric to also check for nan
-      throw new Error(`received nan - turn:${turn}`);
-    }
+    utils.assertExists(rac);
+    utils.assertNumber(turn);
     this.rac = rac;
     this.setTurn(turn);
   }
