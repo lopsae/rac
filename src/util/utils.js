@@ -11,9 +11,11 @@ const Rac = require('../Rac');
 
 
 /**
-* Asserts that all passed parameters are objects. If any parameter is
-* `null` or `undefined` an error is thrown.
+* Asserts that all passed parameters are objects or primitives. If any
+* parameter is `null` or `undefined` a `{@link Rac.Exception.failedAssert}`
+* is thrown.
 *
+* @param {...Object|primitive} parameters
 * @name assertExists
 * @memberof utils#
 * @function
@@ -29,8 +31,11 @@ exports.assertExists = function(...parameters) {
 
 
 /**
-* TODO
+* Asserts that all `elements` are objects or the given `typeo`, otherwise a
+* `{@link Rac.Exception.failedAssert}` is thrown.
 *
+* @param {function} type
+* @param {...Object} elements
 * @name assertType
 * @memberof utils#
 * @function
@@ -46,8 +51,10 @@ exports.assertType = function(type, ...elements) {
 
 
 /**
-* TODO
+* Asserts that all `elements` are number primitives, otherwise a
+* `{@link Rac.Exception.failedAssert}` is thrown.
 *
+* @param {...number} elements
 * @name assertNumber
 * @memberof utils#
 * @function
@@ -63,8 +70,10 @@ exports.assertNumber = function(...elements) {
 
 
 /**
-* TODO
+* Asserts that all `elements` are boolean primitives, otherwise a
+* `{@link Rac.Exception.failedAssert}` is thrown.
 *
+* @param {...boolean} elements
 * @name assertBoolean
 * @memberof utils#
 * @function
