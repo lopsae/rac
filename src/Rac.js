@@ -201,7 +201,7 @@ class Rac {
   * @param {Rac.Point} point
   * @returns {Rac.Text}
   */
-  // TODO: update to all primitives
+  // TODO: update to all primitives?
   Text(string, format, point) {
     return new Rac.Text(this, string, format, point);
   }
@@ -242,11 +242,14 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Ray}`.
   *
-  * @param {Rac.Point} start
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} angle
   * @returns {Rac.Ray}
   */
-  // TODO: update to all primitives
-  Ray(start, angle) {
+  Ray(x, y, someAngle) {
+    const start = new Rac.Point(this, x, y);
+    const angle = Rac.Angle.from(this, someAngle);
     return new Rac.Ray(this, start, angle);
   }
 
@@ -289,10 +292,16 @@ class Rac {
   * This function also contains more convenience methods and properties
   * listed in `{@link rac.Arc}`.
   *
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} someAngle
+  * @param {number} length
   * @returns {Rac.Arc}
   */
-  // TODO: update to all primitives
-  Arc(center, radius, start = this.Arc.zero, end = start, clockwise = true) {
+  Arc(x, y, radius, someStart = this.Arc.zero, someEnd = start, clockwise = true) {
+    const center = new Rac.Point(this, x, y);
+    const start = Rac.Angle.from(this, someStart);
+    const end = Rac.Angle.from(this, someEnd);
     return new Rac.Arc(this, center, radius, start, end, clockwise);
   }
 

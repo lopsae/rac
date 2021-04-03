@@ -82,13 +82,13 @@ expect.extend({ equalsPoint(point, x, y) {
 }}); // equalsPoint
 
 
-expect.extend({ equalsRay(ray, x, y, angle) {
+expect.extend({ equalsRay(ray, x, y, someAngle) {
   const options = {
     comment: 'equal Ray properties',
     isNot: this.isNot
   };
 
-  const expected = rac.Ray(rac.Point(x, y), angle);
+  const expected = rac.Ray(x, y, someAngle);
   if (ray == null) {
     return fail(() =>
       this.utils.matcherHint('equalsRay',
@@ -96,9 +96,8 @@ expect.extend({ equalsRay(ray, x, y, angle) {
         options));
   }
 
-  const isEqual = rac.equals(ray.start.x, expected.start.x)
-    && rac.equals(ray.start.x, expected.start.x)
-    && rac.equals(ray.angle.turn, expected.angle.turn);
+  const isEqual = expected.start.equals(ray.start)
+    && expected.angle.equals(ray.angle);
 
   return done(isEqual, () =>
     this.utils.matcherHint('equalsRay',
@@ -140,10 +139,7 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
     isNot: this.isNot
   };
 
-  let center = rac.Point(x, y);
-  let startAngle = rac.Angle.from(someStartAngle);
-  let endAngle = rac.Angle.from(someEndAngle);
-  let expected = rac.Arc(center, radius, startAngle, endAngle, clockwise);
+  let expected = rac.Arc(x, y, radius, someStartAngle, someEndAngle, clockwise);
   if (arc == null) {
     return fail(() =>
       this.utils.matcherHint('equalsArc',
@@ -152,11 +148,11 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
   }
 
   const pass =
-    rac.equals(arc.center.x, x)
-    && rac.equals(arc.center.y, y)
-    && rac.equals(arc.radius, radius)
-    && rac.unitaryEquals(arc.start.turn, startAngle.turn)
-    && rac.unitaryEquals(arc.end.turn, endAngle.turn)
+    rac.equals(arc.center.x, expected.center.x)
+    && rac.equals(arc.center.y, expected.center.y)
+    && rac.equals(arc.radius, expected.radius)
+    && rac.unitaryEquals(arc.start.turn, expected.start.turn)
+    && rac.unitaryEquals(arc.end.turn, expected.end.turn)
     && clockwise === clockwise;
   if (pass) {
     return {

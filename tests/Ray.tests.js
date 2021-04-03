@@ -7,10 +7,10 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 let fifty = rac.Point(55, 55);
-let diagonal = rac.Ray(fifty, rac.Angle.eighth);
+let diagonal = rac.Ray(55, 55, rac.Angle.eighth);
 let hunty = rac.Point(100, 100);
-let vertical = rac.Ray(hunty, rac.Angle.square);
-let horizontal = rac.Ray(hunty, rac.Angle.zero);
+let vertical = rac.Ray(100, 100, rac.Angle.square);
+let horizontal = rac.Ray(100, 100, rac.Angle.zero);
 
 
 
@@ -28,31 +28,30 @@ test('Identity', () => {
 
 
 test('Slope, yIntercept', () => {
+  expect(rac.Ray(100, 100, rac.Angle.zero).slope()).thresEquals(0);
+  expect(rac.Ray(100, 100, rac.Angle.half).slope()).thresEquals(0);
 
-  expect(rac.Ray(hunty, rac.Angle.zero).slope()).thresEquals(0);
-  expect(rac.Ray(hunty, rac.Angle.half).slope()).thresEquals(0);
+  expect(rac.Ray(100, 100, rac.Angle.down).slope()).toBe(null);
+  expect(rac.Ray(100, 100, rac.Angle.up).slope()).toBe(null);
 
-  expect(rac.Ray(hunty, rac.Angle.down).slope()).toBe(null);
-  expect(rac.Ray(hunty, rac.Angle.up).slope()).toBe(null);
+  expect(rac.Ray(100, 100, rac.Angle.bottomRight).slope()).thresEquals(1);
+  expect(rac.Ray(100, 100, rac.Angle.topLeft).slope()).thresEquals(1);
 
-  expect(rac.Ray(hunty, rac.Angle.bottomRight).slope()).thresEquals(1);
-  expect(rac.Ray(hunty, rac.Angle.topLeft).slope()).thresEquals(1);
+  expect(rac.Ray(100, 100, rac.Angle.topRight).slope()).thresEquals(-1);
+  expect(rac.Ray(100, 100, rac.Angle.bottomLeft).slope()).thresEquals(-1);
 
-  expect(rac.Ray(hunty, rac.Angle.topRight).slope()).thresEquals(-1);
-  expect(rac.Ray(hunty, rac.Angle.bottomLeft).slope()).thresEquals(-1);
-
-  expect(rac.Ray(hunty, rac.Angle.tr).yIntercept())
+  expect(rac.Ray(100, 100, rac.Angle.tr).yIntercept())
     .thresEquals(200);
-  expect(rac.Ray(hunty.negative(), rac.Angle.bl).yIntercept())
+  expect(rac.Ray(-100, -100, rac.Angle.bl).yIntercept())
     .thresEquals(-200);
 
-  expect(rac.Ray(hunty, rac.Angle.br).yIntercept())
+  expect(rac.Ray(100, 100, rac.Angle.br).yIntercept())
     .thresEquals(0);
-  expect(rac.Ray(hunty.negative(), rac.Angle.tl).yIntercept())
+  expect(rac.Ray(-100, -100, rac.Angle.tl).yIntercept())
     .thresEquals(0);
 
-  expect(rac.Ray(hunty, rac.Angle.u).yIntercept()).toBe(null);
-  expect(rac.Ray(hunty.negative(), rac.Angle.d).yIntercept()).toBe(null);
+  expect(rac.Ray(100, 100, rac.Angle.u).yIntercept()).toBe(null);
+  expect(rac.Ray(-100, -100, rac.Angle.d).yIntercept()).toBe(null);
 });
 
 

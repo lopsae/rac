@@ -11,12 +11,19 @@ const utils = require('../util/utils');
 */
 class Arc{
 
-  constructor(
-    rac,
+  /**
+  * Creates a new `Arc` instance.
+  *
+  * @param {Rac} rac
+  * @param {Rac.Point} center
+  * @param {number} radius
+  * @param {Rac.Angle} start
+  * @param {Rac.Angle} end
+  * @param {boolean} clockwise
+  */
+  constructor(rac,
     center, radius,
-    // TODO: should only accept angle objects, no defaults since rac is not accesible
-    start = rac.Angle.zero,
-    end = start,
+    start, end,
     clockwise = true)
   {
     utils.assertExists(rac, center, radius, start, end, clockwise);
@@ -30,10 +37,10 @@ class Arc{
     this.radius = radius;
     // Start angle of the arc. Arc will draw from this angle towards `end`
     // in the `clockwise` orientaton.
-    this.start = Rac.Angle.from(rac, start);
+    this.start = start
     // End angle of the arc. Arc will draw from `start` to this angle in
     // the `clockwise` orientaton.
-    this.end = Rac.Angle.from(rac, end);
+    this.end = end;
     // Orientation of the arc
     this.clockwise = clockwise;
   }

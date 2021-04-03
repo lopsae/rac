@@ -53,3 +53,6 @@ test('Unitary equality threshold', () => {
   expect(7-threshold+bump).uniThresEquals(7);
 });
 
+
+test.todo(`Utility constructors`);
+
