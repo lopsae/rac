@@ -236,50 +236,6 @@ class Ray {
 module.exports = Ray;
 
 
-// Returns the y-intercept, or `null` if the segment is part of a
-// vertical line.
-// Ray.prototype.yIntercept = function() {
-//   let slope = this.slope();
-//   if (slope === null) {
-//     return null;
-//   }
-//   // y = mx + b
-//   // y - mx = b
-//   return this.start.y - slope * this.start.x;
-// };
-
-
-// Ray.prototype.pointAtX = function(x) {
-//   let slope = this.slope();
-//   if (slope === null) {
-//     return null;
-//   }
-
-//   let y = slope*x + this.yIntercept();
-//   return new Rac.Point(this.rac, x, y);
-// }
-
-
-// Translates the ray by the entire `point`, or by the given `x` and
-// `y` components.
-// Ray.prototype.translate = function(point, y = undefined) {
-//   if (point instanceof rac.Point && y === undefined) {
-//     return new Ray(this.rac,
-//       this.start.addPoint(point),
-//       this.angle);
-//   }
-
-//   if (typeof point === "number" && typeof y === "number") {
-//     let x = point;
-//     return new Ray(this.rac,
-//       this.start.add(x, y),
-//       this.angle);
-//   }
-
-//   console.trace(`Invalid parameter combination - point-type:${utils.typeName(point)} y-type:${utils.typeName(y)}`);
-//   throw rac.Error.invalidParameterCombination;
-// }
-
 // Ray.prototype.translateToAngle = function(someAngle, distance) {
 //   let angle = rac.Angle.from(someAngle);
 //   let offset = rac.Point.zero.pointToAngle(angle, distance);
@@ -307,19 +263,6 @@ module.exports = Ray;
 //     clockwise);
 // };
 
-// Returns an Arc using this segment `start` as center, `length()` as
-// radius, starting from the `angle` to the given angle and orientation.
-// Ray.prototype.arcWithEnd = function(
-//   radius,
-//   someAngleEnd = this.angle,
-//   clockwise = true)
-// {
-//   let arcEnd = rac.Angle.from(someAngleEnd);
-//   return new Rac.Arc(this.rac,
-//     this.start, distance,
-//     this.angle, arcEnd,
-//     clockwise);
-// };
 
 // Returns an Arc using this segment `start` as center, `length()` as
 // radius, starting from the `angle` to the arc distance of the given
