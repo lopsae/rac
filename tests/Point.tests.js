@@ -29,9 +29,13 @@ test('Identity', () => {
 
 test('Errors', () => {
   expect(() => {new Rac.Point(null, 100, 100);})
-    .toThrow();
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Point(rac, null, 100);})
-    .toThrow();
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Point(rac, 100, "nonsense");})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Point(rac, NaN, 100);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 
@@ -53,10 +57,7 @@ test('Function add/sub', () => {
     .equalsPoint(45, 45);
   expect(hunty.subtract(1, 1))
     .equalsPoint(99, 99);
-});
 
-
-test('Function addX/Y', () => {
   expect(hunty.addX(55)).equalsPoint(155, 100);
   expect(hunty.addY(55)).equalsPoint(100, 155);
   expect(hunty.addX(11).addY(11))
