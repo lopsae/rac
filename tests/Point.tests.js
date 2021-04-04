@@ -7,8 +7,8 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-let hunty = rac.Point(100, 100);
-let fifty = rac.Point(55, 55);
+const hunty = rac.Point(100, 100);
+const fifty = rac.Point(55, 55);
 
 
 test('Identity', () => {
@@ -135,25 +135,42 @@ test('Transforms to Segment', () => {
     .equalsSegment(100, 100, rac.Angle.eighth.inverse(), tools.hypotenuse(45));
 
   // vertical ray at x:300
-  let vertical = hunty
+  const vertical = hunty
     .addX(200)
     .ray(rac.Angle.s);
   expect(hunty.segmentToProjectionInRay(vertical))
     .equalsSegment(100, 100, 0, 200);
 
   // horizontal ray at x:300
-  let horizontal = hunty
+  const horizontal = hunty
     .addY(200)
     .ray(rac.Angle.zero);
   expect(hunty.segmentToProjectionInRay(horizontal))
     .equalsSegment(100, 100, 1/4, 200);
 
   // diagonal at zero
-  let diagonal = hunty.ray(rac.Angle.eighth);
+  const diagonal = hunty.ray(rac.Angle.eighth);
   expect(fifty.segmentToProjectionInRay(diagonal))
     .equalsSegment(55, 55, rac.Angle.eighth.perpendicular(), 0);
   expect(hunty.segmentToProjectionInRay(diagonal))
     .equalsSegment(100, 100, rac.Angle.eighth.perpendicular(), 0);
+
+  const circle = rac.Arc(50, 50, 50);
+  expect(fifty.segmentTangentToArc(circle)).toBe(null);
+
+  expect(hunty.segmentTangentToArc(circle))
+    .equalsSegment(100, 100, rac.Angle.top, 50);
+  expect(hunty.segmentTangentToArc(circle, false))
+    .equalsSegment(100, 100, rac.Angle.left, 50);
+  expect(fifty.segmentTangentToArc(circle)).toBe(null);
+
+  // Point in circle
+  // let circleEdge = tools.hypotenuse(50) + tools.sides(50);
+  // let circlePoint = rac.Point(circleEdge, circleEdge);
+  // expect(circlePoint.segmentTangentToArc(circle))
+  //   .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
+  // expect(circlePoint.segmentTangentToArc(circle, false))
+  //   .equalsSegment(circleEdge, circleEdge, rac.Angle.sw, 0);
 });
 
 

@@ -160,8 +160,11 @@ class Point{
 
   /**
   * Returns a `Ray` from `this` to the point projected in `ray`. If the
-  * projected point equal to `this` the produced ray will have an angle
+  * projected point is equal to `this` the produced ray will have an angle
   * clockwise-perpendicular to `ray`.
+  *
+  * @param {Rac.Ray} ray
+  * @returns {Rac.Point}
   */
   rayToProjectionInRay(ray) {
     const projected = ray.pointProjected(this);
@@ -169,18 +172,50 @@ class Point{
     return this.rayToPoint(projected, perpendicular);
   }
 
-  // Returns a segment that is tangent to `arc` in the `clockwise`
-  // orientation from the segment formed by `this` and `arc.center`. The
-  // returned segment has `this` as `start` and `end` is a point in `arc`.
-  // `arc` is considered as a complete circle.
-  // Returns `null` if `this` is inside `arc` and thus no tangent segment
-  // is possible.
+
+  // TODO: rayTangentToArc
+
+
+  segmentToAngle(someAngle, length) {
+    const angle = this.rac.Angle.from(someAngle);
+    const ray = new Rac.Ray(this.rac, this, angle);
+    return new Rac.Segment(this.rac, ray, length);
+  }
+
+  segmentToPoint(point, someAngle = this.rac.Angle.zero) {
+    const angle = this.angleToPoint(point, someAngle);
+    const length = this.distanceToPoint(point);
+    const ray = new Rac.Ray(this.rac, this, angle);
+    return new Rac.Segment(this.rac, ray, length);
+  }
+
+  // Returns a segment from this to the point projected in ray
+  segmentToProjectionInRay(ray) {
+    const projected = ray.pointProjected(this);
+    const perpendicular = ray.angle.perpendicular();
+    return this.segmentToPoint(projected, perpendicular);
+  }
+
+
+  /**
+  * Returns a `Segment` that is tangent to `arc` in the `clockwise`
+  * orientation from the ray formed by `this` and `arc.center`. Returns
+  * `null` if `this` is inside `arc` and thus no tangent segment is
+  * possible.
+  * The returned `Segment` starts at `this` and ends at the contact point
+  * with `arc` which is considered as a complete circle.
+  *
+  * TODO: what happens if the point touches the circle?
+  *
+  * @param {Rac.Arc} arc
+  * @param {boolean=} clockwise=true
+  * @return {Rac.Segment}
+  */
   segmentTangentToArc(arc, clockwise = true) {
-    // TODO: recheck after segment migration
     let hypotenuse = this.segmentToPoint(arc.center);
     let ops = arc.radius;
 
-    let angleSine = ops / hypotenuse.length();
+    let angleSine = ops / hypotenuse.length;
     if (angleSine > 1) {
       return null;
     }
@@ -203,26 +238,6 @@ class Point{
 
 module.exports = Point;
 
-
-Point.prototype.segmentToAngle = function(someAngle, length) {
-  const angle = this.rac.Angle.from(someAngle);
-  const ray = new Rac.Ray(this.rac, this, angle);
-  return new Rac.Segment(this.rac, ray, length);
-};
-
-Point.prototype.segmentToPoint = function(point, someAngle = this.rac.Angle.zero) {
-  const angle = this.angleToPoint(point, someAngle);
-  const length = this.distanceToPoint(point);
-  const ray = new Rac.Ray(this.rac, this, angle);
-  return new Rac.Segment(this.rac, ray, length);
-};
-
-// Returns a segment from this to the point projected in ray
-Point.prototype.segmentToProjectionInRay = function(ray) {
-  const projected = ray.pointProjected(this);
-  const perpendicular = ray.angle.perpendicular();
-  return this.segmentToPoint(projected, perpendicular);
-};
 
 Point.prototype.arc = function(
   radius,
