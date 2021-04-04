@@ -158,6 +158,11 @@ class Point{
     return new Rac.Ray(this.rac, this, angle);
   }
 
+  /**
+  * Returns a `Ray` from `this` to the point projected in `ray`. If the
+  * projected point equal to `this` the produced ray will have an angle
+  * clockwise-perpendicular to `ray`.
+  */
   rayToProjectionInRay(ray) {
     const projected = ray.pointProjected(this);
     const perpendicular = ray.angle.perpendicular();

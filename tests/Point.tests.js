@@ -98,7 +98,33 @@ test('Transforms to Angle', () => {
 });
 
 
-test.todo('Transforms to Ray');
+test('Transforms to Ray', () => {
+  expect(hunty.ray(rac.Angle.zero))
+    .equalsRay(100, 100, rac.Angle.zero);
+  expect(hunty.ray(rac.Angle.up))
+    .equalsRay(100, 100, rac.Angle.up);
+
+  expect(hunty.rayToPoint(hunty.addX(100)))
+    .equalsRay(100, 100, rac.Angle.zero);
+  expect(hunty.rayToPoint(hunty.addY(100)))
+    .equalsRay(100, 100, rac.Angle.down);
+
+  const horizontalRay = rac.Ray(0, 0, rac.Angle.zero);
+  const verticalRay = rac.Ray(0, 0, rac.Angle.down);
+  expect(hunty.rayToProjectionInRay(horizontalRay))
+    .equalsRay(100, 100, rac.Angle.up);
+  expect(hunty.rayToProjectionInRay(verticalRay))
+    .equalsRay(100, 100, rac.Angle.left);
+
+  const diagonalRay = rac.Ray(0, 0, rac.Angle.eighth);
+  expect(rac.Point(100, 0).rayToProjectionInRay(diagonalRay))
+    .equalsRay(100, 0, rac.Angle.sw);
+  expect(rac.Point(0, 100).rayToProjectionInRay(diagonalRay))
+    .equalsRay(0, 100, rac.Angle.ne);
+  // Point in ray, perpendicular angle
+  expect(hunty.rayToProjectionInRay(diagonalRay))
+    .equalsRay(100, 100, rac.Angle.sw);
+});
 
 
 test('Transforms to Segment', () => {
