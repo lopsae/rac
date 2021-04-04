@@ -165,12 +165,15 @@ test('Transforms to Segment', () => {
   expect(fifty.segmentTangentToArc(circle)).toBe(null);
 
   // Point in circle
-  // let circleEdge = tools.hypotenuse(50) + tools.sides(50);
-  // let circlePoint = rac.Point(circleEdge, circleEdge);
-  // expect(circlePoint.segmentTangentToArc(circle))
-  //   .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
-  // expect(circlePoint.segmentTangentToArc(circle, false))
-  //   .equalsSegment(circleEdge, circleEdge, rac.Angle.sw, 0);
+  let circleEdge = 50 + tools.sides(50);
+  expect(circle.pointAtAngle(rac.Angle.eighth))
+    .equalsPoint(circleEdge, circleEdge);
+
+  let circlePoint = rac.Point(circleEdge, circleEdge);
+  expect(circlePoint.segmentTangentToArc(circle))
+    .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
+  expect(circlePoint.segmentTangentToArc(circle, false))
+    .equalsSegment(circleEdge, circleEdge, rac.Angle.sw, 0);
 });
 
 

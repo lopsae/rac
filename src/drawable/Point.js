@@ -206,6 +206,7 @@ class Point{
   * with `arc` which is considered as a complete circle.
   *
   * TODO: what happens if the point touches the circle?
+  * TODO: what happens if the arc radius is zero and this is equal to center?
   *
   * @param {Rac.Arc} arc
   * @param {boolean=} clockwise=true
@@ -215,8 +216,15 @@ class Point{
     let hypotenuse = this.segmentToPoint(arc.center);
     let ops = arc.radius;
 
+    if (this.rac.equals(hypotenuse.length, arc.radius)) {
+      // Point in arc
+      const perpendicular = hypotenuse.ray.angle.perpendicular(clockwise);
+      return this.segmentToAngle(perpendicular, 0);
+    }
+
     let angleSine = ops / hypotenuse.length;
     if (angleSine > 1) {
+      // Point inside arc
       return null;
     }
 
