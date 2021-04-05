@@ -36,17 +36,17 @@ module.exports = function attachRacText(rac) {
   * @name hello
   * @memberof rac.Text#
   */
-  rac.Text.hello = rac.Text('hello world!',
-    rac.Text.Format.topLeft, rac.Point.zero);
+  rac.Text.hello = rac.Text(0, 0, 'hello world!',
+    rac.Text.Format.topLeft);
 
   /**
-  * A `Text` for drawing the pangram `sphinx of black quartz judge my vow`
+  * A `Text` for drawing the pangram `sphinx of black quartz, judge my vow`
   * with `topLeft` format at `Point.zero`.
   * @name sphinx
   * @memberof rac.Text#
   */
-  rac.Text.sphinx = rac.Text('sphinx of black quartz judge my vow',
-    rac.Text.Format.topLeft, rac.Point.zero);
+  rac.Text.sphinx = rac.Text(0, 0, 'sphinx of black quartz, judge my vow',
+    rac.Text.Format.topLeft);
 
 } // attachRacPoint
 

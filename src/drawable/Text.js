@@ -78,15 +78,27 @@ class TextFormat {
 */
 class Text {
 
-  constructor(rac, string, format, point) {
-    utils.assertExists(rac, string, format, point);
+  static Format = TextFormat;
+
+  constructor(rac, point, string, format) {
+    utils.assertExists(rac, point, string, format);
+    utils.assertType(Rac.Point, point);
+    utils.assertString(string);
+    utils.assertType(Text.Format, format);
     this.rac = rac;
+    this.point = point;
     this.string = string;
     this.format = format;
-    this.point = point;
   }
 
-  static Format = TextFormat;
+
+  /**
+  * Returns a string representation intended for human consumption.
+  * @returns {string}
+  */
+  toString() {
+    return `Text((${this.point.x},${this.point.y}) "${this.string}")`;
+  }
 
 } // class Text
 

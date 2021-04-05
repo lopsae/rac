@@ -191,23 +191,6 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Text` using `this`.
-  *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Text}`.
-  *
-  * @param {string} string
-  * @param {Rac.Text.Format} format
-  * @param {Rac.Point} point
-  * @returns {Rac.Text}
-  */
-  // TODO: update to all primitives?
-  Text(string, format, point) {
-    return new Rac.Text(this, string, format, point);
-  }
-
-
-  /**
   * Convenience function that creates a new `Angle` using `this`.
   *
   * This function also contains more convenience methods and properties
@@ -304,6 +287,24 @@ class Rac {
     const start = Rac.Angle.from(this, someStart);
     const end = Rac.Angle.from(this, someEnd);
     return new Rac.Arc(this, center, radius, start, end, clockwise);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Text` using `this`.
+  *
+  * This function also contains more convenience methods and properties
+  * listed in `{@link rac.Text}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {string} string
+  * @param {Rac.Text.Format} format
+  * @returns {Rac.Text}
+  */
+  Text(x, y, string, format) {
+    const point = new Rac.Point(this, x, y);
+    return new Rac.Text(this, point, string, format);
   }
 
 } // class Rac

@@ -16,6 +16,7 @@ const Rac = require('../Rac');
 * is thrown.
 *
 * @param {...Object|primitive} parameters
+* @returns {boolean}
 * @name assertExists
 * @memberof utils#
 * @function
@@ -36,6 +37,7 @@ exports.assertExists = function(...parameters) {
 *
 * @param {function} type
 * @param {...Object} elements
+* @returns {boolean}
 * @name assertType
 * @memberof utils#
 * @function
@@ -55,6 +57,7 @@ exports.assertType = function(type, ...elements) {
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
 * @param {...number} elements
+* @returns {boolean}
 * @name assertNumber
 * @memberof utils#
 * @function
@@ -70,10 +73,31 @@ exports.assertNumber = function(...elements) {
 
 
 /**
+* Asserts that all `elements` are string primitives, otherwise
+* a `{@link Rac.Exception.failedAssert}` is thrown.
+*
+* @param {...string} elements
+* @returns {boolean}
+* @name assertString
+* @memberof utils#
+* @function
+*/
+exports.assertString = function(...elements) {
+  elements.forEach(item => {
+    if (typeof item !== 'string') {
+      throw Rac.Exception.failedAssert(
+        `Element is unexpected type, expecting string primitive - element:${item} element-type:${typeName(item)}`);
+    }
+  });
+}
+
+
+/**
 * Asserts that all `elements` are boolean primitives, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
 *
 * @param {...boolean} elements
+* @returns {boolean}
 * @name assertBoolean
 * @memberof utils#
 * @function
@@ -92,6 +116,7 @@ exports.assertBoolean = function(...elements) {
 * Returns the constructor name of `obj`, or its type name.
 * Convenience function for debugging.
 *
+* @returns {string}
 * @name typeName
 * @memberof utils#
 * @function
