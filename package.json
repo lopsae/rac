@@ -10,7 +10,7 @@
     "test:coverage": "jest --coverage && open ./coverage/lcov-report/index.html",
     "test:cc": "rm -rf ./coverage; npm run test:coverage",
     "start": "npm test && grunt serve",
-    "dist": "grunt dist",
+    "dist": "npm test && grunt dist",
     "docs": "grunt --debug jsdoc && open ./docs/index.html",
     "docs:clean": "rm -rf ./coverage",
     "docs:fresh": "npm run docs:clean && npm run docs"
