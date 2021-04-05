@@ -9,7 +9,10 @@
         "node_modules",
         "docs",
         "coverage"],
-      "index_exclude_patterns": ["dist/*"]
+      "file_exclude_patterns": [
+        "package-lock.json"],
+      "index_exclude_patterns": [
+        "dist/*"]
     }
   ]
 }
