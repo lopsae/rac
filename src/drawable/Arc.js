@@ -54,6 +54,15 @@ class Arc{
   }
 
 
+  equals(other) {
+    return this.center.equals(other.center)
+      && this.rac.equals(this.radius, other.radius)
+      && this.start.equals(other.start)
+      && this.end.equals(other.end)
+      && this.clockwise === other.clockwise;
+  }
+
+
   reverse() {
     return new Arc(this.rac,
       this.center, this.radius,

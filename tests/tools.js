@@ -147,12 +147,7 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
         options));
   }
 
-  // TODO: implement and use arc.equals
-  const isEqual = expected.center.equals(arc.center)
-    && rac.equals(expected.radius, arc.radius)
-    && expected.start.equals(arc.start)
-    && expected.end.equals(arc.end)
-    && expected.clockwise === arc.clockwise;
+  const isEqual = expected.equals(arc);
   return done(isEqual, () =>
     this.utils.matcherHint('equalsArc',
       arc.toString(), expected.toString(),
