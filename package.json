@@ -1,5 +1,5 @@
 {
-  "name": "rulerandcompass",
+  "name": "ruler-and-compass",
   "version": "0.10.0-dev",
   "description": "Ruler and Compass",
   "main": "src/main.js",
@@ -31,6 +31,8 @@
     "npm": "^7.6.0"
   },
   "jest": {
-    "testMatch": ["**/tests/**/*.tests.js"]
+    "testMatch": [
+      "**/tests/**/*.tests.js"
+    ]
   }
 }

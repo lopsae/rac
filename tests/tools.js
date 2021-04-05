@@ -1,7 +1,7 @@
 'use strict';
 
 
-const Rac = require('rulerandcompass');
+const Rac = require('ruler-and-compass');
 // TODO: can this be set in a better place?
 Rac.Exception.buildsErrors = true;
 
