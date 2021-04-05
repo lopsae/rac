@@ -250,8 +250,8 @@ class Point{
   }
 
 
-  text(string, format, angle = this.rac.Angle.zero) {
-    return new Rac.Text(this.rac, string, format, this, angle);
+  text(string, format) {
+    return new Rac.Text(this.rac, this, string, format);
   }
 
 } // class Point
