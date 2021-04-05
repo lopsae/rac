@@ -9,7 +9,22 @@ const rac = new Rac();
 exports.rac = rac;
 
 
+// Number of digits to display in test output
 const digits = 3;
+
+
+// Returns the hypotenuse of a triangle with sides a,b, or a,a.
+exports.hypotenuse = function(a, maybeB = null) {
+  const b = maybeB === null ? a : b;
+  return Math.sqrt(a*a + b*b);
+};
+
+
+// Returns the side of a triangle of hypotenuse hyp and equal sides.
+exports.sides = function(hyp) {
+  return Math.sqrt(hyp*hyp/2);
+};
+
 
 function pass(messageFunc) {
   return {
@@ -183,6 +198,23 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
 }}); // equalsArc
 
 
+// Checks all text properties, except for `format`
+expect.extend({ equalsText(text, x, y, string) {
+  const messenger = new Messenger(this,
+    'equalsText',
+    'equal Text properties');
+
+  const expected = rac.Text(x, y, string, rac.Text.Format.topLeft);
+  if (text == null) {
+    return messenger.fail('null', expected.toString(digits));
+  }
+
+  const isEqual = expected.string === text.string
+    && expected.point.equals(text.point);
+  return messenger.done(isEqual, text.toString(digits), expected.toString(digits))
+}}); // equalsText
+
+
 expect.extend({ toThrowNamed(closure, name, expectsError = true) {
   const options = {
     comment: 'throws named Exception or Error',
@@ -270,15 +302,5 @@ expect.extend({ uniThresEquals(value, expected) {
 }}); // uniThresEquals
 
 
-// Returns the hypotenuse of a triangle with sides a,b, or a,a.
-exports.hypotenuse = function(a, maybeB = null) {
-  const b = maybeB === null ? a : b;
-  return Math.sqrt(a*a + b*b);
-};
 
-
-// Returns the side of a triangle of hypotenuse hyp and equal sides.
-exports.sides = function(hyp) {
-  return Math.sqrt(hyp*hyp/2);
-};
 
