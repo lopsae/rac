@@ -27,6 +27,7 @@ class Point{
 
   /**
   * Returns a string representation intended for human consumption.
+  * @returns {string}
   */
   toString() {
     return `Point(${this.x},${this.y})`;

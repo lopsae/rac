@@ -147,5 +147,5 @@ test ('Point projection', () => {
 });
 
 
-test.todo('More!')
+test.todo('Check for coverage!');
 
