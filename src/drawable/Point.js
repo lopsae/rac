@@ -239,6 +239,16 @@ class Point{
   }
 
 
+  arc(
+    radius,
+    start = this.rac.Angle.zero,
+    end = start,
+    clockwise = true)
+  {
+    return new Rac.Arc(this.rac, this, radius, start, end, clockwise);
+  }
+
+
   text(string, format, angle = this.rac.Angle.zero) {
     return new Rac.Text(this.rac, string, format, this, angle);
   }
@@ -247,14 +257,4 @@ class Point{
 
 
 module.exports = Point;
-
-
-Point.prototype.arc = function(
-  radius,
-  start = this.rac.Angle.zero,
-  end = start,
-  clockwise = true)
-{
-  return new Rac.Arc(this.rac, this, radius, start, end, clockwise);
-};
 

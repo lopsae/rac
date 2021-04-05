@@ -251,9 +251,13 @@ test('Miscelaneous', () => {
     .toBe(100);
 });
 
+test.todo('text');
 
-test.todo('arc');
-// expect(hunty.arc(155, rac.Angle.e, rac.Angle.n, false))
-//     .equalsArc(100, 100, 155, 0, 3/4, false);
-test.todo('segmentTangentToArc');
+
+test('Transforms to Arc', () => {
+  expect(hunty.arc(155, rac.Angle.zero, rac.Angle.up, true))
+    .equalsArc(100, 100, 155, rac.Angle.zero, rac.Angle.up, true);
+  expect(hunty.arc(7, rac.Angle.down, rac.Angle.left, false))
+    .equalsArc(100, 100, 7, rac.Angle.down, rac.Angle.left, false);
+});
 
