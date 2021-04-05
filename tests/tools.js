@@ -147,26 +147,16 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
         options));
   }
 
-  const pass =
-    rac.equals(arc.center.x, expected.center.x)
-    && rac.equals(arc.center.y, expected.center.y)
-    && rac.equals(arc.radius, expected.radius)
-    && rac.unitaryEquals(arc.start.turn, expected.start.turn)
-    && rac.unitaryEquals(arc.end.turn, expected.end.turn)
-    && clockwise === clockwise;
-  if (pass) {
-    return {
-      message: () =>
-        `expected arc ((${arc.center.x},${arc.center.x}) r:${arc.radius} s:${arc.start.turn} e:${arc.end.turn} c:${arc.clockwise}) not to equal to ((${centerX},${centerY}) r:${radius} s:${startAngle.turn} e:${endAngle.turn} c:${clockwise})`,
-      pass: true,
-    };
-  } else {
-    return {
-      message: () =>
-        `expected arc ((${arc.center.x},${arc.center.x}) r:${arc.radius} s:${arc.start.turn} e:${arc.end.turn} c:${arc.clockwise}) to equal to ((${centerX},${centerY}) r:${radius} s:${startAngle.turn} e:${endAngle.turn} c:${clockwise})`,
-      pass: false,
-    };
-  }
+  // TODO: implement and use arc.equals
+  const isEqual = expected.center.equals(arc.center)
+    && rac.equals(expected.radius, arc.radius)
+    && expected.start.equals(arc.start)
+    && expected.end.equals(arc.end)
+    && expected.clockwise === arc.clockwise;
+  return done(isEqual, () =>
+    this.utils.matcherHint('equalsArc',
+      arc.toString(), expected.toString(),
+      options));
 }}); // equalsArc
 
 
