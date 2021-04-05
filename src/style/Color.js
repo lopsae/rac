@@ -31,10 +31,6 @@ class Color {
     return new Color(rac, r/255, g/255, b/255, a/255);
   }
 
-  copy() {
-    return new Color(this.rac, this.r, this.g, this.b, this.alpha);
-  }
-
   fill() {
     return new Rac.Fill(this.rac, this);
   }
@@ -43,16 +39,12 @@ class Color {
     return new Rac.Stroke(this.rac, this, weight);
   }
 
-  withAlpha(alpha) {
-    let copy = this.copy();
-    copy.alpha = alpha;
-    return copy;
+  withAlpha(newAlpha) {
+    return new Color(this.rac, this.r, this.g, this.b, newAlpha);
   }
 
   withAlphaRatio(ratio) {
-    let copy = this.copy();
-    copy.alpha = this.color.alpha * ratio;
-    return copy;
+    return new Color(this.rac, this.r, this.g, this.b, this.alpha * ratio);
   }
 
 } // class Color

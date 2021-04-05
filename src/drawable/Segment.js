@@ -34,10 +34,6 @@ class Segment {
     return `Segment((${this.ray.start.x},${this.ray.start.y}) a:${this.ray.angle.turn} l:${this.length})`;
   }
 
-  copy() {
-    return new Segment(this.rac, this.ray, this.length);
-  }
-
   angle() {
     return this.ray.angle;
   }

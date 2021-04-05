@@ -25,10 +25,6 @@ class Ray {
     return `Ray((${this.start.x},${this.start.y}) a:${this.angle.turn})`;
   }
 
-  copy() {
-    return new Ray(this.rac, this.start, this.angle);
-  }
-
 
   /**
   * Returns the slope of the ray, or `null` if the ray is vertical.

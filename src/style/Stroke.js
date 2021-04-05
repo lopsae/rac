@@ -18,10 +18,6 @@ class Stroke {
     this.weight = weight;
   }
 
-  copy() {
-    return new Stroke(this.rac, this.color, this.weight);
-  }
-
   withWeight(newWeight) {
     return new Stroke(this.rac, this.color, newWeight);
   }

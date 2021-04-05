@@ -54,16 +54,6 @@ class Arc{
   }
 
 
-  copy() {
-    return new Arc(
-      this.rac,
-      this.center,
-      this.radius,
-      this.start,
-      this.end,
-      this.clockwise);
-  }
-
   reverse() {
     return new Arc(this.rac,
       this.center, this.radius,
