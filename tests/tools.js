@@ -37,25 +37,53 @@ function done(isPass, messageFunc) {
 exports.done = done;
 
 
-expect.extend({ equalsAngle(angle, someAngle) {
-  const options = {
-    comment: 'equal Angle properties',
-    isNot: this.isNot
-  };
+class Messenger {
 
-  let expected = rac.Angle.from(someAngle);
+  constructor(matcher, funcName, comment) {
+    this.matcher = matcher;
+    this.funcName = funcName;
+    this.options = {
+      comment: comment,
+      isNot: matcher.isNot
+    };
+  }
+
+  done(passes, received, expected) {
+    const messageFunc = () => {
+      return this.matcher.utils.matcherHint(
+        this.funcName,
+        received, expected,
+        this.options);
+    };
+    return {
+      message: messageFunc,
+      pass: passes
+    };
+  }
+
+  pass(received, expected) {
+    return this.done(true, received, expected);
+  }
+
+  fail(received, expected) {
+    return this.done(false, received, expected);
+  }
+
+}
+
+
+expect.extend({ equalsAngle(angle, someAngle) {
+  const messenger = new Messenger(this,
+    'equalsAngle',
+    'equal Angle properties');
+
+  const expected = rac.Angle.from(someAngle);
   if (angle == null) {
-    return fail(() =>
-      this.utils.matcherHint('equalsAngle',
-        'null', expected.toString(digits),
-        options));
+    return messenger.fail('null', expected.toString(digits));
   }
 
   const isEqual = expected.equals(angle);
-  return done(isEqual, () =>
-    this.utils.matcherHint('equalsAngle',
-      angle.toString(digits), expected.toString(digits),
-      options));
+  return messenger.done(isEqual, angle.toString(digits), expected.toString(digits))
 }}); // equalsAngle
 
 
