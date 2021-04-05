@@ -199,7 +199,7 @@ class Point{
 
 
   /**
-  * Returns a `Segment` that is tangent to `arc` in the `clockwise`
+  * Returns a new `Segment` that is tangent to `arc` in the `clockwise`
   * orientation from the ray formed by `this` and `arc.center`. Returns
   * `null` if `this` is inside `arc` and thus no tangent segment is
   * possible.
@@ -240,12 +240,25 @@ class Point{
   }
 
 
+  /**
+  * Returns a new `Arc` with center at `this` and the given parameters.
+  *
+  * @param {number} radius
+  * @param {Rac.Angle|number=} someStart=rac.Angle.zero
+  * @param {?Rac.Angle|number=} someEnd
+  * @param {boolean=} clockwise=true
+  * @returns {Rac.Arc}
+  */
   arc(
     radius,
-    start = this.rac.Angle.zero,
-    end = start,
+    someStart = this.rac.Angle.zero,
+    someEnd = null,
     clockwise = true)
   {
+    const start = this.rac.Angle.from(someStart);
+    const end = someEnd === null
+      ? start
+      : this.rac.Angle.from(someEnd);
     return new Rac.Arc(this.rac, this, radius, start, end, clockwise);
   }
 

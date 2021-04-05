@@ -244,21 +244,30 @@ test('Arc Tangents edge cases', () => {
 });
 
 
+test('Transforms to Arc', () => {
+  expect(hunty.arc(155))
+    .equalsArc(100, 100, 155, rac.Angle.zero, rac.Angle.zero, true);
+
+  expect(hunty.arc(155, rac.Angle.up))
+    .equalsArc(100, 100, 155, rac.Angle.up, rac.Angle.up, true);
+  expect(hunty.arc(155, rac.Angle.up, null, false))
+    .equalsArc(100, 100, 155, rac.Angle.up, rac.Angle.up, false);
+
+  expect(hunty.arc(155, rac.Angle.down, rac.Angle.left, true))
+    .equalsArc(100, 100, 155, rac.Angle.down, rac.Angle.left, true);
+  expect(hunty.arc(7, rac.Angle.up, rac.Angle.left, false))
+    .equalsArc(100, 100, 7, rac.Angle.up, rac.Angle.left, false);
+});
+
+
 test('Miscelaneous', () => {
   expect(hunty.distanceToPoint(rac.Point(100, 200)))
     .toBe(100);
   expect(hunty.distanceToPoint(rac.Point(200, 100)))
     .toBe(100);
-});
 
-test.todo('text');
-
-
-test('Transforms to Arc', () => {
-  expect(hunty.arc(155, rac.Angle.zero, rac.Angle.up, true))
-    .equalsArc(100, 100, 155, rac.Angle.zero, rac.Angle.up, true);
-  expect(hunty.arc(7, rac.Angle.down, rac.Angle.left, false))
-    .equalsArc(100, 100, 7, rac.Angle.down, rac.Angle.left, false);
+  expect(hunty.text("sphinx", rac.Text.Format.topLeft))
+    .equalsText(100, 100, 'sphinx');
 });
 
 
