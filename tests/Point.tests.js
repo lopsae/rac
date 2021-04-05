@@ -270,6 +270,3 @@ test('Miscelaneous', () => {
     .equalsText(100, 100, 'sphinx');
 });
 
-
-test.todo('Check for coverage!');
-
