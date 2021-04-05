@@ -182,17 +182,65 @@ test('Arc Tangents', () => {
     .equalsSegment(diagonalX, 50, rac.Angle.nw, 50);
   expect(diagonalPoint.segmentTangentToArc(circle, false))
     .equalsSegment(diagonalX, 50, rac.Angle.sw, 50);
+});
 
-  // Point in circle
-  let circleEdge = 50 + tools.sides(50);
+
+test('Arc Tangents in circumference', () => {
+  const circle = rac.Arc(50, 50, 50);
+
+  // Vertical tangent
+  expect(rac.Point(100, 50).segmentTangentToArc(circle))
+    .equalsSegment(100, 50, rac.Angle.up, 0);
+  expect(rac.Point(100, 50).segmentTangentToArc(circle, false))
+    .equalsSegment(100, 50, rac.Angle.down, 0);
+  // Horizontal tangent
+  expect(rac.Point(50, 100).segmentTangentToArc(circle))
+    .equalsSegment(50, 100, rac.Angle.right, 0);
+  expect(rac.Point(50, 100).segmentTangentToArc(circle, false))
+    .equalsSegment(50, 100, rac.Angle.left, 0);
+
+  const circleEdge = 50 + tools.sides(50);
   expect(circle.pointAtAngle(rac.Angle.eighth))
     .equalsPoint(circleEdge, circleEdge);
+  const circumferencePoint = rac.Point(circleEdge, circleEdge);
 
-  let circlePoint = rac.Point(circleEdge, circleEdge);
-  expect(circlePoint.segmentTangentToArc(circle))
+  // Diagonal
+  expect(circumferencePoint.segmentTangentToArc(circle))
     .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
-  expect(circlePoint.segmentTangentToArc(circle, false))
+  expect(circumferencePoint.segmentTangentToArc(circle, false))
     .equalsSegment(circleEdge, circleEdge, rac.Angle.sw, 0);
+
+});
+
+
+test('Arc Tangents edge cases', () => {
+  let zeroCircle = rac.Arc(55, 55, 0, rac.Angle.left);
+
+  // Point to zero-radius circle
+  expect(hunty.segmentTangentToArc(zeroCircle))
+    .equalsSegment(100, 100, rac.Angle.nw, tools.hypotenuse(45));
+  expect(hunty.segmentTangentToArc(zeroCircle, false))
+    .equalsSegment(100, 100, rac.Angle.nw, tools.hypotenuse(45));
+
+  // Point at zero-radius circle, left start
+  expect(fifty.segmentTangentToArc(zeroCircle))
+    .equalsSegment(55, 55, rac.Angle.down, 0);
+  expect(fifty.segmentTangentToArc(zeroCircle, false))
+    .equalsSegment(55, 55, rac.Angle.up, 0);
+
+  // Point at zero-radius circle, top start
+  zeroCircle = rac.Arc(55, 55, 0, rac.Angle.top);
+  expect(fifty.segmentTangentToArc(zeroCircle))
+    .equalsSegment(55, 55, rac.Angle.left, 0);
+  expect(fifty.segmentTangentToArc(zeroCircle, false))
+    .equalsSegment(55, 55, rac.Angle.right, 0);
+
+  // Point at zero-radius circle, ne start
+  zeroCircle = rac.Arc(55, 55, 0, rac.Angle.ne);
+  expect(fifty.segmentTangentToArc(zeroCircle))
+    .equalsSegment(55, 55, rac.Angle.nw, 0);
+  expect(fifty.segmentTangentToArc(zeroCircle, false))
+    .equalsSegment(55, 55, rac.Angle.se, 0);
 });
 
 

@@ -213,7 +213,8 @@ class Point{
   * @return {Rac.Segment}
   */
   segmentTangentToArc(arc, clockwise = true) {
-    let hypotenuse = this.segmentToPoint(arc.center);
+    // Default angle is given for the edge case of a zero-radius arc
+    let hypotenuse = this.segmentToPoint(arc.center, arc.start.inverse());
     let ops = arc.radius;
 
     if (this.rac.equals(hypotenuse.length, arc.radius)) {
@@ -232,6 +233,7 @@ class Point{
     let opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
     let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
 
+    // TODO: splitting it to ray would actually save some calculations
     let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
     return this.segmentToPoint(end);
   }
