@@ -42,7 +42,7 @@ module.exports = function(grunt) {
       dist : {
         src: ['src/*'],
         options: {
-          destination: 'docs',
+          destination: 'docs/docs',
           verbose: true,
           // pedantic: true,
           // debug: true,
