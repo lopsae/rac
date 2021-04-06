@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: drawable/rac.Angle.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: drawable/rac.Angle.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
+
+/**
+* The `rac.Angle` function contains methods and properties for convenience
+* `{@link Rac.Angle}` objects with the current `rac` instance.
+* @namespace rac.Angle
+*/
+module.exports = function attachRacAngle(rac) {
+
+  /**
+  * Returns an `Angle` produced with `something`. Calls
+  * `{@link Rac.Angle.from}` using `this`.
+  * @name from
+  * @memberof rac.Angle#
+  * @function
+  */
+  rac.Angle.from = function(something) {
+    return Rac.Angle.from(rac, something);
+  };
+
+  /**
+  * An `Angle` with turn `0`.
+  * @name zero
+  * @memberof rac.Angle#
+  */
+  rac.Angle.zero =    rac.Angle(0.0);
+  rac.Angle.square =  rac.Angle(1/4);
+  rac.Angle.inverse = rac.Angle(1/2);
+
+  rac.Angle.half =    rac.Angle(1/2);
+  rac.Angle.quarter = rac.Angle(1/4);
+  rac.Angle.eighth =  rac.Angle(1/8);
+  rac.Angle.neighth =  rac.Angle(-1/8);
+
+  rac.Angle.e = rac.Angle(0/4);
+  rac.Angle.s = rac.Angle(1/4);
+  rac.Angle.w = rac.Angle(2/4);
+  rac.Angle.n = rac.Angle(3/4);
+
+  rac.Angle.east  = rac.Angle.e;
+  rac.Angle.south = rac.Angle.s;
+  rac.Angle.west  = rac.Angle.w;
+  rac.Angle.north = rac.Angle.n;
+
+  rac.Angle.ne = rac.Angle.n.add(1/8);
+  rac.Angle.se = rac.Angle.e.add(1/8);
+  rac.Angle.sw = rac.Angle.s.add(1/8);
+  rac.Angle.nw = rac.Angle.w.add(1/8);
+
+  // North north-east
+  rac.Angle.nne = rac.Angle.ne.add(-1/16);
+  // East north-east
+  rac.Angle.ene = rac.Angle.ne.add(+1/16);
+  // North-east north
+  rac.Angle.nen = rac.Angle.nne;
+  // North-east east
+  rac.Angle.nee = rac.Angle.ene;
+
+  // East south-east
+  rac.Angle.ese = rac.Angle.se.add(-1/16);
+  // South south-east
+  rac.Angle.sse = rac.Angle.se.add(+1/16);
+  // South-east east
+  rac.Angle.see = rac.Angle.ese;
+  // South-east south
+  rac.Angle.ses = rac.Angle.sse;
+
+  // South south-west
+  rac.Angle.ssw = rac.Angle.sw.add(-1/16);
+  // West south-west
+  rac.Angle.wsw = rac.Angle.sw.add(+1/16);
+  // South-west south
+  rac.Angle.sws = rac.Angle.ssw;
+  // South-west west
+  rac.Angle.sww = rac.Angle.wsw;
+
+  // West north-west
+  rac.Angle.wnw = rac.Angle.nw.add(-1/16);
+  // North north-west
+  rac.Angle.nnw = rac.Angle.nw.add(+1/16);
+  // Nort-hwest west
+  rac.Angle.nww = rac.Angle.wnw;
+  // North-west north
+  rac.Angle.nwn = rac.Angle.nnw;
+
+  rac.Angle.right = rac.Angle.e;
+  rac.Angle.down  = rac.Angle.s;
+  rac.Angle.left  = rac.Angle.w;
+  rac.Angle.up    = rac.Angle.n;
+
+  rac.Angle.r = rac.Angle.right;
+  rac.Angle.d = rac.Angle.down;
+  rac.Angle.l = rac.Angle.left;
+  rac.Angle.u = rac.Angle.up;
+
+  rac.Angle.top    = rac.Angle.up;
+  rac.Angle.bottom = rac.Angle.down;
+  rac.Angle.t      = rac.Angle.top;
+  rac.Angle.b      = rac.Angle.bottom;
+
+  rac.Angle.topRight    = rac.Angle.ne;
+  rac.Angle.tr          = rac.Angle.ne;
+  rac.Angle.topLeft     = rac.Angle.nw;
+  rac.Angle.tl          = rac.Angle.nw;
+  rac.Angle.bottomRight = rac.Angle.se;
+  rac.Angle.br          = rac.Angle.se;
+  rac.Angle.bottomLeft  = rac.Angle.sw;
+  rac.Angle.bl          = rac.Angle.sw;
+
+} // attachRacAngle
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="rac.html">rac</a></li><li><a href="rac.Angle_.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac_.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Mon Apr 05 2021 18:16:08 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
