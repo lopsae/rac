@@ -68,11 +68,6 @@ test('Function add/sub', () => {
 test('Transformations', () => {
   expect(hunty.negative()).equalsPoint(-100, -100);
 
-  // Clockwise
-  expect(hunty.perpendicular()).equalsPoint(-100, 100);
-  // Counter-clockwise
-  expect(hunty.perpendicular(false)).equalsPoint(100, -100);
-
   expect(hunty.pointToAngle(rac.Angle.zero, 100))
     .equalsPoint(200, 100);
   expect(hunty.pointToAngle(rac.Angle.down, 100))
@@ -259,7 +254,7 @@ test('Transforms to Arc', () => {
     .equalsArc(100, 100, 7, rac.Angle.up, rac.Angle.left, false);
 });
 
-
+test.todo('distanceToPoint for equal points');
 test('Miscelaneous', () => {
   expect(hunty.distanceToPoint(rac.Point(100, 200)))
     .toBe(100);
