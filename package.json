@@ -11,7 +11,7 @@
     "test:cc": "rm -rf ./coverage; npm run test:coverage",
     "start": "npm test && grunt serve",
     "dist": "npm test && grunt dist",
-    "docs": "grunt --debug jsdoc && open ./docs/docs/index.html",
+    "docs": "grunt --debug jsdoc && open ./docs/docs/latest/index.html",
     "docs:clean": "rm -rf ./docs/docs/latest/",
     "docs:fresh": "npm run docs:clean && npm run docs",
     "jekyll": "cd docs; bundle exec jekyll serve"
