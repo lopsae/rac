@@ -13,7 +13,8 @@
     "dist": "npm test && grunt dist",
     "docs": "grunt --debug jsdoc && open ./docs/docs/index.html",
     "docs:clean": "rm -rf ./docs/docs",
-    "docs:fresh": "npm run docs:clean && npm run docs"
+    "docs:fresh": "npm run docs:clean && npm run docs",
+    "jekyll": "cd docs; bundle exec jekyll serve"
   },
   "author": "Maic López Sáenz",
   "license": "MIT",
