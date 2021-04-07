@@ -7,7 +7,7 @@
         "dist",
         "built",
         "node_modules",
-        "docs",
+        "docs/docs",
         "coverage"],
       "file_exclude_patterns": [
         "package-lock.json"],
