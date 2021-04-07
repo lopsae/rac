@@ -35,15 +35,23 @@ const utils = require('../util/utils');
 
 /**
 * Point in a two dimentional coordinate system.
+*
+* Several methods will return an adjusted value or perform adjustments in
+* their operation when two points are close enough as to be considered
+* equal. When the the difference of each coordinate of two points
+* is under `{@link Rac#equalityThreshold}` the points are considered equal.
+* The method `{@link Rac.Point#equals}` performs this check.
+*
 * @alias Rac.Point
 */
 class Point{
 
+
   /**
   * Creates a new `Point` instance.
   * @param {Rac} rac Instance to use for drawing and creating other objects
-  * @param {number} x The x coordinate
-  * @param {number} y The y coordinate
+  * @param {number} x - The x coordinate
+  * @param {number} y - The y coordinate
   */
   constructor(rac, x, y) {
     utils.assertExists(rac, x, y);
@@ -52,6 +60,7 @@ class Point{
     this.x = x;
     this.y = y;
   }
+
 
   /**
   * Returns a string representation intended for human consumption.
@@ -62,6 +71,15 @@ class Point{
   }
 
 
+  /**
+  * Returns `true` when the difference of each coordinate with `other` is
+  * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
+  *
+  * Values are compared using `{@link Rac#equals}`.
+  *
+  * @param {Rac.Point} other - A `Point` to compare
+  * @returns {boolean}
+  */
   equals(other) {
     return this.rac.equals(this.x, other.x)
       &amp;&amp; this.rac.equals(this.y, other.y);
@@ -70,31 +88,50 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` set to `newX`.
+  * @param {number} newX - The x coordinate for the new `Point`
+  * @returns {Rac.Point}
   */
   withX(newX) {
     return new Point(this.rac, newX, this.y);
   }
 
+
   /**
   * Returns a new `Point` with `x` set to `newX`.
+  * @param {number} newY - The y coordinate for the new `Point`
+  * @returns {Rac.Point}
   */
   withY(newY) {
     return new Point(this.rac, this.x, newY);
   }
 
+
+  /**
+  * Returns a new `Point` with `x` added to `this.x`.
+  * @param {number} x - The x coordinate to add
+  * @returns {Rac.Point}
+  */
   addX(x) {
     return new Point(this.rac,
       this.x + x, this.y);
   }
 
+
+  /**
+  * Returns a new `Point` with `y` added to `this.y`.
+  * @param {number} y - The y coordinate to add
+  * @returns {Rac.Point}
+  */
   addY(y) {
     return new Point(this.rac,
       this.x, this.y + y);
   }
 
+
   /**
-  * Returns a new `Point` by adding the components of `other`.
-  * @param {Rac.Point} other A `Point` to add
+  * Returns a new `Point` by adding the components of `other` to `this`.
+  * @param {Rac.Point} other - A `Point` to add
+  * @returns {Rac.Point}
   */
   addPoint(other) {
     return new Point(
@@ -105,9 +142,10 @@ class Point{
 
 
   /**
-  * Returns a new `Point` by adding the `x` and `y` components.
-  * @param {number} x The x coodinate to add
-  * @param {number} y The y coodinate to add
+  * Returns a new `Point` by adding the `x` and `y` components to `this`.
+  * @param {number} x - The x coodinate to add
+  * @param {number} y - The y coodinate to add
+  * @returns {Rac.Point}
   */
   add(x, y) {
     return new Point(this.rac,
@@ -117,7 +155,8 @@ class Point{
 
   /**
   * Returns a new `Point` by subtracting the components of `other`.
-  * @param {Rac.Point} other A `Point` to subtract
+  * @param {Rac.Point} other - A `Point` to subtract
+  * @returns {Rac.Point}
   */
   subtractPoint(other) {
     return new Point(
@@ -129,8 +168,9 @@ class Point{
 
   /**
   * Returns a new `Point` by subtracting the `x` and `y` components.
-  * @param {number} x The x coodinate to subtract
-  * @param {number} y The y coodinate to subtract
+  * @param {number} x - The x coodinate to subtract
+  * @param {number} y - The y coodinate to subtract
+  * @returns {Rac.Point}
   */
   subtract(x, y) {
     return new Point(
@@ -139,29 +179,48 @@ class Point{
       this.y - y);
   }
 
+
+  /**
+  * Returns a new `Point` with the negative coordinate values of `this`.
+  * @returns {Rac.Point}
+  */
   negative() {
     return new Point(this.rac, -this.x, -this.y);
   }
 
 
-  perpendicular(clockwise = true) {
-    return clockwise
-      ? new Point(this.rac, -this.y, this.x)
-      : new Point(this.rac, this.y, -this.x);
-  }
-
+  /**
+  * Returns the distance from `this` to `other`, returns `0` when `this`
+  * and `other` are considered equal.
+  *
+  * @param {Rac.Point} other - A `Point` to measure the distance to
+  * @returns {number}
+  */
   distanceToPoint(other) {
-    let x = Math.pow((other.x - this.x), 2);
-    let y = Math.pow((other.y - this.y), 2);
+    if (this.equals(other)) {
+      return 0;
+    }
+    const x = Math.pow((other.x - this.x), 2);
+    const y = Math.pow((other.y - this.y), 2);
     return Math.sqrt(x+y);
   }
 
-  // Returns the angle to the given point. If this and other are considered
-  // equal, then the `someAngle` is returned, which by defalt is zero.
-  angleToPoint(other, someAngle = this.rac.Angle.zero) {
+
+  /**
+  * Returns the angle from `this` to `other`.
+  *
+  * When `this` and `other` are considered equal, returns the angle
+  * produced with `defaultAngle`.
+  *
+  * @param {Rac.Point} other - A `Point` to measure the angle to
+  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
+  * An `Angle` to return when `this` and `other` are equal
+  * @returns {Rac.Angle}
+  */
+  angleToPoint(other, defaultAngle = this.rac.Angle.zero) {
     if (this.equals(other)) {
-      const angle = this.rac.Angle.from(someAngle);
-      return angle;
+      defaultAngle = this.rac.Angle.from(defaultAngle);
+      return defaultAngle;
     }
     const offset = other.subtractPoint(this);
     const radians = Math.atan2(offset.y, offset.x);
@@ -169,31 +228,58 @@ class Point{
   }
 
 
-  pointToAngle(someAngle, distance) {
-    let angle = this.rac.Angle.from(someAngle);
-    let distanceX = distance * Math.cos(angle.radians());
-    let distanceY = distance * Math.sin(angle.radians());
+  /**
+  * Returns a new `Point` at a `distance` from `this` in the direction of
+  * `angle`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` towars the new `Point`
+  * @param {number} distance - The distance to the new `Point`
+  * @returns {Rac.Point}
+  */
+  pointToAngle(angle, distance) {
+    angle = this.rac.Angle.from(angle);
+    const distanceX = distance * Math.cos(angle.radians());
+    const distanceY = distance * Math.sin(angle.radians());
     return new Point(this.rac, this.x + distanceX, this.y + distanceY);
   }
 
 
-  ray(someAngle) {
-    const angle = this.rac.Angle.from(someAngle);
+  /**
+  * Returns a new `Ray` from `this` towards `angle`.
+  * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`
+  * @returns {Rac.Ray}
+  */
+  ray(angle) {
+    angle = this.rac.Angle.from(angle);
     return new Rac.Ray(this.rac, this, angle);
   }
 
-  rayToPoint(point, someAngle = this.rac.Angle.zero) {
-    const angle = this.angleToPoint(point, someAngle);
-    return new Rac.Ray(this.rac, this, angle);
-  }
 
   /**
-  * Returns a `Ray` from `this` to the point projected in `ray`. If the
-  * projected point is equal to `this` the produced ray will have an angle
-  * clockwise-perpendicular to `ray`.
+  * Returns a new `Ray` from `this` towards `point`.
   *
-  * @param {Rac.Ray} ray
-  * @returns {Rac.Point}
+  * When `this` and `point` are considered equal, the new `Ray` will use
+  * the angle produced with `defaultAngle`.
+  *
+  * @param {Rac.Point} point - A `Point` to point the `Ray` towards
+  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
+  * An `Angle` to use when `this` and `other` are equal
+  * @returns {Rac.Ray}
+  */
+  rayToPoint(point, defaultAngle = this.rac.Angle.zero) {
+    defaultAngle = this.angleToPoint(point, defaultAngle);
+    return new Rac.Ray(this.rac, this, defaultAngle);
+  }
+
+
+  /**
+  * Returns a new `Ray` from `this` to the projection of `this` in `ray`.
+  *
+  * When the projected point is equal to `this` the produced ray will have
+  * an angle perpendicular to `ray` in the clockwise direction.
+  *
+  * @param {Rac.Ray} ray - A `Ray` to project `this` onto
+  * @returns {Rac.Ray}
   */
   rayToProjectionInRay(ray) {
     const projected = ray.pointProjected(this);
@@ -205,20 +291,51 @@ class Point{
   // TODO: rayTangentToArc
 
 
-  segmentToAngle(someAngle, length) {
-    const angle = this.rac.Angle.from(someAngle);
+  /**
+  * Returns a new `Segment` from `this` towards `angle` with the given
+  * `length`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to point the segment
+  * towards
+  * @param {number} length - The length of the new `Segment`
+  * @returns {Rac.Segment}
+  */
+  segmentToAngle(angle, length) {
+    angle = this.rac.Angle.from(angle);
     const ray = new Rac.Ray(this.rac, this, angle);
     return new Rac.Segment(this.rac, ray, length);
   }
 
-  segmentToPoint(point, someAngle = this.rac.Angle.zero) {
-    const angle = this.angleToPoint(point, someAngle);
+
+  /**
+  * Returns a new `Segment` from `this` to `point`.
+  *
+  * When `this` and `point` are considered equal, the new `Segment` will
+  * use the angle produced with `defaultAngle`
+  *
+  * @param {Rac.Point} point - A `Point` to point the `Segment` towards
+  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
+  * An `Angle` to use when `this` and `other` are equal
+  * @returns {Rac.Segment}
+  */
+  segmentToPoint(point, defaultAngle = this.rac.Angle.zero) {
+    defaultAngle = this.angleToPoint(point, defaultAngle);
     const length = this.distanceToPoint(point);
-    const ray = new Rac.Ray(this.rac, this, angle);
+    const ray = new Rac.Ray(this.rac, this, defaultAngle);
     return new Rac.Segment(this.rac, ray, length);
   }
 
-  // Returns a segment from this to the point projected in ray
+
+  /**
+  * Returns a new `Segment` from `this` to the projection of `this` in
+  * `ray`.
+  *
+  * When the projected point is equal to `this`, the new `Segment` will
+  * have an angle perpendicular to `ray` in the clockwise direction.
+  *
+  * @param {Rac.Ray} ray - A `Ray` to project `this` onto
+  * @returns {Rac.Segment}
+  */
   segmentToProjectionInRay(ray) {
     const projected = ray.pointProjected(this);
     const perpendicular = ray.angle.perpendicular();
@@ -227,19 +344,29 @@ class Point{
 
 
   /**
-  * Returns a new `Segment` that is tangent to `arc` in the `clockwise`
-  * orientation from the ray formed by `this` and `arc.center`. Returns
-  * `null` if `this` is inside `arc` and thus no tangent segment is
-  * possible.
+  * @summary
+  * Returns a new `Segment` that starts at `this` and is tangent to `arc`,
+  * or `null` if no tangent segment is possible.
+  *
+  * @description
+  * The new `Segment` will be in the `clockwise` side of the ray formed
+  * from `this` towards `arc.center`.
   * The returned `Segment` starts at `this` and ends at the contact point
   * with `arc` which is considered as a complete circle.
   *
-  * TODO: what happens if the point touches the circle?
-  * TODO: what happens if the arc radius is zero and this is equal to center?
+  * When `this` is inside `arc` no tangent segment is possible and `null`
+  * is returned.
   *
-  * @param {Rac.Arc} arc
-  * @param {boolean=} clockwise=true
-  * @return {Rac.Segment}
+  * A special case is considered when `arc.radius` is considered to be `0`
+  * and `this` is equal to `arc.center`. In this case the angle between
+  * `this` and `arc.center` is assumed to be the inverse of `arc.start`,
+  * thus the new `Segment` will have an angle perpendicular to
+  * `arc.start.inverse()`, in the `clockwise` orientation.
+  *
+  * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
+  * as a complete circle
+  * @param {boolean} [clockwise=true] - the orientation of the new `Segment`
+  * @return {Rac.Segment?}
   */
   segmentTangentToArc(arc, clockwise = true) {
     // Default angle is given for the edge case of a zero-radius arc
@@ -269,28 +396,36 @@ class Point{
 
 
   /**
-  * Returns a new `Arc` with center at `this` and the given parameters.
+  * Returns a new `Arc` with center at `this` and the given arc properties.
   *
-  * @param {number} radius
-  * @param {Rac.Angle|number=} someStart=rac.Angle.zero
-  * @param {?Rac.Angle|number=} someEnd
-  * @param {boolean=} clockwise=true
+  * @param {number} radius - The radius of the new `Arc`
+  * @param {Rac.Angle|number} [someStart=rac.Angle.zero] - The start
+  * `Angle` of the new `Arc`
+  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new `Arc`,
+  * when `null` or ommited `start` is used
+  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(
     radius,
-    someStart = this.rac.Angle.zero,
-    someEnd = null,
+    start = this.rac.Angle.zero,
+    end = null,
     clockwise = true)
   {
-    const start = this.rac.Angle.from(someStart);
-    const end = someEnd === null
+    start = this.rac.Angle.from(start);
+    end = end === null
       ? start
-      : this.rac.Angle.from(someEnd);
+      : this.rac.Angle.from(end);
     return new Rac.Arc(this.rac, this, radius, start, end, clockwise);
   }
 
 
+  /**
+  * Returns a new `Text` with the given `string` and `format`.
+  * @param {string} string - The string of the new `Text`
+  * @param {Rac.Text.Format} format - The format of the new `Text`
+  * @returns {Rac.Text}
+  */
   text(string, format) {
     return new Rac.Text(this.rac, this, string, format);
   }
@@ -310,13 +445,13 @@ module.exports = Point;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="rac.html">rac</a></li><li><a href="rac.Angle_.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac_.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="instance.html">instance</a></li><li><a href="instance.Angle.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 06 2021 18:50:07 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Apr 07 2021 11:34:38 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

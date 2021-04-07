@@ -34,29 +34,36 @@ const version = require('../built/version');
 
 
 /**
-* This namespace contains functions attached to an instance of
-* `{@link Rac}` that in turn contain convenience methods and properties.
+* This namespace lists utility functions attached to an instance of
+* `{@link Rac}` used produce drawable and other objects, and to access
+* ready-build convenience objects like {@link instance.Angle.north} or
+* `{@link instance.Point.zero}`.
 *
 * Drawable and related objects require a reference to a `rac` instance in
-* order to perform drawing operations. These functions contain convenience
-* methods and properties that provide objects already setup with a `rac`
-* instance.
-* @namespace rac
+* order to perform drawing operations. These functions build new objects
+* using the calling `Rac` instance, and contain ready-made convenience
+* objects that are also setup with the same `Rac` instance.
+*
+* @namespace instance
 */
 
 
 /**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained in this class.
+*
+* An instance must be created with `new Rac()` in order to
+* build drawable and most other objects.
+*
+* To perform drawing operations, a drawer must be setup with
+* `{@link Rac#setupDrawer}.`
 */
 class Rac {
 
   /**
-  * Builds a new instance of Rac. The new instance will not contain a `drawer`.
-  * In order to enable drawing operations call `setupDrawer` with a valid
-  * object.
+  * Creates a new instance of Rac. The new instance has no `drawer` setup.
   */
-  constructor () {
+  constructor() {
 
     /**
     * Version of the instance, same as `{@link Rac.version}`.
@@ -101,8 +108,8 @@ class Rac {
     this.unitaryEqualityThreshold = 0.0000003;
 
     /**
-    * Drawer of the instance. This object handles the drawing of any
-    * drawable object.
+    * Drawer of the instance. This object handles the drawing of all
+    * drawable object using to this instance of `Rac`.
     */
     this.drawer = null;
 
@@ -123,6 +130,8 @@ class Rac {
   * The drawer will also populate some classes with prototype functions
   * relevant to the drawer. For p5.js this include `apply` functions for
   * colors and style object, and `vertex` functions for drawable objects.
+  *
+  * @param {P5} p5Instance
   */
   setupDrawer(p5Instance) {
     this.drawer = new Rac.P5Drawer(this, p5Instance)
@@ -222,7 +231,7 @@ class Rac {
   * Convenience function that creates a new `Angle` using `this`.
   *
   * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Angle}`.
+  * listed in `{@link instance.Angle}`.
   *
   * @param {number} turn
   * @returns {Rac.Angle}
@@ -470,13 +479,13 @@ Rac.ArcControl = require('./control/ArcControl');
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="rac.html">rac</a></li><li><a href="rac.Angle_.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac_.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="instance.html">instance</a></li><li><a href="instance.Angle.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 06 2021 18:50:07 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Apr 07 2021 11:34:38 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

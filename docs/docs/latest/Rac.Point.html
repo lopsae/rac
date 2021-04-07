@@ -29,9 +29,14 @@
 <header>
     
         <h2><span class="attribs"><span class="type-signature"></span></span>
-            <span class="ancestors"><a href="Rac_.html">Rac</a>.</span>Point<span class="signature">(rac, x, y)</span><span class="type-signature"></span></h2>
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>Point<span class="signature">(rac, x, y)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Point in a two dimentional coordinate system.</p></div>
+            <div class="class-description"><p>Point in a two dimentional coordinate system.</p>
+<p>Several methods will return an adjusted value or perform adjustments in
+their operation when two points are close enough as to be considered
+equal. When the the difference of each coordinate of two points
+is under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code> the points are considered equal.
+The method <code><a href="Rac.Point.html#equals">Rac.Point#equals</a></code> performs this check.</p></div>
         
     
 </header>
@@ -96,7 +101,7 @@
             <td class="type">
             
                 
-<span class="param-type"><a href="Rac_.html">Rac</a></span>
+<span class="param-type"><a href="Rac.html">Rac</a></span>
 
 
             
@@ -193,7 +198,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line12">line 12</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line19">line 19</a>
     </li></ul></dd>
     
 
@@ -249,7 +254,7 @@
     
 
     
-    <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="add"><span class="type-signature"></span>add<span class="signature">(x, y)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -257,7 +262,7 @@
 
 
 <div class="description">
-    <p>Returns a new <code>Point</code> by adding the <code>x</code> and <code>y</code> components.</p>
+    <p>Returns a new <code>Point</code> by adding the <code>x</code> and <code>y</code> components to <code>this</code>.</p>
 </div>
 
 
@@ -373,7 +378,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line84">line 84</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line122">line 122</a>
     </li></ul></dd>
     
 
@@ -398,6 +403,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -409,7 +432,7 @@
     
 
     
-    <h4 class="name" id="addPoint"><span class="type-signature"></span>addPoint<span class="signature">(other)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addPoint"><span class="type-signature"></span>addPoint<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -417,7 +440,7 @@
 
 
 <div class="description">
-    <p>Returns a new <code>Point</code> by adding the components of <code>other</code>.</p>
+    <p>Returns a new <code>Point</code> by adding the components of <code>other</code> to <code>this</code>.</p>
 </div>
 
 
@@ -510,7 +533,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line71">line 71</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -535,6 +558,24 @@
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -546,7 +587,7 @@
     
 
     
-    <h4 class="name" id="arc"><span class="type-signature"></span>arc<span class="signature">(radius, someStart, someEnd, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    <h4 class="name" id="addX"><span class="type-signature"></span>addX<span class="signature">(x)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -554,7 +595,532 @@
 
 
 <div class="description">
-    <p>Returns a new <code>Arc</code> with center at <code>this</code> and the given parameters.</p>
+    <p>Returns a new <code>Point</code> with <code>x</code> added to <code>this.x</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The x coordinate to add</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line86">line 86</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addY"><span class="type-signature"></span>addY<span class="signature">(y)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> with <code>y</code> added to <code>this.y</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The y coordinate to add</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line97">line 97</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="angleToPoint"><span class="type-signature"></span>angleToPoint<span class="signature">(other, defaultAngle<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns the angle from <code>this</code> to <code>other</code>.</p>
+<p>When <code>this</code> and <code>other</code> are considered equal, returns the angle
+produced with <code>defaultAngle</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>other</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>A <code>Point</code> to measure the angle to</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>defaultAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    instance.Angle.Zero
+                
+                </td>
+            
+
+            <td class="description last"><p>An <code>Angle</code> to return when <code>this</code> and <code>other</code> are equal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line192">line 192</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="arc"><span class="type-signature"></span>arc<span class="signature">(radius, someStart<span class="signature-attributes">opt</span>, someEnd<span class="signature-attributes">opt</span>, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with center at <code>this</code> and the given arc properties.</p>
 </div>
 
 
@@ -622,7 +1188,7 @@
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The radius of the new <code>Arc</code></p></td>
         </tr>
 
     
@@ -647,6 +1213,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -662,7 +1230,8 @@
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The start
+<code>Angle</code> of the new <code>Arc</code></p></td>
         </tr>
 
     
@@ -687,6 +1256,8 @@
             
                 <td class="attributes">
                 
+                    &lt;optional><br>
+                
 
                 
 
@@ -702,7 +1273,8 @@
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The end <code>Angle</code> of the new <code>Arc</code>,
+when <code>null</code> or ommited <code>start</code> is used</p></td>
         </tr>
 
     
@@ -741,7 +1313,7 @@
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>The orientation of the new <code>Arc</code></p></td>
         </tr>
 
     
@@ -782,7 +1354,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line252">line 252</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line381">line 381</a>
     </li></ul></dd>
     
 
@@ -836,7 +1408,7 @@
     
 
     
-    <h4 class="name" id="rayToProjectionInRay"><span class="type-signature"></span>rayToProjectionInRay<span class="signature">(ray)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    <h4 class="name" id="distanceToPoint"><span class="type-signature"></span>distanceToPoint<span class="signature">(other)</span><span class="type-signature"> &rarr; {number}</span></h4>
     
 
     
@@ -844,9 +1416,8 @@
 
 
 <div class="description">
-    <p>Returns a <code>Ray</code> from <code>this</code> to the point projected in <code>ray</code>. If the
-projected point is equal to <code>this</code> the produced ray will have an angle
-clockwise-perpendicular to <code>ray</code>.</p>
+    <p>Returns the distance from <code>this</code> to <code>other</code>, returns <code>0</code> when <code>this</code>
+and <code>other</code> are considered equal.</p>
 </div>
 
 
@@ -882,13 +1453,13 @@ clockwise-perpendicular to <code>ray</code>.</p>
 
         <tr>
             
-                <td class="name"><code>ray</code></td>
+                <td class="name"><code>other</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Rac.Ray.html">Rac.Ray</a></span>
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
 
 
             
@@ -898,7 +1469,7 @@ clockwise-perpendicular to <code>ray</code>.</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>A <code>Point</code> to measure the distance to</p></td>
         </tr>
 
     
@@ -939,7 +1510,270 @@ clockwise-perpendicular to <code>ray</code>.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line170">line 170</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line171">line 171</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="equals"><span class="type-signature"></span>equals<span class="signature">(other)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when the difference of each coordinate with <code>other</code> is
+under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code>, otherwise returns <code>false</code>.</p>
+<p>Values are compared using <code><a href="Rac.html#equals">Rac#equals</a></code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>other</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A <code>Point</code> to compare</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="negative"><span class="type-signature"></span>negative<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> with the negative coordinate values of <code>this</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line159">line 159</a>
     </li></ul></dd>
     
 
@@ -993,7 +1827,7 @@ clockwise-perpendicular to <code>ray</code>.</p>
     
 
     
-    <h4 class="name" id="segmentTangentToArc"><span class="type-signature"></span>segmentTangentToArc<span class="signature">(arc, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    <h4 class="name" id="pointToAngle"><span class="type-signature"></span>pointToAngle<span class="signature">(angle, distance)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -1001,14 +1835,732 @@ clockwise-perpendicular to <code>ray</code>.</p>
 
 
 <div class="description">
-    <p>Returns a new <code>Segment</code> that is tangent to <code>arc</code> in the <code>clockwise</code>
-orientation from the ray formed by <code>this</code> and <code>arc.center</code>. Returns
-<code>null</code> if <code>this</code> is inside <code>arc</code> and thus no tangent segment is
-possible.
+    <p>Returns a new <code>Point</code> at a <code>distance</code> from <code>this</code> in the direction of
+<code>angle</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An <code>Angle</code> towars the new <code>Point</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>distance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The distance to the new <code>Point</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line211">line 211</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="ray"><span class="type-signature"></span>ray<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Ray</code> from <code>this</code> towards <code>angle</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The <code>Angle</code> of the new <code>Ray</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line224">line 224</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Ray.html">Rac.Ray</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="rayToPoint"><span class="type-signature"></span>rayToPoint<span class="signature">(point, defaultAngle<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Ray</code> from <code>this</code> towards <code>point</code>.</p>
+<p>When <code>this</code> and <code>point</code> are considered equal, the new <code>Ray</code> will use
+the angle produced with <code>defaultAngle</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>A <code>Point</code> to point the <code>Ray</code> towards</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>defaultAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    instance.Angle.Zero
+                
+                </td>
+            
+
+            <td class="description last"><p>An <code>Angle</code> to use when <code>this</code> and <code>other</code> are equal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line241">line 241</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Ray.html">Rac.Ray</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="rayToProjectionInRay"><span class="type-signature"></span>rayToProjectionInRay<span class="signature">(ray)</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Ray</code> from <code>this</code> to the projection of <code>this</code> in <code>ray</code>.</p>
+<p>When the projected point is equal to <code>this</code> the produced ray will have
+an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Ray.html">Rac.Ray</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A <code>Ray</code> to project <code>this</code> onto</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line256">line 256</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Ray.html">Rac.Ray</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="segmentTangentToArc"><span class="type-signature"></span>segmentTangentToArc<span class="signature">(arc, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+    
+    <p class="summary"><p>Returns a new <code>Segment</code> that starts at <code>this</code> and is tangent to <code>arc</code>,
+or <code>null</code> if no tangent segment is possible.</p></p>
+    
+
+
+
+<div class="description">
+    <p>The new <code>Segment</code> will be in the <code>clockwise</code> side of the ray formed
+from <code>this</code> towards <code>arc.center</code>.
 The returned <code>Segment</code> starts at <code>this</code> and ends at the contact point
 with <code>arc</code> which is considered as a complete circle.</p>
-<p>TODO: what happens if the point touches the circle?
-TODO: what happens if the arc radius is zero and this is equal to center?</p>
+<p>When <code>this</code> is inside <code>arc</code> no tangent segment is possible and <code>null</code>
+is returned.</p>
+<p>A special case is considered when <code>arc.radius</code> is considered to be <code>0</code>
+and <code>this</code> is equal to <code>arc.center</code>. In this case the angle between
+<code>this</code> and <code>arc.center</code> is assumed to be the inverse of <code>arc.start</code>,
+thus the new <code>Segment</code> will have an angle perpendicular to
+<code>arc.start.inverse()</code>, in the <code>clockwise</code> orientation.</p>
 </div>
 
 
@@ -1076,7 +2628,8 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>An <code>Arc</code> to calculate a tangent to, considered
+as a complete circle</p></td>
         </tr>
 
     
@@ -1115,7 +2668,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
                 </td>
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>the orientation of the new <code>Segment</code></p></td>
         </tr>
 
     
@@ -1156,7 +2709,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line216">line 216</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line343">line 343</a>
     </li></ul></dd>
     
 
@@ -1210,7 +2763,563 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
 
     
-    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(x, y)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="segmentToAngle"><span class="type-signature"></span>segmentToAngle<span class="signature">(angle, length)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> from <code>this</code> towards <code>angle</code> with the given
+<code>length</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An <code>Angle</code> to point the segment
+towards</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The length of the new <code>Segment</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line275">line 275</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Segment.html">Rac.Segment</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="segmentToPoint"><span class="type-signature"></span>segmentToPoint<span class="signature">(point, defaultAngle<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> from <code>this</code> to <code>point</code>.</p>
+<p>When <code>this</code> and <code>point</code> are considered equal, the new <code>Segment</code> will
+use the angle produced with <code>defaultAngle</code></p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>A <code>Point</code> to point the <code>Segment</code> towards</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>defaultAngle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Angle.html">Rac.Angle</a></span>
+|
+
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    instance.Angle.Zero
+                
+                </td>
+            
+
+            <td class="description last"><p>An <code>Angle</code> to use when <code>this</code> and <code>other</code> are equal</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line293">line 293</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Segment.html">Rac.Segment</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="segmentToProjectionInRay"><span class="type-signature"></span>segmentToProjectionInRay<span class="signature">(ray)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> from <code>this</code> to the projection of <code>this</code> in
+<code>ray</code>.</p>
+<p>When the projected point is equal to <code>this</code>, the new <code>Segment</code> will
+have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Ray.html">Rac.Ray</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A <code>Ray</code> to project <code>this</code> onto</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line311">line 311</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Segment.html">Rac.Segment</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(x, y)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -1334,7 +3443,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line107">line 107</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line147">line 147</a>
     </li></ul></dd>
     
 
@@ -1359,6 +3468,24 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1370,7 +3497,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
 
     
-    <h4 class="name" id="subtractPoint"><span class="type-signature"></span>subtractPoint<span class="signature">(other)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="subtractPoint"><span class="type-signature"></span>subtractPoint<span class="signature">(other)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -1471,7 +3598,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line94">line 94</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line133">line 133</a>
     </li></ul></dd>
     
 
@@ -1496,6 +3623,202 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="text"><span class="type-signature"></span>text<span class="signature">(string, format)</span><span class="type-signature"> &rarr; {<a href="Rac.Text.html">Rac.Text</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Text</code> with the given <code>string</code> and <code>format</code>.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The string of the new <code>Text</code></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>format</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The format of the new <code>Text</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line401">line 401</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Text.html">Rac.Text</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1559,7 +3882,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line32">line 32</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -1702,7 +4025,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
 
     
-    <h4 class="name" id="withX"><span class="type-signature"></span>withX<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="withX"><span class="type-signature"></span>withX<span class="signature">(newX)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -1719,6 +4042,55 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The x coordinate for the new <code>Point</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1754,7 +4126,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line46">line 46</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line66">line 66</a>
     </li></ul></dd>
     
 
@@ -1779,6 +4151,24 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1790,7 +4180,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
 
     
-    <h4 class="name" id="withY"><span class="type-signature"></span>withY<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="withY"><span class="type-signature"></span>withY<span class="signature">(newY)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
     
 
     
@@ -1807,6 +4197,55 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The y coordinate for the new <code>Point</code></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -1842,7 +4281,7 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line53">line 53</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -1867,6 +4306,24 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 
 
 
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Rac.Point.html">Rac.Point</a></span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -1888,13 +4345,13 @@ TODO: what happens if the arc radius is zero and this is equal to center?</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="rac.html">rac</a></li><li><a href="rac.Angle_.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac_.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="instance.html">instance</a></li><li><a href="instance.Angle.html">Angle</a></li><li><a href="rac.Arc_.html">Arc</a></li><li><a href="rac.Color_.html">Color</a></li><li><a href="rac.Fill_.html">Fill</a></li><li><a href="rac.Point_.html">Point</a></li><li><a href="rac.Segment_.html">Segment</a></li><li><a href="rac.Stroke_.html">Stroke</a></li><li><a href="rac.Text_.html">Text</a></li><li><a href="utils.html">utils</a></li></ul><h3>Classes</h3><ul><li><a href="Rac.html">Rac</a></li><li><a href="Rac.Angle.html">Angle</a></li><li><a href="Rac.Arc.html">Arc</a></li><li><a href="Rac.ArcControl.html">ArcControl</a></li><li><a href="Rac.Color.html">Color</a></li><li><a href="Rac.Control.html">Control</a></li><li><a href="Rac.Exception.html">Exception</a></li><li><a href="Rac.Fill.html">Fill</a></li><li><a href="Rac.P5Drawer.html">P5Drawer</a></li><li><a href="Rac.Point.html">Point</a></li><li><a href="Rac.Ray.html">Ray</a></li><li><a href="Rac.Segment.html">Segment</a></li><li><a href="Rac.SegmentControl.html">SegmentControl</a></li><li><a href="Rac.Stroke.html">Stroke</a></li><li><a href="Rac.Text.html">Text</a></li><li><a href="Rac.Text.Format.html">Format</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Apr 06 2021 18:50:07 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Wed Apr 07 2021 11:34:38 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
