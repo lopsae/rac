@@ -8,7 +8,7 @@ const utils = require('../util/utils');
 /**
 * The `rac.Angle` function contains methods and properties for convenience
 * `{@link Rac.Angle}` objects with the current `rac` instance.
-* @namespace rac.Angle
+* @namespace instance.Angle
 */
 module.exports = function attachRacAngle(rac) {
 
@@ -16,7 +16,7 @@ module.exports = function attachRacAngle(rac) {
   * Returns an `Angle` produced with `something`. Calls
   * `{@link Rac.Angle.from}` using `this`.
   * @name from
-  * @memberof rac.Angle#
+  * @memberof instance.Angle#
   * @function
   */
   rac.Angle.from = function(something) {
@@ -26,7 +26,7 @@ module.exports = function attachRacAngle(rac) {
   /**
   * An `Angle` with turn `0`.
   * @name zero
-  * @memberof rac.Angle#
+  * @memberof instance.Angle#
   */
   rac.Angle.zero =    rac.Angle(0.0);
   rac.Angle.square =  rac.Angle(1/4);

@@ -203,7 +203,7 @@ class Rac {
   * Convenience function that creates a new `Angle` using `this`.
   *
   * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Angle}`.
+  * listed in `{@link instance.Angle}`.
   *
   * @param {number} turn
   * @returns {Rac.Angle}
