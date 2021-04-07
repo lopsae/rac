@@ -6,29 +6,36 @@ const version = require('../built/version');
 
 
 /**
-* This namespace contains functions attached to an instance of
-* `{@link Rac}` that in turn contain convenience methods and properties.
+* This namespace lists utility functions attached to an instance of
+* `{@link Rac}` used produce drawable and other objects, and to access
+* ready-build convenience objects like {@link instance.Angle.north} or
+* `{@link instance.Point.zero}`.
 *
 * Drawable and related objects require a reference to a `rac` instance in
-* order to perform drawing operations. These functions contain convenience
-* methods and properties that provide objects already setup with a `rac`
-* instance.
-* @namespace rac
+* order to perform drawing operations. These functions build new objects
+* using the calling `Rac` instance, and contain ready-made convenience
+* objects that are also setup with the same `Rac` instance.
+*
+* @namespace instance
 */
 
 
 /**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained in this class.
+*
+* An instance must be created with `new Rac()` in order to
+* build drawable and most other objects.
+*
+* To perform drawing operations, a drawer must be setup with
+* `{@link Rac#setupDrawer}.`
 */
 class Rac {
 
   /**
-  * Builds a new instance of Rac. The new instance will not contain a `drawer`.
-  * In order to enable drawing operations call `setupDrawer` with a valid
-  * object.
+  * Creates a new instance of Rac. The new instance has no `drawer` setup.
   */
-  constructor () {
+  constructor() {
 
     /**
     * Version of the instance, same as `{@link Rac.version}`.
@@ -73,8 +80,8 @@ class Rac {
     this.unitaryEqualityThreshold = 0.0000003;
 
     /**
-    * Drawer of the instance. This object handles the drawing of any
-    * drawable object.
+    * Drawer of the instance. This object handles the drawing of all
+    * drawable object using to this instance of `Rac`.
     */
     this.drawer = null;
 
@@ -95,6 +102,8 @@ class Rac {
   * The drawer will also populate some classes with prototype functions
   * relevant to the drawer. For p5.js this include `apply` functions for
   * colors and style object, and `vertex` functions for drawable objects.
+  *
+  * @param {P5} p5Instance
   */
   setupDrawer(p5Instance) {
     this.drawer = new Rac.P5Drawer(this, p5Instance)
