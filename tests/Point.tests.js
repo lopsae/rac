@@ -65,6 +65,28 @@ test('Function add/sub', () => {
 });
 
 
+test('Function distanceToPoint', () => {
+  expect(hunty.distanceToPoint(rac.Point(100, 200)))
+    .toBe(100);
+  expect(hunty.distanceToPoint(rac.Point(200, 100)))
+    .toBe(100);
+  expect(hunty.distanceToPoint(rac.Point(200, 200)))
+    .thresEquals(tools.hypotenuse(100));
+
+  const threshold = rac.equalityThreshold;
+  const bump = threshold/16;
+  const overThres = 100 + threshold + bump;
+  const underThres = 100 + threshold - bump;
+
+  // Over threshold
+  expect(hunty.distanceToPoint(rac.Point(overThres, overThres)))
+    .thresEquals(tools.hypotenuse(threshold + bump));
+  // Under threshold
+  expect(hunty.distanceToPoint(rac.Point(underThres, underThres)))
+    .toBe(0);
+});
+
+
 test('Transformations', () => {
   expect(hunty.negative()).equalsPoint(-100, -100);
 
@@ -254,13 +276,8 @@ test('Transforms to Arc', () => {
     .equalsArc(100, 100, 7, rac.Angle.up, rac.Angle.left, false);
 });
 
-test.todo('distanceToPoint for equal points');
-test('Miscelaneous', () => {
-  expect(hunty.distanceToPoint(rac.Point(100, 200)))
-    .toBe(100);
-  expect(hunty.distanceToPoint(rac.Point(200, 100)))
-    .toBe(100);
 
+test('Miscelaneous', () => {
   expect(hunty.text("sphinx", rac.Text.Format.topLeft))
     .equalsText(100, 100, 'sphinx');
 });
