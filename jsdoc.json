@@ -1,9 +1,19 @@
 {
-  "plugins": ["plugins/markdown"],
+  "plugins": [
+    "plugins/markdown"
+  ],
   "templates": {
-    "default": {
-      "useLongnameInNav": true
+    "showInheritedInNav": false,
+    "showMethodsInNav": "notImplementedYet",
+    "default" : {
+      "cleverLinks": false,
+      "monospaceLinks": false,
+      "useLongnameInNav": 3
     }
   },
-  "tags": { "allowUnknownTags": false }
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  }
 }
+

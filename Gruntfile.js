@@ -42,6 +42,7 @@ module.exports = function(grunt) {
       dist : {
         src: ['src/*'],
         options: {
+          template: "./node_modules/minami",
           destination: 'docs/docs/latest',
           verbose: true,
           // pedantic: true,
