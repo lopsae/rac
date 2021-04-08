@@ -28,8 +28,24 @@ class Point{
   constructor(rac, x, y) {
     utils.assertExists(rac, x, y);
     utils.assertNumber(x, y);
+
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * X coordinate of the point.
+    * @type {number}
+    */
     this.x = x;
+
+    /**
+    * Y coordinate of the point.
+    * @type {number}
+    */
     this.y = y;
   }
 
