@@ -62,8 +62,9 @@ module.exports = Angle;
 * + Otherwise an error is thrown.
 *
 * @param {Rac} rac Instance to pass along to newly created objects
-* @param {number|Rac.Angle|Rac.Segment} something Object to use to produce
-* an `Angle`.
+* @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
+* derive an `Angle` from
+* @returns {Rac.Angle}
 */
 Angle.from = function(rac, something) {
   if (something instanceof Rac.Angle) {
@@ -72,8 +73,11 @@ Angle.from = function(rac, something) {
   if (typeof something === 'number') {
     return new Angle(rac, something);
   }
+  if (something instanceof Rac.Ray) {
+    return something.angle;
+  }
   if (something instanceof Rac.Segment) {
-    return something.angle();
+    return something.ray.angle;
   }
 
   throw Rac.Exception.invalidObjectType(
