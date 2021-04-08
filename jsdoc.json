@@ -3,12 +3,16 @@
     "plugins/markdown"
   ],
   "templates": {
-    "showInheritedInNav": false,
-    "showMethodsInNav": "notImplementedYet",
+    "minami" : {
+      "homeLabel": "ruler-and-compass"
+    },
     "default" : {
       "cleverLinks": false,
       "monospaceLinks": false,
-      "useLongnameInNav": 3
+      "useLongnameInNav": 3,
+      "showInheritedInNav": false,
+      "showMethodsInNav": false,
+      "showMembersInNav": false
     }
   },
   "tags": {
