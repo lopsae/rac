@@ -157,7 +157,11 @@ class Angle {
 module.exports = Angle;
 
 
-// If `turn`` is zero returns 1 instead, otherwise returns `turn`.
+/**
+* Returns the `turn` value, except when `turn` is equal to `0` returns `1`
+* instead.
+* @returns {number}
+*/
 Angle.prototype.turnOne = function() {
   if (this.turn === 0) { return 1; }
   return this.turn;
@@ -194,20 +198,31 @@ Angle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
   return origin.shift(this, clockwise);
 };
 
-// Returns `factor * turn`.
+/**
+* Returns a new `Angle` with its `turn` value multiplied by `factor`.
+* @param {number} factor - The factor to multiply `turn` by
+* @returns {Rac.Angle}
+*/
 Angle.prototype.mult = function(factor) {
   return new Angle(this.rac, this.turn * factor);
 };
 
-// Returns `factor * turnOne()`, where `turn` is considered in the
-// range (0, 1].
-// Useful when doing ratio calculation where a zero angle corresponds to
-// a complete-circle since:
-// ```
-// rac.Angle(0).mult(0.5) // returns rac.Angle(0)
-// // whereas
-// rac.Angle(0).multOne(0.5) // return rac.Angle(0.5)
-// ```
+/**
+* Returns a new `Angle` with its `turn` value multiplied by `factor`,
+* except when `turn` is equal to `0` in which case `factor` is multiplied
+* by `1`.
+*
+* Useful when doing ratio calculations where a zero angle corresponds to a
+* complete-circle since:
+* ```
+* rac.Angle(0).mult(0.5)    // returns angle with turn 0
+* // whereas
+* rac.Angle(0).multOne(0.5) // returns angle with turn 0.5
+* ```
+*
+* @param {number} factor - The factor to multiply `turn` by
+* @returns {number}
+*/
 Angle.prototype.multOne = function(factor) {
   return new Angle(this.rac, this.turnOne() * factor);
 };
