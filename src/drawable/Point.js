@@ -60,7 +60,7 @@ class Point{
 
 
   /**
-  * Returns `true` when the difference of each coordinate with `other` is
+  * Returns `true` when the difference with `other` for each coordinate is
   * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
   *
   * Values are compared using `{@link Rac#equals}`.

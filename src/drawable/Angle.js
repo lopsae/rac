@@ -6,23 +6,62 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured with a `turn` value in the `[0,1)` range.
+* Angle measured by a `turn` value in the range `[0,1)` that represents the
+* amount of turn in a full circle.
+*
+* When drawing an angle of turn `0` points towards the right of the screen.
+* An angle of turn `1/4` points downwards, turn `1/2` towards the left,
+* `3/4` points upwards.
+*
 * @alias Rac.Angle
 */
 class Angle {
 
+  /**
+  * Creates a new `Angle` instance.
+  *
+  * The `turn` value is constrained to the rance `[0, 1)`, any value
+  * outside is reduced back into range using a modulo operation.
+  *
+  * ```
+  * new Rac.Angle(rac, 1/4)  // turn is 1/4
+  * new Rac.Angle(rac, 5/4)  // turn is 1/4
+  * new Rac.Angle(rac, -1/4) // turn is 3/4
+  * new Rac.Angle(rac, 1)    // turn is 0
+  * new Rac.Angle(rac, 4)    // turn is 0
+  * ```
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {number} turn - The turn value
+  */
   constructor(rac, turn) {
     utils.assertExists(rac);
     utils.assertNumber(turn);
-    this.rac = rac;
-    this.setTurn(turn);
-  }
 
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    * @type {Rac}
+    */
+    this.rac = rac;
+
+    turn = turn % 1;
+    if (turn < 0) {
+      turn = (turn + 1) % 1;
+    }
+
+    /**
+    * Turn value of the angle, constrained to the range `[0, 1)`.
+    * @type {number}
+    */
+    this.turn = turn;
+  }
 
   /**
   * Returns a string representation intended for human consumption.
-  * @param {number=} digits The number of digits to appear after the
-  * decimal point, if ommited all digits are printed.
+  * @param {number} [digits] - The number of digits to appear after the
+  * decimal point, when ommited all digits are printed.
+  * @returns {string}
   */
   toString(digits = null) {
     let turnString = digits === null
@@ -31,7 +70,18 @@ class Angle {
     return `Angle(${turnString})`;
   }
 
-
+  /**
+  * Returns `true` when the difference with the `turn` value of the angle
+  * derived {@link Rac.Angle.from from} `someAngle` is under
+  * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
+  *
+  * This method will consider turn values in the oposite ends of the range
+  * `[0, 1)` as equals. `Angle` objects with `turn` values of `0` and
+  * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
+  *
+  * @param {Rac.Angle|number} someAngle - An `Angle` to compare
+  * @returns {boolean}
+  */
   equals(someAngle) {
     const other = Angle.from(this.rac, someAngle);
     const diff = Math.abs(this.turn - other.turn);
@@ -41,53 +91,70 @@ class Angle {
   }
 
 
-  setTurn(turn) {
-    this.turn = turn % 1;
-    if (this.turn < 0) {
-      this.turn = (this.turn + 1) % 1;
+  /**
+  * Returns an `Angle` derived from `something`.
+  *
+  * + When `something` is an instance of `Angle`, returns that same object.
+  * + When `something` is a `number`, returns a new `Angle` with
+  *   `something` as `turn`.
+  * + When `something` is a `{@link Rac.Ray}`, returns its angle.
+  * + When `something` is a `{@link Rac.Segment}`, returns its angle.
+  * + Otherwise an error is thrown.
+  *
+  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac.Angle|Rac.Ray|Rac.Segment|number} something - An object to
+  * derive an `Angle` from
+  * @returns {Rac.Angle}
+  */
+  static from(rac, something) {
+    if (something instanceof Rac.Angle) {
+      return something;
     }
-    return this;
+    if (typeof something === 'number') {
+      return new Angle(rac, something);
+    }
+    if (something instanceof Rac.Ray) {
+      return something.angle;
+    }
+    if (something instanceof Rac.Segment) {
+      return something.ray.angle;
+    }
+
+    throw Rac.Exception.invalidObjectType(
+      `Cannot derive Rac.Angle - something-type:${utils.typeName(something)}`);
+  }
+
+  /**
+  * Returns an `Angle` derived from `radians`.
+  *
+  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {number} radians - The measure of the angle, in radians
+  * @returns {Rac.Angle}
+  */
+  static fromRadians(rac, radians) {
+    return new Angle(rac, radians / Rac.TAU);
+  }
+
+  /**
+  * Returns the measure of the angle in radians.
+  * @returns {number}
+  */
+  radians() {
+    return this.turn * Rac.TAU;
+  }
+
+  /**
+  * Returns the measure of the angle in degrees.
+  * @returns {number}
+  */
+  degrees() {
+    return this.turn * 360;
   }
 
 } // class Angle
 
+
 module.exports = Angle;
-
-/**
-* Returns an `Angle` produced with `something`.
-*
-* + If `something` is an instance of `Angle` that same object is returned.
-* + If `something` is a `number`, it is used as `turn` value.
-* + If `something` is a `{@link Rac.Segment}`, returns its angle.
-* + Otherwise an error is thrown.
-*
-* @param {Rac} rac Instance to pass along to newly created objects
-* @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
-* derive an `Angle` from
-* @returns {Rac.Angle}
-*/
-Angle.from = function(rac, something) {
-  if (something instanceof Rac.Angle) {
-    return something;
-  }
-  if (typeof something === 'number') {
-    return new Angle(rac, something);
-  }
-  if (something instanceof Rac.Ray) {
-    return something.angle;
-  }
-  if (something instanceof Rac.Segment) {
-    return something.ray.angle;
-  }
-
-  throw Rac.Exception.invalidObjectType(
-    `Cannot derive Rac.Angle - something-type:${utils.typeName(something)}`);
-};
-
-
-Angle.fromRadians = function(rac, radians) {
-  return new Angle(rac, radians / Rac.TAU);
-};
 
 
 // If `turn`` is zero returns 1 instead, otherwise returns `turn`.
@@ -168,11 +235,5 @@ Angle.prototype.distance = function(someAngle, clockwise = true) {
     : distance.negative();
 };
 
-Angle.prototype.radians = function() {
-  return this.turn * Rac.TAU;
-};
 
-Angle.prototype.degrees = function() {
-  return this.turn * 360;
-};
 
