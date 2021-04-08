@@ -2,9 +2,9 @@
 
 
 /**
-* The `rac.Fill` function contains methods and properties for convenience
-* `{@link Rac.Fill}` objects with the current `rac` instance.
-* @namespace rac.Fill
+* The `instance.Fill` function contains convenience methods and properties
+* for `{@link Rac.Fill}` objects setup with the owning `Rac` instance.
+* @namespace instance.Fill
 */
 module.exports = function attachRacFill(rac) {
 

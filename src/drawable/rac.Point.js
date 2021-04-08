@@ -2,9 +2,9 @@
 
 
 /**
-* The `rac.Point` function contains methods and properties for convenience
-* `{@link Rac.Point}` objects with the current `rac` instance.
-* @namespace rac.Point
+* The `instance.Point` function contains convenience methods and properties
+* for `{@link Rac.Point}` objects setup with the owning `Rac` instance.
+* @namespace instance.Point
 */
 module.exports = function attachRacPoint(rac) {
 

@@ -139,10 +139,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Color` using `this`.
+  * Convenience function that creates a new `Color` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Color}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Color}`.
   *
   * @param {number} r
   * @param {number} g
@@ -156,10 +156,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Stroke` using `this`.
+  * Convenience function that creates a new `Stroke` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Stroke}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Stroke}`.
   *
   * @param {Rac.Color=} color
   * @param {number=} weight
@@ -171,10 +171,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Fill` using `this`.
+  * Convenience function that creates a new `Fill` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Fill}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Fill}`.
   *
   * @param {Rac.Color=} color
   * @returns {Rac.Fill}
@@ -185,10 +185,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Style` using `this`.
+  * Convenience function that creates a new `Style` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Style}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Style}`.
   *
   * @param {Rac.Stroke=} stroke
   * @param {Rac.Fill=} fill
@@ -200,12 +200,12 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Angle` using `this`.
+  * Convenience function that creates a new `Angle` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link instance.Angle}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Angle}`.
   *
-  * @param {number} turn
+  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
   */
   Angle(turn) {
@@ -214,10 +214,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Point` using `this`.
+  * Convenience function that creates a new `Point` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Point}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Point}`.
   *
   * @param {number} x
   * @param {number} y
@@ -229,10 +229,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Ray` using `this`.
+  * Convenience function that creates a new `Ray` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Ray}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Ray}`.
   *
   * @param {number} x
   * @param {number} y
@@ -247,16 +247,16 @@ class Rac {
 
 
   /**
-  * The `rac.Segment` function-container holds several convenience methods
-  * and properties for creating `{@link Rac.Segment}` objects.
-  * @namespace rac.Segment
+  * The `instance.Segment` function contains convenience methods and properties
+  * for `{@link Rac.Segment}` objects setup with the owning `Rac` instance.
+  * @namespace instance.Segment
   */
 
   /**
-  * Convenience function that creates a new `Segment` using `this`.
+  * Convenience function that creates a new `Segment` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Segment}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Segment}`.
   *
   * @param {number} x
   * @param {number} y
@@ -273,16 +273,16 @@ class Rac {
 
 
   /**
-  * The `rac.Arc` function-container holds several convenience methods
-  * and properties for creating `{@link Rac.Arc}` objects.
-  * @namespace rac.Arc
+  * The `instance.Arc` function contains convenience methods and properties
+  * for `{@link Rac.Arc}` objects setup with the owning `Rac` instance.
+  * @namespace instance.Arc
   */
 
   /**
-  * Convenience function that creates a new `Arc` using `this`.
+  * Convenience function that creates a new `Arc` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Arc}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Arc}`.
   *
   * @param {number} x
   * @param {number} y
@@ -300,10 +300,10 @@ class Rac {
 
 
   /**
-  * Convenience function that creates a new `Text` using `this`.
+  * Convenience function that creates a new `Text` setup with `this`.
   *
-  * This function also contains more convenience methods and properties
-  * listed in `{@link rac.Text}`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Text}`.
   *
   * @param {number} x
   * @param {number} y

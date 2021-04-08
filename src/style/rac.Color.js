@@ -2,9 +2,9 @@
 
 
 /**
-* The `rac.Color` function contains methods and properties for convenience
-* `{@link Rac.Color}` objects with the current `rac` instance.
-* @namespace rac.Color
+* The `instance.Color` function contains convenience methods and properties
+* for `{@link Rac.Color}` objects setup with the owning `Rac` instance.
+* @namespace instance.Color
 */
 module.exports = function attachRacColor(rac) {
 

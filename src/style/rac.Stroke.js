@@ -2,9 +2,9 @@
 
 
 /**
-* The `rac.Stroke` function contains methods and properties for convenience
-* `{@link Rac.Stroke}` objects with the current `rac` instance.
-* @namespace rac.Stroke
+* The `instance.Stroke` function contains convenience methods and properties
+* for `{@link Rac.Stroke}` objects setup with the owning `Rac` instance.
+* @namespace instance.Stroke
 */
 module.exports = function attachRacPoint(rac) {
 
