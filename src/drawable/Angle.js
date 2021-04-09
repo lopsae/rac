@@ -135,6 +135,47 @@ class Angle {
     return new Angle(rac, radians / Rac.TAU);
   }
 
+
+  /**
+  * Returns a new `Angle` pointing in the opposite direction to `this`.
+  * ```
+  * rac.Angle(1/8).inverse() // turn is 1/8 + 1/2 = 5/8
+  * rac.Angle(7/8).inverse() // turn is 7/8 + 1/2 = 3/8
+  * ```
+  *
+  * @returns {Rac.Angle}
+  */
+  inverse() {
+    return this.add(this.rac.Angle.inverse);
+  }
+
+  /**
+  * Returns a new `Angle` with a turn value equivalent to `-turn`.
+  * ```
+  * rac.Angle(1/4).negative() // -1/4 becomes turn 3/4
+  * rac.Angle(3/8).negative() // -3/8 becomes turn 5/8
+  * ```
+  *
+  * @returns {Rac.Angle}
+  */
+  negative() {
+    return new Angle(this.rac, -this.turn);
+  }
+
+  /**
+  * Returns a new `Angle` which is perpendicular to `this` in the
+  * `clockwise` orientation.
+  * ```
+  * rac.Angle(1/8).perpendicular(true)  // turn is 1/8 + 1/4 = 3/8
+  * rac.Angle(1/8).perpendicular(false) // turn is 1/8 - 1/4 = 7/8
+  * ```
+  *
+  * @returns {Rac.Angle}
+  */
+  perpendicular(clockwise = true) {
+    return this.shift(this.rac.Angle.square, clockwise);
+  }
+
   /**
   * Returns the measure of the angle in radians.
   * @returns {number}
@@ -162,6 +203,28 @@ class Angle {
   }
 
   /**
+  * Returns a new `Angle` with the sum of `this` and the angle derived from
+  * `someAngle`.
+  * @param {Rac.Angle|number} someAngle - An `Angle` to add
+  * @returns {Rac.Angle}
+  */
+  add(someAngle) {
+    let other = this.rac.Angle.from(someAngle);
+    return new Angle(this.rac, this.turn + other.turn);
+  }
+
+  /**
+  * Returns a new `Angle` with the angle derived from `someAngle`
+  * subtracted to `this`.
+  * @param {Rac.Angle|number} someAngle - An `Angle` to subtract
+  * @returns {Rac.Angle}
+  */
+  subtract(someAngle) {
+    let other = this.rac.Angle.from(someAngle);
+    return new Angle(this.rac, this.turn - other.turn);
+  }
+
+  /**
   * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
@@ -177,9 +240,9 @@ class Angle {
   * Useful when doing ratio calculations where a zero angle corresponds to
   * a complete-circle since:
   * ```
-  * rac.Angle(0).mult(0.5)    // returns angle with turn 0
+  * rac.Angle(0).mult(0.5)    // turn is 0
   * // whereas
-  * rac.Angle(0).multOne(0.5) // returns angle with turn 0.5
+  * rac.Angle(0).multOne(0.5) // turn is 0.5
   * ```
   *
   * @param {number} factor - The factor to multiply `turn` by
@@ -189,21 +252,34 @@ class Angle {
     return new Angle(this.rac, this.turnOne() * factor);
   }
 
+  /**
+  * Returns a new `Angle` that represents the distance from `this` to the
+  * angle derived from `someAngle`.
+  * ```
+  * rac.Angle(1/4).distance(1/2, true)  // turn is 1/2
+  * rac.Angle(1/4).distance(1/2, false) // turn in 3/4
+  * ```
+  *
+  * @param {Rac.Angle|number} someAngle - An `Angle` to measure the distance to
+  * @param {boolean} [clockwise=true] - The orientation of the measurement
+  * @returns {Rac.Angle}
+  */
+  // Returns an Angle that represents the distance from `this` to `someAngle`
+  // traveling in the `clockwise` orientation.
+  distance(someAngle, clockwise = true) {
+    let other = this.rac.Angle.from(someAngle);
+    let distance = other.subtract(this);
+    return clockwise
+      ? distance
+      : distance.negative();
+  }
+
 } // class Angle
 
 
 module.exports = Angle;
 
 
-Angle.prototype.add = function(someAngle) {
-  let other = this.rac.Angle.from(someAngle);
-  return new Angle(this.rac, this.turn + other.turn);
-};
-
-Angle.prototype.subtract = function(someAngle) {
-  let other = this.rac.Angle.from(someAngle);
-  return new Angle(this.rac, this.turn - other.turn);
-};
 
 
 // Returns the equivalent to `someAngle` shifted to have `this` as the
@@ -226,29 +302,6 @@ Angle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
   return origin.shift(this, clockwise);
 };
 
-
-// Returns `this` adding half a turn.
-Angle.prototype.inverse = function() {
-  return this.add(this.rac.Angle.inverse);
-};
-
-Angle.prototype.negative = function() {
-  return new Angle(this.rac, -this.turn);
-};
-
-Angle.prototype.perpendicular = function(clockwise = true) {
-  return this.shift(this.rac.Angle.square, clockwise);
-};
-
-// Returns an Angle that represents the distance from `this` to `someAngle`
-// traveling in the `clockwise` orientation.
-Angle.prototype.distance = function(someAngle, clockwise = true) {
-  let other = this.rac.Angle.from(someAngle);
-  let distance = other.subtract(this);
-  return clockwise
-    ? distance
-    : distance.negative();
-};
 
 
 

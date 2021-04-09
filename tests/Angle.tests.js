@@ -58,7 +58,6 @@ test('Equality', () => {
   const aboveThreshold = threshold + bump;
   const belowThreshold = threshold - bump;
 
-
   expect(rac.Angle.zero).equalsAngle(rac.Angle.zero);
   expect(rac.Angle.half).equalsAngle(rac.Angle.west);
   expect(rac.Angle.up).not.equalsAngle(rac.Angle.down);
