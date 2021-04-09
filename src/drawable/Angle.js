@@ -264,8 +264,6 @@ class Angle {
   * @param {boolean} [clockwise=true] - The orientation of the measurement
   * @returns {Rac.Angle}
   */
-  // Returns an Angle that represents the distance from `this` to `someAngle`
-  // traveling in the `clockwise` orientation.
   distance(someAngle, clockwise = true) {
     let other = this.rac.Angle.from(someAngle);
     let distance = other.subtract(this);
@@ -274,34 +272,55 @@ class Angle {
       : distance.negative();
   }
 
+  /**
+  * Returns a new `Angle` result of shifting the angle derived from
+  * `someAngle` to have `this` as its origin.
+  *
+  * This operation is the equivalent to
+  * + `this.add(someAngle)` when clockwise
+  * + `this.subtract(someAngle)` when counter-clockwise
+  *
+  * ```
+  * rac.Angle(0.1).shift(0.3, true)  // turn is 0.1 + 0.3 = 0.4
+  * rac.Angle(0.1).shift(0.3, false) // turn is 0.1 - 0.3 = 0.8
+  * ```
+  *
+  * @param {Rac.Angle|number} someAngle - An `Angle` to be shifted
+  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @returns {Rac.Angle}
+  */
+  shift(someAngle, clockwise = true) {
+    let angle = this.rac.Angle.from(someAngle);
+    return clockwise
+      ? this.add(angle)
+      : this.subtract(angle);
+  }
+
+
+  /**
+  * Returns a new `Angle` result of shifting `this` to have the angle
+  * derived from `someAngle` as its origin.
+  *
+  * This operation is the equivalent to
+  * + `origin.add(this)` when clockwise
+  * + `origin.subtract(this)` when counter-clockwise
+  *
+  * ```
+  * rac.Angle(0.1).shiftToOrigin(0.3, true)  // turn is 0.3 + 0.1 = 0.4
+  * rac.Angle(0.1).shiftToOrigin(0.3, false) // turn is 0.3 - 0.1 = 0.2
+  * ```
+  *
+  * @param {Rac.Angle|number} someAngle - An `Angle` to use as origin
+  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @returns {Rac.Angle}
+  */
+  shiftToOrigin(origin, clockwise) {
+    origin = this.rac.Angle.from(origin);
+    return origin.shift(this, clockwise);
+  }
+
 } // class Angle
 
 
 module.exports = Angle;
-
-
-
-
-// Returns the equivalent to `someAngle` shifted to have `this` as the
-// origin, in the `clockwise` orientation.
-//
-// For angle at `0.1`, `shift(0.5)` will return a `0.6` angle.
-// For a clockwise orientation, equivalent to `this + someAngle`.
-Angle.prototype.shift = function(someAngle, clockwise = true) {
-  let angle = this.rac.Angle.from(someAngle);
-  return clockwise
-    ? this.add(angle)
-    : this.subtract(angle);
-};
-
-// Returns the equivalent of `this` when `someOrigin` is considered the
-// origin, in the `clockwise` orientation.
-// TODO: add example and difference to shift
-Angle.prototype.shiftToOrigin = function(someOrigin, clockwise) {
-  let origin = this.rac.Angle.from(someOrigin);
-  return origin.shift(this, clockwise);
-};
-
-
-
 
