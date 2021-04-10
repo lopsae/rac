@@ -47,19 +47,37 @@ test('Function withX/Y', () => {
 });
 
 
-test('Function add/sub', () => {
+test('Function add/subtract', () => {
+  expect(hunty.addPoint(rac.Point.zero))
+    .equalsPoint(100, 100);
   expect(hunty.addPoint(fifty))
     .equalsPoint(155, 155);
-  expect(hunty.add(11, 11))
-    .equalsPoint(111, 111);
-
-  expect(hunty.subtractPoint(fifty))
+  expect(hunty.addPoint(fifty.negative()))
     .equalsPoint(45, 45);
-  expect(hunty.subtract(1, 1))
+  expect(hunty.add(1, 1))
+    .equalsPoint(101, 101);
+  expect(hunty.add(-1, -1))
     .equalsPoint(99, 99);
 
+  expect(hunty.subtractPoint(rac.Point.zero))
+    .equalsPoint(100, 100);
+  expect(hunty.subtractPoint(fifty))
+    .equalsPoint(45, 45);
+  expect(hunty.subtractPoint(fifty.negative()))
+    .equalsPoint(155, 155);
+  expect(hunty.subtract(1, 1))
+    .equalsPoint(99, 99);
+  expect(hunty.subtract(-1, -1))
+    .equalsPoint(101, 101);
+
+  expect(hunty.addX(0)).equalsPoint(100, 100);
   expect(hunty.addX(55)).equalsPoint(155, 100);
+  expect(hunty.addX(-55)).equalsPoint(45, 100);
+
+  expect(hunty.addY(0)).equalsPoint(100, 100);
   expect(hunty.addY(55)).equalsPoint(100, 155);
+  expect(hunty.addY(-55)).equalsPoint(100, 45);
+
   expect(hunty.addX(11).addY(11))
     .equalsPoint(111, 111);
 });
