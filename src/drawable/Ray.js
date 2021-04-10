@@ -104,8 +104,9 @@ class Ray {
   }
 
   /**
-  * Returns a new `Ray` with `this.angle` [shifted by]{@link Rac.Angle#shift}
-  * `angle`.
+  * Returns a new `Ray` with `angle` set to
+  * `this.{@link Rac.Angle#shift angle.shift}(angle)`.
+  *
   * @param {Rac.Angle|number} newAngle - The angle to be shifted by
   * @param {boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Ray}
@@ -153,8 +154,8 @@ class Ray {
 
   /**
   * Returns a new `Point` located in the ray where the x coordinate is `x`.
-  * When the ray is vertical, returns `null` since there is no single point
-  * with x coordinate at `x`.
+  * When the ray is vertical, returns `null` since no single point with x
+  * coordinate at `x` is possible.
   *
   * The ray is considered a unbounded line.
   *
@@ -180,10 +181,10 @@ class Ray {
 
   /**
   * Returns a new `Point` located in the ray where the y coordinate is `y`.
-  * When the ray is horizontal, returns `null` since there is no single
-  * point with y coordinate at `y`.
+  * When the ray is horizontal, returns `null` since no single point with y
+  * coordinate at `y` is possible.
   *
-  * The ray is considered a unbounded line.
+  * The ray is considered an unbounded line.
   *
   * @param {number} y - The y coordinate to calculate a point in the ray
   * @retursn {Rac.Point}
@@ -219,9 +220,16 @@ class Ray {
   }
 
 
-  // Returns the intersecting point of `this` and `other`. Both rays are
-  // considered lines without endpoints. Returns null if the rays are
-  // parallel.
+  /**
+  * Returns a new `Point` at the intersection of `this` and `other`. When
+  * the rays are parallel, returns `null` since no intersection is
+  * possible.
+  *
+  * Both rays are considered unbounded lines.
+  *
+  * @param {Rac.Ray} other - A `Ray` to calculate the intersection with
+  * @returns {Rac.Point}
+  */
   pointAtIntersection(other) {
     // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     const a = this.slope();
@@ -242,7 +250,15 @@ class Ray {
     return new Rac.Point(this.rac, x, y);
   }
 
-
+  /**
+  * Returns a new `Point` at the projection of `point` onto the ray. The
+  * projected point is the closest possible point to `point`.
+  *
+  * The ray is considered an unbounded line.
+  *
+  * @param {Rac.Point} point - A `Point` to project onto the ray
+  * @returns {Rac.Point}
+  */
   pointProjected(point) {
     const perpendicular = this.angle.perpendicular();
     return point.ray(perpendicular)
@@ -250,10 +266,17 @@ class Ray {
   }
 
 
-  // Returns the distance from `start` to the projection of `point` in the
-  // ray.
-  // The distance is positive if the projected point is in the direction
-  // of the ray, and negative if it is behind.
+  /**
+  * Returns the distance from `this.start` to the projection of `point`
+  * onto the ray.
+  *
+  * The returned distance is positive when the projected point is towards
+  * the direction of the ray, and negative when it is behind.
+  *
+  * @param {Rac.Point} point - A `Point` to project and measure the
+  * distance to
+  * @returns {number}
+  */
   distanceToProjectedPoint(point) {
     const projected = this.pointProjected(point);
     const distance = this.start.distanceToPoint(projected);
@@ -271,6 +294,7 @@ class Ray {
     }
   }
 
+  // TODO: recheck, migrate
   // Returns `true` if the given point is located clockwise of the segment,
   // or `false` if located counter-clockwise.
   // pointOrientation(point) {
@@ -281,18 +305,30 @@ class Ray {
   //   return angleDistance.turn < 0.5;
   // }
 
-
+  /**
+  * Returns a new `Ray` from `this.start` towards the given `point`.
+  * @param {Rac.Point} point - A `Point` to point the new `Ray` towards
+  * @return {Rac.Ray}
+  */
   rayToPoint(point) {
     const newAngle = this.start.angleToPoint(point, this.angle);
     return new Ray(this.rac, this.start, newAngle);
   }
 
-
+  /**
+  * Returns a new `Segment` using `this` and the given `length`.
+  * @param {number} length - The length of the new `Segment`
+  * @returns {Rac.Segment}
+  */
   segment(length) {
     return new Rac.Segment(this.rac, this, length);
   }
 
-
+  /**
+  * Returns a new `Segment` from `this.start` up to the given `point`.
+  * @param {Rac.Point} point - A `Point` at the end of the new `segment`
+  * @return {Rac.Segment}
+  */
   segmentToPoint(point) {
     const newRay = this.rayToPoint(point);
     const length = this.start.distanceToPoint(point);
