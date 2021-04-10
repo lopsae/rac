@@ -264,9 +264,25 @@ test('Function distance', () => {
 });
 
 
-test.todo('Function shift');
-test.todo('Function shiftToOrigin');
+test('Function shift/shiftToOrigin', () => {
+  expect(rac.Angle.zero.shift(1/4))
+    .equalsAngle(1/4);
+  expect(rac.Angle.zero.shift(1/4, false))
+    .equalsAngle(3/4);
 
+  expect(rac.Angle.half.shift(1/4))
+    .equalsAngle(3/4);
+  expect(rac.Angle.half.shift(1/4, false))
+    .equalsAngle(1/4);
 
-test.todo('Check for coverage');
+  expect(rac.Angle.zero.shiftToOrigin(1/4))
+    .equalsAngle(1/4);
+  expect(rac.Angle.zero.shiftToOrigin(1/4, false))
+    .equalsAngle(1/4);
+
+  expect(rac.Angle.quarter.shiftToOrigin(1/4))
+    .equalsAngle(1/2);
+  expect(rac.Angle.quarter.shiftToOrigin(1/4, false))
+    .equalsAngle(0);
+});
 
