@@ -136,6 +136,9 @@ class Angle {
   }
 
 
+  // TODO: implement fromDegrees
+
+
   /**
   * Returns a new `Angle` pointing in the opposite direction to `this`.
   * ```

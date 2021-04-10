@@ -42,12 +42,7 @@ test('Errors', () => {
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => { new Rac.Angle(rac, null); })
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
-  expect(() => { Rac.Angle.from(null, 1/2); })
-    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
-  expect(() => { Rac.Angle.from(rac, 'unsuported'); })
-    .toThrowNamed(Rac.Exception.invalidObjectType.exceptionName);
-
-  expect(() => { Rac.Angle.from(rac, NaN); })
+  expect(() => { new Rac.Angle(rac, NaN); })
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
@@ -91,6 +86,40 @@ test('Equality', () => {
   expect(angleCloseToOne).not.equalsAngle(closeToOne - aboveThreshold);
 });
 
+test('Function from', () => {
+  expect(Rac.Angle.from(rac, rac.Angle.quarter))
+    .equalsAngle(rac.Angle.quarter);
+  expect(Rac.Angle.from(rac, 1/2))
+    .equalsAngle(rac.Angle.half);
+  expect(Rac.Angle.from(rac, rac.Ray(55, 55, 3/4)))
+    .equalsAngle(3/4);
+  expect(Rac.Angle.from(rac, rac.Segment(55, 55, 3/4, 100)))
+    .equalsAngle(3/4);
 
-test.todo('Angle.from')
+  expect(() => { Rac.Angle.from(null, 1/2); })
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => { Rac.Angle.from(rac, 'unsuported'); })
+    .toThrowNamed(Rac.Exception.invalidObjectType.exceptionName);
+  expect(() => { Rac.Angle.from(rac, NaN); })
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+test('Transforms to radian/degrees', () => {
+  expect(rac.Angle.zero.radians()).toBe(0);
+  expect(rac.Angle.half.radians()).toBe(Rac.TAU/2);
+
+  expect(rac.Angle.zero.degrees()).toBe(0);
+  expect(rac.Angle.half.degrees()).toBe(360/2);
+
+  expect(Rac.Angle.fromRadians(rac, 0))
+    .equalsAngle(rac.Angle.zero);
+  expect(Rac.Angle.fromRadians(rac, Rac.TAU/2))
+    .equalsAngle(rac.Angle.half);
+  expect(Rac.Angle.fromRadians(rac, Rac.TAU))
+    .equalsAngle(rac.Angle.zero);
+});
+
+
+test.todo('Check for coverage')
 

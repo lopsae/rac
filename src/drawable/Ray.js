@@ -20,7 +20,7 @@ class Ray {
   constructor(rac, start, angle) {
     utils.assertExists(rac, start, angle);
     utils.assertType(Rac.Point, start)
-    utils.assertTyoe(Rac.Angle, angle)
+    utils.assertType(Rac.Angle, angle)
     this.rac = rac;
     this.start = start;
     this.angle = angle;
