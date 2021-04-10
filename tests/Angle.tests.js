@@ -232,5 +232,41 @@ test('Function turnOne/multOne', () => {
     .equalsAngle(0);
 });
 
+
+test('Function distance', () => {
+  expect(rac.Angle.zero.distance(0))
+    .equalsAngle(0);
+  expect(rac.Angle.zero.distance(0, false))
+    .equalsAngle(0);
+
+  expect(rac.Angle.half.distance(rac.Angle.half))
+    .equalsAngle(0);
+  expect(rac.Angle.half.distance(rac.Angle.half, false))
+    .equalsAngle(0);
+
+  expect(rac.Angle.down.distance(0))
+    .equalsAngle(3/4);
+  expect(rac.Angle.down.distance(0, false))
+    .equalsAngle(1/4);
+  expect(rac.Angle.down.distance(1/2))
+    .equalsAngle(1/4);
+  expect(rac.Angle.down.distance(1/2, false))
+    .equalsAngle(3/4);
+
+  expect(rac.Angle.up.distance(0))
+    .equalsAngle(1/4);
+  expect(rac.Angle.up.distance(0, false))
+    .equalsAngle(3/4);
+  expect(rac.Angle.up.distance(1/2))
+    .equalsAngle(3/4);
+  expect(rac.Angle.up.distance(1/2, false))
+    .equalsAngle(1/4);
+});
+
+
+test.todo('Function shift');
+test.todo('Function shiftToOrigin');
+
+
 test.todo('Check for coverage');
 
