@@ -209,7 +209,28 @@ test('Function mult', () => {
 
 
 
-test.todo('Function turnOne/multOne');
+test('Function turnOne/multOne', () => {
+  expect(rac.Angle.zero.turnOne()).uniThresEquals(1);
+  expect(rac.Angle.half.turnOne()).uniThresEquals(1/2);
+
+  expect(rac.Angle.zero.multOne(0))
+    .equalsAngle(0);
+  expect(rac.Angle.zero.multOne(1/2))
+    .equalsAngle(1/2);
+  expect(rac.Angle.zero.multOne(-1/2))
+    .equalsAngle(1/2);
+
+  expect(rac.Angle.half.multOne(1/2))
+    .equalsAngle(1/4);
+  expect(rac.Angle.half.multOne(-1/2))
+    .equalsAngle(3/4);
+  expect(rac.Angle.half.multOne(0))
+    .equalsAngle(0);
+  expect(rac.Angle.half.multOne(1))
+    .equalsAngle(1/2);
+  expect(rac.Angle.half.multOne(2))
+    .equalsAngle(0);
+});
 
 test.todo('Check for coverage');
 
