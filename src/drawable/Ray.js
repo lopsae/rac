@@ -11,8 +11,16 @@ const utils = require('../util/utils');
 */
 class Ray {
 
+  /**
+  * Creates a new `Ray` instance.
+  * @param {Rac} rac Instance to use for drawing and creating other objects
+  * @param {Rac.Point} start - A `Point` where the ray starts
+  * @param {Rac.Angle} angle - An `Angle` the ray is directed to
+  */
   constructor(rac, start, angle) {
     utils.assertExists(rac, start, angle);
+    utils.assertType(Rac.Point, start)
+    utils.assertTyoe(Rac.Angle, angle)
     this.rac = rac;
     this.start = start;
     this.angle = angle;
@@ -20,6 +28,7 @@ class Ray {
 
   /**
   * Returns a string representation intended for human consumption.
+  * @returns {string}
   */
   toString() {
     return `Ray((${this.start.x},${this.start.y}) a:${this.angle.turn})`;
@@ -29,7 +38,7 @@ class Ray {
   /**
   * Returns the slope of the ray, or `null` if the ray is vertical.
   *
-  * `slope` is `m` in the formula `y = mx + b`.
+  * In the line formula `y = mx + b` the slope is `m`.
   *
   * @returns {?number}
   */
@@ -46,11 +55,11 @@ class Ray {
 
 
   /**
-  * Returns the y-intercept (the point at which the ray, extended in both
-  * directions, would intercept with the y-axis), or `null` if the ray is
+  * Returns the y-intercept: the point at which the ray, extended in both
+  * directions, intercepts with the y-axis; or `null` if the ray is
   * vertical.
   *
-  * `yIntercept` is `b` in the formula `y = mx + b`.
+  * In the line formula `y = mx + b` the y-intercept is `b`.
   *
   * @returns {?number}
   */
@@ -64,43 +73,94 @@ class Ray {
     return this.start.y - slope * this.start.x;
   }
 
-
+  /**
+  * Returns a new `Ray` with `start` set to `newStart`.
+  * @param {Rac.Point} newStart - The start for the new `Ray`
+  * @returns {Rac.Ray}
+  */
   withStart(newStart) {
     return new Ray(this.rac, newStart, this.angle);
   }
 
-  withAngle(someAngle) {
-    let newAngle = this.rac.Angle.from(someAngle);
+  /**
+  * Returns a new `Ray` with `angle` set to `newAngle`.
+  * @param {Rac.Angle|number} newAngle - The angle for the new `Ray`
+  * @returns {Rac.Ray}
+  */
+  withAngle(newAngle) {
+    newAngle = this.rac.Angle.from(newAngle);
     return new Ray(this.rac, this.start, newAngle);
   }
 
-  withAngleAdd(someAngle) {
-    let newAngle = this.angle.add(someAngle);
+  /**
+  * Returns a new `Ray` with `angle` added to `this.angle`.
+  * @param {Rac.Angle|number} newAngle - The angle for to add
+  * @returns {Rac.Ray}
+  */
+  withAngleAdd(angle) {
+    let newAngle = this.angle.add(angle);
     let newEnd = this.start.pointToAngle(newAngle, this.length());
     return new Ray(this.rac, this.start, newEnd);
   }
 
-  withAngleShift(someAngle, clockwise = true) {
-    let newAngle = this.angle.shift(someAngle, clockwise);
+  /**
+  * Returns a new `Ray` with `this.angle` [shifted by]{@link Rac.Angle#shift}
+  * `angle`.
+  * @param {Rac.Angle|number} newAngle - The angle to be shifted by
+  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @returns {Rac.Ray}
+  */
+  withAngleShift(angle, clockwise = true) {
+    let newAngle = this.angle.shift(angle, clockwise);
     return new Ray(this.rac, this.start, newAngle);
   }
 
+  /**
+  * Returns a new `Ray` with `start` moved along the ray by the given
+  * `distance`. When `distance` is negative, `start` is moved in
+  * the direction inverse of `angle`.
+  *
+  * @param {number} distance - The distance to move `start` by
+  * @returns {Rac.Ray}
+  */
   withStartAtDistance(distance) {
     const newStart = this.start.pointToAngle(this.angle, distance);
     return new Ray(this.rac, newStart, this.angle);
   }
 
+  /**
+  * Returns a new `Ray` pointing towards
+  * `{@link Rac.Angle#inverse angle.inverse()}`.
+  * @returns {Rac.Ray}
+  */
   inverse() {
     const inverseAngle = this.angle.inverse();
     return new Ray(this.rac, this.start, inverseAngle);
   }
 
+  /**
+  * Returns a new `Ray` pointing towards
+  * `{@link Rac.Angle#perpendicular angle.perpendicular()}` in the
+  * `clockwise` orientation.
+  *
+  * @param {boolean} [clockwise=true]
+  * @returns {Rac.Ray}
+  */
   perpendicular(clockwise = true) {
     let perpendicular = this.angle.perpendicular(clockwise);
     return new Ray(this.rac, this.start, perpendicular);
   }
 
-
+  /**
+  * Returns a new `Point` located in the ray where the x coordinate is `x`.
+  * When the ray is vertical, returns `null` since there is no single point
+  * with x coordinate at `x`.
+  *
+  * The ray is considered a unbounded line.
+  *
+  * @param {number} x - The x coordinate to calculate a point in the ray
+  * @retursn {Rac.Point}
+  */
   pointAtX(x) {
     const slope = this.slope();
     if (slope === null) {
@@ -118,7 +178,16 @@ class Ray {
     return new Rac.Point(this.rac, x, y);
   }
 
-
+  /**
+  * Returns a new `Point` located in the ray where the y coordinate is `y`.
+  * When the ray is horizontal, returns `null` since there is no single
+  * point with y coordinate at `y`.
+  *
+  * The ray is considered a unbounded line.
+  *
+  * @param {number} y - The y coordinate to calculate a point in the ray
+  * @retursn {Rac.Point}
+  */
   pointAtY(y) {
     const slope = this.slope();
     if (slope === null) {
@@ -137,7 +206,14 @@ class Ray {
     return new Rac.Point(this.rac, x, y);
   }
 
-
+  /**
+  * Returns a new `Point` in the ray at the given `distance` from
+  * `this.start`. When `distance` is negative, the new `Point` is calculated
+  * in the direction inverse of `angle`.
+  *
+  * @param {number} distance - The distance from `this.start`
+  * @returns {Rac.Point}
+  */
   pointAtDistance(distance) {
     return this.start.pointToAngle(this.angle, distance);
   }

@@ -109,7 +109,7 @@ class Arc{
   }
 
   // Returns the segment from `startPoint()` to `endPoint()`. Note that
-  // for complete-circle arcs this segment will have a length of zero.
+  // for complete circle arcs this segment will have a length of zero.
   chordSegment() {
     let perpendicular = this.start.perpendicular(this.clockwise);
     return this.startPoint().segmentToPoint(this.endPoint(), perpendicular);
