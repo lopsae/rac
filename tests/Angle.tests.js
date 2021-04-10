@@ -121,5 +121,95 @@ test('Transforms to radian/degrees', () => {
 });
 
 
-test.todo('Check for coverage')
+test('Transformations', () => {
+  expect(rac.Angle.zero.inverse())
+    .equalsAngle(rac.Angle.half);
+  expect(rac.Angle.down.inverse())
+    .equalsAngle(rac.Angle.up);
+  expect(rac.Angle.se.inverse())
+    .equalsAngle(rac.Angle.nw);
+
+  expect(rac.Angle.zero.negative())
+    .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.half.negative())
+    .equalsAngle(rac.Angle.half);
+  expect(rac.Angle.se.negative())
+    .equalsAngle(rac.Angle.ne);
+  expect(rac.Angle.nw.negative())
+    .equalsAngle(rac.Angle.sw);
+
+  expect(rac.Angle.zero.perpendicular())
+    .equalsAngle(rac.Angle.down);
+  expect(rac.Angle.zero.perpendicular(false))
+    .equalsAngle(rac.Angle.up);
+
+  expect(rac.Angle.down.perpendicular())
+    .equalsAngle(rac.Angle.left);
+  expect(rac.Angle.down.perpendicular(false))
+    .equalsAngle(rac.Angle.right);
+
+  expect(rac.Angle.se.perpendicular())
+    .equalsAngle(rac.Angle.sw);
+  expect(rac.Angle.se.perpendicular(false))
+    .equalsAngle(rac.Angle.ne);
+
+});
+
+
+test('Function add/subtract', () => {
+  expect(rac.Angle.zero.add(0))
+    .equalsAngle(0);
+  expect(rac.Angle.zero.add(1/4))
+    .equalsAngle(1/4);
+  expect(rac.Angle.zero.add(-1/4))
+    .equalsAngle(3/4);
+
+  expect(rac.Angle.half.add(0))
+    .equalsAngle(1/2);
+  expect(rac.Angle.half.add(1/4))
+    .equalsAngle(3/4);
+  expect(rac.Angle.half.add(-1/4))
+    .equalsAngle(1/4);
+
+  expect(rac.Angle.zero.subtract(0))
+    .equalsAngle(0);
+  expect(rac.Angle.zero.subtract(1/4))
+    .equalsAngle(3/4);
+  expect(rac.Angle.zero.subtract(-1/4))
+    .equalsAngle(1/4);
+
+  expect(rac.Angle.half.subtract(0))
+    .equalsAngle(1/2);
+  expect(rac.Angle.half.subtract(1/4))
+    .equalsAngle(1/4);
+  expect(rac.Angle.half.subtract(-1/4))
+    .equalsAngle(3/4);
+});
+
+
+test('Function mult', () => {
+  expect(rac.Angle.zero.mult(0))
+    .equalsAngle(0);
+  expect(rac.Angle.zero.mult(1/2))
+    .equalsAngle(0);
+  expect(rac.Angle.zero.mult(-1/2))
+    .equalsAngle(0);
+
+  expect(rac.Angle.half.mult(1/2))
+    .equalsAngle(1/4);
+  expect(rac.Angle.half.mult(-1/2))
+    .equalsAngle(3/4);
+  expect(rac.Angle.half.mult(0))
+    .equalsAngle(0);
+  expect(rac.Angle.half.mult(1))
+    .equalsAngle(1/2);
+  expect(rac.Angle.half.mult(2))
+    .equalsAngle(0);
+});
+
+
+
+test.todo('Function turnOne/multOne');
+
+test.todo('Check for coverage');
 
