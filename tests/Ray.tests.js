@@ -60,6 +60,37 @@ test('Function slope/yIntercept', () => {
 });
 
 
+test('Function withStart/withAngle', () => {
+  expect(diagonal.withStart(hunty))
+    .equalsRay(100, 100, 1/8);
+
+  expect(diagonal.withAngle(rac.Angle.half))
+    .equalsRay(55, 55, 1/2);
+  expect(diagonal.withAngle(1/4))
+    .equalsRay(55, 55, 1/4);
+});
+
+
+test('Function withAngleAdd/withAngleShift', () => {
+  expect(diagonal.withAngleAdd(rac.Angle.zero))
+    .equalsRay(55, 55, 1/8);
+  expect(diagonal.withAngleAdd(1/4))
+    .equalsRay(55, 55, 3/8);
+  expect(diagonal.withAngleAdd(7/8))
+    .equalsRay(55, 55, 0);
+
+  expect(diagonal.withAngleShift(rac.Angle.zero))
+    .equalsRay(55, 55, 1/8);
+  expect(diagonal.withAngleShift(rac.Angle.zero, false))
+    .equalsRay(55, 55, 1/8);
+
+  expect(diagonal.withAngleShift(1/4))
+    .equalsRay(55, 55, 3/8);
+  expect(diagonal.withAngleShift(1/4, false))
+    .equalsRay(55, 55, 7/8);
+});
+
+
 test('Axis intersection', () => {
   expect(vertical.pointAtX(55)).toBe(null);
   expect(vertical.pointAtY(55)).equalsPoint(100, 55);

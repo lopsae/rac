@@ -94,18 +94,17 @@ class Ray {
 
   /**
   * Returns a new `Ray` with `angle` added to `this.angle`.
-  * @param {Rac.Angle|number} newAngle - The angle for to add
+  * @param {Rac.Angle|number} angle - The angle to add
   * @returns {Rac.Ray}
   */
   withAngleAdd(angle) {
     let newAngle = this.angle.add(angle);
-    let newEnd = this.start.pointToAngle(newAngle, this.length());
-    return new Ray(this.rac, this.start, newEnd);
+    return new Ray(this.rac, this.start, newAngle);
   }
 
   /**
   * Returns a new `Ray` with `angle` set to
-  * `this.{@link Rac.Angle#shift angle.shift}(angle)`.
+  * `this.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
   *
   * @param {Rac.Angle|number} newAngle - The angle to be shifted by
   * @param {boolean} [clockwise=true] - The orientation of the shift
