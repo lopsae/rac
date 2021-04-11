@@ -178,30 +178,61 @@ class Segment {
   }
 
 
-  withAngleAdd(someAngle) {
-    const newRay = this.ray.withAngleAdd(someAngle, clockwise);
+  /**
+  * Returns a new `Segment` with `angle` added to `this.ray.angle`.
+  * @param {Rac.Angle|number} angle - The angle to add
+  * @returns {Rac.Segment}
+  */
+  withAngleAdd(angle) {
+    const newRay = this.ray.withAngleAdd(angle, clockwise);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
-  withAngleShift(someAngle, clockwise = true) {
-    const newRay = this.ray.withAngleShift(someAngle, clockwise);
+  /**
+  * Returns a new `Segment` with `angle` set to
+  * `this.ray.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
+  *
+  * @param {Rac.Angle|number} angle - The angle to be shifted by
+  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @returns {Rac.Segment}
+  */
+  withAngleShift(angle, clockwise = true) {
+    const newRay = this.ray.withAngleShift(angle, clockwise);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
-  withStartExtended(length) {
-    const newRay = this.ray.withStartAtDistance(-length);
-    return new Segment(this.rac, newRay, this.length + length);
+  /**
+  * Returns a new `Segment` with the start point moved in the inverse
+  * direction of the segment's ray by the given `distance`. The resulting
+  * `Segment` will have the same `endPoint()` and `angle()` as `this`.
+  *
+  * @param {number} distance - The distance to move the start point by
+  * @returns {Rac.Segment}
+  */
+  withStartExtended(distance) {
+    const newRay = this.ray.withStartAtDistance(-distance);
+    return new Segment(this.rac, newRay, this.length + distance);
   }
 
 
-  // Returns a new segment from `this.start`, with the same length, that is
-  // perpendicular to `this` in the `clockwise` orientation.
-  // TODO: needs update
-  // withPerpendicularAngle(clockwise = true) {
-  //   return this.withAngleShift(this.rac.Angle.square, clockwise);
-  // }
+  /**
+  * Returns a new `Segment` pointing towards the
+  * [perpendicular angle]{@link Rac.Angle#perpendicular} of
+  * `this.ray.angle` in the `clockwise` orientation.
+  *
+  * The resulting `Segment` will have the same `startPoint()` and `length`
+  * as `this`.
+  *
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#perpendicular
+  */
+  perpendicular(clockwise = true) {
+    const newRay = this.ray.perpendicular(clockwise);
+    return new Segment(this.rac, newRay, this.length);
+  }
 
 
   reverse() {

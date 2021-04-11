@@ -164,18 +164,21 @@ class Ray {
     return new Ray(this.rac, this.start, inverseAngle);
   }
 
+
   /**
-  * Returns a new `Ray` pointing towards
-  * `{@link Rac.Angle#perpendicular angle.perpendicular()}` in the
-  * `clockwise` orientation.
+  * Returns a new `Ray` pointing towards the
+  * [perpendicular angle]{@link Rac.Angle#perpendicular} of
+  * `angle` in the `clockwise` orientation.
   *
-  * @param {boolean} [clockwise=true]
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Ray}
+  * @see Rac.Angle#perpendicular
   */
   perpendicular(clockwise = true) {
     let perpendicular = this.angle.perpendicular(clockwise);
     return new Ray(this.rac, this.start, perpendicular);
   }
+
 
   /**
   * Returns a new `Point` located in the ray where the x coordinate is `x`.
