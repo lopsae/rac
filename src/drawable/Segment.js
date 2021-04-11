@@ -43,10 +43,18 @@ class Segment {
     return `Segment((${xStr},${yStr}) a:${turnStr} l:${lengthStr})`;
   }
 
+  /**
+  * Returns the `[angle]{@link Rac.Ray#angle}` of the segment's `ray`.
+  * @returns {Rac.Angle}
+  */
   angle() {
     return this.ray.angle;
   }
 
+  /**
+  * Returns the `[start]{@link Rac.Ray#start}` of the segment's `ray`.
+  * @returns {Rac.Point}
+  */
   startPoint() {
     return this.ray.start;
   }
@@ -56,7 +64,7 @@ class Segment {
   }
 
   /**
-  * Returns the [slope]{@link Rac.Ray#slope} of the segment's `ray`.
+  * Returns the `[slope]{@link Rac.Ray#slope}` of the segment's `ray`.
   * @returns {?number}
   */
   slope() {
