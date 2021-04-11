@@ -43,6 +43,7 @@ class Ray {
     this.angle = angle;
   }
 
+
   /**
   * Returns a string representation intended for human consumption.
   *
@@ -99,6 +100,7 @@ class Ray {
     return this.start.y - slope * this.start.x;
   }
 
+
   /**
   * Returns a new `Ray` with `start` set to `newStart`.
   * @param {Rac.Point} newStart - The start for the new `Ray`
@@ -107,6 +109,7 @@ class Ray {
   withStart(newStart) {
     return new Ray(this.rac, newStart, this.angle);
   }
+
 
   /**
   * Returns a new `Ray` with `angle` set to `newAngle`.
@@ -118,6 +121,7 @@ class Ray {
     return new Ray(this.rac, this.start, newAngle);
   }
 
+
   /**
   * Returns a new `Ray` with `angle` added to `this.angle`.
   * @param {Rac.Angle|number} angle - The angle to add
@@ -128,11 +132,12 @@ class Ray {
     return new Ray(this.rac, this.start, newAngle);
   }
 
+
   /**
   * Returns a new `Ray` with `angle` set to
   * `this.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
   *
-  * @param {Rac.Angle|number} newAngle - The angle to be shifted by
+  * @param {Rac.Angle|number} angle - The angle to be shifted by
   * @param {boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Ray}
   */
@@ -140,6 +145,7 @@ class Ray {
     let newAngle = this.angle.shift(angle, clockwise);
     return new Ray(this.rac, this.start, newAngle);
   }
+
 
   /**
   * Returns a new `Ray` with `start` moved along the ray by the given
@@ -153,6 +159,7 @@ class Ray {
     const newStart = this.start.pointToAngle(this.angle, distance);
     return new Ray(this.rac, newStart, this.angle);
   }
+
 
   /**
   * Returns a new `Ray` pointing towards
@@ -207,6 +214,7 @@ class Ray {
     return new Rac.Point(this.rac, x, y);
   }
 
+
   /**
   * Returns a new `Point` located in the ray where the y coordinate is `y`.
   * When the ray is horizontal, returns `null` since no single point with y
@@ -234,6 +242,7 @@ class Ray {
     const x = (y - this.yIntercept()) / slope;
     return new Rac.Point(this.rac, x, y);
   }
+
 
   /**
   * Returns a new `Point` in the ray at the given `distance` from
@@ -277,6 +286,7 @@ class Ray {
     const y = a * x + c;
     return new Rac.Point(this.rac, x, y);
   }
+
 
   /**
   * Returns a new `Point` at the projection of `point` onto the ray. The
@@ -332,6 +342,7 @@ class Ray {
   //   // [0.5, 1) is considered counter-clockwise
   //   return angleDistance.turn < 0.5;
   // }
+
 
   /**
   * Returns a new `Segment` using `this` and the given `length`.
