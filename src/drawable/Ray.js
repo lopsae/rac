@@ -19,10 +19,26 @@ class Ray {
   */
   constructor(rac, start, angle) {
     utils.assertExists(rac, start, angle);
-    utils.assertType(Rac.Point, start)
-    utils.assertType(Rac.Angle, angle)
+    utils.assertType(Rac.Point, start);
+    utils.assertType(Rac.Angle, angle);
+
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The start point of the ray.
+    * @type {Rac.Point}
+    */
     this.start = start;
+
+    /**
+    * The angle towards which the ray extends.
+    * @type {Rac.Point}
+    */
     this.angle = angle;
   }
 
