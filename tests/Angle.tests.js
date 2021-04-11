@@ -23,6 +23,9 @@ test('Identity', () => {
   expect(rac.Angle.half).equalsAngle(-0.5);
   expect(rac.Angle.half).equalsAngle(-7.5);
 
+  expect(0.5).not.equalsAngle(0.5);
+  expect(rac.Point.zero).not.equalsAngle(0);
+
   let string = rac.Angle(0.12345).toString();
   expect(string).toMatch('Angle');
   expect(string).toMatch('0.12345');

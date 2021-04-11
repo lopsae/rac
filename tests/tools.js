@@ -63,12 +63,15 @@ class Messenger {
     };
   }
 
-  done(passes, received, expected) {
+  done(passes, received, expected, ...lines) {
     const messageFunc = () => {
-      return this.matcher.utils.matcherHint(
+      const hint = this.matcher.utils.matcherHint(
         this.funcName,
         received, expected,
         this.options);
+
+      lines.unshift(hint);
+      return lines.join('\n');
     };
     return {
       message: messageFunc,
@@ -76,12 +79,12 @@ class Messenger {
     };
   }
 
-  pass(received, expected) {
-    return this.done(true, received, expected);
+  pass(received, expected, ...lines) {
+    return this.done(true, received, expected, ...lines);
   }
 
-  fail(received, expected) {
-    return this.done(false, received, expected);
+  fail(received, expected, ...lines) {
+    return this.done(false, received, expected, ...lines);
   }
 
 }
@@ -95,6 +98,11 @@ expect.extend({ equalsAngle(angle, someAngle) {
   const expected = rac.Angle.from(someAngle);
   if (angle == null) {
     return messenger.fail('null', expected.toString(digits));
+  }
+
+  if (!(angle instanceof Rac.Angle)) {
+    return messenger.fail(angle.toString(), expected.toString(digits),
+      `Unexpected type: ${Rac.utils.typeName(angle)}`);
   }
 
   const isEqual = expected.equals(angle);
