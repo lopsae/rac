@@ -95,7 +95,7 @@ test('Function withAngleAdd/withAngleShift', () => {
 });
 
 
-test('Function inverse/perpendicular', () => {
+test('Transformations', () => {
   expect(diagonal.inverse()).equalsRay(55, 55, 5/8);
   expect(horizontal.inverse()).equalsRay(100, 100, 1/2);
   expect(vertical.inverse()).equalsRay(100, 100, 3/4);
@@ -127,7 +127,7 @@ test('Axis intersection', () => {
 });
 
 
-test ('Ray intersection', () => {
+test('Ray intersection', () => {
   // diagonal-vertical
   expect(diagonal.pointAtIntersection(vertical))
     .equalsPoint(100, 100);
@@ -160,7 +160,7 @@ test ('Ray intersection', () => {
 });
 
 
-test ('Ray parallel intersection', () => {
+test('Ray parallel intersection', () => {
   let shiftedVertical = vertical.withStart(rac.Point.zero);
   expect(shiftedVertical.pointAtIntersection(vertical))
     .toBe(null);
@@ -181,7 +181,7 @@ test ('Ray parallel intersection', () => {
 });
 
 
-test ('Point projection', () => {
+test('Point projection', () => {
   let distance = tools.hypotenuse(55);
 
   expect(diagonal.withStartAtDistance(0))
@@ -217,6 +217,12 @@ test ('Point projection', () => {
 
   expect(horizontal.distanceToProjectedPoint(fifty)).thresEquals(-45)
   expect(horizontal.inverse().distanceToProjectedPoint(fifty)).thresEquals(45)
+});
+
+
+test('Transforms to Segment', () => {
+  expect(diagonal.segment(100)).equalsSegment(55, 55, 1/8, 100);
+  expect(diagonal.segment(0)).equalsSegment(55, 55, 1/8, 0);
 });
 
 
