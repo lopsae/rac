@@ -28,10 +28,16 @@ class Ray {
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
-  toString() {
-    return `Ray((${this.start.x},${this.start.y}) a:${this.angle.turn})`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.start.x, digits);
+    const yStr = utils.cutDigits(this.start.y, digits);
+    const turnStr = utils.cutDigits(this.angle.turn, digits);
+    return `Ray((${xStr},${yStr}) a:${turnStr})`;
   }
 
 

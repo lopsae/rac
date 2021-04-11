@@ -23,11 +23,25 @@ test('Identity', () => {
   expect(55).not.equalsRay(55, 55, 1/8);
   expect(rac.Angle.zero).not.equalsRay(0, 0, 0);
   expect(rac.Point.zero).not.equalsRay(0, 0, 0);
+});
 
-  let string = diagonal.toString();
+
+test('Function toString', () => {
+  const ray = rac.Ray(1.12345, 2.12345, 0.12345);
+  const string = ray.toString();
   expect(string).toMatch('Ray');
-  expect(string).toMatch('55');
-  expect(string).toMatch('0.125');
+  expect(string).toMatch('0.12345');
+  expect(string).toMatch('1.12345');
+  expect(string).toMatch('2.12345');
+
+  const cutString = ray.toString(2);
+  expect(cutString).toMatch('Ray');
+  expect(cutString).toMatch('0.12');
+  expect(cutString).toMatch('1.12');
+  expect(cutString).toMatch('2.12');
+  expect(cutString).not.toMatch('0.123');
+  expect(cutString).not.toMatch('1.123');
+  expect(cutString).not.toMatch('2.123');
 });
 
 
