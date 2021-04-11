@@ -152,3 +152,23 @@ exports.addConstant = function(obj, propName, value) {
   });
 }
 
+
+/**
+* Returns a string of `number` format using fixed-point notation or the
+* complete `number` string.
+*
+* @param {number} number - The number to format
+* @param {?number} [digits] - The amount of digits to print, or `null` to
+* print all digits.
+* @returns {string}
+*
+* @name cutDigits
+* @memberof utils#
+* @function
+*/
+exports.cutDigits = function(number, digits = null) {
+  return digits === null
+    ? number.toString()
+    : number.toFixed(digits);
+}
+

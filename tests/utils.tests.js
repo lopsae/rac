@@ -120,6 +120,16 @@ test('Function addConstant', () => {
 });
 
 
+test('Function cutDigits', () => {
+  const string = Rac.utils.cutDigits(0.12345);
+  expect(string).toMatch('0.12345');
+
+  const cutString = Rac.utils.cutDigits(0.12345, 2);
+  expect(cutString).toMatch('0.12');
+  expect(cutString).not.toMatch('0.123');
+});
+
+
 test.todo('assertType');
 test.todo('assertBoolean');
 
