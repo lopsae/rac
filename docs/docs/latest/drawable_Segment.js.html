@@ -49,13 +49,20 @@ const utils = require('../util/utils');
 
 
 /**
-* Segment of a ray up to a given length.
+* Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
 * @alias Rac.Segment
 */
 class Segment {
 
+  /**
+  * Creates a new `Segment` instance.
+  * @param {Rac} rac Instance to use for drawing and creating other objects
+  * @param {Rac.Ray} ray - A `Ray` the segment will be based of
+  * @param {number} length - The length of the segment
+  */
   constructor(rac, ray, length) {
-    // TODO: || throw new Error(err.missingParameters)
+    // TODO: different approach to error throwing?
+    // assert || throw new Error(err.missingParameters)
     // or
     // checker(msg => { throw Rac.Exception.failedAssert(msg));
     //   .exists(rac)
@@ -65,98 +72,210 @@ class Segment {
     utils.assertExists(rac, ray, length);
     utils.assertType(Rac.Ray, ray);
     utils.assertNumber(length);
+
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The `Ray` of which `this` is a segment of.
+    * @type {Rac.Ray}
+    */
     this.ray = ray;
+
+    /**
+    * The length of the segment.
+    * @type {number}
+    */
     this.length = length;
   }
 
+
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
   */
-  toString() {
-    return `Segment((${this.ray.start.x},${this.ray.start.y}) a:${this.ray.angle.turn} l:${this.length})`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.ray.start.x, digits);
+    const yStr = utils.cutDigits(this.ray.start.y, digits);
+    const turnStr = utils.cutDigits(this.ray.angle.turn, digits);
+    const lengthStr = utils.cutDigits(this.length, digits);
+    return `Segment((${xStr},${yStr}) a:${turnStr} l:${lengthStr})`;
   }
 
+
+  /**
+  * Returns the `[angle]{@link Rac.Ray#angle}` of the segment's `ray`.
+  * @returns {Rac.Angle}
+  */
   angle() {
     return this.ray.angle;
   }
 
+
+  /**
+  * Returns the `[start]{@link Rac.Ray#start}` of the segment's `ray`.
+  * @returns {Rac.Point}
+  */
   startPoint() {
     return this.ray.start;
   }
 
+
+  /**
+  * Returns a new `Point` where the segment ends.
+  * @returns {Rac.Point}
+  */
   endPoint() {
     return this.ray.pointAtDistance(this.length);
   }
 
-  // Returns the slope of the segment, or `null` if the segment is part of a
-  // vertical line.
+
+  /**
+  * Returns the `[slope]{@link Rac.Ray#slope}` of the segment's `ray`.
+  * @returns {?number}
+  */
   slope() {
     return this.ray.slope();
   }
 
-  // Returns the y-intercept, or `null` if the segment is part of a
-  // vertical line.
+
+  /**
+  * Returns the [y-intercept]{@link Rac.Ray#yIntercept} of the segment's
+  * `ray`.
+  * @returns {?number}
+  */
   yIntercept() {
     return this.ray.yIntercept();
   }
 
+
+  /**
+  * Returns a new `Segment` with `ray` set to `newRay`.
+  * @param {Rac.Ray} newRay - The ray for the new `Segment`
+  * @returns {Rac.Segment}
+  */
   withRay(newRay) {
     return new Segment(this.rac, newRay, this.length);
   }
 
+
+  /**
+  * Returns a new `Segment` with `ray.start` set to `newStart`.
+  * @param {Rac.Point} newStartPoint - The start point for the new
+  * `Segment`
+  * @returns {Rac.Segment}
+  */
   withStartPoint(newStartPoint) {
     const newRay = this.ray.withStart(newStartPoint);
     return new Segment(this.rac, newRay, this.length);
   }
 
+
+  /**
+  * Returns a new `Segment` starting at `this.startPoint()` and ending at
+  * `newEndPoint`.
+  * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
+  * @returns {Rac.Segment}
+  */
   withEndPoint(newEndPoint) {
     const newRay = this.ray.rayToPoint(newEndPoint);
     const newLength = this.ray.start.distanceToPoint(newEndPoint);
     return new Segment(this.rac, newRay, newLength);
   }
 
+
+  /**
+  * Returns a new `Segment` with `length` set to `newLength`.
+  * @param {number} newLength - The length for the new `Segment`
+  * @returns {Rac.Segment}
+  */
   withLength(newLength) {
     return new Segment(this.rac, this.ray, newLength);
   }
 
 
-  withLengthAdd(addLength) {
+  /**
+  * Returns a new `Segment` with `length` added to `this.length`.
+  * @param {number} length - The length to add
+  * @returns {Rac.Segment}
+  */
+  withLengthAdd(length) {
     return new Segment(this.rac, this.ray, this.length + addLength);
   }
 
 
-  // Returns a new segment from `start` to a length determined by
-  // `ratio*length`.
+  /**
+  * Returns a new `Segment` with `length` set to `this.length*ratio`.
+  * @param {number} ratio - The factor to multiply `length` by
+  * @returns {Rac.Segment}
+  */
   withLengthRatio(ratio) {
     return new Segment(this.rac, this.ray, this.length * ratio);
   }
 
 
-  withAngleAdd(someAngle) {
-    const newRay = this.ray.withAngleAdd(someAngle, clockwise);
+  /**
+  * Returns a new `Segment` with `angle` added to `this.ray.angle`.
+  * @param {Rac.Angle|number} angle - The angle to add
+  * @returns {Rac.Segment}
+  */
+  withAngleAdd(angle) {
+    const newRay = this.ray.withAngleAdd(angle, clockwise);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
-  withAngleShift(someAngle, clockwise = true) {
-    const newRay = this.ray.withAngleShift(someAngle, clockwise);
+  /**
+  * Returns a new `Segment` with `angle` set to
+  * `this.ray.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
+  *
+  * @param {Rac.Angle|number} angle - The angle to be shifted by
+  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @returns {Rac.Segment}
+  */
+  withAngleShift(angle, clockwise = true) {
+    const newRay = this.ray.withAngleShift(angle, clockwise);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
-  withStartExtended(length) {
-    const newRay = this.ray.withStartAtDistance(-length);
-    return new Segment(this.rac, newRay, this.length + length);
+  /**
+  * Returns a new `Segment` with the start point moved in the inverse
+  * direction of the segment's ray by the given `distance`. The resulting
+  * `Segment` will have the same `endPoint()` and `angle()` as `this`.
+  *
+  * @param {number} distance - The distance to move the start point by
+  * @returns {Rac.Segment}
+  */
+  withStartExtended(distance) {
+    const newRay = this.ray.withStartAtDistance(-distance);
+    return new Segment(this.rac, newRay, this.length + distance);
   }
 
 
-  // Returns a new segment from `this.start`, with the same length, that is
-  // perpendicular to `this` in the `clockwise` orientation.
-  // TODO: needs update
-  // withPerpendicularAngle(clockwise = true) {
-  //   return this.withAngleShift(this.rac.Angle.square, clockwise);
-  // }
+  /**
+  * Returns a new `Segment` pointing towards the
+  * [perpendicular angle]{@link Rac.Angle#perpendicular} of
+  * `this.ray.angle` in the `clockwise` orientation.
+  *
+  * The resulting `Segment` will have the same `startPoint()` and `length`
+  * as `this`.
+  *
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#perpendicular
+  */
+  perpendicular(clockwise = true) {
+    const newRay = this.ray.perpendicular(clockwise);
+    return new Segment(this.rac, newRay, this.length);
+  }
 
 
   reverse() {
@@ -396,7 +515,7 @@ Segment.prototype.bezierCentralAnchor = function(distance, clockwise = true) {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Apr 09 2021 22:46:15 GMT-0700 (Pacific Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Sun Apr 11 2021 13:46:42 GMT-0700 (Pacific Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
