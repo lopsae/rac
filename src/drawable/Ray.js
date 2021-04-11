@@ -308,16 +308,6 @@ class Ray {
   // }
 
   /**
-  * Returns a new `Ray` from `this.start` towards the given `point`.
-  * @param {Rac.Point} point - A `Point` to point the new `Ray` towards
-  * @return {Rac.Ray}
-  */
-  rayToPoint(point) {
-    const newAngle = this.start.angleToPoint(point, this.angle);
-    return new Ray(this.rac, this.start, newAngle);
-  }
-
-  /**
   * Returns a new `Segment` using `this` and the given `length`.
   * @param {number} length - The length of the new `Segment`
   * @returns {Rac.Segment}
@@ -326,18 +316,6 @@ class Ray {
     return new Rac.Segment(this.rac, this, length);
   }
 
-  /**
-  * Returns a new `Segment` from `this.start` up to the given `point`.
-  * @param {Rac.Point} point - A `Point` at the end of the new `segment`
-  * @return {Rac.Segment}
-  */
-  segmentToPoint(point) {
-    const newRay = this.rayToPoint(point);
-    const length = this.start.distanceToPoint(point);
-    return new Rac.Segment(this.rac, newRay, length);
-  }
-
-
   // TODO: segmentToIntersectionWithRay
 
 } // class Ray
@@ -345,6 +323,8 @@ class Ray {
 
 module.exports = Ray;
 
+
+// TODO: recheck all underneath
 
 // Ray.prototype.translateToAngle = function(someAngle, distance) {
 //   let angle = rac.Angle.from(someAngle);
