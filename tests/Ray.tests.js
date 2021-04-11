@@ -28,6 +28,7 @@ test('Identity', () => {
 
 test('Function toString', () => {
   const ray = rac.Ray(1.12345, 2.12345, 0.12345);
+
   const string = ray.toString();
   expect(string).toMatch('Ray');
   expect(string).toMatch('0.12345');

@@ -12,7 +12,8 @@ const utils = require('../util/utils');
 class Segment {
 
   constructor(rac, ray, length) {
-    // TODO: || throw new Error(err.missingParameters)
+    // TODO: different approach to error throwing?
+    // assert || throw new Error(err.missingParameters)
     // or
     // checker(msg => { throw Rac.Exception.failedAssert(msg));
     //   .exists(rac)
@@ -29,9 +30,17 @@ class Segment {
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
   */
-  toString() {
-    return `Segment((${this.ray.start.x},${this.ray.start.y}) a:${this.ray.angle.turn} l:${this.length})`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.ray.start.x, digits);
+    const yStr = utils.cutDigits(this.ray.start.y, digits);
+    const turnStr = utils.cutDigits(this.ray.angle.turn, digits);
+    const lengthStr = utils.cutDigits(this.length, digits);
+    return `Segment((${xStr},${yStr}) a:${turnStr} l:${lengthStr})`;
   }
 
   angle() {
