@@ -106,30 +106,27 @@ expect.extend({ equalsAngle(angle, someAngle) {
   }
 
   const isEqual = expected.equals(angle);
-  return messenger.done(isEqual, angle.toString(digits), expected.toString(digits))
+  return messenger.done(isEqual, angle.toString(digits), expected.toString(digits));
 }}); // equalsAngle
 
 
 expect.extend({ equalsPoint(point, x, y) {
-  const options = {
-    comment: 'equal Point properties',
-    isNot: this.isNot
-  };
+  const messenger = new Messenger(this,
+    'equalsPoint',
+    'equal Point properties');
 
   const expected = rac.Point(x, y);
   if (point == null) {
-    return fail(() =>
-      this.utils.matcherHint('equalsPoint',
-        'null', expected.toString(),
-        options));
+    return messenger.fail('null', expected.toString(digits));
+  }
+
+  if (!(point instanceof Rac.Point)) {
+    return messenger.fail(point.toString(), expected.toString(digits),
+      `Unexpected type: ${Rac.utils.typeName(point)}`);
   }
 
   const isEqual = expected.equals(point);
-
-  return done(isEqual, () =>
-    this.utils.matcherHint('equalsPoint',
-      point.toString(), expected.toString(),
-      options));
+  return messenger.done(isEqual, point.toString(digits), expected.toString(digits));
 }}); // equalsPoint
 
 

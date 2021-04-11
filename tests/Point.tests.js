@@ -20,6 +20,9 @@ test('Identity', () => {
   expect(hunty).equalsPoint(100, 100);
   expect(fifty).not.equalsPoint(100, 100);
 
+  expect(100).not.equalsPoint(100, 100);
+  expect(rac.Angle.zero).not.equalsPoint(0, 0);
+
   let string = rac.Point(111, 222).toString();
   expect(string).toMatch('Point');
   expect(string).toMatch('111');
