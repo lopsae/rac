@@ -35,6 +35,9 @@ class Ray {
   }
 
 
+  // TODO: implement equals, and use in tests
+
+
   /**
   * Returns the slope of the ray, or `null` if the ray is vertical.
   *

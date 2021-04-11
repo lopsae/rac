@@ -60,7 +60,7 @@ test('Function slope/yIntercept', () => {
 });
 
 
-test('Function withStart/withAngle', () => {
+test('Function withStart/withAngle/withStartAtDistance', () => {
   expect(diagonal.withStart(hunty))
     .equalsRay(100, 100, 1/8);
 
@@ -88,6 +88,16 @@ test('Function withAngleAdd/withAngleShift', () => {
     .equalsRay(55, 55, 3/8);
   expect(diagonal.withAngleShift(1/4, false))
     .equalsRay(55, 55, 7/8);
+});
+
+
+test('Function inverse/perpendicular', () => {
+  expect(diagonal.inverse()).equalsRay(55, 55, 5/8);
+  expect(horizontal.inverse()).equalsRay(100, 100, 1/2);
+  expect(vertical.inverse()).equalsRay(100, 100, 3/4);
+
+  expect(diagonal.perpendicular()).equalsRay(55, 55, 3/8);
+  expect(diagonal.perpendicular(false)).equalsRay(55, 55, 7/8);
 });
 
 

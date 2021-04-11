@@ -76,7 +76,7 @@ class Angle {
   * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
-  * `[0, 1)` as equals. `Angle` objects with `turn` values of `0` and
+  * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
   * @param {Rac.Angle|number} someAngle - An `Angle` to compare
