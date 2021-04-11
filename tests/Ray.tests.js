@@ -27,31 +27,36 @@ test('Identity', () => {
 });
 
 
-test('Slope, yIntercept', () => {
-  expect(rac.Ray(100, 100, rac.Angle.zero).slope()).thresEquals(0);
-  expect(rac.Ray(100, 100, rac.Angle.half).slope()).thresEquals(0);
+test('Function slope/yIntercept', () => {
+  expect(hunty.ray(rac.Angle.zero).slope()).thresEquals(0);
+  expect(hunty.ray(rac.Angle.half).slope()).thresEquals(0);
 
-  expect(rac.Ray(100, 100, rac.Angle.down).slope()).toBe(null);
-  expect(rac.Ray(100, 100, rac.Angle.up).slope()).toBe(null);
+  expect(hunty.ray(rac.Angle.down).slope()).toBe(null);
+  expect(hunty.ray(rac.Angle.up).slope()).toBe(null);
 
-  expect(rac.Ray(100, 100, rac.Angle.bottomRight).slope()).thresEquals(1);
-  expect(rac.Ray(100, 100, rac.Angle.topLeft).slope()).thresEquals(1);
+  expect(hunty.ray(rac.Angle.bottomRight).slope()).thresEquals(1);
+  expect(hunty.ray(rac.Angle.topLeft).slope()).thresEquals(1);
 
-  expect(rac.Ray(100, 100, rac.Angle.topRight).slope()).thresEquals(-1);
-  expect(rac.Ray(100, 100, rac.Angle.bottomLeft).slope()).thresEquals(-1);
+  expect(hunty.ray(rac.Angle.topRight).slope()).thresEquals(-1);
+  expect(hunty.ray(rac.Angle.bottomLeft).slope()).thresEquals(-1);
 
-  expect(rac.Ray(100, 100, rac.Angle.tr).yIntercept())
+  expect(hunty.ray(rac.Angle.tr).yIntercept())
     .thresEquals(200);
-  expect(rac.Ray(-100, -100, rac.Angle.bl).yIntercept())
-    .thresEquals(-200);
+  expect(hunty.ray(rac.Angle.bl).yIntercept())
+    .thresEquals(200);
 
-  expect(rac.Ray(100, 100, rac.Angle.br).yIntercept())
+  expect(hunty.ray(rac.Angle.br).yIntercept())
     .thresEquals(0);
-  expect(rac.Ray(-100, -100, rac.Angle.tl).yIntercept())
+  expect(hunty.ray(rac.Angle.tl).yIntercept())
     .thresEquals(0);
 
-  expect(rac.Ray(100, 100, rac.Angle.u).yIntercept()).toBe(null);
-  expect(rac.Ray(-100, -100, rac.Angle.d).yIntercept()).toBe(null);
+  expect(hunty.ray(rac.Angle.zero).yIntercept())
+    .thresEquals(100);
+  expect(hunty.ray(rac.Angle.half).yIntercept())
+    .thresEquals(100);
+
+  expect(hunty.ray(rac.Angle.u).yIntercept()).toBe(null);
+  expect(hunty.ray(rac.Angle.d).yIntercept()).toBe(null);
 });
 
 
