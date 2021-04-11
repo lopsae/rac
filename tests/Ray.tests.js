@@ -225,6 +225,3 @@ test('Transforms to Segment', () => {
   expect(diagonal.segment(0)).equalsSegment(55, 55, 1/8, 0);
 });
 
-
-test.todo('Check for coverage!');
-
