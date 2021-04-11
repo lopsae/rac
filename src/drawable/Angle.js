@@ -59,15 +59,14 @@ class Angle {
 
   /**
   * Returns a string representation intended for human consumption.
-  * @param {number} [digits] - The number of digits to appear after the
-  * decimal point, when ommited all digits are printed.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
   toString(digits = null) {
-    let turnString = digits === null
-      ? this.turn.toString()
-      : this.turn.toFixed(digits);
-    return `Angle(${turnString})`;
+    const turnStr = utils.cutDigits(this.turn, digits);
+    return `Angle(${turnStr})`;
   }
 
   /**

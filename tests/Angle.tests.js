@@ -25,15 +25,18 @@ test('Identity', () => {
 
   expect(0.5).not.equalsAngle(0.5);
   expect(rac.Point.zero).not.equalsAngle(0);
+});
 
-  let string = rac.Angle(0.12345).toString();
+
+test('Function toString', () => {
+  const string = rac.Angle(0.12345).toString();
   expect(string).toMatch('Angle');
   expect(string).toMatch('0.12345');
 
-  string = rac.Angle(0.12345).toString(2);
-  expect(string).toMatch('Angle');
-  expect(string).toMatch('0.12');
-  expect(string).not.toMatch('0.123');
+  const cutString = rac.Angle(0.12345).toString(2);
+  expect(cutString).toMatch('Angle');
+  expect(cutString).toMatch('0.12');
+  expect(cutString).not.toMatch('0.123');
 });
 
 
