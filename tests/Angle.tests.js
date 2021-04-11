@@ -157,7 +157,7 @@ test('Transformations', () => {
 
 
 test('Function add/subtract', () => {
-  expect(rac.Angle.zero.add(0))
+  expect(rac.Angle.zero.add(rac.Angle.zero))
     .equalsAngle(0);
   expect(rac.Angle.zero.add(1/4))
     .equalsAngle(1/4);
@@ -171,14 +171,14 @@ test('Function add/subtract', () => {
   expect(rac.Angle.half.add(-1/4))
     .equalsAngle(1/4);
 
-  expect(rac.Angle.zero.subtract(0))
+  expect(rac.Angle.zero.subtract(rac.Angle.zero))
     .equalsAngle(0);
   expect(rac.Angle.zero.subtract(1/4))
     .equalsAngle(3/4);
   expect(rac.Angle.zero.subtract(-1/4))
     .equalsAngle(1/4);
 
-  expect(rac.Angle.half.subtract(0))
+  expect(rac.Angle.half.subtract(rac.Angle.zero))
     .equalsAngle(1/2);
   expect(rac.Angle.half.subtract(1/4))
     .equalsAngle(1/4);
@@ -265,22 +265,22 @@ test('Function distance', () => {
 
 
 test('Function shift/shiftToOrigin', () => {
-  expect(rac.Angle.zero.shift(1/4))
+  expect(rac.Angle.zero.shift(rac.Angle.quarter))
     .equalsAngle(1/4);
   expect(rac.Angle.zero.shift(1/4, false))
     .equalsAngle(3/4);
 
-  expect(rac.Angle.half.shift(1/4))
+  expect(rac.Angle.half.shift(rac.Angle.quarter))
     .equalsAngle(3/4);
   expect(rac.Angle.half.shift(1/4, false))
     .equalsAngle(1/4);
 
-  expect(rac.Angle.zero.shiftToOrigin(1/4))
+  expect(rac.Angle.zero.shiftToOrigin(rac.Angle.quarter))
     .equalsAngle(1/4);
   expect(rac.Angle.zero.shiftToOrigin(1/4, false))
     .equalsAngle(1/4);
 
-  expect(rac.Angle.quarter.shiftToOrigin(1/4))
+  expect(rac.Angle.quarter.shiftToOrigin(rac.Angle.quarter))
     .equalsAngle(1/2);
   expect(rac.Angle.quarter.shiftToOrigin(1/4, false))
     .equalsAngle(0);
