@@ -6,11 +6,17 @@ const utils = require('../util/utils');
 
 
 /**
-* Segment of a ray up to a given length.
+* Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
 * @alias Rac.Segment
 */
 class Segment {
 
+  /**
+  * Creates a new `Segment` instance.
+  * @param {Rac} rac Instance to use for drawing and creating other objects
+  * @param {Rac.Ray} ray - A `Ray` the segment will be based of
+  * @param {number} length - The length of the segment
+  */
   constructor(rac, ray, length) {
     // TODO: different approach to error throwing?
     // assert || throw new Error(err.missingParameters)
@@ -23,10 +29,27 @@ class Segment {
     utils.assertExists(rac, ray, length);
     utils.assertType(Rac.Ray, ray);
     utils.assertNumber(length);
+
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The `Ray` of which `this` is a segment of.
+    * @type {Rac.Ray}
+    */
     this.ray = ray;
+
+    /**
+    * The length of the segment.
+    * @type {number}
+    */
     this.length = length;
   }
+
 
   /**
   * Returns a string representation intended for human consumption.
@@ -43,6 +66,7 @@ class Segment {
     return `Segment((${xStr},${yStr}) a:${turnStr} l:${lengthStr})`;
   }
 
+
   /**
   * Returns the `[angle]{@link Rac.Ray#angle}` of the segment's `ray`.
   * @returns {Rac.Angle}
@@ -50,6 +74,7 @@ class Segment {
   angle() {
     return this.ray.angle;
   }
+
 
   /**
   * Returns the `[start]{@link Rac.Ray#start}` of the segment's `ray`.
@@ -59,9 +84,15 @@ class Segment {
     return this.ray.start;
   }
 
+
+  /**
+  * Returns a new `Point` where the segment ends.
+  * @returns {Rac.Point}
+  */
   endPoint() {
     return this.ray.pointAtDistance(this.length);
   }
+
 
   /**
   * Returns the `[slope]{@link Rac.Ray#slope}` of the segment's `ray`.
@@ -70,6 +101,7 @@ class Segment {
   slope() {
     return this.ray.slope();
   }
+
 
   /**
   * Returns the [y-intercept]{@link Rac.Ray#yIntercept} of the segment's
@@ -80,33 +112,67 @@ class Segment {
     return this.ray.yIntercept();
   }
 
+
+  /**
+  * Returns a new `Segment` with `ray` set to `newRay`.
+  * @param {Rac.Ray} newRay - The ray for the new `Segment`
+  * @returns {Rac.Segment}
+  */
   withRay(newRay) {
     return new Segment(this.rac, newRay, this.length);
   }
 
+
+  /**
+  * Returns a new `Segment` with `ray.start` set to `newStart`.
+  * @param {Rac.Point} newStartPoint - The start point for the new
+  * `Segment`
+  * @returns {Rac.Segment}
+  */
   withStartPoint(newStartPoint) {
     const newRay = this.ray.withStart(newStartPoint);
     return new Segment(this.rac, newRay, this.length);
   }
 
+
+  /**
+  * Returns a new `Segment` starting at `this.startPoint()` and ending at
+  * `newEndPoint`.
+  * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
+  * @returns {Rac.Segment}
+  */
   withEndPoint(newEndPoint) {
     const newRay = this.ray.rayToPoint(newEndPoint);
     const newLength = this.ray.start.distanceToPoint(newEndPoint);
     return new Segment(this.rac, newRay, newLength);
   }
 
+
+  /**
+  * Returns a new `Segment` with `length` set to `newLength`.
+  * @param {number} newLength - The length for the new `Segment`
+  * @returns {Rac.Segment}
+  */
   withLength(newLength) {
     return new Segment(this.rac, this.ray, newLength);
   }
 
 
-  withLengthAdd(addLength) {
+  /**
+  * Returns a new `Segment` with `length` added to `this.length`.
+  * @param {number} length - The length to add
+  * @returns {Rac.Segment}
+  */
+  withLengthAdd(length) {
     return new Segment(this.rac, this.ray, this.length + addLength);
   }
 
 
-  // Returns a new segment from `start` to a length determined by
-  // `ratio*length`.
+  /**
+  * Returns a new `Segment` with `length` set to `this.length*ratio`.
+  * @param {number} ratio - The factor to multiply `length` by
+  * @returns {Rac.Segment}
+  */
   withLengthRatio(ratio) {
     return new Segment(this.rac, this.ray, this.length * ratio);
   }
