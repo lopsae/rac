@@ -46,14 +46,19 @@ class Segment {
     return this.ray.pointAtDistance(this.length);
   }
 
-  // Returns the slope of the segment, or `null` if the segment is part of a
-  // vertical line.
+  /**
+  * Returns the [slope]{@link Rac.Ray#slope} of the segment's `ray`.
+  * @returns {?number}
+  */
   slope() {
     return this.ray.slope();
   }
 
-  // Returns the y-intercept, or `null` if the segment is part of a
-  // vertical line.
+  /**
+  * Returns the [y-intercept]{@link Rac.Ray#yIntercept} of the segment's
+  * `ray`.
+  * @returns {?number}
+  */
   yIntercept() {
     return this.ray.yIntercept();
   }
