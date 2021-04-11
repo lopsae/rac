@@ -20,6 +20,10 @@ test('Identity', () => {
   expect(diagonal).equalsRay(55, 55, rac.Angle.se);
   expect(diagonal).not.equalsRay(100, 100, rac.Angle.zero);
 
+  expect(55).not.equalsRay(55, 55, 1/8);
+  expect(rac.Angle.zero).not.equalsRay(0, 0, 0);
+  expect(rac.Point.zero).not.equalsRay(0, 0, 0);
+
   let string = diagonal.toString();
   expect(string).toMatch('Ray');
   expect(string).toMatch('55');
