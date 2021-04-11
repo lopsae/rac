@@ -52,10 +52,15 @@ class Point{
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
-  toString() {
-    return `Point(${this.x},${this.y})`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.x, digits);
+    const yStr = utils.cutDigits(this.y, digits);
+    return `Point(${xStr},${yStr})`;
   }
 
 

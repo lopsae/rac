@@ -22,11 +22,21 @@ test('Identity', () => {
 
   expect(100).not.equalsPoint(100, 100);
   expect(rac.Angle.zero).not.equalsPoint(0, 0);
+});
 
-  let string = rac.Point(111, 222).toString();
+
+test('Function toString', () => {
+  const string = rac.Point(1.12345, 2.12345).toString();
   expect(string).toMatch('Point');
-  expect(string).toMatch('111');
-  expect(string).toMatch('222');
+  expect(string).toMatch('1.12345');
+  expect(string).toMatch('2.12345');
+
+  const cutString = rac.Point(1.12345, 2.12345).toString(2);
+  expect(cutString).toMatch('Point');
+  expect(cutString).toMatch('1.12');
+  expect(cutString).toMatch('2.12');
+  expect(cutString).not.toMatch('1.123');
+  expect(cutString).not.toMatch('2.123');
 });
 
 
