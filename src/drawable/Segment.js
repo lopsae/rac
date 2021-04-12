@@ -311,10 +311,9 @@ class Segment {
   * @param {number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
-  translateToAngle(someAngle, distance) {
-    const angle = this.rac.Angle.from(someAngle);
-    const newStart = this.ray.start.pointToAngle(angle, distance);
-    return this.withStartPoint(newStart);
+  translateToAngle(angle, distance) {
+    const newRay = this.ray.translateToAngle(angle, distance);
+    return new Segment(this.rac, newRay, this.length);
   }
 
 
@@ -329,14 +328,23 @@ class Segment {
   * @returns {Rac.Segment}
   */
   translateToLength(length) {
-    const newStart = this.ray.pointAtDistance(distance);
-    return this.withStartPoint(newStart);
+    const newRay = this.ray.translateToDistance(length);
+    return new Segment(this.rac, newRay, this.length);
   }
 
+
+  /**
+  * Returns a new `Segment` with the start point moved the given `distance`
+  * towards the perpendicular angle to `this.ray.angle` in the `clockwise`
+  * orientaton. All other properties are copied from `this`.
+  *
+  * @param {number} distance - The distance to move the start point by
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @returns {Rac.Segment}
+  */
   translatePerpendicular(distance, clockwise = true) {
-    let perpendicular = this.ray.angle.perpendicular(clockwise);
-    const newStart = this.ray.start.pointToAngle(perpendicular, distance);
-    return this.withStartPoint(newStart);
+    const newRay = this.ray.translatePerpendicular(distance, clockwise);
+    return new Segment(this.rac, newRay, this.length);
   }
 
 

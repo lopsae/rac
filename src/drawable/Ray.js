@@ -215,6 +215,20 @@ class Ray {
 
 
   /**
+  * Returns a new `Ray` with `start` moved by the given distance toward the
+  * `angle.perpendicular()`. All other properties are copied from `this`.
+  *
+  * @param {number} distance - The distance to move `start` by
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @returns {Rac.Ray}
+  */
+  translatePerpendicular(distance, clockwise = true) {
+    let perpendicular = this.angle.perpendicular(clockwise);
+    return this.translateToAngle(perpendicular, distance);
+  }
+
+
+  /**
   * Returns a new `Point` located in the ray where the x coordinate is `x`.
   * When the ray is vertical, returns `null` since no single point with x
   * coordinate at `x` is possible.
@@ -409,12 +423,6 @@ module.exports = Ray;
 
 
 // TODO: recheck all underneath
-
-// Ray.prototype.translatePerpendicular = function(distance, clockwise = true) {
-//   let perpendicular = this.angle.perpendicular(clockwise);
-//   return this.translateToAngle(perpendicular, distance);
-// };
-
 
 
 // Returns an complete circle Arc using this segment `start` as center,
