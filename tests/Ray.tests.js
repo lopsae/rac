@@ -120,6 +120,21 @@ test('Transformations', () => {
 });
 
 
+test('Translations', () => {
+  const distance = tools.hypotenuse(55);
+
+  expect(diagonal.translateToDistance(0))
+    .equalsRay(55, 55, 1/8);
+  expect(diagonal.translateToDistance(distance))
+    .equalsRay(110, 110, 1/8);
+  expect(diagonal.translateToDistance(-distance))
+    .equalsRay(0, 0, 1/8);
+});
+
+
+test.todo('more Translations');
+
+
 test('Axis intersection', () => {
   expect(vertical.pointAtX(55)).toBe(null);
   expect(vertical.pointAtY(55)).equalsPoint(100, 55);
@@ -176,19 +191,19 @@ test('Ray intersection', () => {
 
 
 test('Ray parallel intersection', () => {
-  let shiftedVertical = vertical.withStart(rac.Point.zero);
+  const shiftedVertical = vertical.withStart(rac.Point.zero);
   expect(shiftedVertical.pointAtIntersection(vertical))
     .toBe(null);
   expect(shiftedVertical.pointAtIntersection(vertical.inverse()))
     .toBe(null);
 
-  let shiftedHorizontal = horizontal.withStart(rac.Point.zero);
+  const shiftedHorizontal = horizontal.withStart(rac.Point.zero);
   expect(shiftedHorizontal.pointAtIntersection(horizontal))
     .toBe(null);
   expect(shiftedHorizontal.pointAtIntersection(horizontal.inverse()))
     .toBe(null);
 
-  let shiftedDiagonal = diagonal.withStart(hunty);
+  const shiftedDiagonal = diagonal.withStart(hunty);
   expect(shiftedDiagonal.pointAtIntersection(diagonal))
     .toBe(null);
   expect(shiftedDiagonal.pointAtIntersection(diagonal.inverse()))
@@ -197,14 +212,7 @@ test('Ray parallel intersection', () => {
 
 
 test('Point projection', () => {
-  let distance = tools.hypotenuse(55);
-
-  expect(diagonal.withStartAtDistance(0))
-    .equalsRay(55, 55, 1/8);
-  expect(diagonal.withStartAtDistance(distance))
-    .equalsRay(110, 110, 1/8);
-  expect(diagonal.withStartAtDistance(-distance))
-    .equalsRay(0, 0, 1/8);
+  const distance = tools.hypotenuse(55);
 
   expect(diagonal.pointAtDistance(0)).equalsPoint(55, 55);
   expect(diagonal.pointAtDistance(distance)).equalsPoint(110, 110);

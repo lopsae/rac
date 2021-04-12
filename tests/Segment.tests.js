@@ -52,39 +52,6 @@ test('Properties', () => {
 });
 
 
-test ('Ray intersection', () => {
-  // diagonal-vertical
-  expect(diagonal.pointAtIntersectionWithRay(vertical.ray))
-    .equalsPoint(100, 100);
-  expect(diagonal.reverse().pointAtIntersectionWithRay(vertical.ray))
-    .equalsPoint(100, 100);
-  expect(vertical.pointAtIntersectionWithRay(diagonal.ray))
-    .equalsPoint(100, 100);
-  expect(vertical.reverse().pointAtIntersectionWithRay(diagonal.ray))
-    .equalsPoint(100, 100);
-
-  // diagonal-horizontal
-  expect(diagonal.pointAtIntersectionWithRay(horizontal.ray))
-    .equalsPoint(100, 100);
-  expect(diagonal.reverse().pointAtIntersectionWithRay(horizontal.ray))
-    .equalsPoint(100, 100);
-  expect(horizontal.pointAtIntersectionWithRay(diagonal.ray))
-    .equalsPoint(100, 100);
-  expect(horizontal.reverse().pointAtIntersectionWithRay(diagonal.ray))
-    .equalsPoint(100, 100);
-
-  // vertical-horizontal
-  expect(vertical.pointAtIntersectionWithRay(horizontal.ray))
-    .equalsPoint(100, 100);
-  expect(vertical.reverse().pointAtIntersectionWithRay(horizontal.ray))
-    .equalsPoint(100, 100);
-  expect(horizontal.pointAtIntersectionWithRay(vertical.ray))
-    .equalsPoint(100, 100);
-  expect(horizontal.reverse().pointAtIntersectionWithRay(vertical.ray))
-    .equalsPoint(100, 100);
-});
-
-
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 100, 1/8, 1/8, true);
 
