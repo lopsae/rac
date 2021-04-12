@@ -229,6 +229,21 @@ class Ray {
 
 
   /**
+  * Returns the angle from `this.start` to `point`.
+  *
+  * When `this.start` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, returns `this.angle`.
+  *
+  * @param {Rac.Point} point - A `Point` to measure the angle to
+  * @returns {Rac.Angle}
+  * @see Rac.Point#equals
+  */
+  angleToPoint(point) {
+    return this.start.angleToPoint(point, this.angle);
+  }
+
+
+  /**
   * Returns a new `Point` located in the ray where the x coordinate is `x`.
   * When the ray is vertical, returns `null` since no single point with x
   * coordinate at `x` is possible.
@@ -373,16 +388,33 @@ class Ray {
     }
   }
 
-  // TODO: recheck, migrate
-  // Returns `true` if the given point is located clockwise of the segment,
-  // or `false` if located counter-clockwise.
-  // pointOrientation(point) {
-  //   let angle = this.start.angleToPoint(point);
-  //   let angleDistance = angle.subtract(this.angle);
-  //   // [0 to 0.5) is considered clockwise
-  //   // [0.5, 1) is considered counter-clockwise
-  //   return angleDistance.turn < 0.5;
-  // }
+
+  /**
+  * Returns `true` when the angle to the given `point` is located clockwise
+  * of the ray or `false` when located counter-clockwise.
+  *
+  * * When `this.start` and `point` are considered
+  * [equal]{@link Rac.Point#equals} or `point` lands on the ray, it is
+  * considered clockwise. When `point` lands on the
+  * [inverse]{@link Rac.Ray#inverse} of the ray, it is considered
+  * counter-clockwise.
+  *
+  * @param {Rac.Point} point - A `Point` to measure the orientation to
+  * @returns {boolean}
+  * @see Rac.Point#equals
+  * @see Rac.Ray#inverse
+  */
+  pointOrientation(point) {
+    let pointAngle = this.start.angleToPoint(point, this.angle);
+    if (this.angle.equals(pointAtDistance)) {
+      return true;
+    }
+
+    let angleDistance = angle.subtract(this.pointAngle);
+    // [0 to 0.5) is considered clockwise
+    // [0.5, 1) is considered counter-clockwise
+    return angleDistance.turn < 0.5;
+  }
 
 
   // TODO: implement rayToPoint, that uses this as default angle

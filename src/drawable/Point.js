@@ -185,10 +185,11 @@ class Point{
 
   /**
   * Returns the distance from `this` to `other`, returns `0` when `this`
-  * and `other` are considered equal.
+  * and `other` are considered [equal]{@link Rac.Point#equals}.
   *
   * @param {Rac.Point} other - A `Point` to measure the distance to
   * @returns {number}
+  * @see Rac.Point#equals
   */
   distanceToPoint(other) {
     if (this.equals(other)) {
@@ -203,13 +204,14 @@ class Point{
   /**
   * Returns the angle from `this` to `other`.
   *
-  * When `this` and `other` are considered equal, returns the angle
-  * produced with `defaultAngle`.
+  * When `this` and `other` are considered [equal]{@link Rac.Point#equals},
+  * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} other - A `Point` to measure the angle to
   * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
   * An `Angle` to return when `this` and `other` are equal
   * @returns {Rac.Angle}
+  * @see Rac.Point#equals
   */
   angleToPoint(other, defaultAngle = this.rac.Angle.zero) {
     if (this.equals(other)) {
