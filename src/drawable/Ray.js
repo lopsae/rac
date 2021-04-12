@@ -103,6 +103,9 @@ class Ray {
 
   /**
   * Returns a new `Ray` with `start` set to `newStart`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Point} newStart - The start for the new `Ray`
   * @returns {Rac.Ray}
   */
@@ -113,6 +116,9 @@ class Ray {
 
   /**
   * Returns a new `Ray` with `angle` set to `newAngle`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Angle|number} newAngle - The angle for the new `Ray`
   * @returns {Rac.Ray}
   */
@@ -124,6 +130,9 @@ class Ray {
 
   /**
   * Returns a new `Ray` with `angle` added to `this.angle`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Angle|number} angle - The angle to add
   * @returns {Rac.Ray}
   */
@@ -137,6 +146,8 @@ class Ray {
   * Returns a new `Ray` with `angle` set to
   * `this.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
   *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Angle|number} angle - The angle to be shifted by
   * @param {boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Ray}
@@ -144,21 +155,6 @@ class Ray {
   withAngleShift(angle, clockwise = true) {
     let newAngle = this.angle.shift(angle, clockwise);
     return new Ray(this.rac, this.start, newAngle);
-  }
-
-
-  // TODO: rename to rayAtDistance
-  /**
-  * Returns a new `Ray` with `start` moved along the ray by the given
-  * `distance`. When `distance` is negative, `start` is moved in
-  * the direction inverse of `angle`.
-  *
-  * @param {number} distance - The distance to move `start` by
-  * @returns {Rac.Ray}
-  */
-  withStartAtDistance(distance) {
-    const newStart = this.start.pointToAngle(this.angle, distance);
-    return new Ray(this.rac, newStart, this.angle);
   }
 
 
@@ -185,6 +181,36 @@ class Ray {
   perpendicular(clockwise = true) {
     let perpendicular = this.angle.perpendicular(clockwise);
     return new Ray(this.rac, this.start, perpendicular);
+  }
+
+
+  /**
+  * Returns a new `Ray` with `start` moved towards `angle` by the given
+  * `distance`. All other properties are copied from `this`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to move `start` towards
+  * @param {number} distance - The distance to move `start` by
+  * @returns {Rac.Ray}
+  */
+  translateToAngle(angle, distance) {
+    const newStart = this.start.pointToAngle(angle, distance);
+    return new Ray(this.rac, newStart, this.angle);
+  }
+
+
+  /**
+  * Returns a new `Ray` with `start` moved along the ray by the given
+  * `distance`. All other properties are copied from `this`.
+  *
+  * When `distance` is negative, `start` is moved in
+  * the inverse direction of `angle`.
+  *
+  * @param {number} distance - The distance to move `start` by
+  * @returns {Rac.Ray}
+  */
+  translateToDistance(distance) {
+    const newStart = this.start.pointToAngle(this.angle, distance);
+    return new Ray(this.rac, newStart, this.angle);
   }
 
 
@@ -383,17 +409,6 @@ module.exports = Ray;
 
 
 // TODO: recheck all underneath
-
-// Ray.prototype.translateToAngle = function(someAngle, distance) {
-//   let angle = rac.Angle.from(someAngle);
-//   let offset = rac.Point.zero.pointToAngle(angle, distance);
-//   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
-// };
-
-// Ray.prototype.translateToDistance = function(distance) {
-//   let offset = rac.Point.zero.pointToAngle(this.angle, distance);
-//   return new Ray(this.rac, this.start.addPoint(offset), this.angle);
-// };
 
 // Ray.prototype.translatePerpendicular = function(distance, clockwise = true) {
 //   let perpendicular = this.angle.perpendicular(clockwise);

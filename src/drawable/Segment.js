@@ -302,6 +302,15 @@ class Segment {
   }
 
 
+  /**
+  * Returns a new `Segment` with the start point moved towards `angle` by
+  * the given `distance`. All other properties are copied from `this`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to move the start point
+    towards
+  * @param {number} distance - The distance to move the start point by
+  * @returns {Rac.Segment}
+  */
   translateToAngle(someAngle, distance) {
     const angle = this.rac.Angle.from(someAngle);
     const newStart = this.ray.start.pointToAngle(angle, distance);
@@ -309,7 +318,17 @@ class Segment {
   }
 
 
-  translateToLength(distance) {
+  /**
+  * Returns a new `Segment` with the start point moved along the segment's
+  * ray by the given `length`. All other properties are copied from `this`.
+  *
+  * When `length` is negative, `start` is moved in the inverse direction of
+  * `angle`.
+  *
+  * @param {number} length - The length to move the start point by
+  * @returns {Rac.Segment}
+  */
+  translateToLength(length) {
     const newStart = this.ray.pointAtDistance(distance);
     return this.withStartPoint(newStart);
   }
