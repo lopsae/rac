@@ -417,7 +417,20 @@ class Ray {
   }
 
 
-  // TODO: implement rayToPoint, that uses this as default angle
+  /**
+  * Returns a new `Ray` from `this.start` to `point`.
+  *
+  * When `this.start` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Ray` will use `this.angle`.
+  *
+  * @param {Rac.Point} point - A `Point` to point the `Ray` towards
+  * @returns {Rac.Ray}
+  * @see Rac.Point#equals
+  */
+  rayToPoint(point) {
+    let newAngle = this.start.angleToPoint(point, this.angle);
+    return new Ray(this.rac, this.start, newAngle);
+  }
 
 
   /**
@@ -455,37 +468,49 @@ class Ray {
   //   return this.ray.segmentToPoint(intersection);
   // }
 
+
+  /**
+  * Returns a new `Arc` with center at `this.start`, start at `this.angle`
+  * and the given arc properties.
+  *
+  * @param {number} radius - The radius of the new `Arc`
+  * @param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new `Arc`,
+  * when `null` or ommited `this.start` is used
+  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
+  * @returns {Rac.Arc}
+  */
+  arc(radius, endAngle = null, clockwise = true) {
+    endAngle = endAngle === null
+      ? this.angle
+      : this.rac.Angle.from(end);
+    return new Rac.Arc(this.rac,
+      this.start, radius,
+      this.angle, endAngle,
+      clockwise);
+  }
+
+
+  /**
+  * Returns a new `Arc` with center at `this.start`, start at `this.angle`,
+  * and end at the given `angleDistance` from `this.start` in the
+  * `clockwise` orientation.
+  *
+  * @param {number} radius - The radius of the new `Arc`
+  * @param {Rac.Angle|number} angleDistance - The angle distance from
+  * `this.start` to the new `Arc` end
+  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
+  * @returns {Rac.Arc}
+  */
+  arcToAngleDistance(radius, angleDistance, clockwise = true) {
+    let endAngle = this.angle.shift(angleDistance, clockwise);
+    return new Rac.Arc(this.rac,
+      this.start, radius,
+      this.angle, endAngle,
+      clockwise);
+  }
+
 } // class Ray
 
 
 module.exports = Ray;
-
-
-// TODO: recheck all underneath
-
-
-// Returns an complete circle Arc using this segment `start` as center,
-// `length()` as radiusm, and `angle` as start and end angles.
-// Ray.prototype.arc = function(radius, clockwise = true) {
-//   return new Rac.Arc(this.rac,
-//     this.start, radius,
-//     this.angle, this.angle,
-//     clockwise);
-// };
-
-
-// Returns an Arc using this segment `start` as center, `length()` as
-// radius, starting from the `angle` to the arc distance of the given
-// angle and orientation.
-// Ray.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
-//   let angleDistance = rac.Angle.from(someAngleDistance);
-//   let arcStart = this.angle;
-//   let arcEnd = arcStart.shift(angleDistance, clockwise);
-
-//   return new Rac.Arc(this.rac,
-//     this.start, this.length(),
-//     arcStart, arcEnd,
-//     clockwise);
-// };
-
 
