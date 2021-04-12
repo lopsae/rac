@@ -65,18 +65,18 @@ class Point{
 
 
   /**
-  * Returns `true` when the difference with `other` for each coordinate is
+  * Returns `true` when the difference with `otherPoint` for each coordinate is
   * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
   *
   * Values are compared using `{@link Rac#equals}`.
   *
-  * @param {Rac.Point} other - A `Point` to compare
+  * @param {Rac.Point} otherPoint - A `Point` to compare
   * @returns {boolean}
   */
-  equals(other) {
+  equals(otherPoint) {
     // TODO: check type?
-    return this.rac.equals(this.x, other.x)
-      && this.rac.equals(this.y, other.y);
+    return this.rac.equals(this.x, otherPoint.x)
+      && this.rac.equals(this.y, otherPoint.y);
   }
 
 
@@ -123,15 +123,15 @@ class Point{
 
 
   /**
-  * Returns a new `Point` by adding the components of `other` to `this`.
-  * @param {Rac.Point} other - A `Point` to add
+  * Returns a new `Point` by adding the components of `point` to `this`.
+  * @param {Rac.Point} point - A `Point` to add
   * @returns {Rac.Point}
   */
-  addPoint(other) {
+  addPoint(point) {
     return new Point(
       this.rac,
-      this.x + other.x,
-      this.y + other.y);
+      this.x + point.x,
+      this.y + point.y);
   }
 
 
@@ -148,15 +148,15 @@ class Point{
 
 
   /**
-  * Returns a new `Point` by subtracting the components of `other`.
-  * @param {Rac.Point} other - A `Point` to subtract
+  * Returns a new `Point` by subtracting the components of `point`.
+  * @param {Rac.Point} point - A `Point` to subtract
   * @returns {Rac.Point}
   */
-  subtractPoint(other) {
+  subtractPoint(point) {
     return new Point(
       this.rac,
-      this.x - other.x,
-      this.y - other.y);
+      this.x - point.x,
+      this.y - point.y);
   }
 
 
@@ -184,41 +184,42 @@ class Point{
 
 
   /**
-  * Returns the distance from `this` to `other`, returns `0` when `this`
-  * and `other` are considered [equal]{@link Rac.Point#equals}.
+  * Returns the distance from `this` to `point`, or returns `0` when
+  * `this` and `point` are considered [equal]{@link Rac.Point#equals}.
   *
-  * @param {Rac.Point} other - A `Point` to measure the distance to
+  * @param {Rac.Point} point - A `Point` to measure the distance to
   * @returns {number}
   * @see Rac.Point#equals
   */
-  distanceToPoint(other) {
-    if (this.equals(other)) {
+  distanceToPoint(point) {
+    if (this.equals(point)) {
       return 0;
     }
-    const x = Math.pow((other.x - this.x), 2);
-    const y = Math.pow((other.y - this.y), 2);
+    const x = Math.pow((point.x - this.x), 2);
+    const y = Math.pow((point.y - this.y), 2);
     return Math.sqrt(x+y);
   }
 
 
   /**
-  * Returns the angle from `this` to `other`.
+  * Returns the angle from `this` to `point`.
   *
-  * When `this` and `other` are considered [equal]{@link Rac.Point#equals},
-  * returns the angle produced with `defaultAngle`.
+  * When `this` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, returns the angle produced with
+  * `defaultAngle`.
   *
-  * @param {Rac.Point} other - A `Point` to measure the angle to
+  * @param {Rac.Point} point - A `Point` to measure the angle to
   * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to return when `this` and `other` are equal
+  * An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
   * @see Rac.Point#equals
   */
-  angleToPoint(other, defaultAngle = this.rac.Angle.zero) {
-    if (this.equals(other)) {
+  angleToPoint(point, defaultAngle = this.rac.Angle.zero) {
+    if (this.equals(point)) {
       defaultAngle = this.rac.Angle.from(defaultAngle);
       return defaultAngle;
     }
-    const offset = other.subtractPoint(this);
+    const offset = point.subtractPoint(this);
     const radians = Math.atan2(offset.y, offset.x);
     return Rac.Angle.fromRadians(this.rac, radians);
   }
@@ -259,7 +260,7 @@ class Point{
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
   * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `other` are equal
+  * An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Ray}
   */
   rayToPoint(point, defaultAngle = this.rac.Angle.zero) {
@@ -311,7 +312,7 @@ class Point{
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
   * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `other` are equal
+  * An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
   * @see Rac.Point#equals
   */
