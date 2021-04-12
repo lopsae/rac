@@ -314,29 +314,29 @@ class Ray {
 
 
   /**
-  * Returns a new `Point` at the intersection of `this` and `other`. When
+  * Returns a new `Point` at the intersection of `this` and `ray`. When
   * the rays are parallel, returns `null` since no intersection is
   * possible.
   *
   * Both rays are considered unbounded lines.
   *
-  * @param {Rac.Ray} other - A `Ray` to calculate the intersection with
+  * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
   * @returns {Rac.Point}
   */
-  pointAtIntersection(other) {
+  pointAtIntersection(ray) {
     // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     const a = this.slope();
-    const b = other.slope();
+    const b = ray.slope();
     // Parallel lines, no intersection
     if (a === null && b === null) { return null; }
     if (this.rac.unitaryEquals(a, b)) { return null; }
 
     const c = this.yIntercept();
-    const d = other.yIntercept();
+    const d = ray.yIntercept();
 
 
-    if (a === null) { return other.pointAtX(this.start.x); }
-    if (b === null) { return this.pointAtX(other.start.x); }
+    if (a === null) { return ray.pointAtX(this.start.x); }
+    if (b === null) { return this.pointAtX(ray.start.x); }
 
     const x = (d - c) / (a - b);
     const y = a * x + c;
