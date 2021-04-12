@@ -147,6 +147,7 @@ class Ray {
   }
 
 
+  // TODO: rename to rayAtDistance
   /**
   * Returns a new `Ray` with `start` moved along the ray by the given
   * `distance`. When `distance` is negative, `start` is moved in
@@ -195,7 +196,7 @@ class Ray {
   * The ray is considered a unbounded line.
   *
   * @param {number} x - The x coordinate to calculate a point in the ray
-  * @retursn {Rac.Point}
+  * @returns {Rac.Point}
   */
   pointAtX(x) {
     const slope = this.slope();
@@ -247,7 +248,7 @@ class Ray {
   /**
   * Returns a new `Point` in the ray at the given `distance` from
   * `this.start`. When `distance` is negative, the new `Point` is calculated
-  * in the direction inverse of `angle`.
+  * in the inverse direction of `angle`.
   *
   * @param {number} distance - The distance from `this.start`
   * @returns {Rac.Point}
@@ -344,6 +345,9 @@ class Ray {
   // }
 
 
+  // TODO: implement rayToPoint, that uses this as default angle
+
+
   /**
   * Returns a new `Segment` using `this` and the given `length`.
   * @param {number} length - The length of the new `Segment`
@@ -352,6 +356,23 @@ class Ray {
   segment(length) {
     return new Rac.Segment(this.rac, this, length);
   }
+
+
+  /**
+  * Returns a new `Segment` from `this.start` to `point`.
+  *
+  * When `this.start` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.angle`.
+  *
+  * @param {Rac.Point} point - A `Point` to point the `Segment` towards
+  * @returns {Rac.Segment}
+  * @see Rac.Point#equals
+  */
+  segmentToPoint(point) {
+    return this.start.segmentToPoint(point, this.angle);
+  }
+
 
   // TODO: segmentToIntersectionWithRay
 

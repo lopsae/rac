@@ -304,13 +304,14 @@ class Point{
   /**
   * Returns a new `Segment` from `this` to `point`.
   *
-  * When `this` and `point` are considered equal, the new `Segment` will
-  * use the angle produced with `defaultAngle`
+  * When `this` and `point` are considered [equal]{@link Rac.Point#equals},
+  * the new `Segment` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
   * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
   * An `Angle` to use when `this` and `other` are equal
   * @returns {Rac.Segment}
+  * @see Rac.Point#equals
   */
   segmentToPoint(point, defaultAngle = this.rac.Angle.zero) {
     defaultAngle = this.angleToPoint(point, defaultAngle);

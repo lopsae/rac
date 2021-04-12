@@ -95,26 +95,10 @@ class Segment {
 
 
   /**
-  * Returns the `[slope]{@link Rac.Ray#slope}` of the segment's `ray`.
-  * @returns {?number}
-  */
-  slope() {
-    return this.ray.slope();
-  }
-
-
-  /**
-  * Returns the [y-intercept]{@link Rac.Ray#yIntercept} of the segment's
-  * `ray`.
-  * @returns {?number}
-  */
-  yIntercept() {
-    return this.ray.yIntercept();
-  }
-
-
-  /**
   * Returns a new `Segment` with `ray` set to `newRay`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Ray} newRay - The ray for the new `Segment`
   * @returns {Rac.Segment}
   */
@@ -125,6 +109,9 @@ class Segment {
 
   /**
   * Returns a new `Segment` with `ray.start` set to `newStart`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Point} newStartPoint - The start point for the new
   * `Segment`
   * @returns {Rac.Segment}
@@ -136,20 +123,10 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting at `this.startPoint()` and ending at
-  * `newEndPoint`.
-  * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
-  * @returns {Rac.Segment}
-  */
-  withEndPoint(newEndPoint) {
-    const newRay = this.ray.rayToPoint(newEndPoint);
-    const newLength = this.ray.start.distanceToPoint(newEndPoint);
-    return new Segment(this.rac, newRay, newLength);
-  }
-
-
-  /**
   * Returns a new `Segment` with `length` set to `newLength`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {number} newLength - The length for the new `Segment`
   * @returns {Rac.Segment}
   */
@@ -160,6 +137,9 @@ class Segment {
 
   /**
   * Returns a new `Segment` with `length` added to `this.length`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {number} length - The length to add
   * @returns {Rac.Segment}
   */
@@ -169,7 +149,10 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `length` set to `this.length*ratio`.
+  * Returns a new `Segment` with `length` set to `this.length * ratio`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {number} ratio - The factor to multiply `length` by
   * @returns {Rac.Segment}
   */
@@ -180,6 +163,9 @@ class Segment {
 
   /**
   * Returns a new `Segment` with `angle` added to `this.ray.angle`.
+  *
+  * All other properties are copied from `this`.
+  *
   * @param {Rac.Angle|number} angle - The angle to add
   * @returns {Rac.Segment}
   */
@@ -192,6 +178,8 @@ class Segment {
   /**
   * Returns a new `Segment` with `angle` set to
   * `this.ray.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
+  *
+  * All other properties are copied from `this`.
   *
   * @param {Rac.Angle|number} angle - The angle to be shifted by
   * @param {boolean} [clockwise=true] - The orientation of the shift
@@ -235,6 +223,15 @@ class Segment {
   }
 
 
+  /**
+  * Returns a new `Segment` with its start point set at
+  * `[this.endPoint()]{@link Rac.Segment#endPoint}`,
+  * angle set to `this.angle().[inverse()]{@link Rac.Angle#inverse}`, and
+  * same length as `this`.
+  *
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#inverse
+  */
   reverse() {
     const end = this.endPoint();
     const inverseRay = new Rac.Ray(this.rac, end, this.ray.angle.inverse());
@@ -242,36 +239,66 @@ class Segment {
   }
 
 
-  pointAtX(x) {
-    return this.ray.pointAtX(x);
-  }
-
-
+  /**
+  * Returns a new `Point` in the segment's ray at the given `length` from
+  * `ray.start`. When `length` is negative, the new `Point` is calculated
+  * in the inverse direction of `ray.angle`.
+  *
+  * @param {number} length - The distance from `ray.start`
+  * @returns {Rac.Point}
+  * @see Rac.Ray#pointAtDistance
+  */
   pointAtLength(length) {
-    return this.start.pointToAngle(this.angle(), length);
+    return this.ray.pointAtDistance(length);
   }
 
 
-  pointAtLengthRatio(lengthRatio) {
-    let newLength = this.length() * lengthRatio;
-    return this.start.pointToAngle(this.angle(), newLength);
+  /**
+  * Returns a new `Point` in the segment's ray at a distance of
+  * `this.length * ratio` from `ray.start`. When `ratio` is negative, the
+  * new `Point` is calculated in the inverse direction of `ray.angle`.
+  *
+  * @param {number} ratio - The factor to multiply `length` by
+  * @returns {Rac.Point}
+  * @see Rac.Ray#pointAtDistance
+  */
+  pointAtLengthRatio(ratio) {
+    return this.ray.pointAtDistance(this.length * ratio);
   }
 
 
-  // Returns the intersecting point of `this` and the ray `other`. Both are
-  // considered lines without endpoints. Returns null if the lines are
-  // parallel.
-  pointAtIntersectionWithRay(other) {
-    return this.ray.pointAtIntersection(other);
+  /**
+  * Returns a new `Segment` starting at `newStartPoint` and ending at
+  * `this.endPoint()`.
+  *
+  * When `newStartPoint` and `this.endPoint()` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.ray.angle`.
+  *
+  * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
+  * @returns {Rac.Segment}
+  * @see Rac.Point#equals
+  */
+  moveStartPoint(newStartPoint) {
+    const endPoint = this.endPoint();
+    return newStartPoint.segmentToPoint(endPoint, this.ray.angle);
   }
 
 
-  // TODO: implement moveStartPoint, which retains the position of endPoint
-
-
-  translateToCoordinates(x, y) {
-    const newStart = new Rac.Point(this.rac, x, y);
-    return this.withStartPoint(newStart);
+  /**
+  * Returns a new `Segment` starting at `this.ray.start` and ending at
+  * `newEndPoint`.
+  *
+  * When `this.ray.start` and `newEndPoint` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.ray.angle`.
+  *
+  * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
+  * @returns {Rac.Segment}
+  * @see Rac.Point#equals
+  */
+  moveEndPoint(newEndPoint) {
+    return this.ray.segmentToPoint(newEndPoint);
   }
 
 
