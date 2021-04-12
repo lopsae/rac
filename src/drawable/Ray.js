@@ -433,6 +433,9 @@ class Ray {
   }
 
 
+  // TODO: rayToIntersection
+
+
   /**
   * Returns a new `Segment` using `this` and the given `length`.
   * @param {number} length - The length of the new `Segment`
