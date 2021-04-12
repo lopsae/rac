@@ -348,24 +348,43 @@ class Segment {
   }
 
 
-  // Returns a new segment from `end` with the given `length` with the same
-  // angle as `this`.
-  // TODO: needs update
-  // nextSegmentWithLength(length) {
-  //   return this.end.segmentToAngle(this.angle(), length);
-  // }
+  /**
+  * Returns a new `Segment` starting from `endPoint()` with the given
+  * `length` and the same angle as `this`.
+  *
+  * @param {number} length - The length of the next `Segment`
+  * @returns {Rac.Segment}
+  */
+  nextSegmentWithLength(length) {
+    const newStart = this.endPoint();
+    const newRay = this.ray.withStart(newStart);
+    return new Segment(this.rac, newRay, length);
+  }
 
-  // Returns a new segment from `end` to the given `nextEnd`.
-  nextSegmentToPoint(nextEnd) {
+
+  /**
+  * Returns a new `Segment` starting from `endPoint()` and up to the given
+  * `nextEndPoint`.
+  *
+  * When `endPoint()` and `nextEndPoint` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.ray.angle`.
+  *
+  * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
+  * @returns {Rac.Segment}
+  * @see Rac.Point#equals
+  */
+  nextSegmentToPoint(nextEndPoint) {
     const newStart = this.endPoint();
     return newStart.segmentToPoint(nextEnd, this.ray.angle);
   }
 
   // Returns a new segment from `end` to the given `someAngle` and `distance`.
-  // TODO: needs update
-  // nextSegmentToAngle(someAngle, distance) {
-  //   return this.end.segmentToAngle(someAngle, distance);
-  // }
+  nextSegmentToAngle(angle, length) {
+    const newStart = this.endPoint();
+    const newRay = new Rac.Ray(this.rac, newStart, angle);
+    return new Segment(this.rac, newRay, length);
+  }
 
   // Returns a new segment from `endPoint()`, with an angle shifted from
   // `angle().inverse()` in the `clockwise` orientation.
@@ -415,40 +434,10 @@ class Segment {
     return this.ray.projectedPoint(point);
   }
 
-  // Returns the length from `startPoint()` to the projection of `point` in
-  // the segment.
-  // The length is positive if the projected point is in the direction
-  // of the segment ray, and negative if it is behind.
-  lengthToProjectedPoint(point) {
-    return this.ray.distanceToProjectedPoint(point);
-  }
-
-  // Returns `true` if the given point is located clockwise of the segment,
-  // or `false` if located counter-clockwise.
-  // TODO: needs update
-  // pointOrientation(point) {
-  //   let angle = this.start.angleToPoint(point);
-  //   let angleDistance = angle.subtract(this.angle());
-  //   // [0 to 0.5) is considered clockwise
-  //   // [0.5, 1) is considered counter-clockwise
-  //   return angleDistance.turn < 0.5;
-  // }
-
 
   // Returns a new segment from `start` to `pointAtBisector`.
   segmentToBisector() {
     return new Segment(this.rac, this.ray, this.length/2);
-  }
-
-
-  // Returns a segment from `this.start` to the intersection between `this`
-  // and `other`.
-  segmentToIntersectionWithRay(ray) {
-    let intersection = this.pointAtIntersectionWithRay(ray);
-    if (intersection === null) {
-      return null;
-    }
-    return this.ray.segmentToPoint(intersection);
   }
 
 

@@ -415,6 +415,13 @@ class Ray {
 
 
   // TODO: segmentToIntersectionWithRay
+  // segmentToIntersectionWithRay(ray) {
+  //   let intersection = this.pointAtIntersectionWithRay(ray);
+  //   if (intersection === null) {
+  //     return null;
+  //   }
+  //   return this.ray.segmentToPoint(intersection);
+  // }
 
 } // class Ray
 
@@ -449,13 +456,4 @@ module.exports = Ray;
 //     clockwise);
 // };
 
-// Returns a segment from `this.start` to the intersection between `this`
-// and `other`.
-// Ray.prototype.segmentToIntersectionWithRay = function(ray) {
-//   let end = this.pointAtIntersectionWithRay(ray.ray);
-//   if (end === null) {
-//     return null;
-//   }
-//   return new Ray(this.rac, this.start, end);
-// };
 
