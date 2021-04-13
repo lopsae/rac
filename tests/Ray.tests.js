@@ -9,9 +9,8 @@ const rac = tools.rac;
 let fifty = rac.Point(55, 55);
 let diagonal = rac.Ray(55, 55, rac.Angle.eighth);
 let hunty = rac.Point(100, 100);
-let vertical = rac.Ray(100, 100, rac.Angle.square);
 let horizontal = rac.Ray(100, 100, rac.Angle.zero);
-
+let vertical = rac.Ray(100, 100, rac.Angle.square);
 
 
 test('Identity', () => {
@@ -335,8 +334,47 @@ test('Transforms to Segment', () => {
 });
 
 
-test.todo('Transforms to Arc');//, () => {
-// });
+test('Transforms to Arc', () => {
+  // Angle/Number parameter
+  expect(diagonal.arc(100, 1/2))
+    .equalsArc(55, 55, 100, 1/8, 1/2, true);
+  expect(diagonal.arc(100, rac.Angle.half))
+    .equalsArc(55, 55, 100, 1/8, 1/2, true);
+
+  // Default/Nullable parameters
+  expect(diagonal.arc(100))
+    .equalsArc(55, 55, 100, 1/8, 1/8, true);
+  expect(diagonal.arc(100, null, false))
+    .equalsArc(55, 55, 100, 1/8, 1/8, false);
+  expect(diagonal.arc(100, 1/2))
+    .equalsArc(55, 55, 100, 1/8, 1/2, true);
+  expect(diagonal.arc(100, 3/4, false))
+    .equalsArc(55, 55, 100, 1/8, 3/4, false);
+
+  // Extra check horizonta/vertical
+  expect(horizontal.arc(55))
+    .equalsArc(100, 100, 55, 0, 0, true);
+  expect(vertical.arc(55))
+    .equalsArc(100, 100, 55, 1/4, 1/4, true);
+
+  // Angle/Number parameter
+  expect(diagonal.arcToAngleDistance(100, 0))
+    .equalsArc(55, 55, 100, 1/8, 1/8, true);
+  expect(diagonal.arcToAngleDistance(100, rac.Angle.zero))
+    .equalsArc(55, 55, 100, 1/8, 1/8, true);
+
+  // Zero distance
+  expect(diagonal.arcToAngleDistance(100, 0))
+    .equalsArc(55, 55, 100, 1/8, 1/8, true);
+  expect(diagonal.arcToAngleDistance(100, 0, false))
+    .equalsArc(55, 55, 100, 1/8, 1/8, false);
+
+  // Default/Nullable parameters
+  expect(diagonal.arcToAngleDistance(100, 1/4))
+    .equalsArc(55, 55, 100, 1/8, 3/8, true);
+  expect(diagonal.arcToAngleDistance(100, 1/4, false))
+    .equalsArc(55, 55, 100, 1/8, 7/8, false);
+});
 
 
 test.todo('Recheck coverage');

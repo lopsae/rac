@@ -536,7 +536,7 @@ class Ray {
   arc(radius, endAngle = null, clockwise = true) {
     endAngle = endAngle === null
       ? this.angle
-      : this.rac.Angle.from(end);
+      : this.rac.Angle.from(endAngle);
     return new Rac.Arc(this.rac,
       this.start, radius,
       this.angle, endAngle,
