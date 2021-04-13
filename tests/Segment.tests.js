@@ -12,7 +12,7 @@ let vertical = rac.Segment(100, 100, rac.Angle.down, 100);
 let horizontal = rac.Segment(100, 100, rac.Angle.zero, 100);
 
 
-test('Identity', () => {
+test('Identity', function identity() {
   // Angle/number parameter
   expect(diagonal).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal).equalsSegment(55, 55, rac.Angle.eighth, 100);
@@ -34,7 +34,7 @@ test('Identity', () => {
 });
 
 
-test('Function toString', () => {
+test('Function toString', function toString() {
   const segment = rac.Segment(1.12345, 2.12345, 0.12345, 3.12345);
 
   const string = segment.toString();
