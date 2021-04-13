@@ -82,6 +82,7 @@ class Angle {
   * @returns {boolean}
   */
   equals(someAngle) {
+    // TODO: how to check for type without crashing? just allow angle/number?
     const other = Angle.from(this.rac, someAngle);
     const diff = Math.abs(this.turn - other.turn);
     return diff < this.rac.unitaryEqualityThreshold

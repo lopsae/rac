@@ -28,6 +28,9 @@ test('Identity', () => {
 });
 
 
+test.todo('check equals directly with wrong types')
+
+
 test('Function toString', () => {
   const string = rac.Angle(0.12345).toString();
   expect(string).toMatch('Angle');
