@@ -314,8 +314,9 @@ class Ray {
 
 
   /**
-  * Returns a new `Point` at the intersection of `this` and `otherRay`. When
-  * the rays are parallel, returns `null` since no intersection is
+  * Returns a new `Point` at the intersection of `this` and `otherRay`.
+  *
+  * When the rays are parallel, returns `null` since no intersection is
   * possible.
   *
   * Both rays are considered unbounded lines.
@@ -324,20 +325,20 @@ class Ray {
   * @returns {Rac.Point}
   */
   pointAtIntersection(otherRay) {
-    // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     const a = this.slope();
     const b = otherRay.slope();
     // Parallel lines, no intersection
     if (a === null && b === null) { return null; }
     if (this.rac.unitaryEquals(a, b)) { return null; }
 
-    const c = this.yIntercept();
-    const d = otherRay.yIntercept();
-
-
+    // Any vertical ray
     if (a === null) { return otherRay.pointAtX(this.start.x); }
     if (b === null) { return this.pointAtX(otherRay.start.x); }
 
+    const c = this.yIntercept();
+    const d = otherRay.yIntercept();
+
+    // https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
     const x = (d - c) / (a - b);
     const y = a * x + c;
     return new Rac.Point(this.rac, x, y);
@@ -433,9 +434,6 @@ class Ray {
   }
 
 
-  // TODO: rayToIntersection
-
-
   /**
   * Returns a new `Segment` using `this` and the given `length`.
   * @param {number} length - The length of the new `Segment`
@@ -462,14 +460,29 @@ class Ray {
   }
 
 
-  // TODO: segmentToIntersectionWithRay
-  // segmentToIntersectionWithRay(ray) {
-  //   let intersection = this.pointAtIntersectionWithRay(ray);
-  //   if (intersection === null) {
-  //     return null;
-  //   }
-  //   return this.ray.segmentToPoint(intersection);
-  // }
+  /**
+  * Returns a new `Segment` starting at `this.start` and ending at the
+  * intersection of `this` and `otherRay`.
+  *
+  * When the rays are parallel, returns `null` since no intersection is
+  * possible.
+  *
+  * When `this.start` and the intersection point are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.angle`.
+  *
+  * Both rays are considered unbounded lines.
+  *
+  * @param {Rac.Ray} otherRay - A `Ray` to calculate the intersection with
+  * @returns {Rac.Segment}
+  */
+  segmentToIntersectionWithRay(otherRay) {
+    const intersection = this.pointAtIntersection(otherRay);
+    if (intersection === null) {
+      return null;
+    }
+    return this.ray.segmentToPoint(intersection);
+  }
 
 
   /**
