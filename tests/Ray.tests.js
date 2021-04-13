@@ -15,11 +15,12 @@ let horizontal = rac.Ray(100, 100, rac.Angle.zero);
 
 
 test('Identity', () => {
-  expect(null).not.equalsRay(55, 55, rac.Angle.se);
-
+  expect(diagonal).equalsRay(55, 55, 1/8);
   expect(diagonal).equalsRay(55, 55, rac.Angle.se);
+  expect(diagonal).not.equalsRay(100, 100, 0);
   expect(diagonal).not.equalsRay(100, 100, rac.Angle.zero);
 
+  expect(null).not.equalsRay(55, 55, 1/8);
   expect(55).not.equalsRay(55, 55, 1/8);
   expect(rac.Angle.zero).not.equalsRay(0, 0, 0);
   expect(rac.Point.zero).not.equalsRay(0, 0, 0);

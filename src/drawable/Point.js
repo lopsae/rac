@@ -74,8 +74,8 @@ class Point{
   * @returns {boolean}
   */
   equals(otherPoint) {
-    // TODO: check type?
-    return this.rac.equals(this.x, otherPoint.x)
+    return otherPoint instanceof Point
+      && this.rac.equals(this.x, otherPoint.x)
       && this.rac.equals(this.y, otherPoint.y);
   }
 

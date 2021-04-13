@@ -12,16 +12,19 @@ const fifty = rac.Point(55, 55);
 
 
 test('Identity', () => {
-  expect(null).not.equalsPoint(100, 100);
-
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
 
   expect(hunty).equalsPoint(100, 100);
   expect(fifty).not.equalsPoint(100, 100);
 
+  expect(null).not.equalsPoint(100, 100);
   expect(100).not.equalsPoint(100, 100);
   expect(rac.Angle.zero).not.equalsPoint(0, 0);
+
+  expect(hunty.equals(null)).toBe(false);
+  expect(hunty.equals(100)).toBe(false);
+  expect(hunty.equals(rac.Angle.zero)).toBe(false);
 });
 
 
