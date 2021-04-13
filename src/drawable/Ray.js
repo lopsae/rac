@@ -127,6 +127,32 @@ class Ray {
 
 
   /**
+  * Returns a new `Ray` with `start.x` set to `newX`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {number} newX - The x coordinate for the new `Ray`
+  * @returns {Rac.Ray}
+  */
+  withX(newX) {
+    return new Ray(this.rac, this.start.withX(newX), this.angle);
+  }
+
+
+  /**
+  * Returns a new `Ray` with `start.y` set to `newY`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {number} newY - The y coordinate for the new `Ray`
+  * @returns {Rac.Ray}
+  */
+  withY(newY) {
+    return new Ray(this.rac, this.start.withY(newY), this.angle);
+  }
+
+
+  /**
   * Returns a new `Ray` with `angle` set to `newAngle`.
   *
   * All other properties are copied from `this`.

@@ -85,9 +85,12 @@ test('Function slope/yIntercept', () => {
 });
 
 
-test('Function withStart/withAngle/withStartAtDistance', () => {
+test('Function withStart/withAngle/withX/withY', () => {
   expect(diagonal.withStart(hunty))
     .equalsRay(100, 100, 1/8);
+
+  expect(diagonal.withX(0)).equalsRay(0, 55, 1/8);
+  expect(diagonal.withY(0)).equalsRay(55, 0, 1/8);
 
   expect(diagonal.withAngle(rac.Angle.half))
     .equalsRay(55, 55, 1/2);
