@@ -151,29 +151,19 @@ expect.extend({ equalsRay(ray, x, y, someAngle) {
 
 
 expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
-  const options = {
-    comment: 'equal Segment properties',
-    isNot: this.isNot
-  };
+  const messenger = new Messenger(this,
+    'equalsSegment',
+    'equal Segment properties');
 
-  const angle = rac.Angle.from(someAngle);
-  const expected = rac.Segment(x, y, angle, length);
+  const expected = rac.Segment(x, y, someAngle, length);
 
   if (segment == null) {
-    return fail(() =>
-      this.utils.matcherHint('equalsSegment',
-        'null', expected.toString(),
-        options));
+    return messenger.fail('null', expected.toString(digits),
+      `Unexpected type: ${Rac.utils.typeName(segment)}`);
   }
 
-  const isEqual = rac.equals(segment.ray.start.x, x)
-    && rac.equals(segment.ray.start.y, y)
-    && rac.equals(segment.length, length)
-    && rac.unitaryEquals(segment.ray.angle.turn, angle.turn);
-  return done(isEqual, () =>
-    this.utils.matcherHint('equalsSegment',
-      segment.toString(), expected.toString(),
-      options));
+  const isEqual = expected.equals(segment);
+  return messenger.done(isEqual, segment.toString(digits), expected.toString(digits));
 }}); // equalsSegment
 
 

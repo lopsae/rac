@@ -68,6 +68,21 @@ class Segment {
 
 
   /**
+  * Returns `true` when `ray` and `length` in both segments are equal.
+  *
+  * @param {Rac.Segment} otherSegment - A `Segment` to compare
+  * @returns {boolean}
+  * @see Rac.Ray#equals
+  * @see Rac#equals
+  */
+  equals(otherSegment) {
+    return otherSegment instanceof Segment
+      && this.ray.equals(otherSegment.ray)
+      && this.rac.equals(this.length, otherSegment.length);
+  }
+
+
+  /**
   * Returns the `[angle]{@link Rac.Ray#angle}` of the segment's `ray`.
   * @returns {Rac.Angle}
   */
