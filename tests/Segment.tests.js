@@ -25,17 +25,15 @@ test('Function toString', () => {
 
   const string = segment.toString();
   expect(string).toMatch('Segment');
-  expect(string).toMatch('0.12345');
-  expect(string).toMatch('1.12345');
-  expect(string).toMatch('2.12345');
-  expect(string).toMatch('3.12345');
+  expect(string).toMatch('(1.12345,2.12345)');
+  expect(string).toMatch('a:0.12345');
+  expect(string).toMatch('l:3.12345');
 
   const cutString = segment.toString(2);
   expect(cutString).toMatch('Segment');
-  expect(cutString).toMatch('0.12');
-  expect(cutString).toMatch('1.12');
-  expect(cutString).toMatch('2.12');
-  expect(cutString).toMatch('3.12');
+  expect(cutString).toMatch('(1.12,2.12)');
+  expect(cutString).toMatch('a:0.12');
+  expect(cutString).toMatch('l:3.12');
   expect(cutString).not.toMatch('0.123');
   expect(cutString).not.toMatch('1.123');
   expect(cutString).not.toMatch('2.123');
