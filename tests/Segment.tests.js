@@ -13,10 +13,24 @@ let horizontal = rac.Segment(100, 100, rac.Angle.zero, 100);
 
 
 test('Identity', () => {
-  expect(null).not.equalsSegment(55, 55, rac.Angle.eighth, 100);
-
+  // Angle/number parameter
+  expect(diagonal).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal).equalsSegment(55, 55, rac.Angle.eighth, 100);
   expect(diagonal).not.equalsSegment(7, 7, 0, 7);
+  expect(diagonal).not.equalsSegment(7, 7, rac.Angle.zero, 7);
+
+  // Unexpected type for equalsSegment
+  expect(null).not.equalsSegment(55, 55, 1/8, 100);
+  expect(55).not.equalsSegment(55, 55, 1/8, 100);
+  expect(rac.Point.zero).not.equalsSegment(55, 55, 1/8, 100);
+  expect(rac.Angle.eighth).not.equalsSegment(55, 55, 1/8, 100);
+  // TODO: test against rac.Ray.x/yAxis
+
+  // Unexpected type for equals
+  expect(diagonal.equals(null)).toBe(false);
+  expect(diagonal.equals(55)).toBe(false);
+  expect(diagonal.equals(rac.Point.zero)).toBe(false);
+  expect(diagonal.equals(rac.Angle.eighth)).toBe(false);
 });
 
 
