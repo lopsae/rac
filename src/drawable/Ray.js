@@ -197,20 +197,6 @@ class Ray {
 
 
   /**
-  * Returns a new `Ray` with `start` moved towards `angle` by the given
-  * `distance`. All other properties are copied from `this`.
-  *
-  * @param {Rac.Angle|number} angle - An `Angle` to move `start` towards
-  * @param {number} distance - The distance to move `start` by
-  * @returns {Rac.Ray}
-  */
-  translateToAngle(angle, distance) {
-    const newStart = this.start.pointToAngle(angle, distance);
-    return new Ray(this.rac, newStart, this.angle);
-  }
-
-
-  /**
   * Returns a new `Ray` with `start` moved along the ray by the given
   * `distance`. All other properties are copied from `this`.
   *
@@ -222,6 +208,20 @@ class Ray {
   */
   translateToDistance(distance) {
     const newStart = this.start.pointToAngle(this.angle, distance);
+    return new Ray(this.rac, newStart, this.angle);
+  }
+
+
+  /**
+  * Returns a new `Ray` with `start` moved towards `angle` by the given
+  * `distance`. All other properties are copied from `this`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to move `start` towards
+  * @param {number} distance - The distance to move `start` by
+  * @returns {Rac.Ray}
+  */
+  translateToAngle(angle, distance) {
+    const newStart = this.start.pointToAngle(angle, distance);
     return new Ray(this.rac, newStart, this.angle);
   }
 

@@ -135,10 +135,35 @@ test('Translations', () => {
     .equalsRay(110, 110, 1/8);
   expect(diagonal.translateToDistance(-distance))
     .equalsRay(0, 0, 1/8);
+
+  expect(diagonal.translateToAngle(rac.Angle.right, 0))
+    .equalsRay(55, 55, 1/8);
+  expect(diagonal.translateToAngle(rac.Angle.down, 0))
+    .equalsRay(55, 55, 1/8);
+  expect(diagonal.translateToAngle(rac.Angle.left, 55))
+    .equalsRay(0, 55, 1/8);
+  expect(diagonal.translateToAngle(rac.Angle.up, 55))
+    .equalsRay(55, 0, 1/8);
+  expect(diagonal.translateToAngle(rac.Angle.eighth, distance))
+    .equalsRay(110, 110, 1/8);
+
+  expect(diagonal.translatePerpendicular(0))
+    .equalsRay(55, 55, 1/8);
+  expect(diagonal.translatePerpendicular(distance))
+    .equalsRay(0, 110, 1/8);
+  expect(diagonal.translatePerpendicular(distance, false))
+    .equalsRay(110, 0, 1/8);
+
+  expect(vertical.translatePerpendicular(55))
+    .equalsRay(45, 100, rac.Angle.down);
+  expect(vertical.translatePerpendicular(55, false))
+    .equalsRay(155, 100, rac.Angle.down);
+
+  expect(horizontal.translatePerpendicular(55))
+    .equalsRay(100, 155, rac.Angle.zero);
+  expect(horizontal.translatePerpendicular(55, false))
+    .equalsRay(100, 45, rac.Angle.zero);
 });
-
-
-test.todo('more Translations');
 
 
 test('Axis intersection', () => {
