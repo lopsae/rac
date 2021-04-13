@@ -304,7 +304,39 @@ test('Point projection', () => {
 test('Transforms to Segment', () => {
   expect(diagonal.segment(100)).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal.segment(0)).equalsSegment(55, 55, 1/8, 0);
+
+  expect(diagonal.segmentToPoint(fifty))
+    .equalsSegment(55, 55, 1/8, 0);
+  expect(diagonal.segmentToPoint(rac.Point.zero))
+    .equalsSegment(55, 55, rac.Angle.nw, tools.hypotenuse(55));
+  expect(diagonal.segmentToPoint(hunty))
+    .equalsSegment(55, 55, 1/8, tools.hypotenuse(45));
+
+  const shiftedVertical = vertical.withY(0);
+  const shiftedHorizontal = horizontal.withX(0);
+  expect(shiftedHorizontal.segmentToIntersection(shiftedVertical))
+    .equalsSegment(0, 100, rac.Angle.right, 100);
+  expect(shiftedVertical.segmentToIntersection(shiftedHorizontal))
+    .equalsSegment(100, 0, rac.Angle.down, 100);
+
+  // Parallels
+  expect(vertical.segmentToIntersection(shiftedVertical))
+    .toBe(null);
+  expect(horizontal.segmentToIntersection(shiftedHorizontal))
+    .toBe(null);
+
+  // Intersecion in rays
+  expect(vertical.segmentToIntersection(diagonal))
+    .equalsSegment(100, 100, rac.Angle.down, 0);
+  expect(vertical.segmentToIntersection(horizontal))
+    .equalsSegment(100, 100, rac.Angle.down, 0);
+  expect(vertical.segmentToIntersection(diagonal))
+    .equalsSegment(100, 100, rac.Angle.down, 0);
 });
+
+
+test.todo('Transforms to Arc');//, () => {
+// });
 
 
 test.todo('Recheck coverage');

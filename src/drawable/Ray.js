@@ -514,12 +514,12 @@ class Ray {
   * @param {Rac.Ray} otherRay - A `Ray` to calculate the intersection with
   * @returns {Rac.Segment}
   */
-  segmentToIntersectionWithRay(otherRay) {
+  segmentToIntersection(otherRay) {
     const intersection = this.pointAtIntersection(otherRay);
     if (intersection === null) {
       return null;
     }
-    return this.ray.segmentToPoint(intersection);
+    return this.segmentToPoint(intersection);
   }
 
 
