@@ -418,12 +418,12 @@ class Ray {
   * @see Rac.Ray#inverse
   */
   pointOrientation(point) {
-    let pointAngle = this.start.angleToPoint(point, this.angle);
-    if (this.angle.equals(pointAtDistance)) {
+    const pointAngle = this.start.angleToPoint(point, this.angle);
+    if (this.angle.equals(pointAngle)) {
       return true;
     }
 
-    let angleDistance = angle.subtract(this.pointAngle);
+    const angleDistance = pointAngle.subtract(this.angle);
     // [0 to 0.5) is considered clockwise
     // [0.5, 1) is considered counter-clockwise
     return angleDistance.turn < 0.5;

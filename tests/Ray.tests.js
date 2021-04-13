@@ -166,6 +166,30 @@ test('Translations', () => {
 });
 
 
+test('Point operations', () => {
+  expect(diagonal.angleToPoint(rac.Point.zero))
+    .equalsAngle(rac.Angle.nw);
+  expect(diagonal.angleToPoint(rac.Point(0, 55)))
+    .equalsAngle(rac.Angle.w);
+  expect(diagonal.angleToPoint(fifty))
+    .equalsAngle(1/8);
+
+  expect(diagonal.pointOrientation(hunty)).toBe(true);
+  expect(diagonal.pointOrientation(fifty)).toBe(true);
+  expect(diagonal.pointOrientation(rac.Point.zero)).toBe(false);
+
+  expect(diagonal.pointOrientation(hunty.withX(0))).toBe(true);
+  expect(diagonal.pointOrientation(hunty.withY(0))).toBe(false);
+
+  expect(vertical.rayToPoint(fifty))
+    .equalsRay(100, 100, rac.Angle.nw);
+  expect(vertical.rayToPoint(hunty.withX(0)))
+    .equalsRay(100, 100, rac.Angle.left);
+  expect(vertical.rayToPoint(hunty))
+    .equalsRay(100, 100, rac.Angle.down);
+});
+
+
 test('Axis intersection', () => {
   expect(vertical.pointAtX(55)).toBe(null);
   expect(vertical.pointAtY(55)).equalsPoint(100, 55);
