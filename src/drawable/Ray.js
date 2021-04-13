@@ -59,7 +59,19 @@ class Ray {
   }
 
 
-  // TODO: implement equals, and use in tests
+  /**
+  * Returns `true` when `start` and `angle` in both rays are equal.
+  *
+  * @param {Rac.Ray} otherRay - A `Ray` to compare
+  * @returns {boolean}
+  * @see Rac.Point#equals
+  * @see Rac.Angle#equals
+  */
+  equals(otherRay) {
+    return otherRay instanceof Ray
+      && this.start.equals(otherRay.start)
+      && this.angle.equals(otherRay.angle);
+  }
 
 
   /**

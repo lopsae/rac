@@ -145,8 +145,7 @@ expect.extend({ equalsRay(ray, x, y, someAngle) {
       `Unexpected type: ${Rac.utils.typeName(ray)}`);
   }
 
-  const isEqual = expected.start.equals(ray.start)
-    && expected.angle.equals(ray.angle);
+  const isEqual = expected.equals(ray);
   return messenger.done(isEqual, ray.toString(digits), expected.toString(digits));
 }}); // equalsRay
 

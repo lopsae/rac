@@ -23,6 +23,11 @@ test('Identity', () => {
   expect(55).not.equalsRay(55, 55, 1/8);
   expect(rac.Angle.zero).not.equalsRay(0, 0, 0);
   expect(rac.Point.zero).not.equalsRay(0, 0, 0);
+
+  expect(diagonal.equals(null)).toBe(false);
+  expect(diagonal.equals(55)).toBe(false);
+  expect(diagonal.equals(rac.Angle.zero)).toBe(false);
+  expect(diagonal.equals(rac.Point.zero)).toBe(false);
 });
 
 
