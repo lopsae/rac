@@ -542,39 +542,61 @@ class Segment {
   }
 
 
-  // Returns an complete circle Arc using this segment `start` as center,
-  // `length()` as radiusm, and `angle()` as start and end angles.
-  // Returns an Arc using this segment `start` as center, `length()` as
-  // radius, starting from the `angle()` to the given angle and orientation.
-  arc(someAngleEnd = null, clockwise = true) {
-    let angleEnd = someAngleEnd === null
+  /**
+  * Returns a new `Arc` based on this segment, with the given `angleEnd` and
+  * `clockwise` orientation.
+  *
+  * The returned `Arc` will use this segment's start as `center`, its angle
+  * as `start`, and its length as `radius`.
+  *
+  * When `angleEnd` is ommited or `null`, the segment's angle is used
+  * instead resulting in a complete-circle arc.
+  *
+  * @param {?Rac.Angle} [angleEnd=null] - An `Angle` to use as end for the
+  * new `Arc`, or `this.angle()` when ommited
+  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @returns {Rac.Arc}
+  */
+  arc(angleEnd = null, clockwise = true) {
+    angleEnd = angleEnd === null
       ? this.ray.angle
-      :this.rac.Angle.from(someAngleEnd);
+      : this.rac.Angle.from(angleEnd);
     return new Rac.Arc(this.rac,
       this.ray.start, this.length,
       this.ray.angle, angleEnd,
       clockwise);
   }
 
+
+  /**
+  * Returns a new `Arc` based on this segment, with the arc's end at
+  * `angleDistance` from the segment's angle in the `clockwise`
+  * orientation.
+  *
+  * The returned `Arc` will use this segment's start as `center`, its angle
+  * as `start`, and its length as `radius`.
+  *
+  * @param {Rac.Angle|number} angleDistance - The angle distance from the
+  * segment's start to the new `Arc` end
+  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @returns {Rac.Arc}
+  */
+  arcWithAngleDistance(angleDistance, clockwise = true) {
+    let angleDistance = this.rac.Angle.from(someAngleDistance);
+    let arcStart = this.angle();
+    let arcEnd = arcStart.shift(angleDistance, clockwise);
+
+    return new Rac.Arc(this.rac,
+      this.start, this.length(),
+      arcStart, arcEnd,
+      clockwise);
+  }
+
+
 } // Segment
 
 
 module.exports = Segment;
-
-
-// Returns an Arc using this segment `start` as center, `length()` as
-// radius, starting from the `angle()` to the arc distance of the given
-// angle and orientation.
-Segment.prototype.arcWithAngleDistance = function(someAngleDistance, clockwise = true) {
-  let angleDistance = this.rac.Angle.from(someAngleDistance);
-  let arcStart = this.angle();
-  let arcEnd = arcStart.shift(angleDistance, clockwise);
-
-  return new Rac.Arc(this.rac,
-    this.start, this.length(),
-    arcStart, arcEnd,
-    clockwise);
-};
 
 
 Segment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
