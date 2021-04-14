@@ -301,6 +301,32 @@ class Segment {
 
 
   /**
+  * Returns the given `value` clamped to [startInset, length-endInset].
+  *
+  * When `startInset`, `endInset` and `length` result in a contradictory
+  * range, the returned value will be centered between the range limits.
+  * @param {number} value - A value to clamp
+  * @param {number} [startInset=0] - The inset of the lower limit of the
+  * clamping range
+  * @param {endInset} [endInset=0] - The inset of the higher limit of the
+  * clamping range
+  * @returns {number}
+  */
+  clampToLength(value, startInset = 0, endInset = 0) {
+    const endLimit = this.length - endInset;
+    if (startInset >= endLimit) {
+      // imposible range, return middle point
+      const middle = (startInset - endLimit) / 2;
+      return startInset - middle;
+    }
+    let clamped = value;
+    clamped = Math.min(clamped, this.length - endInset);
+    clamped = Math.max(clamped, startInset);
+    return clamped;
+  }
+
+
+  /**
   * Returns a new `Point` in the segment's ray at the given `length` from
   * `ray.start`. When `length` is negative, the new `Point` is calculated
   * in the inverse direction of `ray.angle`.
@@ -475,19 +501,6 @@ class Segment {
       .withStartAtDistance(this.length)
       .perpendicular(!clockwise);
     return new Segment(this.rac, newRay, newLength);
-  }
-
-  // Returns `value` clamped to the given insets from zero and the length
-  // of the segment.
-  // TODO: invalid range could return a value centered in the insets! more visually congruent
-  // If the `start/endInset` values result in a contradictory range, the
-  // returned value will comply with `startInset`.
-  clampToLengthInsets(value, startInset = 0, endInset = 0) {
-    let clamped = value;
-    clamped = Math.min(clamped, this.length - endInset);
-    // Comply at least with startInset
-    clamped = Math.max(clamped, startInset);
-    return clamped;
   }
 
 
