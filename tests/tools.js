@@ -189,11 +189,13 @@ expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
   if (!(segment instanceof Rac.Segment)) {
     return msg.fail(segment.toString(), expected,
       `Received type: ${msg.r(Rac.utils.typeName(segment))}`,
-      `Expecting: ${msg.e('Rac.Segment')}`);
+      `Expected: ${msg.e('Rac.Segment')}`);
   }
 
   const isEqual = expected.equals(segment);
-  return msg.done(isEqual, segment, expected);
+  return msg.done(isEqual, segment, expected,
+    `Received: ${msg.r(segment.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
 }}); // equalsSegment
 
 
