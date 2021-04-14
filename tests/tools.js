@@ -2,6 +2,9 @@
 
 
 const Rac = require('ruler-and-compass');
+const chalk = require('chalk');
+
+
 // TODO: can this be set in a better place?
 Rac.Exception.buildsErrors = true;
 
@@ -63,13 +66,34 @@ class Messenger {
     };
   }
 
+  // Returns a string with red coloring, for received values
+  r(received) {
+    return chalk.red(received);
+  }
+
+  // Returns a string with green coloring, for expected values
+  e(expected) {
+    return chalk.green(expected);
+  }
+
   done(passes, received, expected, ...lines) {
     const messageFunc = () => {
+      const receivedStr = typeof received === "string"
+        ? received
+        : received.toString(digits);
+      const expectedStr = typeof expected === "string"
+        ? expected
+        : expected.toString(digits);
+
       const hint = this.matcher.utils.matcherHint(
         this.funcName,
-        received, expected,
+        receivedStr, expectedStr,
         this.options);
 
+      if (lines.length > 0) {
+        // add an empty line
+        lines.unshift('');
+      }
       lines.unshift(hint);
       return lines.join('\n');
     };
@@ -83,6 +107,7 @@ class Messenger {
     return this.done(true, received, expected, ...lines);
   }
 
+  // received/expected can be a string or a drawable
   fail(received, expected, ...lines) {
     return this.done(false, received, expected, ...lines);
   }
@@ -101,12 +126,12 @@ expect.extend({ equalsAngle(angle, someAngle) {
   }
 
   if (!(angle instanceof Rac.Angle)) {
-    return messenger.fail(angle.toString(), expected.toString(digits),
+    return messenger.fail(angle.toString(), expected,
       `Unexpected type: ${Rac.utils.typeName(angle)}`);
   }
 
   const isEqual = expected.equals(angle);
-  return messenger.done(isEqual, angle.toString(digits), expected.toString(digits));
+  return messenger.done(isEqual, angle, expected);
 }}); // equalsAngle
 
 
@@ -117,16 +142,16 @@ expect.extend({ equalsPoint(point, x, y) {
 
   const expected = rac.Point(x, y);
   if (point == null) {
-    return messenger.fail('null', expected.toString(digits));
+    return messenger.fail('null', expected);
   }
 
   if (!(point instanceof Rac.Point)) {
-    return messenger.fail(point.toString(), expected.toString(digits),
+    return messenger.fail(point.toString(), expected,
       `Unexpected type: ${Rac.utils.typeName(point)}`);
   }
 
   const isEqual = expected.equals(point);
-  return messenger.done(isEqual, point.toString(digits), expected.toString(digits));
+  return messenger.done(isEqual, point, expected);
 }}); // equalsPoint
 
 
@@ -137,33 +162,38 @@ expect.extend({ equalsRay(ray, x, y, someAngle) {
 
   const expected = rac.Ray(x, y, someAngle);
   if (ray == null) {
-    return messenger.fail('null', expected.toString(digits));
+    return messenger.fail('null', expected);
   }
 
   if (!(ray instanceof Rac.Ray)) {
-    return messenger.fail(ray.toString(), expected.toString(digits),
+    return messenger.fail(ray.toString(), expected,
       `Unexpected type: ${Rac.utils.typeName(ray)}`);
   }
 
   const isEqual = expected.equals(ray);
-  return messenger.done(isEqual, ray.toString(digits), expected.toString(digits));
+  return messenger.done(isEqual, ray, expected);
 }}); // equalsRay
 
 
 expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
-  const messenger = new Messenger(this,
+  const msg = new Messenger(this,
     'equalsSegment',
     'equal Segment properties');
 
   const expected = rac.Segment(x, y, someAngle, length);
 
   if (segment == null) {
-    return messenger.fail('null', expected.toString(digits),
-      `Unexpected type: ${Rac.utils.typeName(segment)}`);
+    return msg.fail('null', expected);
+  }
+
+  if (!(segment instanceof Rac.Segment)) {
+    return msg.fail(segment.toString(), expected,
+      `Received type: ${msg.r(Rac.utils.typeName(segment))}`,
+      `Expecting: ${msg.e('Rac.Segment')}`);
   }
 
   const isEqual = expected.equals(segment);
-  return messenger.done(isEqual, segment.toString(digits), expected.toString(digits));
+  return msg.done(isEqual, segment, expected);
 }}); // equalsSegment
 
 
@@ -197,12 +227,12 @@ expect.extend({ equalsText(text, x, y, string) {
 
   const expected = rac.Text(x, y, string, rac.Text.Format.topLeft);
   if (text == null) {
-    return messenger.fail('null', expected.toString(digits));
+    return messenger.fail('null', expected);
   }
 
   const isEqual = expected.string === text.string
     && expected.point.equals(text.point);
-  return messenger.done(isEqual, text.toString(digits), expected.toString(digits))
+  return messenger.done(isEqual, text, expected)
 }}); // equalsText
 
 
