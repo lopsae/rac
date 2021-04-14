@@ -552,7 +552,7 @@ class Ray {
   * @param {number} radius - The radius of the new `Arc`
   * @param {Rac.Angle|number} angleDistance - The angle distance from
   * `this.start` to the new `Arc` end
-  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
+  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arcToAngleDistance(radius, angleDistance, clockwise = true) {

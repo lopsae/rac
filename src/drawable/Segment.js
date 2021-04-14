@@ -255,69 +255,6 @@ class Segment {
 
 
   /**
-  * Returns a new `Point` in the segment's ray at the given `length` from
-  * `ray.start`. When `length` is negative, the new `Point` is calculated
-  * in the inverse direction of `ray.angle`.
-  *
-  * @param {number} length - The distance from `ray.start`
-  * @returns {Rac.Point}
-  * @see Rac.Ray#pointAtDistance
-  */
-  pointAtLength(length) {
-    return this.ray.pointAtDistance(length);
-  }
-
-
-  /**
-  * Returns a new `Point` in the segment's ray at a distance of
-  * `this.length * ratio` from `ray.start`. When `ratio` is negative, the
-  * new `Point` is calculated in the inverse direction of `ray.angle`.
-  *
-  * @param {number} ratio - The factor to multiply `length` by
-  * @returns {Rac.Point}
-  * @see Rac.Ray#pointAtDistance
-  */
-  pointAtLengthRatio(ratio) {
-    return this.ray.pointAtDistance(this.length * ratio);
-  }
-
-
-  /**
-  * Returns a new `Segment` starting at `newStartPoint` and ending at
-  * `this.endPoint()`.
-  *
-  * When `newStartPoint` and `this.endPoint()` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.ray.angle`.
-  *
-  * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
-  * @returns {Rac.Segment}
-  * @see Rac.Point#equals
-  */
-  moveStartPoint(newStartPoint) {
-    const endPoint = this.endPoint();
-    return newStartPoint.segmentToPoint(endPoint, this.ray.angle);
-  }
-
-
-  /**
-  * Returns a new `Segment` starting at `this.ray.start` and ending at
-  * `newEndPoint`.
-  *
-  * When `this.ray.start` and `newEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.ray.angle`.
-  *
-  * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
-  * @returns {Rac.Segment}
-  * @see Rac.Point#equals
-  */
-  moveEndPoint(newEndPoint) {
-    return this.ray.segmentToPoint(newEndPoint);
-  }
-
-
-  /**
   * Returns a new `Segment` with the start point moved towards `angle` by
   * the given `distance`. All other properties are copied from `this`.
   *
@@ -364,6 +301,78 @@ class Segment {
 
 
   /**
+  * Returns a new `Point` in the segment's ray at the given `length` from
+  * `ray.start`. When `length` is negative, the new `Point` is calculated
+  * in the inverse direction of `ray.angle`.
+  *
+  * @param {number} length - The distance from `ray.start`
+  * @returns {Rac.Point}
+  * @see Rac.Ray#pointAtDistance
+  */
+  pointAtLength(length) {
+    return this.ray.pointAtDistance(length);
+  }
+
+
+  /**
+  * Returns a new `Point` in the segment's ray at a distance of
+  * `this.length * ratio` from `ray.start`. When `ratio` is negative, the
+  * new `Point` is calculated in the inverse direction of `ray.angle`.
+  *
+  * @param {number} ratio - The factor to multiply `length` by
+  * @returns {Rac.Point}
+  * @see Rac.Ray#pointAtDistance
+  */
+  pointAtLengthRatio(ratio) {
+    return this.ray.pointAtDistance(this.length * ratio);
+  }
+
+
+  /**
+  * Returns a new `Point` at the middle point the segment.
+  * @returns {Rac.Point}
+  */
+  pointAtBisector() {
+    return this.ray.pointAtDistance(this.length/2);
+  }
+
+
+  /**
+  * Returns a new `Segment` starting at `newStartPoint` and ending at
+  * `this.endPoint()`.
+  *
+  * When `newStartPoint` and `this.endPoint()` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.ray.angle`.
+  *
+  * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
+  * @returns {Rac.Segment}
+  * @see Rac.Point#equals
+  */
+  moveStartPoint(newStartPoint) {
+    const endPoint = this.endPoint();
+    return newStartPoint.segmentToPoint(endPoint, this.ray.angle);
+  }
+
+
+  /**
+  * Returns a new `Segment` starting at `this.ray.start` and ending at
+  * `newEndPoint`.
+  *
+  * When `this.ray.start` and `newEndPoint` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
+  * `this.ray.angle`.
+  *
+  * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
+  * @returns {Rac.Segment}
+  * @see Rac.Point#equals
+  */
+  moveEndPoint(newEndPoint) {
+    return this.ray.segmentToPoint(newEndPoint);
+  }
+
+
+  /**
   * Returns a new `Segment` starting from `endPoint()` with the given
   * `length` and the same angle as `this`.
   *
@@ -394,32 +403,72 @@ class Segment {
     return newStart.segmentToPoint(nextEnd, this.ray.angle);
   }
 
-  // Returns a new segment from `end` to the given `someAngle` and `distance`.
+
+  /**
+  * Returns a new `Segment` starting from `endPoint()` towards `angle`
+  * with the given `length`.
+  *
+  * @param {Rac.Angle|number} angle - The angle of the new `Segment`
+  * @param {number} length - The length of the new `Segment`
+  * @returns {Rac.Segment}
+  */
   nextSegmentToAngle(angle, length) {
     const newStart = this.endPoint();
     const newRay = new Rac.Ray(this.rac, newStart, angle);
     return new Segment(this.rac, newRay, length);
   }
 
-  // Returns a new segment from `endPoint()`, with an angle shifted from
-  // `angle().inverse()` in the `clockwise` orientation.
-  //
-  // This means that with an angle shift of `0` the next segment will have
-  // the inverse angle of `this`, as the angle shift increases the next
-  // segment separates from `this`.
-  nextSegmentToAngleShift(someAngle, clockwise = true, length = null) {
+
+  /**
+  * Returns a new `Segment` starting from `endPoint()` towards the given
+  * `angleDistance` from `this.angle().inverse()` in the `clockwise`
+  * orientation.
+  *
+  * The new `Segment` will have the given `length`, or when ommited will
+  * use `this.length` instead.
+  *
+  * Notice that the `angleDistance` is applied to the inverse of the
+  * segment's angle. E.g. with an `angleDistance` of `0` the resulting
+  * `Segment` will be pointing in the inverse angle of `this`. As the
+  * `angleDistance` increases the two segments separate with the pivot at
+  * `endPoint()`.
+  *
+  * @param {Rac.Angle|number} angleDistance - An angle distance to apply to
+  * the segment's angle inverse
+  * @param {boolean} [clockwise=true] - The orientation of the angle shift
+  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * `this.length` when ommited
+  * @returns {Rac.Segment}
+  */
+  nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null) {
+    angleDistance = this.rac.Angle.from(angleDistance);
     const newLength = length === null ? this.length : length;
-    const angle = this.rac.Angle.from(someAngle);
     const newRay = this.ray
-      .withStartAtDistance(this.length)
+      .translateToDistance(this.length)
       .inverse()
-      .withAngleShift(angle, clockwise);
+      .withAngleShift(angleDistance, clockwise);
     return new Segment(this.rac, newRay, newLength);
   }
 
 
-  // Returns a new segment from `this.end`, with the same length, that is
-  // perpendicular to `angle().inverse()` in the `clockwise` orientation.
+  /**
+  * Returns a new `Segment` starting from `endPoint()` towards the
+  * `[perpendicular angle]{@link Rac.Angle#perpendicular}` of
+  * `this.angle().inverse()` in the `clockwise` orientation.
+  *
+  * The new `Segment` will have the given `length`, or when ommited will
+  * use `this.length` instead.
+  *
+  * Notice that the perpendicular is calculated from the inverse of the
+  * segment's angle. E.g. with `clockwise` as `true`, the resulting
+  * `Segment` will be pointing towards `this.angle().perpendicular(false)`.
+  *
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * `this.length` when ommited
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#perpendicular
+  */
   nextSegmentPerpendicular(clockwise = true, length = null) {
     const newLength = length === null ? this.length : length;
     const newRay = this.ray
@@ -439,14 +488,6 @@ class Segment {
     // Comply at least with startInset
     clamped = Math.max(clamped, startInset);
     return clamped;
-  }
-
-  pointAtBisector() {
-    return this.ray.pointAtDistance(this.length/2);
-  }
-
-  projectedPoint(point) {
-    return this.ray.projectedPoint(point);
   }
 
 
@@ -498,7 +539,7 @@ Segment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
   let angle = this.rac.Angle.fromRadians(radians);
 
   let hypSegment = this.reverse()
-    .nextSegmentToAngleShift(angle, !clockwise, hypotenuse);
+    .nextSegmentToAngleDistance(angle, !clockwise, hypotenuse);
   return this.end.segmentToPoint(hypSegment.end);
 };
 
