@@ -5,6 +5,9 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
+// TODO: fix uses of someAngle
+
+
 /**
 * Arc from a start angle to an end angle.
 * @alias Rac.Arc

@@ -5,6 +5,9 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
+// TODO: fix uses of someAngle
+
+
 /**
 * Control that uses an Arc as anchor.
 * @alias Rac.ArcControl
