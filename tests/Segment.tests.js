@@ -13,15 +13,18 @@ let horizontal = rac.Segment(100, 100, rac.Angle.zero, 100);
 
 
 test('Identity', function identity() {
+  // Instance members
+  expect(rac.Segment.zero).equalsSegment(0, 0, 0, 0);
+
   // Angle/number parameter
   expect(diagonal).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal).equalsSegment(55, 55, rac.Angle.eighth, 100);
 
   // Inequality
-  expect(diagonal).not.equalsSegment(0, 55, 1/8, 100);
-  expect(diagonal).not.equalsSegment(55, 0, 1/8, 100);
-  expect(diagonal).not.equalsSegment(55, 55, 0, 100);
-  expect(diagonal).not.equalsSegment(55, 55, 1/8, 0);
+  expect(rac.Segment.zero).not.equalsSegment(7, 0, .0, 0);
+  expect(rac.Segment.zero).not.equalsSegment(0, 7, .0, 0);
+  expect(rac.Segment.zero).not.equalsSegment(0, 0, .7, 0);
+  expect(rac.Segment.zero).not.equalsSegment(0, 0, .0, 7);
 
   // Unexpected type for equalsSegment
   expect(null)          .not.equalsSegment(0, 0, 0, 0);
@@ -35,6 +38,7 @@ test('Identity', function identity() {
   expect(diagonal.equals(55))              .toBe(false);
   expect(diagonal.equals(rac.Point.zero))  .toBe(false);
   expect(diagonal.equals(rac.Angle.eighth)).toBe(false);
+  expect(diagonal.equals(rac.Ray.zero))    .toBe(false);
 });
 
 
