@@ -85,12 +85,13 @@ class Rac {
     */
     this.drawer = null;
 
-    require('./style/rac.Color')   (this);
-    require('./style/rac.Stroke')  (this);
-    require('./style/rac.Fill')    (this);
-    require('./drawable/rac.Angle')(this);
-    require('./drawable/rac.Point')(this);
-    require('./drawable/rac.Ray')  (this);
+    require('./style/rac.Color')     (this);
+    require('./style/rac.Stroke')    (this);
+    require('./style/rac.Fill')      (this);
+    require('./drawable/rac.Angle')  (this);
+    require('./drawable/rac.Point')  (this);
+    require('./drawable/rac.Ray')    (this);
+    require('./drawable/rac.Segment')(this);
 
     // Depends on rac.Point and rac.Angle being already setup
     require('./drawable/rac.Text')(this);
@@ -150,6 +151,7 @@ class Rac {
   * @param {number} b
   * @param {number=} a
   * @returns {Rac.Color}
+  * @see instance.Color
   */
   Color(r, g, b, alpha = 1) {
     return new Rac.Color(this, r, g, b, alpha);
@@ -165,6 +167,7 @@ class Rac {
   * @param {Rac.Color=} color
   * @param {number=} weight
   * @returns {Rac.Stroke}
+  * @see instance.Stroke
   */
   Stroke(color = null, weight = 1) {
     return new Rac.Stroke(this, color, weight);
@@ -179,6 +182,7 @@ class Rac {
   *
   * @param {Rac.Color=} color
   * @returns {Rac.Fill}
+  * @see instance.Fill
   */
   Fill(color = null) {
     return new Rac.Fill(this, color);
@@ -194,6 +198,7 @@ class Rac {
   * @param {Rac.Stroke=} stroke
   * @param {Rac.Fill=} fill
   * @returns {Rac.Style}
+  * @see instance.Style
   */
   Style(stroke = null, fill = null) {
     return new Rac.Style(this, stroke, fill);
@@ -208,6 +213,7 @@ class Rac {
   *
   * @param {number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
+  * @see instance.Angle
   */
   Angle(turn) {
     return new Rac.Angle(this, turn);
@@ -223,6 +229,7 @@ class Rac {
   * @param {number} x
   * @param {number} y
   * @returns {Rac.Point}
+  * @see instance.Point
   */
   Point(x, y) {
     return new Rac.Point(this, x, y);
@@ -239,6 +246,7 @@ class Rac {
   * @param {number} y
   * @param {Rac.Angle|number} angle
   * @returns {Rac.Ray}
+  * @see instance.Ray
   */
   Ray(x, y, angle) {
     const start = new Rac.Point(this, x, y);
@@ -246,12 +254,6 @@ class Rac {
     return new Rac.Ray(this, start, angle);
   }
 
-
-  /**
-  * The `instance.Segment` function contains convenience methods and properties
-  * for `{@link Rac.Segment}` objects setup with the owning `Rac` instance.
-  * @namespace instance.Segment
-  */
 
   /**
   * Convenience function that creates a new `Segment` setup with `this`.
@@ -264,6 +266,7 @@ class Rac {
   * @param {Rac.Angle|number} angle
   * @param {number} length
   * @returns {Rac.Segment}
+  * @see instance.Segment
   */
   Segment(x, y, angle, length) {
     const start = new Rac.Point(this, x, y);
@@ -291,6 +294,7 @@ class Rac {
   * @param {Rac.Angle|number=} someEnd=someStart
   * @param {boolean=} clockwise=true
   * @returns {Rac.Arc}
+  * @see instance.Arc
   */
   Arc(x, y, radius, someStart = this.Angle.zero, someEnd = someStart, clockwise = true) {
     const center = new Rac.Point(this, x, y);
@@ -311,6 +315,7 @@ class Rac {
   * @param {string} string
   * @param {Rac.Text.Format} format
   * @returns {Rac.Text}
+  * @see instance.Text
   */
   Text(x, y, string, format) {
     const point = new Rac.Point(this, x, y);
