@@ -93,12 +93,12 @@ test('Errors', function errors() {
 });
 
 
-test('Properties', () => {
+test('Accesors', function accesors() {
   expect(diagonal.startPoint()).equalsPoint(55, 55);
   expect(diagonal.angle()).equalsAngle(1/8);
 
-  let side = tools.sides(100);
-  expect(diagonal.endPoint()).equalsPoint(55+side, 55+side);
+  let cathetus = tools.cathetus(100);
+  expect(diagonal.endPoint()).equalsPoint(55+cathetus, 55+cathetus);
 });
 
 

@@ -16,15 +16,16 @@ exports.rac = rac;
 const digits = 3;
 
 
-// Returns the hypotenuse of a triangle with sides a,b, or a,a.
+// Returns the hypotenuse of a triangle with catheti a,b, or a,a.
 exports.hypotenuse = function(a, maybeB = null) {
   const b = maybeB === null ? a : b;
   return Math.sqrt(a*a + b*b);
 };
 
 
-// Returns the side of a triangle of hypotenuse hyp and equal sides.
-exports.sides = function(hyp) {
+// Returns the length of the side of a triangle of hypotenuse hyp and equal
+// catheti.
+exports.cathetus = function(hyp) {
   return Math.sqrt(hyp*hyp/2);
 };
 

@@ -151,9 +151,9 @@ test('Transformations', () => {
   expect(hunty.pointToAngle(rac.Angle.up, 100))
     .equalsPoint(100, 0);
 
-  let side = tools.sides(100);
+  let cathetus = tools.cathetus(100);
   expect(hunty.pointToAngle(rac.Angle.eighth, 100))
-    .equalsPoint(100+side, 100+side);
+    .equalsPoint(100+cathetus, 100+cathetus);
 });
 
 
@@ -244,7 +244,7 @@ test('Arc Tangents', () => {
   expect(hunty.segmentTangentToArc(circle, false))
     .equalsSegment(100, 100, rac.Angle.left, 50);
 
-  const diagonalX = 50 + tools.sides(50) * 2;
+  const diagonalX = 50 + tools.cathetus(50) * 2;
   const diagonalPoint = rac.Point(diagonalX, 50);
   // Diagonal tangents
   expect(diagonalPoint.segmentTangentToArc(circle))
@@ -268,7 +268,7 @@ test('Arc Tangents in circumference', () => {
   expect(rac.Point(50, 100).segmentTangentToArc(circle, false))
     .equalsSegment(50, 100, rac.Angle.left, 0);
 
-  const circleEdge = 50 + tools.sides(50);
+  const circleEdge = 50 + tools.cathetus(50);
   expect(circle.pointAtAngle(rac.Angle.eighth))
     .equalsPoint(circleEdge, circleEdge);
   const circumferencePoint = rac.Point(circleEdge, circleEdge);
