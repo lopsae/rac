@@ -160,6 +160,40 @@ test('Function withAngleAdd/Shift', function withAngleAddAndShift() {
 });
 
 
+test('Function perpendicular/reverse', function perpAndReverse() {
+  expect(diagonal.perpendicular()).equalsSegment(55, 55, 3/8, 72);
+  expect(diagonal.perpendicular(false)).equalsSegment(55, 55, 7/8, 72);
+
+  const cathetus = tools.cathetus(72);
+  expect(diagonal.reverse())
+    .equalsSegment(55+cathetus, 55+cathetus, 5/8, 72);
+
+  expect(diagonal.reverse().endPoint().equals(diagonal.startPoint()))
+    .toBe(true);
+});
+
+
+test('Function translateToAngle/Length', function transToAngleAndLength() {
+  expect(diagonal.translateToAngle(0, 0))
+    .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.translateToAngle(rac.Angle.zero, 0))
+    .equalsSegment(55, 55, 1/8, 72);
+
+  const hyp = tools.hypotenuse(55);
+  expect(diagonal.translateToAngle(3/8, 0))
+    .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.translateToAngle(3/8, hyp))
+    .equalsSegment(0, 110, 1/8, 72);
+
+  expect(diagonal.translateToLength(0))
+    .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.translateToLength(hyp))
+    .equalsSegment(110, 110, 1/8, 72);
+  expect(diagonal.translateToLength(-hyp))
+    .equalsSegment(0, 0, 1/8, 72);
+});
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
