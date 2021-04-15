@@ -85,11 +85,12 @@ class Rac {
     */
     this.drawer = null;
 
-    require('./style/rac.Color')(this);
-    require('./style/rac.Stroke')(this);
-    require('./style/rac.Fill')(this);
+    require('./style/rac.Color')   (this);
+    require('./style/rac.Stroke')  (this);
+    require('./style/rac.Fill')    (this);
     require('./drawable/rac.Angle')(this);
     require('./drawable/rac.Point')(this);
+    require('./drawable/rac.Ray')  (this);
 
     // Depends on rac.Point and rac.Angle being already setup
     require('./drawable/rac.Text')(this);
@@ -239,9 +240,9 @@ class Rac {
   * @param {Rac.Angle|number} angle
   * @returns {Rac.Ray}
   */
-  Ray(x, y, someAngle) {
+  Ray(x, y, angle) {
     const start = new Rac.Point(this, x, y);
-    const angle = Rac.Angle.from(this, someAngle);
+    angle = Rac.Angle.from(this, angle);
     return new Rac.Ray(this, start, angle);
   }
 
@@ -260,13 +261,13 @@ class Rac {
   *
   * @param {number} x
   * @param {number} y
-  * @param {Rac.Angle|number} someAngle
+  * @param {Rac.Angle|number} angle
   * @param {number} length
   * @returns {Rac.Segment}
   */
-  Segment(x, y, someAngle, length) {
+  Segment(x, y, angle, length) {
     const start = new Rac.Point(this, x, y);
-    const angle = Rac.Angle.from(this, someAngle);
+    angle = Rac.Angle.from(this, angle);
     const ray = new Rac.Ray(this, start, angle);
     return new Rac.Segment(this, ray, length);
   }
