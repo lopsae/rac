@@ -2,7 +2,7 @@
 
 
 /**
-* The `instance.Color` function contains convenience methods and properties
+* The `instance.Color` function contains convenience methods and members
 * for `{@link Rac.Color}` objects setup with the owning `Rac` instance.
 * @namespace instance.Color
 */

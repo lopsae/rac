@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* The `instance.Angle` function contains convenience methods and properties
+* The `instance.Angle` function contains convenience methods and members
 * for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
 * @namespace instance.Angle
 */

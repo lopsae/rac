@@ -5,7 +5,7 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Text` function contains convenience methods and properties
+* The `instance.Text` function contains convenience methods and members
 * for `{@link Rac.Text}` objects setup with the owning `Rac` instance.
 * @namespace instance.Text
 */

@@ -2,7 +2,7 @@
 
 
 /**
-* The `instance.Stroke` function contains convenience methods and properties
+* The `instance.Stroke` function contains convenience methods and members
 * for `{@link Rac.Stroke}` objects setup with the owning `Rac` instance.
 * @namespace instance.Stroke
 */

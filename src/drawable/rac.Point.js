@@ -2,7 +2,7 @@
 
 
 /**
-* The `instance.Point` function contains convenience methods and properties
+* The `instance.Point` function contains convenience methods and members
 * for `{@link Rac.Point}` objects setup with the owning `Rac` instance.
 * @namespace instance.Point
 */

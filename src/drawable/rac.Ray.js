@@ -2,7 +2,7 @@
 
 
 /**
-* The `instance.Ray` function contains convenience methods and properties
+* The `instance.Ray` function contains convenience methods and members
 * for `{@link Rac.Ray}` objects setup with the owning `Rac` instance.
 * @namespace instance.Ray
 */

@@ -2,7 +2,7 @@
 
 
 /**
-* The `instance.Fill` function contains convenience methods and properties
+* The `instance.Fill` function contains convenience methods and members
 * for `{@link Rac.Fill}` objects setup with the owning `Rac` instance.
 * @namespace instance.Fill
 */
