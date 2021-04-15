@@ -16,20 +16,24 @@ test('Identity', function identity() {
   // Angle/number parameter
   expect(diagonal).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal).equalsSegment(55, 55, rac.Angle.eighth, 100);
-  expect(diagonal).not.equalsSegment(7, 7, 0, 7);
-  expect(diagonal).not.equalsSegment(7, 7, rac.Angle.zero, 7);
+
+  // Inequality
+  expect(diagonal).not.equalsSegment(0, 55, 1/8, 100);
+  expect(diagonal).not.equalsSegment(55, 0, 1/8, 100);
+  expect(diagonal).not.equalsSegment(55, 55, 0, 100);
+  expect(diagonal).not.equalsSegment(55, 55, 1/8, 0);
 
   // Unexpected type for equalsSegment
-  expect(null).not.equalsSegment(55, 55, 1/8, 100);
-  expect(55).not.equalsSegment(55, 55, 1/8, 100);
-  expect(rac.Point.zero).not.equalsSegment(55, 55, 1/8, 100);
-  expect(rac.Angle.eighth).not.equalsSegment(55, 55, 1/8, 100);
-  // TODO: test against rac.Ray.x/yAxis
+  expect(null)          .not.equalsSegment(0, 0, 0, 0);
+  expect(55)            .not.equalsSegment(0, 0, 0, 0);
+  expect(rac.Point.zero).not.equalsSegment(0, 0, 0, 0);
+  expect(rac.Angle.zero).not.equalsSegment(0, 0, 0, 0);
+  expect(rac.Ray.zero)  .not.equalsSegment(0, 0, 0, 0);
 
   // Unexpected type for equals
-  expect(diagonal.equals(null)).toBe(false);
-  expect(diagonal.equals(55)).toBe(false);
-  expect(diagonal.equals(rac.Point.zero)).toBe(false);
+  expect(diagonal.equals(null))            .toBe(false);
+  expect(diagonal.equals(55))              .toBe(false);
+  expect(diagonal.equals(rac.Point.zero))  .toBe(false);
   expect(diagonal.equals(rac.Angle.eighth)).toBe(false);
 });
 
