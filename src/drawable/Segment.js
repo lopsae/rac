@@ -211,11 +211,14 @@ class Segment {
   * direction of the segment's ray by the given `distance`. The resulting
   * `Segment` will have the same `endPoint()` and `angle()` as `this`.
   *
+  * Using a positive `distance` results in a longer segment, using a
+  * negative `distance` results in a shorter one.
+  *
   * @param {number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
   withStartExtended(distance) {
-    const newRay = this.ray.withStartAtDistance(-distance);
+    const newRay = this.ray.translateToDistance(-distance);
     return new Segment(this.rac, newRay, this.length + distance);
   }
 
