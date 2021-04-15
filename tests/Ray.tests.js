@@ -24,9 +24,9 @@ test('Identity', () => {
   expect(diagonal).equalsRay(55, 55, rac.Angle.se);
 
   // Inequality
-  expect(rac.Ray.zero).not.equalsRay(7, 0, 0);
-  expect(rac.Ray.zero).not.equalsRay(0, 7, 0);
-  expect(rac.Ray.zero).not.equalsRay(0, 0, 7);
+  expect(rac.Ray.zero).not.equalsRay(7, 0, .0);
+  expect(rac.Ray.zero).not.equalsRay(0, 7, .0);
+  expect(rac.Ray.zero).not.equalsRay(0, 0, .7);
 
   // Unexpected type for equalsRay
   expect(null).not.equalsRay(55, 55, 1/8);
