@@ -239,6 +239,38 @@ test('Function clampToLength', function clampToLength() {
 });
 
 
+test('Function pointAtLength/Ratio/Bisector', function pointAtLenghtAndRatioBisector() {
+  const zero = rac.Segment.zero;
+
+  // pointAtLength
+  expect(vertical.pointAtLength(0)).equalsPoint(100, 100);
+  expect(vertical.pointAtLength(100)).equalsPoint(100, 200);
+  expect(vertical.pointAtLength(-100)).equalsPoint(100, 0);
+
+  expect(zero.pointAtLength(0)).equalsPoint(0, 0);
+  expect(zero.pointAtLength(100)).equalsPoint(100, 0);
+  expect(zero.pointAtLength(-100)).equalsPoint(-100, 0);
+
+  // pointAtLengthRadio
+  expect(horizontal.pointAtLengthRatio(0)).equalsPoint(100, 100);
+  expect(horizontal.pointAtLengthRatio(1/2)).equalsPoint(136, 100);
+  expect(horizontal.pointAtLengthRatio(1)).equalsPoint(172, 100);
+  expect(horizontal.pointAtLengthRatio(-1)).equalsPoint(28, 100);
+
+  expect(zero.pointAtLengthRatio(0)).equalsPoint(0, 0);
+  expect(zero.pointAtLengthRatio(1/2)).equalsPoint(0, 0);
+  expect(zero.pointAtLengthRatio(1)).equalsPoint(0, 0);
+  expect(zero.pointAtLengthRatio(-1)).equalsPoint(0, 0);
+
+  // pointAtBisector
+  expect(vertical.pointAtBisector()).equalsPoint(100, 136);
+  expect(horizontal.pointAtBisector()).equalsPoint(136, 100);
+  expect(zero.pointAtBisector()).equalsPoint(0, 0);
+  const cathetus = tools.cathetus(72/2);
+  expect(diagonal.pointAtBisector()).equalsPoint(55+cathetus, 55+cathetus);
+});
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
