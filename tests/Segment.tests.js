@@ -6,10 +6,12 @@ const tools = require('./tools');
 
 const rac = tools.rac;
 
+const fifty = rac.Point(55, 55);
+const hunty = rac.Point(100, 100);
 
-let diagonal = rac.Segment(55, 55, rac.Angle.eighth, 100);
-let vertical = rac.Segment(100, 100, rac.Angle.down, 100);
-let horizontal = rac.Segment(100, 100, rac.Angle.zero, 100);
+const diagonal = rac.Segment(55, 55, rac.Angle.eighth, 100);
+const vertical = rac.Segment(100, 100, rac.Angle.down, 100);
+const horizontal = rac.Segment(100, 100, rac.Angle.zero, 100);
 
 
 test('Identity', function identity() {
@@ -60,6 +62,34 @@ test('Function toString', function toString() {
   expect(cutString).not.toMatch('1.123');
   expect(cutString).not.toMatch('2.123');
   expect(cutString).not.toMatch('3.123');
+});
+
+
+test('Errors', function errors() {
+  const ray = rac.Ray.yAxis;
+  expect(() => {new Rac.Segment(rac, ray, 55);})
+    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Missing parameters
+  expect(() => {new Rac.Segment(null, ray, 55);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Segment(rac, null, 55);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Segment(rac, ray, null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+
+  // Invalid ray
+  expect(() => {new Rac.Segment(rac, 100, 55);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Segment(rac, "nonsense", 55);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid length
+  expect(() => {new Rac.Segment(rac, ray, "nonsense");})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Segment(rac, ray, NaN);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 
