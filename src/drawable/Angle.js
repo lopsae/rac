@@ -71,20 +71,20 @@ class Angle {
 
   /**
   * Returns `true` when the difference with the `turn` value of the angle
-  * derived {@link Rac.Angle.from from} `someAngle` is under
+  * derived {@link Rac.Angle.from from} `angle` is under
   * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
   * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
-  * @param {Rac.Angle|number} someAngle - An `Angle` to compare
+  * @param {Rac.Angle|number} angle - An `Angle` to compare
   * @returns {boolean}
   */
-  equals(someAngle) {
+  equals(otherAngle) {
     // TODO: how to check for type without crashing? just allow angle/number?
-    const other = Angle.from(this.rac, someAngle);
-    const diff = Math.abs(this.turn - other.turn);
+    otherAngle = Angle.from(this.rac, otherAngle);
+    const diff = Math.abs(this.turn - otherAngle.turn);
     return diff < this.rac.unitaryEqualityThreshold
       // For close values that loop around
       || (1 - diff) < this.rac.unitaryEqualityThreshold;
@@ -207,24 +207,24 @@ class Angle {
 
   /**
   * Returns a new `Angle` with the sum of `this` and the angle derived from
-  * `someAngle`.
-  * @param {Rac.Angle|number} someAngle - An `Angle` to add
+  * `angle`.
+  * @param {Rac.Angle|number} angle - An `Angle` to add
   * @returns {Rac.Angle}
   */
-  add(someAngle) {
-    let other = this.rac.Angle.from(someAngle);
-    return new Angle(this.rac, this.turn + other.turn);
+  add(angle) {
+    angle = this.rac.Angle.from(angle);
+    return new Angle(this.rac, this.turn + angle.turn);
   }
 
   /**
-  * Returns a new `Angle` with the angle derived from `someAngle`
+  * Returns a new `Angle` with the angle derived from `angle`
   * subtracted to `this`.
-  * @param {Rac.Angle|number} someAngle - An `Angle` to subtract
+  * @param {Rac.Angle|number} angle - An `Angle` to subtract
   * @returns {Rac.Angle}
   */
-  subtract(someAngle) {
-    let other = this.rac.Angle.from(someAngle);
-    return new Angle(this.rac, this.turn - other.turn);
+  subtract(angle) {
+    angle = this.rac.Angle.from(angle);
+    return new Angle(this.rac, this.turn - angle.turn);
   }
 
   /**
@@ -257,19 +257,19 @@ class Angle {
 
   /**
   * Returns a new `Angle` that represents the distance from `this` to the
-  * angle derived from `someAngle`.
+  * angle derived from `angle`.
   * ```
   * rac.Angle(1/4).distance(1/2, true)  // turn is 1/2
   * rac.Angle(1/4).distance(1/2, false) // turn in 3/4
   * ```
   *
-  * @param {Rac.Angle|number} someAngle - An `Angle` to measure the distance to
+  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
   * @param {boolean} [clockwise=true] - The orientation of the measurement
   * @returns {Rac.Angle}
   */
-  distance(someAngle, clockwise = true) {
-    let other = this.rac.Angle.from(someAngle);
-    let distance = other.subtract(this);
+  distance(angle, clockwise = true) {
+    angle = this.rac.Angle.from(angle);
+    const distance = angle.subtract(this);
     return clockwise
       ? distance
       : distance.negative();
@@ -277,23 +277,23 @@ class Angle {
 
   /**
   * Returns a new `Angle` result of shifting the angle derived from
-  * `someAngle` to have `this` as its origin.
+  * `angle` to have `this` as its origin.
   *
   * This operation is the equivalent to
-  * + `this.add(someAngle)` when clockwise
-  * + `this.subtract(someAngle)` when counter-clockwise
+  * + `this.add(angle)` when clockwise
+  * + `this.subtract(angle)` when counter-clockwise
   *
   * ```
   * rac.Angle(0.1).shift(0.3, true)  // turn is 0.1 + 0.3 = 0.4
   * rac.Angle(0.1).shift(0.3, false) // turn is 0.1 - 0.3 = 0.8
   * ```
   *
-  * @param {Rac.Angle|number} someAngle - An `Angle` to be shifted
+  * @param {Rac.Angle|number} angle - An `Angle` to be shifted
   * @param {boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Angle}
   */
-  shift(someAngle, clockwise = true) {
-    let angle = this.rac.Angle.from(someAngle);
+  shift(angle, clockwise = true) {
+    angle = this.rac.Angle.from(angle);
     return clockwise
       ? this.add(angle)
       : this.subtract(angle);
@@ -302,7 +302,7 @@ class Angle {
 
   /**
   * Returns a new `Angle` result of shifting `this` to have the angle
-  * derived from `someAngle` as its origin.
+  * derived from `origin` as its origin.
   *
   * This operation is the equivalent to
   * + `origin.add(this)` when clockwise
@@ -313,7 +313,7 @@ class Angle {
   * rac.Angle(0.1).shiftToOrigin(0.3, false) // turn is 0.3 - 0.1 = 0.2
   * ```
   *
-  * @param {Rac.Angle|number} someAngle - An `Angle` to use as origin
+  * @param {Rac.Angle|number} origin - An `Angle` to use as origin
   * @param {boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Angle}
   */

@@ -115,12 +115,12 @@ class Messenger {
 }
 
 
-expect.extend({ equalsAngle(angle, someAngle) {
+expect.extend({ equalsAngle(angle, expectedAngle) {
   const messenger = new Messenger(this,
     'equalsAngle',
     'equal Angle properties');
 
-  const expected = rac.Angle.from(someAngle);
+  const expected = rac.Angle.from(expectedAngle);
   if (angle == null) {
     return messenger.fail('null', expected.toString(digits));
   }
@@ -155,12 +155,12 @@ expect.extend({ equalsPoint(point, x, y) {
 }}); // equalsPoint
 
 
-expect.extend({ equalsRay(ray, x, y, someAngle) {
+expect.extend({ equalsRay(ray, x, y, angle) {
   const messenger = new Messenger(this,
     'equalsRay',
     'equal Ray properties');
 
-  const expected = rac.Ray(x, y, someAngle);
+  const expected = rac.Ray(x, y, angle);
   if (ray == null) {
     return messenger.fail('null', expected);
   }
@@ -175,12 +175,12 @@ expect.extend({ equalsRay(ray, x, y, someAngle) {
 }}); // equalsRay
 
 
-expect.extend({ equalsSegment(segment, x, y, someAngle, length) {
+expect.extend({ equalsSegment(segment, x, y, angle, length) {
   const msg = new Messenger(this,
     'equalsSegment',
     'equal Segment properties');
 
-  const expected = rac.Segment(x, y, someAngle, length);
+  const expected = rac.Segment(x, y, angle, length);
 
   if (segment == null) {
     return msg.fail('null', expected);

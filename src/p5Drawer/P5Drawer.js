@@ -322,8 +322,8 @@ class P5Drawer {
       }
     };
 
-    Rac.Point.prototype.debugAngle = function(someAngle, drawsText = false) {
-      let angle = rac.Angle.from(someAngle);
+    Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
+      angle = rac.Angle.from(angle);
       angle.debug(this, drawsText);
       return this;
     };
