@@ -137,22 +137,25 @@ expect.extend({ equalsAngle(angle, expectedAngle) {
 
 
 expect.extend({ equalsPoint(point, x, y) {
-  const messenger = new Messenger(this,
+  const msg = new Messenger(this,
     'equalsPoint',
     'equal Point properties');
 
   const expected = rac.Point(x, y);
   if (point == null) {
-    return messenger.fail('null', expected);
+    return msg.fail('null', expected);
   }
 
   if (!(point instanceof Rac.Point)) {
-    return messenger.fail(point.toString(), expected,
-      `Unexpected type: ${Rac.utils.typeName(point)}`);
+    return msg.fail(point.toString(), expected,
+      `Received type: ${msg.r(Rac.utils.typeName(point))}`,
+      `Expected type: ${msg.e('Rac.Point')}`);
   }
 
   const isEqual = expected.equals(point);
-  return messenger.done(isEqual, point, expected);
+  return msg.done(isEqual, point, expected,
+    `Received: ${msg.r(point.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
 }}); // equalsPoint
 
 
@@ -190,7 +193,7 @@ expect.extend({ equalsSegment(segment, x, y, angle, length) {
   if (!(segment instanceof Rac.Segment)) {
     return msg.fail(segment.toString(), expected,
       `Received type: ${msg.r(Rac.utils.typeName(segment))}`,
-      `Expected: ${msg.e('Rac.Segment')}`);
+      `Expected type: ${msg.e('Rac.Segment')}`);
   }
 
   const isEqual = expected.equals(segment);
