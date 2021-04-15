@@ -626,6 +626,7 @@ class Segment {
   * @returns {Rac.Arc}
   */
   arcWithAngleDistance(angleDistance, clockwise = true) {
+    // TODO: look and replace all someAngle cases
     let angleDistance = this.rac.Angle.from(someAngleDistance);
     let arcStart = this.angle();
     let arcEnd = arcStart.shift(angleDistance, clockwise);
