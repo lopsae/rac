@@ -399,6 +399,43 @@ class Segment {
 
 
   /**
+  * Returns a new `Segment` from the starting point to the segment's middle
+  * point.
+  *
+  * @returns {Rac.Segment}
+  * @see Rac.Segment#pointAtBisector
+  */
+  segmentToBisector() {
+    return new Segment(this.rac, this.ray, this.length/2);
+  }
+
+
+  /**
+  * Returns a new `Segment` from the segment's middle point towards the
+  * perpendicular angle in the `clockwise` orientation.
+  *
+  * The new `Segment` will have the given `length`, or when ommited will
+  * use `this.length` instead.
+  *
+  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * `this.length` when ommited
+  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @returns {Rac.Segment}
+  * @see Rac.Segment#pointAtBisector
+  * @see Rac.Angle#perpendicular
+  */
+  segmentFromBisector(length = null, clockwise = true) {
+    const newStart = this.pointAtBisector();
+    const newAngle = this.ray.angle.perpendicular(clockwise);
+    const newRay = new Rac.Ray(this.rac, newStart, newAngle);
+    const newLength = length === null
+      ? this.length
+      : length;
+    return new Segment(this.rac, newRay, newLength);
+  }
+
+
+  /**
   * Returns a new `Segment` starting from `endPoint()` with the given
   * `length` and the same angle as `this`.
   *
@@ -462,6 +499,7 @@ class Segment {
   * @param {Rac.Angle|number} angleDistance - An angle distance to apply to
   * the segment's angle inverse
   * @param {boolean} [clockwise=true] - The orientation of the angle shift
+  * from `endPoint()`
   * @param {?number} [length=null] - The length of the new `Segment`, or
   * `this.length` when ommited
   * @returns {Rac.Segment}
@@ -490,14 +528,17 @@ class Segment {
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
   * `Segment` will be pointing towards `this.angle().perpendicular(false)`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {boolean} [clockwise=true] - The orientation of the
+  * perpendicular angle from `endPoint()`
   * @param {?number} [length=null] - The length of the new `Segment`, or
   * `this.length` when ommited
   * @returns {Rac.Segment}
   * @see Rac.Angle#perpendicular
   */
   nextSegmentPerpendicular(clockwise = true, length = null) {
-    const newLength = length === null ? this.length : length;
+    const newLength = length === null
+      ? this.length
+      : length;
     const newRay = this.ray
       .withStartAtDistance(this.length)
       .perpendicular(!clockwise);
@@ -506,40 +547,43 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` from the starting point to the segment's middle
-  * point.
+  * Returns a new `Segment` starting from `endPoint()` which corresponds
+  * to the leg of a right triangle where `this` is the other cathetus and
+  * the hypotenuse is of length `hypotenuse`.
   *
+  * The new `Segment` will point towards the perpendicular angle of
+  * `[this.angle().[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
+  * orientation.
+  *
+  * When `hypotenuse` is smaller that the segment's `length`, returns
+  * `null` since no right triangle is possible.
+  *
+  * @param {number} hypotenuse - The length of the hypotenuse side of the
+  * right triangle formed with `this` and the new `Segment`
+  * @param {boolean} [clockwise=true] - The orientation of the
+  * perpendicular angle from `endPoint()`
   * @returns {Rac.Segment}
-  * @see Rac.Segment#pointAtBisector
+  * @see Rac.Angle#inverse
   */
-  segmentToBisector() {
-    return new Segment(this.rac, this.ray, this.length/2);
-  }
+  nextSegmentLegWithHyp = function(hypotenuse, clockwise = true) {
+    if (hypotenuse < this.length) {
+      return null;
+    }
+
+    // cos = ady / hyp
+    const radians = Math.acos(this.length / hypotenuse);
+    // tan = ops / adj
+    // tan * adj = ops
+    const ops = Math.tan(radians) * this.length;
+    return this.nextSegmentPerpendicular(clockwise, ops);
 
 
-  /**
-  * Returns a new `Segment` from the segment's middle point towards the
-  * perpendicular angle in the `clockwise` orientation.
-  *
-  * The new `Segment` will have the given `length`, or when ommited will
-  * use `this.length` instead.
-  *
-  * @param {?number} [length=null] - The length of the new `Segment`, or
-  * `this.length` when ommited
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
-  * @returns {Rac.Segment}
-  * @see Rac.Segment#pointAtBisector
-  * @see Rac.Angle#perpendicular
-  */
-  segmentFromBisector(length = null, clockwise = true) {
-    const newStart = this.pointAtBisector();
-    const newAngle = this.ray.angle.perpendicular(clockwise);
-    const newRay = new Rac.Ray(this.rac, newStart, newAngle);
-    const newLength = length === null
-      ? this.length
-      : length;
-    return new Segment(this.rac, newRay, newLength);
-  }
+    // TODO: Delete once tested
+    // const angle = this.rac.Angle.fromRadians(radians);
+    // let hypSegment = this.reverse()
+    //   .nextSegmentToAngleDistance(angle, !clockwise, hypotenuse);
+    // return this.end.segmentToPoint(hypSegment.end);
+  };
 
 
   /**
@@ -599,16 +643,7 @@ class Segment {
 module.exports = Segment;
 
 
-Segment.prototype.oppositeWithHyp = function(hypotenuse, clockwise = true) {
-  // cos = ady / hyp
-  // acos can error if hypotenuse is smaller that length
-  let radians = Math.acos(this.length() / hypotenuse);
-  let angle = this.rac.Angle.fromRadians(radians);
 
-  let hypSegment = this.reverse()
-    .nextSegmentToAngleDistance(angle, !clockwise, hypotenuse);
-  return this.end.segmentToPoint(hypSegment.end);
-};
 
 
 Segment.prototype.bezierCentralAnchor = function(distance, clockwise = true) {
