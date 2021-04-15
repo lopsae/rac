@@ -15,6 +15,7 @@ let vertical = rac.Ray(100, 100, rac.Angle.square);
 
 test('Identity', () => {
   // Instance members
+  expect(rac.Ray.zero).equalsRay(0, 0, 0);
   expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
   expect(rac.Ray.yAxis).equalsRay(0, 0, 1/4);
 
@@ -22,10 +23,10 @@ test('Identity', () => {
   expect(diagonal).equalsRay(55, 55, 1/8);
   expect(diagonal).equalsRay(55, 55, rac.Angle.se);
 
-  // Equality-inequality
-  expect(diagonal).not.equalsRay(0, 55, 1/8);
-  expect(diagonal).not.equalsRay(55, 0, 1/8);
-  expect(diagonal).not.equalsRay(55, 55, 0);
+  // Inequality
+  expect(rac.Ray.zero).not.equalsRay(7, 0, 0);
+  expect(rac.Ray.zero).not.equalsRay(0, 7, 0);
+  expect(rac.Ray.zero).not.equalsRay(0, 0, 7);
 
   // Unexpected type for equalsRay
   expect(null).not.equalsRay(55, 55, 1/8);

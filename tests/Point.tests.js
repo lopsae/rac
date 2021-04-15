@@ -15,16 +15,18 @@ test('Identity', () => {
   // Instance members
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
-
-  // Equality-inequality
+  expect(hunty).equalsPoint(100, 100);
   expect(fifty).equalsPoint(55, 55);
-  expect(fifty).not.equalsPoint(55, 100);
-  expect(fifty).not.equalsPoint(100, 55);
+
+  // Inequality
+  expect(rac.Point.zero).not.equalsPoint(7, 0);
+  expect(rac.Point.zero).not.equalsPoint(0, 7);
 
   // Unexpected type for equalsRay
-  expect(null).not.equalsPoint(100, 100);
-  expect(100).not.equalsPoint(100, 100);
+  expect(null).not.equalsPoint(0, 0);
+  expect(0).not.equalsPoint(0, 0);
   expect(rac.Angle.zero).not.equalsPoint(0, 0);
+  expect(rac.Ray.xAxis).not.equalsPoint(0, 0);
 
   // Unexpected type for equals
   expect(hunty.equals(null)).toBe(false);
