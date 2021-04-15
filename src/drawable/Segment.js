@@ -637,19 +637,17 @@ class Segment {
   }
 
 
+  // TODO: uncomment once beziers are tested again
+  // bezierCentralAnchor(distance, clockwise = true) {
+  //   let bisector = this.segmentFromBisector(distance, clockwise);
+  //   return new Rac.Bezier(this.rac,
+  //     this.start, bisector.end,
+  //     bisector.end, this.end);
+  // }
+
+
 } // Segment
 
 
 module.exports = Segment;
-
-
-
-
-
-Segment.prototype.bezierCentralAnchor = function(distance, clockwise = true) {
-  let bisector = this.segmentFromBisector(clockwise, distance);
-  return new Rac.Bezier(this.rac,
-    this.start, bisector.end,
-    bisector.end, this.end);
-};
 
