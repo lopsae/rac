@@ -7,8 +7,8 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-const hunty = rac.Point(100, 100);
 const fifty = rac.Point(55, 55);
+const hunty = rac.Point(100, 100);
 
 
 test('Identity', () => {
@@ -54,10 +54,18 @@ test('Function toString', () => {
 
 
 test('Errors', () => {
+  expect(() => {new Rac.Point(rac, 100, 100);})
+    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Missing parameter
   expect(() => {new Rac.Point(null, 100, 100);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Point(rac, null, 100);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Point(rac, 100, null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid coordinates
   expect(() => {new Rac.Point(rac, 100, "nonsense");})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Point(rac, NaN, 100);})
