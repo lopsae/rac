@@ -306,12 +306,15 @@ class Segment {
   /**
   * Returns the given `value` clamped to [startInset, length-endInset].
   *
-  * When `startInset`, `endInset` and `length` result in a contradictory
-  * range, the returned value will be centered between the range limits.
+  * When `startInset` is greater that `length-endInset` the range for the
+  * clamp becomes imposible to fulfill. In this case the returned value
+  * will be the centered within the range limits, and still clampled to
+  * `[0, length]`.
+  *
   * @param {number} value - A value to clamp
-  * @param {number} [startInset=0] - The inset of the lower limit of the
+  * @param {number} [startInset=0] - The inset for the lower limit of the
   * clamping range
-  * @param {endInset} [endInset=0] - The inset of the higher limit of the
+  * @param {endInset} [endInset=0] - The inset for the higher limit of the
   * clamping range
   * @returns {number}
   */
@@ -319,8 +322,13 @@ class Segment {
     const endLimit = this.length - endInset;
     if (startInset >= endLimit) {
       // imposible range, return middle point
-      const middle = (startInset - endLimit) / 2;
-      return startInset - middle;
+      const rangeMiddle = (startInset - endLimit) / 2;
+      const middle = startInset - rangeMiddle;
+      // Still clamp to the segment itself
+      let clamped = middle;
+      clamped = Math.min(clamped, this.length);
+      clamped = Math.max(clamped, 0);
+      return clamped;
     }
     let clamped = value;
     clamped = Math.min(clamped, this.length - endInset);

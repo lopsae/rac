@@ -194,6 +194,51 @@ test('Function translateToAngle/Length', function transToAngleAndLength() {
 });
 
 
+test('Function clampToLength', function clampToLength() {
+  // No insets
+  expect(vertical.clampToLength(0)).toBe(0);
+  expect(vertical.clampToLength(55)).toBe(55);
+  expect(vertical.clampToLength(72)).toBe(72);
+
+  expect(vertical.clampToLength(-7)).toBe(0);
+  expect(vertical.clampToLength(100)).toBe(72);
+
+  // Valid insets
+  expect(horizontal.clampToLength(-7, 10, 10)).toBe(10);
+  expect(horizontal.clampToLength(0, 10, 10)).toBe(10);
+  expect(horizontal.clampToLength(10, 10, 10)).toBe(10);
+  expect(horizontal.clampToLength(55, 10, 10)).toBe(55);
+  expect(horizontal.clampToLength(62, 10, 10)).toBe(62);
+  expect(horizontal.clampToLength(72, 10, 10)).toBe(62);
+  expect(horizontal.clampToLength(100, 10, 10)).toBe(62);
+
+  // Invalid range, centered in range
+  expect(vertical.clampToLength(0, 10, 72)).toBe(5);
+  expect(vertical.clampToLength(55, 10, 72)).toBe(5);
+  expect(vertical.clampToLength(72, 10, 72)).toBe(5);
+
+  expect(vertical.clampToLength(0, 72, 10)).toBe(67);
+  expect(vertical.clampToLength(55, 72, 10)).toBe(67);
+  expect(vertical.clampToLength(72, 72, 10)).toBe(67);
+
+  // Invalid range, clamped to 0
+  expect(horizontal.clampToLength(0, 7, 100)).toBe(0);
+  expect(horizontal.clampToLength(55, 7, 100)).toBe(0);
+  expect(horizontal.clampToLength(72, 7, 100)).toBe(0);
+
+  // Invalid range, clamped to length
+  expect(horizontal.clampToLength(0, 100, 7)).toBe(72);
+  expect(horizontal.clampToLength(55, 100, 7)).toBe(72);
+  expect(horizontal.clampToLength(72, 100, 7)).toBe(72);
+
+  // What happens with negatives?
+  const negative = vertical.withLength(-10);
+  expect(negative.clampToLength(0, 10, 10)).toBe(0);
+  expect(negative.clampToLength(55, 10, 10)).toBe(0);
+  expect(negative.clampToLength(-55, 10, 10)).toBe(0);
+});
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
