@@ -159,7 +159,7 @@ class Segment {
   * @returns {Rac.Segment}
   */
   withLengthAdd(length) {
-    return new Segment(this.rac, this.ray, this.length + addLength);
+    return new Segment(this.rac, this.ray, this.length + length);
   }
 
 
@@ -185,7 +185,7 @@ class Segment {
   * @returns {Rac.Segment}
   */
   withAngleAdd(angle) {
-    const newRay = this.ray.withAngleAdd(angle, clockwise);
+    const newRay = this.ray.withAngleAdd(angle);
     return new Segment(this.rac, newRay, this.length);
   }
 

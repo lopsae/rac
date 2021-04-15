@@ -117,11 +117,46 @@ test('Function withStartPoint/Extended', function withStartAndExtended() {
 
 
 test('Function withRay/Length', function withRayAndLength() {
-  expect(diagonal.withRay(rac.Ray.zero)).equalsSegment(0, 0, 0, 72)
-  expect(diagonal.withRay(rac.Ray.yAxis)).equalsSegment(0, 0, 1/4, 72)
+  expect(diagonal.withRay(rac.Ray.zero)).equalsSegment(0, 0, 0, 72);
+  expect(diagonal.withRay(rac.Ray.yAxis)).equalsSegment(0, 0, 1/4, 72);
 
   expect(diagonal.withLength(0)).equalsSegment(55, 55, 1/8, 0);
   expect(diagonal.withLength(100)).equalsSegment(55, 55, 1/8, 100);
+});
+
+
+test('Function withLengthAdd/Ratio', function withLenghtAddAndRatio() {
+  expect(diagonal.withLengthAdd(0)).equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withLengthAdd(28)).equalsSegment(55, 55, 1/8, 100);
+  expect(diagonal.withLengthAdd(-72)).equalsSegment(55, 55, 1/8, 0);
+
+  expect(diagonal.withLengthRatio(0)).equalsSegment(55, 55, 1/8, 0);
+  expect(diagonal.withLengthRatio(1/2)).equalsSegment(55, 55, 1/8, 36);
+  expect(diagonal.withLengthRatio(1)).equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withLengthRatio(2)).equalsSegment(55, 55, 1/8, 144);
+});
+
+
+test('Function withAngleAdd/Shift', function withAngleAddAndShift() {
+  expect(diagonal.withAngleAdd(0))
+    .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withAngleAdd(rac.Angle.zero))
+    .equalsSegment(55, 55, 1/8, 72);
+
+  expect(diagonal.withAngleAdd(1/4))
+    .equalsSegment(55, 55, 3/8, 72);
+  expect(diagonal.withAngleAdd(-1/4))
+    .equalsSegment(55, 55, 7/8, 72);
+
+  expect(diagonal.withAngleShift(0))
+    .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withAngleShift(rac.Angle.zero))
+    .equalsSegment(55, 55, 1/8, 72);
+
+  expect(diagonal.withAngleShift(1/4))
+    .equalsSegment(55, 55, 3/8, 72);
+  expect(diagonal.withAngleShift(1/4, false))
+    .equalsSegment(55, 55, 7/8, 72);
 });
 
 
