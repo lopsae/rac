@@ -9,16 +9,25 @@
 module.exports = function attachRacPoint(rac) {
 
   /**
-  * A `Point` at `(0, 0)`.
-  *
-  * Also named as: `zero`
+  * A `Point` with all values set to zero.
   *
   * @name zero
   * @type {Rac.Point}
   * @memberof instance.Point#
   */
-  rac.Point.origin = rac.Point(0, 0);
-  rac.Point.zero = rac.Point.origin;
+  rac.Point.zero = rac.Point(0, 0);
+
+  /**
+  * A `Point` at `(0, 0)`.
+  *
+  * Equal to `{@link instance.Point#zero}`.
+  *
+  * @name origin
+  * @type {Rac.Point}
+  * @memberof instance.Point#
+  */
+  rac.Point.origin = rac.Point.zero;
+
 
 } // attachRacPoint
 
