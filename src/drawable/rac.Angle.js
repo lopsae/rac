@@ -13,20 +13,39 @@ const utils = require('../util/utils');
 module.exports = function attachRacAngle(rac) {
 
   /**
-  * Returns an `Angle` derived from `something`. Calls
-  * `{@link Rac.Angle.from}` using `this`.
+  * Returns an `Angle` derived from `something`.
+  *
+  * Calls`{@link Rac.Angle.from}` using `this`.
   *
   * @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
   * derive an `Angle` from
   * @returns {Rac.Angle}
   *
-  * @name from
+  * @function from
   * @memberof instance.Angle#
-  * @function
+  * @see Rac.Angle.from
   */
   rac.Angle.from = function(something) {
     return Rac.Angle.from(rac, something);
   };
+
+
+  /**
+  * Returns an `Angle` derived from `radians`.
+  *
+  * Calls `{@link Rac.Angle.fromRadians}` using `this`.
+  *
+  * @param {number} radians - The measure of the angle, in radians
+  * @returns {Rac.Angle}
+  *
+  * @function fromRadians
+  * @memberof instance.Angle#
+  * @see Rac.Angle.fromRadians
+  */
+  rac.Angle.fromRadians = function(radians) {
+    return Rac.Angle.fromRadians(rac, radians);
+  };
+
 
   /**
   * An `Angle` with turn `0`.
