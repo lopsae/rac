@@ -23,15 +23,18 @@ test('Identity', () => {
   expect(rac.Point.zero).not.equalsPoint(0, 7);
 
   // Unexpected type for equalsRay
-  expect(null).not.equalsPoint(0, 0);
-  expect(0).not.equalsPoint(0, 0);
-  expect(rac.Angle.zero).not.equalsPoint(0, 0);
-  expect(rac.Ray.xAxis).not.equalsPoint(0, 0);
+  expect(null)            .not.equalsPoint(0, 0);
+  expect(0)               .not.equalsPoint(0, 0);
+  expect(rac.Angle.zero)  .not.equalsPoint(0, 0);
+  expect(rac.Ray.zero)    .not.equalsPoint(0, 0);
+  expect(rac.Segment.zero).not.equalsPoint(0, 0);
 
   // Unexpected type for equals
-  expect(hunty.equals(null)).toBe(false);
-  expect(hunty.equals(100)).toBe(false);
-  expect(hunty.equals(rac.Angle.zero)).toBe(false);
+  expect(hunty.equals(null))            .toBe(false);
+  expect(hunty.equals(100))             .toBe(false);
+  expect(hunty.equals(rac.Angle.zero))  .toBe(false);
+  expect(hunty.equals(rac.Ray.zero))    .toBe(false);
+  expect(hunty.equals(rac.Segment.zero)).toBe(false);
 });
 
 
