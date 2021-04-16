@@ -492,7 +492,7 @@ class Segment {
   */
   nextSegmentToPoint(nextEndPoint) {
     const newStart = this.endPoint();
-    return newStart.segmentToPoint(nextEnd, this.ray.angle);
+    return newStart.segmentToPoint(nextEndPoint, this.ray.angle);
   }
 
 
@@ -569,7 +569,7 @@ class Segment {
       ? this.length
       : length;
     const newRay = this.ray
-      .withStartAtDistance(this.length)
+      .translateToDistance(this.length)
       .perpendicular(!clockwise);
     return new Segment(this.rac, newRay, newLength);
   }

@@ -108,7 +108,7 @@ class SegmentControl extends Rac.Control {
 
     // New value from the current pointer position, relative to anchorCopy
     let newDistance = anchorCopy
-      .lengthToProjectedPoint(pointerControlCenter);
+      .ray.distanceToProjectedPoint(pointerControlCenter);
     // Clamping value (javascript has no Math.clamp)
     newDistance = anchorCopy.clampToLength(newDistance,
       startInset, endInset);
@@ -159,7 +159,7 @@ class SegmentControl extends Rac.Control {
 
     // Constrained length clamped to limits
     let constrainedLength = anchorCopy
-      .lengthToProjectedPoint(draggedCenter);
+      .ray.distanceToProjectedPoint(draggedCenter);
     let startInset = length * ratioStartLimit;
     let endInset = length * (1 - ratioEndLimit);
     constrainedLength = anchorCopy.clampToLength(constrainedLength,
