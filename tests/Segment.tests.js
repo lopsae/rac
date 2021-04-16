@@ -331,6 +331,31 @@ tools.test( function segmentToBisector() {
 });
 
 
+tools.test( function segmentBisector() {
+  const cathetus = 55 + tools.cathetus(36);
+  expect(diagonal.segmentBisector())
+    .equalsSegment(cathetus, cathetus, 3/8, 72);
+  expect(diagonal.segmentBisector(null))
+    .equalsSegment(cathetus, cathetus, 3/8, 72);
+  expect(diagonal.segmentBisector(null, false))
+    .equalsSegment(cathetus, cathetus, 7/8, 72);
+  expect(diagonal.segmentBisector(100))
+    .equalsSegment(cathetus, cathetus, 3/8, 100);
+  expect(diagonal.segmentBisector(100, false))
+    .equalsSegment(cathetus, cathetus, 7/8, 100);
+});
+
+
+tools.test( function nextSegmentWithLength() {
+  const cathetus = 55 + tools.cathetus(72);
+  expect(diagonal.nextSegmentWithLength(0))
+    .equalsSegment(cathetus, cathetus, 1/8, 0);
+  expect(diagonal.nextSegmentWithLength(10))
+    .equalsSegment(cathetus, cathetus, 1/8, 10);
+});
+
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
