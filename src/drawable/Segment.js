@@ -5,6 +5,9 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
+// TODO: should use only `this.rac.angle` or `this.angle()`
+
+
 /**
 * Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
 * @alias Rac.Segment

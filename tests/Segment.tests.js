@@ -271,6 +271,33 @@ test('Function pointAtLength/Ratio/Bisector', function pointAtLenghtAndRatioBise
 });
 
 
+test('Function moveStart/EndPoint', function moveStartAndEndPoint() {
+  const vertical = rac.Segment(100, 0, rac.Angle.down, 100);
+
+  // moveStartPoint
+  // startPoint to zero
+  expect(vertical.moveStartPoint(rac.Point.zero))
+    .equalsSegment(0, 0, 1/8, tools.hypotenuse(100));
+  // same startPoint
+  expect(vertical.moveStartPoint(rac.Point(100, 0)))
+    .equalsSegment(100, 0, rac.Angle.down, 100);
+  // startPoint to endPoint
+  expect(vertical.moveStartPoint(rac.Point(100, 100)))
+    .equalsSegment(100, 100, rac.Angle.down, 0);
+
+  // moveEndPoint
+  // same endPoint
+  expect(vertical.moveEndPoint(rac.Point(100, 100)))
+    .equalsSegment(100, 0, rac.Angle.down, 100);
+  // endPoint to zero
+  expect(vertical.moveEndPoint(rac.Point.zero))
+    .equalsSegment(100, 0, rac.Angle.left, 100);
+  // endPoint to startPoint
+  expect(vertical.moveEndPoint(rac.Point(100, 0)))
+    .equalsSegment(100, 0, rac.Angle.down, 0);
+});
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
