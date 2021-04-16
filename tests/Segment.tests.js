@@ -356,6 +356,21 @@ tools.test( function nextSegmentWithLength() {
 
 
 
+tools.test( function nextSegmentToPoint() {
+  const cathetus = 55 + tools.cathetus(72);
+  expect(diagonal.nextSegmentToPoint(rac.Point(cathetus, cathetus)))
+    .equalsSegment(cathetus, cathetus, 1/8, 0);
+  expect(vertical.nextSegmentToPoint(rac.Point(100, 172)))
+    .equalsSegment(100, 172, rac.Angle.down, 0);
+
+  expect(diagonal.nextSegmentToPoint(rac.Point.zero))
+    .equalsSegment(cathetus, cathetus, 5/8, tools.hypotenuse(cathetus));
+  expect(diagonal.nextSegmentToPoint(rac.Point(0, cathetus*2)))
+    .equalsSegment(cathetus, cathetus, 3/8, tools.hypotenuse(cathetus));
+});
+
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
