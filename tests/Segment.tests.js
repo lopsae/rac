@@ -194,11 +194,11 @@ test('Function translateToAngle/Length', function transToAngleAndLength() {
 });
 
 
-tools.test(function test_translatePerpendicular() {
+tools.test(function translatePerpendicular() {
   expect(diagonal.translatePerpendicular(0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translatePerpendicular(0, false))
-    .equalsSegment(550, 55, 1/8, 72);
+    .equalsSegment(55, 55, 1/8, 72);
 
   const hyp = tools.hypotenuse(55);
   expect(diagonal.translatePerpendicular(hyp))
@@ -208,7 +208,7 @@ tools.test(function test_translatePerpendicular() {
 });
 
 
-test('Function clampToLength', function clampToLength() {
+tools.test(function clampToLength() {
   // No insets
   expect(vertical.clampToLength(0)).toBe(0);
   expect(vertical.clampToLength(55)).toBe(55);
@@ -253,7 +253,7 @@ test('Function clampToLength', function clampToLength() {
 });
 
 
-test('Function pointAtLength/Ratio/Bisector', function pointAtLenghtAndRatioBisector() {
+tools.test(function pointAtLenghtRatioBisector() {
   const zero = rac.Segment.zero;
 
   // pointAtLength
@@ -285,7 +285,7 @@ test('Function pointAtLength/Ratio/Bisector', function pointAtLenghtAndRatioBise
 });
 
 
-test('Function moveStart/EndPoint', function moveStartAndEndPoint() {
+tools.test(function moveStartPointEndPoint() {
   const vertical = rac.Segment(100, 0, rac.Angle.down, 100);
 
   // moveStartPoint
