@@ -14,7 +14,7 @@ const vertical = rac.Segment(100, 100, rac.Angle.down, 72);
 const horizontal = rac.Segment(100, 100, rac.Angle.zero, 72);
 
 
-test('Identity', function identity() {
+tools.test( function identity() {
   // Instance members
   expect(rac.Segment.zero).equalsSegment(0, 0, 0, 0);
 
@@ -44,7 +44,7 @@ test('Identity', function identity() {
 });
 
 
-test('Function toString', function toString() {
+tools.test( function toString() {
   const segment = rac.Segment(1.12345, 2.12345, 0.12345, 3.12345);
 
   const string = segment.toString();
@@ -65,7 +65,7 @@ test('Function toString', function toString() {
 });
 
 
-test('Errors', function errors() {
+tools.test( function errors() {
   const ray = rac.Ray.yAxis;
   expect(() => {new Rac.Segment(rac, ray, 72);})
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
@@ -93,7 +93,7 @@ test('Errors', function errors() {
 });
 
 
-test('Accesors', function accesors() {
+tools.test( function accesors() {
   expect(diagonal.startPoint()).equalsPoint(55, 55);
   expect(diagonal.angle()).equalsAngle(1/8);
 
@@ -102,7 +102,7 @@ test('Accesors', function accesors() {
 });
 
 
-test('Function withStartPoint/Extended', function withStartAndExtended() {
+tools.test( function withStartAndExtended() {
   expect(diagonal.withStartPoint(hunty))
     .equalsSegment(100, 100, 1/8, 72);
 
@@ -116,7 +116,7 @@ test('Function withStartPoint/Extended', function withStartAndExtended() {
 });
 
 
-test('Function withRay/Length', function withRayAndLength() {
+tools.test( function withRayAndLength() {
   expect(diagonal.withRay(rac.Ray.zero)).equalsSegment(0, 0, 0, 72);
   expect(diagonal.withRay(rac.Ray.yAxis)).equalsSegment(0, 0, 1/4, 72);
 
@@ -125,7 +125,7 @@ test('Function withRay/Length', function withRayAndLength() {
 });
 
 
-test('Function withLengthAdd/Ratio', function withLenghtAddAndRatio() {
+tools.test( function withLenghtAddAndRatio() {
   expect(diagonal.withLengthAdd(0)).equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.withLengthAdd(28)).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal.withLengthAdd(-72)).equalsSegment(55, 55, 1/8, 0);
@@ -137,7 +137,7 @@ test('Function withLengthAdd/Ratio', function withLenghtAddAndRatio() {
 });
 
 
-test('Function withAngleAdd/Shift', function withAngleAddAndShift() {
+tools.test( function withAngleAddAndShift() {
   expect(diagonal.withAngleAdd(0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.withAngleAdd(rac.Angle.zero))
@@ -160,7 +160,7 @@ test('Function withAngleAdd/Shift', function withAngleAddAndShift() {
 });
 
 
-test('Function perpendicular/reverse', function perpAndReverse() {
+tools.test( function perpendicularAndReverse() {
   expect(diagonal.perpendicular()).equalsSegment(55, 55, 3/8, 72);
   expect(diagonal.perpendicular(false)).equalsSegment(55, 55, 7/8, 72);
 
@@ -173,7 +173,7 @@ test('Function perpendicular/reverse', function perpAndReverse() {
 });
 
 
-test('Function translateToAngle/Length', function transToAngleAndLength() {
+tools.test( function transToAngleAndLength() {
   expect(diagonal.translateToAngle(0, 0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translateToAngle(rac.Angle.zero, 0))
@@ -194,7 +194,7 @@ test('Function translateToAngle/Length', function transToAngleAndLength() {
 });
 
 
-tools.test(function translatePerpendicular() {
+tools.test( function translatePerpendicular() {
   expect(diagonal.translatePerpendicular(0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translatePerpendicular(0, false))
@@ -208,7 +208,7 @@ tools.test(function translatePerpendicular() {
 });
 
 
-tools.test(function clampToLength() {
+tools.test( function clampToLength() {
   // No insets
   expect(vertical.clampToLength(0)).toBe(0);
   expect(vertical.clampToLength(55)).toBe(55);
@@ -253,7 +253,7 @@ tools.test(function clampToLength() {
 });
 
 
-tools.test(function pointAtLenghtRatioBisector() {
+tools.test( function pointAtLenghtRatioBisector() {
   const zero = rac.Segment.zero;
 
   // pointAtLength
@@ -285,10 +285,9 @@ tools.test(function pointAtLenghtRatioBisector() {
 });
 
 
-tools.test(function moveStartPointEndPoint() {
+tools.test( function moveStartPoint() {
   const vertical = rac.Segment(100, 0, rac.Angle.down, 100);
 
-  // moveStartPoint
   // startPoint to zero
   expect(vertical.moveStartPoint(rac.Point.zero))
     .equalsSegment(0, 0, 1/8, tools.hypotenuse(100));
@@ -298,8 +297,12 @@ tools.test(function moveStartPointEndPoint() {
   // startPoint to endPoint
   expect(vertical.moveStartPoint(rac.Point(100, 100)))
     .equalsSegment(100, 100, rac.Angle.down, 0);
+});
 
-  // moveEndPoint
+
+tools.test( function moveEndPoint() {
+  const vertical = rac.Segment(100, 0, rac.Angle.down, 100);
+
   // same endPoint
   expect(vertical.moveEndPoint(rac.Point(100, 100)))
     .equalsSegment(100, 0, rac.Angle.down, 100);
