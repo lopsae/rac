@@ -113,6 +113,21 @@ class Segment {
 
 
   /**
+  * Returns a new `Segment` with angle set to `newAngle`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Angle|number} newAngle - The angle for the new `Segment`
+  * @returns {Rac.Segment}
+  */
+  withAngle(newAngle) {
+    newAngle = Rac.Angle.from(this.rac, newAngle);
+    const newRay = new Rac.Ray(this.rac, this.ray.start, newAngle);
+    return new Segment(this.rac, newRay, this.length);
+  }
+
+
+  /**
   * Returns a new `Segment` with `ray` set to `newRay`.
   *
   * All other properties are copied from `this`.

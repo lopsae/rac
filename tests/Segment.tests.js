@@ -116,7 +116,10 @@ tools.test( function withStartAndExtended() {
 });
 
 
-tools.test( function withRayAndLength() {
+tools.test( function withAngleRayLength() {
+  expect(diagonal.withAngle(rac.Ray.zero)).equalsSegment(55, 55, 0, 72);
+  expect(diagonal.withAngle(1/2)).equalsSegment(55, 55, 1/2, 72);
+
   expect(diagonal.withRay(rac.Ray.zero)).equalsSegment(0, 0, 0, 72);
   expect(diagonal.withRay(rac.Ray.yAxis)).equalsSegment(0, 0, 1/4, 72);
 
@@ -312,6 +315,19 @@ tools.test( function moveEndPoint() {
   // endPoint to startPoint
   expect(vertical.moveEndPoint(rac.Point(100, 0)))
     .equalsSegment(100, 0, rac.Angle.down, 0);
+});
+
+
+tools.test( function segmentToBisector() {
+  expect(vertical.segmentToBisector())
+    .equalsSegment(100, 100, rac.Angle.down, 36);
+  expect(horizontal.segmentToBisector())
+    .equalsSegment(100, 100, rac.Angle.right, 36);
+
+  expect(rac.Segment.zero.segmentToBisector())
+    .equalsSegment(0, 0, rac.Angle.zero, 0);
+  expect(rac.Segment.zero.withAngle(3/4).segmentToBisector())
+    .equalsSegment(0, 0, 3/4, 0);
 });
 
 
