@@ -443,17 +443,17 @@ class Segment {
   * Returns a new `Segment` from the segment's middle point towards the
   * perpendicular angle in the `clockwise` orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited will
-  * use `this.length` instead.
+  * The new `Segment` will have the given `length`, or when ommited or
+  * `null` the length will be `this.length` instead.
   *
   * @param {?number} [length=null] - The length of the new `Segment`, or
-  * `this.length` when ommited
+  * `null` to use `this.length`
   * @param {boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   * @see Rac.Segment#pointAtBisector
   * @see Rac.Angle#perpendicular
   */
-  segmentFromBisector(length = null, clockwise = true) {
+  segmentBisector(length = null, clockwise = true) {
     const newStart = this.pointAtBisector();
     const newAngle = this.ray.angle.perpendicular(clockwise);
     const newRay = new Rac.Ray(this.rac, newStart, newAngle);
@@ -516,8 +516,8 @@ class Segment {
   * `angleDistance` from `this.angle().inverse()` in the `clockwise`
   * orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited will
-  * use `this.length` instead.
+  * The new `Segment` will have the given `length`, or when ommited or
+  * `null` the length will be `this.length` instead.
   *
   * Notice that the `angleDistance` is applied to the inverse of the
   * segment's angle. E.g. with an `angleDistance` of `0` the resulting
@@ -530,7 +530,7 @@ class Segment {
   * @param {boolean} [clockwise=true] - The orientation of the angle shift
   * from `endPoint()`
   * @param {?number} [length=null] - The length of the new `Segment`, or
-  * `this.length` when ommited
+  * `null` to use `this.length`
   * @returns {Rac.Segment}
   * @see Rac.Angle#inverse
   */
@@ -550,8 +550,8 @@ class Segment {
   * `[perpendicular angle]{@link Rac.Angle#perpendicular}` of
   * `this.angle().inverse()` in the `clockwise` orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited will
-  * use `this.length` instead.
+  * The new `Segment` will have the given `length`, or when ommited or
+  * `null` the length will be `this.length` instead.
   *
   * Notice that the perpendicular is calculated from the inverse of the
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
@@ -560,7 +560,7 @@ class Segment {
   * @param {boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
   * @param {?number} [length=null] - The length of the new `Segment`, or
-  * `this.length` when ommited
+  * `null` to use `this.length`
   * @returns {Rac.Segment}
   * @see Rac.Angle#perpendicular
   */
@@ -626,7 +626,7 @@ class Segment {
   * instead resulting in a complete-circle arc.
   *
   * @param {?Rac.Angle} [angleEnd=null] - An `Angle` to use as end for the
-  * new `Arc`, or `this.angle()` when ommited
+  * new `Arc`, or `null` to use `this.angle()`
   * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
@@ -669,7 +669,7 @@ class Segment {
 
   // TODO: uncomment once beziers are tested again
   // bezierCentralAnchor(distance, clockwise = true) {
-  //   let bisector = this.segmentFromBisector(distance, clockwise);
+  //   let bisector = this.segmentBisector(distance, clockwise);
   //   return new Rac.Bezier(this.rac,
   //     this.start, bisector.end,
   //     bisector.end, this.end);
