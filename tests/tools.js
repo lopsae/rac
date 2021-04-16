@@ -30,6 +30,11 @@ exports.cathetus = function(hyp) {
 };
 
 
+exports.test = function(testFunc) {
+  test(testFunc.name, testFunc);
+};
+
+
 function pass(messageFunc) {
   return {
     pass: true,
