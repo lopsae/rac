@@ -23,9 +23,13 @@ const Rac = require('../Rac');
 */
 exports.assertExists = function(...parameters) {
   parameters.forEach((item, index) => {
-    if (item === null || item === undefined) {
+    if (item === null) {
       throw Rac.Exception.failedAssert(
-        `Missing element at index ${index}`);
+        `Unexpected null element at index ${index}`);
+    }
+    if (item === undefined) {
+      throw Rac.Exception.failedAssert(
+        `Unexpected undefined element at index ${index}`);
     }
   });
 }
