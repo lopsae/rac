@@ -46,7 +46,7 @@ exports.assertType = function(type, ...elements) {
   elements.forEach(item => {
     if (!(item instanceof type)) {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type - element:${item} element-type:${typeName(item)} expected-name:${type.name}`);
+        `Element is unexpected type - element:${item} element-type:${typeName(item)} expected-type-name:${type.name}`);
     }
   });
 }

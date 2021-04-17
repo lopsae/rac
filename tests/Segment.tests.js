@@ -370,6 +370,23 @@ tools.test( function nextSegmentToPoint() {
 });
 
 
+tools.test( function nextSegmentToAngle() {
+  // Angle/number parameter
+  expect(vertical.nextSegmentToAngle(1/2))
+    .equalsSegment(100, 172, 1/2, 72);
+  expect(vertical.nextSegmentToAngle(rac.Angle.half))
+    .equalsSegment(100, 172, 1/2, 72);
+
+  expect(vertical.nextSegmentToAngle(5/8, null))
+    .equalsSegment(100, 172, 5/8, 72);
+
+  expect(horizontal.nextSegmentToAngle(7/8, 0))
+    .equalsSegment(172, 100, 7/8, 0);
+  expect(horizontal.nextSegmentToAngle(7/8, 55))
+    .equalsSegment(172, 100, 7/8, 55);
+});
+
+
 
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);

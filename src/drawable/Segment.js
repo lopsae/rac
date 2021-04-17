@@ -509,6 +509,7 @@ class Segment {
   * @returns {Rac.Segment}
   */
   nextSegmentToAngle(angle, length = null) {
+    angle = Rac.Angle.from(this.rac, angle);
     const newLength = length === null
       ? this.length
       : length;
