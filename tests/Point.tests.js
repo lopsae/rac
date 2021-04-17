@@ -279,10 +279,10 @@ tools.test( function arcTangentsInCircumference() {
   const verPoint = rac.Point(100, 50);
   expect(verPoint.rayTangentToArc(circle))
     .equalsRay(100, 50, rac.Angle.up);
-  expect(verPoint.segmentTangentToArc(circle))
-    .equalsSegment(100, 50, rac.Angle.up, 0);
   expect(verPoint.rayTangentToArc(circle, false))
     .equalsRay(100, 50, rac.Angle.down);
+  expect(verPoint.segmentTangentToArc(circle))
+    .equalsSegment(100, 50, rac.Angle.up, 0);
   expect(verPoint.segmentTangentToArc(circle, false))
     .equalsSegment(100, 50, rac.Angle.down, 0);
 
@@ -290,10 +290,10 @@ tools.test( function arcTangentsInCircumference() {
   const horPoint = rac.Point(50, 100);
   expect(horPoint.rayTangentToArc(circle))
     .equalsRay(50, 100, rac.Angle.right);
-  expect(horPoint.segmentTangentToArc(circle))
-    .equalsSegment(50, 100, rac.Angle.right, 0);
   expect(horPoint.rayTangentToArc(circle, false))
     .equalsRay(50, 100, rac.Angle.left, 0);
+  expect(horPoint.segmentTangentToArc(circle))
+    .equalsSegment(50, 100, rac.Angle.right, 0);
   expect(horPoint.segmentTangentToArc(circle, false))
     .equalsSegment(50, 100, rac.Angle.left, 0);
 
@@ -305,39 +305,56 @@ tools.test( function arcTangentsInCircumference() {
 
   expect(circumferencePoint.rayTangentToArc(circle))
     .equalsRay(circleEdge, circleEdge, rac.Angle.ne);
-  expect(circumferencePoint.segmentTangentToArc(circle))
-    .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
   expect(circumferencePoint.rayTangentToArc(circle, false))
     .equalsRay(circleEdge, circleEdge, rac.Angle.sw);
+  expect(circumferencePoint.segmentTangentToArc(circle))
+    .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
   expect(circumferencePoint.segmentTangentToArc(circle, false))
     .equalsSegment(circleEdge, circleEdge, rac.Angle.sw, 0);
 });
 
 
 tools.test( function arcTangentsEdgeCases() {
-  let zeroCircle = rac.Arc(55, 55, 0, rac.Angle.left);
+  const circleCenter = rac.Point(55, 55);
+  let zeroCircle = circleCenter.arc(0, rac.Angle.left);
 
   // Point to zero-radius circle
+  expect(hunty.rayTangentToArc(zeroCircle))
+    .equalsRay(100, 100, rac.Angle.nw);
+  expect(hunty.rayTangentToArc(zeroCircle, false))
+    .equalsRay(100, 100, rac.Angle.nw);
   expect(hunty.segmentTangentToArc(zeroCircle))
     .equalsSegment(100, 100, rac.Angle.nw, tools.hypotenuse(45));
   expect(hunty.segmentTangentToArc(zeroCircle, false))
     .equalsSegment(100, 100, rac.Angle.nw, tools.hypotenuse(45));
 
-  // Point at zero-radius circle, left start
+  // Point at zero-radius-circle center, left start
+  expect(fifty.rayTangentToArc(zeroCircle))
+    .equalsRay(55, 55, rac.Angle.down);
+  expect(fifty.rayTangentToArc(zeroCircle, false))
+    .equalsRay(55, 55, rac.Angle.up);
   expect(fifty.segmentTangentToArc(zeroCircle))
     .equalsSegment(55, 55, rac.Angle.down, 0);
   expect(fifty.segmentTangentToArc(zeroCircle, false))
     .equalsSegment(55, 55, rac.Angle.up, 0);
 
-  // Point at zero-radius circle, top start
-  zeroCircle = rac.Arc(55, 55, 0, rac.Angle.top);
+  // Point at zero-radius-circle center, top start
+  zeroCircle = circleCenter.arc(0, rac.Angle.top);
+  expect(fifty.rayTangentToArc(zeroCircle))
+    .equalsRay(55, 55, rac.Angle.left);
+  expect(fifty.rayTangentToArc(zeroCircle, false))
+    .equalsRay(55, 55, rac.Angle.right);
   expect(fifty.segmentTangentToArc(zeroCircle))
     .equalsSegment(55, 55, rac.Angle.left, 0);
   expect(fifty.segmentTangentToArc(zeroCircle, false))
     .equalsSegment(55, 55, rac.Angle.right, 0);
 
-  // Point at zero-radius circle, ne start
-  zeroCircle = rac.Arc(55, 55, 0, rac.Angle.ne);
+  // Point at zero-radius-circle center, ne start
+  zeroCircle = circleCenter.arc(0, rac.Angle.ne);
+  expect(fifty.rayTangentToArc(zeroCircle))
+    .equalsRay(55, 55, rac.Angle.nw);
+  expect(fifty.rayTangentToArc(zeroCircle, false))
+    .equalsRay(55, 55, rac.Angle.se);
   expect(fifty.segmentTangentToArc(zeroCircle))
     .equalsSegment(55, 55, rac.Angle.nw, 0);
   expect(fifty.segmentTangentToArc(zeroCircle, false))
