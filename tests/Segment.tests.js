@@ -463,15 +463,23 @@ tools.test( function nextSegmentLegWithHyp() {
 });
 
 
-test('Transforms to Arc', () => {
+tools.test( function arc() {
+  // default
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
+  // Angle/number parameter
+  expect(diagonal.arc(1/2))
+    .equalsArc(55, 55, 72, 1/8, 1/2, true);
   expect(diagonal.arc(rac.Angle.half))
     .equalsArc(55, 55, 72, 1/8, 1/2, true);
 
-  expect(diagonal.arc(rac.Angle.half, false))
-    .equalsArc(55, 55, 72, 1/8, 1/2, false);
+  // clocwise, counter-clockwise
+  expect(diagonal.arc(3/8))
+    .equalsArc(55, 55, 72, 1/8, 3/8, true);
+  expect(diagonal.arc(3/8, false))
+    .equalsArc(55, 55, 72, 1/8, 3/8, false);
 
+  // null endAngle
   expect(diagonal.arc(null, false))
     .equalsArc(55, 55, 72, 1/8, 1/8, false);
 });

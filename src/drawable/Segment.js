@@ -617,27 +617,27 @@ class Segment {
 
 
   /**
-  * Returns a new `Arc` based on this segment, with the given `angleEnd` and
-  * `clockwise` orientation.
+  * Returns a new `Arc` based on this segment, with the given `endAngle`
+  * and `clockwise` orientation.
   *
   * The returned `Arc` will use this segment's start as `center`, its angle
   * as `start`, and its length as `radius`.
   *
-  * When `angleEnd` is ommited or `null`, the segment's angle is used
+  * When `endAngle` is ommited or `null`, the segment's angle is used
   * instead resulting in a complete-circle arc.
   *
-  * @param {?Rac.Angle} [angleEnd=null] - An `Angle` to use as end for the
+  * @param {?Rac.Angle} [endAngle=null] - An `Angle` to use as end for the
   * new `Arc`, or `null` to use `this.angle()`
   * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
-  arc(angleEnd = null, clockwise = true) {
-    angleEnd = angleEnd === null
+  arc(endAngle = null, clockwise = true) {
+    endAngle = endAngle === null
       ? this.ray.angle
-      : this.rac.Angle.from(angleEnd);
+      : Rac.Angle.from(this.rac, endAngle);
     return new Rac.Arc(this.rac,
       this.ray.start, this.length,
-      this.ray.angle, angleEnd,
+      this.ray.angle, endAngle,
       clockwise);
   }
 
