@@ -505,6 +505,3 @@ tools.test( function arcWithAngleDistance() {
     .equalsArc(55, 55, 72, 1/8, 1/8, false);
 });
 
-
-test.todo('Check for coverage!');
-
