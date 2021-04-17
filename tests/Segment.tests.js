@@ -377,9 +377,11 @@ tools.test( function nextSegmentToAngle() {
   expect(vertical.nextSegmentToAngle(rac.Angle.half))
     .equalsSegment(100, 172, 1/2, 72);
 
+  // null length
   expect(vertical.nextSegmentToAngle(5/8, null))
     .equalsSegment(100, 172, 5/8, 72);
 
+  // with length
   expect(horizontal.nextSegmentToAngle(7/8, 0))
     .equalsSegment(172, 100, 7/8, 0);
   expect(horizontal.nextSegmentToAngle(7/8, 55))
@@ -387,6 +389,32 @@ tools.test( function nextSegmentToAngle() {
 });
 
 
+tools.test( function nextSegmentToAngleDistance() {
+  //nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null)
+  const cathetus = 55 + tools.cathetus(72);
+
+  // Angle/number parameter
+  expect(diagonal.nextSegmentToAngleDistance(0))
+    .equalsSegment(cathetus, cathetus, 5/8, 72);
+  expect(diagonal.nextSegmentToAngleDistance(rac.Angle.zero))
+    .equalsSegment(cathetus, cathetus, 5/8, 72);
+
+  // Clockwise, counter-clockwise
+  expect(diagonal.nextSegmentToAngleDistance(1/4))
+    .equalsSegment(cathetus, cathetus, 7/8, 72);
+  expect(diagonal.nextSegmentToAngleDistance(1/4, false))
+    .equalsSegment(cathetus, cathetus, 3/8, 72);
+
+  // null lenght
+  expect(diagonal.nextSegmentToAngleDistance(1/4, true, null))
+    .equalsSegment(cathetus, cathetus, 7/8, 72);
+
+  // with length
+  expect(diagonal.nextSegmentToAngleDistance(1/4, false, 0))
+    .equalsSegment(cathetus, cathetus, 3/8, 0);
+  expect(diagonal.nextSegmentToAngleDistance(1/4, false, 100))
+    .equalsSegment(cathetus, cathetus, 3/8, 100);
+});
 
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
