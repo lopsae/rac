@@ -268,31 +268,45 @@ tools.test( function arcTangents() {
 });
 
 
-test('Arc Tangents in circumference', () => {
+tools.test( function arcTangentsInCircumference() {
   const circle = rac.Arc(50, 50, 50);
 
   // Vertical tangent
-  expect(rac.Point(100, 50).segmentTangentToArc(circle))
+  const verPoint = rac.Point(100, 50);
+  expect(verPoint.rayTangentToArc(circle))
+    .equalsRay(100, 50, rac.Angle.up);
+  expect(verPoint.segmentTangentToArc(circle))
     .equalsSegment(100, 50, rac.Angle.up, 0);
-  expect(rac.Point(100, 50).segmentTangentToArc(circle, false))
+  expect(verPoint.rayTangentToArc(circle, false))
+    .equalsRay(100, 50, rac.Angle.down);
+  expect(verPoint.segmentTangentToArc(circle, false))
     .equalsSegment(100, 50, rac.Angle.down, 0);
+
   // Horizontal tangent
-  expect(rac.Point(50, 100).segmentTangentToArc(circle))
+  const horPoint = rac.Point(50, 100);
+  expect(horPoint.rayTangentToArc(circle))
+    .equalsRay(50, 100, rac.Angle.right);
+  expect(horPoint.segmentTangentToArc(circle))
     .equalsSegment(50, 100, rac.Angle.right, 0);
-  expect(rac.Point(50, 100).segmentTangentToArc(circle, false))
+  expect(horPoint.rayTangentToArc(circle, false))
+    .equalsRay(50, 100, rac.Angle.left, 0);
+  expect(horPoint.segmentTangentToArc(circle, false))
     .equalsSegment(50, 100, rac.Angle.left, 0);
 
+  // Diagonal tangent
   const circleEdge = 50 + tools.cathetus(50);
   expect(circle.pointAtAngle(rac.Angle.eighth))
     .equalsPoint(circleEdge, circleEdge);
   const circumferencePoint = rac.Point(circleEdge, circleEdge);
 
-  // Diagonal
+  expect(circumferencePoint.rayTangentToArc(circle))
+    .equalsRay(circleEdge, circleEdge, rac.Angle.ne);
   expect(circumferencePoint.segmentTangentToArc(circle))
     .equalsSegment(circleEdge, circleEdge, rac.Angle.ne, 0);
+  expect(circumferencePoint.rayTangentToArc(circle, false))
+    .equalsRay(circleEdge, circleEdge, rac.Angle.sw);
   expect(circumferencePoint.segmentTangentToArc(circle, false))
     .equalsSegment(circleEdge, circleEdge, rac.Angle.sw, 0);
-
 });
 
 
