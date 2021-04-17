@@ -30,7 +30,8 @@ tools.test( function identity() {
 
   // Unexpected type for equalsSegment
   expect(null)          .not.equalsSegment(0, 0, 0, 0);
-  expect(55)            .not.equalsSegment(0, 0, 0, 0);
+  expect(0)             .not.equalsSegment(0, 0, 0, 0);
+  expect('0')           .not.equalsSegment(0, 0, 0, 0);
   expect(rac.Point.zero).not.equalsSegment(0, 0, 0, 0);
   expect(rac.Angle.zero).not.equalsSegment(0, 0, 0, 0);
   expect(rac.Ray.zero)  .not.equalsSegment(0, 0, 0, 0);
@@ -38,6 +39,7 @@ tools.test( function identity() {
   // Unexpected type for equals
   expect(diagonal.equals(null))            .toBe(false);
   expect(diagonal.equals(55))              .toBe(false);
+  expect(diagonal.equals('55'))            .toBe(false);
   expect(diagonal.equals(rac.Point.zero))  .toBe(false);
   expect(diagonal.equals(rac.Angle.eighth)).toBe(false);
   expect(diagonal.equals(rac.Ray.zero))    .toBe(false);

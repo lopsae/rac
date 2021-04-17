@@ -14,7 +14,7 @@ const horizontal = rac.Ray(100, 100, rac.Angle.zero);
 const vertical = rac.Ray(100, 100, rac.Angle.square);
 
 
-test('Identity', () => {
+tools.test( function identity() {
   // Instance members
   expect(rac.Ray.zero).equalsRay(0, 0, 0);
   expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
@@ -32,6 +32,7 @@ test('Identity', () => {
   // Unexpected type for equalsRay
   expect(null)            .not.equalsRay(0, 0, 0);
   expect(0)               .not.equalsRay(0, 0, 0);
+  expect('0')             .not.equalsRay(0, 0, 0);
   expect(rac.Angle.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Point.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Segment.zero).not.equalsRay(0, 0, 0);
@@ -39,6 +40,7 @@ test('Identity', () => {
   // Unexpected type for equals
   expect(diagonal.equals(null))            .toBe(false);
   expect(diagonal.equals(55))              .toBe(false);
+  expect(diagonal.equals('55'))            .toBe(false);
   expect(diagonal.equals(rac.Angle.eighth)).toBe(false);
   expect(diagonal.equals(rac.Point.zero))  .toBe(false);
   expect(diagonal.equals(rac.Segment.zero)).toBe(false);

@@ -11,7 +11,7 @@ const fifty = rac.Point(55, 55);
 const hunty = rac.Point(100, 100);
 
 
-test('Identity', () => {
+tools.test( function identity() {
   // Instance members
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
@@ -25,6 +25,7 @@ test('Identity', () => {
   // Unexpected type for equalsRay
   expect(null)            .not.equalsPoint(0, 0);
   expect(0)               .not.equalsPoint(0, 0);
+  expect('0')             .not.equalsPoint(0, 0);
   expect(rac.Angle.zero)  .not.equalsPoint(0, 0);
   expect(rac.Ray.zero)    .not.equalsPoint(0, 0);
   expect(rac.Segment.zero).not.equalsPoint(0, 0);
@@ -32,6 +33,7 @@ test('Identity', () => {
   // Unexpected type for equals
   expect(hunty.equals(null))            .toBe(false);
   expect(hunty.equals(100))             .toBe(false);
+  expect(hunty.equals('100'))           .toBe(false);
   expect(hunty.equals(rac.Angle.zero))  .toBe(false);
   expect(hunty.equals(rac.Ray.zero))    .toBe(false);
   expect(hunty.equals(rac.Segment.zero)).toBe(false);
