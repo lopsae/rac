@@ -390,7 +390,6 @@ tools.test( function nextSegmentToAngle() {
 
 
 tools.test( function nextSegmentToAngleDistance() {
-  //nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null)
   const cathetus = 55 + tools.cathetus(72);
 
   // Angle/number parameter
@@ -415,6 +414,25 @@ tools.test( function nextSegmentToAngleDistance() {
   expect(diagonal.nextSegmentToAngleDistance(1/4, false, 100))
     .equalsSegment(cathetus, cathetus, 3/8, 100);
 });
+
+
+tools.test( function nextSegmentPerpendicular() {
+  const cathetus = 55 + tools.cathetus(72);
+
+  expect(diagonal.nextSegmentPerpendicular())
+    .equalsSegment(cathetus, cathetus, 7/8, 72);
+  expect(diagonal.nextSegmentPerpendicular(false))
+    .equalsSegment(cathetus, cathetus, 3/8, 72);
+
+  expect(diagonal.nextSegmentPerpendicular(true, null))
+    .equalsSegment(cathetus, cathetus, 7/8, 72);
+
+  expect(diagonal.nextSegmentPerpendicular(false, 0))
+    .equalsSegment(cathetus, cathetus, 3/8, 0);
+  expect(diagonal.nextSegmentPerpendicular(false, 100))
+    .equalsSegment(cathetus, cathetus, 3/8, 100);
+});
+
 
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
