@@ -232,6 +232,7 @@ test('Transforms to Segment', () => {
 });
 
 
+// TODO: test point at arc center, arc.radius non zero
 test('Arc Tangents', () => {
   // Circle at 50,50, touches x-axis and y-axis
   const circle = rac.Arc(50, 50, 50);

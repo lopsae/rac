@@ -285,7 +285,54 @@ class Point{
   }
 
 
-  // TODO: rayTangentToArc
+  /**
+  * @summary
+  * Returns a new `Ray` that starts at `this` and is tangent to `arc`, when
+  * no tangent is possible returns `null`.
+  *
+  * @description
+  * The new `Ray` will be in the `clockwise` side of the ray formed
+  * from `this` towards `arc.center`. `arc` is considered a complete
+  * circle.
+  *
+  * When `this` is inside `arc` no tangent segment is possible and `null`
+  * is returned.
+  *
+  * A special case is considered when `arc.radius` is considered to be `0`
+  * and `this` is equal to `arc.center`. In this case the angle between
+  * `this` and `arc.center` is assumed to be the inverse of `arc.start`,
+  * thus the new `Ray` will have an angle perpendicular to
+  * `arc.start.inverse()`, in the `clockwise` orientation.
+  *
+  * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
+  * as a complete circle
+  * @param {boolean} [clockwise=true] - the orientation of the new `Ray`
+  * @return {Rac.Ray?}
+  */
+  rayTangentToArc(arc, clockwise = true) {
+    // A default angle is given for the edge case of a zero-radius arc
+    let hypotenuse = this.segmentToPoint(arc.center, arc.start.inverse());
+    let ops = arc.radius;
+
+    if (this.rac.equals(hypotenuse.length, arc.radius)) {
+      // Point in arc
+      const perpendicular = hypotenuse.ray.angle.perpendicular(clockwise);
+      return new Rac.Ray(this.rac, this, perpendicular);
+    }
+
+    // TODO: hypotenuse could be zero if this is right at arc.center
+    let angleSine = ops / hypotenuse.length;
+    if (angleSine > 1) {
+      // Point inside arc
+      return null;
+    }
+
+    let angleRadians = Math.asin(angleSine);
+    let opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
+    let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
+
+    return new Rac.Ray(this.rac, this, shiftedOpsAngle);
+  }
 
 
   /**
@@ -344,13 +391,12 @@ class Point{
   /**
   * @summary
   * Returns a new `Segment` that starts at `this` and is tangent to `arc`,
-  * or `null` if no tangent segment is possible.
+  * when no tangent is possible returns `null`.
   *
   * @description
   * The new `Segment` will be in the `clockwise` side of the ray formed
-  * from `this` towards `arc.center`.
-  * The returned `Segment` starts at `this` and ends at the contact point
-  * with `arc` which is considered as a complete circle.
+  * from `this` towards `arc.center`, and its end point will be at the
+  * contact point with `arc` which is considered as a complete circle.
   *
   * When `this` is inside `arc` no tangent segment is possible and `null`
   * is returned.
@@ -367,29 +413,15 @@ class Point{
   * @return {Rac.Segment?}
   */
   segmentTangentToArc(arc, clockwise = true) {
-    // Default angle is given for the edge case of a zero-radius arc
-    let hypotenuse = this.segmentToPoint(arc.center, arc.start.inverse());
-    let ops = arc.radius;
-
-    if (this.rac.equals(hypotenuse.length, arc.radius)) {
-      // Point in arc
-      const perpendicular = hypotenuse.ray.angle.perpendicular(clockwise);
-      return this.segmentToAngle(perpendicular, 0);
-    }
-
-    let angleSine = ops / hypotenuse.length;
-    if (angleSine > 1) {
-      // Point inside arc
+    const tangentRay = this.rayTangentToArc(arc, clockwise);
+    if (tangentRay === null) {
       return null;
     }
 
-    let angleRadians = Math.asin(angleSine);
-    let opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
-    let shiftedOpsAngle = hypotenuse.angle().shift(opsAngle, clockwise);
+    const tangentPerp = tangentRay.angle.perpendicular(clockwise);
+    const radiusRay = arc.center.ray(tangentPerp);
 
-    // TODO: splitting it to ray would actually save some calculations
-    let end = arc.pointAtAngle(shiftedOpsAngle.perpendicular(clockwise));
-    return this.segmentToPoint(end);
+    return tangentRay.segmentToIntersection(radiusRay);
   }
 
 
