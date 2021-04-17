@@ -444,7 +444,7 @@ class Segment {
   * perpendicular angle in the `clockwise` orientation.
   *
   * The new `Segment` will have the given `length`, or when ommited or
-  * `null` the length will be `this.length` instead.
+  * `null` will use `this.length` instead.
   *
   * @param {?number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
@@ -500,14 +500,21 @@ class Segment {
   * Returns a new `Segment` starting from `endPoint()` towards `angle`
   * with the given `length`.
   *
+  * The new `Segment` will have the given `length`, or when ommited or
+  * `null` will use `this.length` instead.
+  *
   * @param {Rac.Angle|number} angle - The angle of the new `Segment`
-  * @param {number} length - The length of the new `Segment`
+  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * `null` to use `this.length`
   * @returns {Rac.Segment}
   */
-  nextSegmentToAngle(angle, length) {
+  nextSegmentToAngle(angle, length = null) {
+    const newLength = length === null
+      ? this.length
+      : length;
     const newStart = this.endPoint();
     const newRay = new Rac.Ray(this.rac, newStart, angle);
-    return new Segment(this.rac, newRay, length);
+    return new Segment(this.rac, newRay, newLength);
   }
 
 
@@ -517,7 +524,7 @@ class Segment {
   * orientation.
   *
   * The new `Segment` will have the given `length`, or when ommited or
-  * `null` the length will be `this.length` instead.
+  * `null` will use `this.length` instead.
   *
   * Notice that the `angleDistance` is applied to the inverse of the
   * segment's angle. E.g. with an `angleDistance` of `0` the resulting
@@ -551,7 +558,7 @@ class Segment {
   * `this.angle().inverse()` in the `clockwise` orientation.
   *
   * The new `Segment` will have the given `length`, or when ommited or
-  * `null` the length will be `this.length` instead.
+  * `null` will use `this.length` instead.
   *
   * Notice that the perpendicular is calculated from the inverse of the
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
