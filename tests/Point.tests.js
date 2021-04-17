@@ -334,3 +334,6 @@ test('Miscelaneous', () => {
     .equalsText(100, 100, 'sphinx');
 });
 
+
+// Full coverage!
+

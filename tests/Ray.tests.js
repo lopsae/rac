@@ -417,3 +417,6 @@ test('Transforms to Arc', () => {
     .equalsArc(55, 55, 100, 1/8, 7/8, false);
 });
 
+
+// Full coverage!
+
