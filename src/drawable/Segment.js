@@ -5,9 +5,6 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-// TODO: should use only `this.rac.angle` or `this.angle()`
-
-
 /**
 * Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
 * @alias Rac.Segment
@@ -141,7 +138,7 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `ray.start` set to `newStart`.
+  * Returns a new `Segment` with start point set to `newStart`.
   *
   * All other properties are copied from `this`.
   *
@@ -195,7 +192,7 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `angle` added to `this.ray.angle`.
+  * Returns a new `Segment` with `angle` added to `this.angle()`.
   *
   * All other properties are copied from `this`.
   *
@@ -244,7 +241,7 @@ class Segment {
   /**
   * Returns a new `Segment` pointing towards the
   * [perpendicular angle]{@link Rac.Angle#perpendicular} of
-  * `this.ray.angle` in the `clockwise` orientation.
+  * `this.angle()` in the `clockwise` orientation.
   *
   * The resulting `Segment` will have the same `startPoint()` and `length`
   * as `this`.
@@ -308,7 +305,7 @@ class Segment {
 
   /**
   * Returns a new `Segment` with the start point moved the given `distance`
-  * towards the perpendicular angle to `this.ray.angle` in the `clockwise`
+  * towards the perpendicular angle to `this.angle()` in the `clockwise`
   * orientaton. All other properties are copied from `this`.
   *
   * @param {number} distance - The distance to move the start point by
@@ -357,10 +354,10 @@ class Segment {
 
   /**
   * Returns a new `Point` in the segment's ray at the given `length` from
-  * `ray.start`. When `length` is negative, the new `Point` is calculated
-  * in the inverse direction of `ray.angle`.
+  * `this.startPoint()`. When `length` is negative, the new `Point` is
+  * calculated in the inverse direction of `this.angle()`.
   *
-  * @param {number} length - The distance from `ray.start`
+  * @param {number} length - The distance from `this.startPoint()`
   * @returns {Rac.Point}
   * @see Rac.Ray#pointAtDistance
   */
@@ -371,8 +368,9 @@ class Segment {
 
   /**
   * Returns a new `Point` in the segment's ray at a distance of
-  * `this.length * ratio` from `ray.start`. When `ratio` is negative, the
-  * new `Point` is calculated in the inverse direction of `ray.angle`.
+  * `this.length * ratio` from `this.startPoint()`. When `ratio` is
+  * negative, the new `Point` is calculated in the inverse direction of
+  * `this.angle()`.
   *
   * @param {number} ratio - The factor to multiply `length` by
   * @returns {Rac.Point}
@@ -398,7 +396,7 @@ class Segment {
   *
   * When `newStartPoint` and `this.endPoint()` are considered
   * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.ray.angle`.
+  * `this.angle()`.
   *
   * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
   * @returns {Rac.Segment}
@@ -411,12 +409,12 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting at `this.ray.start` and ending at
+  * Returns a new `Segment` starting at `this.startPoint()` and ending at
   * `newEndPoint`.
   *
-  * When `this.ray.start` and `newEndPoint` are considered
+  * When `this.startPoint()` and `newEndPoint` are considered
   * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.ray.angle`.
+  * `this.angle()`.
   *
   * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
   * @returns {Rac.Segment}
@@ -484,7 +482,7 @@ class Segment {
   *
   * When `endPoint()` and `nextEndPoint` are considered
   * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.ray.angle`.
+  * `this.angle()`.
   *
   * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
   * @returns {Rac.Segment}
