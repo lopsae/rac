@@ -233,25 +233,36 @@ test('Transforms to Segment', () => {
 
 
 // TODO: test point at arc center, arc.radius non zero
-test('Arc Tangents', () => {
+tools.test( function arcTangents() {
   // Circle at 50,50, touches x-axis and y-axis
   const circle = rac.Arc(50, 50, 50);
 
   // Point inside circle
+  expect(fifty.rayTangentToArc(circle)).toBe(null);
   expect(fifty.segmentTangentToArc(circle)).toBe(null);
 
   // Vertical tangent
+  expect(hunty.rayTangentToArc(circle))
+    .equalsRay(100, 100, rac.Angle.up);
   expect(hunty.segmentTangentToArc(circle))
     .equalsSegment(100, 100, rac.Angle.up, 50);
+
   // Horizontal tangent
+  expect(hunty.rayTangentToArc(circle, false))
+    .equalsRay(100, 100, rac.Angle.left);
   expect(hunty.segmentTangentToArc(circle, false))
     .equalsSegment(100, 100, rac.Angle.left, 50);
 
   const diagonalX = 50 + tools.cathetus(50) * 2;
   const diagonalPoint = rac.Point(diagonalX, 50);
   // Diagonal tangents
+  expect(diagonalPoint.rayTangentToArc(circle))
+    .equalsRay(diagonalX, 50, rac.Angle.nw);
   expect(diagonalPoint.segmentTangentToArc(circle))
     .equalsSegment(diagonalX, 50, rac.Angle.nw, 50);
+
+  expect(diagonalPoint.rayTangentToArc(circle, false))
+    .equalsRay(diagonalX, 50, rac.Angle.sw);
   expect(diagonalPoint.segmentTangentToArc(circle, false))
     .equalsSegment(diagonalX, 50, rac.Angle.sw, 50);
 });
