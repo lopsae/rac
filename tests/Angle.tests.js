@@ -7,28 +7,53 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-test('Identity', () => {
-  expect(null).not.equalsAngle(0);
-  expect(null).not.equalsAngle(1/2);
+tools.test( function identity() {
+  // Instance members
+  expect(rac.Angle.east) .equalsAngle(0/4);
+  expect(rac.Angle.south).equalsAngle(1/4);
+  expect(rac.Angle.west) .equalsAngle(2/4);
+  expect(rac.Angle.north).equalsAngle(3/4);
 
-  expect(rac.Angle.zero).equalsAngle(0);
-  expect(rac.Angle.zero).equalsAngle(rac.Angle.east);
-  expect(rac.Angle.zero).equalsAngle(1);
-  expect(rac.Angle.zero).equalsAngle(55);
-  expect(rac.Angle.zero).equalsAngle(-7);
+  // equalsAngle with angle
+  expect(rac.Angle.right) .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.down)  .equalsAngle(rac.Angle.quarter);
+  expect(rac.Angle.left)  .equalsAngle(rac.Angle.half);
+  expect(rac.Angle.up)    .equalsAngle(rac.Angle.top);
 
-  expect(rac.Angle.half).equalsAngle(1/2);
-  expect(rac.Angle.half).equalsAngle(rac.Angle.left);
-  expect(rac.Angle.half).equalsAngle(2.5);
-  expect(rac.Angle.half).equalsAngle(-0.5);
-  expect(rac.Angle.half).equalsAngle(-7.5);
+  // Unexpected type for equalsRay
+  expect(null)            .not.equalsAngle(0);
+  expect(0)               .not.equalsAngle(0);
+  expect('0')             .not.equalsAngle(0);
+  expect(rac.Point.zero)  .not.equalsAngle(0);
+  expect(rac.Ray.zero)    .not.equalsAngle(0);
+  expect(rac.Segment.zero).not.equalsAngle(0);
 
-  expect(0.5).not.equalsAngle(0.5);
-  expect(rac.Point.zero).not.equalsAngle(0);
+  const zero = rac.Angle.zero;
+
+  // Expected type for equals
+  expect(zero.equals(0))   .toBe(true);
+  expect(zero.equals(zero)).toBe(true);
+  expect(rac.Angle.half.equals(1/2))           .toBe(true);
+  expect(rac.Angle.half.equals(rac.Angle.half)).toBe(true);
+
+  // Unexpected type for equals
+  expect(zero.equals(null))            .toBe(false);
+  expect(zero.equals('0'))             .toBe(false);
+  expect(zero.equals(rac.Point.zero))  .toBe(false);
+  expect(zero.equals(rac.Ray.zero))    .toBe(false);
+  expect(zero.equals(rac.Segment.zero)).toBe(false);
+
+  // Turn constrain
+  expect(new Rac.Angle(rac, 0)) .equalsAngle(zero);
+  expect(new Rac.Angle(rac, 1)) .equalsAngle(zero);
+  expect(new Rac.Angle(rac, 55)).equalsAngle(zero);
+  expect(new Rac.Angle(rac, -7)).equalsAngle(zero);
+
+  expect(new Rac.Angle(rac, 1/2)) .equalsAngle(1/2);
+  expect(new Rac.Angle(rac, 2.5)) .equalsAngle(1/2);
+  expect(new Rac.Angle(rac, -0.5)).equalsAngle(1/2);
+  expect(new Rac.Angle(rac, -7.5)).equalsAngle(1/2);
 });
-
-
-test.todo('check equals directly with wrong types')
 
 
 test('Function toString', () => {

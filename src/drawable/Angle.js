@@ -71,8 +71,11 @@ class Angle {
 
   /**
   * Returns `true` when the difference with the `turn` value of the angle
-  * derived {@link Rac.Angle.from from} `angle` is under
+  * derived [from]{@link Rac.Angle.from} `angle` is under
   * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
+  *
+  * For this method `otherAngle` can only be `Angle` or `number`, with any
+  * other type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
   * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and
@@ -82,8 +85,14 @@ class Angle {
   * @returns {boolean}
   */
   equals(otherAngle) {
-    // TODO: how to check for type without crashing? just allow angle/number?
-    otherAngle = Angle.from(this.rac, otherAngle);
+    if (otherAngle instanceof Rac.Angle) {
+      // all good!
+    } else if (typeof otherAngle === 'number') {
+      otherAngle = Angle.from(this.rac, otherAngle);
+    } else {
+      return false;
+    }
+
     const diff = Math.abs(this.turn - otherAngle.turn);
     return diff < this.rac.unitaryEqualityThreshold
       // For close values that loop around
