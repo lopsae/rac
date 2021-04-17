@@ -35,6 +35,11 @@ exports.test = function(testFunc) {
 };
 
 
+exports.testOnly = function(testFunc) {
+  test.only(testFunc.name, testFunc);
+};
+
+
 function pass(messageFunc) {
   return {
     pass: true,
