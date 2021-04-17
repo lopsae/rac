@@ -320,3 +320,6 @@ test('Function shift/shiftToOrigin', () => {
     .equalsAngle(0);
 });
 
+
+// Full coverage!
+
