@@ -613,13 +613,6 @@ class Segment {
     // tan * adj = ops
     const ops = Math.tan(radians) * this.length;
     return this.nextSegmentPerpendicular(clockwise, ops);
-
-
-    // TODO: Delete once tested
-    // const angle = this.rac.Angle.fromRadians(radians);
-    // let hypSegment = this.reverse()
-    //   .nextSegmentToAngleDistance(angle, !clockwise, hypotenuse);
-    // return this.end.segmentToPoint(hypSegment.end);
   };
 
 

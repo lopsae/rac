@@ -434,6 +434,35 @@ tools.test( function nextSegmentPerpendicular() {
 });
 
 
+tools.test( function nextSegmentLegWithHyp() {
+  // with short side
+  const shortCathetus = 55 + tools.cathetus(30);
+  const shortLeg = rac.Segment(55, 55, 1/8, 30);
+  expect(shortLeg.nextSegmentLegWithHyp(50))
+    .equalsSegment(shortCathetus, shortCathetus, 7/8, 40);
+  expect(shortLeg.nextSegmentLegWithHyp(50, false))
+    .equalsSegment(shortCathetus, shortCathetus, 3/8, 40);
+
+  // hyp same as ops
+  expect(shortLeg.nextSegmentLegWithHyp(30))
+    .equalsSegment(shortCathetus, shortCathetus, 7/8, 0);
+  expect(shortLeg.nextSegmentLegWithHyp(30, false))
+    .equalsSegment(shortCathetus, shortCathetus, 3/8, 0);
+
+  // with long side
+  const longCathetus = 55 + tools.cathetus(40);
+  const longLeg = rac.Segment(55, 55, 1/8, 40);
+  expect(longLeg.nextSegmentLegWithHyp(50))
+    .equalsSegment(longCathetus, longCathetus, 7/8, 30);
+  expect(longLeg.nextSegmentLegWithHyp(50, false))
+    .equalsSegment(longCathetus, longCathetus, 3/8, 30);
+
+  // hyp shorter that ops
+  expect(longLeg.nextSegmentLegWithHyp(39)).toBe(null);
+  expect(longLeg.nextSegmentLegWithHyp(39, false)).toBe(null);
+});
+
+
 test('Transforms to Arc', () => {
   expect(diagonal.arc()).equalsArc(55, 55, 72, 1/8, 1/8, true);
 
