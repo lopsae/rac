@@ -485,5 +485,26 @@ tools.test( function arc() {
 });
 
 
+tools.test( function arcWithAngleDistance() {
+  // Angle/number parameter
+  expect(diagonal.arcWithAngleDistance(0))
+    .equalsArc(55, 55, 72, 1/8, 1/8, true);
+  expect(diagonal.arcWithAngleDistance(rac.Angle.zero))
+    .equalsArc(55, 55, 72, 1/8, 1/8, true);
+
+  // clocwise, counter-clockwise
+  expect(diagonal.arcWithAngleDistance(1/4))
+    .equalsArc(55, 55, 72, 1/8, 3/8, true);
+  expect(diagonal.arcWithAngleDistance(1/4, false))
+    .equalsArc(55, 55, 72, 1/8, 7/8, false);
+
+  // zero distance
+  expect(diagonal.arcWithAngleDistance(0))
+    .equalsArc(55, 55, 72, 1/8, 1/8, true);
+  expect(diagonal.arcWithAngleDistance(0, false))
+    .equalsArc(55, 55, 72, 1/8, 1/8, false);
+});
+
+
 test.todo('Check for coverage!');
 

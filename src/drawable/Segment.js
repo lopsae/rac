@@ -656,14 +656,13 @@ class Segment {
   * @returns {Rac.Arc}
   */
   arcWithAngleDistance(angleDistance, clockwise = true) {
-    // TODO: look and replace all someAngle cases
     angleDistance = this.rac.Angle.from(angleDistance);
-    const arcStart = this.angle();
-    const arcEnd = arcStart.shift(angleDistance, clockwise);
+    const stargAngle = this.ray.angle;
+    const endAngle = stargAngle.shift(angleDistance, clockwise);
 
     return new Rac.Arc(this.rac,
-      this.start, this.length(),
-      arcStart, arcEnd,
+      this.ray.start, this.length,
+      stargAngle, endAngle,
       clockwise);
   }
 
