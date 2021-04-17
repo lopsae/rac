@@ -232,14 +232,18 @@ test('Transforms to Segment', () => {
 });
 
 
-// TODO: test point at arc center, arc.radius non zero
 tools.test( function arcTangents() {
-  // Circle at 50,50, touches x-axis and y-axis
-  const circle = rac.Arc(50, 50, 50);
+  // Circle at 50,50, radius 50, touches x-axis and y-axis
+  const circleCenter = rac.Point(50, 50);
+  const circle = circleCenter.arc(50);
 
   // Point inside circle
   expect(fifty.rayTangentToArc(circle)).toBe(null);
   expect(fifty.segmentTangentToArc(circle)).toBe(null);
+
+  // Point at circle center
+  expect(circleCenter.rayTangentToArc(circle)).toBe(null);
+  expect(circleCenter.segmentTangentToArc(circle)).toBe(null);
 
   // Vertical tangent
   expect(hunty.rayTangentToArc(circle))
@@ -310,7 +314,7 @@ tools.test( function arcTangentsInCircumference() {
 });
 
 
-test('Arc Tangents edge cases', () => {
+tools.test( function arcTangentsEdgeCases() {
   let zeroCircle = rac.Arc(55, 55, 0, rac.Angle.left);
 
   // Point to zero-radius circle

@@ -320,7 +320,10 @@ class Point{
       return new Rac.Ray(this.rac, this, perpendicular);
     }
 
-    // TODO: hypotenuse could be zero if this is right at arc.center
+    if (this.rac.equals(hypotenuse.length, 0)) {
+      return null;
+    }
+
     let angleSine = ops / hypotenuse.length;
     if (angleSine > 1) {
       // Point inside arc
