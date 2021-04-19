@@ -74,8 +74,8 @@ class Angle {
   * derived [from]{@link Rac.Angle.from} `angle` is under
   * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
   *
-  * For this method `otherAngle` can only be `Angle` or `number`, with any
-  * other type returns `false`.
+  * For this method `otherAngle` can only be `Angle` or `number`, any other
+  * type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
   * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and

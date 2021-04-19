@@ -70,6 +70,10 @@ class Segment {
   /**
   * Returns `true` when `ray` and `length` in both segments are equal.
   *
+  * When `otherSegment` is any class other that `Rac.Segment`, returns `false`.
+  *
+  * Segments' `length` are compared using `{@link Rac#equals}`.
+  *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
   * @returns {boolean}
   * @see Rac.Ray#equals

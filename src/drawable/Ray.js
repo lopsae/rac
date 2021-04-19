@@ -62,6 +62,8 @@ class Ray {
   /**
   * Returns `true` when `start` and `angle` in both rays are equal.
   *
+  * When `otherRay` is any class other that `Rac.Ray`, returns `false`.
+  *
   * @param {Rac.Ray} otherRay - A `Ray` to compare
   * @returns {boolean}
   * @see Rac.Point#equals

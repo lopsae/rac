@@ -64,6 +64,7 @@ class Arc{
     * the arc is considered a complete circle for drawing.
     *
     * @type {Rac.Angle}
+    * @see Rac.Angle#equals
     */
     this.start = start
 
@@ -75,6 +76,7 @@ class Arc{
     * the arc is considered a complete circle for drawing.
     *
     * @type {Rac.Angle}
+    * @see Rac.Angle#equals
     */
     this.end = end;
 
@@ -103,13 +105,26 @@ class Arc{
   }
 
 
+  /**
+  * Returns `true` when all members of both arcs are equal.
+  *
+  * When `otherArc` is any class other that `Rac.Arc`, returns `false`.
+  *
+  * Arcs' `radius` are compared using `{@link Rac#equals}`.
+  *
+  * @param {Rac.Segment} otherSegment - A `Segment` to compare
+  * @returns {boolean}
+  * @see Rac.Point#equals
+  * @see Rac.Angle#equals
+  * @see Rac#equals
+  */
   equals(otherArc) {
-    // TODO: check using unitaryThreshold
-    return this.center.equals(otherArc.center)
+    return otherArc instanceof Arc
       && this.rac.equals(this.radius, otherArc.radius)
+      && this.clockwise === otherArc.clockwise
+      && this.center.equals(otherArc.center)
       && this.start.equals(otherArc.start)
-      && this.end.equals(otherArc.end)
-      && this.clockwise === otherArc.clockwise;
+      && this.end.equals(otherArc.end);
   }
 
 

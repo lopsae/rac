@@ -68,10 +68,13 @@ class Point{
   * Returns `true` when the difference with `otherPoint` for each coordinate is
   * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
   *
+  * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
+  *
   * Values are compared using `{@link Rac#equals}`.
   *
   * @param {Rac.Point} otherPoint - A `Point` to compare
   * @returns {boolean}
+  * @see Rac#equals
   */
   equals(otherPoint) {
     return otherPoint instanceof Point
