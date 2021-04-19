@@ -10,7 +10,7 @@ const utils = require('../util/utils');
 * Arc of a circle from a start angle to an end angle.
 *
 * Arcs that have the same `start` and `end` angles are considered a
-* complete circle for drawing.
+* complete circle.
 *
 * @alias Rac.Arc
 */
@@ -61,7 +61,7 @@ class Arc{
     * `end` in the `clockwise` orientation.
     *
     * When `start` and `end` are [equal angles]{@link Rac.Angle#equals}
-    * the arc is considered a complete circle for drawing.
+    * the arc is considered a complete circle.
     *
     * @type {Rac.Angle}
     * @see Rac.Angle#equals
@@ -73,7 +73,7 @@ class Arc{
     * angle in the `clockwise` orientation.
     *
     * When `start` and `end` are [equal angles]{@link Rac.Angle#equals}
-    * the arc is considered a complete circle for drawing.
+    * the arc is considered a complete circle.
     *
     * @type {Rac.Angle}
     * @see Rac.Angle#equals
@@ -128,57 +128,105 @@ class Arc{
   }
 
 
-  reverse() {
-    return new Arc(this.rac,
-      this.center, this.radius,
-      this.end, this.start,
-      !this.clockwise);
-  }
-
+  /**
+  * Returns the length of the arc: the part of the circumference the arc
+  * represents.
+  * @returns {number}
+  */
   length() {
     return this.angleDistance().turnOne() * this.radius * Rac.TAU;
   }
 
-  // Returns an Angle that represents the distance between `this.start`
-  // and `this.end`, in the orientation of the arc.
+
+  /**
+  * Returns a new `Angle` that represents the distance between `start` and
+  * `end`, in the orientation of the arc.
+  * @returns {Rac.Angle}
+  */
   angleDistance() {
     return this.start.distance(this.end, this.clockwise);
   }
 
+
+  /**
+  * Returns a new `Point` located where the arc starts.
+  * @returns {Rac.Point}
+  */
   startPoint() {
     return this.pointAtAngle(this.start);
   }
 
+
+  /**
+  * Returns a new `Point` located where the arc ends.
+  * @returns {Rac.Point}
+  */
   endPoint() {
     return this.pointAtAngle(this.end);
   }
 
 
+  /**
+  * Returns a new `Ray` from `center` towars `start`.
+  * @returns {Rac.Ray}
+  */
   startRay() {
     return new Rac.Ray(this.rac, this.center, this.start);
   }
 
 
+  /**
+  * Returns a new `Ray` from `center` towars `end`.
+  * @returns {Rac.Ray}
+  */
   endRay() {
     return new Rac.Ray(this.rac, this.center, this.end);
   }
 
-  // Returns the segment from `center` to `startPoint()`.
+
+  /**
+  * Returns a new `Segment` from `center` to `startPoint()`.
+  * @returns {Rac.Segment}
+  */
   startSegment() {
     return new Rac.Segment(this.rac, this.startRay(), this.radius);
   }
 
-  // Returns the segment from `center` to `endPoint()`.
+
+  /**
+  * Returns a new `Segment` from `center` to `endPoint()`.
+  * @returns {Rac.Segment}
+  */
   endSegment() {
     return new Rac.Segment(this.rac, this.endRay(), this.radius);
   }
 
-  // Returns the segment from `startPoint()` to `endPoint()`. Note that
-  // for complete circle arcs this segment will have a length of zero.
+
+  /**
+  * Returns a new `Segment` from `startPoint()` to `startPoint()`.
+  *
+  * Note that for complete circle arcs this segment will have a length of
+  * zero.
+  *
+  * @returns {Rac.Segment}
+  */
   chordSegment() {
     let perpendicular = this.start.perpendicular(this.clockwise);
     return this.startPoint().segmentToPoint(this.endPoint(), perpendicular);
   }
+
+
+  /**
+  * Returns `true` if the arc is a complete circle, which is when `start`
+  * and `end` are [equal angles]{@link Rac.Angle#equals}.
+  *
+  * @returns {boolean}
+  * @see Rac.Angle#equals
+  */
+  isCircle() {
+    return this.start.equals(this.end);
+  }
+
 
   withCenter(newCenter) {
     return new Arc(this.rac,
@@ -261,10 +309,14 @@ class Arc{
       this.clockwise);
   }
 
-  // Returns `true` if this arc is a complete circle.
-  isCircle() {
-    return this.start.equals(this.end);
+
+  reverse() {
+    return new Arc(this.rac,
+      this.center, this.radius,
+      this.end, this.start,
+      !this.clockwise);
   }
+
 
   // Returns `value` clamped to the given insets from zero and the length
   // of the segment.
