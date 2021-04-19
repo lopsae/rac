@@ -228,6 +228,14 @@ class Arc{
   }
 
 
+  /**
+  * Returns a new `Arc` with center set to `newCenter`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Point} newCenter - The center for the new `Arc`
+  * @returns {Rac.Arc}
+  */
   withCenter(newCenter) {
     return new Arc(this.rac,
       newCenter, this.radius,
@@ -235,6 +243,15 @@ class Arc{
       this.clockwise);
   }
 
+
+  /**
+  * Returns a new `Arc` with start set to `newStart`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Angle|number} newStart - The start for the new `Arc`
+  * @returns {Rac.Arc}
+  */
   withStart(newStart) {
     let newStartAngle = Rac.Angle.from(this.rac, newStart);
     return new Arc(this.rac,
@@ -243,6 +260,15 @@ class Arc{
       this.clockwise);
   }
 
+
+  /**
+  * Returns a new `Arc` with end set to `newEnd`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Angle|number} newEnd - The end for the new `Arc`
+  * @returns {Rac.Arc}
+  */
   withEnd(newEnd) {
     let newEndAngle = Rac.Angle.from(this.rac, newEnd);
     return new Arc(this.rac,
@@ -251,12 +277,38 @@ class Arc{
       this.clockwise);
   }
 
+
+  /**
+  * Returns a new `Arc` with radius set to `newRadius`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {number} newRadius - The radius for the new `Arc`
+  * @returns {Rac.Arc}
+  */
   withRadius(newRadius) {
     return new Arc(this.rac,
       this.center, newRadius,
       this.start, this.end,
       this.clockwise);
   }
+
+
+  /**
+  * Returns a new `Arc` with its orientation set to `newClockwise`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {boolean} newClockwise - The orientation for the new `Arc`
+  * @returns {Rac.Arc}
+  */
+  withClockwise(newClockwise) {
+    return new Arc(this.rac,
+      this.center, this.radius,
+      this.start, this.end,
+      newClockwise);
+  }
+
 
   withAngleDistance(newAngleDistance) {
     let newEnd = this.angleAtAngleDistance(newAngleDistance);
@@ -277,12 +329,6 @@ class Arc{
     return this.withLength(newLength);
   }
 
-  withClockwise(newClockwise) {
-    return new Arc(this.rac,
-      this.center, this.radius,
-      this.start, this.end,
-      newClockwise);
-  }
 
   withStartTowardsPoint(point) {
     let newStart = this.center.angleToPoint(point);
@@ -310,6 +356,13 @@ class Arc{
   }
 
 
+  /**
+  * Returns a new `Arc` with its `start` and `end` exchanged, and the
+  * opposite clockwise orientation. The center and radius remain be the
+  * same as `this`.
+  *
+  * @returns {Rac.Arc}
+  */
   reverse() {
     return new Arc(this.rac,
       this.center, this.radius,
