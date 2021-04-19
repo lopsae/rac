@@ -310,20 +310,62 @@ class Arc{
   }
 
 
-  withAngleDistance(newAngleDistance) {
-    let newEnd = this.angleAtAngleDistance(newAngleDistance);
+  /**
+  * Returns a new `Arc` with the given `angleDistance` as the distance
+  * between `start` and `end` in the arc's orientation.
+  *
+  * All properties except `end` are copied from `this`.
+  *
+  * @param {Rac.Angle|number} angleDistance - The angle distance of the
+  * new `Arc`
+  * @returns {Rac.Arc}
+  * @see Rac.Arc#angleDistance
+  */
+  withAngleDistance(angleDistance) {
+    let newEnd = this.angleAtAngleDistance(angleDistance);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEnd,
       this.clockwise);
   }
 
-  withLength(newLength) {
+
+  /**
+  * Returns a new `Arc` with the given `length` as the length of the
+  * part of the circumference it represents.
+  *
+  * All properties except `end` are copied from `this`.
+  *
+  * The actual `length()` of the resulting `Arc` will always be in the
+  * range `[0,radius*TAU)`. When the given `length` is larger that the
+  * circumference of the arc as a complete circle, the resulting arc length
+  * will be cut back into range through a modulo operation.
+  *
+  * @param {number} length - The length of the new `Arc`
+  * @returns {Rac.Arc}
+  * @see Rac.Arc#length
+  */
+  withLength(length) {
     let circumference = this.radius * Rac.TAU;
     let newAngleDistance = newLength / circumference;
     return this.withAngleDistance(newAngleDistance);
   }
 
+
+  /**
+  * Returns a new `Arc` with a `length()` of `this.length() * ratio`.
+  *
+  * All properties except `end` are copied from `this`.
+  *
+  * The actual `length()` of the resulting `Arc` will always be in the
+  * range `[0,radius*TAU)`. When the calculated length is larger that the
+  * circumference of the arc as a complete circle, the resulting arc length
+  * will be cut back into range through a modulo operation.
+  *
+  * @param {number} ratio - The factor to multiply `length()` by
+  * @returns {Rac.Arc}
+  * @see Rac.Arc#length
+  */
   withLengthRatio(ratio) {
     let newLength = this.length() * ratio;
     return this.withLength(newLength);
