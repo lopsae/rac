@@ -5,11 +5,13 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-// TODO: fix uses of someAngle
-
 
 /**
-* Arc from a start angle to an end angle.
+* Arc of a circle from a start angle to an end angle.
+*
+* Arcs that have the same `start` and `end` angles are considered a
+* complete circle for drawing.
+*
 * @alias Rac.Arc
 */
 class Arc{
@@ -17,12 +19,12 @@ class Arc{
   /**
   * Creates a new `Arc` instance.
   *
-  * @param {Rac} rac
-  * @param {Rac.Point} center
-  * @param {number} radius
-  * @param {Rac.Angle} start
-  * @param {Rac.Angle} end
-  * @param {boolean} clockwise
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {Rac.Point} center - The center of the arc
+  * @param {number} radius - The radius of the arc
+  * @param {Rac.Angle} start - An `Angle` where the arc starts
+  * @param {Rac.Angle} end - Ang `Angle` where the arc ends
+  * @param {boolean} clockwise - The orientation of the arc
   */
   constructor(rac,
     center, radius,
@@ -35,25 +37,69 @@ class Arc{
     utils.assertType(Rac.Angle, start, end);
     utils.assertBoolean(clockwise);
 
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The center `Point` of the arc.
+    * @type {Rac.Point}
+    */
     this.center = center;
+
+    /**
+    * The radius of the arc.
+    * @type {number}
+    */
     this.radius = radius;
-    // Start angle of the arc. Arc will draw from this angle towards `end`
-    // in the `clockwise` orientaton.
+
+    /**
+    * The start `Angle` of the arc. The arc is draw from this angle towards
+    * `end` in the `clockwise` orientation.
+    *
+    * When `start` and `end` are [equal angles]{@link Rac.Angle#equals}
+    * the arc is considered a complete circle for drawing.
+    *
+    * @type {Rac.Angle}
+    */
     this.start = start
-    // End angle of the arc. Arc will draw from `start` to this angle in
-    // the `clockwise` orientaton.
+
+    /**
+    * The end `Angle` of the arc. The arc is draw from `start` to this
+    * angle in the `clockwise` orientation.
+    *
+    * When `start` and `end` are [equal angles]{@link Rac.Angle#equals}
+    * the arc is considered a complete circle for drawing.
+    *
+    * @type {Rac.Angle}
+    */
     this.end = end;
-    // Orientation of the arc
+
+    /**
+    * The orientiation of the arc.
+    * @type {boolean}
+    */
     this.clockwise = clockwise;
   }
 
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
   */
-  toString() {
-    return `Arc((${this.center.x},${this.center.y}) r:${this.radius} s:${this.start.turn} e:${this.end.turn} c:${this.clockwise}})`;
+  toString(digits = null) {
+    const xStr      = utils.cutDigits(this.center.x,   digits);
+    const yStr      = utils.cutDigits(this.center.y,   digits);
+    const radiusStr = utils.cutDigits(this.radius,     digits);
+    const startStr  = utils.cutDigits(this.start.turn, digits);
+    const endStr    = utils.cutDigits(this.end.turn,   digits);
+    return `Arc((${xStr},${yStr}) r:${radiusStr} s:${startStr} e:${endStr} c:${this.clockwise}})`;
   }
 
 
@@ -569,4 +615,7 @@ Arc.prototype.divideToBeziers = function(bezierCount) {
 
   return new Rac.Composite(this.rac, beziers);
 };
+
+
+// TODO: fix uses of someAngle
 

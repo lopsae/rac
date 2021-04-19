@@ -13,7 +13,7 @@ class Segment {
 
   /**
   * Creates a new `Segment` instance.
-  * @param {Rac} rac Instance to use for drawing and creating other objects
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {Rac.Ray} ray - A `Ray` the segment will be based of
   * @param {number} length - The length of the segment
   */
@@ -38,7 +38,7 @@ class Segment {
     this.rac = rac;
 
     /**
-    * The `Ray` of which `this` is a segment of.
+    * The `Ray` the segment is based of.
     * @type {Rac.Ray}
     */
     this.ray = ray;
