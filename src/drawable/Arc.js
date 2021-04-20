@@ -322,7 +322,7 @@ class Arc{
   * @see Rac.Arc#angleDistance
   */
   withAngleDistance(angleDistance) {
-    let newEnd = this.angleAtAngleDistance(angleDistance);
+    let newEnd = this.shiftAngle(angleDistance);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEnd,
@@ -499,37 +499,89 @@ class Arc{
   // returned value will comply with `startInset + this.start`.
   }
 
+
+  /**
+  * Returns `true` when `angle` is between `start` and `end` in the arc's
+  * orientation.
+  *
+  * When the arc represents a complete circle, `true` is always returned.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to evaluate
+  * @returns {boolean}
+  */
+  containsAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    if (this.isCircle()) { return true; }
+
+    if (this.clockwise) {
+      let offset = angle.subtract(this.start);
+      let endOffset = this.end.subtract(this.start);
+      return offset.turn <= endOffset.turn;
+    } else {
+      let offset = angle.subtract(this.end);
+      let startOffset = this.start.subtract(this.end);
+      return offset.turn <= startOffset.turn;
+    }
+  }
+
+  /**
+  * Returns `true` when the projection of `point` in the arc is positioned
+  * between `start` and `end` in the arc's orientation.
+  *
+  * When the arc represents a complete circle, `true` is always returned.
+  *
+  * @param {Rac.Point} point - A `Point` to evaluate
+  * @returns {boolean}
+  */
+  containsProjectedPoint(point) {
+    if (this.isCircle()) { return true; }
+    return this.containsAngle(this.center.angleToPoint(point));
+  }
+
+
+  /**
+  * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
+  * `start` in the arc's orientation.
+  *
+  * E.g.
+  * For a clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.6`.
+  * For a counter-clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.4`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to shift
+  * @returns {Rac.Angle}
+  * @see Rac.Angle#shift
+  */
+  shiftAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    return this.start.shift(angle, this.clockwise);
+  }
+
+  // Returns an Angle that represents the distance from `this.start` to
+  // `angle` traveling in the `clockwise` orientation.
+  // Useful to determine for a given angle, where it sits inside the arc if
+  // the arc was the origin coordinate system.
+  //
+  /**
+  * Returns a new `Angle` that represents the angle distance from `start`
+  * to `angle` in the arc's orientation.
+  *
+  * E.g.
+  * For a clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.1`.
+  * For a counter-clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.9`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
+  * @returns {Rac.Angle}
+  */
+  distanceFromStart(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    return this.start.distance(angle, this.clockwise);
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
 
-
-// Returns `true` if the given angle is positioned between `start` and
-// `end` in the `clockwise` orientation. For complete circle arcs `true` is
-// always returned.
-Arc.prototype.containsAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  if (this.isCircle()) { return true; }
-
-  if (this.clockwise) {
-    let offset = angle.subtract(this.start);
-    let endOffset = this.end.subtract(this.start);
-    return offset.turn <= endOffset.turn;
-  } else {
-    let offset = angle.subtract(this.end);
-    let startOffset = this.start.subtract(this.end);
-    return offset.turn <= startOffset.turn;
-  }
-};
-
-// Returns `true` if the projection of `point` in the arc is positioned
-// between `start` and `end` in the `clockwise` orientation. For complete
-// circle arcs `true` is always returned.
-Arc.prototype.containsProjectedPoint = function(point) {
-  if (this.isCircle()) { return true; }
-  return this.containsAngle(this.center.angleToPoint(point));
-}
 
 // Returns a segment for the chord formed by the intersection of `this` and
 // `otherArc`; or return `null` if there is no intersection.
@@ -664,33 +716,6 @@ Arc.prototype.radiusSegmentTowardsPoint = function(point) {
   return this.center.segmentToAngle(angle, this.radius);
 }
 
-// Returns the equivalent to `someAngle` shifted to have `this.start` as
-// origin, in the orientation of the arc.
-// Useful to determine an angle inside the arc, where the arc is considered
-// the origin coordinate system.
-// For a clockwise arc starting at `0.5`, a `shiftAngle(0.1)` is `0.6`.
-// For a clockwise orientation, equivalent to `this.start + someAngle`.
-Arc.prototype.shiftAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.start.shift(angle, this.clockwise);
-}
-
-// Returns an Angle that represents the distance from `this.start` to
-// `someAngle` traveling in the `clockwise` orientation.
-// Useful to determine for a given angle, where it sits inside the arc if
-// the arc was the origin coordinate system.
-// For a clockwise arc starting at `0.1`, a `distanceFromStart(0.5)` is `0.4`.
-// For a clockwise orientation, equivalent to `someAngle - this.start`.
-Arc.prototype.distanceFromStart = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.start.distance(angle, this.clockwise);
-}
-
-// Returns the Angle at the given arc length from `start`. Equivalent to
-// `shiftAngle(someAngle)`.
-Arc.prototype.angleAtAngleDistance = function(someAngle) {
-  return this.shiftAngle(someAngle);
-}
 
 // Returns the point in the arc at the given angle shifted by `this.start`
 // in the arc orientation. The arc is considered a complete circle.
