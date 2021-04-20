@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>util/Exception.js - Documentation</title>
+    <title>drawable/rac.Ray.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">util/Exception.js</h1>
+    <h1 class="page-title">drawable/rac.Ray.js</h1>
     
 
     
@@ -45,72 +45,54 @@
 
 
 /**
-* Exception builder for throwable objects.
-* @alias Rac.Exception
+* The `instance.Ray` function contains convenience methods and members
+* for `{@link Rac.Ray}` objects setup with the owning `Rac` instance.
+* @namespace instance.Ray
 */
-class Exception {
-
-  constructor(name, message) {
-    this.name = name;
-    this.message = message;
-  }
-
-  toString() {
-    return `Exception:${this.name} - ${this.message}`;
-  }
+module.exports = function attachRacRay(rac) {
 
   /**
-  * When enabled the convenience static functions of this class will
-  * build `Error` objects, instead of `Exception` objects.
+  * A `Ray` with all values set to zero, starts at
+  * `{@link instance.Point#zero}` and points to
+  * `{@link instance.Angle#zero}`.
   *
-  * Used for tests runs in Jest, since throwing a custom object like
-  * `Exception` within a matcher results in the expectation hanging
-  * indefinitely.
-  *
-  * On the other hand, throwing an `Error` object in chrome causes the
-  * displayed stack to be relative to the bundled file, instead of the
-  * source map.
+  * @name zero
+  * @type {Rac.Ray}
+  * @memberof instance.Ray#
+  * @see instance.Point#zero
+  * @see instance.Angle#zero
   */
-  static buildsErrors = false;
+  rac.Ray.zero = rac.Ray(0, 0, rac.Angle.zero);
+
 
   /**
-  * Returns an convenience function for building throwable objects.
+  * A `Ray` over the x-axis, starts at `{@link instance.Point#origin}` and
+  * points to `{@link instance.Angle#zero}`.
   *
-  * The function can can be used as following:
-  * ```
-  * func(message) // returns an `Exception`` object with `name` and `message`
-  * func.exceptionName // returns the `name` of the built throwable objects
-  * ```
+  * Equal to `{@link instance.Ray#zero}`.
+  *
+  * @name xAxis
+  * @type {Rac.Ray}
+  * @memberof instance.Ray#
+  * @see instance.Point#origin
+  * @see instance.Angle#zero
   */
-  static named(name) {
-    let func = (message) => {
-      if (Exception.buildsErrors) {
-        const error = new Error(message);
-        error.name = name;
-        return error;
-      }
-
-      return new Exception(name, message);
-    };
-
-    func.exceptionName = name;
-    return func;
-  }
-
-  static drawerNotSetup =    Exception.named('DrawerNotSetup');
-  static failedAssert =      Exception.named('FailedAssert');
-  static invalidObjectType = Exception.named('invalidObjectType');
-
-  // abstractFunctionCalled: 'Abstract function called',
-  // invalidParameterCombination: 'Invalid parameter combination',
-  // invalidObjectConfiguration: 'Invalid object configuration',
-  // invalidObjectToDraw: 'Invalid object to draw',
-  // invalidObjectToApply: 'Invalid object to apply',
-
-} // class Exception
+  rac.Ray.xAxis = rac.Ray.zero;
 
 
-module.exports = Exception;
+  /**
+  * A `Ray` over the y-axis, starts at`{@link instance.Point.origin}` and
+  * points to `{@link instance.Angle.quarter}`.
+  *
+  * @name yAxis
+  * @type {Rac.Ray}
+  * @memberof instance.Ray#
+  * @see instance.Point#origin
+  * @see instance.Angle#quarter
+  */
+  rac.Ray.yAxis = rac.Ray(0, 0, rac.Angle.quarter);
+
+} // attachRacRay
 
 </code></pre>
         </article>
