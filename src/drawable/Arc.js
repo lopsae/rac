@@ -372,6 +372,15 @@ class Arc{
   }
 
 
+  /**
+  * Returns a new `Arc` with `start` pointing towards `point` from
+  * `center`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Point} point - A `Point` to point `start` towards
+  * @returns {Rac.Arc}
+  */
   withStartTowardsPoint(point) {
     let newStart = this.center.angleToPoint(point);
     return new Arc(this.rac,
@@ -380,6 +389,15 @@ class Arc{
       this.clockwise);
   }
 
+
+  /**
+  * Returns a new `Arc` with `end` pointing towards `point` from `center`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Point} point - A `Point` to point `end` towards
+  * @returns {Rac.Arc}
+  */
   withEndTowardsPoint(point) {
     let newEnd = this.center.angleToPoint(point);
     return new Arc(this.rac,
@@ -388,7 +406,18 @@ class Arc{
       this.clockwise);
   }
 
-  withStartEndTowardsPoint(startPoint, endPoint) {
+
+  /**
+  * Returns a new `Arc` with `start` pointing towards `startPoint` and
+  * `end` pointing towards `endPoint`, both from `center`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * @param {Rac.Point} startPoint - A `Point` to point `start` towards
+  * @param {Rac.Point} endPoint - A `Point` to point `end` towards
+  * @returns {Rac.Arc}
+  */
+  withAnglesTowardsPoint(startPoint, endPoint) {
     let newStart = this.center.angleToPoint(startPoint);
     let newEnd = this.center.angleToPoint(endPoint);
     return new Arc(this.rac,
