@@ -442,19 +442,33 @@ class Arc{
   }
 
 
-  // Returns `value` clamped to the given insets from zero and the length
-  // of the segment.
-
-  // Returns `someAngle` clamped to the given insets from `this.start` and
-  // `this.end`, whichever is closest in distance if `someAngle` is outside
-  // the arc.
-  // TODO: invalid range could return a value centered in the insets? more visually congruent
-  // If the `start/endInset` values result in a contradictory range, the
-  // returned value will comply with `startInset + this.start`.
-  clampToInsets(someAngle, someAngleStartInset = this.rac.Angle.zero, someAngleEndInset = this.rac.Angle.zero) {
-    let angle = Rac.Angle.from(this.rac, someAngle);
-    let startInset = Rac.Angle.from(this.rac, someAngleStartInset);
-    let endInset = Rac.Angle.from(this.rac, someAngleEndInset);
+  /**
+  * Returns the given `angle` clamped to the range:
+  * ```
+  * [start + startInset, end - endInset]
+  * ```
+  * where the addition happens towards the arc's orientation, and the
+  * substraction against.
+  *
+  * When `angle` is outside the range, returns whichever range limit is
+  * closer.
+  *
+  * When the given insets are larger that the arc distance between `start`
+  * and `end` the range for the clamp becomes imposible to fulfill. In this
+  * case the returned value will be the centered between the range limits
+  * and still clampled to `[start, end]`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to clamp
+  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero}] - The inset
+  * for the lower limit of the clamping range
+  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero}] - The inset
+  * for the higher limit of the clamping range
+  * @returns {Rac.Angle}
+  */
+  clampToInsets(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
+    angle = Rac.Angle.from(this.rac, angle);
+    startInset = Rac.Angle.from(this.rac, startInset);
+    endInset = Rac.Angle.from(this.rac, endInset);
 
     if (this.isCircle() && startInset.turn == 0 && endInset.turn == 0) {
       // Complete circle
@@ -480,6 +494,9 @@ class Arc{
     } else {
       return this.reverse().shiftAngle(endInset);
     }
+    // TODO: invalid range could return a value centered in the insets? more visually congruent
+  // If the `start/endInset` values result in a contradictory range, the
+  // returned value will comply with `startInset + this.start`.
   }
 
 } // class Arc

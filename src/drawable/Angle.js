@@ -5,6 +5,11 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
+// TODO: add note about: most functions that receive an angle can also
+// receive the turn value directly as a number. The main exception are
+// constructors, which always expect Angle objects.
+
+
 /**
 * Angle measured by a `turn` value in the range `[0,1)` that represents the
 * amount of turn in a full circle.

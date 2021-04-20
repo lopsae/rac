@@ -327,7 +327,7 @@ class Segment {
   *
   * When `startInset` is greater that `length-endInset` the range for the
   * clamp becomes imposible to fulfill. In this case the returned value
-  * will be the centered within the range limits, and still clampled to
+  * will be the centered between the range limits and still clampled to
   * `[0, length]`.
   *
   * @param {number} value - A value to clamp
