@@ -92,6 +92,7 @@ class Rac {
     require('./drawable/rac.Point')  (this);
     require('./drawable/rac.Ray')    (this);
     require('./drawable/rac.Segment')(this);
+    require('./drawable/rac.Arc')    (this);
 
     // Depends on rac.Point and rac.Angle being already setup
     require('./drawable/rac.Text')(this);
@@ -275,12 +276,6 @@ class Rac {
     return new Rac.Segment(this, ray, length);
   }
 
-
-  /**
-  * The `instance.Arc` function contains convenience methods and properties
-  * for `{@link Rac.Arc}` objects setup with the owning `Rac` instance.
-  * @namespace instance.Arc
-  */
 
   /**
   * Convenience function that creates a new `Arc` setup with `this`.
