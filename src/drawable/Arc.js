@@ -577,6 +577,50 @@ class Arc{
     return this.start.distance(angle, this.clockwise);
   }
 
+
+  /**
+  * Returns a new `Point` located in the arc at the given `angle`.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` towards the new `Point`
+  * @returns {Rac.Point}
+  */
+  pointAtAngle(someAngle) {
+    let angle = Rac.Angle.from(this.rac, someAngle);
+    return this.center.pointToAngle(angle, this.radius);
+  }
+
+
+  /**
+  * Returns a new `Point` located in the arc at the given `angle`
+  * [shifted by]{@link Rac.Angle#shift} `start` in arc's orientation.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Angle} angle - An `Angle` to be shifted by `start`
+  * @returns {Rac.Point}
+  */
+  pointAtAngleDistance(angle) {
+    let shiftedAngle = this.shiftAngle(angle);
+    return this.pointAtAngle(shiftedAngle);
+  }
+
+  /**
+  * Returns a new `Point` located in the arc at `angleDistance() * ratio`
+  * from `start` in the arc's orientation.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {number} number - The factor to multiply `angleDistance()` by
+  * @returns {Rac.Point}
+  */
+  pointAtAngleDistanceRatio(angleDistanceRatio) {
+    let newAngleDistance = this.angleDistance().multOne(angleDistanceRatio);
+    let shiftedAngle = this.shiftAngle(newAngleDistance);
+    return this.pointAtAngle(shiftedAngle);
+  }
+
 } // class Arc
 
 
@@ -716,29 +760,6 @@ Arc.prototype.radiusSegmentTowardsPoint = function(point) {
   return this.center.segmentToAngle(angle, this.radius);
 }
 
-
-// Returns the point in the arc at the given angle shifted by `this.start`
-// in the arc orientation. The arc is considered a complete circle.
-Arc.prototype.pointAtAngleDistance = function(someAngle) {
-  let shiftedAngle = this.shiftAngle(someAngle);
-  return this.pointAtAngle(shiftedAngle);
-};
-
-// Returns the point in the arc at the current arc length multiplied by
-// `angleDistanceRatio` and then shifted by `this.start` in the arc
-// orientation. The arc is considered a complete circle.
-Arc.prototype.pointAtAngleDistanceRatio = function(angleDistanceRatio) {
-  let newAngleDistance = this.angleDistance().multOne(angleDistanceRatio);
-  let shiftedAngle = this.shiftAngle(newAngleDistance);
-  return this.pointAtAngle(shiftedAngle);
-};
-
-// Returns the point in the arc at the given angle. The arc is considered
-// a complete circle.
-Arc.prototype.pointAtAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.center.pointToAngle(angle, this.radius);
-};
 
 // Returns a segment that is tangent to both `this` and `otherArc`,
 // considering both as complete circles.
