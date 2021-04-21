@@ -11,6 +11,17 @@ let half = rac.Arc(100, 100, 55, rac.Angle.up, rac.Angle.down);
 
 
 test('Identity', () => {
+  // Instance members
+  expect(rac.Arc.zero).equalsArc(0, 0, 0, 0, 0, true);
+
+  // Inequality
+  expect(rac.Arc.zero).not.equalsArc(7, 0, 0, 0.0, 0.0, true);
+  expect(rac.Arc.zero).not.equalsArc(0, 7, 0, 0.0, 0.0, true);
+  expect(rac.Arc.zero).not.equalsArc(0, 0, 7, 0.0, 0.0, true);
+  expect(rac.Arc.zero).not.equalsArc(0, 0, 0, 0.7, 0.0, true);
+  expect(rac.Arc.zero).not.equalsArc(0, 0, 0, 0.0, 0.7, true);
+  expect(rac.Arc.zero).not.equalsArc(0, 0, 0, 0.0, 0.0, true);
+
   expect(null).not.equalsArc(0, 0, 100, 0, 1/2, true);
 
   expect(half).equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.down, true);
