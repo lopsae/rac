@@ -214,24 +214,27 @@ expect.extend({ equalsSegment(segment, x, y, angle, length) {
 
 
 expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clockwise) {
-  const options = {
-    comment: 'equal Arc properties',
-    isNot: this.isNot
-  };
+  const msg = new Messenger(this,
+    'equalsArc',
+    'equal Arc properties');
 
-  let expected = rac.Arc(x, y, radius, someStartAngle, someEndAngle, clockwise);
+  const expected = rac.Arc(x, y, radius, someStartAngle, someEndAngle, clockwise);
+
   if (arc == null) {
-    return fail(() =>
-      this.utils.matcherHint('equalsArc',
-        'null', expected.toString(),
-        options));
+    return msg.fail('null', expected);
+  }
+
+  if (!(arc instanceof Rac.Arc)) {
+    return msg.fail(arc.toString(), expected,
+      `Received type: ${msg.r(Rac.utils.typeName(arc))}`,
+      `Expected type: ${msg.e('Rac.Arc')}`);
   }
 
   const isEqual = expected.equals(arc);
-  return done(isEqual, () =>
-    this.utils.matcherHint('equalsArc',
-      arc.toString(), expected.toString(),
-      options));
+
+  return msg.done(isEqual, arc, expected,
+    `Received: ${msg.r(arc.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
 }}); // equalsArc
 
 
