@@ -621,71 +621,88 @@ class Arc{
     return this.pointAtAngle(shiftedAngle);
   }
 
+
+  /**
+  * Returns a new `Segment` for the chord formed by the intersection of
+  * `this` and `otherArc`, or `null` when there is no intersection.
+  *
+  * Both arcs are considered complete circles for the calculation of the
+  * chord, thus the endpoints of the returned segment may not lay inside
+  * the actual arcs.
+  *
+  * @param {Rac.Arc} otherArc - description
+  * @returns {Rac.Segment}
+  */
+  intersectionChord(otherArc) {
+    // https://mathworld.wolfram.com/Circle-CircleIntersection.html
+    // R=this, r=otherArc
+
+    if (this.center.equals(otherArc.center)) {
+      return null;
+    }
+
+    let distance = this.center.distanceToPoint(otherArc.center);
+
+    // distanceToChord = (d^2 - r^2 + R^2) / (d*2)
+    let distanceToChord = (
+        Math.pow(distance, 2)
+      - Math.pow(otherArc.radius, 2)
+      + Math.pow(this.radius, 2)
+      ) / (distance * 2);
+
+    // a = 1/d sqrt|(-d+r-R)(-d-r+R)(-d+r+R)(d+r+R)
+    let chordLength = (1 / distance) * Math.sqrt(
+        (-distance + otherArc.radius - this.radius)
+      * (-distance - otherArc.radius + this.radius)
+      * (-distance + otherArc.radius + this.radius)
+      * (distance + otherArc.radius + this.radius));
+
+    let rayToChord = this.center.segmentToPoint(otherArc.center)
+      .withLength(distanceToChord);
+    return rayToChord.nextSegmentPerpendicular(this.clockwise)
+      .withLength(chordLength/2)
+      .reverse()
+      .segmentWithRatioOfLength(2);
+  }
+
+  // Returns the section of `this` that is inside `otherArc`.
+  // `otherArc` is aways considered as a complete circle.
+  /**
+  * Returns a new `Arc` representing the section of `this` that is inside
+  * `otherArc`.
+  *
+  * `otherArc` is considered a complete circle, while the start and end of
+  * `this` are considered for the resulting `Arc`.
+  *
+  * @param {Rac.Angle} otherArc - An `Arc` to intersect with
+  * @returns {Rac.Arc}
+  */
+  intersectionArc(otherArc) {
+    let chord = this.intersectionChord(otherArc);
+    if (chord === null) { return null; }
+
+    let startAngle = this.center.angleToPoint(chord.startPoint());
+    let endAngle = this.center.angleToPoint(chord.endPoint());
+
+    if (!this.containsAngle(startAngle)) {
+      startAngle = this.start;
+    }
+    if (!this.containsAngle(endAngle)) {
+      endAngle = this.end;
+    }
+
+    return new Arc(this.rac,
+      this.center, this.radius,
+      startAngle,
+      endAngle,
+      this.clockwise);
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
 
-
-// Returns a segment for the chord formed by the intersection of `this` and
-// `otherArc`; or return `null` if there is no intersection.
-// Both arcs are considered complete circles for the calculation of the
-// chord, thus the endpoints of the returned segment may not lay inside the
-// actual arcs.
-Arc.prototype.intersectionChord = function(otherArc) {
-  // https://mathworld.wolfram.com/Circle-CircleIntersection.html
-  // R=this, r=otherArc
-
-  if (this.center.equals(otherArc.center)) {
-    return null;
-  }
-
-  let distance = this.center.distanceToPoint(otherArc.center);
-
-  // distanceToChord = (d^2 - r^2 + R^2) / (d*2)
-  let distanceToChord = (
-      Math.pow(distance, 2)
-    - Math.pow(otherArc.radius, 2)
-    + Math.pow(this.radius, 2)
-    ) / (distance * 2);
-
-  // a = 1/d sqrt|(-d+r-R)(-d-r+R)(-d+r+R)(d+r+R)
-  let chordLength = (1 / distance) * Math.sqrt(
-      (-distance + otherArc.radius - this.radius)
-    * (-distance - otherArc.radius + this.radius)
-    * (-distance + otherArc.radius + this.radius)
-    * (distance + otherArc.radius + this.radius));
-
-  let rayToChord = this.center.segmentToPoint(otherArc.center)
-    .withLength(distanceToChord);
-  return rayToChord.nextSegmentPerpendicular(this.clockwise)
-    .withLength(chordLength/2)
-    .reverse()
-    .segmentWithRatioOfLength(2);
-};
-
-// Returns the section of `this` that is inside `otherArc`.
-// `otherArc` is aways considered as a complete circle.
-Arc.prototype.intersectionArc = function(otherArc) {
-  let chord = this.intersectionChord(otherArc);
-  if (chord === null) { return null; }
-
-  let startAngle = this.center.angleToPoint(chord.startPoint());
-  let endAngle = this.center.angleToPoint(chord.endPoint());
-
-  if (!this.containsAngle(startAngle)) {
-    startAngle = this.start;
-  }
-  if (!this.containsAngle(endAngle)) {
-    endAngle = this.end;
-  }
-
-  return new Arc(this.rac,
-    this.center, this.radius,
-    startAngle,
-    endAngle,
-    this.clockwise);
-};
 
 // Returns only intersecting points.
 Arc.prototype.intersectingPointsWithArc = function(otherArc) {
