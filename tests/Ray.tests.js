@@ -47,7 +47,7 @@ tools.test( function identity() {
 });
 
 
-test('Function toString', () => {
+tools.test( function toString() {
   const ray = rac.Ray(1.12345, 2.12345, 0.12345);
 
   const string = ray.toString();
