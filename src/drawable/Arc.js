@@ -698,57 +698,74 @@ class Arc{
       this.clockwise);
   }
 
+  /**
+  * Returns an array containing the intersecting points of `this` with
+  * `otherArc`.
+  *
+  * When there are no intersecting points, returns an empty array.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to calculate intersection points with
+  * @returns {Rac.Arc}
+  */
+  intersectingPointsWithArc(otherArc) {
+    let chord = this.intersectionChord(otherArc);
+    if (chord === null) { return []; }
+
+    let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
+      return this.containsAngle(this.center.segmentToPoint(item))
+        && otherArc.containsAngle(otherArc.center.segmentToPoint(item));
+    }, this);
+
+    return intersections;
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the chord formed by the
+  * intersection of the arc and 'ray', or `null` when no chord is possible.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
+  * @returns {Rac.Segment}
+  */
+  // TODO: modify to intersectionChordWithRay(ray)
+  intersectionChordWithSegment(segment) {
+    // First check intersection
+    let projectedCenter = segment.projectedPoint(this.center);
+    let bisector = this.center.segmentToPoint(projectedCenter);
+    let distance = bisector.length();
+    if (distance > this.radius - this.rac.equalityThreshold) {
+      // projectedCenter outside or too close to arc edge
+      return null;
+    }
+
+    // Segment too close to center, cosine calculations may be incorrect
+    if (distance < this.rac.equalityThreshold) {
+      let segmentAngle = segment.angle();
+      let start = this.pointAtAngle(segmentAngle.inverse());
+      let end = this.pointAtAngle(segmentAngle);
+      return new Rac.Segment(start, end);
+    }
+
+    let radians = Math.acos(distance/this.radius);
+    let angle = Rac.Angle.fromRadians(this.rac, radians);
+
+    let centerOrientation = segment.pointOrientation(this.center);
+    let start = this.pointAtAngle(bisector.angle().shift(angle, !centerOrientation));
+    let end = this.pointAtAngle(bisector.angle().shift(angle, centerOrientation));
+    return new Rac.Segment(start, end);
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
 
 
-// Returns only intersecting points.
-Arc.prototype.intersectingPointsWithArc = function(otherArc) {
-  let chord = this.intersectionChord(otherArc);
-  if (chord === null) { return []; }
 
-  let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
-    return this.containsAngle(this.center.segmentToPoint(item))
-      && otherArc.containsAngle(otherArc.center.segmentToPoint(item));
-  }, this);
 
-  return intersections;
-};
 
-// Returns a segment for the chord formed by the intersection of `this` and
-// `segment`; or return `null` if there is no intersection. The returned
-// segment will have the same angle as `segment`.
-//
-// For this function `this` is considered a complete circle, and `segment`
-// is considered a line without endpoints.
-Arc.prototype.intersectionChordWithSegment = function(segment) {
-  // First check intersection
-  let projectedCenter = segment.projectedPoint(this.center);
-  let bisector = this.center.segmentToPoint(projectedCenter);
-  let distance = bisector.length();
-  if (distance > this.radius - this.rac.equalityThreshold) {
-    // projectedCenter outside or too close to arc edge
-    return null;
-  }
-
-  // Segment too close to center, cosine calculations may be incorrect
-  if (distance < this.rac.equalityThreshold) {
-    let segmentAngle = segment.angle();
-    let start = this.pointAtAngle(segmentAngle.inverse());
-    let end = this.pointAtAngle(segmentAngle);
-    return new Rac.Segment(start, end);
-  }
-
-  let radians = Math.acos(distance/this.radius);
-  let angle = Rac.Angle.fromRadians(this.rac, radians);
-
-  let centerOrientation = segment.pointOrientation(this.center);
-  let start = this.pointAtAngle(bisector.angle().shift(angle, !centerOrientation));
-  let end = this.pointAtAngle(bisector.angle().shift(angle, centerOrientation));
-  return new Rac.Segment(start, end);
-};
 
 // Returns the `end` point of `intersectionChordWithSegment` for `segment`.
 // If `segment` does not intersect with `self`, returns the point in the
