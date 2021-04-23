@@ -186,7 +186,39 @@ tools.test( function isCircle() {
 });
 
 
-tools.test.todo( function withCenterStartEndRadiusClockwise() {
+tools.test( function withCenterStartEndRadiusClockwise() {
+  expect(half.withCenter(rac.Point.zero))
+    .equalsArc(0, 0, 55, rac.Angle.up, rac.Angle.down, true);
+
+  expect(half.withStart(0))
+    .equalsArc(100, 100, 55, rac.Angle.zero, rac.Angle.down, true);
+  expect(half.withStart(rac.Angle.zero))
+    .equalsArc(100, 100, 55, rac.Angle.zero, rac.Angle.down, true);
+
+  expect(half.withEnd(0))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.zero, true);
+  expect(half.withEnd(rac.Angle.zero))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.zero, true);
+
+  expect(half.withRadius(72))
+    .equalsArc(100, 100, 72, rac.Angle.up, rac.Angle.down, true);
+
+  expect(half.withClockwise(false))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.down, false);
+});
+
+
+tools.test.todo( function withAngleDistance() {
+
+});
+
+
+tools.test.todo( function withLengthAndRatio() {
+
+});
+
+
+tools.test.todo( function withStartEndTowardsPoint() {
 
 });
 
