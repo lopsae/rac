@@ -35,8 +35,13 @@ exports.test = function(testFunc) {
 };
 
 
-exports.testOnly = function(testFunc) {
+exports.test.only = function(testFunc) {
   test.only(testFunc.name, testFunc);
+};
+
+
+exports.test.todo = function(testFunc) {
+  test.todo(testFunc.name);
 };
 
 
