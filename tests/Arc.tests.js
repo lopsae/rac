@@ -208,8 +208,22 @@ tools.test( function withCenterStartEndRadiusClockwise() {
 });
 
 
-tools.test.todo( function withAngleDistance() {
+tools.test( function withAngleDistance() {
+  // Angle/number parameter
+  expect(quarter.withAngleDistance(rac.Angle.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
+  expect(quarter.withAngleDistance(0))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
 
+  expect(quarter.withAngleDistance(1/2))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.down, false);
+  expect(quarter.withAngleDistance(1))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
+  expect(quarter.withAngleDistance(7))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
+
+  expect(quarter.withAngleDistance(-1/4))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.right, false);
 });
 
 
@@ -218,7 +232,7 @@ tools.test.todo( function withLengthAndRatio() {
 });
 
 
-tools.test.todo( function withStartEndTowardsPoint() {
+tools.test.todo( function withStartEndAnglesTowardsPoint() {
 
 });
 
