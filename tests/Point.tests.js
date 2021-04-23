@@ -22,13 +22,17 @@ tools.test( function identity() {
   expect(rac.Point.zero).not.equalsPoint(7, 0);
   expect(rac.Point.zero).not.equalsPoint(0, 7);
 
-  // Unexpected type for equalsRay
+  // Unexpected type for equalsPoint
   expect(null)            .not.equalsPoint(0, 0);
   expect(0)               .not.equalsPoint(0, 0);
   expect('0')             .not.equalsPoint(0, 0);
   expect(rac.Angle.zero)  .not.equalsPoint(0, 0);
   expect(rac.Ray.zero)    .not.equalsPoint(0, 0);
   expect(rac.Segment.zero).not.equalsPoint(0, 0);
+
+  // Expected type for equals
+  expect(hunty.equals(hunty)).toBe(true);
+  expect(hunty.equals(fifty)).toBe(false);
 
   // Unexpected type for equals
   expect(hunty.equals(null))            .toBe(false);

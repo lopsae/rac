@@ -37,6 +37,10 @@ tools.test( function identity() {
   expect(rac.Point.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Segment.zero).not.equalsRay(0, 0, 0);
 
+  // Expected type for equals
+  expect(diagonal.equals(diagonal)).toBe(true);
+  expect(diagonal.equals(vertical)).toBe(false);
+
   // Unexpected type for equals
   expect(diagonal.equals(null))            .toBe(false);
   expect(diagonal.equals(55))              .toBe(false);

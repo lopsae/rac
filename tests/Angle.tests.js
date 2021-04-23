@@ -20,7 +20,7 @@ tools.test( function identity() {
   expect(rac.Angle.left)  .equalsAngle(rac.Angle.half);
   expect(rac.Angle.up)    .equalsAngle(rac.Angle.top);
 
-  // Unexpected type for equalsRay
+  // Unexpected type for equalsAngle
   expect(null)            .not.equalsAngle(0);
   expect(0)               .not.equalsAngle(0);
   expect('0')             .not.equalsAngle(0);
@@ -31,10 +31,12 @@ tools.test( function identity() {
   const zero = rac.Angle.zero;
 
   // Expected type for equals
-  expect(zero.equals(0))   .toBe(true);
-  expect(zero.equals(zero)).toBe(true);
+  expect(zero.equals(0))             .toBe(true);
+  expect(zero.equals(zero))          .toBe(true);
+  expect(zero.equals(rac.Angle.half)).toBe(false);
   expect(rac.Angle.half.equals(1/2))           .toBe(true);
   expect(rac.Angle.half.equals(rac.Angle.half)).toBe(true);
+  expect(rac.Angle.half.equals(zero))          .toBe(false);
 
   // Unexpected type for equals
   expect(zero.equals(null))            .toBe(false);
