@@ -169,7 +169,24 @@ tools.test( function accesors() {
 });
 
 
-tools.test.todo( function isCircle() {
+tools.test( function isCircle() {
+  expect(quarter.isCircle()).toBe(false);
+  expect(circle.isCircle()).toBe(true);
+
+  const threshold = rac.unitaryEqualityThreshold;
+  const bump = threshold/16;
+  const aboveThreshold = threshold + bump;
+  const belowThreshold = threshold - bump;
+
+  expect(circle.withStart(1/4 + belowThreshold).isCircle()).toBe(true);
+  expect(circle.withStart(1/4 + aboveThreshold).isCircle()).toBe(false);
+
+  expect(circle.withEnd(1/4 - belowThreshold).isCircle()).toBe(true);
+  expect(circle.withEnd(1/4 - aboveThreshold).isCircle()).toBe(false);
+});
+
+
+tools.test.todo( function withCenterStartEndRadiusClockwise() {
 
 });
 
