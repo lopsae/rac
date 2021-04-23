@@ -7,7 +7,10 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
+const quarter = rac.Arc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+const semi = rac.Arc(0, 0, 36, rac.Angle.up, rac.Angle.left, true);
 const half = rac.Arc(100, 100, 55, rac.Angle.up, rac.Angle.down);
+const circle = rac.Arc(72, 72, 72, rac.Angle.down);
 
 
 tools.test( function identity() {
@@ -27,7 +30,7 @@ tools.test( function identity() {
   expect(rac.Arc.zero).not.equalsArc(0, 0, 0, 0.0, 0.7, true);
   expect(rac.Arc.zero).not.equalsArc(0, 0, 0, 0.0, 0.0, false);
 
-  // Unexpected type for equalsRay
+  // Unexpected type for equalsArc
   expect(null)            .not.equalsArc(0, 0, 0, 0, 0, true);
   expect(0)               .not.equalsArc(0, 0, 0, 0, 0, true);
   expect('0')             .not.equalsArc(0, 0, 0, 0, 0, true);
@@ -35,6 +38,10 @@ tools.test( function identity() {
   expect(rac.Point.zero)  .not.equalsArc(0, 0, 0, 0, 0, true);
   expect(rac.Ray.zero)    .not.equalsArc(0, 0, 0, 0, 0, true);
   expect(rac.Segment.zero).not.equalsArc(0, 0, 0, 0, 0, true);
+
+  // Expected type for equals
+  expect(half.equals(half))        .toBe(true);
+  expect(half.equals(rac.Arc.Zero)).toBe(false);
 
   // Unexpected type for equals
   expect(half.equals(null))            .toBe(false);
@@ -130,6 +137,40 @@ tools.test( function errors() {
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Arc(rac, point, 100, start, NaN, true);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+tools.test( function accesors() {
+  expect(quarter.length()).toBe(36 * Rac.TAU / 4);
+  expect(semi.length())   .toBe(36 * Rac.TAU * 3 / 4);
+  expect(half.length())   .toBe(55 * Rac.TAU / 2);
+  expect(circle.length()) .toBe(72 * Rac.TAU);
+
+  expect(quarter.angleDistance()).equalsAngle(1/4);
+  expect(semi.angleDistance())   .equalsAngle(3/4);
+  expect(half.angleDistance())   .equalsAngle(1/2);
+  expect(circle.angleDistance()) .equalsAngle(0);
+
+  expect(quarter.startPoint())  .equalsPoint(0,-36);
+  expect(quarter.endPoint())    .equalsPoint(-36,0);
+  expect(quarter.startRay())    .equalsRay(0, 0, rac.Angle.up);
+  expect(quarter.endRay())      .equalsRay(0, 0, rac.Angle.left);
+  expect(quarter.startSegment()).equalsSegment(0, 0, rac.Angle.up, 36);
+  expect(quarter.endSegment())  .equalsSegment(0, 0, rac.Angle.left, 36);
+  expect(quarter.chordSegment()).equalsSegment(0, -36, rac.Angle.sw, tools.hypotenuse(36));
+
+  expect(circle.startPoint())  .equalsPoint(72, 144);
+  expect(circle.endPoint())    .equalsPoint(72, 144);
+  expect(circle.startRay())    .equalsRay(72, 72, rac.Angle.down);
+  expect(circle.endRay())      .equalsRay(72, 72, rac.Angle.down);
+  expect(circle.startSegment()).equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.endSegment())  .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.chordSegment()).equalsSegment(72, 144, rac.Angle.left, 0);
+});
+
+
+tools.test.todo( function isCircle() {
+
 });
 
 
