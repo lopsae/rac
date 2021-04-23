@@ -88,5 +88,50 @@ tools.test( function toString() {
 });
 
 
+tools.test( function errors() {
+  const point = rac.Point.zero;
+  const start = rac.Angle.zero;
+  const end = rac.Angle.half;
+  expect(() => {new Rac.Arc(rac, point, 100, start, end, true);})
+    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Missing parameters
+  expect(() => {new Rac.Arc(null, point, 100, start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, null, 100, start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, null, start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, 100, null, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, 100, start, null, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, 100, start, end, null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid center
+  expect(() => {new Rac.Arc(rac, 55, 100, start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, "nonsense", 100, start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid radius
+  expect(() => {new Rac.Arc(rac, point, NaN, start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, "100", start, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid angles
+  expect(() => {new Rac.Arc(rac, point, 100, 0, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, 100, NaN, end, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, 100, start, 1/2, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Arc(rac, point, 100, start, NaN, true);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
 test.todo('Check for coverage!');
 

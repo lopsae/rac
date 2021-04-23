@@ -29,7 +29,7 @@ class Arc{
   constructor(rac,
     center, radius,
     start, end,
-    clockwise = true)
+    clockwise)
   {
     utils.assertExists(rac, center, radius, start, end, clockwise);
     utils.assertType(Rac.Point, center);
