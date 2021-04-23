@@ -203,10 +203,11 @@ class Arc{
 
 
   /**
-  * Returns a new `Segment` from `startPoint()` to `startPoint()`.
+  * Returns a new `Segment` from `startPoint()` to `endPoint()`.
   *
   * Note that for complete circle arcs this segment will have a length of
-  * zero.
+  * zero and be pointed towards the perpendicular of `start` in the arc's
+  * orientation.
   *
   * @returns {Rac.Segment}
   */
