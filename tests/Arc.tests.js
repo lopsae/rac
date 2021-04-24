@@ -315,7 +315,45 @@ tools.test( function reverse() {
 });
 
 
-tools.test.todo( function clampToInsets() {
+tools.test( function clampToAngles() {
+  const sixteenth = rac.Angle.sixteenth;
+  const endLimit = rac.Angle(1/2 + 1/16);
+  const startLimit = rac.Angle(3/4 - 1/16);
+  // Angle/number parameters
+  expect(quarter.clampToAngles(rac.Angle(5/8)))
+    .equalsAngle(5/8);
+  expect(quarter.clampToAngles(5/8))
+    .equalsAngle(5/8);
+  expect(quarter.clampToAngles(rac.Angle.left, sixteenth, sixteenth))
+    .equalsAngle(endLimit);
+  expect(quarter.clampToAngles(rac.Angle.left, 1/16, 1/16))
+    .equalsAngle(endLimit);
+  expect(quarter.clampToAngles(rac.Angle.up, sixteenth, sixteenth))
+    .equalsAngle(startLimit);
+  expect(quarter.clampToAngles(rac.Angle.up, 1/16, 1/16))
+    .equalsAngle(startLimit);
+
+  // Outside range, closer to end
+  expect(quarter.clampToAngles(rac.Angle.sw))
+    .equalsAngle(rac.Angle.left);
+  expect(quarter.clampToAngles(rac.Angle.sw, 0, sixteenth))
+    .equalsAngle(endLimit);
+
+  // Outside range, closer to start
+  expect(quarter.clampToAngles(rac.Angle.ne))
+    .equalsAngle(rac.Angle.up);
+  expect(quarter.clampToAngles(rac.Angle.ne, sixteenth))
+    .equalsAngle(startLimit);
+
+  // Outside range, right in middle, snaps to start
+  expect(quarter.clampToAngles(rac.Angle.se, sixteenth, sixteenth))
+    .equalsAngle(startLimit);
+
+  // TODO: Invalid range, centered on insets
+
+  // TODO: Invalid range, clamped to start
+
+  // TODO: Invalid range, clamped to end
 });
 
 

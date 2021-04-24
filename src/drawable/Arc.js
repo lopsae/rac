@@ -474,15 +474,15 @@ class Arc{
   * [start + startInset, end - endInset]
   * ```
   * where the addition happens towards the arc's orientation, and the
-  * substraction against.
+  * subtraction against.
   *
   * When `angle` is outside the range, returns whichever range limit is
   * closer.
   *
-  * When the given insets are larger that the arc distance between `start`
-  * and `end` the range for the clamp becomes imposible to fulfill. In this
-  * case the returned value will be the centered between the range limits
-  * and still clampled to `[start, end]`.
+  * When the sum of the given insets is larger that `this.arcDistance()`
+  * the range for the clamp is imposible to fulfill. In this case the
+  * returned value will be the centered between the range limits and still
+  * clampled to `[start, end]`.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to clamp
   * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero}] - The inset
@@ -491,7 +491,7 @@ class Arc{
   * for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
-  clampToInsets(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
+  clampToAngles(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
     angle = Rac.Angle.from(this.rac, angle);
     startInset = Rac.Angle.from(this.rac, startInset);
     endInset = Rac.Angle.from(this.rac, endInset);
@@ -501,11 +501,24 @@ class Arc{
       return angle;
     }
 
+    const angleDistance = this.angleDistance();
+    if (startInset.turn + endInset.turn >= angleDistance.turnOne()) {
+      // Invalid range
+      const rangeDistance = endInset.distance(startInset);
+      const halfRange = startInset.turn >= 0.5 || endInset.turn >= 0.5
+        ? rangeDistance.multOne(1/2)
+        : rangeDistance.mult(1/2);
+
+      const shiftedMiddle = endInset.add(halfRange);
+      // TODO: still not bounded to start/end
+      return this.start.shift(shiftedMiddle, this.clockwise);
+    }
+
     // Angle in arc, with arc as origin
     // All comparisons are made in a clockwise orientation
     let shiftedAngle = this.distanceFromStart(angle);
     let shiftedStartClamp = startInset;
-    let shiftedEndClamp = this.angleDistance().subtract(endInset);
+    let shiftedEndClamp = angleDistance.subtract(endInset);
 
     if (shiftedAngle.turn >= shiftedStartClamp.turn && shiftedAngle.turn <= shiftedEndClamp.turn) {
       // Inside clamp range
@@ -516,13 +529,10 @@ class Arc{
     let distanceToStartClamp = shiftedStartClamp.distance(shiftedAngle, false);
     let distanceToEndClamp = shiftedEndClamp.distance(shiftedAngle);
     if (distanceToStartClamp.turn <= distanceToEndClamp.turn) {
-      return this.shiftAngle(startInset);
+      return this.start.shift(startInset, this.clockwise);
     } else {
-      return this.reverse().shiftAngle(endInset);
+      return this.end.shift(endInset, !this.clockwise);
     }
-    // TODO: invalid range could return a value centered in the insets? more visually congruent
-  // If the `start/endInset` values result in a contradictory range, the
-  // returned value will comply with `startInset + this.start`.
   }
 
 

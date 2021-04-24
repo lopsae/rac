@@ -105,6 +105,16 @@ module.exports = function attachRacAngle(rac) {
   */
   rac.Angle.neighth =  rac.Angle(-1/8);
 
+
+  /**
+  * An `Angle` with turn `1/16`.
+  *
+  * @name sixteenth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.sixteenth = rac.Angle(1/16);
+
   /**
   * An `Angle` with turn `3/4`.
   *

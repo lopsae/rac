@@ -122,7 +122,7 @@ class ArcControl extends Rac.Control {
 
     let selectionAngle = anchorCopy.center
       .angleToPoint(pointerControlCenter);
-    selectionAngle = anchorCopy.clampToInsets(selectionAngle,
+    selectionAngle = anchorCopy.clampToAngles(selectionAngle,
       startInset, endInset);
     let newDistance = anchorCopy.distanceFromStart(selectionAngle);
 
