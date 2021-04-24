@@ -530,8 +530,8 @@ class Ray {
   * and the given arc properties.
   *
   * @param {number} radius - The radius of the new `Arc`
-  * @param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new `Arc`,
-  * when `null` or ommited `this.start` is used
+  * @param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new
+  * `Arc`; when `null` or ommited, `this.angle` is used instead
   * @param {boolean=} clockwise=true - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */

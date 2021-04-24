@@ -437,8 +437,8 @@ class Point{
   * @param {number} radius - The radius of the new `Arc`
   * @param {Rac.Angle|number} [someStart=rac.Angle.zero] - The start
   * `Angle` of the new `Arc`
-  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new `Arc`,
-  * when `null` or ommited `start` is used
+  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new
+  * `Arc`; when `null` or ommited, `start` is used instead
   * @param {boolean=} clockwise=true - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
