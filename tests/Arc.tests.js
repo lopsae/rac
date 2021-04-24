@@ -349,12 +349,31 @@ tools.test( function clampToAngles() {
   expect(quarter.clampToAngles(rac.Angle.se, sixteenth, sixteenth))
     .equalsAngle(startLimit);
 
-  // TODO: Invalid range, centered on insets
+  // Invalid range, centered on insets
+  expect(quarter.clampToAngles(rac.Angle.nw, 1/8, 1/4))
+    .equalsAngle(rac.Angle.nwn);
+  expect(quarter.clampToAngles(rac.Angle.ne, 1/8, 1/4))
+    .equalsAngle(rac.Angle.nwn);
+  expect(quarter.clampToAngles(rac.Angle.sw, 1/8, 1/4))
+    .equalsAngle(rac.Angle.nwn);
+
+  expect(quarter.clampToAngles(rac.Angle.nw, 1/4, 1/8))
+    .equalsAngle(rac.Angle.nww);
+  expect(quarter.clampToAngles(rac.Angle.ne, 1/4, 1/8))
+    .equalsAngle(rac.Angle.nww);
+  expect(quarter.clampToAngles(rac.Angle.sw, 1/4, 1/8))
+    .equalsAngle(rac.Angle.nww);
 
   // TODO: Invalid range, clamped to start
 
   // TODO: Invalid range, clamped to end
 });
+
+
+// tools.test.only( function debug() {
+//   expect(quarter.clampToAngles(rac.Angle.nw, 1/8, 1/4))
+//     .equalsAngle(rac.Angle.nwn);
+// });
 
 
 tools.test.todo( function containsAngle() {

@@ -501,24 +501,31 @@ class Arc{
       return angle;
     }
 
+    // Angle in arc, with arc as origin
+    // All comparisons are made in a clockwise orientation
+    const shiftedAngle = this.distanceFromStart(angle);
     const angleDistance = this.angleDistance();
+    const shiftedStartClamp = startInset;
+    const shiftedEndClamp = angleDistance.subtract(endInset);
+
+
     if (startInset.turn + endInset.turn >= angleDistance.turnOne()) {
       // Invalid range
-      const rangeDistance = endInset.distance(startInset);
+      const rangeDistance = shiftedEndClamp.distance(shiftedStartClamp);
       const halfRange = startInset.turn >= 0.5 || endInset.turn >= 0.5
         ? rangeDistance.multOne(1/2)
         : rangeDistance.mult(1/2);
 
-      const shiftedMiddle = endInset.add(halfRange);
+      const shiftedMiddle = shiftedEndClamp.add(halfRange);
+
+      // TODO: delete after tests
+      // console.log(`strIns:${startInset.toString(3)} endIns:${endInset.toString(3)}`);
+      // console.log(`ranDist:${rangeDistance.toString(3)} halfRange:${halfRange.toString(3)}`);
+      // console.log(`shiMid:${shiftedMiddle.toString(3)} ret:${this.start.shift(shiftedMiddle, this.clockwise).toString(3)}`);
+
       // TODO: still not bounded to start/end
       return this.start.shift(shiftedMiddle, this.clockwise);
     }
-
-    // Angle in arc, with arc as origin
-    // All comparisons are made in a clockwise orientation
-    let shiftedAngle = this.distanceFromStart(angle);
-    let shiftedStartClamp = startInset;
-    let shiftedEndClamp = angleDistance.subtract(endInset);
 
     if (shiftedAngle.turn >= shiftedStartClamp.turn && shiftedAngle.turn <= shiftedEndClamp.turn) {
       // Inside clamp range
