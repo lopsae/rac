@@ -285,16 +285,18 @@ class Rac {
   *
   * @param {number} x
   * @param {number} y
-  * @param {Rac.Angle|number} someStart
-  * @param {Rac.Angle|number=} someEnd=someStart
-  * @param {boolean=} clockwise=true
+  * @param {Rac.Angle|number} start
+  * @param {?Rac.Angle|number} [end=null]
+  * @param {boolean} [clockwise=true]
   * @returns {Rac.Arc}
   * @see instance.Arc
   */
-  Arc(x, y, radius, someStart = this.Angle.zero, someEnd = someStart, clockwise = true) {
+  Arc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
     const center = new Rac.Point(this, x, y);
-    const start = Rac.Angle.from(this, someStart);
-    const end = Rac.Angle.from(this, someEnd);
+    start = Rac.Angle.from(this, start);
+    end = end === null
+      ? start
+      : Rac.Angle.from(this, end);
     return new Rac.Arc(this, center, radius, start, end, clockwise);
   }
 
