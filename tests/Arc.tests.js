@@ -273,8 +273,41 @@ tools.test( function withLengthAndRatio() {
 });
 
 
-tools.test.todo( function withStartEndAnglesTowardsPoint() {
+tools.test( function withStartEndAnglesTowardsPoint() {
+  const fifty = rac.Point(55, 55);
+  const eighth = rac.Angle.eighth;
 
+  expect(quarter.withStartTowardsPoint(fifty))
+    .equalsArc(0, 0, 36, eighth, rac.Angle.left, false);
+  expect(quarter.withEndTowardsPoint(fifty))
+    .equalsArc(0, 0, 36, rac.Angle.up, eighth, false);
+  expect(quarter.withAnglesTowardsPoint(fifty, fifty))
+    .equalsArc(0, 0, 36, eighth, eighth, false);
+
+  expect(quarter.withStartTowardsPoint(rac.Point.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+  expect(quarter.withEndTowardsPoint(rac.Point.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+  expect(quarter.withAnglesTowardsPoint(rac.Point.zero, rac.Point.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+
+  // nullable parameter
+  expect(quarter.withAnglesTowardsPoint(fifty))
+    .equalsArc(0, 0, 36, eighth, eighth, false);
+  expect(quarter.withAnglesTowardsPoint(fifty, null))
+    .equalsArc(0, 0, 36, eighth, eighth, false);
+  expect(quarter.withAnglesTowardsPoint(rac.Point.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
+  expect(quarter.withAnglesTowardsPoint(rac.Point.zero, null))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
+});
+
+
+tools.test.todo( function reverse() {
+});
+
+
+tools.test.todo( function clampToInsets() {
 });
 
 

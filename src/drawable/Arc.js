@@ -222,7 +222,7 @@ class Arc{
   * @returns {Rac.Segment}
   */
   chordSegment() {
-    let perpendicular = this.start.perpendicular(this.clockwise);
+    const perpendicular = this.start.perpendicular(this.clockwise);
     return this.startPoint().segmentToPoint(this.endPoint(), perpendicular);
   }
 
@@ -264,7 +264,7 @@ class Arc{
   * @returns {Rac.Arc}
   */
   withStart(newStart) {
-    let newStartAngle = Rac.Angle.from(this.rac, newStart);
+    const newStartAngle = Rac.Angle.from(this.rac, newStart);
     return new Arc(this.rac,
       this.center, this.radius,
       newStartAngle, this.end,
@@ -281,7 +281,7 @@ class Arc{
   * @returns {Rac.Arc}
   */
   withEnd(newEnd) {
-    let newEndAngle = Rac.Angle.from(this.rac, newEnd);
+    const newEndAngle = Rac.Angle.from(this.rac, newEnd);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEndAngle,
@@ -333,7 +333,7 @@ class Arc{
   * @see Rac.Arc#angleDistance
   */
   withAngleDistance(angleDistance) {
-    let newEnd = this.shiftAngle(angleDistance);
+    const newEnd = this.shiftAngle(angleDistance);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEnd,
@@ -377,7 +377,7 @@ class Arc{
   * @see Rac.Arc#length
   */
   withLengthRatio(ratio) {
-    let newLength = this.length() * ratio;
+    const newLength = this.length() * ratio;
     return this.withLength(newLength);
   }
 
@@ -388,11 +388,15 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.start`.
+  *
   * @param {Rac.Point} point - A `Point` to point `start` towards
   * @returns {Rac.Arc}
+  * @see Rac.Point#equals
   */
   withStartTowardsPoint(point) {
-    let newStart = this.center.angleToPoint(point);
+    const newStart = this.center.angleToPoint(point, this.start);
     return new Arc(this.rac,
       this.center, this.radius,
       newStart, this.end,
@@ -405,11 +409,15 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.end`.
+  *
   * @param {Rac.Point} point - A `Point` to point `end` towards
   * @returns {Rac.Arc}
+  * @see Rac.Point#equals
   */
   withEndTowardsPoint(point) {
-    let newEnd = this.center.angleToPoint(point);
+    const newEnd = this.center.angleToPoint(point, this.end);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEnd,
@@ -423,13 +431,21 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
+  * * When `center` is considered [equal]{@link Rac.Point#equals} to
+  * either `startPoint` or `endPoint`, the new `Arc` will use `this.start`
+  * or `this.end` respectively.
+  *
   * @param {Rac.Point} startPoint - A `Point` to point `start` towards
-  * @param {Rac.Point} endPoint - A `Point` to point `end` towards
+  * @param {?Rac.Point} [endPoint=null] - A `Point` to point `end` towards;
+  * when ommited or `null`, `startPoint` is used instead
   * @returns {Rac.Arc}
+  * @see Rac.Point#equals
   */
-  withAnglesTowardsPoint(startPoint, endPoint) {
-    let newStart = this.center.angleToPoint(startPoint);
-    let newEnd = this.center.angleToPoint(endPoint);
+  withAnglesTowardsPoint(startPoint, endPoint = null) {
+    const newStart = this.center.angleToPoint(startPoint, this.start);
+    const newEnd = endPoint === null
+      ? newStart
+      : this.center.angleToPoint(endPoint, this.end);
     return new Arc(this.rac,
       this.center, this.radius,
       newStart, newEnd,
