@@ -303,11 +303,44 @@ tools.test( function withStartEndAnglesTowardsPoint() {
 });
 
 
-tools.test.todo( function reverse() {
+tools.test( function reverse() {
+  expect(quarter.reverse())
+    .equalsArc(0, 0, 36, rac.Angle.left, rac.Angle.up, true);
+  expect(semi.reverse())
+    .equalsArc(0, 0, 36, rac.Angle.left, rac.Angle.up, false);
+  expect(half.reverse())
+    .equalsArc(100, 100, 55, rac.Angle.down, rac.Angle.up, false);
+  expect(circle.reverse())
+    .equalsArc(72, 72, 72, rac.Angle.down, rac.Angle.down, false);
 });
 
 
 tools.test.todo( function clampToInsets() {
+});
+
+
+tools.test.todo( function containsAngle() {
+});
+
+
+tools.test.todo( function containsProjectedPoint() {
+});
+
+
+tools.test.todo( function shiftAngle() {
+});
+
+
+tools.test.todo( function distanceFromStart() {
+});
+
+
+tools.test.todo( function pointAtAngle() {
+});
+
+
+
+tools.test.todo( function pointAtAngleDistanceAndRatio() {
 });
 
 
