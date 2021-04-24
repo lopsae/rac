@@ -146,6 +146,11 @@ tools.test( function accesors() {
   expect(half.length())   .toBe(55 * Rac.TAU / 2);
   expect(circle.length()) .toBe(72 * Rac.TAU);
 
+  expect(quarter.circumference()).toBe(36 * Rac.TAU);
+  expect(semi.circumference())   .toBe(36 * Rac.TAU);
+  expect(half.circumference())   .toBe(55 * Rac.TAU);
+  expect(circle.circumference()) .toBe(72 * Rac.TAU);
+
   expect(quarter.angleDistance()).equalsAngle(1/4);
   expect(semi.angleDistance())   .equalsAngle(3/4);
   expect(half.angleDistance())   .equalsAngle(1/2);
@@ -227,8 +232,44 @@ tools.test( function withAngleDistance() {
 });
 
 
-tools.test.todo( function withLengthAndRatio() {
+tools.test( function withLengthAndRatio() {
+  const circumference = 55 * Rac.TAU;
+  expect(half.withLength(0))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
+  expect(half.withLength(circumference))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
+  expect(half.withLength(-circumference))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
+  expect(half.withLength(7 * circumference))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
 
+  expect(half.withLength(circumference / 4))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.right, true);
+  expect(half.withLength(-circumference / 4))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.left, true);
+
+  expect(half.withLengthRatio(0))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
+  expect(half.withLengthRatio(1/2))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.right, true);
+  expect(half.withLengthRatio(-1/2))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.left, true);
+  expect(half.withLengthRatio(2))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
+  expect(half.withLengthRatio(-2))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
+
+
+  expect(circle.withLengthRatio(0))
+    .equalsArc(72, 72, 72, rac.Angle.down, rac.Angle.down, true);
+  expect(circle.withLengthRatio(1/4))
+    .equalsArc(72, 72, 72, rac.Angle.down, rac.Angle.left, true);
+  expect(circle.withLengthRatio(-1/4))
+    .equalsArc(72, 72, 72, rac.Angle.down, rac.Angle.right, true);
+  expect(circle.withLengthRatio(2))
+    .equalsArc(72, 72, 72, rac.Angle.down, rac.Angle.down, true);
+  expect(circle.withLengthRatio(-2))
+    .equalsArc(72, 72, 72, rac.Angle.down, rac.Angle.down, true);
 });
 
 

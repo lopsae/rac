@@ -139,6 +139,16 @@ class Arc{
 
 
   /**
+  * Returns the length of circumference of the arc considered as a complete
+  * circle.
+  * @returns {number}
+  */
+  circumference() {
+    return this.radius * Rac.TAU;
+  }
+
+
+  /**
   * Returns a new `Angle` that represents the distance between `start` and
   * `end`, in the orientation of the arc.
   * @returns {Rac.Angle}
@@ -347,8 +357,7 @@ class Arc{
   * @see Rac.Arc#length
   */
   withLength(length) {
-    let circumference = this.radius * Rac.TAU;
-    let newAngleDistance = newLength / circumference;
+    const newAngleDistance = length / this.circumference();
     return this.withAngleDistance(newAngleDistance);
   }
 
