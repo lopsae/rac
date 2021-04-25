@@ -511,7 +511,17 @@ tools.test( function pointAtAngle() {
 
 
 
-tools.test.todo( function pointAtAngleDistanceAndRatio() {
+tools.test( function pointAtAngleDistanceAndRatio() {
+  // Angle/number parameter
+  expect(quarter.pointAtAngleDistance(rac.Angle.zero)).equalsPoint(0, -36);
+  expect(quarter.pointAtAngleDistance(0))             .equalsPoint(0, -36);
+
+  expect(quarter.pointAtAngleDistance(1/4)).equalsPoint(-36, 0);
+  expect(quarter.pointAtAngleDistance(3/4)).equalsPoint(36, 0);
+
+  expect(circle.pointAtAngleDistance(0/4)).equalsPoint(72, 144);
+  expect(circle.pointAtAngleDistance(1/4)).equalsPoint(0, 72);
+  expect(circle.pointAtAngleDistance(3/4)).equalsPoint(144, 72);
 });
 
 
