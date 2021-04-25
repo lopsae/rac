@@ -478,20 +478,52 @@ tools.test( function containsProjectedPoint() {
 });
 
 
-tools.test.todo( function shiftAngle() {
+tools.test( function shiftAngle() {
+  // Angle/number parameter
+  expect(quarter.shiftAngle(rac.Angle.eighth)).equalsAngle(5/8);
+  expect(quarter.shiftAngle(1/8))             .equalsAngle(5/8);
+
+  expect(circle.shiftAngle(0))  .equalsAngle(rac.Angle.down);
+  expect(circle.shiftAngle(1/4)).equalsAngle(rac.Angle.left);
 });
 
 
-tools.test.todo( function distanceFromStart() {
+tools.test( function distanceFromStart() {
+  // Angle/number parameter
+  expect(quarter.distanceFromStart(rac.Angle.zero)).equalsAngle(3/4);
+  expect(quarter.distanceFromStart(0))             .equalsAngle(3/4);
+
+  expect(circle.distanceFromStart(rac.Angle.down)) .equalsAngle(0/4);
+  expect(circle.distanceFromStart(rac.Angle.left)) .equalsAngle(1/4);
+  expect(circle.distanceFromStart(rac.Angle.right)).equalsAngle(3/4);
 });
 
 
-tools.test.todo( function pointAtAngle() {
+tools.test( function pointAtAngle() {
+  // Angle/number parameter
+  expect(quarter.pointAtAngle(rac.Angle.zero)).equalsPoint(36, 0);
+  expect(quarter.pointAtAngle(0))             .equalsPoint(36, 0);
+
+  const cathetus = tools.cathetus(36);
+  expect(quarter.pointAtAngle(rac.Angle.eighth)).equalsPoint(cathetus, cathetus);
+  expect(quarter.pointAtAngle(rac.Angle.left)).equalsPoint(-36, 0);
 });
 
 
 
 tools.test.todo( function pointAtAngleDistanceAndRatio() {
+});
+
+
+tools.test.todo( function intersectionChord() {
+});
+
+
+tools.test.todo( function intersectionArc() {
+});
+
+
+tools.test.todo( function intersectingPointsWithArc() {
 });
 
 

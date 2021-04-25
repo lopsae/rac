@@ -622,7 +622,8 @@ class Arc{
 
 
   /**
-  * Returns a new `Point` located in the arc at the given `angle`.
+  * Returns a new `Point` located in the arc at the given `angle`. This
+  * method does not consider the `start` nor `end` of the arc.
   *
   * The arc is considered a complete circle.
   *
