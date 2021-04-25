@@ -447,11 +447,34 @@ tools.test( function clampToAnglesCircle() {
 });
 
 
-tools.test.todo( function containsAngle() {
+tools.test( function containsAngle() {
+  expect(circle.containsAngle(rac.Angle.right)).toBe(true);
+  expect(circle.containsAngle(rac.Angle.down)) .toBe(true);
+  expect(circle.containsAngle(rac.Angle.left)) .toBe(true);
+  expect(circle.containsAngle(rac.Angle.up))   .toBe(true);
+
+  expect(quarter.containsAngle(rac.Angle.right)).toBe(false);
+  expect(quarter.containsAngle(rac.Angle.down)) .toBe(false);
+  expect(quarter.containsAngle(rac.Angle.left)) .toBe(true);
+  expect(quarter.containsAngle(rac.Angle.up))   .toBe(true);
 });
 
 
-tools.test.todo( function containsProjectedPoint() {
+tools.test( function containsProjectedPoint() {
+  const hunty = rac.Point(100, 100);
+  const nunty = rac.Point(-100, -100);
+  const above = rac.Point(0, -100);
+  const below = rac.Point(0, 100);
+
+  expect(circle.containsProjectedPoint(hunty)).toBe(true);
+  expect(circle.containsProjectedPoint(nunty)).toBe(true);
+  expect(circle.containsProjectedPoint(above)).toBe(true);
+  expect(circle.containsProjectedPoint(below)).toBe(true);
+
+  expect(quarter.containsProjectedPoint(hunty)).toBe(false);
+  expect(quarter.containsProjectedPoint(nunty)).toBe(true);
+  expect(quarter.containsProjectedPoint(above)).toBe(true);
+  expect(quarter.containsProjectedPoint(below)).toBe(false);
 });
 
 
