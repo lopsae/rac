@@ -650,17 +650,33 @@ class Arc{
     return this.pointAtAngle(shiftedAngle);
   }
 
+
   /**
-  * Returns a new `Point` located in the arc at `angleDistance() * ratio`
-  * from `start` in the arc's orientation.
+  * Returns a new `Point` located in the arc at the given `length` from
+  * `startPoint()` in arc's orientation.
   *
   * The arc is considered a complete circle.
   *
-  * @param {number} number - The factor to multiply `angleDistance()` by
+  * @param {number} length - The length from `startPoint()` to the new `Point`
   * @returns {Rac.Point}
   */
-  pointAtAngleDistanceRatio(angleDistanceRatio) {
-    let newAngleDistance = this.angleDistance().multOne(angleDistanceRatio);
+  pointAtLength(length) {
+    const angleDistance = length / this.circumference();
+    return this.pointAtAngleDistance(angleDistance);
+  }
+
+
+  /**
+  * Returns a new `Point` located in the arc at `length() * ratio` from
+  * `startPoint()` in the arc's orientation.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {number} ratio - The factor to multiply `length()` by
+  * @returns {Rac.Point}
+  */
+  pointAtLengthRatio(ratio) {
+    let newAngleDistance = this.angleDistance().multOne(ratio);
     let shiftedAngle = this.shiftAngle(newAngleDistance);
     return this.pointAtAngle(shiftedAngle);
   }

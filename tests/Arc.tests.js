@@ -511,7 +511,7 @@ tools.test( function pointAtAngle() {
 
 
 
-tools.test( function pointAtAngleDistanceAndRatio() {
+tools.test( function pointAtAngleDistance() {
   // Angle/number parameter
   expect(quarter.pointAtAngleDistance(rac.Angle.zero)).equalsPoint(0, -36);
   expect(quarter.pointAtAngleDistance(0))             .equalsPoint(0, -36);
@@ -522,6 +522,30 @@ tools.test( function pointAtAngleDistanceAndRatio() {
   expect(circle.pointAtAngleDistance(0/4)).equalsPoint(72, 144);
   expect(circle.pointAtAngleDistance(1/4)).equalsPoint(0, 72);
   expect(circle.pointAtAngleDistance(3/4)).equalsPoint(144, 72);
+});
+
+
+tools.test( function pointAtLengthAndRatio() {
+  const circumference = 36 * Rac.TAU;
+  expect(quarter.pointAtLength(0))               .equalsPoint(0, -36);
+  expect(quarter.pointAtLength(circumference))   .equalsPoint(0, -36);
+  expect(quarter.pointAtLength(circumference*7)) .equalsPoint(0, -36);
+  expect(quarter.pointAtLength(circumference/4)) .equalsPoint(-36, 0);
+  expect(quarter.pointAtLength(-circumference/4)).equalsPoint(36, 0);
+
+  expect(quarter.pointAtLengthRatio(0)) .equalsPoint(0, -36);
+  expect(quarter.pointAtLengthRatio(1)) .equalsPoint(-36, 0);
+  expect(quarter.pointAtLengthRatio(2)) .equalsPoint(0, 36);
+  expect(quarter.pointAtLengthRatio(-1)).equalsPoint(36, 0);
+
+  expect(circle.pointAtLengthRatio(0))   .equalsPoint(72, 144);
+  expect(circle.pointAtLengthRatio(1))   .equalsPoint(72, 144);
+  expect(circle.pointAtLengthRatio(-7))  .equalsPoint(72, 144);
+  expect(circle.pointAtLengthRatio(7))   .equalsPoint(72, 144);
+  expect(circle.pointAtLengthRatio(1/2)) .equalsPoint(72, 0);
+  expect(circle.pointAtLengthRatio(1/4)) .equalsPoint(0, 72);
+  expect(circle.pointAtLengthRatio(-1/4)).equalsPoint(144, 72);
+
 });
 
 
