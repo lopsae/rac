@@ -324,6 +324,8 @@ tools.test( function clampToAngles() {
     .equalsAngle(5/8);
   expect(quarter.clampToAngles(5/8))
     .equalsAngle(5/8);
+  expect(quarter.clampToAngles(5/8, sixteenth, sixteenth))
+    .equalsAngle(5/8);
   expect(quarter.clampToAngles(rac.Angle.left, sixteenth, sixteenth))
     .equalsAngle(endLimit);
   expect(quarter.clampToAngles(rac.Angle.left, 1/16, 1/16))
@@ -348,6 +350,14 @@ tools.test( function clampToAngles() {
   // Outside range, right in middle, snaps to start
   expect(quarter.clampToAngles(rac.Angle.se, sixteenth, sixteenth))
     .equalsAngle(startLimit);
+
+  // Exact range, centered on insets
+  expect(quarter.clampToAngles(rac.Angle.nw, 1/8, 1/8))
+    .equalsAngle(rac.Angle.nw);
+  expect(quarter.clampToAngles(rac.Angle.ne, 1/8, 1/8))
+    .equalsAngle(rac.Angle.nw);
+  expect(quarter.clampToAngles(rac.Angle.sw, 1/8, 1/8))
+    .equalsAngle(rac.Angle.nw);
 
   // Invalid range, centered on insets
   expect(quarter.clampToAngles(rac.Angle.nw, 1/8, 1/4))
@@ -379,6 +389,61 @@ tools.test( function clampToAngles() {
     .equalsAngle(rac.Angle.left);
   expect(quarter.clampToAngles(rac.Angle.sw, 3/4, 0))
     .equalsAngle(rac.Angle.left);
+});
+
+
+tools.test( function clampToAnglesCircle() {
+  // Inside range
+  expect(circle.clampToAngles(rac.Angle.down))
+    .equalsAngle(rac.Angle.down);
+  expect(circle.clampToAngles(rac.Angle.eighth))
+    .equalsAngle(rac.Angle.eighth);
+  expect(circle.clampToAngles(rac.Angle.neighth))
+    .equalsAngle(rac.Angle.neighth);
+
+  // Inside range with insets
+  expect(circle.clampToAngles(rac.Angle.up, 1/4, 1/4))
+    .equalsAngle(rac.Angle.up);
+  expect(circle.clampToAngles(rac.Angle.left, 1/4, 1/4))
+    .equalsAngle(rac.Angle.left);
+  expect(circle.clampToAngles(rac.Angle.right, 1/4, 1/4))
+    .equalsAngle(rac.Angle.right);
+
+  // Outside range, closer to start
+  expect(circle.clampToAngles(rac.Angle.sww, 1/4))
+    .equalsAngle(rac.Angle.left);
+  expect(circle.clampToAngles(rac.Angle.sww, 1/4, 1/4))
+    .equalsAngle(rac.Angle.left);
+
+  // Outside range, closer to end
+  expect(circle.clampToAngles(rac.Angle.see, 0, 1/4))
+    .equalsAngle(rac.Angle.right);
+  expect(circle.clampToAngles(rac.Angle.see, 1/4, 1/4))
+    .equalsAngle(rac.Angle.right);
+
+  // Outside range, right in middle, snaps to start
+  expect(circle.clampToAngles(rac.Angle.down, 1/4, 1/4))
+    .equalsAngle(rac.Angle.left);
+
+  // Exact range, centered on insets
+  expect(circle.clampToAngles(rac.Angle.down, 3/4, 1/4))
+    .equalsAngle(rac.Angle.right);
+  expect(circle.clampToAngles(rac.Angle.up, 3/4, 1/4))
+    .equalsAngle(rac.Angle.right);
+  expect(circle.clampToAngles(rac.Angle.right, 3/4, 1/4))
+    .equalsAngle(rac.Angle.right);
+  expect(circle.clampToAngles(rac.Angle.left, 3/4, 1/4))
+    .equalsAngle(rac.Angle.right);
+
+  // Invalid range, centered on insets
+  expect(circle.clampToAngles(rac.Angle.down, 3/4, 1/2))
+    .equalsAngle(rac.Angle.ne);
+  expect(circle.clampToAngles(rac.Angle.up, 3/4, 1/2))
+    .equalsAngle(rac.Angle.ne);
+  expect(circle.clampToAngles(rac.Angle.right, 3/4, 1/2))
+    .equalsAngle(rac.Angle.ne);
+  expect(circle.clampToAngles(rac.Angle.left, 3/4, 1/2))
+    .equalsAngle(rac.Angle.ne);
 });
 
 

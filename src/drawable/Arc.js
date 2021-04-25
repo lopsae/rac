@@ -507,14 +507,19 @@ class Arc{
     const angleDistance = this.angleDistance();
     const shiftedStartClamp = startInset;
     const shiftedEndClamp = angleDistance.subtract(endInset);
+    const totalInsetTurn = startInset.turn + endInset.turn;
 
-
-    if (startInset.turn + endInset.turn >= angleDistance.turnOne()) {
+    if (totalInsetTurn >= angleDistance.turnOne()) {
       // Invalid range
       const rangeDistance = shiftedEndClamp.distance(shiftedStartClamp);
-      const halfRange = startInset.turn >= 0.5 || endInset.turn >= 0.5
-        ? rangeDistance.multOne(1/2)
-        : rangeDistance.mult(1/2);
+      let halfRange;
+      if (this.isCircle()) {
+        halfRange = rangeDistance.mult(1/2);
+      } else {
+        halfRange = totalInsetTurn >= 1
+          ? rangeDistance.multOne(1/2)
+          : rangeDistance.mult(1/2);
+      }
 
       const middleRange = shiftedEndClamp.add(halfRange);
       const middle = this.start.shift(middleRange, this.clockwise);
