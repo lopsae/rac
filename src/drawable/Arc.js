@@ -516,15 +516,10 @@ class Arc{
         ? rangeDistance.multOne(1/2)
         : rangeDistance.mult(1/2);
 
-      const shiftedMiddle = shiftedEndClamp.add(halfRange);
+      const middleRange = shiftedEndClamp.add(halfRange);
+      const middle = this.start.shift(middleRange, this.clockwise);
 
-      // TODO: delete after tests
-      // console.log(`strIns:${startInset.toString(3)} endIns:${endInset.toString(3)}`);
-      // console.log(`ranDist:${rangeDistance.toString(3)} halfRange:${halfRange.toString(3)}`);
-      // console.log(`shiMid:${shiftedMiddle.toString(3)} ret:${this.start.shift(shiftedMiddle, this.clockwise).toString(3)}`);
-
-      // TODO: still not bounded to start/end
-      return this.start.shift(shiftedMiddle, this.clockwise);
+      return this.clampToAngles(middle);
     }
 
     if (shiftedAngle.turn >= shiftedStartClamp.turn && shiftedAngle.turn <= shiftedEndClamp.turn) {
