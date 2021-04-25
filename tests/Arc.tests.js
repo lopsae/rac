@@ -549,7 +549,41 @@ tools.test( function pointAtLengthAndRatio() {
 });
 
 
-tools.test.todo( function intersectionChord() {
+tools.test( function intersectionChord() {
+  const cathetus = tools.cathetus(55);
+  const aArc = rac.Arc(cathetus, cathetus, 55, rac.Angle.up, rac.Angle.down, true);
+  const bArc = rac.Arc(-cathetus, cathetus, 55, rac.Angle.up, rac.Angle.down, false);
+  const outside = rac.Arc(0, -cathetus*2, 55, rac.Angle.up, rac.Angle.down, true);
+  const inside = rac.Arc(cathetus, cathetus, 22, rac.Angle.up, rac.Angle.down, false);
+  const edge = rac.Arc.zero;
+
+  // Intersection
+  expect(aArc.intersectionChord(bArc))
+    .equalsSegment(0, cathetus*2, rac.Angle.up, cathetus*2);
+  expect(aArc.reverse().intersectionChord(bArc))
+    .equalsSegment(0, 0, rac.Angle.down, cathetus*2);
+
+  expect(bArc.intersectionChord(aArc))
+    .equalsSegment(0, cathetus*2, rac.Angle.up, cathetus*2);
+  expect(bArc.reverse().intersectionChord(aArc))
+    .equalsSegment(0, 0, rac.Angle.down, cathetus*2);
+
+  // Same arc
+  expect(aArc.intersectionChord(aArc)).toBe(null);
+  expect(bArc.intersectionChord(bArc)).toBe(null);
+
+  // No intersection, outside
+  expect(aArc.intersectionChord(outside)).toBe(null);
+  expect(bArc.intersectionChord(outside)).toBe(null);
+
+  // No intersection, inside
+  expect(aArc.intersectionChord(inside)).toBe(null);
+
+  // Zero arc at edge
+  expect(aArc.intersectionChord(edge))
+    .equalsSegment(0, 0, rac.Angle.ne, 0);
+  expect(bArc.intersectionChord(edge))
+    .equalsSegment(0, 0, rac.Angle.nw, 0);
 });
 
 

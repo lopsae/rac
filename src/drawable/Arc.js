@@ -686,6 +686,8 @@ class Arc{
   * Returns a new `Segment` for the chord formed by the intersection of
   * `this` and `otherArc`, or `null` when there is no intersection.
   *
+  * The returned `Segment` will point towards the `this` orientation.
+  *
   * Both arcs are considered complete circles for the calculation of the
   * chord, thus the endpoints of the returned segment may not lay inside
   * the actual arcs.
@@ -701,28 +703,31 @@ class Arc{
       return null;
     }
 
-    let distance = this.center.distanceToPoint(otherArc.center);
+    const distance = this.center.distanceToPoint(otherArc.center);
+
+    if (distance > this.radius + otherArc.radius) {
+      return null;
+    }
 
     // distanceToChord = (d^2 - r^2 + R^2) / (d*2)
-    let distanceToChord = (
+    const distanceToChord = (
         Math.pow(distance, 2)
       - Math.pow(otherArc.radius, 2)
       + Math.pow(this.radius, 2)
       ) / (distance * 2);
 
     // a = 1/d sqrt|(-d+r-R)(-d-r+R)(-d+r+R)(d+r+R)
-    let chordLength = (1 / distance) * Math.sqrt(
+    const chordLength = (1 / distance) * Math.sqrt(
         (-distance + otherArc.radius - this.radius)
       * (-distance - otherArc.radius + this.radius)
       * (-distance + otherArc.radius + this.radius)
       * (distance + otherArc.radius + this.radius));
 
-    let rayToChord = this.center.segmentToPoint(otherArc.center)
-      .withLength(distanceToChord);
-    return rayToChord.nextSegmentPerpendicular(this.clockwise)
-      .withLength(chordLength/2)
+    const segmentToChord = this.center.rayToPoint(otherArc.center)
+      .segment(distanceToChord);
+    return segmentToChord.nextSegmentPerpendicular(this.clockwise, chordLength/2)
       .reverse()
-      .segmentWithRatioOfLength(2);
+      .withLengthRatio(2);
   }
 
   // Returns the section of `this` that is inside `otherArc`.
