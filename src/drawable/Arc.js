@@ -730,38 +730,94 @@ class Arc{
       .withLengthRatio(2);
   }
 
-  // Returns the section of `this` that is inside `otherArc`.
-  // `otherArc` is aways considered as a complete circle.
+
   /**
   * Returns a new `Arc` representing the section of `this` that is inside
-  * `otherArc`.
+  * `otherArc`, or `null` when there is no intersection. The returned arc
+  * will have the same center, radius, and orientation as `this`.
+  *
+  * Both arcs are considered complete circles for the calculation of the
+  * intersection, thus the endpoints of the returned arc may not lay inside
+  * `this`.
+  *
+  * An edge case of this method is that when the distance between `this`
+  * and `otherArc` is the sum of their radius, meaning the arcs touch at a
+  * single point, the resulting arc may have a angle-distance of zero,
+  * which is interpreted as a complete-circle arc.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to intersect with
+  * @returns {Rac.Arc}
+  */
+  intersectionArc(otherArc) {
+    const chord = this.intersectionChord(otherArc);
+    if (chord === null) { return null; }
+
+    return this.withAnglesTowardsPoint(chord.startPoint(), chord.endPoint());
+  }
+
+
+  // TODO: implement intersectionArcNoCircle?
+
+
+  // TODO: finish boundedIntersectionArc
+  /**
+  * @ignore
+  *
+  * Returns a new `Arc` representing the section of `this` that is inside
+  * `otherArc` and bounded by `this.start` and `this.end`, or `null` when
+  * there is no intersection. The returned arc will have the same center,
+  * radius, and orientation as `this`.
   *
   * `otherArc` is considered a complete circle, while the start and end of
   * `this` are considered for the resulting `Arc`.
   *
-  * @param {Rac.Angle} otherArc - An `Arc` to intersect with
+  * When there exist two separate arc sections that intersect with
+  * `otherArc`: only the section of `this` closest to `start` is returned.
+  * This can happen when `this` starts inside `otherArc`, then exits, and
+  * then ends inside `otherArc`, regardless if `this` is a complete circle
+  * or not.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to intersect with
   * @returns {Rac.Arc}
   */
-  intersectionArc(otherArc) {
-    let chord = this.intersectionChord(otherArc);
-    if (chord === null) { return null; }
+  // boundedIntersectionArc(otherArc) {
+  //   let chord = this.intersectionChord(otherArc);
+  //   if (chord === null) { return null; }
 
-    let startAngle = this.center.angleToPoint(chord.startPoint());
-    let endAngle = this.center.angleToPoint(chord.endPoint());
+  //   let chordStartAngle = this.center.angleToPoint(chord.startPoint());
+  //   let chordEndAngle = this.center.angleToPoint(chord.endPoint());
 
-    if (!this.containsAngle(startAngle)) {
-      startAngle = this.start;
-    }
-    if (!this.containsAngle(endAngle)) {
-      endAngle = this.end;
-    }
+  //   // get all distances from this.start
+  //   // if closest is chordEndAngle, only start may be inside arc
+  //   // if closest is this.end, whole arc is inside or outside
+  //   // if closest is chordStartAngle, only end may be inside arc
+  //   const interStartDistance = this.start.distance(chordStartAngle, this.clockwise);
+  //   const interEndDistance = this.start.distance(chordEndAngle, this.clockwise);
+  //   const endDistance = this.start.distance(this.end, this.clockwise);
 
-    return new Arc(this.rac,
-      this.center, this.radius,
-      startAngle,
-      endAngle,
-      this.clockwise);
-  }
+
+  //   // if closest is chordStartAngle, normal rules
+  //   // if closest is end not zero, if following is chordStart, return null
+  //   // if closest is end not zero, if following is chordend, return self
+  //   // if closest is end zero, if following is chordStart, normal rules
+  //   // if closest is end zero, if following is chordend, return start to chordend
+  //   // if closest is chordEndAngle, return start to chordEnd
+
+
+  //   if (!this.containsAngle(chordStartAngle)) {
+  //     chordStartAngle = this.start;
+  //   }
+  //   if (!this.containsAngle(chordEndAngle)) {
+  //     chordEndAngle = this.end;
+  //   }
+
+  //   return new Arc(this.rac,
+  //     this.center, this.radius,
+  //     chordStartAngle,
+  //     chordEndAngle,
+  //     this.clockwise);
+  // }
+
 
   /**
   * Returns an array containing the intersecting points of `this` with
