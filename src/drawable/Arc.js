@@ -819,7 +819,10 @@ class Arc{
   // }
 
 
+  // TODO: consider if intersectingPointsWithArc is necessary
   /**
+  * @ignore
+  *
   * Returns an array containing the intersecting points of `this` with
   * `otherArc`.
   *
@@ -828,17 +831,17 @@ class Arc{
   * @param {Rac.Arc} otherArc - An `Arc` to calculate intersection points with
   * @returns {Rac.Arc}
   */
-  intersectingPointsWithArc(otherArc) {
-    let chord = this.intersectionChord(otherArc);
-    if (chord === null) { return []; }
+  // intersectingPointsWithArc(otherArc) {
+  //   let chord = this.intersectionChord(otherArc);
+  //   if (chord === null) { return []; }
 
-    let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
-      return this.containsAngle(this.center.segmentToPoint(item))
-        && otherArc.containsAngle(otherArc.center.segmentToPoint(item));
-    }, this);
+  //   let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
+  //     return this.containsAngle(this.center.segmentToPoint(item))
+  //       && otherArc.containsAngle(otherArc.center.segmentToPoint(item));
+  //   }, this);
 
-    return intersections;
-  }
+  //   return intersections;
+  // }
 
 
   /**

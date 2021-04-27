@@ -625,7 +625,7 @@ tools.test( function intersectionArc() {
 });
 
 
-tools.test.todo( function intersectingPointsWithArc() {
+tools.test.todo( function intersectionChordWithRay() {
 });
 
 
