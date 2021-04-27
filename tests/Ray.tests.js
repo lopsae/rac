@@ -315,15 +315,15 @@ test('Ray parallel intersection', () => {
 });
 
 
-test('Point projection', () => {
+tools.test( function pointProjection() {
   const distance = tools.hypotenuse(55);
 
   expect(diagonal.pointAtDistance(0)).equalsPoint(55, 55);
   expect(diagonal.pointAtDistance(distance)).equalsPoint(110, 110);
   expect(diagonal.pointAtDistance(-distance)).equalsPoint(0, 0);
 
-  expect(diagonal.pointProjected(hunty)).equalsPoint(100, 100);
-  expect(diagonal.inverse().pointProjected(fifty)).equalsPoint(55, 55);
+  expect(diagonal.pointProjection(hunty)).equalsPoint(100, 100);
+  expect(diagonal.inverse().pointProjection(fifty)).equalsPoint(55, 55);
 
   expect(diagonal.distanceToProjectedPoint(fifty)).thresEquals(0);
   expect(diagonal.inverse().distanceToProjectedPoint(fifty)).thresEquals(0);
@@ -333,14 +333,14 @@ test('Point projection', () => {
   expect(diagonal.inverse().distanceToProjectedPoint(hunty))
     .thresEquals(-tools.hypotenuse(45));
 
-  expect(vertical.pointProjected(fifty)).equalsPoint(100, 55);
-  expect(vertical.inverse().pointProjected(fifty)).equalsPoint(100, 55);
+  expect(vertical.pointProjection(fifty)).equalsPoint(100, 55);
+  expect(vertical.inverse().pointProjection(fifty)).equalsPoint(100, 55);
 
   expect(vertical.distanceToProjectedPoint(fifty)).thresEquals(-45)
   expect(vertical.inverse().distanceToProjectedPoint(fifty)).thresEquals(45)
 
-  expect(horizontal.pointProjected(fifty)).equalsPoint(55, 100);
-  expect(horizontal.inverse().pointProjected(fifty)).equalsPoint(55, 100);
+  expect(horizontal.pointProjection(fifty)).equalsPoint(55, 100);
+  expect(horizontal.inverse().pointProjection(fifty)).equalsPoint(55, 100);
 
   expect(horizontal.distanceToProjectedPoint(fifty)).thresEquals(-45)
   expect(horizontal.inverse().distanceToProjectedPoint(fifty)).thresEquals(45)

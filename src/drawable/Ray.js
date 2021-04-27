@@ -394,7 +394,7 @@ class Ray {
   * @param {Rac.Point} point - A `Point` to project onto the ray
   * @returns {Rac.Point}
   */
-  pointProjected(point) {
+  pointProjection(point) {
     const perpendicular = this.angle.perpendicular();
     return point.ray(perpendicular)
       .pointAtIntersection(this);
@@ -413,7 +413,7 @@ class Ray {
   * @returns {number}
   */
   distanceToProjectedPoint(point) {
-    const projected = this.pointProjected(point);
+    const projected = this.pointProjection(point);
     const distance = this.start.distanceToPoint(projected);
 
     if (this.rac.equals(distance, 0)) {

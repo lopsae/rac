@@ -282,7 +282,7 @@ class Point{
   * @returns {Rac.Ray}
   */
   rayToProjectionInRay(ray) {
-    const projected = ray.pointProjected(this);
+    const projected = ray.pointProjection(this);
     const perpendicular = ray.angle.perpendicular();
     return this.rayToPoint(projected, perpendicular);
   }
@@ -388,7 +388,7 @@ class Point{
   * @returns {Rac.Segment}
   */
   segmentToProjectionInRay(ray) {
-    const projected = ray.pointProjected(this);
+    const projected = ray.pointProjection(this);
     const perpendicular = ray.angle.perpendicular();
     return this.segmentToPoint(projected, perpendicular);
   }
