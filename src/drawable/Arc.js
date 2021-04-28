@@ -848,37 +848,39 @@ class Arc{
   * Returns a new `Segment` representing the chord formed by the
   * intersection of the arc and 'ray', or `null` when no chord is possible.
   *
-  * The arc is considered a complete circle.
+  * The returned `Segment` will always have the same angle as `ray`.
+  *
+  * The arc is considered a complete circle and `ray` is considered an
+  * unbounded line.
   *
   * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
   * @returns {Rac.Segment}
   */
-  // TODO: modify to intersectionChordWithRay(ray)
-  intersectionChordWithSegment(segment) {
+  intersectionChordWithRay(ray) {
     // First check intersection
-    let projectedCenter = segment.projectedPoint(this.center);
-    let bisector = this.center.segmentToPoint(projectedCenter);
-    let distance = bisector.length();
-    if (distance > this.radius - this.rac.equalityThreshold) {
-      // projectedCenter outside or too close to arc edge
+    const bisector = this.center.segmentToProjectionInRay(ray);
+    const distance = bisector.length;
+    // TODO: If equals to radius, should it be just considered as tagent?
+    if (distance > this.radius) {
+      // projectedCenter is outside
       return null;
     }
 
     // Segment too close to center, cosine calculations may be incorrect
-    if (distance < this.rac.equalityThreshold) {
-      let segmentAngle = segment.angle();
-      let start = this.pointAtAngle(segmentAngle.inverse());
-      let end = this.pointAtAngle(segmentAngle);
-      return new Rac.Segment(start, end);
+    // Calculate segment through center
+    if (this.rac.equals(0, distance)) {
+      const start = this.pointAtAngle(ray.angle.inverse());
+      const newRay = new Rac.Ray(this.rac, start, ray.angle);
+      return new Rac.Segment(this.rac, newRay, this.radius*2);
     }
 
-    let radians = Math.acos(distance/this.radius);
-    let angle = Rac.Angle.fromRadians(this.rac, radians);
+    const radians = Math.acos(distance/this.radius);
+    const angle = Rac.Angle.fromRadians(this.rac, radians);
 
-    let centerOrientation = segment.pointOrientation(this.center);
-    let start = this.pointAtAngle(bisector.angle().shift(angle, !centerOrientation));
-    let end = this.pointAtAngle(bisector.angle().shift(angle, centerOrientation));
-    return new Rac.Segment(start, end);
+    const centerOrientation = ray.pointOrientation(this.center);
+    const start = this.pointAtAngle(bisector.angle().shift(angle, !centerOrientation));
+    const end = this.pointAtAngle(bisector.angle().shift(angle, centerOrientation));
+    return start.segmentToPoint(end, ray.angle);
   }
 
 } // class Arc

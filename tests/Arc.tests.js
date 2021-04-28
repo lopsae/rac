@@ -625,7 +625,30 @@ tools.test( function intersectionArc() {
 });
 
 
-tools.test.todo( function intersectionChordWithRay() {
+tools.test( function intersectionChordWithRay() {
+  const cathetus = tools.cathetus(55);
+  const touchesOrigin = rac.Arc(cathetus, cathetus, 55, 1/4, 3/4, false);
+  // Intersection
+  expect(touchesOrigin.intersectionChordWithRay(rac.Ray.xAxis))
+    .equalsSegment(0, 0, 0, cathetus*2);
+  expect(touchesOrigin.intersectionChordWithRay(rac.Ray.yAxis))
+    .equalsSegment(0, 0, 1/4, cathetus*2);
+
+  // No intersection
+  expect(half.intersectionChordWithRay(rac.Ray.xAxis)).toBe(null);
+  expect(half.intersectionChordWithRay(rac.Ray.yAxis)).toBe(null);
+
+  // Through center
+  expect(quarter.intersectionChordWithRay(rac.Ray.xAxis))
+    .equalsSegment(-36, 0, 0, 36*2);
+  expect(quarter.intersectionChordWithRay(rac.Ray.yAxis))
+    .equalsSegment(0, -36, 1/4, 36*2);
+
+  // Tangent intersection
+  expect(circle.intersectionChordWithRay(rac.Ray.xAxis))
+    .equalsSegment(72, 0, 0, 0);
+  expect(circle.intersectionChordWithRay(rac.Ray.yAxis))
+    .equalsSegment(0, 72, 1/4, 0);
 });
 
 
