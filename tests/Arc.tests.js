@@ -649,7 +649,86 @@ tools.test( function intersectionChordWithRay() {
     .equalsSegment(72, 0, 0, 0);
   expect(circle.intersectionChordWithRay(rac.Ray.yAxis))
     .equalsSegment(0, 72, 1/4, 0);
+
+  // Zero arc
+  expect(rac.Arc.zero.intersectionChordWithRay(rac.Ray.xAxis))
+    .equalsSegment(0, 0, 0, 0);
+  expect(rac.Arc.zero.intersectionChordWithRay(rac.Ray.yAxis))
+    .equalsSegment(0, 0, 1/4, 0);
+
+  // Zero arc, no intersection
+  const inverseDiag = rac.Ray(55, 55, 3/8);
+  expect(rac.Arc.zero.intersectionChordWithRay(inverseDiag)).toBe(null);
 });
+
+
+tools.test( function intersectionChordEndWithRay() {
+  const cathetus = tools.cathetus(55);
+  const touchesOrigin = rac.Arc(cathetus, cathetus, 55, 1/4, 3/4, false);
+  // Intersection
+  expect(touchesOrigin.intersectionChordEndWithRay(rac.Ray.xAxis))
+    .equalsPoint(cathetus*2, 0);
+  expect(touchesOrigin.intersectionChordEndWithRay(rac.Ray.yAxis))
+    .equalsPoint(0, cathetus*2);
+
+  // No intersection
+  expect(half.intersectionChordEndWithRay(rac.Ray.xAxis)).toBe(null);
+  expect(half.intersectionChordEndWithRay(rac.Ray.yAxis)).toBe(null);
+
+  // No intersection, projected
+  expect(half.intersectionChordEndWithRay(rac.Ray.xAxis, true))
+    .equalsPoint(100, 45);
+  expect(half.intersectionChordEndWithRay(rac.Ray.yAxis, true))
+    .equalsPoint(45, 100);
+
+  // Through center
+  expect(quarter.intersectionChordEndWithRay(rac.Ray.xAxis))
+    .equalsPoint(36, 0);
+  expect(quarter.intersectionChordEndWithRay(rac.Ray.yAxis))
+    .equalsPoint(0, 36);
+
+  // Tangent intersection
+  expect(circle.intersectionChordEndWithRay(rac.Ray.xAxis))
+    .equalsPoint(72, 0);
+  expect(circle.intersectionChordEndWithRay(rac.Ray.yAxis))
+    .equalsPoint(0, 72);
+
+  // Zero arc
+  expect(rac.Arc.zero.intersectionChordEndWithRay(rac.Ray.xAxis))
+    .equalsPoint(0, 0);
+  expect(rac.Arc.zero.intersectionChordEndWithRay(rac.Ray.yAxis))
+    .equalsPoint(0, 0);
+
+  // Zero arc, no intersection
+  const inverseDiag = rac.Ray(55, 55, 3/8);
+  expect(rac.Arc.zero.intersectionChordEndWithRay(inverseDiag)).toBe(null);
+  expect(rac.Arc.zero.intersectionChordEndWithRay(inverseDiag, true))
+    .equalsPoint(0, 0);
+});
+
+
+tools.test.todo( function radiusSegmentAtAngleAndTowardsPoint() {
+});
+
+
+tools.test.todo( function segmentTangentToArc() {
+});
+
+
+tools.test.todo( function divideToArcs() {
+});
+
+
+tools.test.todo( function divideToSegments() {
+});
+
+
+tools.test.todo( function divideToBeziers() {
+});
+
+
+// tools.test.only( function testor() {
+// });
 
 
 test.todo('Check for coverage!');

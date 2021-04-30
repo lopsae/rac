@@ -870,7 +870,7 @@ class Arc{
     }
 
     // Ray is tangent, return zero-length segment at contact point
-    if (this.rac.equals(0, this.radius)) {
+    if (this.rac.equals(distance, this.radius)) {
       const start = this.pointAtAngle(bisector.ray.angle);
       const newRay = new Rac.Ray(this.rac, start, ray.angle);
       return new Rac.Segment(this.rac, newRay, 0);
@@ -890,32 +890,41 @@ class Arc{
     return start.segmentToPoint(end, ray.angle);
   }
 
+
+  /**
+  * Returns a new `Point` representing the end of the chord formed by the
+  * intersection of the arc and 'ray', or `null` when no chord is possible.
+  *
+  * When `useProjection` is `true` the method will always return a `Point`
+  * even when there is no contact between the arc and `ray`. In this case
+  * the point in the arc closest to `ray` is returned.
+  *
+  * The arc is considered a complete circle and `ray` is considered an
+  * unbounded line.
+  *
+  * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
+  * @returns {Rac.Point}
+  */
+  intersectionChordEndWithRay(ray, useProjection = false) {
+    const chord = this.intersectionChordWithRay(ray);
+    if (chord !== null) {
+      return chord.endPoint();
+    }
+
+    if (useProjection) {
+      const centerOrientation = ray.pointOrientation(this.center);
+      const perpendicular = ray.angle.perpendicular(!centerOrientation);
+      return this.pointAtAngle(perpendicular);
+    }
+
+    return null;
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
 
-
-
-
-
-
-// Returns the `end` point of `intersectionChordWithSegment` for `segment`.
-// If `segment` does not intersect with `self`, returns the point in the
-// arc closest to `segment`.
-//
-// For this function `this` is considered a complete circle, and `segment`
-// is considered a line without endpoints.
-Arc.prototype.chordEndOrProjectionWithSegment = function(segment) {
-  let chord = this.intersectionChordWithSegment(segment);
-  if (chord !== null) {
-    return chord.endPoint();
-  }
-
-  let centerOrientation = segment.pointOrientation(this.center);
-  let perpendicular = segment.angle().perpendicular(!centerOrientation);
-  return this.pointAtAngle(perpendicular);
-};
 
 Arc.prototype.radiusSegmentAtAngle = function(someAngle) {
   let angle = Rac.Angle.from(this.rac, someAngle);
