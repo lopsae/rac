@@ -860,11 +860,6 @@ class Arc{
     // First check intersection
     const bisector = this.center.segmentToProjectionInRay(ray);
     const distance = bisector.length;
-    // TODO: If equals to radius, should it be just considered as tagent?
-    if (distance > this.radius) {
-      // projectedCenter is outside
-      return null;
-    }
 
     // Segment too close to center, cosine calculations may be incorrect
     // Calculate segment through center
@@ -872,6 +867,18 @@ class Arc{
       const start = this.pointAtAngle(ray.angle.inverse());
       const newRay = new Rac.Ray(this.rac, start, ray.angle);
       return new Rac.Segment(this.rac, newRay, this.radius*2);
+    }
+
+    // Ray is tangent, return zero-length segment at contact point
+    if (this.rac.equals(0, this.radius)) {
+      const start = this.pointAtAngle(bisector.ray.angle);
+      const newRay = new Rac.Ray(this.rac, start, ray.angle);
+      return new Rac.Segment(this.rac, newRay, 0);
+    }
+
+    // Ray does not touch arc
+    if (distance > this.radius) {
+      return null;
     }
 
     const radians = Math.acos(distance/this.radius);
