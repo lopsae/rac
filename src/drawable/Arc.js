@@ -683,6 +683,40 @@ class Arc{
 
 
   /**
+  * Returns a new `Segment` representing the radius of the arc at the
+  * given `angle`. This method does not consider the `start` nor `end` of
+  * the arc.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Angle|number} angle - The direction of the radius to return
+  * @returns {Rac.Segment}
+  */
+  radiusSegmentAtAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    const newRay = new Rac.Ray(this.rac, this.center, angle);
+    return new Rac.Segment(this.rac, newRay, this.radius);
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the radius of the arc in the
+  * direction towards the given `point`. This method does not consider the
+  * `start` nor `end` of the arc.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.point} point - A `Point` in the direction of the radius to return
+  * @returns {Rac.Segment}
+  */
+  radiusSegmentTowardsPoint(point) {
+    const angle = this.center.angleToPoint(point);
+    const newRay = new Rac.Ray(this.rac, this.center, angle);
+    return new Rac.Segment(this.rac, newRay, this.radius);
+  }
+
+
+  /**
   * Returns a new `Segment` for the chord formed by the intersection of
   * `this` and `otherArc`, or `null` when there is no intersection.
   *
@@ -925,16 +959,6 @@ class Arc{
 
 module.exports = Arc;
 
-
-Arc.prototype.radiusSegmentAtAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.center.segmentToAngle(angle, this.radius);
-}
-
-Arc.prototype.radiusSegmentTowardsPoint = function(point) {
-  let angle = this.center.angleToPoint(point);
-  return this.center.segmentToAngle(angle, this.radius);
-}
 
 
 // Returns a segment that is tangent to both `this` and `otherArc`,

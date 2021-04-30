@@ -545,7 +545,27 @@ tools.test( function pointAtLengthAndRatio() {
   expect(circle.pointAtLengthRatio(1/2)) .equalsPoint(72, 0);
   expect(circle.pointAtLengthRatio(1/4)) .equalsPoint(0, 72);
   expect(circle.pointAtLengthRatio(-1/4)).equalsPoint(144, 72);
+});
 
+
+tools.test( function radiusSegmentAtAngleAndTowardsPoint() {
+  // Angle/number parameter
+  expect(quarter.radiusSegmentAtAngle(rac.Angle.eighth))
+    .equalsSegment(0, 0, 1/8, 36);
+  expect(quarter.radiusSegmentAtAngle(1/8))
+    .equalsSegment(0, 0, 1/8, 36);
+
+  expect(quarter.radiusSegmentAtAngle(7/8))
+    .equalsSegment(0, 0, 7/8, 36);
+  expect(rac.Arc.zero.radiusSegmentAtAngle(5/8))
+    .equalsSegment(0, 0, 5/8, 0);
+
+  expect(quarter.radiusSegmentTowardsPoint(rac.Point(55, 55)))
+    .equalsSegment(0, 0, 1/8, 36);
+  expect(quarter.radiusSegmentTowardsPoint(rac.Point(55, -55)))
+    .equalsSegment(0, 0, 7/8, 36);
+  expect(rac.Arc.zero.radiusSegmentTowardsPoint(rac.Point(-55, -55)))
+    .equalsSegment(0, 0, 5/8, 0);
 });
 
 
@@ -704,10 +724,6 @@ tools.test( function intersectionArc() {
     .equalsArc(cathetus, cathetus, 55, rac.Angle.nw, rac.Angle.nw, true);
   expect(bArc.intersectionArc(edge))
     .equalsArc(-cathetus, cathetus, 55, rac.Angle.ne, rac.Angle.ne, false);
-});
-
-
-tools.test.todo( function radiusSegmentAtAngleAndTowardsPoint() {
 });
 
 
