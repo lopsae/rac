@@ -976,12 +976,21 @@ class Arc{
   * @returns {Rac.Segment}
   */
   segmentTangentToArc(otherArc, startClockwise = true, endClockwise = true) {
+    if (this.center.equals(otherArc.center)) {
+      return null;
+    }
+
+    // Hypothenuse of the triangle used to calculate the tangent
+    // main angle is at `this.center`
     const hypSegment = this.center.segmentToPoint(otherArc.center);
     const ops = startClockwise === endClockwise
       ? otherArc.radius - this.radius
       : otherArc.radius + this.radius;
 
-    const angleSine = ops / hypSegment.length;
+    // When ops and hyp are close, snap to 1
+    const angleSine = this.rac.equals(ops, hypSegment.length)
+      ? 1
+      : ops / hypSegment.length;
     if (angleSine > 1) {
       return null;
     }
@@ -1000,7 +1009,8 @@ class Arc{
       : shiftedAdjAngle.inverse()
     const start = this.pointAtAngle(startAngle);
     const end = otherArc.pointAtAngle(shiftedAdjAngle);
-    return start.segmentToPoint(end);
+    const defaultAngle = startAngle.perpendicular(!startClockwise);
+    return start.segmentToPoint(end, defaultAngle);
   }
 
 } // class Arc

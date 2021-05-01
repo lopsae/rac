@@ -734,14 +734,59 @@ tools.test( function segmentTangentToArc() {
   // Same side tangent
   expect(quarter.segmentTangentToArc(otherArc))
     .equalsSegment(-36, 0, 1/4, cathetus*4);
+  expect(otherArc.segmentTangentToArc(quarter, false, false))
+    .equalsSegment(-36, cathetus*4, 3/4, cathetus*4);
+
   expect(quarter.segmentTangentToArc(otherArc, false, false))
     .equalsSegment(36, 0, 1/4, cathetus*4);
+  expect(otherArc.segmentTangentToArc(quarter))
+    .equalsSegment(36, cathetus*4, 3/4, cathetus*4);
+
+
+  // Same side, zero length tangent
+  const insideQuarter = rac.Arc(-26, 0, 10);
+  expect(quarter.segmentTangentToArc(insideQuarter))
+    .equalsSegment(-36, 0, 1/4, 0);
+  expect(insideQuarter.segmentTangentToArc(quarter, false, false))
+    .equalsSegment(-36, 0, 3/4, 0);
+
+  expect(quarter.segmentTangentToArc(insideQuarter, false, false))
+    .equalsSegment(-36, 0, 3/4, 0);
+  expect(insideQuarter.segmentTangentToArc(quarter))
+    .equalsSegment(-36, 0, 1/4, 0);
+
+  // Same side, zero arc, zero length tangent
+  const edgeQuarter = rac.Arc(36, 0, 0);
+  expect(quarter.segmentTangentToArc(edgeQuarter))
+    .equalsSegment(36, 0, 3/4, 0);
+  expect(edgeQuarter.segmentTangentToArc(quarter, false, false))
+    .equalsSegment(36, 0, 1/4, 0);
+
+  expect(quarter.segmentTangentToArc(edgeQuarter, false, false))
+    .equalsSegment(36, 0, 1/4, 0);
+  expect(edgeQuarter.segmentTangentToArc(quarter))
+    .equalsSegment(36, 0, 3/4, 0);
+
 
   // Opposite side tangent
   expect(quarter.segmentTangentToArc(otherArc, true, false))
     .equalsSegment(-cathetus, cathetus, 1/8, 72);
+  expect(otherArc.segmentTangentToArc(quarter, true, false))
+    .equalsSegment(cathetus, cathetus*3, 5/8, 72);
+
   expect(quarter.segmentTangentToArc(otherArc, false, true))
     .equalsSegment(cathetus, cathetus, 3/8, 72);
+  expect(otherArc.segmentTangentToArc(quarter, false, true))
+    .equalsSegment(-cathetus, cathetus*3, 7/8, 72);
+
+  // Opposite side, zero length tangent
+
+
+  // Opposite side, zero arc, zero length tangent
+
+  // Invalid, same center
+  expect(quarter.segmentTangentToArc(quarter)).toBe(null);
+  expect(rac.Arc.zero.segmentTangentToArc(rac.Arc.zero)).toBe(null);
 
   // Invalid same side tangent (arc in arc)
 
