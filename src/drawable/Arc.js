@@ -988,10 +988,10 @@ class Arc{
       : otherArc.radius + this.radius;
 
     // When ops and hyp are close, snap to 1
-    const angleSine = this.rac.equals(ops, hypSegment.length)
-      ? 1
+    const angleSine = this.rac.equals(Math.abs(ops), hypSegment.length)
+      ? (ops > 0 ? 1 : -1)
       : ops / hypSegment.length;
-    if (angleSine > 1) {
+    if (Math.abs(angleSine) > 1) {
       return null;
     }
 

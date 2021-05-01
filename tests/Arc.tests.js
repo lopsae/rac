@@ -806,12 +806,18 @@ tools.test( function segmentTangentToArc() {
   expect(rac.Arc.zero.segmentTangentToArc(rac.Arc.zero)).toBe(null);
 
   // Invalid same side tangent (arc in arc)
+  const containedInQuarter = rac.Arc(10, 0, 10);
+  expect(quarter.segmentTangentToArc(containedInQuarter)).toBe(null);
+  expect(containedInQuarter.segmentTangentToArc(quarter)).toBe(null);
+  expect(quarter.segmentTangentToArc(containedInQuarter, false, false)).toBe(null);
+  expect(containedInQuarter.segmentTangentToArc(quarter, false, false)).toBe(null);
 
   // Invalid opposite side tangent (arcs touch)
-
-  // Zero arc start
-
-  // Zero arc end
+  const touchesQuarter = rac.Arc(30, 0, 10);
+  expect(quarter.segmentTangentToArc(touchesQuarter, true, false)).toBe(null);
+  expect(quarter.segmentTangentToArc(touchesQuarter, false, true)).toBe(null);
+  expect(touchesQuarter.segmentTangentToArc(quarter, true, false)).toBe(null);
+  expect(touchesQuarter.segmentTangentToArc(quarter, false, true)).toBe(null);
 });
 
 
