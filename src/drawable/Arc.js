@@ -954,47 +954,60 @@ class Arc{
   //     this.clockwise);
   // }
 
+
+  /**
+  * Returns a new `Segment` that is tangent to both `this` and `otherArc`,
+  * or `null` when no tangent segment is possible. The new `Segment` starts
+  * at the contact point with `this` and ends at the contact point with
+  * `otherArc`.
+  *
+  * Considering _center axis_ a ray from `this.center` towards
+  * `otherArc.center`, `startClockwise` determines the side of the start
+  * point of the returned segment in relation to _center axis_, and
+  * `endClockwise` the side of the end point.
+  *
+  * Both `this` and `otherArc` are considered complete circles.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to calculate a tangent segment towards
+  * @param {boolean} startClockwise - The orientation of the new `Segment`
+  * start point in relation to the _center axis_
+  * @param {boolean} endClockwise - The orientation of the new `Segment`
+  * end point in relation to the _center axis_
+  * @returns {Rac.Segment}
+  */
+  segmentTangentToArc(otherArc, startClockwise = true, endClockwise = true) {
+    const hypSegment = this.center.segmentToPoint(otherArc.center);
+    const ops = startClockwise === endClockwise
+      ? otherArc.radius - this.radius
+      : otherArc.radius + this.radius;
+
+    const angleSine = ops / hypSegment.length;
+    if (angleSine > 1) {
+      return null;
+    }
+
+    const angleRadians = Math.asin(angleSine);
+    const opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
+
+    const adjOrientation = startClockwise === endClockwise
+      ? startClockwise
+      : !startClockwise;
+    const shiftedOpsAngle = hypSegment.ray.angle.shift(opsAngle, adjOrientation);
+    const shiftedAdjAngle = shiftedOpsAngle.perpendicular(adjOrientation);
+
+    const startAngle = startClockwise === endClockwise
+      ? shiftedAdjAngle
+      : shiftedAdjAngle.inverse()
+    const start = this.pointAtAngle(startAngle);
+    const end = otherArc.pointAtAngle(shiftedAdjAngle);
+    return start.segmentToPoint(end);
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
 
-
-
-// Returns a segment that is tangent to both `this` and `otherArc`,
-// considering both as complete circles.
-// With a segment from `this.center` to `otherArc.center`: `startClockwise`
-// determines the starting side returned tangent segment, `endClocwise`
-// determines the end side.
-// Returns `null` if `this` is inside `otherArc` and thus no tangent segment
-// is possible.
-Arc.prototype.segmentTangentToArc = function(otherArc, startClockwise = true, endClockwise = true) {
-  let hypSegment = this.center.segmentToPoint(otherArc.center);
-  let ops = startClockwise === endClockwise
-    ? otherArc.radius - this.radius
-    : otherArc.radius + this.radius;
-
-  let angleSine = ops / hypSegment.length();
-  if (angleSine > 1) {
-    return null;
-  }
-
-  let angleRadians = Math.asin(angleSine);
-  let opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
-
-  let adjOrientation = startClockwise === endClockwise
-    ? startClockwise
-    : !startClockwise;
-  let shiftedOpsAngle = hypSegment.angle().shift(opsAngle, adjOrientation);
-  let shiftedAdjAngle = shiftedOpsAngle.perpendicular(adjOrientation);
-
-  let startAngle = startClockwise === endClockwise
-    ? shiftedAdjAngle
-    : shiftedAdjAngle.inverse()
-  let start = this.pointAtAngle(startAngle);
-  let end = otherArc.pointAtAngle(shiftedAdjAngle);
-  return start.segmentToPoint(end);
-};
 
 // Returns an array containing the arc divided into `arcCount` arcs, each
 // with the same `angleDistance`.

@@ -604,7 +604,7 @@ class Segment {
   * @returns {Rac.Segment}
   * @see Rac.Angle#inverse
   */
-  nextSegmentLegWithHyp = function(hypotenuse, clockwise = true) {
+  nextSegmentLegWithHyp(hypotenuse, clockwise = true) {
     if (hypotenuse < this.length) {
       return null;
     }
@@ -615,7 +615,7 @@ class Segment {
     // tan * adj = ops
     const ops = Math.tan(radians) * this.length;
     return this.nextSegmentPerpendicular(clockwise, ops);
-  };
+  }
 
 
   /**
