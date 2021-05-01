@@ -1013,32 +1013,37 @@ class Arc{
     return start.segmentToPoint(end, defaultAngle);
   }
 
+
+  /**
+  * Returns an array containing new `Arc` objects representing `this`
+  * divided into `count` arcs, all with the same
+  * [angle distance]{@link Rac.Arc#angleDistance}.
+  *
+  * @param {number} count - Number of arcs to divide `this` into
+  * @returns {Rac.Arc[]}
+  */
+  divideToArcs(count) {
+    if (count <= 0) { return []; }
+
+    const angleDistance = this.angleDistance();
+    const partTurn = angleDistance.turnOne() / count;
+
+    const arcs = [];
+    for (let index = 0; index < count; index += 1) {
+      let start = this.start.shift(partTurn * index, this.clockwise);
+      let end = this.start.shift(partTurn * (index+1), this.clockwise);
+      let arc = new Arc(this.rac, this.center, this.radius, start, end, this.clockwise);
+      arcs.push(arc);
+    }
+
+    return arcs;
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
 
-
-// Returns an array containing the arc divided into `arcCount` arcs, each
-// with the same `angleDistance`.
-Arc.prototype.divideToArcs = function(arcCount) {
-  if (arcCount <= 0) { return []; }
-
-  let angleDistance = this.angleDistance();
-  let partTurn = angleDistance.turnOne() / arcCount;
-
-  let partAngleDistance = new Rac.Angle(this.rac, partTurn);
-
-  let arcs = [];
-  for (let index = 0; index < arcCount; index++) {
-    let start = this.start.shift(partTurn * index, this.clockwise);
-    let end = this.start.shift(partTurn * (index+1), this.clockwise);
-    let arc = new Arc(this.rac, this.center, this.radius, start, end, this.clockwise);
-    arcs.push(arc);
-  }
-
-  return arcs;
-};
 
 Arc.prototype.divideToSegments = function(segmentCount) {
   let angleDistance = this.angleDistance();

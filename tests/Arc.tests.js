@@ -821,7 +821,26 @@ tools.test( function tangentSegment() {
 });
 
 
-tools.test.todo( function divideToArcs() {
+tools.test( function divideToArcs() {
+  expect(quarter.divideToArcs(0)).toHaveLength(0);
+  expect(quarter.divideToArcs(-7)).toHaveLength(0);
+
+  const halfDivisions = half.divideToArcs(1);
+  expect(halfDivisions).toHaveLength(1);
+  expect(halfDivisions[0]).equalsArc(100, 100, 55, 3/4, 1/4, true);
+
+  const quarterDivisions = quarter.divideToArcs(3);
+  expect(quarterDivisions).toHaveLength(3);
+  expect(quarterDivisions[0]).equalsArc(0, 0, 36, 9/12, 8/12, false);
+  expect(quarterDivisions[1]).equalsArc(0, 0, 36, 8/12, 7/12, false);
+  expect(quarterDivisions[2]).equalsArc(0, 0, 36, 7/12, 6/12, false);
+
+  const circleDivisions = circle.divideToArcs(4);
+  expect(circleDivisions).toHaveLength(4);
+  expect(circleDivisions[0]).equalsArc(72, 72, 72, 1/4, 2/4, true);
+  expect(circleDivisions[1]).equalsArc(72, 72, 72, 2/4, 3/4, true);
+  expect(circleDivisions[2]).equalsArc(72, 72, 72, 3/4, 4/4, true);
+  expect(circleDivisions[3]).equalsArc(72, 72, 72, 4/4, 1/4, true);
 });
 
 
