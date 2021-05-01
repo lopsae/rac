@@ -975,7 +975,7 @@ class Arc{
   * end point in relation to the _center axis_
   * @returns {Rac.Segment}
   */
-  segmentTangentToArc(otherArc, startClockwise = true, endClockwise = true) {
+  tangentSegment(otherArc, startClockwise = true, endClockwise = true) {
     if (this.center.equals(otherArc.center)) {
       return null;
     }

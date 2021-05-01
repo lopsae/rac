@@ -727,97 +727,97 @@ tools.test( function intersectionArc() {
 });
 
 
-tools.test( function segmentTangentToArc() {
+tools.test( function tangentSegment() {
   const cathetus = tools.cathetus(36);
   const otherArc = rac.Arc(0, cathetus*4, 36, 0, 1/2, true);
   const edgeQuarter = rac.Arc(36, 0, 0);
 
   // Same side tangent
-  expect(quarter.segmentTangentToArc(otherArc))
+  expect(quarter.tangentSegment(otherArc))
     .equalsSegment(-36, 0, 1/4, cathetus*4);
-  expect(otherArc.segmentTangentToArc(quarter, false, false))
+  expect(otherArc.tangentSegment(quarter, false, false))
     .equalsSegment(-36, cathetus*4, 3/4, cathetus*4);
 
-  expect(quarter.segmentTangentToArc(otherArc, false, false))
+  expect(quarter.tangentSegment(otherArc, false, false))
     .equalsSegment(36, 0, 1/4, cathetus*4);
-  expect(otherArc.segmentTangentToArc(quarter))
+  expect(otherArc.tangentSegment(quarter))
     .equalsSegment(36, cathetus*4, 3/4, cathetus*4);
 
 
   // Same side, zero length tangent
   const insideQuarter = rac.Arc(-26, 0, 10);
-  expect(quarter.segmentTangentToArc(insideQuarter))
+  expect(quarter.tangentSegment(insideQuarter))
     .equalsSegment(-36, 0, 1/4, 0);
-  expect(insideQuarter.segmentTangentToArc(quarter, false, false))
+  expect(insideQuarter.tangentSegment(quarter, false, false))
     .equalsSegment(-36, 0, 3/4, 0);
 
-  expect(quarter.segmentTangentToArc(insideQuarter, false, false))
+  expect(quarter.tangentSegment(insideQuarter, false, false))
     .equalsSegment(-36, 0, 3/4, 0);
-  expect(insideQuarter.segmentTangentToArc(quarter))
+  expect(insideQuarter.tangentSegment(quarter))
     .equalsSegment(-36, 0, 1/4, 0);
 
   // Same side, zero arc, zero length tangent
-  expect(quarter.segmentTangentToArc(edgeQuarter))
+  expect(quarter.tangentSegment(edgeQuarter))
     .equalsSegment(36, 0, 3/4, 0);
-  expect(edgeQuarter.segmentTangentToArc(quarter, false, false))
+  expect(edgeQuarter.tangentSegment(quarter, false, false))
     .equalsSegment(36, 0, 1/4, 0);
 
-  expect(quarter.segmentTangentToArc(edgeQuarter, false, false))
+  expect(quarter.tangentSegment(edgeQuarter, false, false))
     .equalsSegment(36, 0, 1/4, 0);
-  expect(edgeQuarter.segmentTangentToArc(quarter))
+  expect(edgeQuarter.tangentSegment(quarter))
     .equalsSegment(36, 0, 3/4, 0);
 
   // Opposite side tangent
-  expect(quarter.segmentTangentToArc(otherArc, true, false))
+  expect(quarter.tangentSegment(otherArc, true, false))
     .equalsSegment(-cathetus, cathetus, 1/8, 72);
-  expect(otherArc.segmentTangentToArc(quarter, true, false))
+  expect(otherArc.tangentSegment(quarter, true, false))
     .equalsSegment(cathetus, cathetus*3, 5/8, 72);
 
-  expect(quarter.segmentTangentToArc(otherArc, false, true))
+  expect(quarter.tangentSegment(otherArc, false, true))
     .equalsSegment(cathetus, cathetus, 3/8, 72);
-  expect(otherArc.segmentTangentToArc(quarter, false, true))
+  expect(otherArc.tangentSegment(quarter, false, true))
     .equalsSegment(-cathetus, cathetus*3, 7/8, 72);
 
   // Opposite side, zero length tangent
   const outsideQuarter = rac.Arc(-46, 0, 10);
-  expect(quarter.segmentTangentToArc(outsideQuarter, true, false))
+  expect(quarter.tangentSegment(outsideQuarter, true, false))
     .equalsSegment(-36, 0, 1/4, 0);
-  expect(outsideQuarter.segmentTangentToArc(quarter, true, false))
+  expect(outsideQuarter.tangentSegment(quarter, true, false))
     .equalsSegment(-36, 0, 3/4, 0);
 
-  expect(quarter.segmentTangentToArc(outsideQuarter, false, true))
+  expect(quarter.tangentSegment(outsideQuarter, false, true))
     .equalsSegment(-36, 0, 3/4, 0);
-  expect(outsideQuarter.segmentTangentToArc(quarter, false, true))
+  expect(outsideQuarter.tangentSegment(quarter, false, true))
     .equalsSegment(-36, 0, 1/4, 0);
 
   // Opposite side, zero arc, zero length tangent
-  expect(quarter.segmentTangentToArc(edgeQuarter, true, false))
+  expect(quarter.tangentSegment(edgeQuarter, true, false))
     .equalsSegment(36, 0, 3/4, 0);
-  expect(edgeQuarter.segmentTangentToArc(quarter, true, false))
+  expect(edgeQuarter.tangentSegment(quarter, true, false))
     .equalsSegment(36, 0, 1/4, 0);
 
-  expect(quarter.segmentTangentToArc(edgeQuarter, false, true))
+  expect(quarter.tangentSegment(edgeQuarter, false, true))
     .equalsSegment(36, 0, 1/4, 0);
-  expect(edgeQuarter.segmentTangentToArc(quarter, false, true))
+  expect(edgeQuarter.tangentSegment(quarter, false, true))
     .equalsSegment(36, 0, 3/4, 0);
 
   // Invalid, same center
-  expect(quarter.segmentTangentToArc(quarter)).toBe(null);
-  expect(rac.Arc.zero.segmentTangentToArc(rac.Arc.zero)).toBe(null);
+  expect(quarter.tangentSegment(quarter)).toBe(null);
+  expect(rac.Arc.zero.tangentSegment(rac.Arc.zero)).toBe(null);
 
   // Invalid same side tangent (arc in arc)
   const containedInQuarter = rac.Arc(10, 0, 10);
-  expect(quarter.segmentTangentToArc(containedInQuarter)).toBe(null);
-  expect(containedInQuarter.segmentTangentToArc(quarter)).toBe(null);
-  expect(quarter.segmentTangentToArc(containedInQuarter, false, false)).toBe(null);
-  expect(containedInQuarter.segmentTangentToArc(quarter, false, false)).toBe(null);
+  expect(quarter.tangentSegment(containedInQuarter)).toBe(null);
+  expect(containedInQuarter.tangentSegment(quarter)).toBe(null);
+  expect(quarter.tangentSegment(containedInQuarter, false, false)).toBe(null);
+  expect(containedInQuarter.tangentSegment(quarter, false, false)).toBe(null);
 
   // Invalid opposite side tangent (arcs touch)
   const touchesQuarter = rac.Arc(30, 0, 10);
-  expect(quarter.segmentTangentToArc(touchesQuarter, true, false)).toBe(null);
-  expect(quarter.segmentTangentToArc(touchesQuarter, false, true)).toBe(null);
-  expect(touchesQuarter.segmentTangentToArc(quarter, true, false)).toBe(null);
-  expect(touchesQuarter.segmentTangentToArc(quarter, false, true)).toBe(null);
+  expect(quarter.tangentSegment(touchesQuarter, true, false)).toBe(null);
+  expect(quarter.tangentSegment(touchesQuarter, false, true)).toBe(null);
+  expect(touchesQuarter.tangentSegment(quarter, true, false)).toBe(null);
+  expect(touchesQuarter.tangentSegment(quarter, false, true)).toBe(null);
 });
 
 
