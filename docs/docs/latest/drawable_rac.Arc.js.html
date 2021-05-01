@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>style/Style.js - Documentation</title>
+    <title>drawable/rac.Arc.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">style/Style.js</h1>
+    <h1 class="page-title">drawable/rac.Arc.js</h1>
     
 
     
@@ -44,57 +44,23 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
-const Rac = require('../Rac');
-const utils = require('../util/utils');
-
-
-class Style {
-
-  constructor(rac, stroke = null, fill = null) {
-    utils.assertExists(rac);
-    this.rac = rac;
-    this.stroke = stroke;
-    this.fill = fill;
-  }
-
+/**
+* The `instance.Arc` function contains convenience methods and members
+* for `{@link Rac.Arc}` objects setup with the owning `Rac` instance.
+* @namespace instance.Arc
+*/
+module.exports = function attachRacArc(rac) {
 
   /**
-  * Returns a string representation intended for human consumption.
+  * A clockwise `Arc` with all values set to zero.
+  *
+  * @name zero
+  * @type {Rac.Arc}
+  * @memberof instance.Arc#
   */
-  toString() {
-    let strokeString = 'null';
-    if (this.stroke !== null) {
-      let colorString = this.stroke.color === null
-        ? 'null-color'
-        : this.stroke.color.toString();
-      strokeString = `${colorString},${this.stroke.weight}`;
-    }
+  rac.Arc.zero = rac.Arc(0, 0, 0, 0, 0, true);
 
-    let fillString = 'null';
-    if (this.fill !== null) {
-      let colorString = this.fill.color === null
-        ? 'null-color'
-        : this.fill.color.toString();
-      fillString = colorString;
-    }
-
-    return `Style(s:(${strokeString}) f:${fillString})`;
-  }
-
-
-  withStroke(stroke) {
-    return new Style(this.rac, stroke, this.fill);
-  }
-
-  withFill(someFill) {
-    let fill = Rac.Fill.from(this.rac, someFill);
-    return new Style(this.rac, this.stroke, fill);
-  }
-
-} // class Style
-
-
-module.exports = Style;
+} // attachRacArc
 
 </code></pre>
         </article>

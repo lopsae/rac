@@ -72,7 +72,7 @@ class Arc{
   constructor(rac,
     center, radius,
     start, end,
-    clockwise = true)
+    clockwise)
   {
     utils.assertExists(rac, center, radius, start, end, clockwise);
     utils.assertType(Rac.Point, center);
@@ -182,6 +182,16 @@ class Arc{
 
 
   /**
+  * Returns the length of circumference of the arc considered as a complete
+  * circle.
+  * @returns {number}
+  */
+  circumference() {
+    return this.radius * Rac.TAU;
+  }
+
+
+  /**
   * Returns a new `Angle` that represents the distance between `start` and
   * `end`, in the orientation of the arc.
   * @returns {Rac.Angle}
@@ -246,15 +256,16 @@ class Arc{
 
 
   /**
-  * Returns a new `Segment` from `startPoint()` to `startPoint()`.
+  * Returns a new `Segment` from `startPoint()` to `endPoint()`.
   *
   * Note that for complete circle arcs this segment will have a length of
-  * zero.
+  * zero and be pointed towards the perpendicular of `start` in the arc's
+  * orientation.
   *
   * @returns {Rac.Segment}
   */
   chordSegment() {
-    let perpendicular = this.start.perpendicular(this.clockwise);
+    const perpendicular = this.start.perpendicular(this.clockwise);
     return this.startPoint().segmentToPoint(this.endPoint(), perpendicular);
   }
 
@@ -296,7 +307,7 @@ class Arc{
   * @returns {Rac.Arc}
   */
   withStart(newStart) {
-    let newStartAngle = Rac.Angle.from(this.rac, newStart);
+    const newStartAngle = Rac.Angle.from(this.rac, newStart);
     return new Arc(this.rac,
       this.center, this.radius,
       newStartAngle, this.end,
@@ -313,7 +324,7 @@ class Arc{
   * @returns {Rac.Arc}
   */
   withEnd(newEnd) {
-    let newEndAngle = Rac.Angle.from(this.rac, newEnd);
+    const newEndAngle = Rac.Angle.from(this.rac, newEnd);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEndAngle,
@@ -365,7 +376,7 @@ class Arc{
   * @see Rac.Arc#angleDistance
   */
   withAngleDistance(angleDistance) {
-    let newEnd = this.angleAtAngleDistance(angleDistance);
+    const newEnd = this.shiftAngle(angleDistance);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEnd,
@@ -389,8 +400,7 @@ class Arc{
   * @see Rac.Arc#length
   */
   withLength(length) {
-    let circumference = this.radius * Rac.TAU;
-    let newAngleDistance = newLength / circumference;
+    const newAngleDistance = length / this.circumference();
     return this.withAngleDistance(newAngleDistance);
   }
 
@@ -410,7 +420,7 @@ class Arc{
   * @see Rac.Arc#length
   */
   withLengthRatio(ratio) {
-    let newLength = this.length() * ratio;
+    const newLength = this.length() * ratio;
     return this.withLength(newLength);
   }
 
@@ -421,11 +431,15 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.start`.
+  *
   * @param {Rac.Point} point - A `Point` to point `start` towards
   * @returns {Rac.Arc}
+  * @see Rac.Point#equals
   */
   withStartTowardsPoint(point) {
-    let newStart = this.center.angleToPoint(point);
+    const newStart = this.center.angleToPoint(point, this.start);
     return new Arc(this.rac,
       this.center, this.radius,
       newStart, this.end,
@@ -438,11 +452,15 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.end`.
+  *
   * @param {Rac.Point} point - A `Point` to point `end` towards
   * @returns {Rac.Arc}
+  * @see Rac.Point#equals
   */
   withEndTowardsPoint(point) {
-    let newEnd = this.center.angleToPoint(point);
+    const newEnd = this.center.angleToPoint(point, this.end);
     return new Arc(this.rac,
       this.center, this.radius,
       this.start, newEnd,
@@ -456,13 +474,21 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
+  * * When `center` is considered [equal]{@link Rac.Point#equals} to
+  * either `startPoint` or `endPoint`, the new `Arc` will use `this.start`
+  * or `this.end` respectively.
+  *
   * @param {Rac.Point} startPoint - A `Point` to point `start` towards
-  * @param {Rac.Point} endPoint - A `Point` to point `end` towards
+  * @param {?Rac.Point} [endPoint=null] - A `Point` to point `end` towards;
+  * when ommited or `null`, `startPoint` is used instead
   * @returns {Rac.Arc}
+  * @see Rac.Point#equals
   */
-  withAnglesTowardsPoint(startPoint, endPoint) {
-    let newStart = this.center.angleToPoint(startPoint);
-    let newEnd = this.center.angleToPoint(endPoint);
+  withAnglesTowardsPoint(startPoint, endPoint = null) {
+    const newStart = this.center.angleToPoint(startPoint, this.start);
+    const newEnd = endPoint === null
+      ? newStart
+      : this.center.angleToPoint(endPoint, this.end);
     return new Arc(this.rac,
       this.center, this.radius,
       newStart, newEnd,
@@ -491,15 +517,15 @@ class Arc{
   * [start + startInset, end - endInset]
   * ```
   * where the addition happens towards the arc's orientation, and the
-  * substraction against.
+  * subtraction against.
   *
   * When `angle` is outside the range, returns whichever range limit is
   * closer.
   *
-  * When the given insets are larger that the arc distance between `start`
-  * and `end` the range for the clamp becomes imposible to fulfill. In this
-  * case the returned value will be the centered between the range limits
-  * and still clampled to `[start, end]`.
+  * When the sum of the given insets is larger that `this.arcDistance()`
+  * the range for the clamp is imposible to fulfill. In this case the
+  * returned value will be the centered between the range limits and still
+  * clampled to `[start, end]`.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to clamp
   * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero}] - The inset
@@ -508,7 +534,7 @@ class Arc{
   * for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
-  clampToInsets(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
+  clampToAngles(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
     angle = Rac.Angle.from(this.rac, angle);
     startInset = Rac.Angle.from(this.rac, startInset);
     endInset = Rac.Angle.from(this.rac, endInset);
@@ -520,9 +546,29 @@ class Arc{
 
     // Angle in arc, with arc as origin
     // All comparisons are made in a clockwise orientation
-    let shiftedAngle = this.distanceFromStart(angle);
-    let shiftedStartClamp = startInset;
-    let shiftedEndClamp = this.angleDistance().subtract(endInset);
+    const shiftedAngle = this.distanceFromStart(angle);
+    const angleDistance = this.angleDistance();
+    const shiftedStartClamp = startInset;
+    const shiftedEndClamp = angleDistance.subtract(endInset);
+    const totalInsetTurn = startInset.turn + endInset.turn;
+
+    if (totalInsetTurn >= angleDistance.turnOne()) {
+      // Invalid range
+      const rangeDistance = shiftedEndClamp.distance(shiftedStartClamp);
+      let halfRange;
+      if (this.isCircle()) {
+        halfRange = rangeDistance.mult(1/2);
+      } else {
+        halfRange = totalInsetTurn >= 1
+          ? rangeDistance.multOne(1/2)
+          : rangeDistance.mult(1/2);
+      }
+
+      const middleRange = shiftedEndClamp.add(halfRange);
+      const middle = this.start.shift(middleRange, this.clockwise);
+
+      return this.clampToAngles(middle);
+    }
 
     if (shiftedAngle.turn >= shiftedStartClamp.turn &amp;&amp; shiftedAngle.turn &lt;= shiftedEndClamp.turn) {
       // Inside clamp range
@@ -533,13 +579,471 @@ class Arc{
     let distanceToStartClamp = shiftedStartClamp.distance(shiftedAngle, false);
     let distanceToEndClamp = shiftedEndClamp.distance(shiftedAngle);
     if (distanceToStartClamp.turn &lt;= distanceToEndClamp.turn) {
-      return this.shiftAngle(startInset);
+      return this.start.shift(startInset, this.clockwise);
     } else {
-      return this.reverse().shiftAngle(endInset);
+      return this.end.shift(endInset, !this.clockwise);
     }
-    // TODO: invalid range could return a value centered in the insets? more visually congruent
-  // If the `start/endInset` values result in a contradictory range, the
-  // returned value will comply with `startInset + this.start`.
+  }
+
+
+  /**
+  * Returns `true` when `angle` is between `start` and `end` in the arc's
+  * orientation.
+  *
+  * When the arc represents a complete circle, `true` is always returned.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to evaluate
+  * @returns {boolean}
+  */
+  containsAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    if (this.isCircle()) { return true; }
+
+    if (this.clockwise) {
+      let offset = angle.subtract(this.start);
+      let endOffset = this.end.subtract(this.start);
+      return offset.turn &lt;= endOffset.turn;
+    } else {
+      let offset = angle.subtract(this.end);
+      let startOffset = this.start.subtract(this.end);
+      return offset.turn &lt;= startOffset.turn;
+    }
+  }
+
+  /**
+  * Returns `true` when the projection of `point` in the arc is positioned
+  * between `start` and `end` in the arc's orientation.
+  *
+  * When the arc represents a complete circle, `true` is always returned.
+  *
+  * @param {Rac.Point} point - A `Point` to evaluate
+  * @returns {boolean}
+  */
+  containsProjectedPoint(point) {
+    if (this.isCircle()) { return true; }
+    return this.containsAngle(this.center.angleToPoint(point));
+  }
+
+
+  /**
+  * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
+  * `start` in the arc's orientation.
+  *
+  * E.g.
+  * For a clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.6`.
+  * For a counter-clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.4`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to shift
+  * @returns {Rac.Angle}
+  * @see Rac.Angle#shift
+  */
+  shiftAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    return this.start.shift(angle, this.clockwise);
+  }
+
+  // Returns an Angle that represents the distance from `this.start` to
+  // `angle` traveling in the `clockwise` orientation.
+  // Useful to determine for a given angle, where it sits inside the arc if
+  // the arc was the origin coordinate system.
+  //
+  /**
+  * Returns a new `Angle` that represents the angle distance from `start`
+  * to `angle` in the arc's orientation.
+  *
+  * E.g.
+  * For a clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.1`.
+  * For a counter-clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.9`.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
+  * @returns {Rac.Angle}
+  */
+  distanceFromStart(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    return this.start.distance(angle, this.clockwise);
+  }
+
+
+  /**
+  * Returns a new `Point` located in the arc at the given `angle`. This
+  * method does not consider the `start` nor `end` of the arc.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Angle|number} angle - An `Angle` towards the new `Point`
+  * @returns {Rac.Point}
+  */
+  pointAtAngle(someAngle) {
+    let angle = Rac.Angle.from(this.rac, someAngle);
+    return this.center.pointToAngle(angle, this.radius);
+  }
+
+
+  /**
+  * Returns a new `Point` located in the arc at the given `angle`
+  * [shifted by]{@link Rac.Angle#shift} `start` in arc's orientation.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Angle} angle - An `Angle` to be shifted by `start`
+  * @returns {Rac.Point}
+  */
+  pointAtAngleDistance(angle) {
+    let shiftedAngle = this.shiftAngle(angle);
+    return this.pointAtAngle(shiftedAngle);
+  }
+
+
+  /**
+  * Returns a new `Point` located in the arc at the given `length` from
+  * `startPoint()` in arc's orientation.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {number} length - The length from `startPoint()` to the new `Point`
+  * @returns {Rac.Point}
+  */
+  pointAtLength(length) {
+    const angleDistance = length / this.circumference();
+    return this.pointAtAngleDistance(angleDistance);
+  }
+
+
+  /**
+  * Returns a new `Point` located in the arc at `length() * ratio` from
+  * `startPoint()` in the arc's orientation.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {number} ratio - The factor to multiply `length()` by
+  * @returns {Rac.Point}
+  */
+  pointAtLengthRatio(ratio) {
+    let newAngleDistance = this.angleDistance().multOne(ratio);
+    let shiftedAngle = this.shiftAngle(newAngleDistance);
+    return this.pointAtAngle(shiftedAngle);
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the radius of the arc at the
+  * given `angle`. This method does not consider the `start` nor `end` of
+  * the arc.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.Angle|number} angle - The direction of the radius to return
+  * @returns {Rac.Segment}
+  */
+  radiusSegmentAtAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    const newRay = new Rac.Ray(this.rac, this.center, angle);
+    return new Rac.Segment(this.rac, newRay, this.radius);
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the radius of the arc in the
+  * direction towards the given `point`. This method does not consider the
+  * `start` nor `end` of the arc.
+  *
+  * The arc is considered a complete circle.
+  *
+  * @param {Rac.point} point - A `Point` in the direction of the radius to return
+  * @returns {Rac.Segment}
+  */
+  radiusSegmentTowardsPoint(point) {
+    const angle = this.center.angleToPoint(point);
+    const newRay = new Rac.Ray(this.rac, this.center, angle);
+    return new Rac.Segment(this.rac, newRay, this.radius);
+  }
+
+
+  /**
+  * Returns a new `Segment` for the chord formed by the intersection of
+  * `this` and `otherArc`, or `null` when there is no intersection.
+  *
+  * The returned `Segment` will point towards the `this` orientation.
+  *
+  * Both arcs are considered complete circles for the calculation of the
+  * chord, thus the endpoints of the returned segment may not lay inside
+  * the actual arcs.
+  *
+  * @param {Rac.Arc} otherArc - description
+  * @returns {Rac.Segment}
+  */
+  intersectionChord(otherArc) {
+    // https://mathworld.wolfram.com/Circle-CircleIntersection.html
+    // R=this, r=otherArc
+
+    if (this.center.equals(otherArc.center)) {
+      return null;
+    }
+
+    const distance = this.center.distanceToPoint(otherArc.center);
+
+    if (distance > this.radius + otherArc.radius) {
+      return null;
+    }
+
+    // distanceToChord = (d^2 - r^2 + R^2) / (d*2)
+    const distanceToChord = (
+        Math.pow(distance, 2)
+      - Math.pow(otherArc.radius, 2)
+      + Math.pow(this.radius, 2)
+      ) / (distance * 2);
+
+    // a = 1/d sqrt|(-d+r-R)(-d-r+R)(-d+r+R)(d+r+R)
+    const chordLength = (1 / distance) * Math.sqrt(
+        (-distance + otherArc.radius - this.radius)
+      * (-distance - otherArc.radius + this.radius)
+      * (-distance + otherArc.radius + this.radius)
+      * (distance + otherArc.radius + this.radius));
+
+    const segmentToChord = this.center.rayToPoint(otherArc.center)
+      .segment(distanceToChord);
+    return segmentToChord.nextSegmentPerpendicular(this.clockwise, chordLength/2)
+      .reverse()
+      .withLengthRatio(2);
+  }
+
+
+  // TODO: consider if intersectingPointsWithArc is necessary
+  /**
+  * @ignore
+  *
+  * Returns an array containing the intersecting points of `this` with
+  * `otherArc`.
+  *
+  * When there are no intersecting points, returns an empty array.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to calculate intersection points with
+  * @returns {Rac.Arc}
+  */
+  // intersectingPointsWithArc(otherArc) {
+  //   let chord = this.intersectionChord(otherArc);
+  //   if (chord === null) { return []; }
+
+  //   let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
+  //     return this.containsAngle(this.center.segmentToPoint(item))
+  //       &amp;&amp; otherArc.containsAngle(otherArc.center.segmentToPoint(item));
+  //   }, this);
+
+  //   return intersections;
+  // }
+
+
+  /**
+  * Returns a new `Segment` representing the chord formed by the
+  * intersection of the arc and 'ray', or `null` when no chord is possible.
+  *
+  * The returned `Segment` will always have the same angle as `ray`.
+  *
+  * The arc is considered a complete circle and `ray` is considered an
+  * unbounded line.
+  *
+  * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
+  * @returns {Rac.Segment}
+  */
+  intersectionChordWithRay(ray) {
+    // First check intersection
+    const bisector = this.center.segmentToProjectionInRay(ray);
+    const distance = bisector.length;
+
+    // Segment too close to center, cosine calculations may be incorrect
+    // Calculate segment through center
+    if (this.rac.equals(0, distance)) {
+      const start = this.pointAtAngle(ray.angle.inverse());
+      const newRay = new Rac.Ray(this.rac, start, ray.angle);
+      return new Rac.Segment(this.rac, newRay, this.radius*2);
+    }
+
+    // Ray is tangent, return zero-length segment at contact point
+    if (this.rac.equals(distance, this.radius)) {
+      const start = this.pointAtAngle(bisector.ray.angle);
+      const newRay = new Rac.Ray(this.rac, start, ray.angle);
+      return new Rac.Segment(this.rac, newRay, 0);
+    }
+
+    // Ray does not touch arc
+    if (distance > this.radius) {
+      return null;
+    }
+
+    const radians = Math.acos(distance/this.radius);
+    const angle = Rac.Angle.fromRadians(this.rac, radians);
+
+    const centerOrientation = ray.pointOrientation(this.center);
+    const start = this.pointAtAngle(bisector.angle().shift(angle, !centerOrientation));
+    const end = this.pointAtAngle(bisector.angle().shift(angle, centerOrientation));
+    return start.segmentToPoint(end, ray.angle);
+  }
+
+
+  /**
+  * Returns a new `Point` representing the end of the chord formed by the
+  * intersection of the arc and 'ray', or `null` when no chord is possible.
+  *
+  * When `useProjection` is `true` the method will always return a `Point`
+  * even when there is no contact between the arc and `ray`. In this case
+  * the point in the arc closest to `ray` is returned.
+  *
+  * The arc is considered a complete circle and `ray` is considered an
+  * unbounded line.
+  *
+  * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
+  * @returns {Rac.Point}
+  */
+  intersectionChordEndWithRay(ray, useProjection = false) {
+    const chord = this.intersectionChordWithRay(ray);
+    if (chord !== null) {
+      return chord.endPoint();
+    }
+
+    if (useProjection) {
+      const centerOrientation = ray.pointOrientation(this.center);
+      const perpendicular = ray.angle.perpendicular(!centerOrientation);
+      return this.pointAtAngle(perpendicular);
+    }
+
+    return null;
+  }
+
+
+  /**
+  * Returns a new `Arc` representing the section of `this` that is inside
+  * `otherArc`, or `null` when there is no intersection. The returned arc
+  * will have the same center, radius, and orientation as `this`.
+  *
+  * Both arcs are considered complete circles for the calculation of the
+  * intersection, thus the endpoints of the returned arc may not lay inside
+  * `this`.
+  *
+  * An edge case of this method is that when the distance between `this`
+  * and `otherArc` is the sum of their radius, meaning the arcs touch at a
+  * single point, the resulting arc may have a angle-distance of zero,
+  * which is interpreted as a complete-circle arc.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to intersect with
+  * @returns {Rac.Arc}
+  */
+  intersectionArc(otherArc) {
+    const chord = this.intersectionChord(otherArc);
+    if (chord === null) { return null; }
+
+    return this.withAnglesTowardsPoint(chord.startPoint(), chord.endPoint());
+  }
+
+
+  // TODO: implement intersectionArcNoCircle?
+
+
+  // TODO: finish boundedIntersectionArc
+  /**
+  * @ignore
+  *
+  * Returns a new `Arc` representing the section of `this` that is inside
+  * `otherArc` and bounded by `this.start` and `this.end`, or `null` when
+  * there is no intersection. The returned arc will have the same center,
+  * radius, and orientation as `this`.
+  *
+  * `otherArc` is considered a complete circle, while the start and end of
+  * `this` are considered for the resulting `Arc`.
+  *
+  * When there exist two separate arc sections that intersect with
+  * `otherArc`: only the section of `this` closest to `start` is returned.
+  * This can happen when `this` starts inside `otherArc`, then exits, and
+  * then ends inside `otherArc`, regardless if `this` is a complete circle
+  * or not.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to intersect with
+  * @returns {Rac.Arc}
+  */
+  // boundedIntersectionArc(otherArc) {
+  //   let chord = this.intersectionChord(otherArc);
+  //   if (chord === null) { return null; }
+
+  //   let chordStartAngle = this.center.angleToPoint(chord.startPoint());
+  //   let chordEndAngle = this.center.angleToPoint(chord.endPoint());
+
+  //   // get all distances from this.start
+  //   // if closest is chordEndAngle, only start may be inside arc
+  //   // if closest is this.end, whole arc is inside or outside
+  //   // if closest is chordStartAngle, only end may be inside arc
+  //   const interStartDistance = this.start.distance(chordStartAngle, this.clockwise);
+  //   const interEndDistance = this.start.distance(chordEndAngle, this.clockwise);
+  //   const endDistance = this.start.distance(this.end, this.clockwise);
+
+
+  //   // if closest is chordStartAngle, normal rules
+  //   // if closest is end not zero, if following is chordStart, return null
+  //   // if closest is end not zero, if following is chordend, return self
+  //   // if closest is end zero, if following is chordStart, normal rules
+  //   // if closest is end zero, if following is chordend, return start to chordend
+  //   // if closest is chordEndAngle, return start to chordEnd
+
+
+  //   if (!this.containsAngle(chordStartAngle)) {
+  //     chordStartAngle = this.start;
+  //   }
+  //   if (!this.containsAngle(chordEndAngle)) {
+  //     chordEndAngle = this.end;
+  //   }
+
+  //   return new Arc(this.rac,
+  //     this.center, this.radius,
+  //     chordStartAngle,
+  //     chordEndAngle,
+  //     this.clockwise);
+  // }
+
+
+  /**
+  * Returns a new `Segment` that is tangent to both `this` and `otherArc`,
+  * or `null` when no tangent segment is possible. The new `Segment` starts
+  * at the contact point with `this` and ends at the contact point with
+  * `otherArc`.
+  *
+  * Considering _center axis_ a ray from `this.center` towards
+  * `otherArc.center`, `startClockwise` determines the side of the start
+  * point of the returned segment in relation to _center axis_, and
+  * `endClockwise` the side of the end point.
+  *
+  * Both `this` and `otherArc` are considered complete circles.
+  *
+  * @param {Rac.Arc} otherArc - An `Arc` to calculate a tangent segment towards
+  * @param {boolean} startClockwise - The orientation of the new `Segment`
+  * start point in relation to the _center axis_
+  * @param {boolean} endClockwise - The orientation of the new `Segment`
+  * end point in relation to the _center axis_
+  * @returns {Rac.Segment}
+  */
+  segmentTangentToArc(otherArc, startClockwise = true, endClockwise = true) {
+    const hypSegment = this.center.segmentToPoint(otherArc.center);
+    const ops = startClockwise === endClockwise
+      ? otherArc.radius - this.radius
+      : otherArc.radius + this.radius;
+
+    const angleSine = ops / hypSegment.length;
+    if (angleSine > 1) {
+      return null;
+    }
+
+    const angleRadians = Math.asin(angleSine);
+    const opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
+
+    const adjOrientation = startClockwise === endClockwise
+      ? startClockwise
+      : !startClockwise;
+    const shiftedOpsAngle = hypSegment.ray.angle.shift(opsAngle, adjOrientation);
+    const shiftedAdjAngle = shiftedOpsAngle.perpendicular(adjOrientation);
+
+    const startAngle = startClockwise === endClockwise
+      ? shiftedAdjAngle
+      : shiftedAdjAngle.inverse()
+    const start = this.pointAtAngle(startAngle);
+    const end = otherArc.pointAtAngle(shiftedAdjAngle);
+    return start.segmentToPoint(end);
   }
 
 } // class Arc
@@ -547,251 +1051,6 @@ class Arc{
 
 module.exports = Arc;
 
-
-// Returns `true` if the given angle is positioned between `start` and
-// `end` in the `clockwise` orientation. For complete circle arcs `true` is
-// always returned.
-Arc.prototype.containsAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  if (this.isCircle()) { return true; }
-
-  if (this.clockwise) {
-    let offset = angle.subtract(this.start);
-    let endOffset = this.end.subtract(this.start);
-    return offset.turn &lt;= endOffset.turn;
-  } else {
-    let offset = angle.subtract(this.end);
-    let startOffset = this.start.subtract(this.end);
-    return offset.turn &lt;= startOffset.turn;
-  }
-};
-
-// Returns `true` if the projection of `point` in the arc is positioned
-// between `start` and `end` in the `clockwise` orientation. For complete
-// circle arcs `true` is always returned.
-Arc.prototype.containsProjectedPoint = function(point) {
-  if (this.isCircle()) { return true; }
-  return this.containsAngle(this.center.angleToPoint(point));
-}
-
-// Returns a segment for the chord formed by the intersection of `this` and
-// `otherArc`; or return `null` if there is no intersection.
-// Both arcs are considered complete circles for the calculation of the
-// chord, thus the endpoints of the returned segment may not lay inside the
-// actual arcs.
-Arc.prototype.intersectionChord = function(otherArc) {
-  // https://mathworld.wolfram.com/Circle-CircleIntersection.html
-  // R=this, r=otherArc
-
-  if (this.center.equals(otherArc.center)) {
-    return null;
-  }
-
-  let distance = this.center.distanceToPoint(otherArc.center);
-
-  // distanceToChord = (d^2 - r^2 + R^2) / (d*2)
-  let distanceToChord = (
-      Math.pow(distance, 2)
-    - Math.pow(otherArc.radius, 2)
-    + Math.pow(this.radius, 2)
-    ) / (distance * 2);
-
-  // a = 1/d sqrt|(-d+r-R)(-d-r+R)(-d+r+R)(d+r+R)
-  let chordLength = (1 / distance) * Math.sqrt(
-      (-distance + otherArc.radius - this.radius)
-    * (-distance - otherArc.radius + this.radius)
-    * (-distance + otherArc.radius + this.radius)
-    * (distance + otherArc.radius + this.radius));
-
-  let rayToChord = this.center.segmentToPoint(otherArc.center)
-    .withLength(distanceToChord);
-  return rayToChord.nextSegmentPerpendicular(this.clockwise)
-    .withLength(chordLength/2)
-    .reverse()
-    .segmentWithRatioOfLength(2);
-};
-
-// Returns the section of `this` that is inside `otherArc`.
-// `otherArc` is aways considered as a complete circle.
-Arc.prototype.intersectionArc = function(otherArc) {
-  let chord = this.intersectionChord(otherArc);
-  if (chord === null) { return null; }
-
-  let startAngle = this.center.angleToPoint(chord.startPoint());
-  let endAngle = this.center.angleToPoint(chord.endPoint());
-
-  if (!this.containsAngle(startAngle)) {
-    startAngle = this.start;
-  }
-  if (!this.containsAngle(endAngle)) {
-    endAngle = this.end;
-  }
-
-  return new Arc(this.rac,
-    this.center, this.radius,
-    startAngle,
-    endAngle,
-    this.clockwise);
-};
-
-// Returns only intersecting points.
-Arc.prototype.intersectingPointsWithArc = function(otherArc) {
-  let chord = this.intersectionChord(otherArc);
-  if (chord === null) { return []; }
-
-  let intersections = [chord.startPoint(), chord.endPoint()].filter(function(item) {
-    return this.containsAngle(this.center.segmentToPoint(item))
-      &amp;&amp; otherArc.containsAngle(otherArc.center.segmentToPoint(item));
-  }, this);
-
-  return intersections;
-};
-
-// Returns a segment for the chord formed by the intersection of `this` and
-// `segment`; or return `null` if there is no intersection. The returned
-// segment will have the same angle as `segment`.
-//
-// For this function `this` is considered a complete circle, and `segment`
-// is considered a line without endpoints.
-Arc.prototype.intersectionChordWithSegment = function(segment) {
-  // First check intersection
-  let projectedCenter = segment.projectedPoint(this.center);
-  let bisector = this.center.segmentToPoint(projectedCenter);
-  let distance = bisector.length();
-  if (distance > this.radius - this.rac.equalityThreshold) {
-    // projectedCenter outside or too close to arc edge
-    return null;
-  }
-
-  // Segment too close to center, cosine calculations may be incorrect
-  if (distance &lt; this.rac.equalityThreshold) {
-    let segmentAngle = segment.angle();
-    let start = this.pointAtAngle(segmentAngle.inverse());
-    let end = this.pointAtAngle(segmentAngle);
-    return new Rac.Segment(start, end);
-  }
-
-  let radians = Math.acos(distance/this.radius);
-  let angle = Rac.Angle.fromRadians(this.rac, radians);
-
-  let centerOrientation = segment.pointOrientation(this.center);
-  let start = this.pointAtAngle(bisector.angle().shift(angle, !centerOrientation));
-  let end = this.pointAtAngle(bisector.angle().shift(angle, centerOrientation));
-  return new Rac.Segment(start, end);
-};
-
-// Returns the `end` point of `intersectionChordWithSegment` for `segment`.
-// If `segment` does not intersect with `self`, returns the point in the
-// arc closest to `segment`.
-//
-// For this function `this` is considered a complete circle, and `segment`
-// is considered a line without endpoints.
-Arc.prototype.chordEndOrProjectionWithSegment = function(segment) {
-  let chord = this.intersectionChordWithSegment(segment);
-  if (chord !== null) {
-    return chord.endPoint();
-  }
-
-  let centerOrientation = segment.pointOrientation(this.center);
-  let perpendicular = segment.angle().perpendicular(!centerOrientation);
-  return this.pointAtAngle(perpendicular);
-};
-
-Arc.prototype.radiusSegmentAtAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.center.segmentToAngle(angle, this.radius);
-}
-
-Arc.prototype.radiusSegmentTowardsPoint = function(point) {
-  let angle = this.center.angleToPoint(point);
-  return this.center.segmentToAngle(angle, this.radius);
-}
-
-// Returns the equivalent to `someAngle` shifted to have `this.start` as
-// origin, in the orientation of the arc.
-// Useful to determine an angle inside the arc, where the arc is considered
-// the origin coordinate system.
-// For a clockwise arc starting at `0.5`, a `shiftAngle(0.1)` is `0.6`.
-// For a clockwise orientation, equivalent to `this.start + someAngle`.
-Arc.prototype.shiftAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.start.shift(angle, this.clockwise);
-}
-
-// Returns an Angle that represents the distance from `this.start` to
-// `someAngle` traveling in the `clockwise` orientation.
-// Useful to determine for a given angle, where it sits inside the arc if
-// the arc was the origin coordinate system.
-// For a clockwise arc starting at `0.1`, a `distanceFromStart(0.5)` is `0.4`.
-// For a clockwise orientation, equivalent to `someAngle - this.start`.
-Arc.prototype.distanceFromStart = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.start.distance(angle, this.clockwise);
-}
-
-// Returns the Angle at the given arc length from `start`. Equivalent to
-// `shiftAngle(someAngle)`.
-Arc.prototype.angleAtAngleDistance = function(someAngle) {
-  return this.shiftAngle(someAngle);
-}
-
-// Returns the point in the arc at the given angle shifted by `this.start`
-// in the arc orientation. The arc is considered a complete circle.
-Arc.prototype.pointAtAngleDistance = function(someAngle) {
-  let shiftedAngle = this.shiftAngle(someAngle);
-  return this.pointAtAngle(shiftedAngle);
-};
-
-// Returns the point in the arc at the current arc length multiplied by
-// `angleDistanceRatio` and then shifted by `this.start` in the arc
-// orientation. The arc is considered a complete circle.
-Arc.prototype.pointAtAngleDistanceRatio = function(angleDistanceRatio) {
-  let newAngleDistance = this.angleDistance().multOne(angleDistanceRatio);
-  let shiftedAngle = this.shiftAngle(newAngleDistance);
-  return this.pointAtAngle(shiftedAngle);
-};
-
-// Returns the point in the arc at the given angle. The arc is considered
-// a complete circle.
-Arc.prototype.pointAtAngle = function(someAngle) {
-  let angle = Rac.Angle.from(this.rac, someAngle);
-  return this.center.pointToAngle(angle, this.radius);
-};
-
-// Returns a segment that is tangent to both `this` and `otherArc`,
-// considering both as complete circles.
-// With a segment from `this.center` to `otherArc.center`: `startClockwise`
-// determines the starting side returned tangent segment, `endClocwise`
-// determines the end side.
-// Returns `null` if `this` is inside `otherArc` and thus no tangent segment
-// is possible.
-Arc.prototype.segmentTangentToArc = function(otherArc, startClockwise = true, endClockwise = true) {
-  let hypSegment = this.center.segmentToPoint(otherArc.center);
-  let ops = startClockwise === endClockwise
-    ? otherArc.radius - this.radius
-    : otherArc.radius + this.radius;
-
-  let angleSine = ops / hypSegment.length();
-  if (angleSine > 1) {
-    return null;
-  }
-
-  let angleRadians = Math.asin(angleSine);
-  let opsAngle = Rac.Angle.fromRadians(this.rac, angleRadians);
-
-  let adjOrientation = startClockwise === endClockwise
-    ? startClockwise
-    : !startClockwise;
-  let shiftedOpsAngle = hypSegment.angle().shift(opsAngle, adjOrientation);
-  let shiftedAdjAngle = shiftedOpsAngle.perpendicular(adjOrientation);
-
-  let startAngle = startClockwise === endClockwise
-    ? shiftedAdjAngle
-    : shiftedAdjAngle.inverse()
-  let start = this.pointAtAngle(startAngle);
-  let end = otherArc.pointAtAngle(shiftedAdjAngle);
-  return start.segmentToPoint(end);
-};
 
 // Returns an array containing the arc divided into `arcCount` arcs, each
 // with the same `angleDistance`.
@@ -882,7 +1141,7 @@ Arc.prototype.divideToBeziers = function(bezierCount) {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Mon Apr 19 2021 22:59:13 GMT-0700 (Pacific Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Sat May 01 2021 01:47:44 GMT-0700 (Pacific Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>
