@@ -730,6 +730,7 @@ tools.test( function intersectionArc() {
 tools.test( function segmentTangentToArc() {
   const cathetus = tools.cathetus(36);
   const otherArc = rac.Arc(0, cathetus*4, 36, 0, 1/2, true);
+  const edgeQuarter = rac.Arc(36, 0, 0);
 
   // Same side tangent
   expect(quarter.segmentTangentToArc(otherArc))
@@ -756,7 +757,6 @@ tools.test( function segmentTangentToArc() {
     .equalsSegment(-36, 0, 1/4, 0);
 
   // Same side, zero arc, zero length tangent
-  const edgeQuarter = rac.Arc(36, 0, 0);
   expect(quarter.segmentTangentToArc(edgeQuarter))
     .equalsSegment(36, 0, 3/4, 0);
   expect(edgeQuarter.segmentTangentToArc(quarter, false, false))
@@ -766,7 +766,6 @@ tools.test( function segmentTangentToArc() {
     .equalsSegment(36, 0, 1/4, 0);
   expect(edgeQuarter.segmentTangentToArc(quarter))
     .equalsSegment(36, 0, 3/4, 0);
-
 
   // Opposite side tangent
   expect(quarter.segmentTangentToArc(otherArc, true, false))
@@ -780,9 +779,27 @@ tools.test( function segmentTangentToArc() {
     .equalsSegment(-cathetus, cathetus*3, 7/8, 72);
 
   // Opposite side, zero length tangent
+  const outsideQuarter = rac.Arc(-46, 0, 10);
+  expect(quarter.segmentTangentToArc(outsideQuarter, true, false))
+    .equalsSegment(-36, 0, 1/4, 0);
+  expect(outsideQuarter.segmentTangentToArc(quarter, true, false))
+    .equalsSegment(-36, 0, 3/4, 0);
 
+  expect(quarter.segmentTangentToArc(outsideQuarter, false, true))
+    .equalsSegment(-36, 0, 3/4, 0);
+  expect(outsideQuarter.segmentTangentToArc(quarter, false, true))
+    .equalsSegment(-36, 0, 1/4, 0);
 
   // Opposite side, zero arc, zero length tangent
+  expect(quarter.segmentTangentToArc(edgeQuarter, true, false))
+    .equalsSegment(36, 0, 3/4, 0);
+  expect(edgeQuarter.segmentTangentToArc(quarter, true, false))
+    .equalsSegment(36, 0, 1/4, 0);
+
+  expect(quarter.segmentTangentToArc(edgeQuarter, false, true))
+    .equalsSegment(36, 0, 1/4, 0);
+  expect(edgeQuarter.segmentTangentToArc(quarter, false, true))
+    .equalsSegment(36, 0, 3/4, 0);
 
   // Invalid, same center
   expect(quarter.segmentTangentToArc(quarter)).toBe(null);
