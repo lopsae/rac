@@ -727,7 +727,29 @@ tools.test( function intersectionArc() {
 });
 
 
-tools.test.todo( function segmentTangentToArc() {
+tools.test( function segmentTangentToArc() {
+  const cathetus = tools.cathetus(36);
+  const otherArc = rac.Arc(0, cathetus*4, 36, 0, 1/2, true);
+
+  // Same side tangent
+  expect(quarter.segmentTangentToArc(otherArc))
+    .equalsSegment(-36, 0, 1/4, cathetus*4);
+  expect(quarter.segmentTangentToArc(otherArc, false, false))
+    .equalsSegment(36, 0, 1/4, cathetus*4);
+
+  // Opposite side tangent
+  expect(quarter.segmentTangentToArc(otherArc, true, false))
+    .equalsSegment(-cathetus, cathetus, 1/8, 72);
+  expect(quarter.segmentTangentToArc(otherArc, false, true))
+    .equalsSegment(cathetus, cathetus, 3/8, 72);
+
+  // Invalid same side tangent (arc in arc)
+
+  // Invalid opposite side tangent (arcs touch)
+
+  // Zero arc start
+
+  // Zero arc end
 });
 
 
