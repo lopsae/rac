@@ -85,14 +85,15 @@ class Rac {
     */
     this.drawer = null;
 
-    require('./style/rac.Color')     (this);
-    require('./style/rac.Stroke')    (this);
-    require('./style/rac.Fill')      (this);
-    require('./drawable/rac.Angle')  (this);
-    require('./drawable/rac.Point')  (this);
-    require('./drawable/rac.Ray')    (this);
-    require('./drawable/rac.Segment')(this);
-    require('./drawable/rac.Arc')    (this);
+    require('./style/rac.Color')         (this);
+    require('./style/rac.Stroke')        (this);
+    require('./style/rac.Fill')          (this);
+    require('./drawable/rac.Angle')      (this);
+    require('./drawable/rac.Point')      (this);
+    require('./drawable/rac.Ray')        (this);
+    require('./drawable/rac.Segment')    (this);
+    require('./drawable/rac.Arc')        (this);
+    require('./drawable/instance.Bezier')(this);
 
     // Depends on rac.Point and rac.Angle being already setup
     require('./drawable/rac.Text')(this);
@@ -363,7 +364,10 @@ class Rac {
   *
   * @see instance.Bezier
   */
-  Bezier(startX, startY, startAnchorX, startAnchorY, endAnchorX, endAnchorY, endX, endY) {
+  Bezier(
+    startX, startY, startAnchorX, startAnchorY,
+    endAnchorX, endAnchorY, endX, endY)
+  {
     const start = new Rac.Point(this, startX, startY);
     const startAnchor = new Rac.Point(this, startAnchorX, startAnchorY);
     const endAnchor = new Rac.Point(this, endAnchorX, endAnchorY);
