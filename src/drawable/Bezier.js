@@ -9,15 +9,23 @@ const utils = require('../util/utils');
 * Bezier curve with start, end, and two anchor points.
 * @alias Rac.Bezier
 */
-function Bezier(rac, start, startAnchor, endAnchor, end) {
-  utils.assertExists(rac, start, startAnchor, endAnchor, end);
+class Bezier {
 
-  this.rac = rac;
-  this.start = start;
-  this.startAnchor = startAnchor;
-  this.endAnchor = endAnchor;
-  this.end = end;
-};
+  constructor(rac, start, startAnchor, endAnchor, end) {
+    utils.assertExists(rac, start, startAnchor, endAnchor, end);
+    utils.assertType(Rac.Point, start, startAnchor, endAnchor, end);
+
+    this.rac = rac;
+    this.start = start;
+    this.startAnchor = startAnchor;
+    this.endAnchor = endAnchor;
+    this.end = end;
+  }
+
+}
+
+
+module.exports = Bezier;
 
 
 Bezier.prototype.drawAnchors = function(style = undefined) {
@@ -35,7 +43,4 @@ Bezier.prototype.reverse = function() {
     this.end, this.endAnchor,
     this.startAnchor, this.start);
 };
-
-
-module.exports = Bezier;
 
