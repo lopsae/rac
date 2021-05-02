@@ -844,7 +844,28 @@ tools.test( function divideToArcs() {
 });
 
 
-tools.test.todo( function divideToSegments() {
+tools.test( function divideToSegments() {
+  expect(quarter.divideToSegments(0)).toHaveLength(0);
+  expect(quarter.divideToSegments(-7)).toHaveLength(0);
+
+  const halfDivisions = half.divideToSegments(1);
+  expect(halfDivisions).toHaveLength(1);
+  expect(halfDivisions[0]).equalsSegment(100, 45, 1/4, 110);
+
+  const cathetus = tools.cathetus(36);
+  const chordLength = tools.hypotenuse(cathetus, 36 - cathetus);
+  const quarterDivisions = quarter.divideToSegments(2);
+  expect(quarterDivisions).toHaveLength(2);
+  expect(quarterDivisions[0]).equalsSegment(0, -36, 7/16, chordLength);
+  expect(quarterDivisions[1]).equalsSegment(-cathetus, -cathetus, 5/16, chordLength);
+
+  const hypotenuse = tools.hypotenuse(72);
+  const circleDivisions = circle.divideToSegments(4);
+  expect(circleDivisions).toHaveLength(4);
+  expect(circleDivisions[0]).equalsSegment(72,  144, 5/8, hypotenuse);
+  expect(circleDivisions[1]).equalsSegment(0,   72,  7/8, hypotenuse);
+  expect(circleDivisions[2]).equalsSegment(72,  0,   1/8, hypotenuse);
+  expect(circleDivisions[3]).equalsSegment(144, 72,  3/8, hypotenuse);
 });
 
 

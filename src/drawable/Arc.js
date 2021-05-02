@@ -1019,6 +1019,9 @@ class Arc{
   * divided into `count` arcs, all with the same
   * [angle distance]{@link Rac.Arc#angleDistance}.
   *
+  * When `count` is zero or lower, returns an empty array. When `count` is
+  * `1` returns an arc equivalent to `this`.
+  *
   * @param {number} count - Number of arcs to divide `this` into
   * @returns {Rac.Arc[]}
   */
@@ -1030,13 +1033,44 @@ class Arc{
 
     const arcs = [];
     for (let index = 0; index < count; index += 1) {
-      let start = this.start.shift(partTurn * index, this.clockwise);
-      let end = this.start.shift(partTurn * (index+1), this.clockwise);
-      let arc = new Arc(this.rac, this.center, this.radius, start, end, this.clockwise);
+      const start = this.start.shift(partTurn * index, this.clockwise);
+      const end = this.start.shift(partTurn * (index+1), this.clockwise);
+      const arc = new Arc(this.rac, this.center, this.radius, start, end, this.clockwise);
       arcs.push(arc);
     }
 
     return arcs;
+  }
+
+
+  /**
+  * Returns an array containing new `Segment` objects representing `this`
+  * divided into `count` chords, all with the same length.
+  *
+  * When `count` is zero or lower, returns an empty array. When `count` is
+  * `1` returns an arc equivalent to
+  * `[this.chordSegment()]{@link Rac.Arc#chordSegment}`.
+  *
+  * @param {number} count - Number of segments to divide `this` into
+  * @returns {Rac.Segment[]}
+  */
+  divideToSegments(count) {
+    if (count <= 0) { return []; }
+
+    const angleDistance = this.angleDistance();
+    const partTurn = angleDistance.turnOne() / count;
+
+    const segments = [];
+    for (let index = 0; index < count; index += 1) {
+      const startAngle = this.start.shift(partTurn * index, this.clockwise);
+      const endAngle = this.start.shift(partTurn * (index+1), this.clockwise);
+      const startPoint = this.pointAtAngle(startAngle);
+      const endPoint = this.pointAtAngle(endAngle);
+      const segment = startPoint.segmentToPoint(endPoint);
+      segments.push(segment);
+    }
+
+    return segments;
   }
 
 } // class Arc
@@ -1045,28 +1079,7 @@ class Arc{
 module.exports = Arc;
 
 
-Arc.prototype.divideToSegments = function(segmentCount) {
-  let angleDistance = this.angleDistance();
-  let partTurn = angleDistance.turnOne() / segmentCount;
 
-  let partAngle = new Rac.Angle(this.rac, partTurn);
-  if (!this.clockwise) {
-    partAngle = partAngle.negative();
-  }
-
-  let lastArcRay = this.startSegment();
-  let segments = [];
-  for (let count = 1; count <= segmentCount; count++) {
-    let currentAngle = lastArcRay.angle().add(partAngle);
-    let currentArcRay = this.center.segmentToAngle(currentAngle, this.radius);
-    let chord = lastArcRay.endPoint()
-      .segmentToPoint(currentArcRay.endPoint());
-    segments.push(chord);
-    lastArcRay = currentArcRay;
-  }
-
-  return segments;
-};
 
 Arc.prototype.divideToBeziers = function(bezierCount) {
   let angleDistance = this.angleDistance();

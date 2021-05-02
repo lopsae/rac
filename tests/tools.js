@@ -17,8 +17,8 @@ const digits = 3;
 
 
 // Returns the hypotenuse of a triangle with catheti a,b, or a,a.
-exports.hypotenuse = function(a, maybeB = null) {
-  const b = maybeB === null ? a : b;
+exports.hypotenuse = function(a, b = null) {
+  b = b === null ? a : b;
   return Math.sqrt(a*a + b*b);
 };
 
