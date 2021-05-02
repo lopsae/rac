@@ -5,6 +5,10 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
+/**
+* Bezier curve with start, end, and two anchor points.
+* @alias Rac.Bezier
+*/
 function Bezier(rac, start, startAnchor, endAnchor, end) {
   utils.assertExists(rac, start, startAnchor, endAnchor, end);
 

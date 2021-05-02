@@ -116,8 +116,10 @@ class Rac {
   /**
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#equalityThreshold}`.
+  *
   * @param {number} a First number to compare
   * @param {number} b Second number to compare
+  *
   * @returns {boolean}
   */
   equals(a, b) {
@@ -130,8 +132,10 @@ class Rac {
   /**
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#unitaryEqualityThreshold}`.
+  *
   * @param {number} a First number to compare
   * @param {number} b Second number to compare
+  *
   * @returns {boolean}
   */
   unitaryEquals(a, b) {
@@ -151,7 +155,9 @@ class Rac {
   * @param {number} g
   * @param {number} b
   * @param {number=} a
+  *
   * @returns {Rac.Color}
+  *
   * @see instance.Color
   */
   Color(r, g, b, alpha = 1) {
@@ -167,7 +173,9 @@ class Rac {
   *
   * @param {Rac.Color=} color
   * @param {number=} weight
+  *
   * @returns {Rac.Stroke}
+  *
   * @see instance.Stroke
   */
   Stroke(color = null, weight = 1) {
@@ -182,7 +190,9 @@ class Rac {
   * `{@link instance.Fill}`.
   *
   * @param {Rac.Color=} color
+  *
   * @returns {Rac.Fill}
+  *
   * @see instance.Fill
   */
   Fill(color = null) {
@@ -198,7 +208,9 @@ class Rac {
   *
   * @param {Rac.Stroke=} stroke
   * @param {Rac.Fill=} fill
+  *
   * @returns {Rac.Style}
+  *
   * @see instance.Style
   */
   Style(stroke = null, fill = null) {
@@ -213,7 +225,9 @@ class Rac {
   * `{@link instance.Angle}`.
   *
   * @param {number} turn - The turn value of the angle, in the range `[O,1)`
+  *
   * @returns {Rac.Angle}
+  *
   * @see instance.Angle
   */
   Angle(turn) {
@@ -229,7 +243,9 @@ class Rac {
   *
   * @param {number} x
   * @param {number} y
+  *
   * @returns {Rac.Point}
+  *
   * @see instance.Point
   */
   Point(x, y) {
@@ -246,7 +262,9 @@ class Rac {
   * @param {number} x
   * @param {number} y
   * @param {Rac.Angle|number} angle
+  *
   * @returns {Rac.Ray}
+  *
   * @see instance.Ray
   */
   Ray(x, y, angle) {
@@ -266,7 +284,9 @@ class Rac {
   * @param {number} y
   * @param {Rac.Angle|number} angle
   * @param {number} length
+  *
   * @returns {Rac.Segment}
+  *
   * @see instance.Segment
   */
   Segment(x, y, angle, length) {
@@ -288,7 +308,9 @@ class Rac {
   * @param {Rac.Angle|number} start
   * @param {?Rac.Angle|number} [end=null]
   * @param {boolean} [clockwise=true]
+  *
   * @returns {Rac.Arc}
+  *
   * @see instance.Arc
   */
   Arc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
@@ -311,12 +333,42 @@ class Rac {
   * @param {number} y
   * @param {string} string
   * @param {Rac.Text.Format} format
+  *
   * @returns {Rac.Text}
+  *
   * @see instance.Text
   */
   Text(x, y, string, format) {
     const point = new Rac.Point(this, x, y);
     return new Rac.Text(this, point, string, format);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Bezier` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Bezier}`.
+  *
+  * @param {number} startX
+  * @param {number} startY
+  * @param {number} startAnchorX
+  * @param {number} startAnchorY
+  * @param {number} endAnchorX
+  * @param {number} endAnchorY
+  * @param {number} endX
+  * @param {number} endY
+  *
+  * @returns {Rac.Bezier}
+  *
+  * @see instance.Bezier
+  */
+  Bezier(startX, startY, startAnchorX, startAnchorY, endAnchorX, endAnchorY, endX, endY) {
+    const start = new Rac.Point(this, startX, startY);
+    const startAnchor = new Rac.Point(this, startAnchorX, startAnchorY);
+    const endAnchor = new Rac.Point(this, endAnchorX, endAnchorY);
+    const end = new Rac.Point(this, endX, endY);
+    return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
   }
 
 } // class Rac
