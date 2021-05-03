@@ -51,15 +51,6 @@ tools.test( function identity() {
   expect(half.equals(rac.Point.zero))  .toBe(false);
   expect(half.equals(rac.Ray.zero))    .toBe(false);
   expect(half.equals(rac.Segment.zero)).toBe(false);
-
-
-  let string = half.toString();
-  expect(string).toMatch('Arc');
-  expect(string).toMatch('100,100');
-  expect(string).toMatch('55');
-  expect(string).toMatch('0.25');
-  expect(string).toMatch('0.75');
-  expect(string).toMatch('true');
 });
 
 

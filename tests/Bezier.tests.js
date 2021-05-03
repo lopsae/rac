@@ -7,8 +7,47 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
+const hunty = rac.Bezier(100, 0, 74, 36, 36, 74, 0, 100);
+
+
 tools.test( function identity() {
+  // Instance members
   expect(rac.Bezier.zero).equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(hunty).equalsBezier(100, 0, 74, 36, 36, 74, 0, 100);
+
+  // Inequality
+  expect(rac.Bezier.zero).not.equalsBezier(7, 0, 0, 0, 0, 0, 0, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 7, 0, 0, 0, 0, 0, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 0, 7, 0, 0, 0, 0, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 0, 0, 7, 0, 0, 0, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 0, 0, 0, 7, 0, 0, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 0, 0, 0, 0, 7, 0, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 0, 0, 0, 0, 0, 7, 0);
+  expect(rac.Bezier.zero).not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 7);
+
+  // Unexpected type for equalsBezier
+  expect(null)            .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(0)               .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect('0')             .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(rac.Angle.zero)  .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(rac.Point.zero)  .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(rac.Ray.zero)    .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(rac.Segment.zero).not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+  expect(rac.Arc.zero)    .not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+
+  // Expected type for equals
+  expect(hunty.equals(hunty)).toBe(true);
+  expect(hunty.equals(rac.Bezier.zero)).toBe(false);
+
+  // Unexpected type for equals
+  expect(hunty.equals(null))            .toBe(false);
+  expect(hunty.equals(100))             .toBe(false);
+  expect(hunty.equals('100'))           .toBe(false);
+  expect(hunty.equals(rac.Angle.zero))  .toBe(false);
+  expect(hunty.equals(rac.Point.zero))  .toBe(false);
+  expect(hunty.equals(rac.Ray.zero))    .toBe(false);
+  expect(hunty.equals(rac.Segment.zero)).toBe(false);
+  expect(hunty.equals(rac.Arc.zero))    .toBe(false);
 });
 
 
