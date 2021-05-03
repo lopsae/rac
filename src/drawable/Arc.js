@@ -630,8 +630,8 @@ class Arc{
   * @param {Rac.Angle|number} angle - An `Angle` towards the new `Point`
   * @returns {Rac.Point}
   */
-  pointAtAngle(someAngle) {
-    let angle = Rac.Angle.from(this.rac, someAngle);
+  pointAtAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
     return this.center.pointToAngle(angle, this.radius);
   }
 
@@ -1110,7 +1110,4 @@ Arc.prototype.divideToBeziers = function(bezierCount) {
 
   return new Rac.Composite(this.rac, beziers);
 };
-
-
-// TODO: fix uses of someAngle
 
