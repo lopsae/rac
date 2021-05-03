@@ -894,9 +894,5 @@ tools.test( function divideToBeziers() {
 });
 
 
-// tools.test.only( function testor() {
-// });
-
-
-test.todo('Check for coverage!');
+// Full coverage!
 
