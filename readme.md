@@ -29,3 +29,13 @@ Produces documentation and opens its index.
 + `npm run docs:clean` - Checks-out HEAD into the latest documentation files
 + `npm run docs:fresh` - Runs `docs:clean` and produces documentation
 
+Documentation uses a custom theme package. Run in the directory of the theme
+```
+npm pack
+```
+And afterwards reinstall in RAC directory
+```
+npm update minami-rac && npm run docs
+```
+
+
