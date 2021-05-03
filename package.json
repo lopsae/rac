@@ -3,6 +3,12 @@
   "version": "0.10.0-dev",
   "description": "Ruler and Compass",
   "main": "src/main.js",
+  "files": [
+    "src/*",
+    "built/*",
+    "dist/*",
+    "tests/*"
+  ],
   "scripts": {
     "test": "jest",
     "test:clean": "rm -rf ./coverage",
