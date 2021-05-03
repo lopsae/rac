@@ -448,6 +448,11 @@ tools.test( function containsAngle() {
   expect(quarter.containsAngle(rac.Angle.down)) .toBe(false);
   expect(quarter.containsAngle(rac.Angle.left)) .toBe(true);
   expect(quarter.containsAngle(rac.Angle.up))   .toBe(true);
+
+  expect(half.containsAngle(rac.Angle.right)).toBe(true);
+  expect(half.containsAngle(rac.Angle.down)) .toBe(true);
+  expect(half.containsAngle(rac.Angle.left)) .toBe(false);
+  expect(half.containsAngle(rac.Angle.up))   .toBe(true);
 });
 
 
