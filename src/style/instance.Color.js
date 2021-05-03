@@ -1,6 +1,9 @@
 'use strict';
 
 
+const Rac = require('../Rac');
+
+
 /**
 * The `instance.Color` function contains convenience methods and members
 * for `{@link Rac.Color}` objects setup with the owning `Rac` instance.
