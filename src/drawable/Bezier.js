@@ -43,6 +43,27 @@ class Bezier {
     return `Bezier(s:(${startXStr},${startYStr}) sa:(${startAnchorXStr},${startAnchorYStr}) ea:(${endAnchorXStr},${endAnchorYStr}) e:(${endXStr},${endYStr}))`;
   }
 
+
+  /**
+  * Returns `true` when all members of both beziers are
+  * [considered equal]{@link Rac.Point#equals}.
+  *
+  * When `otherBezier` is any class other that `Rac.Bezier`, returns
+  * `false`.
+  *
+  * @param {Rac.Bezier} otherBezier - A `Bezier` to compare
+  * @returns {boolean}
+  *
+  * @see Rac.Point#equals
+  */
+  equals(otherBezier) {
+    return otherBezier instanceof Bezier
+      && this.start      .equals(otherBezier.start)
+      && this.startAnchor.equals(otherBezier.startAnchor)
+      && this.endAnchor  .equals(otherBezier.endAnchor)
+      && this.end        .equals(otherBezier.end);
+  }
+
 }
 
 

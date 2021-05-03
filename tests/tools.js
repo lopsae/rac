@@ -260,6 +260,36 @@ expect.extend({ equalsText(text, x, y, string) {
 }}); // equalsText
 
 
+expect.extend({ equalsBezier(bezier,
+  startX, startY, startAnchorX, startAnchorY,
+  endAnchorX, endAnchorY, endX, endY)
+{
+  const msg = new Messenger(this,
+    'equalsBezier',
+    'equal Bezier properties');
+
+  const expected = rac.Bezier(
+    startX, startY, startAnchorX, startAnchorY,
+    endAnchorX, endAnchorY, endX, endY);
+
+  if (bezier == null) {
+    return msg.fail('null', expected);
+  }
+
+  if (!(bezier instanceof Rac.Bezier)) {
+    return msg.fail(bezier.toString(), expected,
+      `Received type: ${msg.r(Rac.utils.typeName(bezier))}`,
+      `Expected type: ${msg.e('Rac.Bezier')}`);
+  }
+
+  const isEqual = expected.equals(bezier);
+
+  return msg.done(isEqual, bezier, expected,
+    `Received: ${msg.r(bezier.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
+}}); // equalsBezier
+
+
 expect.extend({ toThrowNamed(closure, name, expectsError = true) {
   const options = {
     comment: 'throws named Exception or Error',

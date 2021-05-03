@@ -191,7 +191,6 @@ class Rac {
   * `{@link instance.Fill}`.
   *
   * @param {Rac.Color=} color
-  *
   * @returns {Rac.Fill}
   *
   * @see instance.Fill
@@ -226,7 +225,6 @@ class Rac {
   * `{@link instance.Angle}`.
   *
   * @param {number} turn - The turn value of the angle, in the range `[O,1)`
-  *
   * @returns {Rac.Angle}
   *
   * @see instance.Angle

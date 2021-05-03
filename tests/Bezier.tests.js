@@ -7,8 +7,9 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-tools.test.todo( function identity() {
-})
+tools.test( function identity() {
+  expect(rac.Bezier.zero).equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+});
 
 
 tools.test( function toString() {
