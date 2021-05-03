@@ -44,7 +44,7 @@ tools.test( function identity() {
 });
 
 
-test('Function toString', () => {
+tools.test( function toString() {
   const string = rac.Point(1.12345, 2.12345).toString();
   expect(string).toMatch('Point');
   expect(string).toMatch('1.12345');
