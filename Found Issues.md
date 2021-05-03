@@ -7,5 +7,5 @@ Issues found in published version
 
 Documentation TODOs:
 
-+ use list for parameters!
++ use list for parameters
 
