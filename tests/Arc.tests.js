@@ -864,11 +864,20 @@ tools.test( function divideToBeziers() {
   expect(quarter.divideToBeziers(0).sequence).toHaveLength(0);
   expect(quarter.divideToBeziers(-7).sequence).toHaveLength(0);
 
+  // TODO: is there a better way to test this other that hardcoding?
   const quarterComposite = quarter.divideToBeziers(1);
   expect(quarterComposite.sequence).toHaveLength(1);
+  expect(quarterComposite.sequence[0]).equalsBezier(
+    -0.000, -36.000, -19.882, -36.000, -36.000, -19.882, -36.000, 0.000);
 
-  const halfComposite = quarter.divideToBeziers(3);
+  const halfComposite = half.divideToBeziers(3);
   expect(halfComposite.sequence).toHaveLength(3);
+  expect(halfComposite.sequence[0]).equalsBezier(
+    100.000, 45.000, 119.650, 45.000, 137.807, 55.483, 147.631, 72.500);
+  expect(halfComposite.sequence[1]).equalsBezier(
+    147.631, 72.500, 157.456, 89.517, 157.456, 110.483, 147.631, 127.500);
+  expect(halfComposite.sequence[2]).equalsBezier(
+    147.631, 127.500, 137.807, 144.517, 119.650, 155.000, 100.000, 155.000);
 });
 
 
