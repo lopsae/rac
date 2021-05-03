@@ -81,5 +81,5 @@ tools.test( function toString() {
 });
 
 
-test.todo('Check for coverage!');
+// TODO: test.todo('Check for coverage!');
 
