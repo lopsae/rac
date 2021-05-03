@@ -22,6 +22,27 @@ class Bezier {
     this.end = end;
   }
 
+
+  /**
+  * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
+  */
+  toString(digits = null) {
+    const startXStr       = utils.cutDigits(this.start.x,       digits);
+    const startYStr       = utils.cutDigits(this.start.y,       digits);
+    const startAnchorXStr = utils.cutDigits(this.startAnchor.x, digits);
+    const startAnchorYStr = utils.cutDigits(this.startAnchor.y, digits);
+    const endAnchorXStr   = utils.cutDigits(this.endAnchor.x,   digits);
+    const endAnchorYStr   = utils.cutDigits(this.endAnchor.y,   digits);
+    const endXStr         = utils.cutDigits(this.end.x,         digits);
+    const endYStr         = utils.cutDigits(this.end.y,         digits);
+
+    return `Bezier(s:(${startXStr},${startYStr}) sa:(${startAnchorXStr},${startAnchorYStr}) ea:(${endAnchorXStr},${endAnchorYStr}) e:(${endXStr},${endYStr}))`;
+  }
+
 }
 
 
