@@ -1073,41 +1073,56 @@ class Arc{
     return segments;
   }
 
+
+  /**
+  * Returns a new `Composite` that contains `Bezier` objects representing
+  * the arc divided into `count` beziers that approximate the shape of the
+  * arc.
+  *
+  * When `count` is zero or lower, returns an empty `Composite`.
+  *
+  * @param {number} count - Number of beziers to divide `this` into
+  * @returns {Rac.Composite}
+  *
+  * @see Rac.Bezier
+  */
+  divideToBeziers(count) {
+    if (count <= 0) { return new Rac.Composite(this.rac, []); }
+
+    const angleDistance = this.angleDistance();
+    const partTurn = angleDistance.turnOne() / count;
+
+    // length of tangent:
+    // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
+    const parsPerTurn = 1 / partTurn;
+    // TODO: use TAU instead
+    const tangent = this.radius * (4/3) * Math.tan(Math.PI/(parsPerTurn*2));
+
+    const beziers = [];
+    const segments = this.divideToSegments(count);
+    // TODO: use anonymous function
+    segments.forEach(function(item) {
+      // TODO: use Rays?
+      const startArcRay =  this.center.segmentToPoint(item.startPoint());
+      const endArcRay = this.center.segmentToPoint(item.endPoint());
+
+      let startAnchor = startArcRay
+        .nextSegmentToAngleDistance(this.rac.Angle.square, !this.clockwise, tangent)
+        .endPoint();
+      let endAnchor = endArcRay
+        .nextSegmentToAngleDistance(this.rac.Angle.square, this.clockwise, tangent)
+        .endPoint();
+
+      beziers.push(new Rac.Bezier(this.rac,
+        startArcRay.endPoint(), startAnchor,
+        endAnchor, endArcRay.endPoint()));
+    }, this);
+
+    return new Rac.Composite(this.rac, beziers);
+  }
+
 } // class Arc
 
 
 module.exports = Arc;
-
-
-
-
-Arc.prototype.divideToBeziers = function(bezierCount) {
-  let angleDistance = this.angleDistance();
-  let partTurn = angleDistance.turnOne() / bezierCount;
-
-  // length of tangent:
-  // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
-  let parsPerTurn = 1 / partTurn;
-  let tangent = this.radius * (4/3) * Math.tan(Math.PI/(parsPerTurn*2));
-
-  let beziers = [];
-  let segments = this.divideToSegments(bezierCount);
-  segments.forEach(function(item) {
-    let startArcRay =  this.center.segmentToPoint(item.startPoint());
-    let endArcRay = this.center.segmentToPoint(item.endPoint());
-
-    let startAnchor = startArcRay
-      .nextSegmentToAngleDistance(this.rac.Angle.square, !this.clockwise, tangent)
-      .endPoint();
-    let endAnchor = endArcRay
-      .nextSegmentToAngleDistance(this.rac.Angle.square, this.clockwise, tangent)
-      .endPoint();
-
-    beziers.push(new Rac.Bezier(this.rac,
-      startArcRay.endPoint(), startAnchor,
-      endAnchor, endArcRay.endPoint()));
-  }, this);
-
-  return new Rac.Composite(this.rac, beziers);
-};
 

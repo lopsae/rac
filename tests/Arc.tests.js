@@ -860,7 +860,15 @@ tools.test( function divideToSegments() {
 });
 
 
-tools.test.todo( function divideToBeziers() {
+tools.test( function divideToBeziers() {
+  expect(quarter.divideToBeziers(0).sequence).toHaveLength(0);
+  expect(quarter.divideToBeziers(-7).sequence).toHaveLength(0);
+
+  const quarterComposite = quarter.divideToBeziers(1);
+  expect(quarterComposite.sequence).toHaveLength(1);
+
+  const halfComposite = quarter.divideToBeziers(3);
+  expect(halfComposite.sequence).toHaveLength(3);
 });
 
 
