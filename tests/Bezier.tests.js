@@ -58,25 +58,17 @@ tools.test( function toString() {
 
   const string = bezier.toString();
   expect(string).toMatch('Bezier');
-  expect(string).toMatch('1.12345');
-  expect(string).toMatch('2.12345');
-  expect(string).toMatch('3.12345');
-  expect(string).toMatch('4.12345');
-  expect(string).toMatch('5.12345');
-  expect(string).toMatch('6.12345');
-  expect(string).toMatch('7.12345');
-  expect(string).toMatch('8.12345');
+  expect(string).toMatch( 's:(1.12345,2.12345)');
+  expect(string).toMatch('sa:(3.12345,4.12345)');
+  expect(string).toMatch('ea:(5.12345,6.12345)');
+  expect(string).toMatch( 'e:(7.12345,8.12345)');
 
   const cutString = bezier.toString(2);
   expect(cutString).toMatch('Bezier');
-  expect(cutString).toMatch('1.12');
-  expect(cutString).toMatch('2.12');
-  expect(cutString).toMatch('3.12');
-  expect(cutString).toMatch('4.12');
-  expect(cutString).toMatch('5.12');
-  expect(cutString).toMatch('6.12');
-  expect(cutString).toMatch('7.12');
-  expect(cutString).toMatch('8.12');
+  expect(cutString).toMatch( 's:(1.12,2.12)');
+  expect(cutString).toMatch('sa:(3.12,4.12)');
+  expect(cutString).toMatch('ea:(5.12,6.12)');
+  expect(cutString).toMatch( 'e:(7.12,8.12)');
 
   expect(cutString).not.toMatch('1.123');
   expect(cutString).not.toMatch('2.123');
