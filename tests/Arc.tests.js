@@ -365,6 +365,14 @@ tools.test( function clampToAngles() {
   expect(quarter.clampToAngles(rac.Angle.sw, 1/4, 1/8))
     .equalsAngle(rac.Angle.nww);
 
+  // Invalid range, insets total 1, centered on insets
+  expect(quarter.clampToAngles(rac.Angle.nw, 9/16, 7/16))
+    .equalsAngle(rac.Angle.nww);
+  expect(quarter.clampToAngles(rac.Angle.ne, 9/16, 7/16))
+    .equalsAngle(rac.Angle.nww);
+  expect(quarter.clampToAngles(rac.Angle.sw, 9/16, 7/16))
+    .equalsAngle(rac.Angle.nww);
+
   // Invalid range, clamped to start
   expect(quarter.clampToAngles(rac.Angle.nw, 0, 3/4))
     .equalsAngle(rac.Angle.up);
