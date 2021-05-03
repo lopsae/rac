@@ -130,7 +130,7 @@ test('Function cutDigits', () => {
 });
 
 
-test.todo('assertType');
-test.todo('assertBoolean');
+// TODO: test.todo('assertType');
+// TODO: test.todo('assertBoolean');
 
 

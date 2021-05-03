@@ -57,29 +57,27 @@ tools.test( function unitaryEqualityThreshold() {
 });
 
 
-tools.test.todo( function instanceStyles() {
-});
+// TODO: tools.test.todo( function instanceStyles() {
+// });
 
 
-tools.test.todo( function instanceAngle() {
-});
+// TODO: tools.test.todo( function instanceAngle() {
+// });
 
 
-tools.test.todo( function instancePoint() {
-});
+// TODO: tools.test.todo( function instancePoint() {
+// });
 
 
-tools.test.todo( function instanceRay() {
-});
+// TODO: tools.test.todo( function instanceRay() {
+// });
 
 
-tools.test.todo( function instanceSegment() {
-});
+// TODO: tools.test.todo( function instanceSegment() {
+// });
 
 
 tools.test( function instanceArc() {
-  //Arc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true)
-
   // Angle/number parameter
   expect(rac.Arc(55, 55, 72, rac.Angle.zero, rac.Angle.half, true))
     .equalsArc(55, 55, 72, 0, 1/2, true);
@@ -108,5 +106,5 @@ tools.test( function instanceArc() {
 });
 
 
-test.todo(`Check for coverage!`);
+// TODO: test.todo(`Check for coverage!`);
 
