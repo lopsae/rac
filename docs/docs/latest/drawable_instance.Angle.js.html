@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drawable/rac.Text.js - Documentation</title>
+    <title>drawable/instance.Angle.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: drawable/rac.Text.js</h1>
+    <h1 class="page-title">Source: drawable/instance.Angle.js</h1>
     
 
     
@@ -45,53 +45,204 @@
 
 
 const Rac = require('../Rac');
+const utils = require('../util/utils');
 
 
 /**
-* The `instance.Text` function contains convenience methods and members
-* for `{@link Rac.Text}` objects setup with the owning `Rac` instance.
-* @namespace instance.Text
+* The `instance.Angle` function contains convenience methods and members
+* for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
+* @namespace instance.Angle
 */
-module.exports = function attachRacText(rac) {
+module.exports = function attachRacAngle(rac) {
 
-
-  rac.Text.Format = function(
-    horizontal, vertical,
-    font = null,
-    angle = rac.Angle.zero,
-    size = Rac.Text.Format.defaultSize)
-  {
-    return new Rac.Text.Format(
-      horizontal, vertical,
-      font, angle, size);
+  /**
+  * Returns an `Angle` derived from `something`.
+  *
+  * Calls`{@link Rac.Angle.from}` using `this`.
+  *
+  * @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
+  * derive an `Angle` from
+  * @returns {Rac.Angle}
+  *
+  * @function from
+  * @memberof instance.Angle#
+  * @see Rac.Angle.from
+  */
+  rac.Angle.from = function(something) {
+    return Rac.Angle.from(rac, something);
   };
 
 
-  rac.Text.Format.topLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultSize);
+  /**
+  * Returns an `Angle` derived from `radians`.
+  *
+  * Calls `{@link Rac.Angle.fromRadians}` using `this`.
+  *
+  * @param {number} radians - The measure of the angle, in radians
+  * @returns {Rac.Angle}
+  *
+  * @function fromRadians
+  * @memberof instance.Angle#
+  * @see Rac.Angle.fromRadians
+  */
+  rac.Angle.fromRadians = function(radians) {
+    return Rac.Angle.fromRadians(rac, radians);
+  };
+
 
   /**
-  * A `Text` for drawing `hello world` with `topLeft` format at
-  * `Point.zero`.
-  * @name hello
-  * @memberof rac.Text#
+  * An `Angle` with turn `0`.
+  *
+  * Also named as: `right`, `r`, `east`, `e`.
+  *
+  * @name zero
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
   */
-  rac.Text.hello = rac.Text(0, 0, 'hello world!',
-    rac.Text.Format.topLeft);
+  rac.Angle.zero = rac.Angle(0.0);
 
   /**
-  * A `Text` for drawing the pangram `sphinx of black quartz, judge my vow`
-  * with `topLeft` format at `Point.zero`.
-  * @name sphinx
-  * @memberof rac.Text#
+  * An `Angle` with turn `1/2`.
+  *
+  * Also named as: `left`, `l`, `west`, `w`, `inverse`.
+  *
+  * @name half
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
   */
-  rac.Text.sphinx = rac.Text(0, 0, 'sphinx of black quartz, judge my vow',
-    rac.Text.Format.topLeft);
+  rac.Angle.half = rac.Angle(1/2);
+  rac.Angle.inverse = rac.Angle.half;
 
-} // attachRacPoint
+  /**
+  * An `Angle` with turn `1/4`.
+  *
+  * Also named as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
+  *
+  * @name quarter
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.quarter = rac.Angle(1/4);
+  rac.Angle.square =  rac.Angle.quarter;
+
+  /**
+  * An `Angle` with turn `1/8`.
+  *
+  * Also named as: `bottomRight`, `br`, `se`.
+  *
+  * @name eighth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.eighth =  rac.Angle(1/8);
+
+  /**
+  * An `Angle` with turn `7/8`, negative angle of
+  * `{@link instance.Angle#eighth eighth}`.
+  *
+  * Also named as: `topRight`, `tr`, `ne`.
+  *
+  * @name neighth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.neighth =  rac.Angle(-1/8);
+
+
+  /**
+  * An `Angle` with turn `1/16`.
+  *
+  * @name sixteenth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.sixteenth = rac.Angle(1/16);
+
+  /**
+  * An `Angle` with turn `3/4`.
+  *
+  * Also named as: `up`, `u`, `top`, `t`.
+  *
+  * @name north
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.north = rac.Angle(3/4);
+  rac.Angle.east  = rac.Angle(0/4);
+  rac.Angle.south = rac.Angle(1/4);
+  rac.Angle.west  = rac.Angle(2/4);
+
+  rac.Angle.e = rac.Angle.east;
+  rac.Angle.s = rac.Angle.south;
+  rac.Angle.w = rac.Angle.west;
+  rac.Angle.n = rac.Angle.north;
+
+  rac.Angle.ne = rac.Angle.n.add(1/8);
+  rac.Angle.se = rac.Angle.e.add(1/8);
+  rac.Angle.sw = rac.Angle.s.add(1/8);
+  rac.Angle.nw = rac.Angle.w.add(1/8);
+
+  // North north-east
+  rac.Angle.nne = rac.Angle.ne.add(-1/16);
+  // East north-east
+  rac.Angle.ene = rac.Angle.ne.add(+1/16);
+  // North-east north
+  rac.Angle.nen = rac.Angle.nne;
+  // North-east east
+  rac.Angle.nee = rac.Angle.ene;
+
+  // East south-east
+  rac.Angle.ese = rac.Angle.se.add(-1/16);
+  // South south-east
+  rac.Angle.sse = rac.Angle.se.add(+1/16);
+  // South-east east
+  rac.Angle.see = rac.Angle.ese;
+  // South-east south
+  rac.Angle.ses = rac.Angle.sse;
+
+  // South south-west
+  rac.Angle.ssw = rac.Angle.sw.add(-1/16);
+  // West south-west
+  rac.Angle.wsw = rac.Angle.sw.add(+1/16);
+  // South-west south
+  rac.Angle.sws = rac.Angle.ssw;
+  // South-west west
+  rac.Angle.sww = rac.Angle.wsw;
+
+  // West north-west
+  rac.Angle.wnw = rac.Angle.nw.add(-1/16);
+  // North north-west
+  rac.Angle.nnw = rac.Angle.nw.add(+1/16);
+  // Nort-hwest west
+  rac.Angle.nww = rac.Angle.wnw;
+  // North-west north
+  rac.Angle.nwn = rac.Angle.nnw;
+
+  rac.Angle.right = rac.Angle.e;
+  rac.Angle.down  = rac.Angle.s;
+  rac.Angle.left  = rac.Angle.w;
+  rac.Angle.up    = rac.Angle.n;
+
+  rac.Angle.r = rac.Angle.right;
+  rac.Angle.d = rac.Angle.down;
+  rac.Angle.l = rac.Angle.left;
+  rac.Angle.u = rac.Angle.up;
+
+  rac.Angle.top    = rac.Angle.up;
+  rac.Angle.bottom = rac.Angle.down;
+  rac.Angle.t      = rac.Angle.top;
+  rac.Angle.b      = rac.Angle.bottom;
+
+  rac.Angle.topRight    = rac.Angle.ne;
+  rac.Angle.tr          = rac.Angle.ne;
+  rac.Angle.topLeft     = rac.Angle.nw;
+  rac.Angle.tl          = rac.Angle.nw;
+  rac.Angle.bottomRight = rac.Angle.se;
+  rac.Angle.br          = rac.Angle.se;
+  rac.Angle.bottomLeft  = rac.Angle.sw;
+  rac.Angle.bl          = rac.Angle.sw;
+
+} // attachRacAngle
 
 </code></pre>
         </article>
@@ -105,7 +256,7 @@ module.exports = function attachRacText(rac) {
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Mon May 03 2021 04:09:22 GMT-0700 (Pacific Daylight Time) using the Minami-rac theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Mon May 03 2021 12:06:14 GMT-0700 (Pacific Daylight Time) using the Minami-rac theme.
 </footer>
 
 <script>prettyPrint();</script>
