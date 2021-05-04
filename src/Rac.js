@@ -85,18 +85,18 @@ class Rac {
     */
     this.drawer = null;
 
-    require('./style/rac.Color')         (this);
-    require('./style/rac.Stroke')        (this);
-    require('./style/rac.Fill')          (this);
-    require('./drawable/rac.Angle')      (this);
-    require('./drawable/rac.Point')      (this);
-    require('./drawable/rac.Ray')        (this);
-    require('./drawable/rac.Segment')    (this);
-    require('./drawable/rac.Arc')        (this);
-    require('./drawable/instance.Bezier')(this);
+    require('./style/instance.Color')     (this);
+    require('./style/instance.Stroke')    (this);
+    require('./style/instance.Fill')      (this);
+    require('./drawable/instance.Angle')  (this);
+    require('./drawable/instance.Point')  (this);
+    require('./drawable/instance.Ray')    (this);
+    require('./drawable/instance.Segment')(this);
+    require('./drawable/instance.Arc')    (this);
+    require('./drawable/instance.Bezier') (this);
 
-    // Depends on rac.Point and rac.Angle being already setup
-    require('./drawable/rac.Text')(this);
+    // Depends on instance.Point and instance.Angle being already setup
+    require('./drawable/instance.Text')(this);
   }
 
   /**

@@ -2,7 +2,6 @@
 
 
 const Rac = require('../Rac');
-const utils = require('../util/utils');
 
 
 /**

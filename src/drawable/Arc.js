@@ -727,7 +727,7 @@ class Arc{
   * the actual arcs.
   *
   * @param {Rac.Arc} otherArc - description
-  * @returns {Rac.Segment}
+  * @returns {?Rac.Segment}
   */
   intersectionChord(otherArc) {
     // https://mathworld.wolfram.com/Circle-CircleIntersection.html
@@ -800,7 +800,7 @@ class Arc{
   * unbounded line.
   *
   * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
-  * @returns {Rac.Segment}
+  * @returns {?Rac.Segment}
   */
   intersectionChordWithRay(ray) {
     // First check intersection
@@ -849,7 +849,7 @@ class Arc{
   * unbounded line.
   *
   * @param {Rac.Ray} ray - A `Ray` to calculate the intersection with
-  * @returns {Rac.Point}
+  * @returns {?Rac.Point}
   */
   intersectionChordEndWithRay(ray, useProjection = false) {
     const chord = this.intersectionChordWithRay(ray);
@@ -882,7 +882,7 @@ class Arc{
   * which is interpreted as a complete-circle arc.
   *
   * @param {Rac.Arc} otherArc - An `Arc` to intersect with
-  * @returns {Rac.Arc}
+  * @returns {?Rac.Arc}
   */
   intersectionArc(otherArc) {
     const chord = this.intersectionChord(otherArc);
@@ -914,7 +914,7 @@ class Arc{
   * or not.
   *
   * @param {Rac.Arc} otherArc - An `Arc` to intersect with
-  * @returns {Rac.Arc}
+  * @returns {?Rac.Arc}
   */
   // boundedIntersectionArc(otherArc) {
   //   let chord = this.intersectionChord(otherArc);
@@ -973,7 +973,7 @@ class Arc{
   * start point in relation to the _center axis_
   * @param {boolean} endClockwise - The orientation of the new `Segment`
   * end point in relation to the _center axis_
-  * @returns {Rac.Segment}
+  * @returns {?Rac.Segment}
   */
   tangentSegment(otherArc, startClockwise = true, endClockwise = true) {
     if (this.center.equals(otherArc.center)) {

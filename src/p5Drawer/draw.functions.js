@@ -1,6 +1,9 @@
 'use strict';
 
 
+const Rac = require('../Rac');
+
+
 exports.drawPoint = function(drawer, point) {
   drawer.p5.point(point.x, point.y);
 }; // drawPoint

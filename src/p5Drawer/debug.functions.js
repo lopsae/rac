@@ -1,8 +1,13 @@
 'use strict';
 
+
+const Rac = require('../Rac');
+
+
 function reversesText(angle) {
   return angle.turn < 3/4 && angle.turn >= 1/4;
 }
+
 
 exports.debugAngle = function(drawer, angle, point, drawsText) {
   let rac = drawer.rac;
@@ -399,10 +404,8 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .text(allStrings, headFormat)
       .draw(drawer.debugTextStyle);
   }
-
-
-
 }; // debugArc
+
 
 // TODO: debug routine of Bezier
 // TODO: debug routine of Composite
