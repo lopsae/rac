@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "templates": {
+    "minami" : {
+      "homeLabel": "ruler-and-compass"
+    },
+    "default" : {
+      "cleverLinks": false,
+      "monospaceLinks": false,
+      "useLongnameInNav": 3,
+      "showInheritedInNav": false,
+      "showMethodsInNav": false,
+      "showMembersInNav": false
+    }
+  },
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc"]
+  }
+}
+

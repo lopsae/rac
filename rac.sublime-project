@@ -1,0 +1,26 @@
+// https://www.sublimetext.com/docs/3/projects.html
+{
+  "folders":
+  [
+    {
+      "path": ".",
+      "file_exclude_patterns": [
+        "package-lock.json",
+        "docs/docs/*/*"
+      ],
+      "folder_exclude_patterns": [
+        "dist",
+        "built",
+        "node_modules",
+        "docs/_site",
+        "docs/vendor",
+        "docs/docs/*/*",
+        "coverage"
+      ],
+      "index_exclude_patterns": [
+        "dist/*",
+        "docs/docs/**/*"
+      ]
+    }
+  ]
+}

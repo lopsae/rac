@@ -8,7 +8,11 @@ module.exports = function(grunt) {
       dev: {
         src: 'src/main.js',
         dest: 'dist/rac.js',
-        options: {}
+        options: {
+          browserifyOptions: {
+            debug: true
+          }
+        }
       }
     },
 
@@ -27,57 +31,77 @@ module.exports = function(grunt) {
       } // server
     }, // connect
 
-    exec: {
-      shortHash: {
-        cmd: 'git --no-pager log --max-count=2 --format="%h"',
-        stdout: false,
-        callback: function(error, stdout, stderr) {
-          if (error !== null) return;
-
-          let hashes = stdout.trim().split('\n');
-          let shortHash = hashes[0];
-          let parentHash = hashes[1];
-          grunt.config('exec.shortHash.value', shortHash);
-          grunt.config('exec.shortHash.parentHash', parentHash);
-          grunt.log.writeln(`Git short hashes - value:${shortHash} parent:${parentHash}`);
-        }
-      }, // shortHash
-      commitCount: {
-        cmd: 'git rev-list --count HEAD',
-        stdout: false,
-        callback: function(error, stdout, stderr) {
-          if (error !== null) return;
-
-          let commitCount = stdout.trim();
-          grunt.config('exec.commitCount.value', commitCount);
-          grunt.log.writeln(`Git commit count: ${commitCount}`);
-        }
-      }, // commitCount
-      statusCount: {
-        cmd: 'git status --porcelain | wc -l',
-        stdout: false,
-        callback: function(error, stdout, stderr) {
-          if (error !== null) return;
-
-          let statusCount = parseInt(stdout.trim());
-          grunt.config('exec.statusCount.value', statusCount);
-          grunt.log.writeln(`Git status count: ${statusCount}`);
-        }
-      } // statusCount
-    }, // exec
     watch: {
       serve: {
         files: ['src/**/*.js'],
         tasks: ['versionFile', 'browserify']
       }
-    } // watch
+    }, // watch
+
+    jsdoc : {
+      dist : {
+        src: ['src/*'],
+        options: {
+          template: "./node_modules/minami-rac",
+          destination: 'docs/docs/latest',
+          verbose: true,
+          // pedantic: true,
+          // debug: true,
+          // explain: true,
+          configure: './jsdoc.json'
+        }
+      }
+    } // jsdoc
   });
+
+
+  grunt.config.set('exec.shortHash', {
+    cmd: 'git --no-pager log --max-count=2 --format="%h"',
+    stdout: false,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      let hashes = stdout.trim().split('\n');
+      let shortHash = hashes[0];
+      let parentHash = hashes[1];
+      grunt.config('exec.shortHash.value', shortHash);
+      grunt.config('exec.shortHash.parentHash', parentHash);
+      grunt.log.writeln(`Git short hashes - value:${shortHash} parent:${parentHash}`);
+    }
+  }); // exec.shortHash
+
+
+  grunt.config.set('exec.commitCount', {
+    cmd: 'git rev-list --count HEAD',
+    stdout: false,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      let commitCount = stdout.trim();
+      grunt.config('exec.commitCount.value', commitCount);
+      grunt.log.writeln(`Git commit count: ${commitCount}`);
+    }
+  }); // exec.commitCount
+
+
+  grunt.config.set('exec.statusCount', {
+    cmd: 'git status --porcelain | wc -l',
+    stdout: false,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      let statusCount = parseInt(stdout.trim());
+      grunt.config('exec.statusCount.value', statusCount);
+      grunt.log.writeln(`Git status count: ${statusCount}`);
+    }
+  }); // exec.statusCount
 
 
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-jsdoc');
 
 
   grunt.registerTask('makeVersionFile', function(target) {
