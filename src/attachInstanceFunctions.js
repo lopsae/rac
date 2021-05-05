@@ -4,6 +4,21 @@
 const Rac = require('./Rac');
 
 
+/**
+* This namespace lists utility functions attached to an instance of
+* `{@link Rac}` used produce drawable and other objects, and to access
+* ready-build convenience objects like {@link instance.Angle.north} or
+* `{@link instance.Point.zero}`.
+*
+* Drawable and related objects require a reference to a `rac` instance in
+* order to perform drawing operations. These functions build new objects
+* using the calling `Rac` instance, and contain ready-made convenience
+* objects that are also setup with the same `Rac` instance.
+*
+* @namespace instance
+*/
+
+
 // Attaches the convenience functions to create objects with this instance
 // of Rac. These functions are attached as properties (instead of into the
 // prototype) because these are later populated with more properties and

@@ -6,21 +6,6 @@ const version = require('../built/version');
 
 
 /**
-* This namespace lists utility functions attached to an instance of
-* `{@link Rac}` used produce drawable and other objects, and to access
-* ready-build convenience objects like {@link instance.Angle.north} or
-* `{@link instance.Point.zero}`.
-*
-* Drawable and related objects require a reference to a `rac` instance in
-* order to perform drawing operations. These functions build new objects
-* using the calling `Rac` instance, and contain ready-made convenience
-* objects that are also setup with the same `Rac` instance.
-*
-* @namespace instance
-*/
-
-
-/**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained in this class.
 *
@@ -40,6 +25,7 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     * @name version
+    * @type {string}
     * @memberof Rac#
     */
     utils.addConstant(this, 'version', version);
@@ -60,8 +46,9 @@ class Rac {
     * values too close to a limit, as to prevent oscilating efects in
     * user interaction.
     *
-    * Value is based on 1/1000 of a point, the minimal perceptible distance
-    * the user can see.
+    * Default value is based on `1/1000` of a point.
+    *
+    * @type {number}
     */
     this.equalityThreshold = 0.001;
 
@@ -74,14 +61,17 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Value is based on 1/000 of the turn of an arc of radius 500 and
-    * lenght of 1: `1/(500*6.28)/1000`
+    * Default value is based on 1/000 of the turn of an arc of radius 500
+    * and length of 1: `1/(500*6.28)/1000`
+    *
+    * @type {number}
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
     /**
     * Drawer of the instance. This object handles the drawing of all
     * drawable object using to this instance of `Rac`.
+    * @type {object}
     */
     this.drawer = null;
 
@@ -161,6 +151,7 @@ const utils = require(`./util/utils`);
 /**
 * Container of utility functions. See `{@link utils}` for the available
 * members.
+* @type {object}
 */
 Rac.utils = utils;
 
@@ -168,6 +159,7 @@ Rac.utils = utils;
 /**
 * Version of the class.
 * @name version
+* @type {string}
 * @memberof Rac
 */
 utils.addConstant(Rac, 'version', version);
@@ -177,6 +169,7 @@ utils.addConstant(Rac, 'version', version);
 * Tau, equal to `Math.PI * 2`.
 * https://tauday.com/tau-manifesto
 * @name TAU
+* @type {number}
 * @memberof Rac
 */
 utils.addConstant(Rac, 'TAU', Math.PI * 2);
