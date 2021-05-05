@@ -156,5 +156,5 @@ module.exports = function attachProtoFunctions(Rac) {
     this.rac.drawer.applyObject(this);
   };
 
-} // attachProtoFunctions
+}; // attachProtoFunctions
 

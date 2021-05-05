@@ -10,6 +10,7 @@ const Rac = require('../Rac');
 * @namespace instance.Angle
 */
 module.exports = function attachRacAngle(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * Returns an `Angle` derived from `something`.
