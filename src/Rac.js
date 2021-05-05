@@ -70,10 +70,17 @@ class Rac {
 
     /**
     * Drawer of the instance. This object handles the drawing of all
-    * drawable object using to this instance of `Rac`.
+    * drawable object using this instance of `Rac`.
     * @type {object}
     */
     this.drawer = null;
+
+    /**
+    * Controller of the instance. This objecs handles all of the controls
+    * and pointer events related to this instance of `Rac`.
+    */
+    this.controller = new Rac.Controller(this);
+
 
     require('./attachInstanceFunctions')(this);
 
@@ -252,6 +259,10 @@ Rac.setupDrawableProtoFunctions(Rac.Shape);
 
 // EaseFunction
 Rac.EaseFunction = require('./util/EaseFunction');
+
+
+// Controller
+Rac.Controller = require('./control/Controller');
 
 
 // Control

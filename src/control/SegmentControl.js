@@ -76,7 +76,7 @@ class SegmentControl extends Rac.Control {
     }, this);
 
     // Control button
-    center.arc(Rac.Control.radius)
+    center.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
     let ratioValue = this.ratioValue();
@@ -97,7 +97,7 @@ class SegmentControl extends Rac.Control {
 
     // Selection
     if (this.isSelected()) {
-      center.arc(Rac.Control.radius * 1.5).draw(Rac.Control.pointerStyle);
+      center.arc(this.rac.controller.knobRadius * 1.5).draw(this.rac.controller.pointerStyle);
     }
   }
 
@@ -170,7 +170,7 @@ class SegmentControl extends Rac.Control {
       .endPoint();
 
     // Control center constrained to anchor
-    constrainedAnchorCenter.arc(Rac.Control.radius)
+    constrainedAnchorCenter.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
     // Dragged shadow center, semi attached to pointer
@@ -185,7 +185,7 @@ class SegmentControl extends Rac.Control {
       .endPoint();
 
     // Control shadow center
-    draggedShadowCenter.arc(Rac.Control.radius / 2)
+    draggedShadowCenter.arc(this.rac.controller.knobRadius / 2)
       .attachToComposite();
 
     // Ease for segment to dragged shadow center
@@ -193,7 +193,7 @@ class SegmentControl extends Rac.Control {
     easeOut.postBehavior = Rac.EaseFunction.Behavior.clamp;
 
     // Tail will stop stretching at 2x the max tail length
-    let maxDraggedTailLength = Rac.Control.radius * 5;
+    let maxDraggedTailLength = this.rac.controller.knobRadius * 5;
     easeOut.inRange = maxDraggedTailLength * 2;
     easeOut.outRange = maxDraggedTailLength;
 
@@ -205,7 +205,7 @@ class SegmentControl extends Rac.Control {
     draggedTail.withLength(easedLength).attachToComposite();
 
     // Draw all!
-    Rac.popComposite().draw(Rac.Control.pointerStyle);
+    Rac.popComposite().draw(this.rac.controller.pointerStyle);
   }
 
 } // class SegmentControl

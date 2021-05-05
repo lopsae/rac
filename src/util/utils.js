@@ -139,6 +139,7 @@ function typeName(obj) {
 exports.typeName = typeName;
 
 
+// TODO: rename to addConstantTo
 /**
 * Adds a constant to the given object, the constant is not enumerable and
 * not configurable.

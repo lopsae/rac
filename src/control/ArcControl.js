@@ -88,7 +88,7 @@ class ArcControl extends Rac.Control {
     }, this);
 
     // Control button
-    center.arc(Rac.Control.radius)
+    center.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
     let ratioValue = this.ratioValue();
@@ -111,7 +111,7 @@ class ArcControl extends Rac.Control {
 
     // Selection
     if (this.isSelected()) {
-      center.arc(Rac.Control.radius * 1.5).draw(Rac.Control.pointerStyle);
+      center.arc(this.rac.controller.knobRadius * 1.5).draw(this.rac.controller.pointerStyle);
     }
   }
 
@@ -176,7 +176,7 @@ class ArcControl extends Rac.Control {
 
     // TODO: implement arc control dragging visuals!
 
-    Rac.popComposite().draw(Rac.Control.pointerStyle);
+    Rac.popComposite().draw(this.rac.controller.pointerStyle);
   }
 
 } // class ArcControl
