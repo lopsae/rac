@@ -35,9 +35,9 @@ class P5Drawer {
     // Radius of main visual elements for debug drawing.
     this.debugRadius = 22;
 
-    this.setupAllDrawFunctions(rac);
-    this.setupAllDebugFunctions(rac);
-    this.setupAllApplyFunctions(rac);
+    this.setupAllDrawFunctions();
+    this.setupAllDebugFunctions();
+    this.setupAllApplyFunctions();
   }
 
   // Adds a DrawRoutine for the given class.
@@ -182,19 +182,19 @@ class P5Drawer {
   // Sets up all drawing routines for rac drawable clases.
   // Also attaches additional prototype and static functions in relevant
   // classes.
-  setupAllDrawFunctions(rac) {
+  setupAllDrawFunctions() {
     let functions = require('./draw.functions');
 
     // Point
     this.setDrawFunction(Rac.Point, functions.drawPoint);
-    require('./Point.functions')(rac);
+    require('./Point.functions')(this.rac);
 
     // Ray
     this.setDrawFunction(Rac.Ray, functions.drawRay);
 
     // Segment
     this.setDrawFunction(Rac.Segment, functions.drawSegment);
-    require('./Segment.functions')(rac);
+    require('./Segment.functions')(this.rac);
 
     // Arc
     this.setDrawFunction(Rac.Arc, functions.drawArc);
@@ -217,7 +217,7 @@ class P5Drawer {
 
     Rac.Bezier.prototype.vertex = function() {
       this.start.vertex()
-      rac.drawer.p5.bezierVertex(
+      this.rac.drawer.p5.bezierVertex(
         this.startAnchor.x, this.startAnchor.y,
         this.endAnchor.x, this.endAnchor.y,
         this.end.x, this.end.y);
@@ -263,9 +263,9 @@ class P5Drawer {
       let hAlign;
       let hOptions = Rac.Text.Format.horizontal;
       switch (this.horizontal) {
-        case hOptions.left:   hAlign = rac.drawer.p5.LEFT;   break;
-        case hOptions.center: hAlign = rac.drawer.p5.CENTER; break;
-        case hOptions.right:  hAlign = rac.drawer.p5.RIGHT;  break;
+        case hOptions.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
+        case hOptions.center: hAlign = this.rac.drawer.p5.CENTER; break;
+        case hOptions.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
         default:
           console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
           throw Rac.Error.invalidObjectConfiguration;
@@ -274,26 +274,26 @@ class P5Drawer {
       let vAlign;
       let vOptions = Rac.Text.Format.vertical;
       switch (this.vertical) {
-        case vOptions.top:      vAlign = rac.drawer.p5.TOP;      break;
-        case vOptions.bottom:   vAlign = rac.drawer.p5.BOTTOM;   break;
-        case vOptions.center:   vAlign = rac.drawer.p5.CENTER;   break;
-        case vOptions.baseline: vAlign = rac.drawer.p5.BASELINE; break;
+        case vOptions.top:      vAlign = this.rac.drawer.p5.TOP;      break;
+        case vOptions.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vOptions.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
+        case vOptions.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
         default:
           console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
       // Text properties
-      rac.drawer.p5.textAlign(hAlign, vAlign);
-      rac.drawer.p5.textSize(this.size);
+      this.rac.drawer.p5.textAlign(hAlign, vAlign);
+      this.rac.drawer.p5.textSize(this.size);
       if (this.font !== null) {
-        rac.drawer.p5.textFont(this.font);
+        this.rac.drawer.p5.textFont(this.font);
       }
 
       // Positioning
-      rac.drawer.p5.translate(point.x, point.y);
+      this.rac.drawer.p5.translate(point.x, point.y);
       if (this.angle.turn != 0) {
-        rac.drawer.p5.rotate(this.angle.radians());
+        this.rac.drawer.p5.rotate(this.angle.radians());
       }
     } // Rac.Text.Format.prototype.apply
 
@@ -301,15 +301,14 @@ class P5Drawer {
 
 
   // Sets up all debug routines for rac drawable clases.
-  setupAllDebugFunctions(rac) {
+  setupAllDebugFunctions() {
     let functions = require('./debug.functions');
     this.setDebugFunction(Rac.Point, functions.debugPoint);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
 
-    // TODO: using an external reference to drawer, should use internal one
-    let drawer = this;
     Rac.Angle.prototype.debug = function(point, drawsText = false) {
+      const drawer = this.rac.drawer;
       if (drawer.debugStyle !== null) {
         drawer.p5.push();
         drawer.debugStyle.apply();
@@ -323,7 +322,7 @@ class P5Drawer {
     };
 
     Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
-      angle = rac.Angle.from(angle);
+      angle = this.rac.Angle.from(angle);
       angle.debug(this, drawsText);
       return this;
     };
@@ -332,18 +331,18 @@ class P5Drawer {
 
   // Sets up all applying routines for rac style clases.
   // Also attaches additional prototype functions in relevant classes.
-  setupAllApplyFunctions(rac) {
+  setupAllApplyFunctions() {
     // Color prototype functions
     Rac.Color.prototype.applyBackground = function() {
-      rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
+      this.rac.drawer.p5.background(this.r * 255, this.g * 255, this.b * 255);
     };
 
     Rac.Color.prototype.applyFill = function() {
-      rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
     };
 
     Rac.Color.prototype.applyStroke = function() {
-      rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
     };
 
     // Stroke
@@ -360,7 +359,7 @@ class P5Drawer {
     // Fill
     this.setApplyFunction(Rac.Fill, (drawer, fill) => {
       if (fill.color === null) {
-        rac.drawer.p5.noFill();
+        drawer.p5.noFill();
         return;
       }
 
@@ -378,7 +377,7 @@ class P5Drawer {
     });
 
     Rac.Style.prototype.applyToClass = function(classObj) {
-      rac.drawer.setClassDrawStyle(classObj, this);
+      this.rac.drawer.setClassDrawStyle(classObj, this);
     }
 
   } // setupAllApplyFunctions

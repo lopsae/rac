@@ -13,7 +13,7 @@ module.exports = function attachPointFunctions(rac) {
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   */
   Rac.Point.prototype.vertex = function() {
-    rac.drawer.p5.vertex(this.x, this.y);
+    this.rac.drawer.p5.vertex(this.x, this.y);
   };
 
   /**
@@ -52,8 +52,8 @@ module.exports = function attachPointFunctions(rac) {
   * @memberof rac.Point#
   * @function
   */
-  Rac.Point.canvasEnd = function() {
-    return new Rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
+  rac.Point.canvasEnd = function() {
+    return rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
   };
 
 } // attachPointFunctions
