@@ -29,12 +29,15 @@ class ControlSelection{
 
 
 /**
-* A `Controller` is the object that manages the control system for an
+* The `Controller` is the object that manages the control system for an
 * instance of `Rac`.
 *
-* The instance holds general control settings like pointer style or the
+* This instance holds control settings like pointer style or the
 * knob radius. It also mantains the state of the control system, like the
-* currently selected control, last pointer, and all controls in use.
+* currently selected control, last pointer, and the collection of all
+* available controls.
+*
+* @alias Rac.Controller
 */
 class Controller {
 
