@@ -139,16 +139,14 @@ function typeName(obj) {
 exports.typeName = typeName;
 
 
-// TODO: rename to addConstantTo
 /**
 * Adds a constant to the given object, the constant is not enumerable and
 * not configurable.
 *
-* @name addConstant
+* @function addConstantTo
 * @memberof utils#
-* @function
 */
-exports.addConstant = function(obj, propName, value) {
+exports.addConstantTo = function(obj, propName, value) {
   Object.defineProperty(obj, propName, {
     enumerable: false,
     configurable: false,

@@ -28,7 +28,7 @@ class Rac {
     * @type {string}
     * @memberof Rac#
     */
-    utils.addConstant(this, 'version', version);
+    utils.addConstantTo(this, 'version', version);
 
 
     /**
@@ -169,7 +169,7 @@ Rac.utils = utils;
 * @type {string}
 * @memberof Rac
 */
-utils.addConstant(Rac, 'version', version);
+utils.addConstantTo(Rac, 'version', version);
 
 
 /**
@@ -179,7 +179,7 @@ utils.addConstant(Rac, 'version', version);
 * @type {number}
 * @memberof Rac
 */
-utils.addConstant(Rac, 'TAU', Math.PI * 2);
+utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
 
 
 // Exception
