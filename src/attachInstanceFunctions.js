@@ -6,9 +6,9 @@ const Rac = require('./Rac');
 
 /**
 * This namespace lists utility functions attached to an instance of
-* `{@link Rac}` used produce drawable and other objects, and to access
-* ready-build convenience objects like {@link instance.Angle.north} or
-* `{@link instance.Point.zero}`.
+* `{@link Rac}` used to produce drawable and other objects, and to access
+* ready-build convenience objects like `{@link instance.Angle#north}` or
+* `{@link instance.Point#zero}`.
 *
 * Drawable and related objects require a reference to a `rac` instance in
 * order to perform drawing operations. These functions build new objects

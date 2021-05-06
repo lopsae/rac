@@ -10,7 +10,7 @@ const version = require('../built/version');
 * contained in this class.
 *
 * An instance must be created with `new Rac()` in order to
-* build drawable and most other objects.
+* build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
 * `{@link Rac#setupDrawer}.`
@@ -158,6 +158,7 @@ const utils = require(`./util/utils`);
 /**
 * Container of utility functions. See `{@link utils}` for the available
 * members.
+*
 * @type {object}
 */
 Rac.utils = utils;
@@ -165,8 +166,10 @@ Rac.utils = utils;
 
 /**
 * Version of the class.
-* @name version
+*
 * @type {string}
+*
+* @name version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -174,9 +177,12 @@ utils.addConstantTo(Rac, 'version', version);
 
 /**
 * Tau, equal to `Math.PI * 2`.
-* https://tauday.com/tau-manifesto
-* @name TAU
+*
+* [Tau Manifesto](https://tauday.com/tau-manifesto).
+*
 * @type {number}
+*
+* @name TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);

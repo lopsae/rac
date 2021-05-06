@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Stroke color and weight style for drawing.
+* Stroke color and weight for drawing.
 * @alias Rac.Stroke
 */
 class Stroke {
