@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drawable/instance.Angle.js - Documentation</title>
+    <title>attachInstanceFunctions.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: drawable/instance.Angle.js</h1>
+    <h1 class="page-title">Source: attachInstanceFunctions.js</h1>
     
 
     
@@ -44,207 +44,260 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
-const Rac = require('../Rac');
+const Rac = require('./Rac');
 
 
 /**
-* The `instance.Angle` function contains convenience methods and members
-* for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
-* @namespace instance.Angle
+* This namespace lists utility functions attached to an instance of
+* `{@link Rac}` used produce drawable and other objects, and to access
+* ready-build convenience objects like {@link instance.Angle.north} or
+* `{@link instance.Point.zero}`.
+*
+* Drawable and related objects require a reference to a `rac` instance in
+* order to perform drawing operations. These functions build new objects
+* using the calling `Rac` instance, and contain ready-made convenience
+* objects that are also setup with the same `Rac` instance.
+*
+* @namespace instance
 */
-module.exports = function attachRacAngle(rac) {
-  // Intended to receive a Rac instance as parameter
+
+
+// Attaches the convenience functions to create objects with this instance
+// of Rac. These functions are attached as properties (instead of into the
+// prototype) because these are later populated with more properties and
+// methods, and thus need to be an independent instance.
+//
+// Intended to receive the a Rac instance as parameter.
+module.exports = function attachInstanceFunctions(rac) {
 
   /**
-  * Returns an `Angle` derived from `something`.
+  * Convenience function that creates a new `Color` setup with `this`.
   *
-  * Calls`{@link Rac.Angle.from}` using `this`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Color}`.
   *
-  * @see Rac.Angle.from
+  * @param {number} r
+  * @param {number} g
+  * @param {number} b
+  * @param {number=} a
   *
-  * @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
-  * derive an `Angle` from
+  * @returns {Rac.Color}
+  *
+  * @see instance.Color
+  */
+  rac.Color = function makeColor(r, g, b, alpha = 1) {
+    return new Rac.Color(this, r, g, b, alpha);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Stroke` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Stroke}`.
+  *
+  * @param {Rac.Color=} color
+  * @param {number=} weight
+  *
+  * @returns {Rac.Stroke}
+  *
+  * @see instance.Stroke
+  */
+  rac.Stroke = function makeStroke(color = null, weight = 1) {
+    return new Rac.Stroke(this, color, weight);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Fill` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Fill}`.
+  *
+  * @param {Rac.Color=} color
+  * @returns {Rac.Fill}
+  *
+  * @see instance.Fill
+  */
+  rac.Fill = function makeFill(color = null) {
+    return new Rac.Fill(this, color);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Style` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Style}`.
+  *
+  * @param {Rac.Stroke=} stroke
+  * @param {Rac.Fill=} fill
+  *
+  * @returns {Rac.Style}
+  *
+  * @see instance.Style
+  */
+  rac.Style = function makeStyle(stroke = null, fill = null) {
+    return new Rac.Style(this, stroke, fill);
+  }
+
+
+  /**
+  * Convenience function that creates a new `Angle` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Angle}`.
+  *
+  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
   *
-  * @function from
-  * @memberof instance.Angle#
+  * @see instance.Angle
   */
-  rac.Angle.from = function(something) {
-    return Rac.Angle.from(rac, something);
-  };
+  rac.Angle = function makeAngle(turn) {
+    return new Rac.Angle(this, turn);
+  }
 
 
   /**
-  * Returns an `Angle` derived from `radians`.
+  * Convenience function that creates a new `Point` setup with `this`.
   *
-  * Calls `{@link Rac.Angle.fromRadians}` using `this`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Point}`.
   *
-  * @see Rac.Angle.fromRadians
+  * @param {number} x
+  * @param {number} y
   *
-  * @param {number} radians - The measure of the angle, in radians
-  * @returns {Rac.Angle}
+  * @returns {Rac.Point}
   *
-  * @function fromRadians
-  * @memberof instance.Angle#
+  * @see instance.Point
   */
-  rac.Angle.fromRadians = function(radians) {
-    return Rac.Angle.fromRadians(rac, radians);
-  };
+  rac.Point = function makePoint(x, y) {
+    return new Rac.Point(this, x, y);
+  }
 
 
   /**
-  * An `Angle` with turn `0`.
+  * Convenience function that creates a new `Ray` setup with `this`.
   *
-  * Also named as: `right`, `r`, `east`, `e`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Ray}`.
   *
-  * @name zero
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} angle
+  *
+  * @returns {Rac.Ray}
+  *
+  * @see instance.Ray
   */
-  rac.Angle.zero = rac.Angle(0.0);
-
-  /**
-  * An `Angle` with turn `1/2`.
-  *
-  * Also named as: `left`, `l`, `west`, `w`, `inverse`.
-  *
-  * @name half
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
-  */
-  rac.Angle.half = rac.Angle(1/2);
-  rac.Angle.inverse = rac.Angle.half;
-
-  /**
-  * An `Angle` with turn `1/4`.
-  *
-  * Also named as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
-  *
-  * @name quarter
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
-  */
-  rac.Angle.quarter = rac.Angle(1/4);
-  rac.Angle.square =  rac.Angle.quarter;
-
-  /**
-  * An `Angle` with turn `1/8`.
-  *
-  * Also named as: `bottomRight`, `br`, `se`.
-  *
-  * @name eighth
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
-  */
-  rac.Angle.eighth =  rac.Angle(1/8);
-
-  /**
-  * An `Angle` with turn `7/8`, negative angle of
-  * `{@link instance.Angle#eighth eighth}`.
-  *
-  * Also named as: `topRight`, `tr`, `ne`.
-  *
-  * @name neighth
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
-  */
-  rac.Angle.neighth =  rac.Angle(-1/8);
+  rac.Ray = function makeRay(x, y, angle) {
+    const start = new Rac.Point(this, x, y);
+    angle = Rac.Angle.from(this, angle);
+    return new Rac.Ray(this, start, angle);
+  }
 
 
   /**
-  * An `Angle` with turn `1/16`.
+  * Convenience function that creates a new `Segment` setup with `this`.
   *
-  * @name sixteenth
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Segment}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} angle
+  * @param {number} length
+  *
+  * @returns {Rac.Segment}
+  *
+  * @see instance.Segment
   */
-  rac.Angle.sixteenth = rac.Angle(1/16);
+  rac.Segment = function makeSegment(x, y, angle, length) {
+    const start = new Rac.Point(this, x, y);
+    angle = Rac.Angle.from(this, angle);
+    const ray = new Rac.Ray(this, start, angle);
+    return new Rac.Segment(this, ray, length);
+  }
+
 
   /**
-  * An `Angle` with turn `3/4`.
+  * Convenience function that creates a new `Arc` setup with `this`.
   *
-  * Also named as: `up`, `u`, `top`, `t`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Arc}`.
   *
-  * @name north
-  * @type {Rac.Point}
-  * @memberof instance.Angle#
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} start
+  * @param {?Rac.Angle|number} [end=null]
+  * @param {boolean} [clockwise=true]
+  *
+  * @returns {Rac.Arc}
+  *
+  * @see instance.Arc
   */
-  rac.Angle.north = rac.Angle(3/4);
-  rac.Angle.east  = rac.Angle(0/4);
-  rac.Angle.south = rac.Angle(1/4);
-  rac.Angle.west  = rac.Angle(2/4);
+  rac.Arc = function makeArc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
+    const center = new Rac.Point(this, x, y);
+    start = Rac.Angle.from(this, start);
+    end = end === null
+      ? start
+      : Rac.Angle.from(this, end);
+    return new Rac.Arc(this, center, radius, start, end, clockwise);
+  }
 
-  rac.Angle.e = rac.Angle.east;
-  rac.Angle.s = rac.Angle.south;
-  rac.Angle.w = rac.Angle.west;
-  rac.Angle.n = rac.Angle.north;
 
-  rac.Angle.ne = rac.Angle.n.add(1/8);
-  rac.Angle.se = rac.Angle.e.add(1/8);
-  rac.Angle.sw = rac.Angle.s.add(1/8);
-  rac.Angle.nw = rac.Angle.w.add(1/8);
+  /**
+  * Convenience function that creates a new `Text` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Text}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {string} string
+  * @param {Rac.Text.Format} format
+  *
+  * @returns {Rac.Text}
+  *
+  * @see instance.Text
+  */
+  rac.Text = function makeText(x, y, string, format) {
+    const point = new Rac.Point(this, x, y);
+    return new Rac.Text(this, point, string, format);
+  }
 
-  // North north-east
-  rac.Angle.nne = rac.Angle.ne.add(-1/16);
-  // East north-east
-  rac.Angle.ene = rac.Angle.ne.add(+1/16);
-  // North-east north
-  rac.Angle.nen = rac.Angle.nne;
-  // North-east east
-  rac.Angle.nee = rac.Angle.ene;
 
-  // East south-east
-  rac.Angle.ese = rac.Angle.se.add(-1/16);
-  // South south-east
-  rac.Angle.sse = rac.Angle.se.add(+1/16);
-  // South-east east
-  rac.Angle.see = rac.Angle.ese;
-  // South-east south
-  rac.Angle.ses = rac.Angle.sse;
+  /**
+  * Convenience function that creates a new `Bezier` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Bezier}`.
+  *
+  * @param {number} startX
+  * @param {number} startY
+  * @param {number} startAnchorX
+  * @param {number} startAnchorY
+  * @param {number} endAnchorX
+  * @param {number} endAnchorY
+  * @param {number} endX
+  * @param {number} endY
+  *
+  * @returns {Rac.Bezier}
+  *
+  * @see instance.Bezier
+  */
+  rac.Bezier = function makeBezier(
+    startX, startY, startAnchorX, startAnchorY,
+    endAnchorX, endAnchorY, endX, endY)
+  {
+    const start = new Rac.Point(this, startX, startY);
+    const startAnchor = new Rac.Point(this, startAnchorX, startAnchorY);
+    const endAnchor = new Rac.Point(this, endAnchorX, endAnchorY);
+    const end = new Rac.Point(this, endX, endY);
+    return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
+  }
 
-  // South south-west
-  rac.Angle.ssw = rac.Angle.sw.add(-1/16);
-  // West south-west
-  rac.Angle.wsw = rac.Angle.sw.add(+1/16);
-  // South-west south
-  rac.Angle.sws = rac.Angle.ssw;
-  // South-west west
-  rac.Angle.sww = rac.Angle.wsw;
-
-  // West north-west
-  rac.Angle.wnw = rac.Angle.nw.add(-1/16);
-  // North north-west
-  rac.Angle.nnw = rac.Angle.nw.add(+1/16);
-  // Nort-hwest west
-  rac.Angle.nww = rac.Angle.wnw;
-  // North-west north
-  rac.Angle.nwn = rac.Angle.nnw;
-
-  rac.Angle.right = rac.Angle.e;
-  rac.Angle.down  = rac.Angle.s;
-  rac.Angle.left  = rac.Angle.w;
-  rac.Angle.up    = rac.Angle.n;
-
-  rac.Angle.r = rac.Angle.right;
-  rac.Angle.d = rac.Angle.down;
-  rac.Angle.l = rac.Angle.left;
-  rac.Angle.u = rac.Angle.up;
-
-  rac.Angle.top    = rac.Angle.up;
-  rac.Angle.bottom = rac.Angle.down;
-  rac.Angle.t      = rac.Angle.top;
-  rac.Angle.b      = rac.Angle.bottom;
-
-  rac.Angle.topRight    = rac.Angle.ne;
-  rac.Angle.tr          = rac.Angle.ne;
-  rac.Angle.topLeft     = rac.Angle.nw;
-  rac.Angle.tl          = rac.Angle.nw;
-  rac.Angle.bottomRight = rac.Angle.se;
-  rac.Angle.br          = rac.Angle.se;
-  rac.Angle.bottomLeft  = rac.Angle.sw;
-  rac.Angle.bl          = rac.Angle.sw;
-
-} // attachRacAngle
+}; // attachInstanceFunctions
 
 </code></pre>
         </article>
