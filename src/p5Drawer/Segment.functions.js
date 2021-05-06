@@ -24,9 +24,8 @@ module.exports = function attachSegmentFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasTop
+  * @function canvasTop
   * @memberof rac.Segment#
-  * @function
   */
   rac.Segment.canvasTop = function() {
     return rac.Point.zero
@@ -40,9 +39,8 @@ module.exports = function attachSegmentFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasLeft
+  * @function canvasLeft
   * @memberof rac.Segment#
-  * @function
   */
   rac.Segment.canvasLeft = function() {
     return rac.Point.zero
@@ -56,9 +54,8 @@ module.exports = function attachSegmentFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasRight
+  * @function canvasRight
   * @memberof rac.Segment#
-  * @function
   */
   rac.Segment.canvasRight = function() {
     const topRight = rac.Point(rac.drawer.p5.width, 0);
@@ -73,9 +70,8 @@ module.exports = function attachSegmentFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasBottom
+  * @function canvasBottom
   * @memberof rac.Segment#
-  * @function
   */
   rac.Segment.canvasBottom = function() {
     let bottomLeft = rac.Point(0, rac.drawer.p5.height);
