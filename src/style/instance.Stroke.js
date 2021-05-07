@@ -13,7 +13,7 @@ module.exports = function attachRacPoint(rac) {
   * will disable stroke drawing.
   *
   * @name none
-  * @memberof rac.Stroke#
+  * @memberof instance.Stroke#
   */
   rac.Stroke.none = rac.Stroke(null);
 
@@ -23,7 +23,7 @@ module.exports = function attachRacPoint(rac) {
   * stroke will only set the stroke weight to `1`.
   *
   * @name one
-  * @memberof rac.Stroke#
+  * @memberof instance.Stroke#
   */
   rac.Stroke.one = rac.Stroke(1);
 
