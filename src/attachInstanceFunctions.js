@@ -6,9 +6,9 @@ const Rac = require('./Rac');
 
 /**
 * This namespace lists utility functions attached to an instance of
-* `{@link Rac}` used produce drawable and other objects, and to access
-* ready-build convenience objects like {@link instance.Angle.north} or
-* `{@link instance.Point.zero}`.
+* `{@link Rac}` used to produce drawable and other objects, and to access
+* ready-build convenience objects like `{@link instance.Angle#north}` or
+* `{@link instance.Point#zero}`.
 *
 * Drawable and related objects require a reference to a `rac` instance in
 * order to perform drawing operations. These functions build new objects
@@ -44,7 +44,7 @@ module.exports = function attachInstanceFunctions(rac) {
   */
   rac.Color = function makeColor(r, g, b, alpha = 1) {
     return new Rac.Color(this, r, g, b, alpha);
-  }
+  };
 
 
   /**
@@ -53,16 +53,16 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Stroke}`.
   *
-  * @param {Rac.Color=} color
-  * @param {number=} weight
+  * @param {?number} weight
+  * @param {?Rac.Color} color
   *
   * @returns {Rac.Stroke}
   *
   * @see instance.Stroke
   */
-  rac.Stroke = function makeStroke(color = null, weight = 1) {
-    return new Rac.Stroke(this, color, weight);
-  }
+  rac.Stroke = function makeStroke(weight, color = null) {
+    return new Rac.Stroke(this, weight, color);
+  };
 
 
   /**
@@ -78,7 +78,7 @@ module.exports = function attachInstanceFunctions(rac) {
   */
   rac.Fill = function makeFill(color = null) {
     return new Rac.Fill(this, color);
-  }
+  };
 
 
   /**
@@ -87,8 +87,8 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Style}`.
   *
-  * @param {Rac.Stroke=} stroke
-  * @param {Rac.Fill=} fill
+  * @param {?Rac.Stroke} stroke
+  * @param {?Rac.Fill} fill
   *
   * @returns {Rac.Style}
   *
@@ -96,7 +96,7 @@ module.exports = function attachInstanceFunctions(rac) {
   */
   rac.Style = function makeStyle(stroke = null, fill = null) {
     return new Rac.Style(this, stroke, fill);
-  }
+  };
 
 
   /**
@@ -112,7 +112,7 @@ module.exports = function attachInstanceFunctions(rac) {
   */
   rac.Angle = function makeAngle(turn) {
     return new Rac.Angle(this, turn);
-  }
+  };
 
 
   /**
@@ -130,7 +130,7 @@ module.exports = function attachInstanceFunctions(rac) {
   */
   rac.Point = function makePoint(x, y) {
     return new Rac.Point(this, x, y);
-  }
+  };
 
 
   /**
@@ -151,7 +151,7 @@ module.exports = function attachInstanceFunctions(rac) {
     const start = new Rac.Point(this, x, y);
     angle = Rac.Angle.from(this, angle);
     return new Rac.Ray(this, start, angle);
-  }
+  };
 
 
   /**
@@ -174,7 +174,7 @@ module.exports = function attachInstanceFunctions(rac) {
     angle = Rac.Angle.from(this, angle);
     const ray = new Rac.Ray(this, start, angle);
     return new Rac.Segment(this, ray, length);
-  }
+  };
 
 
   /**
@@ -200,7 +200,7 @@ module.exports = function attachInstanceFunctions(rac) {
       ? start
       : Rac.Angle.from(this, end);
     return new Rac.Arc(this, center, radius, start, end, clockwise);
-  }
+  };
 
 
   /**
@@ -221,7 +221,7 @@ module.exports = function attachInstanceFunctions(rac) {
   rac.Text = function makeText(x, y, string, format) {
     const point = new Rac.Point(this, x, y);
     return new Rac.Text(this, point, string, format);
-  }
+  };
 
 
   /**
@@ -252,7 +252,7 @@ module.exports = function attachInstanceFunctions(rac) {
     const endAnchor = new Rac.Point(this, endAnchorX, endAnchorY);
     const end = new Rac.Point(this, endX, endY);
     return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
-  }
+  };
 
 }; // attachInstanceFunctions
 

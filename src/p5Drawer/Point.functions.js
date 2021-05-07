@@ -21,9 +21,8 @@ module.exports = function attachPointFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name pointer
+  * @function pointer
   * @memberof rac.Point#
-  * @function
   */
   rac.Point.pointer = function() {
     return rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
@@ -34,9 +33,8 @@ module.exports = function attachPointFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasCenter
+  * @function canvasCenter
   * @memberof rac.Point#
-  * @function
   */
   rac.Point.canvasCenter = function() {
     return rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
@@ -48,9 +46,8 @@ module.exports = function attachPointFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasEnd
+  * @function canvasEnd
   * @memberof rac.Point#
-  * @function
   */
   rac.Point.canvasEnd = function() {
     return rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);

@@ -103,11 +103,11 @@ test('Function typeName', () => {
 });
 
 
-test('Function addConstant', () => {
+test('Function addConstantTo', () => {
   let obj = {};
   expect(obj).not.toHaveProperty('prop');
 
-  Rac.utils.addConstant(obj, 'prop', 'value');
+  Rac.utils.addConstantTo(obj, 'prop', 'value');
   expect(obj).toHaveProperty('prop', 'value');
 
   let propDesc = Object.getOwnPropertyDescriptor(obj, 'prop');

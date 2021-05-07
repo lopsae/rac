@@ -17,9 +17,9 @@ const Rac = require('../Rac');
 *
 * @param {...Object|primitive} parameters
 * @returns {boolean}
-* @name assertExists
+*
+* @function assertExists
 * @memberof utils#
-* @function
 */
 exports.assertExists = function(...parameters) {
   parameters.forEach((item, index) => {
@@ -41,10 +41,11 @@ exports.assertExists = function(...parameters) {
 *
 * @param {function} type
 * @param {...Object} elements
+*
 * @returns {boolean}
-* @name assertType
+*
+* @function assertType
 * @memberof utils#
-* @function
 */
 exports.assertType = function(type, ...elements) {
   elements.forEach(item => {
@@ -62,9 +63,9 @@ exports.assertType = function(type, ...elements) {
 *
 * @param {...number} elements
 * @returns {boolean}
-* @name assertNumber
+*
+* @function assertNumber
 * @memberof utils#
-* @function
 */
 exports.assertNumber = function(...elements) {
   elements.forEach(item => {
@@ -82,9 +83,9 @@ exports.assertNumber = function(...elements) {
 *
 * @param {...string} elements
 * @returns {boolean}
-* @name assertString
+*
+* @function assertString
 * @memberof utils#
-* @function
 */
 exports.assertString = function(...elements) {
   elements.forEach(item => {
@@ -102,9 +103,9 @@ exports.assertString = function(...elements) {
 *
 * @param {...boolean} elements
 * @returns {boolean}
-* @name assertBoolean
+*
+* @function assertBoolean
 * @memberof utils#
-* @function
 */
 exports.assertBoolean = function(...elements) {
   elements.forEach(item => {
@@ -118,12 +119,13 @@ exports.assertBoolean = function(...elements) {
 
 /**
 * Returns the constructor name of `obj`, or its type name.
-* Convenience function for debugging.
+* Convenience function for debugging and errors.
 *
+* @param {object} obj - An `Object` to get its type name
 * @returns {string}
-* @name typeName
+*
+* @function typeName
 * @memberof utils#
-* @function
 */
 function typeName(obj) {
   if (obj === undefined) { return 'undefined'; }
@@ -139,16 +141,14 @@ function typeName(obj) {
 exports.typeName = typeName;
 
 
-// TODO: rename to addConstantTo
 /**
 * Adds a constant to the given object, the constant is not enumerable and
 * not configurable.
 *
-* @name addConstant
+* @function addConstantTo
 * @memberof utils#
-* @function
 */
-exports.addConstant = function(obj, propName, value) {
+exports.addConstantTo = function(obj, propName, value) {
   Object.defineProperty(obj, propName, {
     enumerable: false,
     configurable: false,
@@ -165,11 +165,11 @@ exports.addConstant = function(obj, propName, value) {
 * @param {number} number - The number to format
 * @param {?number} [digits] - The amount of digits to print, or `null` to
 * print all digits.
+*
 * @returns {string}
 *
-* @name cutDigits
+* @function cutDigits
 * @memberof utils#
-* @function
 */
 exports.cutDigits = function(number, digits = null) {
   return digits === null

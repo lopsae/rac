@@ -5,18 +5,21 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-// TODO: add note about: most functions that receive an angle can also
-// receive the turn value directly as a number. The main exception are
-// constructors, which always expect Angle objects.
-
-
 /**
 * Angle measured by a `turn` value in the range `[0,1)` that represents the
 * amount of turn in a full circle.
 *
-* When drawing an angle of turn `0` points towards the right of the screen.
-* An angle of turn `1/4` points downwards, turn `1/2` towards the left,
-* `3/4` points upwards.
+* Most functions through RAC that can receive an `Angle` parameter can
+* also receive a `number` value that will be used as `turn` to instantiate
+* a new `Angle`. The main exception to this behaviour are constructors,
+* which always expect to receive `Angle` objects.
+*
+* For drawing operations the turn value is interpreted to be pointing to
+* the following directions:
+* + `0/4` - points right
+* + `1/4` - points downwards
+* + `2/4` - points left
+* + `3/4` - points upwards
 *
 * @alias Rac.Angle
 */

@@ -9,8 +9,8 @@ const utils = require('../util/utils');
 /**
 * Arc of a circle from a start angle to an end angle.
 *
-* Arcs that have the same `start` and `end` angles are considered a
-* complete circle.
+* Arcs that have [equal]{@link Rac.Angle#equals} `start` and `end` angles
+* are considered a complete circle.
 *
 * @alias Rac.Arc
 */
@@ -1095,28 +1095,27 @@ class Arc{
     // length of tangent:
     // https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
     const parsPerTurn = 1 / partTurn;
-    // TODO: use TAU instead
-    const tangent = this.radius * (4/3) * Math.tan(Math.PI/(parsPerTurn*2));
+    const tangent = this.radius * (4/3) * Math.tan(Rac.TAU/(parsPerTurn*4));
 
     const beziers = [];
     const segments = this.divideToSegments(count);
-    // TODO: use anonymous function
-    segments.forEach(function(item) {
-      // TODO: use Rays?
-      const startArcRay =  this.center.segmentToPoint(item.startPoint());
-      const endArcRay = this.center.segmentToPoint(item.endPoint());
+    segments.forEach(item => {
+      const startArcRadius = this.center.segmentToPoint(item.startPoint());
+      const endArcRadius = this.center.segmentToPoint(item.endPoint());
 
-      let startAnchor = startArcRay
+      let startAnchor = startArcRadius
         .nextSegmentToAngleDistance(this.rac.Angle.square, !this.clockwise, tangent)
         .endPoint();
-      let endAnchor = endArcRay
+      let endAnchor = endArcRadius
         .nextSegmentToAngleDistance(this.rac.Angle.square, this.clockwise, tangent)
         .endPoint();
 
-      beziers.push(new Rac.Bezier(this.rac,
-        startArcRay.endPoint(), startAnchor,
-        endAnchor, endArcRay.endPoint()));
-    }, this);
+      const newBezier = new Rac.Bezier(this.rac,
+        startArcRadius.endPoint(), startAnchor,
+        endAnchor, endArcRadius.endPoint())
+
+      beziers.push(newBezier);
+    });
 
     return new Rac.Composite(this.rac, beziers);
   }

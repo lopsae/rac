@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>instance.Point - Documentation</title>
+    <title>control/Controller.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -25,253 +25,209 @@
 
 <nav>
     <li class="nav-link nav-home-link"><a href="index.html">ruler-and-compass</a></li>
-    <li class="nav-heading type-container"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="instance.Point.html#origin">origin</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="instance.Point.html#zero">zero</a></span></li>
+    
     <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.SegmentControl.html">Rac.SegmentControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li>
 </nav>
 
 <div id="main">
     
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2 class="longname">
-            <span class="ancestors"><a href="instance.html">instance</a>.</span>
-        
-        Point
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>The <code>instance.Point</code> function contains convenience methods and members
-for <code><a href="Rac.Point.html">Rac.Point</a></code> objects setup with the owning <code>Rac</code> instance.</p></div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-    <dt class="tag-source"> Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="drawable_instance.Point.js.html">drawable/instance.Point.js</a>, <a href="drawable_instance.Point.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title members-subsection">Members</h3>
-
-        
-            
-<div class="section-members">
-<h4 class="name member-name" id="origin"><span class="type-signature"></span>origin<span class="type-signature"> :<a href="Rac.Point.html">Rac.Point</a></span></h4>
-
-<div class="details-mini">
-<span><a href="instance.Point.html#origin" class="maic">#</a></span>
-
-    <span> | source:
-    <a href="drawable_instance.Point.js.html">drawable/instance.Point.js</a>, <a href="drawable_instance.Point.js.html#line21">line 21</a>
-    </span>
-
-</div>
-
-
-
-
-
-<div class="description">
-    <p>A <code>Point</code> at <code>(0, 0)</code>.</p>
-<p>Equal to <code><a href="instance.Point.html#zero">instance.Point#zero</a></code>.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
+    <h1 class="page-title">Source: control/Controller.js</h1>
     
 
     
 
+
+
     
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-</div>
-
-        
-            
-<div class="section-members">
-<h4 class="name member-name" id="zero"><span class="type-signature"></span>zero<span class="type-signature"> :<a href="Rac.Point.html">Rac.Point</a></span></h4>
-
-<div class="details-mini">
-<span><a href="instance.Point.html#zero" class="maic">#</a></span>
-
-    <span> | source:
-    <a href="drawable_instance.Point.js.html">drawable/instance.Point.js</a>, <a href="drawable_instance.Point.js.html#line12">line 12</a>
-    </span>
-
-</div>
-
-
-
-
-
-<div class="description">
-    <p>A <code>Point</code> with all values set to zero.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-</div>
-
-        
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+
+let Rac = require('../Rac');
+let utils = require('../util/utils');
+
+
+/**
+* Information regarding the currently selected `Control`.
+* @alias Rac.Controller.Selection
+*/
+class ControlSelection{
+  constructor(control, pointerCenter) {
+    // Selected control instance.
+    this.control = control;
+    // Copy of the control anchor, so that the control can move tied to
+    // the drawing, while the interaction range remains fixed.
+    this.anchorCopy = control.copyAnchor();
+    // Segment from the captured pointer position to the contro center,
+    // used to attach the control to the point where interaction started.
+    // Pointer is at `segment.start` and control center is at `segment.end`.
+    this.pointerOffset = pointerCenter.segmentToPoint(control.center());
+  }
+
+  drawSelection(pointerCenter) {
+    this.control.drawSelection(pointerCenter, this.anchorCopy, this.pointerOffset);
+  }
+}
+
+
+/**
+* The `Controller` is the object that manages the control system for an
+* instance of `Rac`.
+*
+* This instance holds control settings like pointer style or the
+* knob radius. It also mantains the state of the control system, like the
+* currently selected control, last pointer, and the collection of all
+* available controls.
+*
+* @alias Rac.Controller
+*/
+class Controller {
+
+  static Selection = ControlSelection;
+
+
+  /**
+  * Builds a new `Controller` with the given `Rac` instance.
+  */
+  constructor(rac) {
+
+    /**
+    * Intance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
+    this.rac = rac;
+
+    /**
+    * Distance at which the pointer is considered to interact with a
+    * control knob. Also used by controls for drawing.
+    *
+    * @type {number}
+    */
+    this.knobRadius = 22;
+
+    // Collection of all controls that are drawn with `drawControls()`
+    // and evaluated for selection with the `pointer...()` functions.
+    this.controls = [];
+
+    // Last `Point` of the position when the pointer was pressed, or last
+    // Control interacted with. Set to `null` when there has been no
+    // interaction yet and while there is a selected control.
+    // TODO: separate lastControl from lastPointer
+    this.lastPointer = null;
+
+    // Style used for visual elements related to selection and pointer
+    // interaction.
+    this.pointerStyle = null;
+
+    /**
+    * Selection information for the currently selected control, or `null`
+    * when there is no selection.
+    * @type {?Rac.Controller.Selection}
+    */
+    this.selection = null;
+
+  } // constructor
+
+
+  // Call to signal the pointer being pressed. If the ponter hits a control
+  // it will be considered selected. When a control is selected a copy of its
+  // anchor is stored as to allow interaction with a fixed anchor.
+  pointerPressed(pointerCenter) {
+    this.lastPointer = null;
+
+    // Test pointer hit
+    const selected = this.controls.find( item => {
+      const controlCenter = item.center();
+      if (controlCenter === null) { return false; }
+      if (controlCenter.distanceToPoint(pointerCenter) &lt;= this.knobRadius) {
+        return true;
+      }
+      return false;
+    });
+
+    if (selected === undefined) {
+      return;
+    }
+
+    this.selection = new Controller.Selection(selected, pointerCenter);
+  }
+
+
+  // Call to signal the pointer being dragged. As the pointer moves the
+  // selected control is updated with a new `distance`.
+  pointerDragged(pointerCenter){
+    if (this.selection === null) {
+      return;
+    }
+
+    let control = this.selection.control;
+    let anchorCopy = this.selection.anchorCopy;
+
+    // Center of dragged control in the pointer current position
+    let currentPointerControlCenter = this.selection.pointerOffset
+      .withStartPoint(pointerCenter)
+      .endPoint();
+
+    control.updateWithPointer(currentPointerControlCenter, anchorCopy);
+  }
+
+
+  // Call to signal the pointer being released. Upon release the selected
+  // control is cleared.
+  pointerReleased(pointerCenter) {
+    if (this.selection === null) {
+      this.lastPointer = pointerCenter;
+      return;
+    }
+
+    this.lastPointer = this.selection.control;
+    this.selection = null;
+  }
+
+
+  // Draws controls and the visuals of pointer and control selection. Usually
+  // called at the end of `draw` so that controls sits on top of the drawing.
+  drawControls() {
+    let pointerStyle = this.pointerStyle;
+
+    // Last pointer or control
+    if (this.lastPointer instanceof Rac.Point) {
+      this.lastPointer.arc(12).draw(pointerStyle);
+    }
+    if (this.lastPointer instanceof Rac.Control) {
+      // TODO: implement last selected control state
+    }
+
+    // Pointer pressed
+    let pointerCenter = this.rac.Point.pointer();
+    if (this.rac.drawer.p5.mouseIsPressed) {
+      if (this.selection === null) {
+        pointerCenter.arc(10).draw(pointerStyle);
+      } else {
+        pointerCenter.arc(5).draw(pointerStyle);
+      }
+    }
+
+    // All controls in display
+    this.controls.forEach(item => item.draw());
+
+    if (this.selection !== null) {
+      this.selection.drawSelection(pointerCenter);
+    }
+  }
+
+
+} // class Controller
+
+
+module.exports = Controller;
+
+</code></pre>
+        </article>
+    </section>
 
 
 

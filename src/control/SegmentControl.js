@@ -6,7 +6,7 @@ let utils = require('../util/utils');
 
 
 /**
-* Control that uses a Segment as anchor.
+* Control that uses a `Segment` as anchor.
 * @alias Rac.SegmentControl
 */
 class SegmentControl extends Rac.Control {

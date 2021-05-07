@@ -11,8 +11,9 @@ const utils = require('../util/utils');
 * Several methods will return an adjusted value or perform adjustments in
 * their operation when two points are close enough as to be considered
 * equal. When the the difference of each coordinate of two points
-* is under `{@link Rac#equalityThreshold}` the points are considered equal.
-* The method `{@link Rac.Point#equals}` performs this check.
+* is under the `[equalityThreshold]{@link Rac#equalityThreshold}` the
+* points are considered equal. The `[equals]{@link Rac.Point#equals}`
+* method performs this check.
 *
 * @alias Rac.Point
 */
@@ -21,7 +22,7 @@ class Point{
 
   /**
   * Creates a new `Point` instance.
-  * @param {Rac} rac Instance to use for drawing and creating other objects
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {number} x - The x coordinate
   * @param {number} y - The y coordinate
   */

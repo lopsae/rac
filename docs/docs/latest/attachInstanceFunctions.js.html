@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>p5Drawer/Segment.functions.js - Documentation</title>
+    <title>attachInstanceFunctions.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: p5Drawer/Segment.functions.js</h1>
+    <h1 class="page-title">Source: attachInstanceFunctions.js</h1>
     
 
     
@@ -44,87 +44,260 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
-const Rac = require('../Rac');
-const utils = require('../util/utils');
+const Rac = require('./Rac');
 
 
-module.exports = function attachSegmentFunctions(rac) {
+/**
+* This namespace lists utility functions attached to an instance of
+* `{@link Rac}` used to produce drawable and other objects, and to access
+* ready-build convenience objects like `{@link instance.Angle#north}` or
+* `{@link instance.Point#zero}`.
+*
+* Drawable and related objects require a reference to a `rac` instance in
+* order to perform drawing operations. These functions build new objects
+* using the calling `Rac` instance, and contain ready-made convenience
+* objects that are also setup with the same `Rac` instance.
+*
+* @namespace instance
+*/
+
+
+// Attaches the convenience functions to create objects with this instance
+// of Rac. These functions are attached as properties (instead of into the
+// prototype) because these are later populated with more properties and
+// methods, and thus need to be an independent instance.
+//
+// Intended to receive the a Rac instance as parameter.
+module.exports = function attachInstanceFunctions(rac) {
 
   /**
-  * Calls `p5.vertex` as to represent this `Segment`.
+  * Convenience function that creates a new `Color` setup with `this`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Color}`.
+  *
+  * @param {number} r
+  * @param {number} g
+  * @param {number} b
+  * @param {number=} a
+  *
+  * @returns {Rac.Color}
+  *
+  * @see instance.Color
   */
-  Rac.Segment.prototype.vertex = function() {
-    this.startPoint().vertex();
-    this.endPoint().vertex();
+  rac.Color = function makeColor(r, g, b, alpha = 1) {
+    return new Rac.Color(this, r, g, b, alpha);
   };
 
 
   /**
-  * Returns a `Segment` that covers the top of the canvas, from top-left to
-  * top-right.
+  * Convenience function that creates a new `Stroke` setup with `this`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Stroke}`.
   *
-  * @function canvasTop
-  * @memberof rac.Segment#
+  * @param {?number} weight
+  * @param {?Rac.Color} color
+  *
+  * @returns {Rac.Stroke}
+  *
+  * @see instance.Stroke
   */
-  rac.Segment.canvasTop = function() {
-    return rac.Point.zero
-      .segmentToAngle(rac.Angle.right, rac.drawer.p5.width);
+  rac.Stroke = function makeStroke(weight, color = null) {
+    return new Rac.Stroke(this, weight, color);
   };
 
 
   /**
-  * Returns a `Segment` that covers the left of the canvas, from top-left
-  * to bottom-left.
+  * Convenience function that creates a new `Fill` setup with `this`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Fill}`.
   *
-  * @function canvasLeft
-  * @memberof rac.Segment#
+  * @param {Rac.Color=} color
+  * @returns {Rac.Fill}
+  *
+  * @see instance.Fill
   */
-  rac.Segment.canvasLeft = function() {
-    return rac.Point.zero
-      .segmentToAngle(rac.Angle.down, rac.drawer.p5.height);
+  rac.Fill = function makeFill(color = null) {
+    return new Rac.Fill(this, color);
   };
 
 
   /**
-  * Returns a `Segment` that covers the right of the canvas, from top-right
-  * to bottom-right.
+  * Convenience function that creates a new `Style` setup with `this`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Style}`.
   *
-  * @function canvasRight
-  * @memberof rac.Segment#
+  * @param {?Rac.Stroke} stroke
+  * @param {?Rac.Fill} fill
+  *
+  * @returns {Rac.Style}
+  *
+  * @see instance.Style
   */
-  rac.Segment.canvasRight = function() {
-    const topRight = rac.Point(rac.drawer.p5.width, 0);
-    return topRight
-      .segmentToAngle(rac.Angle.down, rac.drawer.p5.height);
+  rac.Style = function makeStyle(stroke = null, fill = null) {
+    return new Rac.Style(this, stroke, fill);
   };
 
 
   /**
-  * Returns a `Segment` that covers the bottom of the canvas, from
-  * bottom-left to bottom-right.
+  * Convenience function that creates a new `Angle` setup with `this`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Angle}`.
   *
-  * @function canvasBottom
-  * @memberof rac.Segment#
+  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
+  * @returns {Rac.Angle}
+  *
+  * @see instance.Angle
   */
-  rac.Segment.canvasBottom = function() {
-    let bottomLeft = rac.Point(0, rac.drawer.p5.height);
-    return bottomLeft
-      .segmentToAngle(rac.Angle.right, rac.drawer.p5.width);
+  rac.Angle = function makeAngle(turn) {
+    return new Rac.Angle(this, turn);
   };
 
 
+  /**
+  * Convenience function that creates a new `Point` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Point}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  *
+  * @returns {Rac.Point}
+  *
+  * @see instance.Point
+  */
+  rac.Point = function makePoint(x, y) {
+    return new Rac.Point(this, x, y);
+  };
 
-} // attachSegmentFunctions
+
+  /**
+  * Convenience function that creates a new `Ray` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Ray}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} angle
+  *
+  * @returns {Rac.Ray}
+  *
+  * @see instance.Ray
+  */
+  rac.Ray = function makeRay(x, y, angle) {
+    const start = new Rac.Point(this, x, y);
+    angle = Rac.Angle.from(this, angle);
+    return new Rac.Ray(this, start, angle);
+  };
+
+
+  /**
+  * Convenience function that creates a new `Segment` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Segment}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} angle
+  * @param {number} length
+  *
+  * @returns {Rac.Segment}
+  *
+  * @see instance.Segment
+  */
+  rac.Segment = function makeSegment(x, y, angle, length) {
+    const start = new Rac.Point(this, x, y);
+    angle = Rac.Angle.from(this, angle);
+    const ray = new Rac.Ray(this, start, angle);
+    return new Rac.Segment(this, ray, length);
+  };
+
+
+  /**
+  * Convenience function that creates a new `Arc` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Arc}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {Rac.Angle|number} start
+  * @param {?Rac.Angle|number} [end=null]
+  * @param {boolean} [clockwise=true]
+  *
+  * @returns {Rac.Arc}
+  *
+  * @see instance.Arc
+  */
+  rac.Arc = function makeArc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
+    const center = new Rac.Point(this, x, y);
+    start = Rac.Angle.from(this, start);
+    end = end === null
+      ? start
+      : Rac.Angle.from(this, end);
+    return new Rac.Arc(this, center, radius, start, end, clockwise);
+  };
+
+
+  /**
+  * Convenience function that creates a new `Text` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Text}`.
+  *
+  * @param {number} x
+  * @param {number} y
+  * @param {string} string
+  * @param {Rac.Text.Format} format
+  *
+  * @returns {Rac.Text}
+  *
+  * @see instance.Text
+  */
+  rac.Text = function makeText(x, y, string, format) {
+    const point = new Rac.Point(this, x, y);
+    return new Rac.Text(this, point, string, format);
+  };
+
+
+  /**
+  * Convenience function that creates a new `Bezier` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Bezier}`.
+  *
+  * @param {number} startX
+  * @param {number} startY
+  * @param {number} startAnchorX
+  * @param {number} startAnchorY
+  * @param {number} endAnchorX
+  * @param {number} endAnchorY
+  * @param {number} endX
+  * @param {number} endY
+  *
+  * @returns {Rac.Bezier}
+  *
+  * @see instance.Bezier
+  */
+  rac.Bezier = function makeBezier(
+    startX, startY, startAnchorX, startAnchorY,
+    endAnchorX, endAnchorY, endX, endY)
+  {
+    const start = new Rac.Point(this, startX, startY);
+    const startAnchor = new Rac.Point(this, startAnchorX, startAnchorY);
+    const endAnchor = new Rac.Point(this, endAnchorX, endAnchorY);
+    const end = new Rac.Point(this, endX, endY);
+    return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
+  };
+
+}; // attachInstanceFunctions
 
 </code></pre>
         </article>

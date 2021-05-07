@@ -11,7 +11,7 @@ module.exports = function attachRacFill(rac) {
   /**
   * A `Fill` without color. Removes the fill color when applied.
   * @name none
-  * @memberof rac.Fill#
+  * @memberof instance.Fill#
   */
   rac.Fill.none = rac.Fill(null);
 
