@@ -347,13 +347,18 @@ class P5Drawer {
 
     // Stroke
     this.setApplyFunction(Rac.Stroke, (drawer, stroke) => {
-      if (stroke.color === null) {
+      if (stroke.weight === null && stroke.color === null) {
         drawer.p5.noStroke();
         return;
       }
 
-      stroke.color.applyStroke();
-      drawer.p5.strokeWeight(stroke.weight);
+      if (stroke.color !== null) {
+        stroke.color.applyStroke();
+      }
+
+      if (stroke.weight !== null) {
+        drawer.p5.strokeWeight(stroke.weight);
+      }
     });
 
     // Fill

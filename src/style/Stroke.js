@@ -6,29 +6,48 @@ const utils = require('../util/utils');
 
 
 /**
-* Stroke color and weight for drawing.
+* Stroke weight and color for drawing.
+*
+* The instance applies the `weight` and `color` settings as available:
+* + when `color` and `weight` are set: both stroke settings are applied
+* + when `weight` is `0` and `color` is set: only stroke color is applied
+* + when `color` is `null` and `weight` is larger that `0`: only stroke
+*   weight is applied
+* + when `weight` is `0` and `color` is `null`: a *no stroke* setting is
+*   applied
+*
 * @alias Rac.Stroke
 */
 class Stroke {
 
-  constructor(rac, color = null, weight = 1) {
-    utils.assertExists(rac, weight);
+  /**
+  * Creates a new `Stroke` instance.
+  *
+  * @param {Rac} rac -  Instance to use for drawing and creating other objects
+  * @param {?number} weight - The weight of the stroke, or `null` to skip weight
+  * @param {?Rac.Color} color - A `Color` for the stroke, or `null` to skip color
+  */
+  constructor(rac, weight, color = null) {
+    utils.assertExists(rac);
+    weight !== null && utils.assertNumber(weight);
+    color !== null && utils.assertType(Rac.Color, color);
+
     this.rac = rac
     this.color = color;
     this.weight = weight;
   }
 
   withWeight(newWeight) {
-    return new Stroke(this.rac, this.color, newWeight);
+    return new Stroke(this.rac, newWeight, this.color,);
   }
 
   withAlpha(newAlpha) {
     if (this.color === null) {
-      return new Stroke(this.rac, null, this.weight);
+      return new Stroke(this.rac, this.weight, null);
     }
 
     let newColor = this.color.withAlpha(newAlpha);
-    return new Stroke(this.rac, newColor, this.weight);
+    return new Stroke(this.rac, this.weight, newColor);
   }
 
   styleWithFill(someFill) {

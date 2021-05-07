@@ -22,7 +22,7 @@ class Point{
 
   /**
   * Creates a new `Point` instance.
-  * @param {Rac} rac Instance to use for drawing and creating other objects
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {number} x - The x coordinate
   * @param {number} y - The y coordinate
   */
