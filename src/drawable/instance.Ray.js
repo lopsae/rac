@@ -38,8 +38,8 @@ module.exports = function attachRacRay(rac) {
 
 
   /**
-  * A `Ray` over the y-axis, starts at`{@link instance.Point.origin}` and
-  * points to `{@link instance.Angle.quarter}`.
+  * A `Ray` over the y-axis, starts at`{@link instance.Point#origin}` and
+  * points to `{@link instance.Angle#quarter}`.
   *
   * @name yAxis
   * @type {Rac.Ray}

@@ -27,11 +27,17 @@ class TextFormat {
   };
 
   constructor(
+    rac,
     horizontal, vertical,
     font = null,
     angle = rac.Angle.zero,
     size = TextFormat.defaultSize)
   {
+    utils.assertExists(rac);
+    utils.assertString(horizontal, vertical);
+    utils.assertType(Rac.Angle, angle);
+    utils.assertNumber(size);
+    this.rac = rac;
     this.horizontal = horizontal;
     this.vertical = vertical;
     this.font = font;
@@ -63,6 +69,7 @@ class TextFormat {
     }
 
     return new TextFormat(
+      this.rac,
       horizontal, vertical,
       this.font,
       this.angle.inverse(),

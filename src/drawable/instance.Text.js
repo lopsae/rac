@@ -18,7 +18,9 @@ module.exports = function attachRacText(rac) {
     angle = rac.Angle.zero,
     size = Rac.Text.Format.defaultSize)
   {
+    angle = rac.Angle.from(angle);
     return new Rac.Text.Format(
+      rac,
       horizontal, vertical,
       font, angle, size);
   };

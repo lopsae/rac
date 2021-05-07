@@ -2,7 +2,6 @@
 
 
 const Rac = require('../Rac');
-const utils = require('../util/utils');
 
 
 /**
@@ -11,11 +10,14 @@ const utils = require('../util/utils');
 * @namespace instance.Angle
 */
 module.exports = function attachRacAngle(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * Returns an `Angle` derived from `something`.
   *
   * Calls`{@link Rac.Angle.from}` using `this`.
+  *
+  * @see Rac.Angle.from
   *
   * @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
   * derive an `Angle` from
@@ -23,7 +25,6 @@ module.exports = function attachRacAngle(rac) {
   *
   * @function from
   * @memberof instance.Angle#
-  * @see Rac.Angle.from
   */
   rac.Angle.from = function(something) {
     return Rac.Angle.from(rac, something);
@@ -35,12 +36,13 @@ module.exports = function attachRacAngle(rac) {
   *
   * Calls `{@link Rac.Angle.fromRadians}` using `this`.
   *
+  * @see Rac.Angle.fromRadians
+  *
   * @param {number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   *
   * @function fromRadians
   * @memberof instance.Angle#
-  * @see Rac.Angle.fromRadians
   */
   rac.Angle.fromRadians = function(radians) {
     return Rac.Angle.fromRadians(rac, radians);

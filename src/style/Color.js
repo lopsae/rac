@@ -36,7 +36,7 @@ class Color {
   }
 
   stroke(weight = 1) {
-    return new Rac.Stroke(this.rac, this, weight);
+    return new Rac.Stroke(this.rac, weight, this);
   }
 
   withAlpha(newAlpha) {

@@ -10,7 +10,6 @@
       ],
       "folder_exclude_patterns": [
         "dist",
-        "built",
         "node_modules",
         "docs/_site",
         "docs/vendor",

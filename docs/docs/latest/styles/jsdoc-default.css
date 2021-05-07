@@ -63,6 +63,10 @@ h2 {
   font-weight: bold;
 }
 
+h2.longname {
+  display: flex;
+}
+
 h3 {
   /* margin-top: 1em; */
   /* margin-bottom: 16px; */
@@ -95,6 +99,26 @@ h6 {
   font-style: italic;
 }
 
+.members-subsection {
+  background: hsl(122deg 30% 65%);
+  padding: 6px;
+  /*padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;*/
+  border-radius: 5px;
+}
+
+.methods-subsection {
+  background: hsl(199deg 80% 65%);
+  padding: 6px;
+  /*padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;*/
+  border-radius: 5px;
+}
+
 tt, code, kbd, samp {
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
   background: #f4f4f4;
@@ -116,6 +140,10 @@ blockquote {
   line-height: 140%;
   margin-bottom: 1em;
   margin-top: 1em;
+}
+
+.class-description code {
+  font-size: 18px;
 }
 
 .class-description:empty {
@@ -351,6 +379,32 @@ footer {
   font-family: Consolas, Monaco, 'Andale Mono', monospace
 }
 
+.name .type-signature, .name .signature-attributes {
+  color: hsl(0deg 1% 55%);
+}
+
+.name.method-name {
+  background: #B3E5FC;
+  color: hsl(230deg 5% 25%);
+  /*color: #0288D1;*/
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 5px;
+}
+
+.name.member-name {
+  background: #C8E6C9;
+  color: hsl(230deg 5% 25%);
+  /*color: #388E3C;*/
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 5px;
+}
+
 .details {
   margin-top: 14px;
   border-left: 2px solid #DDD;
@@ -387,6 +441,13 @@ footer {
    padding-top: 0
 }
 
+.details-mini {
+  padding-left: 8px;
+  border-left: 2px solid #DDD;
+  font-size: 12px;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+}
+
 .description {
   margin-bottom: 1em;
   margin-top: 1em;
@@ -407,15 +468,19 @@ footer {
 }
 
 .prettyprint.source {
-  width: inherit
+  width: inherit;
 }
 
 .prettyprint code {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 18px;
   display: block;
   background-color: #fff;
   color: #4D4E53;
+}
+
+.description .prettyprint code {
+  background-color: #f4f4f4;
 }
 
 .prettyprint code:empty:before {
@@ -455,7 +520,7 @@ footer {
 }
 
 .prettyprint.linenums li.selected, .prettyprint.linenums li.selected * {
-   background-color: lightyellow
+   background-color: hsl(36deg 85% 70%)
 }
 
 .prettyprint.linenums li * {
@@ -654,6 +719,12 @@ dl.param-type {
   height: 100%;
   background: hsla(0, 0%, 0%, 0.5);
   z-index: 1;
+}
+
+.section-members {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
 }
 
 .section-method {

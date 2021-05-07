@@ -6,26 +6,11 @@ const version = require('../built/version');
 
 
 /**
-* This namespace lists utility functions attached to an instance of
-* `{@link Rac}` used produce drawable and other objects, and to access
-* ready-build convenience objects like {@link instance.Angle.north} or
-* `{@link instance.Point.zero}`.
-*
-* Drawable and related objects require a reference to a `rac` instance in
-* order to perform drawing operations. These functions build new objects
-* using the calling `Rac` instance, and contain ready-made convenience
-* objects that are also setup with the same `Rac` instance.
-*
-* @namespace instance
-*/
-
-
-/**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained in this class.
 *
 * An instance must be created with `new Rac()` in order to
-* build drawable and most other objects.
+* build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
 * `{@link Rac#setupDrawer}.`
@@ -40,9 +25,10 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     * @name version
+    * @type {string}
     * @memberof Rac#
     */
-    utils.addConstant(this, 'version', version);
+    utils.addConstantTo(this, 'version', version);
 
 
     /**
@@ -60,8 +46,9 @@ class Rac {
     * values too close to a limit, as to prevent oscilating efects in
     * user interaction.
     *
-    * Value is based on 1/1000 of a point, the minimal perceptible distance
-    * the user can see.
+    * Default value is based on `1/1000` of a point.
+    *
+    * @type {number}
     */
     this.equalityThreshold = 0.001;
 
@@ -74,29 +61,41 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Value is based on 1/000 of the turn of an arc of radius 500 and
-    * lenght of 1: `1/(500*6.28)/1000`
+    * Default value is based on 1/000 of the turn of an arc of radius 500
+    * and length of 1: `1/(500*6.28)/1000`
+    *
+    * @type {number}
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
     /**
     * Drawer of the instance. This object handles the drawing of all
-    * drawable object using to this instance of `Rac`.
+    * drawable object using this instance of `Rac`.
+    * @type {object}
     */
     this.drawer = null;
 
-    require('./style/rac.Color')         (this);
-    require('./style/rac.Stroke')        (this);
-    require('./style/rac.Fill')          (this);
-    require('./drawable/rac.Angle')      (this);
-    require('./drawable/rac.Point')      (this);
-    require('./drawable/rac.Ray')        (this);
-    require('./drawable/rac.Segment')    (this);
-    require('./drawable/rac.Arc')        (this);
-    require('./drawable/instance.Bezier')(this);
+    /**
+    * Controller of the instance. This objecs handles all of the controls
+    * and pointer events related to this instance of `Rac`.
+    */
+    this.controller = new Rac.Controller(this);
 
-    // Depends on rac.Point and rac.Angle being already setup
-    require('./drawable/rac.Text')(this);
+
+    require('./attachInstanceFunctions')(this);
+
+    require('./style/instance.Color')     (this);
+    require('./style/instance.Stroke')    (this);
+    require('./style/instance.Fill')      (this);
+    require('./drawable/instance.Angle')  (this);
+    require('./drawable/instance.Point')  (this);
+    require('./drawable/instance.Ray')    (this);
+    require('./drawable/instance.Segment')(this);
+    require('./drawable/instance.Arc')    (this);
+    require('./drawable/instance.Bezier') (this);
+
+    // Depends on instance.Point and instance.Angle being already setup
+    require('./drawable/instance.Text')(this);
   }
 
   /**
@@ -145,234 +144,6 @@ class Rac {
     return diff < this.unitaryEqualityThreshold;
   }
 
-
-  /**
-  * Convenience function that creates a new `Color` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Color}`.
-  *
-  * @param {number} r
-  * @param {number} g
-  * @param {number} b
-  * @param {number=} a
-  *
-  * @returns {Rac.Color}
-  *
-  * @see instance.Color
-  */
-  Color(r, g, b, alpha = 1) {
-    return new Rac.Color(this, r, g, b, alpha);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Stroke` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Stroke}`.
-  *
-  * @param {Rac.Color=} color
-  * @param {number=} weight
-  *
-  * @returns {Rac.Stroke}
-  *
-  * @see instance.Stroke
-  */
-  Stroke(color = null, weight = 1) {
-    return new Rac.Stroke(this, color, weight);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Fill` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Fill}`.
-  *
-  * @param {Rac.Color=} color
-  * @returns {Rac.Fill}
-  *
-  * @see instance.Fill
-  */
-  Fill(color = null) {
-    return new Rac.Fill(this, color);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Style` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Style}`.
-  *
-  * @param {Rac.Stroke=} stroke
-  * @param {Rac.Fill=} fill
-  *
-  * @returns {Rac.Style}
-  *
-  * @see instance.Style
-  */
-  Style(stroke = null, fill = null) {
-    return new Rac.Style(this, stroke, fill);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Angle` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Angle}`.
-  *
-  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
-  * @returns {Rac.Angle}
-  *
-  * @see instance.Angle
-  */
-  Angle(turn) {
-    return new Rac.Angle(this, turn);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Point` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Point}`.
-  *
-  * @param {number} x
-  * @param {number} y
-  *
-  * @returns {Rac.Point}
-  *
-  * @see instance.Point
-  */
-  Point(x, y) {
-    return new Rac.Point(this, x, y);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Ray` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Ray}`.
-  *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
-  *
-  * @returns {Rac.Ray}
-  *
-  * @see instance.Ray
-  */
-  Ray(x, y, angle) {
-    const start = new Rac.Point(this, x, y);
-    angle = Rac.Angle.from(this, angle);
-    return new Rac.Ray(this, start, angle);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Segment` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Segment}`.
-  *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
-  * @param {number} length
-  *
-  * @returns {Rac.Segment}
-  *
-  * @see instance.Segment
-  */
-  Segment(x, y, angle, length) {
-    const start = new Rac.Point(this, x, y);
-    angle = Rac.Angle.from(this, angle);
-    const ray = new Rac.Ray(this, start, angle);
-    return new Rac.Segment(this, ray, length);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Arc` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Arc}`.
-  *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} start
-  * @param {?Rac.Angle|number} [end=null]
-  * @param {boolean} [clockwise=true]
-  *
-  * @returns {Rac.Arc}
-  *
-  * @see instance.Arc
-  */
-  Arc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
-    const center = new Rac.Point(this, x, y);
-    start = Rac.Angle.from(this, start);
-    end = end === null
-      ? start
-      : Rac.Angle.from(this, end);
-    return new Rac.Arc(this, center, radius, start, end, clockwise);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Text` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Text}`.
-  *
-  * @param {number} x
-  * @param {number} y
-  * @param {string} string
-  * @param {Rac.Text.Format} format
-  *
-  * @returns {Rac.Text}
-  *
-  * @see instance.Text
-  */
-  Text(x, y, string, format) {
-    const point = new Rac.Point(this, x, y);
-    return new Rac.Text(this, point, string, format);
-  }
-
-
-  /**
-  * Convenience function that creates a new `Bezier` setup with `this`.
-  *
-  * The function also contains additional methods and properties listed in
-  * `{@link instance.Bezier}`.
-  *
-  * @param {number} startX
-  * @param {number} startY
-  * @param {number} startAnchorX
-  * @param {number} startAnchorY
-  * @param {number} endAnchorX
-  * @param {number} endAnchorY
-  * @param {number} endX
-  * @param {number} endY
-  *
-  * @returns {Rac.Bezier}
-  *
-  * @see instance.Bezier
-  */
-  Bezier(
-    startX, startY, startAnchorX, startAnchorY,
-    endAnchorX, endAnchorY, endX, endY)
-  {
-    const start = new Rac.Point(this, startX, startY);
-    const startAnchor = new Rac.Point(this, startAnchorX, startAnchorY);
-    const endAnchor = new Rac.Point(this, endAnchorX, endAnchorY);
-    const end = new Rac.Point(this, endX, endY);
-    return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
-  }
-
 } // class Rac
 
 
@@ -387,25 +158,34 @@ const utils = require(`./util/utils`);
 /**
 * Container of utility functions. See `{@link utils}` for the available
 * members.
+*
+* @type {object}
 */
 Rac.utils = utils;
 
 
 /**
 * Version of the class.
+*
+* @type {string}
+*
 * @name version
 * @memberof Rac
 */
-utils.addConstant(Rac, 'version', version);
+utils.addConstantTo(Rac, 'version', version);
 
 
 /**
 * Tau, equal to `Math.PI * 2`.
-* https://tauday.com/tau-manifesto
+*
+* [Tau Manifesto](https://tauday.com/tau-manifesto).
+*
+* @type {number}
+*
 * @name TAU
 * @memberof Rac
 */
-utils.addConstant(Rac, 'TAU', Math.PI * 2);
+utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
 
 
 // Exception
@@ -485,6 +265,10 @@ Rac.setupDrawableProtoFunctions(Rac.Shape);
 
 // EaseFunction
 Rac.EaseFunction = require('./util/EaseFunction');
+
+
+// Controller
+Rac.Controller = require('./control/Controller');
 
 
 // Control

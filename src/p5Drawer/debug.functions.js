@@ -1,8 +1,13 @@
 'use strict';
 
+
+const Rac = require('../Rac');
+
+
 function reversesText(angle) {
   return angle.turn < 3/4 && angle.turn >= 1/4;
 }
+
 
 exports.debugAngle = function(drawer, angle, point, drawsText) {
   let rac = drawer.rac;
@@ -48,6 +53,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
 
   // Normal orientation
   let format = new Rac.Text.Format(
+    rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.center,
     drawer.debugTextOptions.font,
@@ -92,6 +98,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
 
   let string = `x:${drawer.debugNumber(point.x)}\ny:${drawer.debugNumber(point.y)}`;
   let format = new Rac.Text.Format(
+    rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
     drawer.debugTextOptions.font,
@@ -167,12 +174,14 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   let angle = segment.angle();
   // Normal orientation
   let lengthFormat = new Rac.Text.Format(
+    rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.bottom,
     drawer.debugTextOptions.font,
     angle,
     drawer.debugTextOptions.size);
   let angleFormat = new Rac.Text.Format(
+    rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
     drawer.debugTextOptions.font,
@@ -329,18 +338,21 @@ exports.debugArc = function(drawer, arc, drawsText) {
 
   // Normal orientation
   let headFormat = new Rac.Text.Format(
+    rac,
     hFormat.left,
     headVertical,
     drawer.debugTextOptions.font,
     arc.start,
     drawer.debugTextOptions.size);
   let tailFormat = new Rac.Text.Format(
+    rac,
     hFormat.left,
     tailVertical,
     drawer.debugTextOptions.font,
     arc.end,
     drawer.debugTextOptions.size);
   let radiusFormat = new Rac.Text.Format(
+    rac,
     hFormat.left,
     radiusVertical,
     drawer.debugTextOptions.font,
@@ -399,10 +411,8 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .text(allStrings, headFormat)
       .draw(drawer.debugTextStyle);
   }
-
-
-
 }; // debugArc
+
 
 // TODO: debug routine of Bezier
 // TODO: debug routine of Composite

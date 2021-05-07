@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac.Controller - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">ruler-and-compass</a></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Controller.html#knobRadius">knobRadius</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Controller.html#rac">rac</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Controller.html#selection">selection</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.SegmentControl.html">Rac.SegmentControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>
+        
+        Controller
+        </h2>
+        
+            <div class="class-description"><p>The <code>Controller</code> is the object that manages the control system for an
+instance of <code>Rac</code>.</p>
+<p>This instance holds control settings like pointer style or the
+knob radius. It also mantains the state of the control system, like the
+currently selected control, last pointer, and the collection of all
+available controls.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Controller"><span class="type-signature"></span>new Controller<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Controller.html" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Controller.js.html">control/Controller.js</a>, <a href="control_Controller.js.html#line42">line 42</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Builds a new <code>Controller</code> with the given <code>Rac</code> instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="Rac.Controller.Selection.html">Selection</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="knobRadius"><span class="type-signature"></span>knobRadius<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Controller.html#knobRadius" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Controller.js.html">control/Controller.js</a>, <a href="control_Controller.js.html#line66">line 66</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Distance at which the pointer is considered to interact with a
+control knob. Also used by controls for drawing.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="rac"><span class="type-signature"></span>rac<span class="type-signature"> :<a href="Rac.html">Rac</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Controller.html#rac" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Controller.js.html">control/Controller.js</a>, <a href="control_Controller.js.html#line58">line 58</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Intance of <code>Rac</code> used for drawing and passed along to any created
+object.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="selection"><span class="type-signature">(nullable) </span>selection<span class="type-signature"> :<a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Controller.html#selection" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Controller.js.html">control/Controller.js</a>, <a href="control_Controller.js.html#line87">line 87</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Selection information for the currently selected control, or <code>null</code>
+when there is no selection.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri May 07 2021 00:32:02 GMT-0700 (Pacific Daylight Time) using the Minami-rac theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@ module.exports = function attachPointFunctions(rac) {
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   */
   Rac.Point.prototype.vertex = function() {
-    rac.drawer.p5.vertex(this.x, this.y);
+    this.rac.drawer.p5.vertex(this.x, this.y);
   };
 
   /**
@@ -21,9 +21,8 @@ module.exports = function attachPointFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name pointer
+  * @function pointer
   * @memberof rac.Point#
-  * @function
   */
   rac.Point.pointer = function() {
     return rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
@@ -34,9 +33,8 @@ module.exports = function attachPointFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasCenter
+  * @function canvasCenter
   * @memberof rac.Point#
-  * @function
   */
   rac.Point.canvasCenter = function() {
     return rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
@@ -48,12 +46,11 @@ module.exports = function attachPointFunctions(rac) {
   *
   * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
   *
-  * @name canvasEnd
+  * @function canvasEnd
   * @memberof rac.Point#
-  * @function
   */
-  Rac.Point.canvasEnd = function() {
-    return new Rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
+  rac.Point.canvasEnd = function() {
+    return rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
   };
 
 } // attachPointFunctions

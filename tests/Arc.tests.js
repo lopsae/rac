@@ -877,7 +877,6 @@ tools.test( function divideToBeziers() {
   expect(quarter.divideToBeziers(0).sequence).toHaveLength(0);
   expect(quarter.divideToBeziers(-7).sequence).toHaveLength(0);
 
-  // TODO: is there a better way to test this other that hardcoding?
   const quarterComposite = quarter.divideToBeziers(1);
   expect(quarterComposite.sequence).toHaveLength(1);
   expect(quarterComposite.sequence[0]).equalsBezier(
