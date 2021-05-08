@@ -5,6 +5,17 @@
 const version = require('../built/version');
 
 
+// RELEASE TODOS:
+// TODO: add readme to documentation
+// TODO: publish minami-rac and import directly to here
+// TODO: include both bundle and min-bundle
+// TODO: unpkg to min bundle
+// TODO: separate version and build
+// TODO: clean up git pages page
+// TODO: clean up git-readme (same as npm readme?)
+
+
+
 /**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained in this class.
