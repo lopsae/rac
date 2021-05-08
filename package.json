@@ -3,11 +3,11 @@
   "version": "0.10.2-dev",
   "description": "Ruler and Compass",
   "main": "src/main.js",
+  "unpkg": "dist/Rac.js",
   "files": [
     "src/*",
     "built/*",
-    "dist/*",
-    "tests/*"
+    "dist/*"
   ],
   "scripts": {
     "test": "jest",
