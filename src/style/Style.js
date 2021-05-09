@@ -9,7 +9,7 @@ const utils = require('../util/utils');
 * `[Stroke]{@link Rac.Stroke}` and `[Fill]{@link Rac.Fill}` style to apply
 * for drawing.
 *
-* Can be used in `draw` methods to only apply both stroke and fill style
+* Can be used in `draw` methods to apply both stroke and fill style
 * settings.
 *
 * Applies whichever `stroke` or `fill` styles are present, any set to

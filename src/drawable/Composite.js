@@ -11,6 +11,7 @@ const utils = require('../util/utils');
 * Used by `[P5Drawer]{@link Rac.P5Drawer}` to perform specific vertex
 * operations with drawables to draw complex shapes.
 *
+* @class
 * @alias Rac.Composite
 */
 function Composite(rac, sequence = []) {

@@ -12,6 +12,7 @@ const utils = require('../util/utils');
 * Used by `[P5Drawer]{@link Rac.P5Drawer}` to draw the composites as a
 * complex shape (`outline`) with an negative space shape inside (`contour`).
 *
+* @class
 * @alias Rac.Shape
 */
 function Shape(rac) {
