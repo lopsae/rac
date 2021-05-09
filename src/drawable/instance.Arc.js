@@ -4,9 +4,11 @@
 /**
 * The `instance.Arc` function contains convenience methods and members
 * for `{@link Rac.Arc}` objects setup with the owning `Rac` instance.
+*
 * @namespace instance.Arc
 */
 module.exports = function attachRacArc(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * A clockwise `Arc` with all values set to zero.

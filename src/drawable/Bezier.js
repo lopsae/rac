@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Bezier curve with start, end, and two anchor points.
+* Bezier curve with start, end, and two anchor [points]{@link Rac.Point}.
 * @alias Rac.Bezier
 */
 class Bezier {

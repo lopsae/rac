@@ -4,11 +4,12 @@
   ],
   "templates": {
     "minami" : {
-      "homeLabel": "ruler-and-compass"
+      "homeLabel": "RAC — Ruler and Compass"
     },
     "default" : {
       "cleverLinks": false,
       "monospaceLinks": false,
+      "includeDate" : false,
       "useLongnameInNav": 3,
       "showInheritedInNav": false,
       "showMethodsInNav": false,

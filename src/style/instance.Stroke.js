@@ -4,9 +4,11 @@
 /**
 * The `instance.Stroke` function contains convenience methods and members
 * for `{@link Rac.Stroke}` objects setup with the owning `Rac` instance.
+*
 * @namespace instance.Stroke
 */
 module.exports = function attachRacPoint(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * A `Stroke` with no weight and no color. Using or applying this stroke
