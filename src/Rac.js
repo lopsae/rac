@@ -11,7 +11,6 @@ const version = require('../built/version');
 // TODO: unpkg to min bundle
 // TODO: separate version and build
 // TODO: clean up git pages page
-// TODO: clean up git-readme (same as npm readme?)
 
 
 
