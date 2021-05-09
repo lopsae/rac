@@ -7,12 +7,14 @@ const utils = require('../util/utils');
 
 /**
 * Color with RBGA values, each on the `[0,1]` range.
+*
 * @alias Rac.Color
 */
 class Color {
 
   constructor(rac, r, g, b, alpha = 1) {
     utils.assertExists(rac, r, g, b, alpha);
+    utils.assertNumber(r, g, b, alpha);
     this.rac = rac;
     this.r = r;
     this.g = g;

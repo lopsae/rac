@@ -5,6 +5,14 @@
 const version = require('../built/version');
 
 
+// RELEASE TODOS:
+// TODO: include both bundle and min-bundle
+// TODO: unpkg to min bundle
+// TODO: separate version and build
+// TODO: clean up git pages page
+
+
+
 /**
 * Root class of RAC. All drawable, style, control, and drawer classes are
 * contained in this class.
@@ -13,7 +21,8 @@ const version = require('../built/version');
 * build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
-* `{@link Rac#setupDrawer}.`
+* `{@link Rac#setupDrawer}.` Currently the only available implementation
+* is `[P5Drawer]{@link Rac.P5Drawer}`.
 */
 class Rac {
 

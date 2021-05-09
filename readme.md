@@ -1,41 +1,29 @@
 # RAC - Ruler and Compass
 
-Library than can be used along p5.js to express drawings through ruler-and-compass operations.
+Library to express geometrical constructions through ruler-and-compass operations.
+
+More project information, documentation, and tutorials are available at the [github.io pages](https://lopsae.github.io/rac) along with the [latest documentation](https://lopsae.github.io/rac/docs/latest/)
 
 
-## Command reminders
 
-### `npm test`
-Runs tests for RAC.
+### NPM
 
-+ `npm run test:clean` - Deletes any existing coverage files
-+ `npm run test:fresh` - Deletes any existing coverage files and runs tests
-+ `npm run test:coverage` - Runs tests with coverage
-+ `npm run test:open` - Opens the coverage index
-+ `npm run test:cc` - Deletes any existing coverage files and runs test:coverage
-
-
-### `npm run dist`
-Produces a distribution build and starts localhost server.
-
-
-### `npm start`
-Produces a debug build and starts localhost server, rebuilds whenever a file changes.
-
-
-### `npm run docs`
-Produces documentation and opens its index.
-
-+ `npm run docs:clean` - Checks-out HEAD into the latest documentation files
-+ `npm run docs:fresh` - Runs `docs:clean` and produces documentation
-
-Documentation uses a custom theme package. Run in the directory of the theme
+RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
-npm pack
-```
-And afterwards reinstall in RAC directory
-```
-npm update minami-rac && npm run docs
+npm install ruler-and-compass
 ```
 
 
+
+### Browser use - UNPKG
+
+For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass):
+```
+<script src="https://unpkg.com/ruler-and-compass"></script>
+```
+
+
+
+### License
+
+RAC is licensed under the MIT License: <https://github.com/lopsae/rac/blob/main/LICENSE>

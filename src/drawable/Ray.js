@@ -8,6 +8,7 @@ const utils = require('../util/utils');
 /**
 * Unbounded ray from a `[Point]{@link Rac.Point}` in direction of an
 * `[Angle]{@link Rac.Angle}`.
+*
 * @alias Rac.Ray
 */
 class Ray {

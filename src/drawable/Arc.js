@@ -7,7 +7,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Arc of a circle from a start angle to an end angle.
+* Arc of a circle from a `start` to an `end` [angle]{@link Rac.Angle}.
 *
 * Arcs that have [equal]{@link Rac.Angle#equals} `start` and `end` angles
 * are considered a complete circle.
@@ -767,8 +767,6 @@ class Arc{
 
   // TODO: consider if intersectingPointsWithArc is necessary
   /**
-  * @ignore
-  *
   * Returns an array containing the intersecting points of `this` with
   * `otherArc`.
   *
@@ -776,6 +774,8 @@ class Arc{
   *
   * @param {Rac.Arc} otherArc - An `Arc` to calculate intersection points with
   * @returns {Rac.Arc}
+  *
+  * @ignore
   */
   // intersectingPointsWithArc(otherArc) {
   //   let chord = this.intersectionChord(otherArc);
@@ -897,8 +897,6 @@ class Arc{
 
   // TODO: finish boundedIntersectionArc
   /**
-  * @ignore
-  *
   * Returns a new `Arc` representing the section of `this` that is inside
   * `otherArc` and bounded by `this.start` and `this.end`, or `null` when
   * there is no intersection. The returned arc will have the same center,
@@ -915,6 +913,8 @@ class Arc{
   *
   * @param {Rac.Arc} otherArc - An `Arc` to intersect with
   * @returns {?Rac.Arc}
+  *
+  * @ignore
   */
   // boundedIntersectionArc(otherArc) {
   //   let chord = this.intersectionChord(otherArc);

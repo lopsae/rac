@@ -6,7 +6,10 @@ const utils = require('../util/utils');
 
 
 /**
-* Stroke weight and color for drawing.
+* Stroke weight and [color]{@link Rac.Color} for drawing.
+*
+* Can be used as a style object in `draw` methods to only apply stroke
+* style settings.
 *
 * The instance applies the `weight` and `color` settings as available:
 * + when `color` and `weight` are set: both stroke settings are applied

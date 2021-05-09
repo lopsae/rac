@@ -4,9 +4,11 @@
 /**
 * The `instance.Bezier` function contains convenience methods and members
 * for `{@link Rac.Bezier}` objects setup with the owning `Rac` instance.
+*
 * @namespace instance.Bezier
 */
 module.exports = function attachInstanceBezier(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * A `Bezier` with all values set to zero.

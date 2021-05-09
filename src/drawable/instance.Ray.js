@@ -4,9 +4,11 @@
 /**
 * The `instance.Ray` function contains convenience methods and members
 * for `{@link Rac.Ray}` objects setup with the owning `Rac` instance.
+*
 * @namespace instance.Ray
 */
 module.exports = function attachRacRay(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * A `Ray` with all values set to zero, starts at

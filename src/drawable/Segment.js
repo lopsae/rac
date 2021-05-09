@@ -7,6 +7,7 @@ const utils = require('../util/utils');
 
 /**
 * Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
+*
 * @alias Rac.Segment
 */
 class Segment {

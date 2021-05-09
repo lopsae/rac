@@ -4,9 +4,11 @@
 /**
 * The `instance.Segment` function contains convenience methods and members
 * for `{@link Rac.Segment}` objects setup with the owning `Rac` instance.
+*
 * @namespace instance.Segment
 */
 module.exports = function attachRacSegment(rac) {
+  // Intended to receive a Rac instance as parameter
 
   /**
   * A `Segment` with all values set to zero, , starts at
