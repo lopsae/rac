@@ -6,7 +6,6 @@ const version = require('../built/version');
 
 
 // RELEASE TODOS:
-// TODO: review footer in documentation
 // TODO: publish minami-rac and import directly to here
 // TODO: include both bundle and min-bundle
 // TODO: unpkg to min bundle
