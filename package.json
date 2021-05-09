@@ -6,7 +6,7 @@
   "unpkg": "dist/Rac.js",
   "files": [
     "src/*",
-    "built/*",
+    "built/*.js",
     "dist/*"
   ],
   "scripts": {

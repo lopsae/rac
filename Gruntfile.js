@@ -43,6 +43,7 @@ module.exports = function(grunt) {
         src: ['src/*'],
         options: {
           template: "./node_modules/minami-rac",
+          readme: "./built/docsReadMe.md",
           destination: 'docs/docs/latest',
           verbose: true,
           // pedantic: true,
@@ -102,6 +103,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-jsdoc');
+
+
+  grunt.registerTask('makeDocsReadme', function() {
+    grunt.config.requires('pkg.version');
+    let versionString = grunt.config('pkg.version');
+
+    let templateContents = grunt.file.read('template/docsReadMe.md.template');
+    let processedTemplate = grunt.template.process(templateContents, {data: {
+      versionString: versionString}});
+
+    let outputFile = 'built/docsReadMe.md';
+    grunt.file.write(outputFile, processedTemplate);
+    grunt.log.writeln(`Saved docsReadMe.md with version ${versionString.green}`);
+  });
 
 
   grunt.registerTask('makeVersionFile', function(target) {
