@@ -17,7 +17,7 @@ npm install ruler-and-compass@0.10.2-dev
 
 ### Browser use - UNPKG
 
-For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at <https://unpkg.com/ruler-and-compass>:
+For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass):
 ```
 <script src="https://unpkg.com/ruler-and-compass@0.10.2-dev"></script>
 ```
@@ -25,7 +25,10 @@ For browser use, RAC is available as a single file library through [UNPKG](https
 
 ### Git
 
-Project repository: <https://github.com/lopsae/rac>
+Project repository: [github.com/lopsae/rac](https://github.com/lopsae/rac)
+```
+git clone https://github.com/lopsae/rac.git
+```
 
 
 ### License
