@@ -11,7 +11,7 @@ Documentation for RAC version: `0.10.2-dev`
 
 RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
-npm install ruler-and-compass
+npm install ruler-and-compass@0.10.2-dev
 ```
 
 
@@ -19,7 +19,7 @@ npm install ruler-and-compass
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at <https://unpkg.com/ruler-and-compass>:
 ```
-<script src="https://unpkg.com/ruler-and-compass"></script>
+<script src="https://unpkg.com/ruler-and-compass@0.10.2-dev"></script>
 ```
 
 
