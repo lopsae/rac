@@ -15,7 +15,7 @@ const Rac = require('../Rac');
 * parameter is `null` or `undefined` a `{@link Rac.Exception.failedAssert}`
 * is thrown.
 *
-* @param {...Object|primitive} parameters
+* @param {...(Object|primitive)} parameters
 * @returns {boolean}
 *
 * @function assertExists
