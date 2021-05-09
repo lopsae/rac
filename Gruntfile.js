@@ -7,14 +7,25 @@ module.exports = function(grunt) {
     browserify: {
       dev: {
         src: 'src/main.js',
-        dest: 'dist/rac.js',
+        dest: 'dist/rac.dev.js',
         options: {
+          banner: '// RAC - ruler-and-compass - <%= pkg.version %> - development with sourcemaps',
           browserifyOptions: {
             debug: true
           }
         }
+      },
+
+      main: {
+        src: 'src/main.js',
+        dest: 'dist/rac.js',
+        options: {
+          banner: '// RAC - ruler-and-compass - <%= pkg.version %>',
+          browserifyOptions: {}
+        }
       }
-    },
+
+    }, // browserify
 
     // Exposes the bundled library in `./dist`
     connect: {
@@ -181,10 +192,19 @@ module.exports = function(grunt) {
   grunt.registerTask('makeDocs', [
     'makeDocsReadme', 'jsdoc']);
 
+  // Builds a dev bundle, serves it, and watches for source changes
   grunt.registerTask('serve', [
-    'versionFile', 'browserify', 'connect:server', 'watch:serve']);
+    'versionFile',
+    'browserify:dev',
+    'connect:server',
+    'watch:serve']);
 
-  grunt.registerTask('dist', ['versionFile:clean', 'browserify', 'connect:server:keepalive']);
+  // Builds a dev/main/mini bundle with a clean version, serves it for confirmation
+  grunt.registerTask('dist', [
+    'versionFile:clean',
+    'browserify:dev',
+    'browserify:main',
+    'connect:server:keepalive']);
 
 };
 
