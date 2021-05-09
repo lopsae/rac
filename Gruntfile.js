@@ -178,6 +178,9 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['serve']);
 
+  grunt.registerTask('makeDocs', [
+    'makeDocsReadme', 'jsdoc']);
+
   grunt.registerTask('serve', [
     'versionFile', 'browserify', 'connect:server', 'watch:serve']);
 

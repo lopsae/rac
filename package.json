@@ -19,7 +19,7 @@
     "test:open": "open ./coverage/lcov-report/index.html",
     "start": "npm test && grunt serve",
     "dist": "npm test && grunt dist",
-    "docs": "grunt --debug jsdoc && npm run docs:open",
+    "docs": "grunt --debug makeDocs && npm run docs:open",
     "docs:open" : "open ./docs/docs/latest/index.html",
     "docs:clean": "git checkout HEAD -- docs/docs/latest",
     "docs:fresh": "npm run docs:clean && npm run docs",
