@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drawable/instance.Bezier.js - Documentation</title>
+    <title>drawable/Shape.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: drawable/instance.Bezier.js</h1>
+    <h1 class="page-title">Source: drawable/Shape.js</h1>
     
 
     
@@ -44,27 +44,38 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
+
 /**
-* The `instance.Bezier` function contains convenience methods and members
-* for `{@link Rac.Bezier}` objects setup with the owning `Rac` instance.
+* Contains two `[Composite]{@link Rac.Composite}` objects: `outline` and
+* `contour`.
 *
-* @namespace instance.Bezier
+* Used by `[P5Drawer]{@link Rac.P5Drawer}` to draw the composites as a
+* complex shape (`outline`) with an negative space shape inside (`contour`).
+*
+* @alias Rac.Shape
 */
-module.exports = function attachInstanceBezier(rac) {
-  // Intended to receive a Rac instance as parameter
+function Shape(rac) {
+  utils.assertExists(rac);
 
-  /**
-  * A `Bezier` with all values set to zero.
-  *
-  * @name zero
-  * @type {Rac.Bezier}
-  * @memberof instance.Bezier#
-  */
-  rac.Bezier.zero = rac.Bezier(
-    0, 0, 0, 0,
-    0, 0, 0, 0);
+  this.rac = rac;
+  this.outline = new Rac.Composite(rac);
+  this.contour = new Rac.Composite(rac);
+}
 
-} // attachInstanceBezier
+
+module.exports = Shape;
+
+
+Shape.prototype.addOutline = function(element) {
+  this.outline.add(element);
+};
+
+Shape.prototype.addContour = function(element) {
+  this.contour.add(element);
+};
 
 </code></pre>
         </article>

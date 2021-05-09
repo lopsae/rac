@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drawable/instance.Bezier.js - Documentation</title>
+    <title>drawable/Composite.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: drawable/instance.Bezier.js</h1>
+    <h1 class="page-title">Source: drawable/Composite.js</h1>
     
 
     
@@ -44,27 +44,46 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
+
 /**
-* The `instance.Bezier` function contains convenience methods and members
-* for `{@link Rac.Bezier}` objects setup with the owning `Rac` instance.
+* Container of a sequence of drawable objects that can be drawn together.
 *
-* @namespace instance.Bezier
+* Used by `[P5Drawer]{@link Rac.P5Drawer}` to perform specific vertex
+* operations with drawables to draw complex shapes.
+*
+* @alias Rac.Composite
 */
-module.exports = function attachInstanceBezier(rac) {
-  // Intended to receive a Rac instance as parameter
+function Composite(rac, sequence = []) {
+  utils.assertExists(rac, sequence);
 
-  /**
-  * A `Bezier` with all values set to zero.
-  *
-  * @name zero
-  * @type {Rac.Bezier}
-  * @memberof instance.Bezier#
-  */
-  rac.Bezier.zero = rac.Bezier(
-    0, 0, 0, 0,
-    0, 0, 0, 0);
+  this.rac = rac;
+  this.sequence = sequence;
+};
 
-} // attachInstanceBezier
+
+module.exports = Composite;
+
+
+Composite.prototype.isNotEmpty = function() {
+  return this.sequence.length != 0;
+};
+
+Composite.prototype.add = function(element) {
+  if (element instanceof Array) {
+    element.forEach(item => this.sequence.push(item));
+    return
+  }
+  this.sequence.push(element);
+};
+
+Composite.prototype.reverse = function() {
+  let reversed = this.sequence.map(item => item.reverse())
+    .reverse();
+  return new Composite(this.rac, reversed);
+};
 
 </code></pre>
         </article>
