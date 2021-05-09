@@ -228,7 +228,7 @@ section {
 }
 
 .readme pre > code {
-  font-size: 0.85em;
+  background-color: #f4f4f4;
 }
 
 .readme table {
