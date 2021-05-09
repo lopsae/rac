@@ -24,7 +24,8 @@ const version = require('../built/version');
 * build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
-* `{@link Rac#setupDrawer}.`
+* `{@link Rac#setupDrawer}.` Currently the only available implementation
+* is `[P5Drawer]{@link Rac.P5Drawer}`.
 */
 class Rac {
 

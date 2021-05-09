@@ -6,7 +6,8 @@ const utils = require('../util/utils');
 
 
 /**
-* Format for drawing a `Text` object.
+* Format for drawing a `[Text]{@link Rac.Text}` object.
+*
 * @alias Rac.Text.Format
 */
 class TextFormat {

@@ -5,8 +5,14 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-  // Contains a sequence of geometry objects which can be drawn or vertex
-  // together.
+/**
+* Container of a sequence of drawable objects that can be drawn together.
+*
+* Used by `[P5Drawer]{@link Rac.P5Drawer}` to perform specific vertex
+* operations with drawables to draw complex shapes.
+*
+* @alias Rac.Composite
+*/
 function Composite(rac, sequence = []) {
   utils.assertExists(rac, sequence);
 

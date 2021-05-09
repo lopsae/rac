@@ -7,6 +7,7 @@ const Rac = require('../Rac');
 /**
 * The `instance.Angle` function contains convenience methods and members
 * for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
+*
 * @namespace instance.Angle
 */
 module.exports = function attachRacAngle(rac) {

@@ -7,7 +7,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Arc of a circle from a start angle to an end angle.
+* Arc of a circle from a `start` to an `end` [angle]{@link Rac.Angle}.
 *
 * Arcs that have [equal]{@link Rac.Angle#equals} `start` and `end` angles
 * are considered a complete circle.

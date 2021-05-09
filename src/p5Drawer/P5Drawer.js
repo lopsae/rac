@@ -6,7 +6,9 @@ const utils = require('../util/utils');
 
 
 /**
-* Drawer that uses a P5 instance for all drawing operations.
+* Drawer that uses a [P5](https://p5js.org/) instance for all drawing
+* operations.
+*
 * @alias Rac.P5Drawer
 */
 class P5Drawer {
