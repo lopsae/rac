@@ -6,6 +6,7 @@ const version = require('../built/version');
 
 
 // RELEASE TODOS:
+// TODO: add github and more info to package.json
 // TODO: include both bundle and min-bundle
 // TODO: unpkg to min bundle
 // TODO: separate version and build
