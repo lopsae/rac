@@ -3,7 +3,7 @@
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.10.2-dev-654-ec5b6fe'
+module.exports = '0.10.2-dev-658-fbcca03'
 
 
 },{}],2:[function(require,module,exports){
@@ -15,6 +15,7 @@ const version = require('../built/version');
 
 
 // RELEASE TODOS:
+// TODO: add github and more info to package.json
 // TODO: include both bundle and min-bundle
 // TODO: unpkg to min bundle
 // TODO: separate version and build
