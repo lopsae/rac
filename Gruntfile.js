@@ -27,6 +27,18 @@ module.exports = function(grunt) {
 
     }, // browserify
 
+    uglify: {
+      options: {
+        mangle: false,
+        banner: '// RAC - ruler-and-compass - <%= pkg.version %> - minified',
+      },
+      main: {
+        files: {
+          'dist/rac.min.js': ['dist/rac.js']
+        }
+      }
+    }, // uglify
+
     // Exposes the bundled library in `./dist`
     connect: {
       server: {
@@ -113,6 +125,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-jsdoc');
 
 
@@ -204,6 +217,7 @@ module.exports = function(grunt) {
     'versionFile:clean',
     'browserify:dev',
     'browserify:main',
+    'uglify',
     'connect:server:keepalive']);
 
 };
