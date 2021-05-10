@@ -3,7 +3,7 @@
   "version": "0.10.2-dev",
   "description": "Ruler and Compass",
   "main": "src/main.js",
-  "unpkg": "dist/rac.js",
+  "unpkg": "dist/rac.min.js",
   "author": "Maic López Sáenz",
   "license": "MIT",
   "repository": "github:lopsae/rac",
