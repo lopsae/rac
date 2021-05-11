@@ -7,14 +7,37 @@ module.exports = function(grunt) {
     browserify: {
       dev: {
         src: 'src/main.js',
-        dest: 'dist/rac.js',
+        dest: 'dist/rac.dev.js',
         options: {
+          banner: '// RAC - ruler-and-compass - <%= pkg.version %> - development with sourcemaps',
           browserifyOptions: {
             debug: true
           }
         }
+      },
+
+      main: {
+        src: 'src/main.js',
+        dest: 'dist/rac.js',
+        options: {
+          banner: '// RAC - ruler-and-compass - <%= pkg.version %>',
+          browserifyOptions: {}
+        }
       }
-    },
+
+    }, // browserify
+
+    uglify: {
+      options: {
+        mangle: false,
+        banner: '// RAC - ruler-and-compass - <%= pkg.version %> - minified',
+      },
+      main: {
+        files: {
+          'dist/rac.min.js': ['dist/rac.js']
+        }
+      }
+    }, // uglify
 
     // Exposes the bundled library in `./dist`
     connect: {
@@ -102,6 +125,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-jsdoc');
 
 
@@ -127,34 +151,40 @@ module.exports = function(grunt) {
       'exec.commitCount.value',
       'exec.statusCount.value');
 
-    let pkgVersion = grunt.config('pkg.version');
-    let shortHash = grunt.config('exec.shortHash.value');
-    let parentHash = grunt.config('exec.shortHash.parentHash');
-    let commitCount = grunt.config('exec.commitCount.value');
-    let statusCount = grunt.config('exec.statusCount.value');
-    let clean = target === 'clean';
+    const pkgVersion = grunt.config('pkg.version');
+    const shortHash = grunt.config('exec.shortHash.value');
+    const parentHash = grunt.config('exec.shortHash.parentHash');
+    const commitCount = grunt.config('exec.commitCount.value');
+    const statusCount = grunt.config('exec.statusCount.value');
+    const clean = target === 'clean';
 
-    let versionString;
+    const versionString = '' + pkgVersion;
+
+    let buildString;
     if (statusCount == 0 || clean) {
-      versionString =`${pkgVersion}-${commitCount}-${shortHash}`;
+      buildString =`${commitCount}-${shortHash}`;
     } else {
-      let now = new Date();
+      const now = new Date();
       let minutes = now.getMinutes();
       let seconds = now.getSeconds();
       minutes = minutes >= 10 ? minutes : `0${minutes}`;
       seconds = seconds >= 10 ? seconds : `0${seconds}`;
-      let localTime = `${now.getHours()}:${minutes}:${seconds}`;
-      versionString =`${pkgVersion}-${localTime}-${commitCount}-${shortHash}`;
+      const localTime = `${now.getHours()}:${minutes}:${seconds}`;
+      buildString =`localBuild-${localTime}-${commitCount}-${shortHash}`;
       grunt.log.writeln(`Built at: ${localTime.green.bold}`);
     }
 
-    let templateContents = grunt.file.read('template/version.js.template');
-    let processedTemplate = grunt.template.process(templateContents, {data: {
-      versionString: versionString}});
+    const templateContents = grunt.file.read('template/version.js.template');
+    const processedTemplate = grunt.template.process(templateContents, {data: {
+      versionString: versionString,
+      buildString: buildString
+    }});
 
-    let outputFile = 'built/version.js';
+    const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
-    grunt.log.writeln(`Saved ${clean?"clean ".green.bold:""}version file: ${versionString.green}`);
+    grunt.log.writeln(`Saved ${clean?"clean ".green.bold:""}version file:`);
+    grunt.log.writeln(`version: ${versionString.green}`);
+    grunt.log.writeln(`build:   ${buildString.green}`);
   });
 
 
@@ -181,10 +211,20 @@ module.exports = function(grunt) {
   grunt.registerTask('makeDocs', [
     'makeDocsReadme', 'jsdoc']);
 
+  // Builds a dev bundle, serves it, and watches for source changes
   grunt.registerTask('serve', [
-    'versionFile', 'browserify', 'connect:server', 'watch:serve']);
+    'versionFile',
+    'browserify:dev',
+    'connect:server',
+    'watch:serve']);
 
-  grunt.registerTask('dist', ['versionFile:clean', 'browserify', 'connect:server:keepalive']);
+  // Builds a dev/main/mini bundle with a clean version, serves it for confirmation
+  grunt.registerTask('dist', [
+    'versionFile:clean',
+    'browserify:dev',
+    'browserify:main',
+    'uglify',
+    'connect:server:keepalive']);
 
 };
 

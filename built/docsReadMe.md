@@ -1,6 +1,6 @@
 # RAC — Ruler and Compass
 
-Documentation for RAC version: `0.10.2-dev`
+Documentation for RAC version: `0.10.3-dev`
 
 `{@link Rac}` is the main class and container of all other classes.
 
@@ -11,7 +11,7 @@ Documentation for RAC version: `0.10.2-dev`
 
 RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
-npm install ruler-and-compass@0.10.2-dev
+npm install ruler-and-compass@0.10.3-dev
 ```
 
 
@@ -19,7 +19,7 @@ npm install ruler-and-compass@0.10.2-dev
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass):
 ```
-<script src="https://unpkg.com/ruler-and-compass@0.10.2-dev"></script>
+<script src="https://unpkg.com/ruler-and-compass@0.10.3-dev"></script>
 ```
 
 

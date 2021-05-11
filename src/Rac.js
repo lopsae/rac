@@ -2,15 +2,8 @@
 
 
 // Ruler and Compass
-const version = require('../built/version');
-
-
-// RELEASE TODOS:
-// TODO: include both bundle and min-bundle
-// TODO: unpkg to min bundle
-// TODO: separate version and build
-// TODO: clean up git pages page
-
+const version = require('../built/version').version;
+const build   = require('../built/version').build;
 
 
 /**
@@ -33,11 +26,24 @@ class Rac {
 
     /**
     * Version of the instance, same as `{@link Rac.version}`.
-    * @name version
+    *
     * @type {string}
+    *
+    * @name version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
+
+
+    /**
+    * Build of the instance, same as `{@link Rac.build}`.
+    *
+    * @type {string}
+    *
+    * @name build
+    * @memberof Rac#
+    */
+    utils.addConstantTo(this, 'build', build);
 
 
     /**
@@ -174,7 +180,7 @@ Rac.utils = utils;
 
 
 /**
-* Version of the class.
+* Version of the class. Same as the version used for the npm package.
 *
 * @type {string}
 *
@@ -182,6 +188,20 @@ Rac.utils = utils;
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
+
+
+/**
+* Build of the class. Intended for debugging purpouses.
+*
+* Contains a commit-count and short-hash of the repository when the build
+* was done.
+*
+* @type {string}
+*
+* @name build
+* @memberof Rac
+*/
+utils.addConstantTo(Rac, 'build', build);
 
 
 /**

@@ -1,39 +1,40 @@
-## Welcome to GitHub Pages
+Library to express geometrical constructions through ruler-and-compass operations.
 
-Documentation: [Latest](./docs/latest)
+RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/) instance, or in a node enviroment as a npm package.
 
-You can use the [editor on GitHub](https://github.com/lopsae/rac/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Documentation
 
-### Markdown
+[Latest (0.10.2-dev)](./docs/latest/)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+### NPM
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+RAC is available as an npm package at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
+```
+npm install ruler-and-compass
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/lopsae/rac/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+### Browser use - UNPKG
 
-### Support or Contact
+For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+It can be imported directly as a script, which will create the [`Rac` constructor](./docs/latest/Rac.html) into the `Rac` global variable:
+```
+<script src="https://unpkg.com/ruler-and-compass"></script>
+```
+
+Or imported as a AMD package with a module loader like [RequireJS](https://requirejs.org/):
+```
+requirejs(["https://unpkg.com/ruler-and-compass"], Rac => { ... })
+```
+
+
+
+### License
+
+RAC is licensed under the MIT License: <https://github.com/lopsae/rac/blob/main/LICENSE>
+
