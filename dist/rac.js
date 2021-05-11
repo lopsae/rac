@@ -1,9 +1,9 @@
-// RAC - ruler-and-compass - 0.10.2-dev
+// RAC - ruler-and-compass - 0.10.3-dev
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.10.2-dev-658-fbcca03'
+module.exports = '0.10.3-dev-664-2c74375'
 
 
 },{}],2:[function(require,module,exports){
@@ -15,11 +15,9 @@ const version = require('../built/version');
 
 
 // RELEASE TODOS:
-// TODO: add github and more info to package.json
-// TODO: include both bundle and min-bundle
-// TODO: unpkg to min bundle
-// TODO: separate version and build
 // TODO: clean up git pages page
+// TODO: separate version and build
+
 
 
 
@@ -5491,7 +5489,7 @@ module.exports = function attachRacText(rac) {
   // Browser globals (root is window)
 
   // console.log(`Loading RAC into self - root:${typeof root}`);
-  root.makeRac = factory();
+  root.Rac = factory();
 
 }(typeof self !== 'undefined' ? self : this, function () {
 
