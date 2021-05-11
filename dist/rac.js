@@ -1,9 +1,12 @@
-// RAC - ruler-and-compass - 0.10.2-dev
+// RAC - ruler-and-compass - 0.10.3-dev
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.10.2-dev-658-fbcca03'
+module.exports = {
+	version: '0.10.3-dev',
+	build: '669-6f282e3'
+};
 
 
 },{}],2:[function(require,module,exports){
@@ -11,16 +14,8 @@ module.exports = '0.10.2-dev-658-fbcca03'
 
 
 // Ruler and Compass
-const version = require('../built/version');
-
-
-// RELEASE TODOS:
-// TODO: add github and more info to package.json
-// TODO: include both bundle and min-bundle
-// TODO: unpkg to min bundle
-// TODO: separate version and build
-// TODO: clean up git pages page
-
+const version = require('../built/version').version;
+const build   = require('../built/version').build;
 
 
 /**
@@ -43,11 +38,24 @@ class Rac {
 
     /**
     * Version of the instance, same as `{@link Rac.version}`.
-    * @name version
+    *
     * @type {string}
+    *
+    * @name version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
+
+
+    /**
+    * Build of the instance, same as `{@link Rac.build}`.
+    *
+    * @type {string}
+    *
+    * @name build
+    * @memberof Rac#
+    */
+    utils.addConstantTo(this, 'build', build);
 
 
     /**
@@ -184,7 +192,7 @@ Rac.utils = utils;
 
 
 /**
-* Version of the class.
+* Version of the class. Same as the version used for the npm package.
 *
 * @type {string}
 *
@@ -192,6 +200,20 @@ Rac.utils = utils;
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
+
+
+/**
+* Build of the class. Intended for debugging purpouses.
+*
+* Contains a commit-count and short-hash of the repository when the build
+* was done.
+*
+* @type {string}
+*
+* @name build
+* @memberof Rac
+*/
+utils.addConstantTo(Rac, 'build', build);
 
 
 /**
@@ -5491,7 +5513,7 @@ module.exports = function attachRacText(rac) {
   // Browser globals (root is window)
 
   // console.log(`Loading RAC into self - root:${typeof root}`);
-  root.makeRac = factory();
+  root.Rac = factory();
 
 }(typeof self !== 'undefined' ? self : this, function () {
 

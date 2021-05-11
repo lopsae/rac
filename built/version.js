@@ -1,5 +1,8 @@
 'useStrict';
 
 // Ruler and Compass - version
-module.exports = '0.10.2-dev-658-fbcca03'
+module.exports = {
+	version: '0.10.3-dev',
+	build: '669-6f282e3'
+};
 

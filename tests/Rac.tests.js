@@ -17,6 +17,13 @@ tools.test( function version() {
 });
 
 
+tools.test( function build() {
+  expect(Rac.build).toBeTruthy();
+  expect(rac.build).toBeTruthy();
+  expect(Rac.build).toBe(rac.build);
+});
+
+
 tools.test( function equalityThreshold() {
   const threshold = rac.equalityThreshold;
   const bump = threshold/16;
