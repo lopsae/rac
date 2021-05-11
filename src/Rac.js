@@ -6,7 +6,6 @@ const version = require('../built/version');
 
 
 // RELEASE TODOS:
-// TODO: clean up git pages page
 // TODO: separate version and build
 
 
