@@ -2,13 +2,16 @@
 
 Library to express geometrical constructions through ruler-and-compass operations.
 
-More project information, documentation, and tutorials are available at the [github.io pages](https://lopsae.github.io/rac) along with the [latest documentation](https://lopsae.github.io/rac/docs/latest/)
+RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/) instance, or in a node enviroment as a npm package.
+
++ [Project Page](https://lopsae.github.io/rac)
++ [Latest documentation](https://lopsae.github.io/rac/docs/latest/)
 
 
 
 ### NPM
 
-RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
+RAC is available as an npm package at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
 npm install ruler-and-compass
 ```
@@ -27,3 +30,4 @@ For browser use, RAC is available as a single file library through [UNPKG](https
 ### License
 
 RAC is licensed under the MIT License: <https://github.com/lopsae/rac/blob/main/LICENSE>
+
