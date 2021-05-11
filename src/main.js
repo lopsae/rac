@@ -25,7 +25,7 @@
   // Browser globals (root is window)
 
   // console.log(`Loading RAC into self - root:${typeof root}`);
-  root.makeRac = factory();
+  root.Rac = factory();
 
 }(typeof self !== 'undefined' ? self : this, function () {
 
