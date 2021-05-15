@@ -21,7 +21,7 @@ npm install ruler-and-compass@<%= versionString %>
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
-It can be imported directly as a script, which will assign the [`Rac` constructor](./docs/latest/Rac.html) to the `Rac` global variable:
+This can be imported directly as a script, which will assign the [`Rac` constructor]{@link Rac} to the `Rac` global variable:
 ```
 <script src="https://unpkg.com/ruler-and-compass@<%= versionString %>"></script>
 ```
