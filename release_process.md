@@ -9,7 +9,7 @@ npm run dist
 
 Build docs
 ```
-npm run docs:fresh ?
+npm run docs:fresh
 ```
 
 Push and test online
@@ -38,7 +38,9 @@ npm publish
 ```
 
 
-
-
-
+Version is mentioned in:
+------------------------
++ npm package.json
++ hardcoded in jsdoc.json
++ hardcoded in docs/index.md
 
