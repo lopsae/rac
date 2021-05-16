@@ -26,7 +26,7 @@
     "docs": "grunt --debug makeDocs && npm run docs:open",
     "docs:open": "open ./docs/docs/latest/index.html",
     "docs:clean": "git checkout HEAD -- docs/docs/latest",
-    "docs:fresh": "npm run docs:clean && npm run docs",
+    "docs:fresh": "npm run docs:delete && npm run docs",
     "docs:delete": "rm -rfv docs/docs/latest/*",
     "jekyll": "cd docs; bundle exec jekyll serve"
   },
