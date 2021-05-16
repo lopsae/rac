@@ -28,7 +28,7 @@
     "docs:clean": "git checkout HEAD -- docs/docs/latest",
     "docs:fresh": "npm run docs:delete && npm run docs",
     "docs:delete": "rm -rfv docs/docs/latest/*",
-    "jekyll": "cd docs; bundle exec jekyll serve"
+    "pages": "cd docs; bundle exec jekyll serve"
   },
   "devDependencies": {
     "grunt": "^1.3.0",
