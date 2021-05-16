@@ -8,6 +8,12 @@ Documentation for RAC version: `0.10.3-dev`
 
 
 
+### Tutorials
+
+A collection of [interactive tutorials](https://observablehq.com/@lopsae/rac-tutorial-home) is available in [ObservableHQ](https://observablehq.com/).
+
+
+
 ### NPM
 
 RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
@@ -26,7 +32,7 @@ This can be imported directly as a script, which will assign the [`Rac` construc
 <script src="https://unpkg.com/ruler-and-compass@0.10.3-dev"></script>
 ```
 
-Or imported as a AMD package with a module loader like [RequireJS](https://requirejs.org/):
+Or imported as an [AMD package](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) with a module loader like [RequireJS](https://requirejs.org/):
 ```
 requirejs(["https://unpkg.com/ruler-and-compass@0.10.3-dev"], Rac => { ... })
 ```
@@ -44,5 +50,5 @@ git clone https://github.com/lopsae/rac.git
 
 ### License
 
-RAC is licensed under the MIT License: <https://github.com/lopsae/rac/blob/main/LICENSE>
+RAC is licensed under the [MIT License](https://github.com/lopsae/rac/blob/main/LICENSE).
 
