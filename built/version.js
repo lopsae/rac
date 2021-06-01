@@ -2,7 +2,7 @@
 
 // Ruler and Compass - version
 module.exports = {
-	version: '0.10.3-dev',
-	build: '669-6f282e3'
+	version: '1.0.0',
+	build: '687-6e16294'
 };
 
