@@ -1,6 +1,22 @@
 Release process
 ===============
 
+Start release branch
+```
+git flow release start a.b.c
+```
+
+Update versions in
++ npm package.json
++ hardcoded in jsdoc.json
++ hardcoded in docs/index.md
+
+
+Make copy of currend docs
+```
+cp -Rv docs/docs/latest docs/docs/o.l.d
+```
+
 
 Build dist, test, and commit
 ```
@@ -37,10 +53,4 @@ Publish to npm
 npm publish
 ```
 
-
-Version is mentioned in:
-------------------------
-+ npm package.json
-+ hardcoded in jsdoc.json
-+ hardcoded in docs/index.md
 
