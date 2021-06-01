@@ -1,6 +1,6 @@
 {
   "name": "ruler-and-compass",
-  "version": "0.10.3-dev",
+  "version": "1.0.0",
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "unpkg": "dist/rac.min.js",
