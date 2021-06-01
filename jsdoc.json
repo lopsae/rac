@@ -4,7 +4,7 @@
   ],
   "templates": {
     "minami" : {
-      "homeLabel": "RAC — Ruler and Compass<br/>0.10.3-dev"
+      "homeLabel": "RAC — Ruler and Compass<br/>1.0.0"
     },
     "default" : {
       "cleverLinks": false,
