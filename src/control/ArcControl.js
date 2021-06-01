@@ -45,12 +45,12 @@ class ArcControl extends Rac.Control {
     this.endLimit = this.valueOf((this.angleDistance.turnOne() - endInset.turn) / this.angleDistance.turnOne());
   }
 
-  // TODO: rename control.center to control.knob or similar
   // Returns the angle distance from `anchor.start` to the control center.
   distance() {
     return this.angleDistance.multOne(this.ratioValue());
   }
 
+  // TODO: rename control.center to control.knob or similar
   center() {
     // Not posible to calculate a center
     if (this.anchor === null) { return null; }

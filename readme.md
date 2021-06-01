@@ -9,6 +9,12 @@ RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/
 
 
 
+### Tutorials
+
+A collection of [interactive tutorials](https://observablehq.com/@lopsae/rac-tutorial-home) is available in [ObservableHQ](https://observablehq.com/).
+
+
+
 ### NPM
 
 RAC is available as an npm package at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
@@ -18,16 +24,16 @@ npm install ruler-and-compass
 
 
 
-### Browser use - UNPKG
+### UNPKG, Browser
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
-It can be imported directly as a script, which will create the [`Rac` constructor](./docs/latest/Rac.html) into the `Rac` global variable:
+It can be imported directly as a script, which will assign the [`Rac` constructor](./docs/latest/Rac.html) to the `Rac` global variable:
 ```
 <script src="https://unpkg.com/ruler-and-compass"></script>
 ```
 
-Or imported as a AMD package with a module loader like [RequireJS](https://requirejs.org/):
+Or imported as an [AMD package](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) with a module loader like [RequireJS](https://requirejs.org/):
 ```
 requirejs(["https://unpkg.com/ruler-and-compass"], Rac => { ... })
 ```
@@ -36,5 +42,5 @@ requirejs(["https://unpkg.com/ruler-and-compass"], Rac => { ... })
 
 ### License
 
-RAC is licensed under the MIT License: <https://github.com/lopsae/rac/blob/main/LICENSE>
+RAC is licensed under the [MIT License](https://github.com/lopsae/rac/blob/main/LICENSE).
 
