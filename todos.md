@@ -6,6 +6,9 @@ TODO's
 + make draft of all tutorial sections?
 + add sin/cos/tan to Angle objects
 + add debug drawing to rays!
++ add color.fromRGB(ffffff)
++ add stroke.styleWithNoFill()
++ angle.debug could receive any drawable?
 
 + function to push marker to controls
 + function controller.push to push to controller.controls
