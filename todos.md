@@ -1,6 +1,11 @@
 TODO's
 ======
 
+For docs:
++ reference instance.X on class
++ reference class on instance.X
++ fix docs in Stroke
+
 + what is the behaviour when equalityThreshold is zero?
 
 + make draft of all tutorial sections?
