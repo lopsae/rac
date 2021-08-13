@@ -8,16 +8,20 @@ const utils = require('../util/utils');
 /**
 * Stroke weight and [color]{@link Rac.Color} for drawing.
 *
-* Can be used as a style object in `draw` methods to only apply stroke
-* style settings.
+* Can be used as `stroke.apply()` to apply the stroke settings globally, or
+* as the parameter of `drawable.draw(stroke)` to apply the stroke only for
+* that `draw`.
 *
-* The instance applies the `weight` and `color` settings as available:
-* + when `color` and `weight` are set: both stroke settings are applied
-* + when `weight` is `0` and `color` is set: only stroke color is applied
-* + when `color` is `null` and `weight` is larger that `0`: only stroke
-*   weight is applied
-* + when `weight` is `0` and `color` is `null`: a *no stroke* setting is
+* The instance applies the stroke color and weight settings in the
+* following combinations:
+* + when `color = null` and `weight = null`: a *no-stroke* setting is
 *   applied
+* + when `color` is set and `weight = null`: only the stroke color is
+*   applied, stroke weight is not modified
+* + when `weight` is set and `color = null`: only the stroke weight is
+*   applied, stroke color is not modified
+* + when both `color` and `weight` are set: both stroke color and weight
+*   are applied
 *
 * @alias Rac.Stroke
 */
