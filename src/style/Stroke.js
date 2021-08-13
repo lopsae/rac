@@ -12,22 +12,16 @@ const utils = require('../util/utils');
 * as the parameter of `drawable.draw(stroke)` to apply the stroke only for
 * that `draw`.
 *
-* TODO: outdated!
-* null - null -> noStroke
-* 0 - null -> applies zero stroke
-* 0 - color -> applies both
-* 1 - null -> applies 1 stroke
-* 1 - color -> applies 1 and color
-* null - color -> applies color
-*
-* The instance applies the `weight` and `color` settings as available:
-* + when `color` and `weight` are set: both stroke settings are applied
-* + when `weight` is `0` and `color` is set: only stroke color is applied
-* + when `color` is `null` and `weight` is larger that `0`: only stroke
-*   weight is applied
-* + when `weight` is `0` and `color` is `null`: a *no stroke* setting is
+* The instance applies the stroke color and weight settings in the
+* following combinations:
+* + when `color = null` and `weight = null`: a *no-stroke* setting is
 *   applied
-* + TODO: when `weight` and `color` are both `null`, no op?
+* + when `color` is set and `weight = null`: only the stroke color is
+*   applied, stroke weight is not modified
+* + when `weight` is set and `color = null`: only the stroke weight is
+*   applied, stroke color is not modified
+* + when both `color` and `weight` are set: both stroke color and weight
+*   are applied
 *
 * @alias Rac.Stroke
 */
