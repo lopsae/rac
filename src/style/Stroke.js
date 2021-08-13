@@ -11,6 +11,14 @@ const utils = require('../util/utils');
 * Can be used as a style object in `draw` methods to only apply stroke
 * style settings.
 *
+* TODO: outdated!
+* null - null -> noStroke
+* 0 - null -> applies zero stroke
+* 0 - color -> applies both
+* 1 - null -> applies 1 stroke
+* 1 - color -> applies 1 and color
+* null - color -> applies color
+*
 * The instance applies the `weight` and `color` settings as available:
 * + when `color` and `weight` are set: both stroke settings are applied
 * + when `weight` is `0` and `color` is set: only stroke color is applied
@@ -18,6 +26,7 @@ const utils = require('../util/utils');
 *   weight is applied
 * + when `weight` is `0` and `color` is `null`: a *no stroke* setting is
 *   applied
+* + TODO: when `weight` and `color` are both `null`, no op?
 *
 * @alias Rac.Stroke
 */
