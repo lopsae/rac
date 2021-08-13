@@ -48,16 +48,20 @@
         </h2>
         
             <div class="class-description"><p>Stroke weight and <a href="Rac.Color.html">color</a> for drawing.</p>
-<p>Can be used as a style object in <code>draw</code> methods to only apply stroke
-style settings.</p>
-<p>The instance applies the <code>weight</code> and <code>color</code> settings as available:</p>
+<p>Can be used as <code>stroke.apply()</code> to apply the stroke settings globally, or
+as the parameter of <code>drawable.draw(stroke)</code> to apply the stroke only for
+that <code>draw</code>.</p>
+<p>The instance applies the stroke color and weight settings in the
+following combinations:</p>
 <ul>
-<li>when <code>color</code> and <code>weight</code> are set: both stroke settings are applied</li>
-<li>when <code>weight</code> is <code>0</code> and <code>color</code> is set: only stroke color is applied</li>
-<li>when <code>color</code> is <code>null</code> and <code>weight</code> is larger that <code>0</code>: only stroke
-weight is applied</li>
-<li>when <code>weight</code> is <code>0</code> and <code>color</code> is <code>null</code>: a <em>no stroke</em> setting is
+<li>when <code>color = null</code> and <code>weight = null</code>: a <em>no-stroke</em> setting is
 applied</li>
+<li>when <code>color</code> is set and <code>weight = null</code>: only the stroke color is
+applied, stroke weight is not modified</li>
+<li>when <code>weight</code> is set and <code>color = null</code>: only the stroke weight is
+applied, stroke color is not modified</li>
+<li>when both <code>color</code> and <code>weight</code> are set: both stroke color and weight
+are applied</li>
 </ul></div>
         
     
@@ -82,7 +86,7 @@ applied</li>
     <span><a href="Rac.Stroke.html" class="maic">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line24">line 24</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line28">line 28</a>
         </span>
     
     </div>
