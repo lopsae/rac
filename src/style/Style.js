@@ -9,8 +9,9 @@ const utils = require('../util/utils');
 * `[Stroke]{@link Rac.Stroke}` and `[Fill]{@link Rac.Fill}` style to apply
 * for drawing.
 *
-* Can be used in `draw` methods to apply both stroke and fill style
-* settings.
+* Can be used as `style.apply()` to apply the stroke and fill settings
+* globally, or as the parameter of `drawable.draw(style)` to apply the
+* settings only for that `draw`.
 *
 * Applies whichever `stroke` or `fill` styles are present, any set to
 * `null` is individually skipped.
