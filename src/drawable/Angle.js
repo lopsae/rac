@@ -181,6 +181,7 @@ class Angle {
     return this.add(this.rac.Angle.inverse);
   }
 
+
   /**
   * Returns a new `Angle` with a turn value equivalent to `-turn`.
   * ```
@@ -193,6 +194,7 @@ class Angle {
   negative() {
     return new Angle(this.rac, -this.turn);
   }
+
 
   /**
   * Returns a new `Angle` which is perpendicular to `this` in the
@@ -208,25 +210,31 @@ class Angle {
     return this.shift(this.rac.Angle.square, clockwise);
   }
 
+
   /**
   * Returns the measure of the angle in radians.
+  *
   * @returns {number}
   */
   radians() {
     return this.turn * Rac.TAU;
   }
 
+
   /**
   * Returns the measure of the angle in degrees.
+  *
   * @returns {number}
   */
   degrees() {
     return this.turn * 360;
   }
 
+
   /**
   * Returns the `turn` value in the range `(0, 1]`. When `turn` is equal to
   * `0` returns `1` instead.
+  *
   * @returns {number}
   */
   turnOne() {
@@ -234,9 +242,11 @@ class Angle {
     return this.turn;
   }
 
+
   /**
   * Returns a new `Angle` with the sum of `this` and the angle derived from
   * `angle`.
+  *
   * @param {Rac.Angle|number} angle - An `Angle` to add
   * @returns {Rac.Angle}
   */
@@ -245,9 +255,11 @@ class Angle {
     return new Angle(this.rac, this.turn + angle.turn);
   }
 
+
   /**
   * Returns a new `Angle` with the angle derived from `angle`
   * subtracted to `this`.
+  *
   * @param {Rac.Angle|number} angle - An `Angle` to subtract
   * @returns {Rac.Angle}
   */
@@ -256,14 +268,17 @@ class Angle {
     return new Angle(this.rac, this.turn - angle.turn);
   }
 
+
   /**
   * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
+  *
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
   */
   mult(factor) {
     return new Angle(this.rac, this.turn * factor);
   }
+
 
   /**
   * Returns a new `Angle` with `turn` set to
