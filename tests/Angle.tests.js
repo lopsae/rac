@@ -142,19 +142,52 @@ tools.test( function fromFunctions() {
 });
 
 
-test('Transforms to radian/degrees', () => {
+tools.test( function radianDegreesTransforms() {
   expect(rac.Angle.zero.radians()).toBe(0);
   expect(rac.Angle.half.radians()).toBe(Rac.TAU/2);
 
   expect(rac.Angle.zero.degrees()).toBe(0);
   expect(rac.Angle.half.degrees()).toBe(360/2);
 
-  expect(Rac.Angle.fromRadians(rac, 0))
+  expect(rac.Angle.fromRadians(0))
     .equalsAngle(rac.Angle.zero);
-  expect(Rac.Angle.fromRadians(rac, Rac.TAU/2))
-    .equalsAngle(rac.Angle.half);
-  expect(Rac.Angle.fromRadians(rac, Rac.TAU))
+  expect(rac.Angle.fromRadians(Rac.TAU))
     .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.fromRadians(Rac.TAU*7))
+    .equalsAngle(rac.Angle.zero);
+
+  expect(rac.Angle.fromRadians(Rac.TAU/8))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromRadians(Rac.TAU/8 + Rac.TAU))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromRadians(Rac.TAU/8 - Rac.TAU))
+    .equalsAngle(rac.Angle.eighth);
+
+  expect(rac.Angle.fromRadians(-Rac.TAU/8))
+    .equalsAngle(rac.Angle.neighth);
+  expect(rac.Angle.fromRadians(-Rac.TAU/8 - Rac.TAU))
+    .equalsAngle(rac.Angle.neighth);
+
+
+  expect(rac.Angle.fromDegrees(0))
+    .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.fromDegrees(360))
+    .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.fromDegrees(360*7))
+    .equalsAngle(rac.Angle.zero);
+
+  expect(rac.Angle.fromDegrees(45))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromDegrees(45 + 360))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromDegrees(45 - 360))
+    .equalsAngle(rac.Angle.eighth);
+
+  expect(rac.Angle.fromDegrees(-45))
+    .equalsAngle(rac.Angle.neighth);
+  expect(rac.Angle.fromDegrees(-45 - 360))
+    .equalsAngle(rac.Angle.neighth);
+
 });
 
 
