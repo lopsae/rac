@@ -4,8 +4,14 @@ TODO's
 Latest stabe npm used: 7.5.3
 
 
++ make draft of all tutorial sections?
+
 + add sin/cos/tan to Angle objects
 + color.stroke() for no weight stroke with color
++ Stroke.from() that can receive color
++ Arc method to shift start and/or end considering arc orientation (cut ends or extend)
++ set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
++ make stroke.weigth default to null, so that it only applies color
 
 
 For docs:
@@ -14,12 +20,10 @@ For docs:
 
 + what is the behaviour when equalityThreshold is zero? check and document
 
-+ make draft of all tutorial sections?
 + add debug drawing to rays!
 + add color.fromRGB(ffffff)
 + add stroke.styleWithNoFill()
 + angle.debug could receive any drawable?
-+ Stroke.from() that can receive color
 + style.withStroke(someStroke) that can receive color
 
 + function to push marker to controls
@@ -32,6 +36,4 @@ For docs:
 + whole circle control located at 0 shows incorrect arrows
 
 + create instance.Style
-+ Arc method to shift start and/or end considering arc orientation (cut ends or extend)
-+ set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
-+ make stroke.weigth default to null, so that it only applies color
+
