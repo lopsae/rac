@@ -232,6 +232,36 @@ class Angle {
 
 
   /**
+  * Returns the sine of `this`.
+  *
+  * @returns {number}
+  */
+  sin() {
+    return Math.sin(this.radians())
+  }
+
+
+  /**
+  * Returns the cosine of `this`.
+  *
+  * @returns {number}
+  */
+  cos() {
+    return Math.cos(this.radians())
+  }
+
+
+  /**
+  * Returns the tangent of `this`.
+  *
+  * @returns {number}
+  */
+  tan() {
+    return Math.tan(this.radians())
+  }
+
+
+  /**
   * Returns the `turn` value in the range `(0, 1]`. When `turn` is equal to
   * `0` returns `1` instead.
   *
