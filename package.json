@@ -24,10 +24,10 @@
     "start": "npm test && grunt serve",
     "dist": "npm test && grunt dist",
     "docs": "grunt --debug makeDocs && npm run docs:open",
-    "docs:open": "open ./docs/docs/latest/index.html",
-    "docs:clean": "git checkout HEAD -- docs/docs/latest",
+    "docs:open": "open ./docs/documentation/latest/index.html",
+    "docs:clean": "git checkout HEAD -- docs/documentation/latest",
     "docs:fresh": "npm run docs:delete && npm run docs",
-    "docs:delete": "rm -rfv docs/docs/latest/*",
+    "docs:delete": "rm -rfv docs/documentation/latest/*",
     "pages": "cd docs; bundle exec jekyll serve"
   },
   "devDependencies": {
