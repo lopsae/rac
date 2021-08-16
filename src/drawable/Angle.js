@@ -65,6 +65,7 @@ class Angle {
     this.turn = turn;
   }
 
+
   /**
   * Returns a string representation intended for human consumption.
   *
@@ -76,6 +77,7 @@ class Angle {
     const turnStr = utils.cutDigits(this.turn, digits);
     return `Angle(${turnStr})`;
   }
+
 
   /**
   * Returns `true` when the difference with the `turn` value of the angle
@@ -118,7 +120,7 @@ class Angle {
   * + When `something` is a `{@link Rac.Segment}`, returns its angle.
   * + Otherwise an error is thrown.
   *
-  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {Rac.Angle|Rac.Ray|Rac.Segment|number} something - An object to
   * derive an `Angle` from
   * @returns {Rac.Angle}
@@ -141,10 +143,11 @@ class Angle {
       `Cannot derive Rac.Angle - something-type:${utils.typeName(something)}`);
   }
 
+
   /**
   * Returns an `Angle` derived from `radians`.
   *
-  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   */
@@ -153,7 +156,16 @@ class Angle {
   }
 
 
-  // TODO: implement fromDegrees
+  /**
+  * Returns an `Angle` derived from `degrees`.
+  *
+  * @param {Rac} rac - Instance to pass along to newly created objects
+  * @param {number} degrees - The measure of the angle, in degrees
+  * @returns {Rac.Angle}
+  */
+  static fromDegrees(rac, degrees) {
+    return new Angle(rac, radians / 360);
+  }
 
 
   /**
