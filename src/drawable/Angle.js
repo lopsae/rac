@@ -164,7 +164,7 @@ class Angle {
   * @returns {Rac.Angle}
   */
   static fromDegrees(rac, degrees) {
-    return new Angle(rac, radians / 360);
+    return new Angle(rac, degrees / 360);
   }
 
 
