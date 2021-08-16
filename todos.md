@@ -4,6 +4,10 @@ TODO's
 Latest stabe npm used: 7.5.3
 
 
++ add sin/cos/tan to Angle objects
++ color.stroke() for no weight stroke with color
+
+
 For docs:
 + reference instance.X on class
 + reference class on instance.X
@@ -11,12 +15,10 @@ For docs:
 + what is the behaviour when equalityThreshold is zero? check and document
 
 + make draft of all tutorial sections?
-+ add sin/cos/tan to Angle objects
 + add debug drawing to rays!
 + add color.fromRGB(ffffff)
 + add stroke.styleWithNoFill()
 + angle.debug could receive any drawable?
-+ color.stroke() for no weight stroke with color
 + Stroke.from() that can receive color
 + style.withStroke(someStroke) that can receive color
 
