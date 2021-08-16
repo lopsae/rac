@@ -60,7 +60,7 @@ tools.test( function toString() {
 });
 
 
-test('Errors', () => {
+tools.test( function thrownErrors() {
   expect(() => {new Rac.Point(rac, 100, 100);})
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 

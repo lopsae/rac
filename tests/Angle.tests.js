@@ -58,7 +58,7 @@ tools.test( function identity() {
 });
 
 
-test('Function toString', () => {
+tools.test( function toString() {
   const string = rac.Angle(0.12345).toString();
   expect(string).toMatch('Angle');
   expect(string).toMatch('0.12345');
@@ -70,7 +70,7 @@ test('Function toString', () => {
 });
 
 
-test('Errors', () => {
+tools.test( function thrownErrors() {
   expect(() => { new Rac.Angle(rac, 1/2); })
     .not.toThrow();
 
@@ -83,7 +83,7 @@ test('Errors', () => {
 });
 
 
-test('Equality', () => {
+tools.test( function equiality() {
   const threshold = rac.unitaryEqualityThreshold;
   const bump = threshold/16;
   const aboveThreshold = threshold + bump;
@@ -122,7 +122,8 @@ test('Equality', () => {
   expect(angleCloseToOne).not.equalsAngle(closeToOne - aboveThreshold);
 });
 
-test('Function from', () => {
+
+tools.test( function fromFunctions() {
   expect(Rac.Angle.from(rac, rac.Angle.quarter))
     .equalsAngle(rac.Angle.quarter);
   expect(Rac.Angle.from(rac, 1/2))
