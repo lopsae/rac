@@ -143,11 +143,10 @@ tools.test( function fromFunctions() {
 
 
 tools.test( function radianDegreesTransforms() {
-  expect(rac.Angle.zero.radians()).toBe(0);
-  expect(rac.Angle.half.radians()).toBe(Rac.TAU/2);
-
-  expect(rac.Angle.zero.degrees()).toBe(0);
-  expect(rac.Angle.half.degrees()).toBe(360/2);
+  expect(rac.Angle.zero.radians())   .toBe(0);
+  expect(rac.Angle.quarter.radians()).toBe(Rac.TAU/4);
+  expect(rac.Angle.half.radians())   .toBe(Rac.TAU/2);
+  expect(rac.Angle.neighth.radians()).toBe(Rac.TAU * 7/8);
 
   expect(rac.Angle.fromRadians(0))
     .equalsAngle(rac.Angle.zero);
@@ -168,6 +167,10 @@ tools.test( function radianDegreesTransforms() {
   expect(rac.Angle.fromRadians(-Rac.TAU/8 - Rac.TAU))
     .equalsAngle(rac.Angle.neighth);
 
+  expect(rac.Angle.zero.degrees())   .toBe(0);
+  expect(rac.Angle.quarter.degrees()).toBe(360/4);
+  expect(rac.Angle.half.degrees())   .toBe(360/2);
+  expect(rac.Angle.neighth.degrees()).toBe(360 * 7/8);
 
   expect(rac.Angle.fromDegrees(0))
     .equalsAngle(rac.Angle.zero);
@@ -187,7 +190,24 @@ tools.test( function radianDegreesTransforms() {
     .equalsAngle(rac.Angle.neighth);
   expect(rac.Angle.fromDegrees(-45 - 360))
     .equalsAngle(rac.Angle.neighth);
+});
 
+
+tools.test( function sineCosineTangent() {
+  expect(rac.Angle.zero.sin())   .uniThresEquals(0)
+  expect(rac.Angle.quarter.sin()).uniThresEquals(1)
+  expect(rac.Angle.half.sin())   .uniThresEquals(0)
+  expect(rac.Angle.neighth.sin()).uniThresEquals(-Math.sqrt(1/2))
+
+  expect(rac.Angle.zero.cos())   .uniThresEquals(1)
+  expect(rac.Angle.quarter.cos()).uniThresEquals(0)
+  expect(rac.Angle.half.cos())   .uniThresEquals(-1)
+  expect(rac.Angle.neighth.cos()).uniThresEquals(Math.sqrt(1/2))
+
+  expect(rac.Angle.zero.tan())   .uniThresEquals(0)
+  expect(rac.Angle.eighth.tan()) .uniThresEquals(1)
+  expect(rac.Angle.half.tan())   .uniThresEquals(0)
+  expect(rac.Angle.neighth.tan()).uniThresEquals(-1)
 });
 
 
