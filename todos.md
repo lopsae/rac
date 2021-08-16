@@ -1,6 +1,9 @@
 TODO's
 ======
 
+Latest stabe npm used: 7.5.3
+
+
 For docs:
 + reference instance.X on class
 + reference class on instance.X
