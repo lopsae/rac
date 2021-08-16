@@ -4,14 +4,11 @@ TODO's
 Latest stabe npm used: 7.5.3
 
 
-+ make draft of all tutorial sections?
-
-+ add sin/cos/tan to Angle objects
++ make stroke.weigth default to null, so that it only applies color
 + color.stroke() for no weight stroke with color
 + Stroke.from() that can receive color
 + Arc method to shift start and/or end considering arc orientation (cut ends or extend)
 + set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
-+ make stroke.weigth default to null, so that it only applies color
 
 
 For docs:
