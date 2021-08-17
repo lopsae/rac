@@ -4,7 +4,7 @@ TODO's
 Latest stabe npm used: 7.5.3
 
 
-+ make stroke.weigth default to null, so that it only applies color
++ make color.stroke() default weight to null, so that it only applies color
 + color.stroke() for no weight stroke with color
 + Stroke.from() that can receive color
 + Arc method to shift start and/or end considering arc orientation (cut ends or extend)

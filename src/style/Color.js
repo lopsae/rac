@@ -37,7 +37,7 @@ class Color {
     return new Rac.Fill(this.rac, this);
   }
 
-  stroke(weight = 1) {
+  stroke(weight = null) {
     return new Rac.Stroke(this.rac, weight, this);
   }
 
