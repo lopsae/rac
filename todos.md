@@ -4,9 +4,8 @@ TODO's
 Latest stabe npm used: 7.5.3
 
 
-+ make color.stroke() default weight to null, so that it only applies color
-+ color.stroke() for no weight stroke with color
-+ Stroke.from() that can receive color
++ Document Color
++ add color.linearTransform
 + Arc method to shift start and/or end considering arc orientation (cut ends or extend)
 + set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
 
