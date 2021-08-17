@@ -44,9 +44,27 @@ class Stroke {
     this.weight = weight;
   }
 
+
+  static from(rac, something) {
+    if (something instanceof Stroke) {
+      return something;
+    }
+    if (something instanceof Rac.Fill) {
+      return new Stroke(rac, null, something.color);
+    }
+    if (something instanceof Rac.Color) {
+      return new Stroke(rac, null, something);
+    }
+
+    throw Rac.Exception.invalidObjectType(
+      `Cannot derive Rac.Stroke - something-type:${utils.typeName(something)}`);
+  }
+
+
   withWeight(newWeight) {
     return new Stroke(this.rac, newWeight, this.color,);
   }
+
 
   withAlpha(newAlpha) {
     if (this.color === null) {
@@ -56,6 +74,7 @@ class Stroke {
     let newColor = this.color.withAlpha(newAlpha);
     return new Stroke(this.rac, this.weight, newColor);
   }
+
 
   styleWithFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);

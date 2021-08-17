@@ -40,7 +40,8 @@ class Fill {
       `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
   }
 
-  styleWithStroke(stroke) {
+  styleWithStroke(someStroke) {
+    let stroke = Rac.Stroke.from(this.rac, someStroke);
     return new Rac.Style(this.rac, stroke, this);
   }
 
