@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured by a `turn` value in the range `[0,1)` that represents the
+* Angle measured by a `turn` value in the range *[0,1)* that represents the
 * amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
@@ -28,7 +28,7 @@ class Angle {
   /**
   * Creates a new `Angle` instance.
   *
-  * The `turn` value is constrained to the rance `[0, 1)`, any value
+  * The `turn` value is constrained to the rance *[0,1)*, any value
   * outside is reduced back into range using a modulo operation.
   *
   * ```
@@ -59,7 +59,7 @@ class Angle {
     }
 
     /**
-    * Turn value of the angle, constrained to the range `[0, 1)`.
+    * Turn value of the angle, constrained to the range *[0,1)*.
     * @type {number}
     */
     this.turn = turn;
@@ -88,7 +88,7 @@ class Angle {
   * type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
-  * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and
+  * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to compare
