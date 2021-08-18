@@ -310,6 +310,29 @@ tools.test( function withStartEndAnglesTowardsPoint() {
 });
 
 
+tools.test( function withStartEndExtension() {
+  expect(quarter.withStartExtension(rac.Angle.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+  expect(quarter.withStartExtension(0))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+
+  expect(quarter.withStartExtension(1/8))
+    .equalsArc(0, 0, 36, rac.Angle.topRight, rac.Angle.left, false);
+  expect(quarter.withStartExtension(-1/8))
+    .equalsArc(0, 0, 36, rac.Angle.topLeft, rac.Angle.left, false);
+
+  expect(quarter.withEndExtension(rac.Angle.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+  expect(quarter.withEndExtension(0))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+
+  expect(quarter.withEndExtension(1/8))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.bottomLeft, false);
+  expect(quarter.withEndExtension(-1/8))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.topLeft, false);
+});
+
+
 tools.test( function reverse() {
   expect(quarter.reverse())
     .equalsArc(0, 0, 36, rac.Angle.left, rac.Angle.up, true);
