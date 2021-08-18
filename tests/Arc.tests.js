@@ -264,6 +264,22 @@ tools.test( function withLengthAndRatio() {
 });
 
 
+tools.test( function withStartEndPoint() {
+  const fifty = rac.Point(55, 55);
+  const hypotenuse = tools.hypotenuse(55);
+
+  expect(quarter.withStartPoint(fifty))
+    .equalsArc(0, 0, hypotenuse, rac.Angle.eighth, rac.Angle.left, false);
+  expect(quarter.withStartPoint(rac.Point.zero))
+    .equalsArc(0, 0, 0, rac.Angle.up, rac.Angle.left, false);
+
+  expect(quarter.withEndPoint(fifty))
+    .equalsArc(0, 0, hypotenuse, rac.Angle.up, rac.Angle.eighth, false);
+  expect(quarter.withEndPoint(rac.Point.zero))
+    .equalsArc(0, 0, 0, rac.Angle.up, rac.Angle.left, false);
+});
+
+
 tools.test( function withStartEndAnglesTowardsPoint() {
   const fifty = rac.Point(55, 55);
   const eighth = rac.Angle.eighth;
