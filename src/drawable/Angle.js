@@ -379,6 +379,9 @@ class Angle {
   * Returns a new `Angle` result of shifting `this` to have the angle
   * derived from `origin` as its origin.
   *
+  * The result of `angle.shiftToOrigin(origin)` is equivalent to
+  * `origin.shift(angle)`.
+  *
   * This operation is the equivalent to
   * + `origin.add(this)` when clockwise
   * + `origin.subtract(this)` when counter-clockwise
