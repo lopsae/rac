@@ -6,6 +6,7 @@ Latest stabe npm used: 7.5.3
 
 + Document Color
 + add color.linearTransform
++ rename color.alpha to a
 + Arc method to shift start and/or end considering arc orientation (cut ends or extend)
 + set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
 

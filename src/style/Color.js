@@ -102,6 +102,31 @@ class Color {
     return new Color(this.rac, this.r, this.g, this.b, this.alpha * ratio);
   }
 
+
+  /**
+  * Returns a new `Color` in the linear transition between `this` and
+  * `target` at a `ratio` in the range *[0,1]*.
+  *
+  * When `ratio` is `0` or less the new `Color` is equivalent to `this,
+  * when `ratio` is `1` or larger the new `Color` is equivalent to
+  * `target`.
+  *
+  * @param {number} ratio - The transition ratio for the new `Color`
+  * @param {Rac.Color} target - The transition target `Color`
+  * @returns {Rac.Color}
+  */
+  linearTransition(ratio, target) {
+    ratio = Math.max(ratio, 0);
+    ratio = Math.min(ratio, 1);
+
+    let newR = this.r + (target.r - this.r) * ratio;
+    let newG = this.g + (target.g - this.g) * ratio;
+    let newB = this.b + (target.b - this.b) * ratio;
+    let newA = this.alpha + (target.alpha - this.alpha) * ratio;
+
+    return new Color(this.rac, newR, newG, newB, newA);
+  }
+
 } // class Color
 
 
