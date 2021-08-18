@@ -28,6 +28,13 @@ class Fill {
   constructor(rac, color = null) {
     utils.assertExists(rac);
     color !== null && utils.assertType(Rac.Color, color);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
     this.color = color;
   }

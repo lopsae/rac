@@ -39,6 +39,12 @@ class Stroke {
     weight !== null && utils.assertNumber(weight);
     color !== null && utils.assertType(Rac.Color, color);
 
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac
     this.color = color;
     this.weight = weight;

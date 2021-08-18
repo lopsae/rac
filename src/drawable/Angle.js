@@ -47,8 +47,9 @@ class Angle {
     utils.assertNumber(turn);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
