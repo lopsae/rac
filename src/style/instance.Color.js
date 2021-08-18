@@ -33,6 +33,23 @@ module.exports = function attachRacColor(rac) {
 
 
   /**
+  * Returns a new `Color` instance from a hexadecimal triplet string.
+  *
+  * The `hexString` is expected to have 6 digits and can optionally start
+  * with `#`. `AABBCC` and `#DDEEFF` are both valid inputs, the three digit
+  * shorthand is not yet supported.
+  *
+  * An error is thrown if `hexString` is misformatted or cannot be parsed.
+  *
+  * @param {string} hexString - The RGB hex triplet to interpret
+  * @returns {Rac.Color}
+  */
+  rac.Color.fromHex = function(hexString) {
+    return Rac.Color.fromHex(rac, hexString);
+  }
+
+
+  /**
   * A black `Color`.
   *
   * @name black

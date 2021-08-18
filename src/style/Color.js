@@ -87,6 +87,47 @@ class Color {
 
 
   /**
+  * Creates a new `Color` instance from a hexadecimal triplet string.
+  *
+  * The `hexString` is expected to have 6 digits and can optionally start
+  * with `#`. `AABBCC` and `#DDEEFF` are both valid inputs, the three digit
+  * shorthand is not yet supported.
+  *
+  * An error is thrown if `hexString` is misformatted or cannot be parsed.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {string} hexString - The RGB hex triplet to interpret
+  *
+  * @returns {Rac.Color}
+  */
+  static fromHex(rac, hexString) {
+    if (hexString.charAt(0) == '#') {
+      hexString = hexString.substring(1);
+    }
+
+    if (hexString.length != 6) {
+      throw Rac.Exception.failedAssert(
+        `Unexpected length for hex triplet string: ${hexString}`);
+    }
+
+    let rStr = hexString.substring(0, 2);
+    let gStr = hexString.substring(2, 4);
+    let bStr = hexString.substring(4, 6);
+
+    let newR = parseInt(rStr, 16);
+    let newG = parseInt(gStr, 16);
+    let newB = parseInt(bStr, 16);
+
+    if (isNaN(newR) || isNaN(newG) || isNaN(newB)) {
+      throw Rac.Exception.failedAssert(
+        `Could not parse hex triplet string: ${hexString}`);
+    }
+
+    return new Color(rac, newR/255, newG/255, newB/255);
+  }
+
+
+  /**
   * Returns a new `Fill` that uses `this` as `color`.
   *
   * @returns {Rac.Fill}
