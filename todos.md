@@ -5,8 +5,6 @@ Latest stabe npm used: 7.5.3
 
 In progress
 -----------
-+ Arc method to shift start and/or end considering arc orientation (cut ends or extend)
-+ set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
 + add debug drawing to rays!
 
 
