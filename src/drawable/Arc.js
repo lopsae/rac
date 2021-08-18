@@ -324,9 +324,10 @@ class Arc{
 
   /**
   * Returns a new `Arc` with the given `angleDistance` as the distance
-  * between `start` and `end` in the arc's orientation.
+  * between `start` and `end` in the arc's orientation. This changes `end`
+  * for the new `Arc`.
   *
-  * All properties except `end` are copied from `this`.
+  * All other properties are copied from `this`.
   *
   * @param {Rac.Angle|number} angleDistance - The angle distance of the
   * new `Arc`
@@ -344,9 +345,10 @@ class Arc{
 
   /**
   * Returns a new `Arc` with the given `length` as the length of the
-  * part of the circumference it represents.
+  * part of the circumference it represents. This changes `end` for the
+  * new `Arc`.
   *
-  * All properties except `end` are copied from `this`.
+  * All other properties are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
   * range `[0,radius*TAU)`. When the given `length` is larger that the
@@ -364,9 +366,10 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with a `length()` of `this.length() * ratio`.
+  * Returns a new `Arc` with a `length()` of `this.length() * ratio`. This
+  * changes `end` for the new `Arc`.
   *
-  * All properties except `end` are copied from `this`.
+  * All other properties are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
   * range *[0,radius*TAU)*. When the calculated length is larger that the
@@ -385,8 +388,8 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `startPoint()` located at `point`. The new
-  * `Arc` will have a modified `start` and `radius`.
+  * Returns a new `Arc` with `startPoint()` located at `point`. This
+  * changes `start` and `radius` for the new `Arc`.
   *
   * All other properties are copied from `this`.
   *
@@ -409,8 +412,8 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `endPoint()` located at `point`. The new
-  * `Arc` will have a modified `end` and `radius`.
+  * Returns a new `Arc` with `endPoint()` located at `point`. This changes
+  * `end` and `radius` in the new `Arc`.
   *
   * All other properties are copied from `this`.
   *
