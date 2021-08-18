@@ -340,11 +340,11 @@ class P5Drawer {
     };
 
     Rac.Color.prototype.applyFill = function() {
-      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.a * 255);
     };
 
     Rac.Color.prototype.applyStroke = function() {
-      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.a * 255);
     };
 
     // Stroke

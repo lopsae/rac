@@ -19,11 +19,11 @@ class Color {
   * @param {number} r - The red channel value, in the *[0,1]* range
   * @param {number} g - The green channel value, in the *[0,1]* range
   * @param {number} b - The blue channel value, in the *[0,1]* range
-  * @param {number} [alpha=1] - The alpha channel value, in the *[0,1]* range
+  * @param {number} [a=1] - The alpha channel value, in the *[0,1]* range
   */
-  constructor(rac, r, g, b, alpha = 1) {
-    utils.assertExists(rac, r, g, b, alpha);
-    utils.assertNumber(r, g, b, alpha);
+  constructor(rac, r, g, b, a = 1) {
+    utils.assertExists(rac, r, g, b, a);
+    utils.assertNumber(r, g, b, a);
 
     /**
     * Instance of `Rac` used for drawing and passed along to any created
@@ -55,7 +55,7 @@ class Color {
     * The alpha channel of the color, in the *[0,1]* range.
     * @type {number}
     */
-    this.alpha = alpha;
+    this.a = a;
   }
 
 
@@ -65,7 +65,7 @@ class Color {
   * @returns {string}
   */
   toString() {
-    return `Color(${this.r},${this.g},${this.b},${this.alpha})`;
+    return `Color(${this.r},${this.g},${this.b},${this.a})`;
   }
 
 
@@ -77,7 +77,7 @@ class Color {
   * @param {number} r - The red channel value, in the *[0,255]* range
   * @param {number} g - The green channel value, in the *[0,255]* range
   * @param {number} b - The blue channel value, in the *[0,255]* range
-  * @param {number} [alpha=255] - The alpha channel value, in the *[0,255]* range
+  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
   *
   * @returns {Rac.Color}
   */
@@ -108,7 +108,7 @@ class Color {
 
 
   /**
-  * Returns a new `Color` with `alpha` set to `newAlpha`.
+  * Returns a new `Color` with `a` set to `newAlpha`.
   *
   * @param {number} newAlpha - The alpha channel for the new `Color`, in the
   *   *[0,1]* range
@@ -120,13 +120,13 @@ class Color {
 
 
   /**
-  * Returns a new `Color` with `alpha` set to `this.alpha * ratio`.
+  * Returns a new `Color` with `a` set to `this.a * ratio`.
   *
-  * @param {number} ratio - The factor to multiply `alpha` by
+  * @param {number} ratio - The factor to multiply `a` by
   * @returns {Rac.Color}
   */
   withAlphaRatio(ratio) {
-    return new Color(this.rac, this.r, this.g, this.b, this.alpha * ratio);
+    return new Color(this.rac, this.r, this.g, this.b, this.a * ratio);
   }
 
 
@@ -149,7 +149,7 @@ class Color {
     let newR = this.r + (target.r - this.r) * ratio;
     let newG = this.g + (target.g - this.g) * ratio;
     let newB = this.b + (target.b - this.b) * ratio;
-    let newA = this.alpha + (target.alpha - this.alpha) * ratio;
+    let newA = this.a + (target.a - this.a) * ratio;
 
     return new Color(this.rac, newR, newG, newB, newA);
   }

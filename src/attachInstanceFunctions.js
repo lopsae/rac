@@ -45,8 +45,8 @@ module.exports = function attachInstanceFunctions(rac) {
   * @function Color
   * @memberof Rac#
   */
-  rac.Color = function makeColor(r, g, b, alpha = 1) {
-    return new Rac.Color(this, r, g, b, alpha);
+  rac.Color = function makeColor(r, g, b, a = 1) {
+    return new Rac.Color(this, r, g, b, a);
   };
 
 
