@@ -83,11 +83,14 @@ tools.test( function thrownErrors() {
 });
 
 
-tools.test( function equiality() {
+tools.test( function equality() {
   const threshold = rac.unitaryEqualityThreshold;
   const bump = threshold/16;
   const aboveThreshold = threshold + bump;
   const belowThreshold = threshold - bump;
+
+  const otherRac = new Rac();
+  expect(otherRac.Angle.zero).not.equalsAngle(rac.Angle.zero);
 
   expect(rac.Angle.zero).equalsAngle(rac.Angle.zero);
   expect(rac.Angle.half).equalsAngle(rac.Angle.west);

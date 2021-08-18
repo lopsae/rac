@@ -14,6 +14,10 @@ const circle = rac.Arc(72, 72, 72, rac.Angle.down);
 
 
 tools.test( function identity() {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Arc.zero).not.equalsArc(0, 0, 0, 0, 0, true);
+
   // Instance members
   expect(rac.Arc.zero).equalsArc(0, 0, 0, 0, 0, true);
   expect(half).equalsArc(100, 100, 55, 3/4, 1/4, true);

@@ -12,6 +12,11 @@ const wizards = rac.Text(55, 55, 'The five boxing wizards jump quickly',
 
 
 test('Identity', () => {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Text.sphinx).not.equalsText(0, 0, 'sphinx of black quartz, judge my vow');
+  expect(rac.Text.sphinx)         .equalsText(0, 0, 'sphinx of black quartz, judge my vow');
+
   expect(null).not.equalsText(0, 0, "Identity");
 
   expect(wizards).equalsText(55, 55, 'The five boxing wizards jump quickly');

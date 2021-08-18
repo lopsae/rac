@@ -15,6 +15,10 @@ const horizontal = rac.Segment(100, 100, rac.Angle.zero, 72);
 
 
 tools.test( function identity() {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Segment.zero).not.equalsSegment(0, 0, 0, 0);
+
   // Instance members
   expect(rac.Segment.zero).equalsSegment(0, 0, 0, 0);
 
