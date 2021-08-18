@@ -24,10 +24,37 @@ class Color {
   constructor(rac, r, g, b, alpha = 1) {
     utils.assertExists(rac, r, g, b, alpha);
     utils.assertNumber(r, g, b, alpha);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The red channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.r = r;
+
+    /**
+    * The green channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.g = g;
+
+    /**
+    * The blue channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.b = b;
+
+    /**
+    * The alpha channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.alpha = alpha;
   }
 
@@ -107,7 +134,7 @@ class Color {
   * Returns a new `Color` in the linear transition between `this` and
   * `target` at a `ratio` in the range *[0,1]*.
   *
-  * When `ratio` is `0` or less the new `Color` is equivalent to `this,
+  * When `ratio` is `0` or less the new `Color` is equivalent to `this`,
   * when `ratio` is `1` or larger the new `Color` is equivalent to
   * `target`.
   *
