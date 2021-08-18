@@ -4,11 +4,10 @@ TODO's
 Latest stabe npm used: 7.5.3
 
 
-+ Document Color
-+ add color.linearTransform
-+ rename color.alpha to a
 + Arc method to shift start and/or end considering arc orientation (cut ends or extend)
 + set the start/endPoint of an arc to a point, withStartPoint, withEndPoint
++ add debug drawing to rays!
++ add color.fromRGB(ffffff)
 
 
 For docs:
@@ -17,9 +16,6 @@ For docs:
 
 + what is the behaviour when equalityThreshold is zero? check and document
 
-+ add debug drawing to rays!
-+ add color.fromRGB(ffffff)
-+ add stroke.styleWithNoFill()
 + angle.debug could receive any drawable?
 + style.withStroke(someStroke) that can receive color
 
