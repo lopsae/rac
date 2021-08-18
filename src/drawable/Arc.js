@@ -369,17 +369,66 @@ class Arc{
   * All properties except `end` are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
-  * range `[0,radius*TAU)`. When the calculated length is larger that the
+  * range *[0,radius*TAU)*. When the calculated length is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
   * @param {number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
+  *
   * @see Rac.Arc#length
   */
   withLengthRatio(ratio) {
     const newLength = this.length() * ratio;
     return this.withLength(newLength);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `startPoint()` located at `point`. The new
+  * `Arc` will have a modified `start` and `radius`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.start`.
+  *
+  * @param {Rac.Point} point - A `Point` at the `startPoint() of the new `Arc`
+  * @returns {Rac.Arc}
+  *
+  * @see Rac.Point#equals
+  */
+  withStartPoint(point) {
+    const newStart = this.center.angleToPoint(point, this.start);
+    const newRadius = this.center.distanceToPoint(point);
+    return new Arc(this.rac,
+      this.center, newRadius,
+      newStart, this.end,
+      this.clockwise);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `endPoint()` located at `point`. The new
+  * `Arc` will have a modified `end` and `radius`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.end`.
+  *
+  * @param {Rac.Point} point - A `Point` at the `endPoint() of the new `Arc`
+  * @returns {Rac.Arc}
+  *
+  * @see Rac.Point#equals
+  */
+  withEndPoint(point) {
+    const newEnd = this.center.angleToPoint(point, this.end);
+    const newRadius = this.center.distanceToPoint(point);
+    return new Arc(this.rac,
+      this.center, newRadius,
+      this.start, newEnd,
+      this.clockwise);
   }
 
 
@@ -394,6 +443,7 @@ class Arc{
   *
   * @param {Rac.Point} point - A `Point` to point `start` towards
   * @returns {Rac.Arc}
+  *
   * @see Rac.Point#equals
   */
   withStartTowardsPoint(point) {
