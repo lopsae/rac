@@ -508,6 +508,50 @@ class Arc{
 
 
   /**
+  * Returns a new `Arc` with `start` shifted by the given `angle` in the
+  * arc's opposite orientation.
+  *
+  * All other properties are copied from `this`.
+  *
+  * Notice that this method shifts `start` to the arc's *opposite*
+  * orientation, intending to result in a new `Arc` with an increase to
+  * `angleDistance()`.
+  *
+  * @param {Rac.Angle} angle - An `Angle` to shift `start` against
+  * @returns {Rac.Arc}
+  */
+  withStartExtension(angle) {
+    let newStart = this.start.shift(angle, !this.clockwise);
+    return new Arc(this.rac,
+      this.center, this.radius,
+      newStart, this.end,
+      this.clockwise);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `end` shifted by the given `angle` in the
+  * arc's orientation.
+  *
+  * All other properties are copied from `this`.
+  *
+  * Notice that this method shifts `end` towards the arc's orientation,
+  * intending to result in a new `Arc` with an increase to
+  * `angleDistance()`.
+  *
+  * @param {Rac.Angle} angle - An `Angle` to shift `start` against
+  * @returns {Rac.Arc}
+  */
+  withEndExtension(angle) {
+    let newEnd = this.end.shift(angle, this.clockwise);
+    return new Arc(this.rac,
+      this.center, this.radius,
+      this.start, newEnd,
+      this.clockwise);
+  }
+
+
+  /**
   * Returns a new `Arc` with its `start` and `end` exchanged, and the
   * opposite clockwise orientation. The center and radius remain be the
   * same as `this`.
