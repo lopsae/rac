@@ -5,7 +5,7 @@ Latest stabe npm used: 7.5.3
 
 In progress
 -----------
-+ do one run of in-code todos
+
 
 
 For version change

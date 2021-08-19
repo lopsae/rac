@@ -20,21 +20,44 @@ class P5Drawer {
     this.debugRoutines = [];
     this.applyRoutines = [];
 
-    // Style used for debug drawing, if null thise style already applied
-    // is used.
+    /**
+    * Style used for debug drawing, when `null` the style already applied
+    * is used.
+    *
+    * @type {object}
+    */
     this.debugStyle = null;
-    // Style used for text for debug drawing, if null the style already
-    // applied is used.
+
+    /**
+    * Style used for text for debug drawing, when `null` the style already
+    * applied is used.
+    *
+    * @type {object}
+    */
     this.debugTextStyle = null;
-    // Radius of point markers for debug drawing.
+
+    /**
+    * Object with options used by the default implementation of
+    * `drawable.debug()`.
+    *
+    * @type {object}
+    */
     this.debugTextOptions = {
       font: 'monospace',
       size: Rac.Text.Format.defaultSize,
       fixedDigits: 2
     };
 
+    /**
+    * Radius of point markers for debug drawing.
+    * @type {number}
+    */
     this.debugPointRadius = 4;
-    // Radius of main visual elements for debug drawing.
+
+    /**
+    * Radius of the main visual elements for debug drawing.
+    * @type {number}
+    */
     this.debugMarkerRadius = 22;
 
     this.setupAllDrawFunctions();
