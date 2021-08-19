@@ -9,12 +9,12 @@ module.exports = function attachRayFunctions(rac) {
 
   /**
   * Returns a new `Point` located where the ray touches the canvas edge.
+  *
   * When the ray is outside the canvas and pointing away, `null` is
   * returned.
   *
-  * Added  to `Rac.Ray.prototype` when `Rac.P5Drawer` is setup as
-  * `rac.drawer`.
-  *
+  * Added  to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
   * @returns {?Rac.Point}
   */
   Rac.Ray.prototype.pointAtCanvasEdge = function(margin = 0) {
@@ -34,8 +34,8 @@ module.exports = function attachRayFunctions(rac) {
   * When the ray is outside the canvas and pointing away, `null` is
   * returned.
   *
-  * Added  to `Rac.Ray.prototype` when `Rac.P5Drawer` is setup as
-  * `rac.drawer`.
+  * Added  to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {?Rac.Ray}
   */
