@@ -63,22 +63,45 @@ class P5Drawer {
     this.debugRoutines = [];
     this.applyRoutines = [];
 
-    // Style used for debug drawing, if null thise style already applied
-    // is used.
+    /**
+    * Style used for debug drawing, when `null` the style already applied
+    * is used.
+    *
+    * @type {object}
+    */
     this.debugStyle = null;
-    // Style used for text for debug drawing, if null the style already
-    // applied is used.
+
+    /**
+    * Style used for text for debug drawing, when `null` the style already
+    * applied is used.
+    *
+    * @type {object}
+    */
     this.debugTextStyle = null;
-    // Radius of point markers for debug drawing.
+
+    /**
+    * Object with options used by the default implementation of
+    * `drawable.debug()`.
+    *
+    * @type {object}
+    */
     this.debugTextOptions = {
       font: 'monospace',
       size: Rac.Text.Format.defaultSize,
-      toFixed: 2
+      fixedDigits: 2
     };
 
+    /**
+    * Radius of point markers for debug drawing.
+    * @type {number}
+    */
     this.debugPointRadius = 4;
-    // Radius of main visual elements for debug drawing.
-    this.debugRadius = 22;
+
+    /**
+    * Radius of the main visual elements for debug drawing.
+    * @type {number}
+    */
+    this.debugMarkerRadius = 22;
 
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
@@ -190,8 +213,9 @@ class P5Drawer {
     }
   }
 
+  // TODO: use directly number.toFixed
   debugNumber(number) {
-    return number.toFixed(this.debugTextOptions.toFixed);
+    return number.toFixed(this.debugTextOptions.fixedDigits);
   }
 
   debugObject(object, drawsText) {
@@ -236,6 +260,7 @@ class P5Drawer {
 
     // Ray
     this.setDrawFunction(Rac.Ray, functions.drawRay);
+    require('./Ray.functions')(this.rac);
 
     // Segment
     this.setDrawFunction(Rac.Segment, functions.drawSegment);
@@ -349,6 +374,7 @@ class P5Drawer {
   setupAllDebugFunctions() {
     let functions = require('./debug.functions');
     this.setDebugFunction(Rac.Point, functions.debugPoint);
+    this.setDebugFunction(Rac.Ray, functions.debugRay);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
 
@@ -383,11 +409,11 @@ class P5Drawer {
     };
 
     Rac.Color.prototype.applyFill = function() {
-      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.a * 255);
     };
 
     Rac.Color.prototype.applyStroke = function() {
-      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.a * 255);
     };
 
     // Stroke

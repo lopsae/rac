@@ -175,7 +175,7 @@
 <span><a href="Rac.Exception.html#buildsErrors" class="maic">#</a></span>
 
     <span> | source:
-    <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line31">line 31</a>
+    <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line33">line 33</a>
     </span>
 
 </div>
@@ -185,14 +185,16 @@
 
 
 <div class="description">
-    <p>When enabled the convenience static functions of this class will
-build <code>Error</code> objects, instead of <code>Exception</code> objects.</p>
-<p>Used for tests runs in Jest, since throwing a custom object like
-<code>Exception</code> within a matcher results in the expectation hanging
+    <p>When <code>true</code> the convenience static functions of this class will
+build <code>Error</code> objects, otherwise <code>Exception</code> objects are built.</p>
+<p>Set as <code>false</code> by default for browser use: throwing an <code>Exception</code>
+in chrome displays the error stack using source-maps when available,
+while throwing an <code>Error</code> object displays the error stack relative to
+the bundled file which is harder to read.</p>
+<p>Used as <code>true</code> for test runs in Jest: throwing an <code>Error</code> will be
+reported in the test report, while throwing a custom object (like
+<code>Exception</code>) within a matcher results in the expectation hanging
 indefinitely.</p>
-<p>On the other hand, throwing an <code>Error</code> object in chrome causes the
-displayed stack to be relative to the bundled file, instead of the
-source map.</p>
 </div>
 
 
@@ -264,7 +266,7 @@ source map.</p>
     <span><a href="Rac.Exception.html#.named" class="maic">#</a></span>
     
         <span> | source:
-        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line42">line 42</a>
+        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line44">line 44</a>
         </span>
     
     </div>
