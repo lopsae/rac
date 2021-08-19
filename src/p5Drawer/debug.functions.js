@@ -112,58 +112,48 @@ exports.debugPoint = function(drawer, point, drawsText) {
 
 
 exports.debugRay = function(drawer, ray, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugRadius;
 
   ray.draw();
 
   // Little circle at start marker
-  ray.start.arc(drawer.debugPointRadius).draw();
+  ray.start.arc(pointRadius).draw();
 
   // Half circle at start
-  let perpAngle = ray.angle.perpendicular();
-  let arc = ray.start
-    .arc(drawer.debugRadius, perpAngle, perpAngle.inverse())
+  const perpAngle = ray.angle.perpendicular();
+  const startArc = ray.start
+    .arc(markerRadius, perpAngle, perpAngle.inverse())
     .draw();
-  arc.startSegment().reverse()
+  startArc.startSegment().reverse()
     .withLengthRatio(0.5)
     .draw();
-  arc.endSegment().reverse()
+  startArc.endSegment().reverse()
     .withLengthRatio(0.5)
     .draw();
 
-  // Perpendicular end marker
-  // let endMarkerStart = segment
-  //   .nextSegmentPerpendicular()
-  //   .withLength(drawer.debugRadius/2)
-  //   .withStartExtended(-drawer.debugPointRadius)
-  //   .draw();
-  // let endMarkerEnd = segment
-  //   .nextSegmentPerpendicular(false)
-  //   .withLength(drawer.debugRadius/2)
-  //   .withStartExtended(-drawer.debugPointRadius)
-  //   .draw();
-  // // Little end half circle
-  // segment.endPoint()
-  //   .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
-  //   .draw();
-
-  // Forming end arrow
-  // let arrowAngleShift = rac.Angle.from(1/7);
-  // let endArrowStart = endMarkerStart
-  //   .reverse()
-  //   .ray.withAngleShift(arrowAngleShift, false);
-  // let endArrowEnd = endMarkerEnd
-  //   .reverse()
-  //   .ray.withAngleShift(arrowAngleShift, true);
-  // let endArrowPoint = endArrowStart
-  //   .pointAtIntersection(endArrowEnd);
-  // // End arrow
-  // endMarkerStart
-  //   .nextSegmentToPoint(endArrowPoint)
-  //   .draw()
-  //   .nextSegmentToPoint(endMarkerEnd.endPoint())
-  //   .draw();
-
+  // Edge end marker
+  const edgeRay = ray.rayAtCanvasEdge();
+  if (edgeRay != null) {
+    const edgeArc = edgeRay
+      .translateToDistance(pointRadius)
+      .perpendicular(false)
+      .arcToAngleDistance(markerRadius/2, 0.5)
+      .draw();
+    edgeArc.startSegment()
+      .reverse()
+      .withLength(pointRadius)
+      .draw();
+    edgeArc.endSegment()
+      .reverse()
+      .withLength(pointRadius)
+      .draw();
+    edgeArc.radiusSegmentAtAngle(edgeRay.angle)
+      .reverse()
+      .withLength(pointRadius)
+      .draw();
+  }
 
   // Text
   // if (drawsText !== true) { return; }
