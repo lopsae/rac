@@ -111,12 +111,109 @@ exports.debugPoint = function(drawer, point, drawsText) {
 }; // debugPoint
 
 
+exports.debugRay = function(drawer, ray, drawsText) {
+  let rac = drawer.rac;
+
+  ray.draw();
+
+  // Little circle at start marker
+  ray.start.arc(drawer.debugPointRadius).draw();
+
+  // Half circle at start
+  let perpAngle = ray.angle.perpendicular();
+  let arc = ray.start
+    .arc(drawer.debugRadius, perpAngle, perpAngle.inverse())
+    .draw();
+  arc.startSegment().reverse()
+    .withLengthRatio(0.5)
+    .draw();
+  arc.endSegment().reverse()
+    .withLengthRatio(0.5)
+    .draw();
+
+  // Perpendicular end marker
+  // let endMarkerStart = segment
+  //   .nextSegmentPerpendicular()
+  //   .withLength(drawer.debugRadius/2)
+  //   .withStartExtended(-drawer.debugPointRadius)
+  //   .draw();
+  // let endMarkerEnd = segment
+  //   .nextSegmentPerpendicular(false)
+  //   .withLength(drawer.debugRadius/2)
+  //   .withStartExtended(-drawer.debugPointRadius)
+  //   .draw();
+  // // Little end half circle
+  // segment.endPoint()
+  //   .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
+  //   .draw();
+
+  // Forming end arrow
+  // let arrowAngleShift = rac.Angle.from(1/7);
+  // let endArrowStart = endMarkerStart
+  //   .reverse()
+  //   .ray.withAngleShift(arrowAngleShift, false);
+  // let endArrowEnd = endMarkerEnd
+  //   .reverse()
+  //   .ray.withAngleShift(arrowAngleShift, true);
+  // let endArrowPoint = endArrowStart
+  //   .pointAtIntersection(endArrowEnd);
+  // // End arrow
+  // endMarkerStart
+  //   .nextSegmentToPoint(endArrowPoint)
+  //   .draw()
+  //   .nextSegmentToPoint(endMarkerEnd.endPoint())
+  //   .draw();
+
+
+  // Text
+  // if (drawsText !== true) { return; }
+
+  // let angle = segment.angle();
+  // // Normal orientation
+  // let lengthFormat = new Rac.Text.Format(
+  //   rac,
+  //   Rac.Text.Format.horizontal.left,
+  //   Rac.Text.Format.vertical.bottom,
+  //   drawer.debugTextOptions.font,
+  //   angle,
+  //   drawer.debugTextOptions.size);
+  // let angleFormat = new Rac.Text.Format(
+  //   rac,
+  //   Rac.Text.Format.horizontal.left,
+  //   Rac.Text.Format.vertical.top,
+  //   drawer.debugTextOptions.font,
+  //   angle,
+  //   drawer.debugTextOptions.size);
+  // if (reversesText(angle)) {
+  //   // Reverse orientation
+  //   lengthFormat = lengthFormat.inverse();
+  //   angleFormat = angleFormat.inverse();
+  // }
+
+  // Length
+  // let lengthString = `length:${drawer.debugNumber(segment.length)}`;
+  // segment.startPoint()
+  //   .pointToAngle(angle, drawer.debugPointRadius)
+  //   .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)
+  //   .text(lengthString, lengthFormat)
+  //   .draw(drawer.debugTextStyle);
+
+    // Angle
+  // let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
+  // segment.startPoint()
+  //   .pointToAngle(angle, drawer.debugPointRadius)
+  //   .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
+  //   .text(angleString, angleFormat)
+  //   .draw(drawer.debugTextStyle);
+}; // debugRay
+
+
 exports.debugSegment = function(drawer, segment, drawsText) {
   let rac = drawer.rac;
 
   segment.draw();
 
-  // Half circle start marker
+  // Little circle at start marker
   segment.withLength(drawer.debugPointRadius)
     .arc()
     .draw();

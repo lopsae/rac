@@ -306,6 +306,7 @@ class P5Drawer {
   setupAllDebugFunctions() {
     let functions = require('./debug.functions');
     this.setDebugFunction(Rac.Point, functions.debugPoint);
+    this.setDebugFunction(Rac.Ray, functions.debugRay);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
 
