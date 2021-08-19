@@ -10,7 +10,9 @@ function reversesText(angle) {
 
 
 exports.debugAngle = function(drawer, angle, point, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugRadius;
 
   // Zero segment
   point
@@ -21,10 +23,10 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   let angleSegment = point
     .segmentToAngle(angle, drawer.debugRadius * 1.5);
   angleSegment.endPoint()
-    .arc(drawer.debugPointRadius, angle, angle.inverse(), false)
+    .arc(pointRadius, angle, angle.inverse(), false)
     .draw();
   angleSegment
-    .withLengthAdd(drawer.debugPointRadius)
+    .withLengthAdd(pointRadius)
     .draw();
 
   // Mini arc markers
@@ -74,12 +76,14 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
 
 
 exports.debugPoint = function(drawer, point, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugRadius;
 
   point.draw();
 
   // Point marker
-  point.arc(drawer.debugPointRadius).draw();
+  point.arc(pointRadius).draw();
 
   // Point reticule marker
   let arc = point
@@ -105,7 +109,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     rac.Angle.e,
     drawer.debugTextOptions.size);
   point
-    .pointToAngle(rac.Angle.se, drawer.debugPointRadius*2)
+    .pointToAngle(rac.Angle.se, pointRadius*2)
     .text(string, format)
     .draw(drawer.debugTextStyle);
 }; // debugPoint
@@ -197,12 +201,14 @@ exports.debugRay = function(drawer, ray, drawsText) {
 
 
 exports.debugSegment = function(drawer, segment, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugRadius;
 
   segment.draw();
 
   // Little circle at start marker
-  segment.withLength(drawer.debugPointRadius)
+  segment.withLength(pointRadius)
     .arc()
     .draw();
 
@@ -223,16 +229,16 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   let endMarkerStart = segment
     .nextSegmentPerpendicular()
     .withLength(drawer.debugRadius/2)
-    .withStartExtended(-drawer.debugPointRadius)
+    .withStartExtended(-pointRadius)
     .draw();
   let endMarkerEnd = segment
     .nextSegmentPerpendicular(false)
     .withLength(drawer.debugRadius/2)
-    .withStartExtended(-drawer.debugPointRadius)
+    .withStartExtended(-pointRadius)
     .draw();
   // Little end half circle
   segment.endPoint()
-    .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
+    .arc(pointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
     .draw();
 
   // Forming end arrow
@@ -281,7 +287,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Length
   let lengthString = `length:${drawer.debugNumber(segment.length)}`;
   segment.startPoint()
-    .pointToAngle(angle, drawer.debugPointRadius)
+    .pointToAngle(angle, pointRadius)
     .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)
     .text(lengthString, lengthFormat)
     .draw(drawer.debugTextStyle);
@@ -289,7 +295,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     // Angle
   let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
   segment.startPoint()
-    .pointToAngle(angle, drawer.debugPointRadius)
+    .pointToAngle(angle, pointRadius)
     .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
     .text(angleString, angleFormat)
     .draw(drawer.debugTextStyle);
@@ -297,7 +303,9 @@ exports.debugSegment = function(drawer, segment, drawsText) {
 
 
 exports.debugArc = function(drawer, arc, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugRadius;
 
   arc.draw();
 
@@ -317,11 +325,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let radiusMarkerLength = arc.radius
     - centerArcRadius
     - drawer.debugRadius/2
-    - drawer.debugPointRadius*2;
+    - pointRadius*2;
   if (radiusMarkerLength > 0) {
     arc.startSegment()
       .withLength(radiusMarkerLength)
-      .translateToLength(centerArcRadius + drawer.debugPointRadius*2)
+      .translateToLength(centerArcRadius + pointRadius*2)
       .draw();
   }
 
@@ -351,7 +359,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Start point marker
   let startPoint = arc.startPoint();
   startPoint
-    .arc(drawer.debugPointRadius).draw();
+    .arc(pointRadius).draw();
   startPoint
     .segmentToAngle(arc.start, drawer.debugRadius)
     .withStartExtended(-drawer.debugRadius/2)
@@ -376,11 +384,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Internal end point marker
   let endPoint = arc.endPoint();
   let internalLength = Math.min(drawer.debugRadius/2, arc.radius);
-  internalLength -= drawer.debugPointRadius;
+  internalLength -= pointRadius;
   if (internalLength > rac.equalityThreshold) {
     endPoint
       .segmentToAngle(arc.end.inverse(), internalLength)
-      .translateToLength(drawer.debugPointRadius)
+      .translateToLength(pointRadius)
       .draw();
   }
 
@@ -390,18 +398,18 @@ exports.debugArc = function(drawer, arc, drawsText) {
     .withEnd(arc.end)
     .length();
   let externalLength = lengthAtOrientationArc > textJoinThreshold && drawsText === true
-    ? drawer.debugRadius - drawer.debugPointRadius
-    : drawer.debugRadius/2 - drawer.debugPointRadius;
+    ? drawer.debugRadius - pointRadius
+    : drawer.debugRadius/2 - pointRadius;
 
   endPoint
     .segmentToAngle(arc.end, externalLength)
-    .translateToLength(drawer.debugPointRadius)
+    .translateToLength(pointRadius)
     .draw();
 
   // End point little arc
   if (!arc.isCircle()) {
     endPoint
-      .arc(drawer.debugPointRadius, arc.end, arc.end.inverse(), arc.clockwise)
+      .arc(pointRadius, arc.end, arc.end.inverse(), arc.clockwise)
       .draw();
   }
 
@@ -469,7 +477,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
     let perpAngle = arc.start.perpendicular(!arc.clockwise);
     arc.center
       .pointToAngle(arc.start, drawer.debugRadius)
-      .pointToAngle(perpAngle, drawer.debugPointRadius*2)
+      .pointToAngle(perpAngle, pointRadius*2)
       .text(radiusString, radiusFormat)
       .draw(drawer.debugTextStyle);
     headString = startString;
