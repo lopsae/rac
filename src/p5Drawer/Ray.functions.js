@@ -21,40 +21,63 @@ module.exports = function attachRayFunctions(rac) {
     const turn = this.angle.turn;
     const p5 = this.rac.drawer.p5;
 
-    let edgePoint = null;
+    const downEdge  = p5.height - margin;
+    const leftEdge  = margin;
+    const upEdge    = margin;
+    const rightEdge = p5.width - margin;
 
-    if
-      (turn >= 1/8 && turn < 3/8)
-    {
-      // pointing down
-      const downEdge = p5.height - margin;
+    // pointing down
+    if (turn >= 1/8 && turn < 3/8) {
+      let edgePoint = null;
       if (this.start.y < downEdge) {
         edgePoint = this.pointAtY(downEdge);
+        if (edgePoint.x > rightEdge) {
+          edgePoint = this.pointAtX(rightEdge);
+        } else if (edgePoint.x < leftEdge) {
+          edgePoint = this.pointAtX(leftEdge);
+        }
       }
-    } else if
-      (turn >= 3/8 && turn < 5/8)
-    {
-      // pointing left
-      const leftEdge = margin;
-      if (this.start.x >= leftEdge) {
-        edgePoint = this.pointAtX(leftEdge);
-      }
-    } else if
-      (turn >= 5/8 && turn < 7/8)
-    {
-      // pointing up
-      const upEdge = margin;
-      if (this.start.y >= upEdge) {
-        edgePoint = this.pointAtY(upEdge);
-      }
-    } else {
-      // pointing right
-      const rightEdge = p5.width - margin;
-      if (this.start.x < rightEdge) {
-        edgePoint = this.pointAtX(rightEdge);
-      }
+      return edgePoint;
     }
 
+    // pointing left
+    if (turn >= 3/8 && turn < 5/8) {
+      let edgePoint = null;
+      if (this.start.x >= leftEdge) {
+        edgePoint = this.pointAtX(leftEdge);
+        if (edgePoint.y > downEdge) {
+          edgePoint = this.pointAtY(downEdge);
+        } else if (edgePoint.y < upEdge) {
+          edgePoint = this.pointAtY(upEdge);
+        }
+      }
+      return edgePoint;
+    }
+
+    // pointing up
+    if (turn >= 5/8 && turn < 7/8) {
+      let edgePoint = null;
+      if (this.start.y >= upEdge) {
+        edgePoint = this.pointAtY(upEdge);
+        if (edgePoint.x > rightEdge) {
+          edgePoint = this.pointAtX(rightEdge);
+        } else if (edgePoint.x < leftEdge) {
+          edgePoint = this.pointAtX(leftEdge);
+        }
+      }
+      return edgePoint;
+    }
+
+    // pointing right
+    let edgePoint = null;
+    if (this.start.x < rightEdge) {
+      edgePoint = this.pointAtX(rightEdge);
+      if (edgePoint.y > downEdge) {
+          edgePoint = this.pointAtY(downEdge);
+        } else if (edgePoint.y < upEdge) {
+          edgePoint = this.pointAtY(upEdge);
+        }
+    }
     return edgePoint;
   };
 
