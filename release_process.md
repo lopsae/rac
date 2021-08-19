@@ -5,7 +5,7 @@ Release process
 Start release branch
 --------------------
 ```
-git flow release start a.b.c
+git flow release start n.e.w
 ```
 
 
