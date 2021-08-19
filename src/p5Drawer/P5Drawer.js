@@ -35,7 +35,7 @@ class P5Drawer {
 
     this.debugPointRadius = 4;
     // Radius of main visual elements for debug drawing.
-    this.debugRadius = 22; // TODO: rename to debugMarkerRadius
+    this.debugMarkerRadius = 22;
 
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
