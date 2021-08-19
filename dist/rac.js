@@ -5,7 +5,7 @@
 // Ruler and Compass - version
 module.exports = {
 	version: '1.0.1-dev',
-	build: '767-a4b74c2'
+	build: '773-33a16e2'
 };
 
 
@@ -5757,22 +5757,45 @@ class P5Drawer {
     this.debugRoutines = [];
     this.applyRoutines = [];
 
-    // Style used for debug drawing, if null thise style already applied
-    // is used.
+    /**
+    * Style used for debug drawing, when `null` the style already applied
+    * is used.
+    *
+    * @type {object}
+    */
     this.debugStyle = null;
-    // Style used for text for debug drawing, if null the style already
-    // applied is used.
+
+    /**
+    * Style used for text for debug drawing, when `null` the style already
+    * applied is used.
+    *
+    * @type {object}
+    */
     this.debugTextStyle = null;
-    // Radius of point markers for debug drawing.
+
+    /**
+    * Object with options used by the default implementation of
+    * `drawable.debug()`.
+    *
+    * @type {object}
+    */
     this.debugTextOptions = {
       font: 'monospace',
       size: Rac.Text.Format.defaultSize,
       fixedDigits: 2
     };
 
+    /**
+    * Radius of point markers for debug drawing.
+    * @type {number}
+    */
     this.debugPointRadius = 4;
-    // Radius of main visual elements for debug drawing.
-    this.debugRadius = 22; // TODO: rename to debugMarkerRadius
+
+    /**
+    * Radius of the main visual elements for debug drawing.
+    * @type {number}
+    */
+    this.debugMarkerRadius = 22;
 
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
@@ -6465,25 +6488,27 @@ function reversesText(angle) {
 
 
 exports.debugAngle = function(drawer, angle, point, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugMarkerRadius;
 
   // Zero segment
   point
-    .segmentToAngle(rac.Angle.zero, drawer.debugRadius)
+    .segmentToAngle(rac.Angle.zero, markerRadius)
     .draw();
 
   // Angle segment
   let angleSegment = point
-    .segmentToAngle(angle, drawer.debugRadius * 1.5);
+    .segmentToAngle(angle, markerRadius * 1.5);
   angleSegment.endPoint()
-    .arc(drawer.debugPointRadius, angle, angle.inverse(), false)
+    .arc(pointRadius, angle, angle.inverse(), false)
     .draw();
   angleSegment
-    .withLengthAdd(drawer.debugPointRadius)
+    .withLengthAdd(pointRadius)
     .draw();
 
   // Mini arc markers
-  let angleArc = point.arc(drawer.debugRadius, rac.Angle.zero, angle);
+  let angleArc = point.arc(markerRadius, rac.Angle.zero, angle);
   let context = drawer.p5.drawingContext;
   let strokeWeight = context.lineWidth;
   context.save(); {
@@ -6496,7 +6521,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
       // Outside angle arc
       context.setLineDash([2, 4]);
       angleArc
-        .withRadius(drawer.debugRadius*3/4)
+        .withRadius(markerRadius*3/4)
         .withClockwise(false)
         .draw();
     }
@@ -6522,23 +6547,25 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Turn text
   let turnString = `turn:${drawer.debugNumber(angle.turn)}`;
   point
-    .pointToAngle(angle, drawer.debugRadius*2)
+    .pointToAngle(angle, markerRadius*2)
     .text(turnString, format)
     .draw(drawer.debugTextStyle);
 }; // debugAngle
 
 
 exports.debugPoint = function(drawer, point, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugMarkerRadius;
 
   point.draw();
 
   // Point marker
-  point.arc(drawer.debugPointRadius).draw();
+  point.arc(pointRadius).draw();
 
   // Point reticule marker
   let arc = point
-    .arc(drawer.debugRadius, rac.Angle.s, rac.Angle.e)
+    .arc(markerRadius, rac.Angle.s, rac.Angle.e)
     .draw();
   arc.startSegment().reverse()
     .withLengthRatio(1/2)
@@ -6560,7 +6587,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     rac.Angle.e,
     drawer.debugTextOptions.size);
   point
-    .pointToAngle(rac.Angle.se, drawer.debugPointRadius*2)
+    .pointToAngle(rac.Angle.se, pointRadius*2)
     .text(string, format)
     .draw(drawer.debugTextStyle);
 }; // debugPoint
@@ -6569,7 +6596,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
 exports.debugRay = function(drawer, ray, drawsText) {
   const rac = drawer.rac;
   const pointRadius = drawer.debugPointRadius;
-  const markerRadius = drawer.debugRadius;
+  const markerRadius = drawer.debugMarkerRadius;
 
   ray.draw();
 
@@ -6652,19 +6679,21 @@ exports.debugRay = function(drawer, ray, drawsText) {
 
 
 exports.debugSegment = function(drawer, segment, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugMarkerRadius;
 
   segment.draw();
 
   // Little circle at start marker
-  segment.withLength(drawer.debugPointRadius)
+  segment.withLength(pointRadius)
     .arc()
     .draw();
 
   // Half circle start segment
   let perpAngle = segment.angle().perpendicular();
   let arc = segment.startPoint()
-    .arc(drawer.debugRadius, perpAngle, perpAngle.inverse())
+    .arc(markerRadius, perpAngle, perpAngle.inverse())
     .draw();
   arc.startSegment().reverse()
     .withLengthRatio(0.5)
@@ -6677,17 +6706,17 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Perpendicular end marker
   let endMarkerStart = segment
     .nextSegmentPerpendicular()
-    .withLength(drawer.debugRadius/2)
-    .withStartExtended(-drawer.debugPointRadius)
+    .withLength(markerRadius/2)
+    .withStartExtended(-pointRadius)
     .draw();
   let endMarkerEnd = segment
     .nextSegmentPerpendicular(false)
-    .withLength(drawer.debugRadius/2)
-    .withStartExtended(-drawer.debugPointRadius)
+    .withLength(markerRadius/2)
+    .withStartExtended(-pointRadius)
     .draw();
   // Little end half circle
   segment.endPoint()
-    .arc(drawer.debugPointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
+    .arc(pointRadius, endMarkerStart.angle(), endMarkerEnd.angle())
     .draw();
 
   // Forming end arrow
@@ -6736,32 +6765,34 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Length
   let lengthString = `length:${drawer.debugNumber(segment.length)}`;
   segment.startPoint()
-    .pointToAngle(angle, drawer.debugPointRadius)
-    .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)
+    .pointToAngle(angle, pointRadius)
+    .pointToAngle(angle.subtract(1/4), markerRadius/2)
     .text(lengthString, lengthFormat)
     .draw(drawer.debugTextStyle);
 
     // Angle
   let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
   segment.startPoint()
-    .pointToAngle(angle, drawer.debugPointRadius)
-    .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
+    .pointToAngle(angle, pointRadius)
+    .pointToAngle(angle.add(1/4), markerRadius/2)
     .text(angleString, angleFormat)
     .draw(drawer.debugTextStyle);
 }; // debugSegment
 
 
 exports.debugArc = function(drawer, arc, drawsText) {
-  let rac = drawer.rac;
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugMarkerRadius;
 
   arc.draw();
 
   // Center markers
-  let centerArcRadius = drawer.debugRadius * 2/3;
-  if (arc.radius > drawer.debugRadius/3 && arc.radius < drawer.debugRadius) {
+  let centerArcRadius = markerRadius * 2/3;
+  if (arc.radius > markerRadius/3 && arc.radius < markerRadius) {
     // If radius is to close to the center-arc markers
     // Make the center-arc be outside of the arc
-    centerArcRadius = arc.radius + drawer.debugRadius/3;
+    centerArcRadius = arc.radius + markerRadius/3;
   }
 
   // Center start segment
@@ -6771,12 +6802,12 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Radius
   let radiusMarkerLength = arc.radius
     - centerArcRadius
-    - drawer.debugRadius/2
-    - drawer.debugPointRadius*2;
+    - markerRadius/2
+    - pointRadius*2;
   if (radiusMarkerLength > 0) {
     arc.startSegment()
       .withLength(radiusMarkerLength)
-      .translateToLength(centerArcRadius + drawer.debugPointRadius*2)
+      .translateToLength(centerArcRadius + pointRadius*2)
       .draw();
   }
 
@@ -6806,23 +6837,23 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Start point marker
   let startPoint = arc.startPoint();
   startPoint
-    .arc(drawer.debugPointRadius).draw();
+    .arc(pointRadius).draw();
   startPoint
-    .segmentToAngle(arc.start, drawer.debugRadius)
-    .withStartExtended(-drawer.debugRadius/2)
+    .segmentToAngle(arc.start, markerRadius)
+    .withStartExtended(-markerRadius/2)
     .draw();
 
   // Orientation marker
-  let orientationLength = drawer.debugRadius*2;
+  let orientationLength = markerRadius*2;
   let orientationArc = arc
     .startSegment()
-    .withLengthAdd(drawer.debugRadius)
+    .withLengthAdd(markerRadius)
     .arc(null, arc.clockwise)
     .withLength(orientationLength)
     .draw();
   let arrowCenter = orientationArc
     .reverse()
-    .withLength(drawer.debugRadius/2)
+    .withLength(markerRadius/2)
     .chordSegment();
   let arrowAngle = 3/32;
   arrowCenter.withAngleShift(-arrowAngle).draw();
@@ -6830,33 +6861,33 @@ exports.debugArc = function(drawer, arc, drawsText) {
 
   // Internal end point marker
   let endPoint = arc.endPoint();
-  let internalLength = Math.min(drawer.debugRadius/2, arc.radius);
-  internalLength -= drawer.debugPointRadius;
+  let internalLength = Math.min(markerRadius/2, arc.radius);
+  internalLength -= pointRadius;
   if (internalLength > rac.equalityThreshold) {
     endPoint
       .segmentToAngle(arc.end.inverse(), internalLength)
-      .translateToLength(drawer.debugPointRadius)
+      .translateToLength(pointRadius)
       .draw();
   }
 
   // External end point marker
-  let textJoinThreshold = drawer.debugRadius*3;
+  let textJoinThreshold = markerRadius*3;
   let lengthAtOrientationArc = orientationArc
     .withEnd(arc.end)
     .length();
   let externalLength = lengthAtOrientationArc > textJoinThreshold && drawsText === true
-    ? drawer.debugRadius - drawer.debugPointRadius
-    : drawer.debugRadius/2 - drawer.debugPointRadius;
+    ? markerRadius - pointRadius
+    : markerRadius/2 - pointRadius;
 
   endPoint
     .segmentToAngle(arc.end, externalLength)
-    .translateToLength(drawer.debugPointRadius)
+    .translateToLength(pointRadius)
     .draw();
 
   // End point little arc
   if (!arc.isCircle()) {
     endPoint
-      .arc(drawer.debugPointRadius, arc.end, arc.end.inverse(), arc.clockwise)
+      .arc(pointRadius, arc.end, arc.end.inverse(), arc.clockwise)
       .draw();
   }
 
@@ -6923,8 +6954,8 @@ exports.debugArc = function(drawer, arc, drawsText) {
     // Radius drawn separately
     let perpAngle = arc.start.perpendicular(!arc.clockwise);
     arc.center
-      .pointToAngle(arc.start, drawer.debugRadius)
-      .pointToAngle(perpAngle, drawer.debugPointRadius*2)
+      .pointToAngle(arc.start, markerRadius)
+      .pointToAngle(perpAngle, pointRadius*2)
       .text(radiusString, radiusFormat)
       .draw(drawer.debugTextStyle);
     headString = startString;
@@ -6936,18 +6967,18 @@ exports.debugArc = function(drawer, arc, drawsText) {
   if (lengthAtOrientationArc > textJoinThreshold) {
     // Draw strings separately
     orientationArc.startPoint()
-      .pointToAngle(arc.start, drawer.debugRadius/2)
+      .pointToAngle(arc.start, markerRadius/2)
       .text(headString, headFormat)
       .draw(drawer.debugTextStyle);
     orientationArc.pointAtAngle(arc.end)
-      .pointToAngle(arc.end, drawer.debugRadius/2)
+      .pointToAngle(arc.end, markerRadius/2)
       .text(tailString, tailFormat)
       .draw(drawer.debugTextStyle);
   } else {
     // Draw strings together
     let allStrings = `${headString}\n${tailString}`;
     orientationArc.startPoint()
-      .pointToAngle(arc.start, drawer.debugRadius/2)
+      .pointToAngle(arc.start, markerRadius/2)
       .text(allStrings, headFormat)
       .draw(drawer.debugTextStyle);
   }
@@ -7830,16 +7861,18 @@ class Exception {
   }
 
   /**
-  * When enabled the convenience static functions of this class will
-  * build `Error` objects, instead of `Exception` objects.
+  * When `true` the convenience static functions of this class will
+  * build `Error` objects, otherwise `Exception` objects are built.
   *
-  * Used for tests runs in Jest, since throwing a custom object like
-  * `Exception` within a matcher results in the expectation hanging
+  * Set as `false` by default for browser use: throwing an `Exception`
+  * in chrome displays the error stack using source-maps when available,
+  * while throwing an `Error` object displays the error stack relative to
+  * the bundled file which is harder to read.
+  *
+  * Used as `true` for test runs in Jest: throwing an `Error` will be
+  * reported in the test report, while throwing a custom object (like
+  * `Exception`) within a matcher results in the expectation hanging
   * indefinitely.
-  *
-  * On the other hand, throwing an `Error` object in chrome causes the
-  * displayed stack to be relative to the bundled file, instead of the
-  * source map.
   */
   static buildsErrors = false;
 
