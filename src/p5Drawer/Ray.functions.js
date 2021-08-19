@@ -12,12 +12,34 @@ module.exports = function attachRayFunctions(rac) {
   * When the ray is outside the canvas and pointing away, `null` is
   * returned.
   *
-  * * Added  to `Rac.Ray.prototype` when `Rac.P5Drawer` is setup as
+  * Added  to `Rac.Ray.prototype` when `Rac.P5Drawer` is setup as
   * `rac.drawer`.
   *
   * @returns {?Rac.Point}
   */
   Rac.Ray.prototype.pointAtCanvasEdge = function(margin = 0) {
+    let edgeRay = this.rayAtCanvasEdge(margin);
+    if (edgeRay == null) {
+      return null;
+    }
+
+    return edgeRay.start;
+  };
+
+
+  /**
+  * Returns a new `Ray` that starts at the point where the `this` touches
+  * the canvas edge and pointed towards the inside of the canvas.
+  *
+  * When the ray is outside the canvas and pointing away, `null` is
+  * returned.
+  *
+  * Added  to `Rac.Ray.prototype` when `Rac.P5Drawer` is setup as
+  * `rac.drawer`.
+  *
+  * @returns {?Rac.Ray}
+  */
+  Rac.Ray.prototype.rayAtCanvasEdge = function(margin = 0) {
     const turn = this.angle.turn;
     const p5 = this.rac.drawer.p5;
 
@@ -28,57 +50,57 @@ module.exports = function attachRayFunctions(rac) {
 
     // pointing down
     if (turn >= 1/8 && turn < 3/8) {
-      let edgePoint = null;
+      let edgeRay = null;
       if (this.start.y < downEdge) {
-        edgePoint = this.pointAtY(downEdge);
-        if (edgePoint.x > rightEdge) {
-          edgePoint = this.pointAtX(rightEdge);
-        } else if (edgePoint.x < leftEdge) {
-          edgePoint = this.pointAtX(leftEdge);
+        edgeRay = this.pointAtY(downEdge).ray(this.rac.Angle.up);
+        if (edgeRay.start.x > rightEdge) {
+          edgeRay = this.pointAtX(rightEdge).ray(this.rac.Angle.left);
+        } else if (edgeRay.start.x < leftEdge) {
+          edgeRay = this.pointAtX(leftEdge).ray(this.rac.Angle.right);
         }
       }
-      return edgePoint;
+      return edgeRay;
     }
 
     // pointing left
     if (turn >= 3/8 && turn < 5/8) {
-      let edgePoint = null;
+      let edgeRay = null;
       if (this.start.x >= leftEdge) {
-        edgePoint = this.pointAtX(leftEdge);
-        if (edgePoint.y > downEdge) {
-          edgePoint = this.pointAtY(downEdge);
-        } else if (edgePoint.y < upEdge) {
-          edgePoint = this.pointAtY(upEdge);
+        edgeRay = this.pointAtX(leftEdge).ray(this.rac.Angle.right);
+        if (edgeRay.start.y > downEdge) {
+          edgeRay = this.pointAtY(downEdge).ray(this.rac.Angle.up);
+        } else if (edgeRay.start.y < upEdge) {
+          edgeRay = this.pointAtY(upEdge).ray(this.rac.Angle.down);
         }
       }
-      return edgePoint;
+      return edgeRay;
     }
 
     // pointing up
     if (turn >= 5/8 && turn < 7/8) {
-      let edgePoint = null;
+      let edgeRay = null;
       if (this.start.y >= upEdge) {
-        edgePoint = this.pointAtY(upEdge);
-        if (edgePoint.x > rightEdge) {
-          edgePoint = this.pointAtX(rightEdge);
-        } else if (edgePoint.x < leftEdge) {
-          edgePoint = this.pointAtX(leftEdge);
+        edgeRay = this.pointAtY(upEdge).ray(this.rac.Angle.down);
+        if (edgeRay.start.x > rightEdge) {
+          edgeRay = this.pointAtX(rightEdge).ray(this.rac.Angle.left);
+        } else if (edgeRay.start.x < leftEdge) {
+          edgeRay = this.pointAtX(leftEdge).ray(this.rac.Angle.right);
         }
       }
-      return edgePoint;
+      return edgeRay;
     }
 
     // pointing right
-    let edgePoint = null;
+    let edgeRay = null;
     if (this.start.x < rightEdge) {
-      edgePoint = this.pointAtX(rightEdge);
-      if (edgePoint.y > downEdge) {
-          edgePoint = this.pointAtY(downEdge);
-        } else if (edgePoint.y < upEdge) {
-          edgePoint = this.pointAtY(upEdge);
+      edgeRay = this.pointAtX(rightEdge).ray(this.rac.Angle.left);
+      if (edgeRay.start.y > downEdge) {
+          edgeRay = this.pointAtY(downEdge).ray(this.rac.Angle.up);
+        } else if (edgeRay.start.y < upEdge) {
+          edgeRay = this.pointAtY(upEdge).ray(this.rac.Angle.down);
         }
     }
-    return edgePoint;
+    return edgeRay;
   };
 
 } // attachRayFunctions
