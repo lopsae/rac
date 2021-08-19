@@ -39,7 +39,6 @@ module.exports = function attachProtoFunctions(Rac) {
 
   Rac.drawableProtoFunctions.debug = function(drawsText = false){
     assertDrawer(this);
-
     this.rac.drawer.debugObject(this, drawsText);
     return this;
   };

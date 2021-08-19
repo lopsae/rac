@@ -10,50 +10,16 @@ exports.drawPoint = function(drawer, point) {
 
 
 exports.drawRay = function(drawer, ray) {
-  const edgeMargin = 0; // Used for debugging
-  const turn = ray.angle.turn;
-  let endPoint = null;
-  if
-    (turn >= 1/8 && turn < 3/8)
-  {
-    // pointing down
-    const downEdge = drawer.p5.height - edgeMargin;
-    if (ray.start.y < downEdge) {
-      endPoint = ray.pointAtY(downEdge);
-    }
-  } else if
-    (turn >= 3/8 && turn < 5/8)
-  {
-    // pointing left
-    const leftEdge = edgeMargin;
-    if (ray.start.x >= leftEdge) {
-      endPoint = ray.pointAtX(leftEdge);
-    }
-  } else if
-    (turn >= 5/8 && turn < 7/8)
-  {
-    // pointing up
-    const upEdge = edgeMargin;
-    if (ray.start.y >= upEdge) {
-      endPoint = ray.pointAtY(upEdge);
-    }
-    // return;
-  } else {
-    // pointing right
-    const rightEdge = drawer.p5.width - edgeMargin;
-    if (ray.start.x < rightEdge) {
-      endPoint = ray.pointAtX(rightEdge);
-    }
-  }
+  let edgePoint = ray.pointAtCanvasEdge();
 
-  if (endPoint === null) {
+  if (edgePoint === null) {
     // Ray is outside canvas
     return;
   }
 
   drawer.p5.line(
     ray.start.x, ray.start.y,
-    endPoint.x,  endPoint.y);
+    edgePoint.x, edgePoint.y);
 }; // drawRay
 
 

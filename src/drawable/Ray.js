@@ -40,7 +40,7 @@ class Ray {
 
     /**
     * The angle towards which the ray extends.
-    * @type {Rac.Point}
+    * @type {Rac.Angle}
     */
     this.angle = angle;
   }

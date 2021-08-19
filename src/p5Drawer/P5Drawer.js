@@ -193,6 +193,7 @@ class P5Drawer {
 
     // Ray
     this.setDrawFunction(Rac.Ray, functions.drawRay);
+    require('./Ray.functions')(this.rac);
 
     // Segment
     this.setDrawFunction(Rac.Segment, functions.drawSegment);
