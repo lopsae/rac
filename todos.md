@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3
 
 In progress
 -----------
-+ add debug drawing to rays!
 + do one run of in-code todos
 
 
