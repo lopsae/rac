@@ -53,10 +53,20 @@ npm run docs:fresh
 Commit message: `rebuilt docs`
 
 
+Check gh-pages locally
+----------------------
+```
+npm run pages
+```
+
+
 Push and test online
 --------------------
+Pushed release is accesible at:
 ```
-// TODO
+https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.js
+https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js
+https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
 ```
 
 
@@ -85,6 +95,13 @@ Publish to npm
 --------------
 ```
 npm publish
+```
+
+
+Update gh-pages
+---------------
+```
+// TODO: update gh-pages branch to n.e.w and push
 ```
 
 
