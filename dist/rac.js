@@ -1,11 +1,11 @@
-// RAC - ruler-and-compass - 1.0.0
+// RAC - ruler-and-compass - 1.0.1-dev
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
 // Ruler and Compass - version
 module.exports = {
-	version: '1.0.0',
-	build: '687-6e16294'
+	version: '1.0.1-dev',
+	build: '767-a4b74c2'
 };
 
 
@@ -26,8 +26,8 @@ const build   = require('../built/version').build;
 * build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
-* `{@link Rac#setupDrawer}.` Currently the only available implementation
-* is `[P5Drawer]{@link Rac.P5Drawer}`.
+* `[setupDrawer]{@link Rac#setupDrawer}`. Currently the only available
+* implementation is `[P5Drawer]{@link Rac.P5Drawer}`.
 */
 class Rac {
 
@@ -324,7 +324,7 @@ Rac.SegmentControl = require('./control/SegmentControl');
 Rac.ArcControl = require('./control/ArcControl');
 
 
-},{"../built/version":1,"./attachInstanceFunctions":3,"./attachProtoFunctions":4,"./control/ArcControl":5,"./control/Control":6,"./control/Controller":7,"./control/SegmentControl":8,"./drawable/Angle":9,"./drawable/Arc":10,"./drawable/Bezier":11,"./drawable/Composite":12,"./drawable/Point":13,"./drawable/Ray":14,"./drawable/Segment":15,"./drawable/Shape":16,"./drawable/Text":17,"./drawable/instance.Angle":18,"./drawable/instance.Arc":19,"./drawable/instance.Bezier":20,"./drawable/instance.Point":21,"./drawable/instance.Ray":22,"./drawable/instance.Segment":23,"./drawable/instance.Text":24,"./p5Drawer/P5Drawer":26,"./style/Color":31,"./style/Fill":32,"./style/Stroke":33,"./style/Style":34,"./style/instance.Color":35,"./style/instance.Fill":36,"./style/instance.Stroke":37,"./util/EaseFunction":38,"./util/Exception":39,"./util/utils":40}],3:[function(require,module,exports){
+},{"../built/version":1,"./attachInstanceFunctions":3,"./attachProtoFunctions":4,"./control/ArcControl":5,"./control/Control":6,"./control/Controller":7,"./control/SegmentControl":8,"./drawable/Angle":9,"./drawable/Arc":10,"./drawable/Bezier":11,"./drawable/Composite":12,"./drawable/Point":13,"./drawable/Ray":14,"./drawable/Segment":15,"./drawable/Shape":16,"./drawable/Text":17,"./drawable/instance.Angle":18,"./drawable/instance.Arc":19,"./drawable/instance.Bezier":20,"./drawable/instance.Point":21,"./drawable/instance.Ray":22,"./drawable/instance.Segment":23,"./drawable/instance.Text":24,"./p5Drawer/P5Drawer":26,"./style/Color":32,"./style/Fill":33,"./style/Stroke":34,"./style/Style":35,"./style/instance.Color":36,"./style/instance.Fill":37,"./style/instance.Stroke":38,"./util/EaseFunction":39,"./util/Exception":40,"./util/utils":41}],3:[function(require,module,exports){
 'use strict';
 
 
@@ -368,9 +368,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Color}
   *
   * @see instance.Color
+  *
+  * @function Color
+  * @memberof Rac#
   */
-  rac.Color = function makeColor(r, g, b, alpha = 1) {
-    return new Rac.Color(this, r, g, b, alpha);
+  rac.Color = function makeColor(r, g, b, a = 1) {
+    return new Rac.Color(this, r, g, b, a);
   };
 
 
@@ -386,6 +389,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Stroke}
   *
   * @see instance.Stroke
+  *
+  * @function Stroke
+  * @memberof Rac#
   */
   rac.Stroke = function makeStroke(weight, color = null) {
     return new Rac.Stroke(this, weight, color);
@@ -402,6 +408,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Fill}
   *
   * @see instance.Fill
+  *
+  * @function Fill
+  * @memberof Rac#
   */
   rac.Fill = function makeFill(color = null) {
     return new Rac.Fill(this, color);
@@ -420,6 +429,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Style}
   *
   * @see instance.Style
+  *
+  * @function Style
+  * @memberof Rac#
   */
   rac.Style = function makeStyle(stroke = null, fill = null) {
     return new Rac.Style(this, stroke, fill);
@@ -436,6 +448,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Angle}
   *
   * @see instance.Angle
+  *
+  * @function Angle
+  * @memberof Rac#
   */
   rac.Angle = function makeAngle(turn) {
     return new Rac.Angle(this, turn);
@@ -454,6 +469,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Point}
   *
   * @see instance.Point
+  *
+  * @function Point
+  * @memberof Rac#
   */
   rac.Point = function makePoint(x, y) {
     return new Rac.Point(this, x, y);
@@ -473,6 +491,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Ray}
   *
   * @see instance.Ray
+  *
+  * @function Ray
+  * @memberof Rac#
   */
   rac.Ray = function makeRay(x, y, angle) {
     const start = new Rac.Point(this, x, y);
@@ -495,6 +516,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Segment}
   *
   * @see instance.Segment
+  *
+  * @function Segment
+  * @memberof Rac#
   */
   rac.Segment = function makeSegment(x, y, angle, length) {
     const start = new Rac.Point(this, x, y);
@@ -519,6 +543,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Arc}
   *
   * @see instance.Arc
+  *
+  * @function Arc
+  * @memberof Rac#
   */
   rac.Arc = function makeArc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
     const center = new Rac.Point(this, x, y);
@@ -544,6 +571,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Text}
   *
   * @see instance.Text
+  *
+  * @function Text
+  * @memberof Rac#
   */
   rac.Text = function makeText(x, y, string, format) {
     const point = new Rac.Point(this, x, y);
@@ -569,6 +599,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Bezier}
   *
   * @see instance.Bezier
+  *
+  * @function Bezier
+  * @memberof Rac#
   */
   rac.Bezier = function makeBezier(
     startX, startY, startAnchorX, startAnchorY,
@@ -626,7 +659,6 @@ module.exports = function attachProtoFunctions(Rac) {
 
   Rac.drawableProtoFunctions.debug = function(drawsText = false){
     assertDrawer(this);
-
     this.rac.drawer.debugObject(this, drawsText);
     return this;
   };
@@ -746,7 +778,7 @@ module.exports = function attachProtoFunctions(Rac) {
 }; // attachProtoFunctions
 
 
-},{"./util/utils":40}],5:[function(require,module,exports){
+},{"./util/utils":41}],5:[function(require,module,exports){
 'use strict';
 
 
@@ -934,7 +966,7 @@ class ArcControl extends Rac.Control {
 module.exports = ArcControl;
 
 
-},{"../Rac":2,"../util/utils":40}],6:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],6:[function(require,module,exports){
 'use strict';
 
 
@@ -1134,7 +1166,7 @@ Control.makeValueMarker = function(rac, point, someAngle) {
 };
 
 
-},{"../Rac":2,"../util/utils":40}],7:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -1187,7 +1219,7 @@ class Controller {
   constructor(rac) {
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
     *
     * @type {Rac}
@@ -1320,7 +1352,7 @@ class Controller {
 module.exports = Controller;
 
 
-},{"../Rac":2,"../util/utils":40}],8:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],8:[function(require,module,exports){
 'use strict';
 
 
@@ -1537,7 +1569,7 @@ class SegmentControl extends Rac.Control {
 module.exports = SegmentControl;
 
 
-},{"../Rac":2,"../util/utils":40}],9:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],9:[function(require,module,exports){
 'use strict';
 
 
@@ -1546,7 +1578,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured by a `turn` value in the range `[0,1)` that represents the
+* Angle measured by a `turn` value in the range *[0,1)* that represents the
 * amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
@@ -1568,7 +1600,7 @@ class Angle {
   /**
   * Creates a new `Angle` instance.
   *
-  * The `turn` value is constrained to the rance `[0, 1)`, any value
+  * The `turn` value is constrained to the rance *[0,1)*, any value
   * outside is reduced back into range using a modulo operation.
   *
   * ```
@@ -1587,8 +1619,9 @@ class Angle {
     utils.assertNumber(turn);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -1599,11 +1632,12 @@ class Angle {
     }
 
     /**
-    * Turn value of the angle, constrained to the range `[0, 1)`.
+    * Turn value of the angle, constrained to the range *[0,1)*.
     * @type {number}
     */
     this.turn = turn;
   }
+
 
   /**
   * Returns a string representation intended for human consumption.
@@ -1617,6 +1651,7 @@ class Angle {
     return `Angle(${turnStr})`;
   }
 
+
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
@@ -1626,7 +1661,7 @@ class Angle {
   * type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
-  * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and
+  * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to compare
@@ -1658,7 +1693,7 @@ class Angle {
   * + When `something` is a `{@link Rac.Segment}`, returns its angle.
   * + Otherwise an error is thrown.
   *
-  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {Rac.Angle|Rac.Ray|Rac.Segment|number} something - An object to
   * derive an `Angle` from
   * @returns {Rac.Angle}
@@ -1681,10 +1716,11 @@ class Angle {
       `Cannot derive Rac.Angle - something-type:${utils.typeName(something)}`);
   }
 
+
   /**
   * Returns an `Angle` derived from `radians`.
   *
-  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   */
@@ -1693,7 +1729,16 @@ class Angle {
   }
 
 
-  // TODO: implement fromDegrees
+  /**
+  * Returns an `Angle` derived from `degrees`.
+  *
+  * @param {Rac} rac - Instance to pass along to newly created objects
+  * @param {number} degrees - The measure of the angle, in degrees
+  * @returns {Rac.Angle}
+  */
+  static fromDegrees(rac, degrees) {
+    return new Angle(rac, degrees / 360);
+  }
 
 
   /**
@@ -1709,6 +1754,7 @@ class Angle {
     return this.add(this.rac.Angle.inverse);
   }
 
+
   /**
   * Returns a new `Angle` with a turn value equivalent to `-turn`.
   * ```
@@ -1721,6 +1767,7 @@ class Angle {
   negative() {
     return new Angle(this.rac, -this.turn);
   }
+
 
   /**
   * Returns a new `Angle` which is perpendicular to `this` in the
@@ -1736,25 +1783,61 @@ class Angle {
     return this.shift(this.rac.Angle.square, clockwise);
   }
 
+
   /**
   * Returns the measure of the angle in radians.
+  *
   * @returns {number}
   */
   radians() {
     return this.turn * Rac.TAU;
   }
 
+
   /**
   * Returns the measure of the angle in degrees.
+  *
   * @returns {number}
   */
   degrees() {
     return this.turn * 360;
   }
 
+
+  /**
+  * Returns the sine of `this`.
+  *
+  * @returns {number}
+  */
+  sin() {
+    return Math.sin(this.radians())
+  }
+
+
+  /**
+  * Returns the cosine of `this`.
+  *
+  * @returns {number}
+  */
+  cos() {
+    return Math.cos(this.radians())
+  }
+
+
+  /**
+  * Returns the tangent of `this`.
+  *
+  * @returns {number}
+  */
+  tan() {
+    return Math.tan(this.radians())
+  }
+
+
   /**
   * Returns the `turn` value in the range `(0, 1]`. When `turn` is equal to
   * `0` returns `1` instead.
+  *
   * @returns {number}
   */
   turnOne() {
@@ -1762,9 +1845,11 @@ class Angle {
     return this.turn;
   }
 
+
   /**
   * Returns a new `Angle` with the sum of `this` and the angle derived from
   * `angle`.
+  *
   * @param {Rac.Angle|number} angle - An `Angle` to add
   * @returns {Rac.Angle}
   */
@@ -1773,9 +1858,11 @@ class Angle {
     return new Angle(this.rac, this.turn + angle.turn);
   }
 
+
   /**
   * Returns a new `Angle` with the angle derived from `angle`
   * subtracted to `this`.
+  *
   * @param {Rac.Angle|number} angle - An `Angle` to subtract
   * @returns {Rac.Angle}
   */
@@ -1784,14 +1871,17 @@ class Angle {
     return new Angle(this.rac, this.turn - angle.turn);
   }
 
+
   /**
   * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
+  *
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
   */
   mult(factor) {
     return new Angle(this.rac, this.turn * factor);
   }
+
 
   /**
   * Returns a new `Angle` with `turn` set to
@@ -1861,6 +1951,9 @@ class Angle {
   * Returns a new `Angle` result of shifting `this` to have the angle
   * derived from `origin` as its origin.
   *
+  * The result of `angle.shiftToOrigin(origin)` is equivalent to
+  * `origin.shift(angle)`.
+  *
   * This operation is the equivalent to
   * + `origin.add(this)` when clockwise
   * + `origin.subtract(this)` when counter-clockwise
@@ -1885,7 +1978,7 @@ class Angle {
 module.exports = Angle;
 
 
-},{"../Rac":2,"../util/utils":40}],10:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],10:[function(require,module,exports){
 'use strict';
 
 
@@ -1926,8 +2019,9 @@ class Arc{
     utils.assertBoolean(clockwise);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -2211,9 +2305,10 @@ class Arc{
 
   /**
   * Returns a new `Arc` with the given `angleDistance` as the distance
-  * between `start` and `end` in the arc's orientation.
+  * between `start` and `end` in the arc's orientation. This changes `end`
+  * for the new `Arc`.
   *
-  * All properties except `end` are copied from `this`.
+  * All other properties are copied from `this`.
   *
   * @param {Rac.Angle|number} angleDistance - The angle distance of the
   * new `Arc`
@@ -2231,9 +2326,10 @@ class Arc{
 
   /**
   * Returns a new `Arc` with the given `length` as the length of the
-  * part of the circumference it represents.
+  * part of the circumference it represents. This changes `end` for the
+  * new `Arc`.
   *
-  * All properties except `end` are copied from `this`.
+  * All other properties are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
   * range `[0,radius*TAU)`. When the given `length` is larger that the
@@ -2251,22 +2347,72 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with a `length()` of `this.length() * ratio`.
+  * Returns a new `Arc` with a `length()` of `this.length() * ratio`. This
+  * changes `end` for the new `Arc`.
   *
-  * All properties except `end` are copied from `this`.
+  * All other properties are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
-  * range `[0,radius*TAU)`. When the calculated length is larger that the
+  * range *[0,radius*TAU)*. When the calculated length is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
   * @param {number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
+  *
   * @see Rac.Arc#length
   */
   withLengthRatio(ratio) {
     const newLength = this.length() * ratio;
     return this.withLength(newLength);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `startPoint()` located at `point`. This
+  * changes `start` and `radius` for the new `Arc`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.start`.
+  *
+  * @param {Rac.Point} point - A `Point` at the `startPoint() of the new `Arc`
+  * @returns {Rac.Arc}
+  *
+  * @see Rac.Point#equals
+  */
+  withStartPoint(point) {
+    const newStart = this.center.angleToPoint(point, this.start);
+    const newRadius = this.center.distanceToPoint(point);
+    return new Arc(this.rac,
+      this.center, newRadius,
+      newStart, this.end,
+      this.clockwise);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `endPoint()` located at `point`. This changes
+  * `end` and `radius` in the new `Arc`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * When `center` and `point` are considered
+  * [equal]{@link Rac.Point#equals}, the new `Arc` will use `this.end`.
+  *
+  * @param {Rac.Point} point - A `Point` at the `endPoint() of the new `Arc`
+  * @returns {Rac.Arc}
+  *
+  * @see Rac.Point#equals
+  */
+  withEndPoint(point) {
+    const newEnd = this.center.angleToPoint(point, this.end);
+    const newRadius = this.center.distanceToPoint(point);
+    return new Arc(this.rac,
+      this.center, newRadius,
+      this.start, newEnd,
+      this.clockwise);
   }
 
 
@@ -2281,6 +2427,7 @@ class Arc{
   *
   * @param {Rac.Point} point - A `Point` to point `start` towards
   * @returns {Rac.Arc}
+  *
   * @see Rac.Point#equals
   */
   withStartTowardsPoint(point) {
@@ -2337,6 +2484,50 @@ class Arc{
     return new Arc(this.rac,
       this.center, this.radius,
       newStart, newEnd,
+      this.clockwise);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `start` shifted by the given `angle` in the
+  * arc's opposite orientation.
+  *
+  * All other properties are copied from `this`.
+  *
+  * Notice that this method shifts `start` to the arc's *opposite*
+  * orientation, intending to result in a new `Arc` with an increase to
+  * `angleDistance()`.
+  *
+  * @param {Rac.Angle} angle - An `Angle` to shift `start` against
+  * @returns {Rac.Arc}
+  */
+  withStartExtension(angle) {
+    let newStart = this.start.shift(angle, !this.clockwise);
+    return new Arc(this.rac,
+      this.center, this.radius,
+      newStart, this.end,
+      this.clockwise);
+  }
+
+
+  /**
+  * Returns a new `Arc` with `end` shifted by the given `angle` in the
+  * arc's orientation.
+  *
+  * All other properties are copied from `this`.
+  *
+  * Notice that this method shifts `end` towards the arc's orientation,
+  * intending to result in a new `Arc` with an increase to
+  * `angleDistance()`.
+  *
+  * @param {Rac.Angle} angle - An `Angle` to shift `start` against
+  * @returns {Rac.Arc}
+  */
+  withEndExtension(angle) {
+    let newEnd = this.end.shift(angle, this.clockwise);
+    return new Arc(this.rac,
+      this.center, this.radius,
+      this.start, newEnd,
       this.clockwise);
   }
 
@@ -3014,7 +3205,7 @@ class Arc{
 module.exports = Arc;
 
 
-},{"../Rac":2,"../util/utils":40}],11:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],11:[function(require,module,exports){
 'use strict';
 
 
@@ -3104,7 +3295,7 @@ Bezier.prototype.reverse = function() {
 };
 
 
-},{"../Rac":2,"../util/utils":40}],12:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],12:[function(require,module,exports){
 'use strict';
 
 
@@ -3151,7 +3342,7 @@ Composite.prototype.reverse = function() {
 };
 
 
-},{"../Rac":2,"../util/utils":40}],13:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],13:[function(require,module,exports){
 'use strict';
 
 
@@ -3185,8 +3376,9 @@ class Point{
     utils.assertNumber(x, y);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -3627,7 +3819,7 @@ class Point{
 module.exports = Point;
 
 
-},{"../Rac":2,"../util/utils":40}],14:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],14:[function(require,module,exports){
 'use strict';
 
 
@@ -3655,8 +3847,9 @@ class Ray {
     utils.assertType(Rac.Angle, angle);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -3669,7 +3862,7 @@ class Ray {
 
     /**
     * The angle towards which the ray extends.
-    * @type {Rac.Point}
+    * @type {Rac.Angle}
     */
     this.angle = angle;
   }
@@ -4202,7 +4395,7 @@ class Ray {
 module.exports = Ray;
 
 
-},{"../Rac":2,"../util/utils":40}],15:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],15:[function(require,module,exports){
 'use strict';
 
 
@@ -4237,8 +4430,9 @@ class Segment {
     utils.assertNumber(length);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -4890,7 +5084,7 @@ class Segment {
 module.exports = Segment;
 
 
-},{"../Rac":2,"../util/utils":40}],16:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],16:[function(require,module,exports){
 'use strict';
 
 
@@ -4929,7 +5123,7 @@ Shape.prototype.addContour = function(element) {
 };
 
 
-},{"../Rac":2,"../util/utils":40}],17:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],17:[function(require,module,exports){
 'use strict';
 
 
@@ -5046,7 +5240,7 @@ class Text {
 module.exports = Text;
 
 
-},{"../Rac":2,"../util/utils":40}],18:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],18:[function(require,module,exports){
 'use strict';
 
 
@@ -5096,6 +5290,24 @@ module.exports = function attachRacAngle(rac) {
   */
   rac.Angle.fromRadians = function(radians) {
     return Rac.Angle.fromRadians(rac, radians);
+  };
+
+
+  /**
+  * Returns an `Angle` derived from `degrees`.
+  *
+  * Calls `{@link Rac.Angle.fromDegrees}` using `this`.
+  *
+  * @see Rac.Angle.fromDegrees
+  *
+  * @param {number} degrees - The measure of the angle, in degrees
+  * @returns {Rac.Angle}
+  *
+  * @function fromDegrees
+  * @memberof instance.Angle#
+  */
+  rac.Angle.fromDegrees = function(degrees) {
+    return Rac.Angle.fromDegrees(rac, degrees);
   };
 
 
@@ -5555,12 +5767,12 @@ class P5Drawer {
     this.debugTextOptions = {
       font: 'monospace',
       size: Rac.Text.Format.defaultSize,
-      toFixed: 2
+      fixedDigits: 2
     };
 
     this.debugPointRadius = 4;
     // Radius of main visual elements for debug drawing.
-    this.debugRadius = 22;
+    this.debugRadius = 22; // TODO: rename to debugMarkerRadius
 
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
@@ -5672,8 +5884,9 @@ class P5Drawer {
     }
   }
 
+  // TODO: use directly number.toFixed
   debugNumber(number) {
-    return number.toFixed(this.debugTextOptions.toFixed);
+    return number.toFixed(this.debugTextOptions.fixedDigits);
   }
 
   debugObject(object, drawsText) {
@@ -5718,6 +5931,7 @@ class P5Drawer {
 
     // Ray
     this.setDrawFunction(Rac.Ray, functions.drawRay);
+    require('./Ray.functions')(this.rac);
 
     // Segment
     this.setDrawFunction(Rac.Segment, functions.drawSegment);
@@ -5831,6 +6045,7 @@ class P5Drawer {
   setupAllDebugFunctions() {
     let functions = require('./debug.functions');
     this.setDebugFunction(Rac.Point, functions.debugPoint);
+    this.setDebugFunction(Rac.Ray, functions.debugRay);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
 
@@ -5865,11 +6080,11 @@ class P5Drawer {
     };
 
     Rac.Color.prototype.applyFill = function() {
-      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.fill(this.r * 255, this.g * 255, this.b * 255, this.a * 255);
     };
 
     Rac.Color.prototype.applyStroke = function() {
-      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.alpha * 255);
+      this.rac.drawer.p5.stroke(this.r * 255, this.g * 255, this.b * 255, this.a * 255);
     };
 
     // Stroke
@@ -5959,7 +6174,7 @@ class ApplyRoutine {
 }
 
 
-},{"../Rac":2,"../util/utils":40,"./Point.functions":27,"./Segment.functions":28,"./debug.functions":29,"./draw.functions":30}],27:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41,"./Point.functions":27,"./Ray.functions":28,"./Segment.functions":29,"./debug.functions":30,"./draw.functions":31}],27:[function(require,module,exports){
 'use strict';
 
 
@@ -5970,9 +6185,10 @@ const utils = require('../util/utils');
 module.exports = function attachPointFunctions(rac) {
 
   /**
-  * Calls `p5.vertex` as to represent this `Point`.
+  * Calls `p5.vertex` to represent this `Point`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added  to `Rac.Point.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
   */
   Rac.Point.prototype.vertex = function() {
     this.rac.drawer.p5.vertex(this.x, this.y);
@@ -5981,10 +6197,13 @@ module.exports = function attachPointFunctions(rac) {
   /**
   * Returns a `Point` at the current position of the pointer.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Point}
   *
   * @function pointer
-  * @memberof rac.Point#
+  * @memberof instance.Point#
   */
   rac.Point.pointer = function() {
     return rac.Point(rac.drawer.p5.mouseX, rac.drawer.p5.mouseY);
@@ -5993,10 +6212,13 @@ module.exports = function attachPointFunctions(rac) {
   /**
   * Returns a `Point` at the center of the canvas.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Point}
   *
   * @function canvasCenter
-  * @memberof rac.Point#
+  * @memberof instance.Point#
   */
   rac.Point.canvasCenter = function() {
     return rac.Point(rac.drawer.p5.width/2, rac.drawer.p5.height/2);
@@ -6006,10 +6228,13 @@ module.exports = function attachPointFunctions(rac) {
   * Returns a `Point` at the end of the canvas, that is, at the position
   * `(width,height)`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Point}
   *
   * @function canvasEnd
-  * @memberof rac.Point#
+  * @memberof instance.Point#
   */
   rac.Point.canvasEnd = function() {
     return rac.Point(rac.drawer.p5.width, rac.drawer.p5.height);
@@ -6018,7 +6243,116 @@ module.exports = function attachPointFunctions(rac) {
 } // attachPointFunctions
 
 
-},{"../Rac":2,"../util/utils":40}],28:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],28:[function(require,module,exports){
+'use strict';
+
+
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
+
+module.exports = function attachRayFunctions(rac) {
+
+  /**
+  * Returns a new `Point` located where the ray touches the canvas edge.
+  *
+  * When the ray is outside the canvas and pointing away, `null` is
+  * returned.
+  *
+  * Added  to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  * @returns {?Rac.Point}
+  */
+  Rac.Ray.prototype.pointAtCanvasEdge = function(margin = 0) {
+    let edgeRay = this.rayAtCanvasEdge(margin);
+    if (edgeRay == null) {
+      return null;
+    }
+
+    return edgeRay.start;
+  };
+
+
+  /**
+  * Returns a new `Ray` that starts at the point where the `this` touches
+  * the canvas edge and pointed towards the inside of the canvas.
+  *
+  * When the ray is outside the canvas and pointing away, `null` is
+  * returned.
+  *
+  * Added  to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {?Rac.Ray}
+  */
+  Rac.Ray.prototype.rayAtCanvasEdge = function(margin = 0) {
+    const turn = this.angle.turn;
+    const p5 = this.rac.drawer.p5;
+
+    const downEdge  = p5.height - margin;
+    const leftEdge  = margin;
+    const upEdge    = margin;
+    const rightEdge = p5.width - margin;
+
+    // pointing down
+    if (turn >= 1/8 && turn < 3/8) {
+      let edgeRay = null;
+      if (this.start.y < downEdge) {
+        edgeRay = this.pointAtY(downEdge).ray(this.rac.Angle.up);
+        if (edgeRay.start.x > rightEdge) {
+          edgeRay = this.pointAtX(rightEdge).ray(this.rac.Angle.left);
+        } else if (edgeRay.start.x < leftEdge) {
+          edgeRay = this.pointAtX(leftEdge).ray(this.rac.Angle.right);
+        }
+      }
+      return edgeRay;
+    }
+
+    // pointing left
+    if (turn >= 3/8 && turn < 5/8) {
+      let edgeRay = null;
+      if (this.start.x >= leftEdge) {
+        edgeRay = this.pointAtX(leftEdge).ray(this.rac.Angle.right);
+        if (edgeRay.start.y > downEdge) {
+          edgeRay = this.pointAtY(downEdge).ray(this.rac.Angle.up);
+        } else if (edgeRay.start.y < upEdge) {
+          edgeRay = this.pointAtY(upEdge).ray(this.rac.Angle.down);
+        }
+      }
+      return edgeRay;
+    }
+
+    // pointing up
+    if (turn >= 5/8 && turn < 7/8) {
+      let edgeRay = null;
+      if (this.start.y >= upEdge) {
+        edgeRay = this.pointAtY(upEdge).ray(this.rac.Angle.down);
+        if (edgeRay.start.x > rightEdge) {
+          edgeRay = this.pointAtX(rightEdge).ray(this.rac.Angle.left);
+        } else if (edgeRay.start.x < leftEdge) {
+          edgeRay = this.pointAtX(leftEdge).ray(this.rac.Angle.right);
+        }
+      }
+      return edgeRay;
+    }
+
+    // pointing right
+    let edgeRay = null;
+    if (this.start.x < rightEdge) {
+      edgeRay = this.pointAtX(rightEdge).ray(this.rac.Angle.left);
+      if (edgeRay.start.y > downEdge) {
+          edgeRay = this.pointAtY(downEdge).ray(this.rac.Angle.up);
+        } else if (edgeRay.start.y < upEdge) {
+          edgeRay = this.pointAtY(upEdge).ray(this.rac.Angle.down);
+        }
+    }
+    return edgeRay;
+  };
+
+} // attachRayFunctions
+
+
+},{"../Rac":2,"../util/utils":41}],29:[function(require,module,exports){
 'use strict';
 
 
@@ -6029,9 +6363,10 @@ const utils = require('../util/utils');
 module.exports = function attachSegmentFunctions(rac) {
 
   /**
-  * Calls `p5.vertex` as to represent this `Segment`.
+  * Calls `p5.vertex` to represent this `Segment`.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added  to `Rac.Segment.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
   */
   Rac.Segment.prototype.vertex = function() {
     this.startPoint().vertex();
@@ -6043,10 +6378,13 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the top of the canvas, from top-left to
   * top-right.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Segment}
   *
   * @function canvasTop
-  * @memberof rac.Segment#
+  * @memberof instance.Segment#
   */
   rac.Segment.canvasTop = function() {
     return rac.Point.zero
@@ -6058,10 +6396,13 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the left of the canvas, from top-left
   * to bottom-left.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Segment}
   *
   * @function canvasLeft
-  * @memberof rac.Segment#
+  * @memberof instance.Segment#
   */
   rac.Segment.canvasLeft = function() {
     return rac.Point.zero
@@ -6073,10 +6414,13 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the right of the canvas, from top-right
   * to bottom-right.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Segment}
   *
   * @function canvasRight
-  * @memberof rac.Segment#
+  * @memberof instance.Segment#
   */
   rac.Segment.canvasRight = function() {
     const topRight = rac.Point(rac.drawer.p5.width, 0);
@@ -6089,10 +6433,13 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the bottom of the canvas, from
   * bottom-left to bottom-right.
   *
-  * Added when `Rac.P5Drawer` is setup as `rac.drawer`.
+  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * `[rac.drawer]{@link Rac#drawer}`.
+  *
+  * @returns {Rac.Segment}
   *
   * @function canvasBottom
-  * @memberof rac.Segment#
+  * @memberof instance.Segment#
   */
   rac.Segment.canvasBottom = function() {
     let bottomLeft = rac.Point(0, rac.drawer.p5.height);
@@ -6105,7 +6452,7 @@ module.exports = function attachSegmentFunctions(rac) {
 } // attachSegmentFunctions
 
 
-},{"../Rac":2,"../util/utils":40}],29:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],30:[function(require,module,exports){
 'use strict';
 
 
@@ -6219,12 +6566,97 @@ exports.debugPoint = function(drawer, point, drawsText) {
 }; // debugPoint
 
 
+exports.debugRay = function(drawer, ray, drawsText) {
+  const rac = drawer.rac;
+  const pointRadius = drawer.debugPointRadius;
+  const markerRadius = drawer.debugRadius;
+
+  ray.draw();
+
+  // Little circle at start marker
+  ray.start.arc(pointRadius).draw();
+
+  // Half circle at start
+  const perpAngle = ray.angle.perpendicular();
+  const startArc = ray.start
+    .arc(markerRadius, perpAngle, perpAngle.inverse())
+    .draw();
+  startArc.startSegment().reverse()
+    .withLengthRatio(0.5)
+    .draw();
+  startArc.endSegment().reverse()
+    .withLengthRatio(0.5)
+    .draw();
+
+  // Edge end half circle
+  const edgeRay = ray.rayAtCanvasEdge();
+  if (edgeRay != null) {
+    const edgeArc = edgeRay
+      .translateToDistance(pointRadius)
+      .perpendicular(false)
+      .arcToAngleDistance(markerRadius/2, 0.5)
+      .draw();
+    edgeArc.startSegment()
+      .reverse()
+      .withLength(pointRadius)
+      .draw();
+    edgeArc.endSegment()
+      .reverse()
+      .withLength(pointRadius)
+      .draw();
+    edgeArc.radiusSegmentAtAngle(edgeRay.angle)
+      .reverse()
+      .withLength(pointRadius)
+      .draw();
+  }
+
+  // Text
+  if (drawsText !== true) { return; }
+
+  const angle  = ray.angle;
+  const hFormat = Rac.Text.Format.horizontal;
+  const vFormat = Rac.Text.Format.vertical;
+  const font   = drawer.debugTextOptions.font;
+  const size   = drawer.debugTextOptions.size;
+  const digits = drawer.debugTextOptions.fixedDigits;
+
+  // Normal orientation
+  let startFormat = new Rac.Text.Format(rac,
+    hFormat.left, vFormat.bottom,
+    font, angle, size);
+  let angleFormat = new Rac.Text.Format(rac,
+    hFormat.left, vFormat.top,
+    font, angle, size);
+  if (reversesText(angle)) {
+    // Reverse orientation
+    startFormat = startFormat.inverse();
+    angleFormat = angleFormat.inverse();
+  }
+
+  // Start text
+  const startString = `start:(${ray.start.x.toFixed(digits)},${ray.start.y.toFixed(digits)})`;
+  ray.start
+    .pointToAngle(angle, pointRadius)
+    .pointToAngle(angle.subtract(1/4), markerRadius/2)
+    .text(startString, startFormat)
+    .draw(drawer.debugTextStyle);
+
+  // Angle text
+  const angleString = `angle:${angle.turn.toFixed(digits)}`;
+  ray.start
+    .pointToAngle(angle, pointRadius)
+    .pointToAngle(angle.add(1/4), markerRadius/2)
+    .text(angleString, angleFormat)
+    .draw(drawer.debugTextStyle);
+}; // debugRay
+
+
 exports.debugSegment = function(drawer, segment, drawsText) {
   let rac = drawer.rac;
 
   segment.draw();
 
-  // Half circle start marker
+  // Little circle at start marker
   segment.withLength(drawer.debugPointRadius)
     .arc()
     .draw();
@@ -6528,7 +6960,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
 // TODO: debug routine of Text
 
 
-},{"../Rac":2}],30:[function(require,module,exports){
+},{"../Rac":2}],31:[function(require,module,exports){
 'use strict';
 
 
@@ -6541,50 +6973,16 @@ exports.drawPoint = function(drawer, point) {
 
 
 exports.drawRay = function(drawer, ray) {
-  const edgeMargin = 0; // Used for debugging
-  const turn = ray.angle.turn;
-  let endPoint = null;
-  if
-    (turn >= 1/8 && turn < 3/8)
-  {
-    // pointing down
-    const downEdge = drawer.p5.height - edgeMargin;
-    if (ray.start.y < downEdge) {
-      endPoint = ray.pointAtY(downEdge);
-    }
-  } else if
-    (turn >= 3/8 && turn < 5/8)
-  {
-    // pointing left
-    const leftEdge = edgeMargin;
-    if (ray.start.x >= leftEdge) {
-      endPoint = ray.pointAtX(leftEdge);
-    }
-  } else if
-    (turn >= 5/8 && turn < 7/8)
-  {
-    // pointing up
-    const upEdge = edgeMargin;
-    if (ray.start.y >= upEdge) {
-      endPoint = ray.pointAtY(upEdge);
-    }
-    // return;
-  } else {
-    // pointing right
-    const rightEdge = drawer.p5.width - edgeMargin;
-    if (ray.start.x < rightEdge) {
-      endPoint = ray.pointAtX(rightEdge);
-    }
-  }
+  let edgePoint = ray.pointAtCanvasEdge();
 
-  if (endPoint === null) {
+  if (edgePoint === null) {
     // Ray is outside canvas
     return;
   }
 
   drawer.p5.line(
     ray.start.x, ray.start.y,
-    endPoint.x,  endPoint.y);
+    edgePoint.x, edgePoint.y);
 }; // drawRay
 
 
@@ -6622,7 +7020,7 @@ exports.drawArc = function(drawer, arc) {
 }; // drawArc
 
 
-},{"../Rac":2}],31:[function(require,module,exports){
+},{"../Rac":2}],32:[function(require,module,exports){
 'use strict';
 
 
@@ -6631,47 +7029,193 @@ const utils = require('../util/utils');
 
 
 /**
-* Color with RBGA values, each on the `[0,1]` range.
+* Color with RBGA values, each one on the *[0,1]* range.
 *
 * @alias Rac.Color
 */
 class Color {
 
-  constructor(rac, r, g, b, alpha = 1) {
-    utils.assertExists(rac, r, g, b, alpha);
-    utils.assertNumber(r, g, b, alpha);
+  /**
+  * Creates a new `Color` instance.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {number} r - The red channel value, in the *[0,1]* range
+  * @param {number} g - The green channel value, in the *[0,1]* range
+  * @param {number} b - The blue channel value, in the *[0,1]* range
+  * @param {number} [a=1] - The alpha channel value, in the *[0,1]* range
+  */
+  constructor(rac, r, g, b, a = 1) {
+    utils.assertExists(rac, r, g, b, a);
+    utils.assertNumber(r, g, b, a);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The red channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.r = r;
+
+    /**
+    * The green channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.g = g;
+
+    /**
+    * The blue channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
     this.b = b;
-    this.alpha = alpha;
+
+    /**
+    * The alpha channel of the color, in the *[0,1]* range.
+    * @type {number}
+    */
+    this.a = a;
   }
+
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @returns {string}
   */
   toString() {
-    return `Color(${this.r},${this.g},${this.b},${this.alpha})`;
+    return `Color(${this.r},${this.g},${this.b},${this.a})`;
   }
 
+
+  /**
+  * Creates a new `Color` instance with each channel received in the
+  * *[0,255]* range
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {number} r - The red channel value, in the *[0,255]* range
+  * @param {number} g - The green channel value, in the *[0,255]* range
+  * @param {number} b - The blue channel value, in the *[0,255]* range
+  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
+  *
+  * @returns {Rac.Color}
+  */
   static fromRgba(rac, r, g, b, a = 255) {
     return new Color(rac, r/255, g/255, b/255, a/255);
   }
 
+
+  /**
+  * Creates a new `Color` instance from a hexadecimal triplet string.
+  *
+  * The `hexString` is expected to have 6 digits and can optionally start
+  * with `#`. `AABBCC` and `#DDEEFF` are both valid inputs, the three digit
+  * shorthand is not yet supported.
+  *
+  * An error is thrown if `hexString` is misformatted or cannot be parsed.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {string} hexString - The RGB hex triplet to interpret
+  *
+  * @returns {Rac.Color}
+  */
+  static fromHex(rac, hexString) {
+    if (hexString.charAt(0) == '#') {
+      hexString = hexString.substring(1);
+    }
+
+    if (hexString.length != 6) {
+      throw Rac.Exception.failedAssert(
+        `Unexpected length for hex triplet string: ${hexString}`);
+    }
+
+    let rStr = hexString.substring(0, 2);
+    let gStr = hexString.substring(2, 4);
+    let bStr = hexString.substring(4, 6);
+
+    let newR = parseInt(rStr, 16);
+    let newG = parseInt(gStr, 16);
+    let newB = parseInt(bStr, 16);
+
+    if (isNaN(newR) || isNaN(newG) || isNaN(newB)) {
+      throw Rac.Exception.failedAssert(
+        `Could not parse hex triplet string: ${hexString}`);
+    }
+
+    return new Color(rac, newR/255, newG/255, newB/255);
+  }
+
+
+  /**
+  * Returns a new `Fill` that uses `this` as `color`.
+  *
+  * @returns {Rac.Fill}
+  */
   fill() {
     return new Rac.Fill(this.rac, this);
   }
 
-  stroke(weight = 1) {
+
+  /**
+  * Returns a new `Stroke` that uses `this` as `color`.
+  *
+  * @param {?number} weight - The weight of the new `Stroke`
+  * @returns {Rac.Stroke}
+  */
+  stroke(weight = null) {
     return new Rac.Stroke(this.rac, weight, this);
   }
 
+
+  /**
+  * Returns a new `Color` with `a` set to `newAlpha`.
+  *
+  * @param {number} newAlpha - The alpha channel for the new `Color`, in the
+  *   *[0,1]* range
+  * @returns {Rac.Color}
+  */
   withAlpha(newAlpha) {
     return new Color(this.rac, this.r, this.g, this.b, newAlpha);
   }
 
+
+  /**
+  * Returns a new `Color` with `a` set to `this.a * ratio`.
+  *
+  * @param {number} ratio - The factor to multiply `a` by
+  * @returns {Rac.Color}
+  */
   withAlphaRatio(ratio) {
-    return new Color(this.rac, this.r, this.g, this.b, this.alpha * ratio);
+    return new Color(this.rac, this.r, this.g, this.b, this.a * ratio);
+  }
+
+
+  /**
+  * Returns a new `Color` in the linear transition between `this` and
+  * `target` at a `ratio` in the range *[0,1]*.
+  *
+  * When `ratio` is `0` or less the new `Color` is equivalent to `this`,
+  * when `ratio` is `1` or larger the new `Color` is equivalent to
+  * `target`.
+  *
+  * @param {number} ratio - The transition ratio for the new `Color`
+  * @param {Rac.Color} target - The transition target `Color`
+  * @returns {Rac.Color}
+  */
+  linearTransition(ratio, target) {
+    ratio = Math.max(ratio, 0);
+    ratio = Math.min(ratio, 1);
+
+    let newR = this.r + (target.r - this.r) * ratio;
+    let newG = this.g + (target.g - this.g) * ratio;
+    let newB = this.b + (target.b - this.b) * ratio;
+    let newA = this.a + (target.a - this.a) * ratio;
+
+    return new Color(this.rac, newR, newG, newB, newA);
   }
 
 } // class Color
@@ -6680,7 +7224,7 @@ class Color {
 module.exports = Color;
 
 
-},{"../Rac":2,"../util/utils":40}],32:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],33:[function(require,module,exports){
   'use strict';
 
 
@@ -6691,38 +7235,70 @@ const utils = require('../util/utils');
 /**
 * Fill [color]{@link Rac.Color} for drawing.
 *
-* Can be used as a style object in `draw` methods to only apply fill
-* style settings.
+* Can be used as `fill.apply()` to apply the fill settings globally, or as
+* the parameter of `drawable.draw(fill)` to apply the fill only for that
+* `draw`.
 *
-* When `color` is `null` a *no fill* setting is applied.
+* When `color` is `null` a *no-fill* setting is applied.
 *
 * @alias Rac.Fill
 */
 class Fill {
 
+  /**
+  * Creates a new `Fill` instance.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {?Rac.Color} color - A `Color` for the fill setting, or `null`
+  *   to apply a *no-fill* setting
+  */
   constructor(rac, color = null) {
     utils.assertExists(rac);
     color !== null && utils.assertType(Rac.Color, color);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
     this.color = color;
   }
 
+
+  /**
+  * Returns a `Fill` derived from `something`.
+  *
+  * + When `something` is an instance of `Fill`, returns that same object.
+  * + When `something` is an instance of `Color`, returns a new `Fill`
+  *   using `something` as `color`.
+  * + When `something` is an instance of `Stroke`, returns a new `Fill`
+  *   using `stroke.color`.
+  * + Otherwise an error is thrown.
+  *
+  * @param {Rac} rac - Instance to pass along to newly created objects
+  * @param {Rac.Fill|Rac.Color|Rac.Stroke} something - An object to
+  * derive a `Fill` from
+  * @returns {Rac.Fill}
+  */
   static from(rac, something) {
     if (something instanceof Fill) {
       return something;
     }
-    if (something instanceof Rac.Stroke) {
-      return new Fill(rac, something.color);
-    }
     if (something instanceof Rac.Color) {
       return new Fill(rac, something);
+    }
+    if (something instanceof Rac.Stroke) {
+      return new Fill(rac, something.color);
     }
 
     throw Rac.Exception.invalidObjectType(
       `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
   }
 
-  styleWithStroke(stroke) {
+  styleWithStroke(someStroke) {
+    let stroke = Rac.Stroke.from(this.rac, someStroke);
     return new Rac.Style(this.rac, stroke, this);
   }
 
@@ -6732,7 +7308,7 @@ class Fill {
 module.exports = Fill;
 
 
-},{"../Rac":2,"../util/utils":40}],33:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],34:[function(require,module,exports){
 'use strict';
 
 
@@ -6743,16 +7319,20 @@ const utils = require('../util/utils');
 /**
 * Stroke weight and [color]{@link Rac.Color} for drawing.
 *
-* Can be used as a style object in `draw` methods to only apply stroke
-* style settings.
+* Can be used as `stroke.apply()` to apply the stroke settings globally, or
+* as the parameter of `drawable.draw(stroke)` to apply the stroke only for
+* that `draw`.
 *
-* The instance applies the `weight` and `color` settings as available:
-* + when `color` and `weight` are set: both stroke settings are applied
-* + when `weight` is `0` and `color` is set: only stroke color is applied
-* + when `color` is `null` and `weight` is larger that `0`: only stroke
-*   weight is applied
-* + when `weight` is `0` and `color` is `null`: a *no stroke* setting is
+* The instance applies the stroke color and weight settings in the
+* following combinations:
+* + when `color = null` and `weight = null`: a *no-stroke* setting is
 *   applied
+* + when `color` is set and `weight = null`: only the stroke color is
+*   applied, stroke weight is not modified
+* + when `weight` is set and `color = null`: only the stroke weight is
+*   applied, stroke color is not modified
+* + when both `color` and `weight` are set: both stroke color and weight
+*   are applied
 *
 * @alias Rac.Stroke
 */
@@ -6770,15 +7350,72 @@ class Stroke {
     weight !== null && utils.assertNumber(weight);
     color !== null && utils.assertType(Rac.Color, color);
 
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac
     this.color = color;
     this.weight = weight;
   }
 
+
+  /**
+  * Returns a `Stroke` derived from `something`.
+  *
+  * + When `something` is an instance of `Stroke`, returns that same object.
+  * + When `something` is an instance of `Color`, returns a new `Stroke`
+  *   using `something` as `color` and a `null` stroke weight.
+  * + When `something` is an instance of `Fill`, returns a new `Stroke`
+  *   using `fill.color` and a `null` stroke weight.
+  * + Otherwise an error is thrown.
+  *
+  * @param {Rac} rac - Instance to pass along to newly created objects
+  * @param {Rac.Stroke|Rac.Color|Rac.Fill} something - An object to
+  * derive a `Stroke` from
+  * @returns {Rac.Stroke}
+  */
+  static from(rac, something) {
+    if (something instanceof Stroke) {
+      return something;
+    }
+    if (something instanceof Rac.Color) {
+      return new Stroke(rac, null, something);
+    }
+    if (something instanceof Rac.Fill) {
+      return new Stroke(rac, null, something.color);
+    }
+
+    throw Rac.Exception.invalidObjectType(
+      `Cannot derive Rac.Stroke - something-type:${utils.typeName(something)}`);
+  }
+
+
+  /**
+  * Returns a new `Stroke` with `weight` set to `newWeight`.
+  *
+  * @param {?number} newWeight - The weight of the stroke, or `null` to skip
+  *   weight
+  * @returns {Rac.Stroke}
+  */
   withWeight(newWeight) {
     return new Stroke(this.rac, newWeight, this.color,);
   }
 
+
+  /**
+  * Returns a new `Stroke` with a copy of `color` setup with `newAlpha`,
+  * and the same `stroke` as `this`.
+  *
+  * When `this.color` is set to `null`, returns a new `Stroke` that is a
+  * copy of `this`.
+  *
+  * @param {number} newAlpha - The alpha channel of the `color` of the new
+  *   `Stroke`
+  * @returns {Rac.Stroke}
+  */
   withAlpha(newAlpha) {
     if (this.color === null) {
       return new Stroke(this.rac, this.weight, null);
@@ -6787,6 +7424,7 @@ class Stroke {
     let newColor = this.color.withAlpha(newAlpha);
     return new Stroke(this.rac, this.weight, newColor);
   }
+
 
   styleWithFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);
@@ -6799,7 +7437,7 @@ class Stroke {
 module.exports = Stroke;
 
 
-},{"../Rac":2,"../util/utils":40}],34:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],35:[function(require,module,exports){
 'use strict';
 
 
@@ -6811,8 +7449,9 @@ const utils = require('../util/utils');
 * `[Stroke]{@link Rac.Stroke}` and `[Fill]{@link Rac.Fill}` style to apply
 * for drawing.
 *
-* Can be used in `draw` methods to apply both stroke and fill style
-* settings.
+* Can be used as `style.apply()` to apply the stroke and fill settings
+* globally, or as the parameter of `drawable.draw(style)` to apply the
+* settings only for that `draw`.
 *
 * Applies whichever `stroke` or `fill` styles are present, any set to
 * `null` is individually skipped.
@@ -6868,7 +7507,7 @@ class Style {
 module.exports = Style;
 
 
-},{"../Rac":2,"../util/utils":40}],35:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],36:[function(require,module,exports){
 'use strict';
 
 
@@ -6886,7 +7525,14 @@ module.exports = function attachRacColor(rac) {
 
 
   /**
-  * Returns an `Color` with the given `rgba` values in the `[0,255]` range.
+  * Returns a new `Color` with each channel received in the *[0,255]* range.
+  *
+  * @param {number} r - The red channel value, in the *[0,255]* range
+  * @param {number} g - The green channel value, in the *[0,255]* range
+  * @param {number} b - The blue channel value, in the *[0,255]* range
+  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
+  *
+  * @returns {Rac.Color}
   *
   * @function fromRgba
   * @memberof instance.Color#
@@ -6894,6 +7540,23 @@ module.exports = function attachRacColor(rac) {
   rac.Color.fromRgba = function(r, g, b, a = 255) {
     return Rac.Color.fromRgba(rac, r, g, b, a);
   };
+
+
+  /**
+  * Returns a new `Color` instance from a hexadecimal triplet string.
+  *
+  * The `hexString` is expected to have 6 digits and can optionally start
+  * with `#`. `AABBCC` and `#DDEEFF` are both valid inputs, the three digit
+  * shorthand is not yet supported.
+  *
+  * An error is thrown if `hexString` is misformatted or cannot be parsed.
+  *
+  * @param {string} hexString - The RGB hex triplet to interpret
+  * @returns {Rac.Color}
+  */
+  rac.Color.fromHex = function(hexString) {
+    return Rac.Color.fromHex(rac, hexString);
+  }
 
 
   /**
@@ -6922,7 +7585,7 @@ module.exports = function attachRacColor(rac) {
 } // attachRacColor
 
 
-},{"../Rac":2}],36:[function(require,module,exports){
+},{"../Rac":2}],37:[function(require,module,exports){
 'use strict';
 
 
@@ -6945,7 +7608,7 @@ module.exports = function attachRacFill(rac) {
 } // attachRacFill
 
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 
@@ -6980,7 +7643,7 @@ module.exports = function attachRacPoint(rac) {
 } // attachRacStroke
 
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 
@@ -7147,7 +7810,7 @@ class EaseFunction {
 module.exports = EaseFunction;
 
 
-},{"../Rac":2,"../util/utils":40}],39:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":41}],40:[function(require,module,exports){
 'use strict';
 
 
@@ -7220,7 +7883,7 @@ class Exception {
 module.exports = Exception;
 
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 
@@ -7248,11 +7911,11 @@ exports.assertExists = function(...parameters) {
   parameters.forEach((item, index) => {
     if (item === null) {
       throw Rac.Exception.failedAssert(
-        `Unexpected null element at index ${index}`);
+        `Found null, expecting element to exist at index ${index}`);
     }
     if (item === undefined) {
       throw Rac.Exception.failedAssert(
-        `Unexpected undefined element at index ${index}`);
+        `Found undefined, expecting element to exist at index ${index}`);
     }
   });
 }
