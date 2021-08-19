@@ -17,16 +17,18 @@ class Exception {
   }
 
   /**
-  * When enabled the convenience static functions of this class will
-  * build `Error` objects, instead of `Exception` objects.
+  * When `true` the convenience static functions of this class will
+  * build `Error` objects, otherwise `Exception` objects are built.
   *
-  * Used for tests runs in Jest, since throwing a custom object like
-  * `Exception` within a matcher results in the expectation hanging
+  * Set as `false` by default for browser use: throwing an `Exception`
+  * in chrome displays the error stack using source-maps when available,
+  * while throwing an `Error` object displays the error stack relative to
+  * the bundled file which is harder to read.
+  *
+  * Used as `true` for test runs in Jest: throwing an `Error` will be
+  * reported in the test report, while throwing a custom object (like
+  * `Exception`) within a matcher results in the expectation hanging
   * indefinitely.
-  *
-  * On the other hand, throwing an `Error` object in chrome causes the
-  * displayed stack to be relative to the bundled file, instead of the
-  * source map.
   */
   static buildsErrors = false;
 

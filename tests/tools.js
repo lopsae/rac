@@ -5,8 +5,8 @@ const Rac = require('ruler-and-compass');
 const chalk = require('chalk');
 
 
-// TODO: can this be set in a better place?
 Rac.Exception.buildsErrors = true;
+
 
 const rac = new Rac();
 exports.rac = rac;
