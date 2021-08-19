@@ -30,12 +30,12 @@ class P5Drawer {
     this.debugTextOptions = {
       font: 'monospace',
       size: Rac.Text.Format.defaultSize,
-      toFixed: 2
+      fixedDigits: 2
     };
 
     this.debugPointRadius = 4;
     // Radius of main visual elements for debug drawing.
-    this.debugRadius = 22;
+    this.debugRadius = 22; // TODO: rename to debugMarkerRadius
 
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
@@ -147,8 +147,9 @@ class P5Drawer {
     }
   }
 
+  // TODO: use directly number.toFixed
   debugNumber(number) {
-    return number.toFixed(this.debugTextOptions.toFixed);
+    return number.toFixed(this.debugTextOptions.fixedDigits);
   }
 
   debugObject(object, drawsText) {

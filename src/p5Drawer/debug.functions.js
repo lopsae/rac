@@ -133,7 +133,7 @@ exports.debugRay = function(drawer, ray, drawsText) {
     .withLengthRatio(0.5)
     .draw();
 
-  // Edge end marker
+  // Edge end half circle
   const edgeRay = ray.rayAtCanvasEdge();
   if (edgeRay != null) {
     const edgeArc = edgeRay
@@ -156,45 +156,43 @@ exports.debugRay = function(drawer, ray, drawsText) {
   }
 
   // Text
-  // if (drawsText !== true) { return; }
+  if (drawsText !== true) { return; }
 
-  // let angle = segment.angle();
-  // // Normal orientation
-  // let lengthFormat = new Rac.Text.Format(
-  //   rac,
-  //   Rac.Text.Format.horizontal.left,
-  //   Rac.Text.Format.vertical.bottom,
-  //   drawer.debugTextOptions.font,
-  //   angle,
-  //   drawer.debugTextOptions.size);
-  // let angleFormat = new Rac.Text.Format(
-  //   rac,
-  //   Rac.Text.Format.horizontal.left,
-  //   Rac.Text.Format.vertical.top,
-  //   drawer.debugTextOptions.font,
-  //   angle,
-  //   drawer.debugTextOptions.size);
-  // if (reversesText(angle)) {
-  //   // Reverse orientation
-  //   lengthFormat = lengthFormat.inverse();
-  //   angleFormat = angleFormat.inverse();
-  // }
+  const angle  = ray.angle;
+  const hFormat = Rac.Text.Format.horizontal;
+  const vFormat = Rac.Text.Format.vertical;
+  const font   = drawer.debugTextOptions.font;
+  const size   = drawer.debugTextOptions.size;
+  const digits = drawer.debugTextOptions.fixedDigits;
 
-  // Length
-  // let lengthString = `length:${drawer.debugNumber(segment.length)}`;
-  // segment.startPoint()
-  //   .pointToAngle(angle, drawer.debugPointRadius)
-  //   .pointToAngle(angle.subtract(1/4), drawer.debugRadius/2)
-  //   .text(lengthString, lengthFormat)
-  //   .draw(drawer.debugTextStyle);
+  // Normal orientation
+  let startFormat = new Rac.Text.Format(rac,
+    hFormat.left, vFormat.bottom,
+    font, angle, size);
+  let angleFormat = new Rac.Text.Format(rac,
+    hFormat.left, vFormat.top,
+    font, angle, size);
+  if (reversesText(angle)) {
+    // Reverse orientation
+    startFormat = startFormat.inverse();
+    angleFormat = angleFormat.inverse();
+  }
 
-    // Angle
-  // let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
-  // segment.startPoint()
-  //   .pointToAngle(angle, drawer.debugPointRadius)
-  //   .pointToAngle(angle.add(1/4), drawer.debugRadius/2)
-  //   .text(angleString, angleFormat)
-  //   .draw(drawer.debugTextStyle);
+  // Start text
+  const startString = `start:(${ray.start.x.toFixed(digits)},${ray.start.y.toFixed(digits)})`;
+  ray.start
+    .pointToAngle(angle, pointRadius)
+    .pointToAngle(angle.subtract(1/4), markerRadius/2)
+    .text(startString, startFormat)
+    .draw(drawer.debugTextStyle);
+
+  // Angle text
+  const angleString = `angle:${angle.turn.toFixed(digits)}`;
+  ray.start
+    .pointToAngle(angle, pointRadius)
+    .pointToAngle(angle.add(1/4), markerRadius/2)
+    .text(angleString, angleFormat)
+    .draw(drawer.debugTextStyle);
 }; // debugRay
 
 
