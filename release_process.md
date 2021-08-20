@@ -84,25 +84,24 @@ git push origin n.e.w
 ```
 
 
-Tag in github
--------------
-```
-in github!
-```
-
-
 Publish to npm
 --------------
 ```
+git checkout main
 npm publish
 ```
 
 
+Tag in github
+-------------
++ In https://github.com/lopsae/rac/releases
+
+
 Update gh-pages
 ---------------
-```
-// TODO: update gh-pages branch to n.e.w and push
-```
++ Hard reset of `gp-pages` to `n.e.w` tag
++ Push `gp-pages`
+
 
 
 Rejoice!
