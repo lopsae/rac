@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured by a `turn` value in the range `[0,1)` that represents the
+* Angle measured by a `turn` value in the range *[0,1)* that represents the
 * amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
@@ -28,7 +28,7 @@ class Angle {
   /**
   * Creates a new `Angle` instance.
   *
-  * The `turn` value is constrained to the rance `[0, 1)`, any value
+  * The `turn` value is constrained to the rance *[0,1)*, any value
   * outside is reduced back into range using a modulo operation.
   *
   * ```
@@ -47,8 +47,9 @@ class Angle {
     utils.assertNumber(turn);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -59,11 +60,12 @@ class Angle {
     }
 
     /**
-    * Turn value of the angle, constrained to the range `[0, 1)`.
+    * Turn value of the angle, constrained to the range *[0,1)*.
     * @type {number}
     */
     this.turn = turn;
   }
+
 
   /**
   * Returns a string representation intended for human consumption.
@@ -77,6 +79,7 @@ class Angle {
     return `Angle(${turnStr})`;
   }
 
+
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
@@ -86,7 +89,7 @@ class Angle {
   * type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
-  * `[0, 1)` as equals. E.g. `Angle` objects with `turn` values of `0` and
+  * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to compare
@@ -118,7 +121,7 @@ class Angle {
   * + When `something` is a `{@link Rac.Segment}`, returns its angle.
   * + Otherwise an error is thrown.
   *
-  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {Rac.Angle|Rac.Ray|Rac.Segment|number} something - An object to
   * derive an `Angle` from
   * @returns {Rac.Angle}
@@ -141,10 +144,11 @@ class Angle {
       `Cannot derive Rac.Angle - something-type:${utils.typeName(something)}`);
   }
 
+
   /**
   * Returns an `Angle` derived from `radians`.
   *
-  * @param {Rac} rac Instance to pass along to newly created objects
+  * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   */
@@ -153,7 +157,16 @@ class Angle {
   }
 
 
-  // TODO: implement fromDegrees
+  /**
+  * Returns an `Angle` derived from `degrees`.
+  *
+  * @param {Rac} rac - Instance to pass along to newly created objects
+  * @param {number} degrees - The measure of the angle, in degrees
+  * @returns {Rac.Angle}
+  */
+  static fromDegrees(rac, degrees) {
+    return new Angle(rac, degrees / 360);
+  }
 
 
   /**
@@ -169,6 +182,7 @@ class Angle {
     return this.add(this.rac.Angle.inverse);
   }
 
+
   /**
   * Returns a new `Angle` with a turn value equivalent to `-turn`.
   * ```
@@ -181,6 +195,7 @@ class Angle {
   negative() {
     return new Angle(this.rac, -this.turn);
   }
+
 
   /**
   * Returns a new `Angle` which is perpendicular to `this` in the
@@ -196,25 +211,61 @@ class Angle {
     return this.shift(this.rac.Angle.square, clockwise);
   }
 
+
   /**
   * Returns the measure of the angle in radians.
+  *
   * @returns {number}
   */
   radians() {
     return this.turn * Rac.TAU;
   }
 
+
   /**
   * Returns the measure of the angle in degrees.
+  *
   * @returns {number}
   */
   degrees() {
     return this.turn * 360;
   }
 
+
+  /**
+  * Returns the sine of `this`.
+  *
+  * @returns {number}
+  */
+  sin() {
+    return Math.sin(this.radians())
+  }
+
+
+  /**
+  * Returns the cosine of `this`.
+  *
+  * @returns {number}
+  */
+  cos() {
+    return Math.cos(this.radians())
+  }
+
+
+  /**
+  * Returns the tangent of `this`.
+  *
+  * @returns {number}
+  */
+  tan() {
+    return Math.tan(this.radians())
+  }
+
+
   /**
   * Returns the `turn` value in the range `(0, 1]`. When `turn` is equal to
   * `0` returns `1` instead.
+  *
   * @returns {number}
   */
   turnOne() {
@@ -222,9 +273,11 @@ class Angle {
     return this.turn;
   }
 
+
   /**
   * Returns a new `Angle` with the sum of `this` and the angle derived from
   * `angle`.
+  *
   * @param {Rac.Angle|number} angle - An `Angle` to add
   * @returns {Rac.Angle}
   */
@@ -233,9 +286,11 @@ class Angle {
     return new Angle(this.rac, this.turn + angle.turn);
   }
 
+
   /**
   * Returns a new `Angle` with the angle derived from `angle`
   * subtracted to `this`.
+  *
   * @param {Rac.Angle|number} angle - An `Angle` to subtract
   * @returns {Rac.Angle}
   */
@@ -244,14 +299,17 @@ class Angle {
     return new Angle(this.rac, this.turn - angle.turn);
   }
 
+
   /**
   * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
+  *
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
   */
   mult(factor) {
     return new Angle(this.rac, this.turn * factor);
   }
+
 
   /**
   * Returns a new `Angle` with `turn` set to
@@ -320,6 +378,9 @@ class Angle {
   /**
   * Returns a new `Angle` result of shifting `this` to have the angle
   * derived from `origin` as its origin.
+  *
+  * The result of `angle.shiftToOrigin(origin)` is equivalent to
+  * `origin.shift(angle)`.
   *
   * This operation is the equivalent to
   * + `origin.add(this)` when clockwise

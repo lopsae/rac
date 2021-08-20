@@ -11,6 +11,10 @@ const hunty = rac.Bezier(100, 0, 74, 36, 36, 74, 0, 100);
 
 
 tools.test( function identity() {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Bezier.zero).not.equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
+
   // Instance members
   expect(rac.Bezier.zero).equalsBezier(0, 0, 0, 0, 0, 0, 0, 0);
   expect(hunty).equalsBezier(100, 0, 74, 36, 36, 74, 0, 100);

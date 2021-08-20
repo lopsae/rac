@@ -14,6 +14,10 @@ const circle = rac.Arc(72, 72, 72, rac.Angle.down);
 
 
 tools.test( function identity() {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Arc.zero).not.equalsArc(0, 0, 0, 0, 0, true);
+
   // Instance members
   expect(rac.Arc.zero).equalsArc(0, 0, 0, 0, 0, true);
   expect(half).equalsArc(100, 100, 55, 3/4, 1/4, true);
@@ -264,6 +268,22 @@ tools.test( function withLengthAndRatio() {
 });
 
 
+tools.test( function withStartEndPoint() {
+  const fifty = rac.Point(55, 55);
+  const hypotenuse = tools.hypotenuse(55);
+
+  expect(quarter.withStartPoint(fifty))
+    .equalsArc(0, 0, hypotenuse, rac.Angle.eighth, rac.Angle.left, false);
+  expect(quarter.withStartPoint(rac.Point.zero))
+    .equalsArc(0, 0, 0, rac.Angle.up, rac.Angle.left, false);
+
+  expect(quarter.withEndPoint(fifty))
+    .equalsArc(0, 0, hypotenuse, rac.Angle.up, rac.Angle.eighth, false);
+  expect(quarter.withEndPoint(rac.Point.zero))
+    .equalsArc(0, 0, 0, rac.Angle.up, rac.Angle.left, false);
+});
+
+
 tools.test( function withStartEndAnglesTowardsPoint() {
   const fifty = rac.Point(55, 55);
   const eighth = rac.Angle.eighth;
@@ -291,6 +311,29 @@ tools.test( function withStartEndAnglesTowardsPoint() {
     .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
   expect(quarter.withAnglesTowardsPoint(rac.Point.zero, null))
     .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.up, false);
+});
+
+
+tools.test( function withStartEndExtension() {
+  expect(quarter.withStartExtension(rac.Angle.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+  expect(quarter.withStartExtension(0))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+
+  expect(quarter.withStartExtension(1/8))
+    .equalsArc(0, 0, 36, rac.Angle.topRight, rac.Angle.left, false);
+  expect(quarter.withStartExtension(-1/8))
+    .equalsArc(0, 0, 36, rac.Angle.topLeft, rac.Angle.left, false);
+
+  expect(quarter.withEndExtension(rac.Angle.zero))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+  expect(quarter.withEndExtension(0))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.left, false);
+
+  expect(quarter.withEndExtension(1/8))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.bottomLeft, false);
+  expect(quarter.withEndExtension(-1/8))
+    .equalsArc(0, 0, 36, rac.Angle.up, rac.Angle.topLeft, false);
 });
 
 

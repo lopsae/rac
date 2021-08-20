@@ -1,6 +1,6 @@
 # RAC — Ruler and Compass
 
-Documentation for RAC version: `1.0.0`
+Documentation for RAC version: `1.0.1`
 
 `{@link Rac}` is the main class and container of all other classes.
 
@@ -18,23 +18,23 @@ A collection of [interactive tutorials](https://observablehq.com/@lopsae/rac-tut
 
 RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
-npm install ruler-and-compass@1.0.0
+npm install ruler-and-compass@1.0.1
 ```
 
 
 
-### UNPKG, Browser
+### Browser
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
 This can be imported directly as a script, which will assign the [`Rac` constructor]{@link Rac} to the `Rac` global variable:
 ```
-<script src="https://unpkg.com/ruler-and-compass@1.0.0"></script>
+<script src="https://unpkg.com/ruler-and-compass@1.0.1"></script>
 ```
 
 Or imported as an [AMD package](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) with a module loader like [RequireJS](https://requirejs.org/):
 ```
-requirejs(["https://unpkg.com/ruler-and-compass@1.0.0"], Rac => { ... })
+requirejs(["https://unpkg.com/ruler-and-compass@1.0.1"], Rac => { ... })
 ```
 
 

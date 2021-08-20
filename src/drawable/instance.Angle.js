@@ -51,6 +51,24 @@ module.exports = function attachRacAngle(rac) {
 
 
   /**
+  * Returns an `Angle` derived from `degrees`.
+  *
+  * Calls `{@link Rac.Angle.fromDegrees}` using `this`.
+  *
+  * @see Rac.Angle.fromDegrees
+  *
+  * @param {number} degrees - The measure of the angle, in degrees
+  * @returns {Rac.Angle}
+  *
+  * @function fromDegrees
+  * @memberof instance.Angle#
+  */
+  rac.Angle.fromDegrees = function(degrees) {
+    return Rac.Angle.fromDegrees(rac, degrees);
+  };
+
+
+  /**
   * An `Angle` with turn `0`.
   *
   * Also named as: `right`, `r`, `east`, `e`.

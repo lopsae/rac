@@ -25,11 +25,11 @@ exports.assertExists = function(...parameters) {
   parameters.forEach((item, index) => {
     if (item === null) {
       throw Rac.Exception.failedAssert(
-        `Unexpected null element at index ${index}`);
+        `Found null, expecting element to exist at index ${index}`);
     }
     if (item === undefined) {
       throw Rac.Exception.failedAssert(
-        `Unexpected undefined element at index ${index}`);
+        `Found undefined, expecting element to exist at index ${index}`);
     }
   });
 }

@@ -50,7 +50,7 @@ class Controller {
   constructor(rac) {
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
     *
     * @type {Rac}

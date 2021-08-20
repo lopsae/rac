@@ -41,9 +41,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Color}
   *
   * @see instance.Color
+  *
+  * @function Color
+  * @memberof Rac#
   */
-  rac.Color = function makeColor(r, g, b, alpha = 1) {
-    return new Rac.Color(this, r, g, b, alpha);
+  rac.Color = function makeColor(r, g, b, a = 1) {
+    return new Rac.Color(this, r, g, b, a);
   };
 
 
@@ -59,6 +62,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Stroke}
   *
   * @see instance.Stroke
+  *
+  * @function Stroke
+  * @memberof Rac#
   */
   rac.Stroke = function makeStroke(weight, color = null) {
     return new Rac.Stroke(this, weight, color);
@@ -75,6 +81,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Fill}
   *
   * @see instance.Fill
+  *
+  * @function Fill
+  * @memberof Rac#
   */
   rac.Fill = function makeFill(color = null) {
     return new Rac.Fill(this, color);
@@ -93,6 +102,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Style}
   *
   * @see instance.Style
+  *
+  * @function Style
+  * @memberof Rac#
   */
   rac.Style = function makeStyle(stroke = null, fill = null) {
     return new Rac.Style(this, stroke, fill);
@@ -109,6 +121,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Angle}
   *
   * @see instance.Angle
+  *
+  * @function Angle
+  * @memberof Rac#
   */
   rac.Angle = function makeAngle(turn) {
     return new Rac.Angle(this, turn);
@@ -127,6 +142,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Point}
   *
   * @see instance.Point
+  *
+  * @function Point
+  * @memberof Rac#
   */
   rac.Point = function makePoint(x, y) {
     return new Rac.Point(this, x, y);
@@ -146,6 +164,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Ray}
   *
   * @see instance.Ray
+  *
+  * @function Ray
+  * @memberof Rac#
   */
   rac.Ray = function makeRay(x, y, angle) {
     const start = new Rac.Point(this, x, y);
@@ -168,6 +189,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Segment}
   *
   * @see instance.Segment
+  *
+  * @function Segment
+  * @memberof Rac#
   */
   rac.Segment = function makeSegment(x, y, angle, length) {
     const start = new Rac.Point(this, x, y);
@@ -192,6 +216,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Arc}
   *
   * @see instance.Arc
+  *
+  * @function Arc
+  * @memberof Rac#
   */
   rac.Arc = function makeArc(x, y, radius, start = this.Angle.zero, end = null, clockwise = true) {
     const center = new Rac.Point(this, x, y);
@@ -217,6 +244,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Text}
   *
   * @see instance.Text
+  *
+  * @function Text
+  * @memberof Rac#
   */
   rac.Text = function makeText(x, y, string, format) {
     const point = new Rac.Point(this, x, y);
@@ -242,6 +272,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * @returns {Rac.Bezier}
   *
   * @see instance.Bezier
+  *
+  * @function Bezier
+  * @memberof Rac#
   */
   rac.Bezier = function makeBezier(
     startX, startY, startAnchorX, startAnchorY,

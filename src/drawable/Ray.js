@@ -25,8 +25,9 @@ class Ray {
     utils.assertType(Rac.Angle, angle);
 
     /**
-    * Intance of `Rac` used for drawing and passed along to any created
+    * Instance of `Rac` used for drawing and passed along to any created
     * object.
+    *
     * @type {Rac}
     */
     this.rac = rac;
@@ -39,7 +40,7 @@ class Ray {
 
     /**
     * The angle towards which the ray extends.
-    * @type {Rac.Point}
+    * @type {Rac.Angle}
     */
     this.angle = angle;
   }

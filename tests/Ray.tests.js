@@ -15,6 +15,10 @@ const vertical = rac.Ray(100, 100, rac.Angle.square);
 
 
 tools.test( function identity() {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Ray.zero).not.equalsRay(0, 0, 0);
+
   // Instance members
   expect(rac.Ray.zero).equalsRay(0, 0, 0);
   expect(rac.Ray.xAxis).equalsRay(0, 0, 0);

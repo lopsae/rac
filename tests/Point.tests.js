@@ -12,6 +12,10 @@ const hunty = rac.Point(100, 100);
 
 
 tools.test( function identity() {
+  // Rac instance
+  const otherRac = new Rac();
+  expect(otherRac.Point.zero).not.equalsPoint(0, 0);
+
   // Instance members
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
@@ -60,7 +64,7 @@ tools.test( function toString() {
 });
 
 
-test('Errors', () => {
+tools.test( function thrownErrors() {
   expect(() => {new Rac.Point(rac, 100, 100);})
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 

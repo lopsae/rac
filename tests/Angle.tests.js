@@ -58,7 +58,7 @@ tools.test( function identity() {
 });
 
 
-test('Function toString', () => {
+tools.test( function toString() {
   const string = rac.Angle(0.12345).toString();
   expect(string).toMatch('Angle');
   expect(string).toMatch('0.12345');
@@ -70,7 +70,7 @@ test('Function toString', () => {
 });
 
 
-test('Errors', () => {
+tools.test( function thrownErrors() {
   expect(() => { new Rac.Angle(rac, 1/2); })
     .not.toThrow();
 
@@ -83,11 +83,14 @@ test('Errors', () => {
 });
 
 
-test('Equality', () => {
+tools.test( function equality() {
   const threshold = rac.unitaryEqualityThreshold;
   const bump = threshold/16;
   const aboveThreshold = threshold + bump;
   const belowThreshold = threshold - bump;
+
+  const otherRac = new Rac();
+  expect(otherRac.Angle.zero).not.equalsAngle(rac.Angle.zero);
 
   expect(rac.Angle.zero).equalsAngle(rac.Angle.zero);
   expect(rac.Angle.half).equalsAngle(rac.Angle.west);
@@ -122,7 +125,8 @@ test('Equality', () => {
   expect(angleCloseToOne).not.equalsAngle(closeToOne - aboveThreshold);
 });
 
-test('Function from', () => {
+
+tools.test( function fromFunctions() {
   expect(Rac.Angle.from(rac, rac.Angle.quarter))
     .equalsAngle(rac.Angle.quarter);
   expect(Rac.Angle.from(rac, 1/2))
@@ -141,19 +145,72 @@ test('Function from', () => {
 });
 
 
-test('Transforms to radian/degrees', () => {
-  expect(rac.Angle.zero.radians()).toBe(0);
-  expect(rac.Angle.half.radians()).toBe(Rac.TAU/2);
+tools.test( function radianDegreesTransforms() {
+  expect(rac.Angle.zero.radians())   .toBe(0);
+  expect(rac.Angle.quarter.radians()).toBe(Rac.TAU/4);
+  expect(rac.Angle.half.radians())   .toBe(Rac.TAU/2);
+  expect(rac.Angle.neighth.radians()).toBe(Rac.TAU * 7/8);
 
-  expect(rac.Angle.zero.degrees()).toBe(0);
-  expect(rac.Angle.half.degrees()).toBe(360/2);
+  expect(rac.Angle.fromRadians(0))
+    .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.fromRadians(Rac.TAU))
+    .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.fromRadians(Rac.TAU*7))
+    .equalsAngle(rac.Angle.zero);
 
-  expect(Rac.Angle.fromRadians(rac, 0))
+  expect(rac.Angle.fromRadians(Rac.TAU/8))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromRadians(Rac.TAU/8 + Rac.TAU))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromRadians(Rac.TAU/8 - Rac.TAU))
+    .equalsAngle(rac.Angle.eighth);
+
+  expect(rac.Angle.fromRadians(-Rac.TAU/8))
+    .equalsAngle(rac.Angle.neighth);
+  expect(rac.Angle.fromRadians(-Rac.TAU/8 - Rac.TAU))
+    .equalsAngle(rac.Angle.neighth);
+
+  expect(rac.Angle.zero.degrees())   .toBe(0);
+  expect(rac.Angle.quarter.degrees()).toBe(360/4);
+  expect(rac.Angle.half.degrees())   .toBe(360/2);
+  expect(rac.Angle.neighth.degrees()).toBe(360 * 7/8);
+
+  expect(rac.Angle.fromDegrees(0))
     .equalsAngle(rac.Angle.zero);
-  expect(Rac.Angle.fromRadians(rac, Rac.TAU/2))
-    .equalsAngle(rac.Angle.half);
-  expect(Rac.Angle.fromRadians(rac, Rac.TAU))
+  expect(rac.Angle.fromDegrees(360))
     .equalsAngle(rac.Angle.zero);
+  expect(rac.Angle.fromDegrees(360*7))
+    .equalsAngle(rac.Angle.zero);
+
+  expect(rac.Angle.fromDegrees(45))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromDegrees(45 + 360))
+    .equalsAngle(rac.Angle.eighth);
+  expect(rac.Angle.fromDegrees(45 - 360))
+    .equalsAngle(rac.Angle.eighth);
+
+  expect(rac.Angle.fromDegrees(-45))
+    .equalsAngle(rac.Angle.neighth);
+  expect(rac.Angle.fromDegrees(-45 - 360))
+    .equalsAngle(rac.Angle.neighth);
+});
+
+
+tools.test( function sineCosineTangent() {
+  expect(rac.Angle.zero.sin())   .uniThresEquals(0)
+  expect(rac.Angle.quarter.sin()).uniThresEquals(1)
+  expect(rac.Angle.half.sin())   .uniThresEquals(0)
+  expect(rac.Angle.neighth.sin()).uniThresEquals(-Math.sqrt(1/2))
+
+  expect(rac.Angle.zero.cos())   .uniThresEquals(1)
+  expect(rac.Angle.quarter.cos()).uniThresEquals(0)
+  expect(rac.Angle.half.cos())   .uniThresEquals(-1)
+  expect(rac.Angle.neighth.cos()).uniThresEquals(Math.sqrt(1/2))
+
+  expect(rac.Angle.zero.tan())   .uniThresEquals(0)
+  expect(rac.Angle.eighth.tan()) .uniThresEquals(1)
+  expect(rac.Angle.half.tan())   .uniThresEquals(0)
+  expect(rac.Angle.neighth.tan()).uniThresEquals(-1)
 });
 
 

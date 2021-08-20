@@ -5,8 +5,8 @@ const Rac = require('ruler-and-compass');
 const chalk = require('chalk');
 
 
-// TODO: can this be set in a better place?
 Rac.Exception.buildsErrors = true;
+
 
 const rac = new Rac();
 exports.rac = rac;
@@ -146,6 +146,11 @@ expect.extend({ equalsAngle(angle, expectedAngle) {
       `Unexpected type: ${Rac.utils.typeName(angle)}`);
   }
 
+  if (angle.rac !== expected.rac) {
+    return messenger.fail(angle.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(angle.rac)}`);
+  }
+
   const isEqual = expected.equals(angle);
   return messenger.done(isEqual, angle, expected);
 }}); // equalsAngle
@@ -167,6 +172,12 @@ expect.extend({ equalsPoint(point, x, y) {
       `Expected type: ${msg.e('Rac.Point')}`);
   }
 
+  if (point.rac !== expected.rac) {
+    return msg.fail(point.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(point.rac)}`);
+  }
+
+  // TODO: check rest of asserts to use formatted r/e output lines
   const isEqual = expected.equals(point);
   return msg.done(isEqual, point, expected,
     `Received: ${msg.r(point.toString(digits))}`,
@@ -189,6 +200,11 @@ expect.extend({ equalsRay(ray, x, y, angle) {
       `Unexpected type: ${Rac.utils.typeName(ray)}`);
   }
 
+  if (ray.rac !== expected.rac) {
+    return messenger.fail(ray.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(ray.rac)}`);
+  }
+
   const isEqual = expected.equals(ray);
   return messenger.done(isEqual, ray, expected);
 }}); // equalsRay
@@ -209,6 +225,11 @@ expect.extend({ equalsSegment(segment, x, y, angle, length) {
     return msg.fail(segment.toString(), expected,
       `Received type: ${msg.r(Rac.utils.typeName(segment))}`,
       `Expected type: ${msg.e('Rac.Segment')}`);
+  }
+
+  if (segment.rac !== expected.rac) {
+    return msg.fail(segment.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(segment.rac)}`);
   }
 
   const isEqual = expected.equals(segment);
@@ -235,6 +256,11 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
       `Expected type: ${msg.e('Rac.Arc')}`);
   }
 
+  if (arc.rac !== expected.rac) {
+    return msg.fail(arc.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(arc.rac)}`);
+  }
+
   const isEqual = expected.equals(arc);
 
   return msg.done(isEqual, arc, expected,
@@ -254,6 +280,12 @@ expect.extend({ equalsText(text, x, y, string) {
     return messenger.fail('null', expected);
   }
 
+  if (text.rac !== expected.rac) {
+    return messenger.fail(text.toString(), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(text.rac)}`);
+  }
+
+  // TODO: implement text.equals?
   const isEqual = expected.string === text.string
     && expected.point.equals(text.point);
   return messenger.done(isEqual, text, expected)
@@ -280,6 +312,11 @@ expect.extend({ equalsBezier(bezier,
     return msg.fail(bezier.toString(), expected,
       `Received type: ${msg.r(Rac.utils.typeName(bezier))}`,
       `Expected type: ${msg.e('Rac.Bezier')}`);
+  }
+
+  if (bezier.rac !== expected.rac) {
+    return msg.fail(bezier.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(bezier.rac)}`);
   }
 
   const isEqual = expected.equals(bezier);
