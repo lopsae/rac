@@ -78,6 +78,7 @@ class Controller {
     // interaction yet and while there is a selected control.
     this.lastPointer = null;
 
+    // TODO: make a default of no-fill, when null it should not draw pointer elements
     // Style used for visual elements related to selection and pointer
     // interaction.
     this.pointerStyle = null;
