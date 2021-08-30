@@ -9,12 +9,18 @@ let utils = require('../util/utils');
 
 
 /**
-* Parent class for all controls for manipulating a value with the pointer.
-* Represents a control with a value, value-range, limits, markers, and
-* drawing style. By default the control returns a `value` in the range
-* [0,1] coresponding to the location of the control center in relation to
-* the anchor shape. The value-range is defined by `startValue` and
-* `endValue`.
+* Parent class for controls that use an `anchor` object to determine the
+* visual position of the control's interactive elements.
+*
+* A control mantains a current `value` within the range
+* `[startValue,endValue]`, which by default is set to *[0,1]*.
+*
+* Additionally a control can be configured with `markers` to highlight
+* the positions of certain values, and with a specific `style`` to use when
+* drawing.
+*
+* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+*
 * @alias Rac.Control
 */
 class Control {

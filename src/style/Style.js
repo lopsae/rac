@@ -16,6 +16,8 @@ const utils = require('../util/utils');
 * Applies whichever `stroke` or `fill` styles are present, any set to
 * `null` is individually skipped.
 *
+* ⚠️ The Style class is **planned to be replaced** in a future minor release. ⚠️
+*
 * @alias Rac.Style
 */
 class Style {
