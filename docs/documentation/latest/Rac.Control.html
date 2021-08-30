@@ -47,12 +47,14 @@
         Control
         </h2>
         
-            <div class="class-description"><p>Parent class for all controls for manipulating a value with the pointer.
-Represents a control with a value, value-range, limits, markers, and
-drawing style. By default the control returns a <code>value</code> in the range
-[0,1] coresponding to the location of the control center in relation to
-the anchor shape. The value-range is defined by <code>startValue</code> and
-<code>endValue</code>.</p></div>
+            <div class="class-description"><p>Parent class for controls that use an <code>anchor</code> object to determine the
+visual position of the control's interactive elements.</p>
+<p>A control mantains a current <code>value</code> within the range
+<code>[startValue,endValue]</code>, which by default is set to <em>[0,1]</em>.</p>
+<p>Additionally a control can be configured with <code>markers</code> to highlight
+the positions of certain values, and with a specific `style`` to use when
+drawing.</p>
+<p>⚠️ The API for controls is <strong>planned to change</strong> in a future minor release. ⚠️</p></div>
         
     
 </header>
@@ -76,7 +78,7 @@ the anchor shape. The value-range is defined by <code>startValue</code> and
     <span><a href="Rac.Control.html" class="maic">#</a></span>
     
         <span> | source:
-        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line20">line 20</a>
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line26">line 26</a>
         </span>
     
     </div>
