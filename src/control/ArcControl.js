@@ -10,6 +10,9 @@ let utils = require('../util/utils');
 
 /**
 * Control that uses an `Arc` as anchor.
+*
+* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+*
 * @alias Rac.ArcControl
 */
 class ArcControl extends Rac.Control {
