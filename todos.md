@@ -37,6 +37,9 @@ Future
 
 + function to push marker to controls
 
++ separate drawing/style of control selection, effects, and pointer
+
+
 Bugs
 ----
 + whole circle control located at 0 shows incorrect arrows

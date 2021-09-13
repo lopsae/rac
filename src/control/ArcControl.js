@@ -114,7 +114,10 @@ class ArcControl extends Rac.Control {
 
     // Selection
     if (this.isSelected()) {
-      center.arc(this.rac.controller.knobRadius * 1.5).draw(this.rac.controller.pointerStyle);
+      let pointerStyle = this.rac.controller.pointerStyle;
+      if (pointerStyle !== null) {
+        center.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
+      }
     }
   }
 
@@ -177,9 +180,13 @@ class ArcControl extends Rac.Control {
     draggedCenter.arc(2)
       .attachToComposite();
 
-    // TODO: implement arc control dragging visuals!
+    let composite = Rac.popComposite();
 
-    Rac.popComposite().draw(this.rac.controller.pointerStyle);
+    // TODO: implement arc control dragging visuals!
+    let pointerStyle = this.rac.controller.pointerStyle;
+    if (pointerStyle !== null) {
+      composite.draw(pointerStyle);
+    }
   }
 
 } // class ArcControl

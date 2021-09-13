@@ -83,10 +83,17 @@ class Controller {
     // interaction yet and while there is a selected control.
     this.lastPointer = null;
 
-    // TODO: make a default of no-fill, when null it should not draw pointer elements
-    // Style used for visual elements related to selection and pointer
-    // interaction.
-    this.pointerStyle = null;
+    /**
+    * Style object used for the visual elements related to pointer
+    * interaction and control selection. When `null` no pointer or
+    * selection visuals are drawn.
+    *
+    * By default contains a style that uses the current stroke
+    * configuration with no-fill.
+    *
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
+    */
+    this.pointerStyle = new Rac.Fill(rac, null);
 
     /**
     * Selection information for the currently selected control, or `null`
@@ -163,7 +170,23 @@ class Controller {
   * other graphics.
   */
   drawControls() {
+    let pointerCenter = this.rac.Point.pointer();
+    this.drawPointer(pointerCenter);
+
+    // All controls in display
+    this.controls.forEach(item => item.draw());
+
+    if (this.selection !== null) {
+      this.selection.drawSelection(pointerCenter);
+    }
+  }
+
+
+  drawPointer(pointerCenter) {
     let pointerStyle = this.pointerStyle;
+    if (pointerStyle === null) {
+      return;
+    }
 
     // Last pointer or control
     if (this.lastPointer instanceof Rac.Point) {
@@ -174,20 +197,12 @@ class Controller {
     }
 
     // Pointer pressed
-    let pointerCenter = this.rac.Point.pointer();
     if (this.rac.drawer.p5.mouseIsPressed) {
       if (this.selection === null) {
         pointerCenter.arc(10).draw(pointerStyle);
       } else {
         pointerCenter.arc(5).draw(pointerStyle);
       }
-    }
-
-    // All controls in display
-    this.controls.forEach(item => item.draw());
-
-    if (this.selection !== null) {
-      this.selection.drawSelection(pointerCenter);
     }
   }
 

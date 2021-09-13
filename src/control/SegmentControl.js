@@ -100,7 +100,10 @@ class SegmentControl extends Rac.Control {
 
     // Selection
     if (this.isSelected()) {
-      center.arc(this.rac.controller.knobRadius * 1.5).draw(this.rac.controller.pointerStyle);
+      let pointerStyle = this.rac.controller.pointerStyle;
+      if (pointerStyle !== null) {
+        center.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
+      }
     }
   }
 
@@ -208,7 +211,12 @@ class SegmentControl extends Rac.Control {
     draggedTail.withLength(easedLength).attachToComposite();
 
     // Draw all!
-    Rac.popComposite().draw(this.rac.controller.pointerStyle);
+    let composite = Rac.popComposite();
+
+    let pointerStyle = this.rac.controller.pointerStyle;
+    if (pointerStyle !== null) {
+      composite.draw(pointerStyle);
+    }
   }
 
 } // class SegmentControl
