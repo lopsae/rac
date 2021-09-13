@@ -1,7 +1,7 @@
 TODO's
 ======
 
-Latest stabe npm used: 7.5.3
+Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------

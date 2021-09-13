@@ -67,8 +67,13 @@ class Controller {
     */
     this.knobRadius = 22;
 
-    // Collection of all controls that are drawn with `drawControls()`
-    // and evaluated for selection with the `pointer...()` functions.
+    /**
+    * Collection of all controlls managed by the instance. This list is
+    * used for pointer hit testing with the `pointer...()` functions and
+    * for drawing with the `[drawControls]{@link Rac.Controller#drawControls}` method.
+    *
+    * @type {Rac.Control[]}
+    */
     this.controls = [];
 
     // TODO: separate lastControl from lastPointer
@@ -149,8 +154,14 @@ class Controller {
   }
 
 
-  // Draws controls and the visuals of pointer and control selection. Usually
-  // called at the end of `draw` so that controls sits on top of the drawing.
+  /**
+  * Draws all controls contained in
+  * `[controls]{@link Rac.Controller#controls}` along the visual element
+  * for pointer and control selection.
+  *
+  * Usually called at the end of drawing, as to draw controls on top of
+  * other graphics.
+  */
   drawControls() {
     let pointerStyle = this.pointerStyle;
 
