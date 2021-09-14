@@ -155,5 +155,14 @@ module.exports = function attachProtoFunctions(Rac) {
     this.rac.drawer.applyObject(this);
   };
 
+
+  Rac.styleProtoFunctions.log = Rac.drawableProtoFunctions.log;
+
+
+  Rac.styleProtoFunctions.applyToClass = function(classObj) {
+    assertDrawer(this);
+    this.rac.drawer.setClassDrawStyle(classObj, this);
+  };
+
 }; // attachProtoFunctions
 
