@@ -5,9 +5,10 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ Style could be Styles, or StyleContainer? Just a list of styles, which would allow for additional style objects
-+ controls should work without style (does it need a global style in controller?)
++ global control style in controller?
 + auto add controls when created
++ SegmentControl -> RayControl
++ recheck what is drawn with fills for controls
 + can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
 + control without anchor should not crash
 + add arc.withLengthAdd
