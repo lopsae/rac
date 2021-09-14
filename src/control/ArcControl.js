@@ -55,20 +55,26 @@ class ArcControl extends Rac.Control {
 
   // TODO: rename control.center to control.knob or similar
   center() {
-    // Not posible to calculate a center
-    if (this.anchor === null) { return null; }
+    if (this.anchor === null) {
+      // Not posible to calculate a center
+      return null;
+    }
     return this.anchor.withAngleDistance(this.distance()).endPoint();
   }
 
   // Creates a copy of the current `anchor` with the control's
   // `angleDistance`.
   copyAnchor() {
-    // No anchor to copy
     if (this.anchor === null) { return null; }
     return this.anchor.withAngleDistance(this.angleDistance);
   }
 
   draw() {
+    if (this.anchor === null) {
+      // Unable to draw without anchor
+      return;
+    }
+
     let anchorCopy = this.copyAnchor();
 
     let controllerStyle = this.rac.controller.controlStyle;

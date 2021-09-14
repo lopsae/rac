@@ -50,19 +50,25 @@ class SegmentControl extends Rac.Control {
   }
 
   center() {
-    // Not posible to calculate a center
-    if (this.anchor === null) { return null; }
+    if (this.anchor === null) {
+      // Not posible to calculate a center
+      return null;
+    }
     return this.anchor.withLength(this.distance()).endPoint();
   }
 
   // Creates a copy of the current `anchor` with the control `length`.
   copyAnchor() {
-    // No anchor to copy
     if (this.anchor === null) { return null; }
     return this.anchor.withLength(this.length);
   }
 
   draw() {
+    if (this.anchor === null) {
+      // Unable to draw without anchor
+      return;
+    }
+
     let anchorCopy = this.copyAnchor();
 
     let controllerStyle = this.rac.controller.controlStyle;

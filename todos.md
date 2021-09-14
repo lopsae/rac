@@ -5,12 +5,10 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ global control style in controller?
 + auto add controls when created
 + SegmentControl -> RayControl
 + recheck what is drawn with fills for controls
 + can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
-+ control without anchor should not crash
 + add arc.withLengthAdd
 
 
