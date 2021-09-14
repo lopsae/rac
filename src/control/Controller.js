@@ -93,7 +93,9 @@ class Controller {
     *
     * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
     */
-    this.pointerStyle = new Rac.Fill(rac, null);
+    this.pointerStyle = rac.Fill.none;
+
+    // this.controlStyle = null
 
     /**
     * Selection information for the currently selected control, or `null`

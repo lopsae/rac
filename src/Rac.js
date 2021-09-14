@@ -90,13 +90,6 @@ class Rac {
     */
     this.drawer = null;
 
-    /**
-    * Controller of the instance. This objecs handles all of the controls
-    * and pointer events related to this instance of `Rac`.
-    */
-    this.controller = new Rac.Controller(this);
-
-
     require('./attachInstanceFunctions')(this);
 
     require('./style/instance.Color')     (this);
@@ -111,6 +104,12 @@ class Rac {
 
     // Depends on instance.Point and instance.Angle being already setup
     require('./drawable/instance.Text')(this);
+
+    /**
+    * Controller of the instance. This objecs handles all of the controls
+    * and pointer events related to this instance of `Rac`.
+    */
+    this.controller = new Rac.Controller(this);
   }
 
   /**
