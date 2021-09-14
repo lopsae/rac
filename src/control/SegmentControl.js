@@ -64,7 +64,13 @@ class SegmentControl extends Rac.Control {
 
   draw() {
     let anchorCopy = this.copyAnchor();
-    anchorCopy.draw(this.style);
+
+    let controllerStyle = this.rac.controller.controlStyle;
+    let controlStyle = controllerStyle !== null
+      ? controllerStyle.appendStyle(this.style)
+      : this.style;
+
+    anchorCopy.draw(controlStyle);
 
     let center = this.center();
     let angle = anchorCopy.angle();
@@ -96,7 +102,7 @@ class SegmentControl extends Rac.Control {
         .attachToComposite();
     }
 
-    Rac.popComposite().draw(this.style);
+    Rac.popComposite().draw(controlStyle);
 
     // Selection
     if (this.isSelected()) {

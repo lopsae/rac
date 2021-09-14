@@ -71,9 +71,16 @@ class ArcControl extends Rac.Control {
   draw() {
     let anchorCopy = this.copyAnchor();
 
-    let anchorStyle = this.style !== null
-      ? this.style.container().add(this.rac.Fill.none)
+    let controllerStyle = this.rac.controller.controlStyle;
+    let controlStyle = controllerStyle !== null
+      ? controllerStyle.appendStyle(this.style)
+      : this.style;
+
+    let anchorStyle = controlStyle !== null
+      ? controlStyle.appendStyle(this.rac.Fill.none)
       : this.rac.Fill.none;
+
+    // Arc anchor is always drawn without fill
     anchorCopy.draw(anchorStyle);
 
     let center = this.center();
@@ -110,7 +117,7 @@ class ArcControl extends Rac.Control {
         .attachToComposite();
     }
 
-    Rac.popComposite().draw(this.style);
+    Rac.popComposite().draw(controlStyle);
 
     // Selection
     if (this.isSelected()) {

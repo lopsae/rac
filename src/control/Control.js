@@ -47,6 +47,13 @@ class Control {
     // Collection of values at which markers are drawn.
     this.markers = [];
 
+    /**
+    * Style to apply when drawing. This style gets applied after
+    * `[rac.controller.controlStyle]{@link Rac.Controller#controlStyle}`.
+    *
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} [style=null]
+    * @default null
+    */
     this.style = null;
   }
 

@@ -127,16 +127,32 @@ class Stroke {
 
 
   /**
+  * Returns a new `StyleContainer` containing `this` and `style`. When
+  * `style` is `null`, returns `this` instead.
+  *
+  * @param {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} style - A style object
+  *   to contain along `this`
+  * @returns {Rac.StyleContainer|Rac.Stroke}
+  */
+  appendStyle(style) {
+    if (style === null) {
+      return this;
+    }
+    return new Rac.StyleContainer(this.rac, [this, style]);
+  }
+
+
+  /**
   * Returns a new `StyleContainer` containing `this` and the `Fill`
-  * derived from `someFill` using `[Fill.from]{@link Rac.Fill.from}`.
+  * derived from `[Fill.from(someFill)]{@link Rac.Fill.from}`.
   *
   * @param {Rac.Fill|Rac.Color|Rac.Stroke} someFill - An object to derive
   *   a `Fill` from
   * @returns {Rac.StyleContainer}
   */
-  containerWithFill(someFill) {
+  appendFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);
-    return this.container().add(fill);
+    return new Rac.StyleContainer(this.rac, [this, fill]);
   }
 
 } // class Stroke

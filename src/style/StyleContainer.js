@@ -64,16 +64,21 @@ class StyleContainer {
 
 
   /**
-  * Returns a new `StyleContainer` with `style` pushed into `styles`.
+  * Returns a new `StyleContainer` with `style` appended at the end of
+  * `styles`. When `style` is `null`, returns `this` instead.
   *
   * `this` is not modified by this method, the new `StyleContainer` is
-  * created with an independent copy of `this.styles`.
+  * created with a copy of `this.styles`.
   *
-  * @param {Rac.Stroke|Rac.Fill|Rac.StyleContainer} style - A style object
-  *   to push into `styles`
+  * @param {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} style - A style object
+  *   to append to `styles`
   * @returns {Rac.StyleContainer}
   */
-  add(style) {
+  appendStyle(style) {
+    if (style === null) {
+      return this;
+    }
+
     let stylesCopy = this.styles.slice();
     stylesCopy.push(style);
     return new Rac.StyleContainer(this.rac, stylesCopy);

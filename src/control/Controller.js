@@ -73,6 +73,7 @@ class Controller {
     * for drawing with the `[drawControls]{@link Rac.Controller#drawControls}` method.
     *
     * @type {Rac.Control[]}
+    * @default []
     */
     this.controls = [];
 
@@ -92,10 +93,19 @@ class Controller {
     * configuration with no-fill.
     *
     * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
+    * @default {@link instance.Fill#none}
     */
     this.pointerStyle = rac.Fill.none;
 
-    // this.controlStyle = null
+    /**
+    * Default style to apply for all controls. When set it is applied
+    * before control drawing. The individual control style in
+    * `[control.style]{@link Rac.Control#style}` is applied afterwards.
+    *
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
+    * @default null
+    */
+    this.controlStyle = null
 
     /**
     * Selection information for the currently selected control, or `null`
