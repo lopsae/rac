@@ -34,6 +34,12 @@ module.exports = function attachRacText(rac) {
     rac.Angle.zero,
     Rac.Text.Format.defaultSize);
 
+  rac.Text.Format.topRight = rac.Text.Format(
+    Rac.Text.Format.horizontal.right,
+    Rac.Text.Format.vertical.top,
+    rac.Angle.zero,
+    Rac.Text.Format.defaultSize);
+
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at
   * `Point.zero`.

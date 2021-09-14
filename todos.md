@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ recheck that pointerStyle and debugStyle are not expecting Style objects
 + Style could be Styles, or StyleContainer? Just a list of styles, which would allow for additional style objects
 + controls should work without style (does it need a global style in controller?)
 + auto add controls when created

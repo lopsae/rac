@@ -77,6 +77,16 @@ class TextFormat {
       this.size)
   }
 
+
+  withAngle(angle) {
+    angle = Rac.Angle.from(this.rac, angle);
+    return new TextFormat(this.rac,
+      this.horizontal, this.vertical,
+      this.font,
+      angle,
+      this.size);
+  }
+
 } // class TextFormat
 
 
