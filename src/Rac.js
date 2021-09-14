@@ -243,9 +243,9 @@ Rac.Fill = require('./style/Fill');
 Rac.setupStyleProtoFunctions(Rac.Fill);
 
 
-// Style
-Rac.Style = require('./style/Style');
-Rac.setupStyleProtoFunctions(Rac.Style);
+// StyleContainer
+Rac.StyleContainer = require('./style/StyleContainer');
+Rac.setupStyleProtoFunctions(Rac.StyleContainer);
 
 
 // Angle

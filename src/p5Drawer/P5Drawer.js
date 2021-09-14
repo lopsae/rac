@@ -399,19 +399,12 @@ class P5Drawer {
       fill.color.applyFill();
     });
 
-    // Style
-    this.setApplyFunction(Rac.Style, (drawer, style) => {
-      if (style.stroke !== null) {
-        style.stroke.apply();
-      }
-      if (style.fill !== null) {
-        style.fill.apply();
-      }
+    // StyleContainer
+    this.setApplyFunction(Rac.StyleContainer, (drawer, container) => {
+      container.styles.forEach(item => {
+        item.apply();
+      });
     });
-
-    Rac.Style.prototype.applyToClass = function(classObj) {
-      this.rac.drawer.setClassDrawStyle(classObj, this);
-    }
 
   } // setupAllApplyFunctions
 

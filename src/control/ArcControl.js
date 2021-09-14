@@ -72,8 +72,8 @@ class ArcControl extends Rac.Control {
     let anchorCopy = this.copyAnchor();
 
     let anchorStyle = this.style !== null
-      ? this.style.withFill(this.rac.Fill.none)
-      : null;
+      ? this.style.container().add(this.rac.Fill.none)
+      : this.rac.Fill.none;
     anchorCopy.draw(anchorStyle);
 
     let center = this.center();
