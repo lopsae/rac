@@ -29,6 +29,10 @@ class SegmentControl extends Rac.Control {
     // drawn and interacted a copy of the anchor is created with the
     // control's `length`.
     this.anchor = null;
+
+    if (rac.controller.autoAddControls) {
+      rac.controller.controls.push(this);
+    }
   }
 
   setValueWithLength(lengthValue) {

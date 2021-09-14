@@ -5,21 +5,19 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ auto add controls when created
 + SegmentControl -> RayControl
++ rename center to knob in all controls
++ function controller.add to push to controller.controls
 + recheck what is drawn with fills for controls
 + can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
++ popComposite,popShape,stack are still setup as static properties of Rac
 + add arc.withLengthAdd
++ Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd)
 
 
 For version change
 ------------------
-+ Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd)
-+ rename center to knob in all controls
-+ function controller.push to push to controller.controls
-+ function to add controls to controller.controls? controller setting to autoadd?
 
-+ popComposite,popShape,stack are still setup as static properties of Rac
 
 
 Future

@@ -77,6 +77,17 @@ class Controller {
     */
     this.controls = [];
 
+    /**
+    * Indicates controls to add themselves to `this.controls` when created.
+    *
+    * This property is a shared configuration. The behaviour is implemented
+    * independently by each control constructor.
+    *
+    * @type {boolean}
+    * @default true
+    */
+    this.autoAddControls = true;
+
     // TODO: separate lastControl from lastPointer
 
     // Last `Point` of the position when the pointer was pressed, or last
