@@ -5,6 +5,8 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
++ Control -> RangeControl
++ Leave still a base Control class?
 + SegmentControl -> RayControl
 + rename center to knob in all controls
 + function controller.add to push to controller.controls

@@ -17,10 +17,10 @@ class SegmentControl extends Rac.Control {
   // Creates a new Control instance with the given `value` and `length`.
   // By default the value range is [0,1] and limits are set to be the equal
   // as `startValue` and `endValue`.
-  constructor(rac, value, length, startValue = 0, endValue = 1) {
-    utils.assertExists(rac, value, length, startValue, endValue);
+  constructor(rac, value, length) {
+    utils.assertExists(rac, value, length);
 
-    super(rac, value, startValue, endValue);
+    super(rac, value);
 
     // Length for the copied anchor shape.
     this.length = length;
@@ -37,20 +37,20 @@ class SegmentControl extends Rac.Control {
 
   setValueWithLength(lengthValue) {
     let lengthRatio = lengthValue / this.length;
-    this.value = this.valueOf(lengthRatio);
+    this.value = lengthRatio;
   }
 
   // Sets `startLimit` and `endLimit` with two inset values relative to
   // zero and `length`.
   setLimitsWithLengthInsets(startInset, endInset) {
-    this.startLimit = this.valueOf(startInset / this.length);
-    this.endLimit = this.valueOf((this.length - endInset) / this.length);
+    this.startLimit = startInset / this.length;
+    this.endLimit = (this.length - endInset) / this.length;
   }
 
 
   // Returns the distance from `anchor.start` to the control center.
   distance() {
-    return this.length * this.ratioValue();
+    return this.length * this.value;
   }
 
   center() {
@@ -87,9 +87,8 @@ class SegmentControl extends Rac.Control {
 
     // Value markers
     this.markers.forEach(item => {
-      let markerRatio = this.ratioOf(item);
-      if (markerRatio < 0 || markerRatio > 1) { return }
-      let point = anchorCopy.start.pointToAngle(angle, this.length * markerRatio);
+      if (item < 0 || item > 1) { return }
+      let point = anchorCopy.startPoint().pointToAngle(angle, this.length * item);
       Rac.Control.makeValueMarker(this.rac, point, angle)
         .attachToComposite();
     }, this);
@@ -98,16 +97,14 @@ class SegmentControl extends Rac.Control {
     center.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
-    let ratioValue = this.ratioValue();
-
     // Negative arrow
-    if (ratioValue >= this.ratioStartLimit() + this.rac.unitaryEqualityThreshold) {
+    if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
       Rac.Control.makeArrowShape(this.rac, center, angle.inverse())
         .attachToComposite();
     }
 
     // Positive arrow
-    if (ratioValue <= this.ratioEndLimit() - this.rac.unitaryEqualityThreshold) {
+    if (this.value <= this.endLimit - this.rac.unitaryEqualityThreshold) {
       Rac.Control.makeArrowShape(this.rac, center, angle)
         .attachToComposite();
     }
@@ -125,8 +122,8 @@ class SegmentControl extends Rac.Control {
 
   updateWithPointer(pointerControlCenter, anchorCopy) {
     let length = anchorCopy.length;
-    let startInset = length * this.ratioStartLimit();
-    let endInset = length * (1 - this.ratioEndLimit());
+    let startInset = length * this.startLimit;
+    let endInset = length * (1 - this.endLimit);
 
     // New value from the current pointer position, relative to anchorCopy
     let newDistance = anchorCopy
@@ -137,7 +134,7 @@ class SegmentControl extends Rac.Control {
 
     // Update control with new distance
     let lengthRatio = newDistance / length;
-    this.value = this.valueOf(lengthRatio);
+    this.value = lengthRatio;
   }
 
   drawSelection(pointerCenter, anchorCopy, pointerOffset) {
@@ -148,24 +145,21 @@ class SegmentControl extends Rac.Control {
 
     // Value markers
     this.markers.forEach(item => {
-      let markerRatio = this.ratioOf(item);
-      if (markerRatio < 0 || markerRatio > 1) { return }
-      let markerPoint = anchorCopy.start.pointToAngle(angle, length * markerRatio);
+      if (item < 0 || item > 1) { return }
+      let markerPoint = anchorCopy.startPoint().pointToAngle(angle, length * item);
       Rac.Control.makeValueMarker(this.rac, markerPoint, angle)
         .attachToComposite();
     });
 
     // Limit markers
-    let ratioStartLimit = this.ratioStartLimit();
-    if (ratioStartLimit > 0) {
-      let minPoint = anchorCopy.start.pointToAngle(angle, length * ratioStartLimit);
+    if (this.startLimit > 0) {
+      let minPoint = anchorCopy.startPoint().pointToAngle(angle, length * this.startLimit);
       Rac.Control.makeLimitMarker(this.rac, minPoint, angle)
         .attachToComposite();
     }
 
-    let ratioEndLimit = this.ratioEndLimit();
-    if (ratioEndLimit < 1) {
-      let maxPoint = anchorCopy.start.pointToAngle(angle, length * ratioEndLimit);
+    if (this.endLimit < 1) {
+      let maxPoint = anchorCopy.startPoint().pointToAngle(angle, length * this.endLimit);
       Rac.Control.makeLimitMarker(this.rac, maxPoint, angle.inverse())
         .attachToComposite();
     }
@@ -182,8 +176,8 @@ class SegmentControl extends Rac.Control {
     // Constrained length clamped to limits
     let constrainedLength = anchorCopy
       .ray.distanceToProjectedPoint(draggedCenter);
-    let startInset = length * ratioStartLimit;
-    let endInset = length * (1 - ratioEndLimit);
+    let startInset = length * this.startLimit;
+    let endInset = length * (1 - this.endLimit);
     constrainedLength = anchorCopy.clampToLength(constrainedLength,
       startInset, endInset);
 
