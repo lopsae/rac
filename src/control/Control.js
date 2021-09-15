@@ -5,9 +5,6 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
-// TODO: fix uses of someAngle
-
-
 /**
 * Abstract class for controls that use an `anchor` object to determine the
 * visual position of the control's interactive elements. The `anchor` is
@@ -237,8 +234,8 @@ Control.makeArrowShape = function(rac, center, angle) {
     return arrow;
 };
 
-Control.makeLimitMarker = function(rac, point, someAngle) {
-  let angle = rac.Angle.from(someAngle);
+Control.makeLimitMarker = function(rac, point, angle) {
+  angle = rac.Angle.from(angle);
   let perpendicular = angle.perpendicular(false);
   let composite = new Rac.Composite(rac);
 
@@ -251,8 +248,8 @@ Control.makeLimitMarker = function(rac, point, someAngle) {
   return composite;
 };
 
-Control.makeValueMarker = function(rac, point, someAngle) {
-  let angle = rac.Angle.from(someAngle);
+Control.makeValueMarker = function(rac, point, angle) {
+  angle = rac.Angle.from(angle);
   return point.segmentToAngle(angle.perpendicular(), 3)
     .withStartExtended(3);
 };
