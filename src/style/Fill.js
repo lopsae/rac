@@ -99,11 +99,13 @@ class Fill {
 
   /**
   * Returns a new `StyleContainer` containing `this` and the `Stroke`
-  * derived from `[Stroke.from(someStroke)]{@link Rac.Stroke.from}`.
+  * derived [from]{@link Rac.Stroke.from} `someStroke`.
   *
   * @param {Rac.Stroke|Rac.Color|Rac.Fill} someStroke - An object to derive
   *   a `Stroke` from
   * @returns {Rac.StyleContainer}
+  *
+  * @see Rac.Stroke.from
   */
   appendStroke(someStroke) {
     let stroke = Rac.Stroke.from(this.rac, someStroke);
