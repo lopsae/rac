@@ -6,56 +6,26 @@ let utils = require('../util/utils');
 
 
 /**
-* Abstract class for controls that use an `anchor` object to determine the
-* visual position of the control's interactive elements. The `anchor` is
-* tightly coupled with the specific implementation of a control, for
-* example `[ArcControl]{@link Rac.ArcControl}` uses an
+* Abstract class for controls that select a value within a range.
+*
+* Depending on the implementation, controls may use an `anchor` object
+* to determine the visual position of the control's interactive elements.
+* The `anchor` is tightly coupled with the specific implementation of a
+* control, for example `[ArcControl]{@link Rac.ArcControl}` uses an
 * `[Arc]{@link Rac.Arc}` as anchor, which defines where the control is
-* drawn, what orientation it uses, and the position of the starting and
-* ending values.
+* drawn, what orientation it uses, and the position of the control knob
+* through the range of possible values.
 *
-* The main outputs of a control are:
-* + `value`, which is in the range `[startValue,endValue]`
-* + `ratioValue()`, which is the range *[0,1]*
-* + `distance()`, depending on the implementation, the distance between
-*   the control initial position and its current
+* A control keeps a `value` property in the range *[0,1]* for the currently
+* selected value.
 *
-* Internally a control keeps a `value` to represent to track the position
-* of the control within a range of posible values.
+* The `projectionStart` and `projectionEnd` properties can be used to
+* project `value` into the range `[projectionStart,projectionEnd]` by using
+* the `projectedValue()` method.
 *
-* Internally a control keeps a `value` as its single point of truth. This
-* `value` is a number between `startValue` and `endValue`, both inclusive.
-* By default `[startValue,endValue]` is set to *[0,1]*. This range can be
-* set to any range, including toward negative-direction. This allows to
-* modify the `value` produced by the control to a specific range,
-* independently of its graphical representation.
-*
-* For example:
-* ```
-* For a control set with startValue,endValue of 100,200
-* + start position:  valueRatio is 0,   value is 100
-* + middle position: valueRatio is 0.5, value is 150
-*
-* For a control set with startValue,endValue of 0,1
-* + start position:  valueRatio = 0,   value = 0
-* + middle position: valueRatio = 0.5, value = 0.5
-*
-* For a control set with startValue,endValue of 50,40
-* + start position:  valueRatio = 0,   value = 50
-* + middle position: valueRatio = 0.5, value = 45
-* ```
-*
-*
-* // MAICTODO: older docs below
-* A control mantains a current `value` within the range
-* `[startValue,endValue]`, which by default is set to *[0,1]*. This range
-* can be used to translate the value read from a
-*
-* Additionally a control can be configured with `markers` to highlight
-* the positions of certain values, and with a specific `style` to use when
-* drawing.
-*
-* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+* The `startLimit` and `endLimit` can be used to restrain the allowable
+* values that can be selected through user interaction. Both are set in
+* *[0,1]* range.
 *
 * @alias Rac.Control
 */
@@ -65,9 +35,8 @@ class Control {
   * Creates a new `Control` instance.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control
-  * @param {number} [startValue=0] - The lowest value the control can have
-  * @param {number} [endValue=1] - The highest value the control can have
+  * @param {number} value - The initial value of the control, in the
+  *   *[0,1]* range
   */
   constructor(rac, value) {
     utils.assertExists(rac);
@@ -81,38 +50,54 @@ class Control {
     */
     this.rac = rac;
 
-    // Value is a number between startValue and endValue.
     /**
-    * Current value of the control, in the range `[startValue, endValue]`
+    * Current selected value, in the range *[0,1]*.
+    *
+    * May be further constrained to `[startLimit,endLimit]`.
+    *
+    * @type {number}
     */
     this.value = value;
 
-    // Start and end of the value range.
     /**
+    * [Projected value]{@link Rac.Control#projectedValue} to use when
+    * `value` is `0`.
     *
+    * @type {number}
+    * @default 0
     */
     this.projectionStart = 0;
 
     /**
+    * [Projected value]{@link Rac.Control#projectedValue} to use when
+    * `value` is `1`.
     *
+    * @type {number}
+    * @default 1
     */
     this.projectionEnd = 1;
 
-    // Limits to which the control can be dragged. Interpreted as values in
-    // the value-range.
     /**
+    * Minimum `value` that can be selected through user interaction.
     *
+    * @type {number}
+    * @default 0
     */
     this.startLimit = 0;
 
     /**
+    * Maximum `value` that can be selected through user interaction.
     *
+    * @type {number}
+    * @default 1
     */
     this.endLimit = 1;
 
-    // Collection of values at which markers are drawn.
     /**
+    * Collection of values at which visual markers are drawn.
     *
+    * @type {number[]}
+    * @default []
     */
     this.markers = [];
 
@@ -127,33 +112,85 @@ class Control {
   }
 
 
-  valueProjection() {
+  /**
+  * Returns `value` projected into the range
+  * `[projectionStart,projectionEnd]`.
+  *
+  * By default the projection range is *[0,1]*, in which case `value` and
+  * `projectedValue()` are the same. Projection ranges with a negative
+  * direction (when `projectionStart` is greater that `projectionEnd`) are
+  * supported.
+  *
+  * > E.g.
+  * > ```
+  * > For a control with a projection range of [100,200]
+  * > + when value is 0,   projectionValue() is 100
+  * > + when value is 0.5, projectionValue() is 150
+  * > + when value is 1,   projectionValue() is 200
+  * >
+  * > For a control with a projection range of [50, 40]
+  * > + when value is 0,   projectionValue() is 50
+  * > + when value is 0.5, projectionValue() is 45
+  * > + when value is 1,   projectionValue() is 40
+  * > ```
+  *
+  * @returns {number}
+  */
+  projectedValue() {
     let projectionRange = this.projectionEnd - this.projectionStart;
     return (this.value * projectionRange) + this.projectionStart;
   }
 
-  // Returns the equivalent of the given ratio in the range [0,1] to a value
-  // in the value range.
-  valueOf(projection) {
-    let projectionRange = this.projectionEnd - this.projectionStart;
-    return (projection - this.projectionStart) / projectionRange;
+  // TODO: reintroduce when tested
+  // Returns the corresponding value in the range *[0,1]* for the
+  // `projectedValue` in the range `[projectionStart,projectionEnd]`.
+  // valueOfProjected(projectedValue) {
+  //   let projectionRange = this.projectionEnd - this.projectionStart;
+  //   return (projectedValue - this.projectionStart) / projectionRange;
+  // }
+
+
+  /**
+   * Sets both `startLimit` and `endLimit` with the given insets from `0`,
+   * `1`, correspondingly.
+   *
+   * > E.g.
+   * > ```
+   * > control.setLimitsWithInsets(0.1, 0.2)
+   * > // sets startLimit as 0.1
+   * > // sets endLimit   as 0.8
+   * > ```
+   *
+   * @param {number} startInset - The inset from `0` to use for `startLimit`
+   * @param {number} endInset - The inset from `1` to use for `endLimit`
+   */
+  setLimitsWithInsets(startInset, endInset) {
+    this.startLimit = startInset;
+    this.endLimit = 1 - endInset;
   }
 
 
-  // MAICTODO: setLimitsWithProjectionInsets
+  // TODO: reintroduce when tested
   // Sets `startLimit` and `endLimit` with two inset values relative to the
   // [0,1] range.
-  // setLimitsWithRatioInsets(startInset, endInset) {
+  // setLimitsWithProjectionInsets(startInset, endInset) {
   //   this.startLimit = this.valueOf(startInset);
   //   this.endLimit = this.valueOf(1 - endInset);
   // }
 
-  // Adds a marker at the current `value`.
+
+  /**
+  * Adds a marker at the current `value`.
+  */
   addMarkerAtCurrentValue() {
     this.markers.push(this.value);
   }
 
-  // Returns `true` if this control is the currently selected control.
+  /**
+  * Returns `true` when this control is the currently selected control.
+  *
+  * @returns {boolean}
+  */
   isSelected() {
     if (this.rac.controller.selection === null) {
       return false;
@@ -161,41 +198,75 @@ class Control {
     return this.rac.controller.selection.control === this;
   }
 
-  // Abstract function.
-  // Returns the center of the control hitpoint.
+
+  /**
+  * Returns the center of the control hitpoint.
+  *
+  * > This function must be overriden by an extending class. Calling this
+  * implementation throws an error.
+  *
+  * @abstract
+  * @return {Rac.Point}
+  */
   center() {
     console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
     throw rac.Error.abstractFunctionCalled;
   }
 
-  // Abstract function.
-  // Returns the persistent copy of the control anchor to be used during
-  // user interaction.
+
+  /**
+  * Returns the copy of the anchor to be persited during user interaction.
+  *
+  * > This function must be overriden by an extending class. Calling this
+  * implementation throws an error.
+  *
+  * @abstract
+  * @return {object}
+  */
   copyAnchor() {
     console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
     throw rac.Error.abstractFunctionCalled;
   }
 
-  // Abstract function.
-  // Draws the current state of the control.
+
+  /**
+  * Draws the current state.
+  *
+  * > This method must be overriden by an extending class. Calling this
+  * implementation throws an error.
+  *
+  * @abstract
+  */
   draw() {
     console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
     throw rac.Error.abstractFunctionCalled;
   }
 
-  // Abstract function.
-  // Updates the control value with `pointerControlCenter` in relation to
-  // `anchorCopy`. Called by `pointerDragged` as the user interacts with a
-  // selected control.
-  updateWithPointer(pointerControlCenter, anchorCopy) {
+  /**
+  * Updates `value` with `pointerCenter` in relation to `anchorCopy`.
+  * Called by `[rac.controller.pointerDragged]{@link Rac.Controller#pointerDragged}`
+  * as the user interacts with the control.
+  *
+  * > This function must be overriden by an extending class. Calling this
+  * implementation throws an error.
+  *
+  * @abstract
+  */
+  updateWithPointer(pointerCenter, anchorCopy) {
     console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
     throw rac.Error.abstractFunctionCalled;
   }
 
-  // Abstract function.
-  // Draws the selection state for the control, along with pointer
-  // interaction visuals. Called by `drawControls` only for the currently
-  // selected control.
+  /**
+  * Draws the selection state along with pointer interaction visuals.
+  * Called by `[rac.controller.drawControls]{@link Rac.Controller#drawControls}`
+  * only for the currently selected control.
+  *
+  * > This function must be overriden by an extending class. Calling this
+  * implementation throws an error.
+  *
+  * @abstract
+  */
   drawSelection(pointerCenter, anchorCopy, pointerOffset) {
     console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
     throw rac.Error.abstractFunctionCalled;
