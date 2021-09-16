@@ -56,11 +56,11 @@ class Exception {
     return func;
   }
 
-  static drawerNotSetup =    Exception.named('DrawerNotSetup');
-  static failedAssert =      Exception.named('FailedAssert');
-  static invalidObjectType = Exception.named('invalidObjectType');
+  static drawerNotSetup         = Exception.named('DrawerNotSetup');
+  static failedAssert           = Exception.named('FailedAssert');
+  static invalidObjectType      = Exception.named('InvalidObjectType');
+  static abstractFunctionCalled = Exception.named('AbstractFunctionCalled');
 
-  // abstractFunctionCalled: 'Abstract function called',
   // invalidParameterCombination: 'Invalid parameter combination',
   // invalidObjectConfiguration: 'Invalid object configuration',
   // invalidObjectToDraw: 'Invalid object to draw',

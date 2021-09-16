@@ -209,8 +209,8 @@ class Control {
   * @return {Rac.Point}
   */
   center() {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
 
@@ -224,8 +224,8 @@ class Control {
   * @return {object}
   */
   copyAnchor() {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
 
@@ -238,8 +238,8 @@ class Control {
   * @abstract
   */
   draw() {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
   /**
@@ -253,8 +253,8 @@ class Control {
   * @abstract
   */
   updateWithPointer(pointerCenter, anchorCopy) {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
   /**
@@ -268,8 +268,8 @@ class Control {
   * @abstract
   */
   drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
 } // class Control
