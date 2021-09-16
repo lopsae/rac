@@ -1,0 +1,1902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac.Control - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">RAC — Ruler and Compass<br/>1.1.0-dev</a></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#endLimit">endLimit</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#markers">markers</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#projectionEnd">projectionEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#projectionStart">projectionStart</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#rac">rac</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#startLimit">startLimit</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#style">style</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Control.html#value">value</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#addMarkerAtCurrentValue">addMarkerAtCurrentValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#center">center</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#copyAnchor">copyAnchor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#draw">draw</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#drawSelection">drawSelection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#isSelected">isSelected</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#projectedValue">projectedValue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#setLimitsWithInsets">setLimitsWithInsets</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Control.html#updateWithPointer">updateWithPointer</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.SegmentControl.html">Rac.SegmentControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>
+        
+        Control
+        </h2>
+        
+            <div class="class-description"><p>Abstract class for controls that select a value within a range.</p>
+<p>Depending on the implementation, controls may use an <code>anchor</code> object
+to determine the visual position of the control's interactive elements.
+The <code>anchor</code> is tightly coupled with the specific implementation of a
+control, for example <code><a href="Rac.ArcControl.html">ArcControl</a></code> uses an
+<code><a href="Rac.Arc.html">Arc</a></code> as anchor, which defines where the control is
+drawn, what orientation it uses, and the position of the control knob
+through the range of possible values.</p>
+<p>A control keeps a <code>value</code> property in the range <em>[0,1]</em> for the currently
+selected value.</p>
+<p>The <code>projectionStart</code> and <code>projectionEnd</code> properties can be used to
+project <code>value</code> into the range <code>[projectionStart,projectionEnd]</code> by using
+the <code>projectedValue()</code> method.</p>
+<p>The <code>startLimit</code> and <code>endLimit</code> can be used to restrain the allowable
+values that can be selected through user interaction. Both are set in
+<em>[0,1]</em> range.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Control"><span class="type-signature"></span>new Control<span class="signature">(rac, value)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line32">line 32</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Control</code> instance.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The initial value of the control, in the
+<em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="endLimit"><span class="type-signature"></span>endLimit<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#endLimit" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line94">line 94</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Maximum <code>value</code> that can be selected through user interaction.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>1</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="markers"><span class="type-signature"></span>markers<span class="type-signature"> :Array.&lt;number></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#markers" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line102">line 102</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Collection of values at which visual markers are drawn.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>[]</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="projectionEnd"><span class="type-signature"></span>projectionEnd<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#projectionEnd" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line78">line 78</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p><a href="Rac.Control.html#projectedValue">Projected value</a> to use when
+<code>value</code> is <code>1</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>1</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="projectionStart"><span class="type-signature"></span>projectionStart<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#projectionStart" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line69">line 69</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p><a href="Rac.Control.html#projectedValue">Projected value</a> to use when
+<code>value</code> is <code>0</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>0</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="rac"><span class="type-signature"></span>rac<span class="type-signature"> :<a href="Rac.html">Rac</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#rac" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line51">line 51</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Instance of <code>Rac</code> used for drawing and passed along to any created
+object.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="startLimit"><span class="type-signature"></span>startLimit<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#startLimit" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line86">line 86</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Minimum <code>value</code> that can be selected through user interaction.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>0</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="style"><span class="type-signature"></span>style<span class="type-signature"> :<a href="Rac.Stroke.html">Rac.Stroke</a>|<a href="Rac.Fill.html">Rac.Fill</a>|<a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#style" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line111">line 111</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Style to apply when drawing. This style gets applied after
+<code><a href="Rac.Controller.html#controlStyle">rac.controller.controlStyle</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="value"><span class="type-signature"></span>value<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Control.html#value" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line60">line 60</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Current selected value, in the range <em>[0,1]</em>.</p>
+<p>May be further constrained to <code>[startLimit,endLimit]</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title methods-subsection">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="addMarkerAtCurrentValue"><span class="type-signature"></span>addMarkerAtCurrentValue<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#addMarkerAtCurrentValue" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line185">line 185</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Adds a marker at the current <code>value</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="center"><span class="type-signature">(abstract) </span>center<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#center" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line211">line 211</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the center of the control hitpoint.</p>
+<blockquote>
+<p>This function must be overriden by an extending class. Calling this
+implementation throws an error.</p>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="copyAnchor"><span class="type-signature">(abstract) </span>copyAnchor<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#copyAnchor" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line226">line 226</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the copy of the anchor to be persited during user interaction.</p>
+<blockquote>
+<p>This function must be overriden by an extending class. Calling this
+implementation throws an error.</p>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="draw"><span class="type-signature">(abstract) </span>draw<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#draw" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line240">line 240</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Draws the current state.</p>
+<blockquote>
+<p>This method must be overriden by an extending class. Calling this
+implementation throws an error.</p>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="drawSelection"><span class="type-signature">(abstract) </span>drawSelection<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#drawSelection" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line270">line 270</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Draws the selection state along with pointer interaction visuals.
+Called by <code><a href="Rac.Controller.html#drawControls">rac.controller.drawControls</a></code>
+only for the currently selected control.</p>
+<blockquote>
+<p>This function must be overriden by an extending class. Calling this
+implementation throws an error.</p>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="isSelected"><span class="type-signature"></span>isSelected<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#isSelected" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line194">line 194</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when this control is the currently selected control.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="projectedValue"><span class="type-signature"></span>projectedValue<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#projectedValue" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line139">line 139</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>value</code> projected into the range
+<code>[projectionStart,projectionEnd]</code>.</p>
+<p>By default the projection range is <em>[0,1]</em>, in which case <code>value</code> and
+<code>projectedValue()</code> are the same. Projection ranges with a negative
+direction (when <code>projectionStart</code> is greater that <code>projectionEnd</code>) are
+supported.</p>
+<blockquote>
+<p>E.g.</p>
+<pre class="prettyprint source"><code>For a control with a projection range of [100,200]
++ when value is 0,   projectionValue() is 100
++ when value is 0.5, projectionValue() is 150
++ when value is 1,   projectionValue() is 200
+
+For a control with a projection range of [50, 40]
++ when value is 0,   projectionValue() is 50
++ when value is 0.5, projectionValue() is 45
++ when value is 1,   projectionValue() is 40
+</code></pre>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="setLimitsWithInsets"><span class="type-signature"></span>setLimitsWithInsets<span class="signature">(startInset, endInset)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#setLimitsWithInsets" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line167">line 167</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Sets both <code>startLimit</code> and <code>endLimit</code> with the given insets from <code>0</code>,
+<code>1</code>, correspondingly.</p>
+<blockquote>
+<p>E.g.</p>
+<pre class="prettyprint source"><code>control.setLimitsWithInsets(0.1, 0.2)
+// sets startLimit as 0.1
+// sets endLimit   as 0.8
+</code></pre>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The inset from <code>0</code> to use for <code>startLimit</code></p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The inset from <code>1</code> to use for <code>endLimit</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="updateWithPointer"><span class="type-signature">(abstract) </span>updateWithPointer<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Control.html#updateWithPointer" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line255">line 255</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Updates <code>value</code> with <code>pointerCenter</code> in relation to <code>anchorCopy</code>.
+Called by <code>rac.controller.pointerDragged</code>
+as the user interacts with the control.</p>
+<blockquote>
+<p>This function must be overriden by an extending class. Calling this
+implementation throws an error.</p>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> using the <a href="https://github.com/lopsae/minami-rac">Minami-rac</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
