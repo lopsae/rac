@@ -16,6 +16,8 @@ In files:
 + hardcoded in jsdoc.json
 + hardcoded in docs/index.md
 
+Commit message: `bump version to n.e.w`
+
 
 Build dev and test locally
 --------------------------
