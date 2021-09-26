@@ -25,9 +25,8 @@ class RayControl extends Rac.Control {
     // Length for the copied anchor shape.
     this.length = length;
 
-    // Segment to which the control will be anchored. When the control is
-    // drawn and interacted a copy of the anchor is created with the
-    // control's `length`.
+    // Ray to which the control will be anchored. When the control is
+    // drawn and interacted a Segment is created with control's `length`.
     this.anchor = null;
 
     if (rac.controller.autoAddControls) {
@@ -58,13 +57,14 @@ class RayControl extends Rac.Control {
       // Not posible to calculate a center
       return null;
     }
-    return this.anchor.withLength(this.distance()).endPoint();
+    return this.anchor.pointAtDistance(this.distance());
   }
 
-  // Creates a copy of the current `anchor` with the control `length`.
+  // Creates a copy of the anchor: a new `Segment` based on `anchor` with
+  // the current `length`.
   copyAnchor() {
     if (this.anchor === null) { return null; }
-    return this.anchor.withLength(this.length);
+    return this.anchor.segment(this.length);
   }
 
   draw() {

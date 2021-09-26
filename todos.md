@@ -5,7 +5,7 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ SegmentControl -> RayControl
++ rename copyAnchor to fixAnchor/fixedAnchor?
 + rename center to knob in all controls
 + BUG: whole circle control located at 0 shows incorrect arrows
 + recheck what is drawn with fills for controls
@@ -13,6 +13,8 @@ In progress
 + popComposite,popShape,stack are still setup as static properties of Rac
 + add arc.withLengthAdd
 + Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd)
+
++ Can Arc have a null end? to signal full circle
 
 
 For version change
