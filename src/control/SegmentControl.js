@@ -6,13 +6,13 @@ let utils = require('../util/utils');
 
 
 /**
-* Control that uses a `Segment` as anchor.
+* Control that uses a `Ray` as anchor.
 *
 * ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
 *
-* @alias Rac.SegmentControl
+* @alias Rac.RayControl
 */
-class SegmentControl extends Rac.Control {
+class RayControl extends Rac.Control {
 
   // Creates a new Control instance with the given `value` and `length`.
   // By default the value range is [0,1] and limits are set to be the equal
@@ -229,8 +229,8 @@ class SegmentControl extends Rac.Control {
     }
   }
 
-} // class SegmentControl
+} // class RayControl
 
 
-module.exports = SegmentControl;
+module.exports = RayControl;
 

@@ -8,7 +8,8 @@ Changelog
 + Added `textFormat.withAngle`
 + Implemented `StyleContainer` as replacement of `Style`
 + Improved documentation on `Stroke`, `Fill`, `StyleContainer`
-+ Improved documentation on `Controller`, `Control`, `SegmentControl`, `ArcControl`
++ `SegmentControl` reimplemented as `RayControl`
++ Improved documentation on `Controller`, `Control`, `RayControl`, `ArcControl`
 
 
 1.0.1 - 2021 August 20th

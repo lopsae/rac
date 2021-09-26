@@ -18,7 +18,7 @@ Order of classes
 + Composite
 + Shape
 + Control
-+ SegmentControl
++ RayControl
 + ArcControl
 
 

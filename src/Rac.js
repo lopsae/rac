@@ -303,8 +303,8 @@ Rac.Controller = require('./control/Controller');
 Rac.Control = require('./control/Control');
 
 
-// SegmentControl
-Rac.SegmentControl = require('./control/SegmentControl');
+// RayControl
+Rac.RayControl = require('./control/RayControl');
 
 
 // ArcControl
