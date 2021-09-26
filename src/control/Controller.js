@@ -70,7 +70,7 @@ class Controller {
     /**
     * Collection of all controlls managed by the instance. This list is
     * used for pointer hit testing with the `pointer...()` functions and
-    * for drawing with the `[drawControls]{@link Rac.Controller#drawControls}` method.
+    * for drawing with `[drawControls]{@link Rac.Controller#drawControls}`.
     *
     * @type {Rac.Control[]}
     * @default []
@@ -78,7 +78,8 @@ class Controller {
     this.controls = [];
 
     /**
-    * Indicates controls to add themselves to `this.controls` when created.
+    * Indicates controls to add themselves into `this.controls` when
+    * created.
     *
     * This property is a shared configuration. The behaviour is implemented
     * independently by each control constructor.
@@ -126,6 +127,17 @@ class Controller {
     this.selection = null;
 
   } // constructor
+
+
+  /**
+  * Pushes `control` into `this.controls`, allowing the instance to handle
+  * pointer interaction with `control`.
+  *
+  * @param {Rac.Control} control - A `Control` to add into `controls`
+  */
+  add(control) {
+    this.controls.push(control);
+  }
 
 
   // Call to signal the pointer being pressed. If the ponter hits a control

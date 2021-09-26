@@ -31,7 +31,7 @@ class SegmentControl extends Rac.Control {
     this.anchor = null;
 
     if (rac.controller.autoAddControls) {
-      rac.controller.controls.push(this);
+      rac.controller.add(this);
     }
   }
 
