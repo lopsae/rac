@@ -62,7 +62,7 @@ class RayControl extends Rac.Control {
 
   // Creates a copy of the anchor: a new `Segment` based on `anchor` with
   // the current `length`.
-  copyAnchor() {
+  affixAnchor() {
     if (this.anchor === null) { return null; }
     return this.anchor.segment(this.length);
   }
@@ -73,22 +73,22 @@ class RayControl extends Rac.Control {
       return;
     }
 
-    let anchorCopy = this.copyAnchor();
+    let fixedAnchor = this.affixAnchor();
 
     let controllerStyle = this.rac.controller.controlStyle;
     let controlStyle = controllerStyle !== null
       ? controllerStyle.appendStyle(this.style)
       : this.style;
 
-    anchorCopy.draw(controlStyle);
+    fixedAnchor.draw(controlStyle);
 
     let center = this.center();
-    let angle = anchorCopy.angle();
+    let angle = fixedAnchor.angle();
 
     // Value markers
     this.markers.forEach(item => {
       if (item < 0 || item > 1) { return }
-      let point = anchorCopy.startPoint().pointToAngle(angle, this.length * item);
+      let point = fixedAnchor.startPoint().pointToAngle(angle, this.length * item);
       Rac.Control.makeValueMarker(this.rac, point, angle)
         .attachToComposite();
     }, this);
@@ -120,16 +120,16 @@ class RayControl extends Rac.Control {
     }
   }
 
-  updateWithPointer(pointerControlCenter, anchorCopy) {
-    let length = anchorCopy.length;
+  updateWithPointer(pointerControlCenter, fixedAnchor) {
+    let length = fixedAnchor.length;
     let startInset = length * this.startLimit;
     let endInset = length * (1 - this.endLimit);
 
-    // New value from the current pointer position, relative to anchorCopy
-    let newDistance = anchorCopy
+    // New value from the current pointer position, relative to fixedAnchor
+    let newDistance = fixedAnchor
       .ray.distanceToProjectedPoint(pointerControlCenter);
     // Clamping value (javascript has no Math.clamp)
-    newDistance = anchorCopy.clampToLength(newDistance,
+    newDistance = fixedAnchor.clampToLength(newDistance,
       startInset, endInset);
 
     // Update control with new distance
@@ -137,29 +137,29 @@ class RayControl extends Rac.Control {
     this.value = lengthRatio;
   }
 
-  drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-    anchorCopy.attachToComposite();
+  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+    fixedAnchor.attachToComposite();
 
-    let angle = anchorCopy.angle();
-    let length = anchorCopy.length;
+    let angle = fixedAnchor.angle();
+    let length = fixedAnchor.length;
 
     // Value markers
     this.markers.forEach(item => {
       if (item < 0 || item > 1) { return }
-      let markerPoint = anchorCopy.startPoint().pointToAngle(angle, length * item);
+      let markerPoint = fixedAnchor.startPoint().pointToAngle(angle, length * item);
       Rac.Control.makeValueMarker(this.rac, markerPoint, angle)
         .attachToComposite();
     });
 
     // Limit markers
     if (this.startLimit > 0) {
-      let minPoint = anchorCopy.startPoint().pointToAngle(angle, length * this.startLimit);
+      let minPoint = fixedAnchor.startPoint().pointToAngle(angle, length * this.startLimit);
       Rac.Control.makeLimitMarker(this.rac, minPoint, angle)
         .attachToComposite();
     }
 
     if (this.endLimit < 1) {
-      let maxPoint = anchorCopy.startPoint().pointToAngle(angle, length * this.endLimit);
+      let maxPoint = fixedAnchor.startPoint().pointToAngle(angle, length * this.endLimit);
       Rac.Control.makeLimitMarker(this.rac, maxPoint, angle.inverse())
         .attachToComposite();
     }
@@ -174,14 +174,14 @@ class RayControl extends Rac.Control {
       .attachToComposite();
 
     // Constrained length clamped to limits
-    let constrainedLength = anchorCopy
+    let constrainedLength = fixedAnchor
       .ray.distanceToProjectedPoint(draggedCenter);
     let startInset = length * this.startLimit;
     let endInset = length * (1 - this.endLimit);
-    constrainedLength = anchorCopy.clampToLength(constrainedLength,
+    constrainedLength = fixedAnchor.clampToLength(constrainedLength,
       startInset, endInset);
 
-    let constrainedAnchorCenter = anchorCopy
+    let constrainedAnchorCenter = fixedAnchor
       .withLength(constrainedLength)
       .endPoint();
 
@@ -192,7 +192,7 @@ class RayControl extends Rac.Control {
     // Dragged shadow center, semi attached to pointer
     // always perpendicular to anchor
     let draggedShadowCenter = draggedCenter
-      .segmentToProjectionInRay(anchorCopy.ray)
+      .segmentToProjectionInRay(fixedAnchor.ray)
       // reverse and translated to constraint to anchor
       .reverse()
       .withStartPoint(constrainedAnchorCenter)

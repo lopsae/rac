@@ -66,7 +66,7 @@ class ArcControl extends Rac.Control {
 
   // Creates a copy of the current `anchor` with the control's
   // `angleDistance`.
-  copyAnchor() {
+  affixAnchor() {
     if (this.anchor === null) { return null; }
     return this.anchor.withAngleDistance(this.angleDistance);
   }
@@ -77,7 +77,7 @@ class ArcControl extends Rac.Control {
       return;
     }
 
-    let anchorCopy = this.copyAnchor();
+    let fixedAnchor = this.affixAnchor();
 
     let controllerStyle = this.rac.controller.controlStyle;
     let controlStyle = controllerStyle !== null
@@ -89,18 +89,18 @@ class ArcControl extends Rac.Control {
       : this.rac.Fill.none;
 
     // Arc anchor is always drawn without fill
-    anchorCopy.draw(anchorStyle);
+    fixedAnchor.draw(anchorStyle);
 
     let center = this.center();
-    let angle = anchorCopy.center.angleToPoint(center);
+    let angle = fixedAnchor.center.angleToPoint(center);
 
     // Value markers
     this.markers.forEach(item => {
       if (item < 0 || item > 1) { return }
       let markerAngleDistance = this.angleDistance.multOne(item);
-      let markerAngle = anchorCopy.shiftAngle(markerAngleDistance);
-      let point = anchorCopy.pointAtAngle(markerAngle);
-      Rac.Control.makeValueMarker(this.rac, point, markerAngle.perpendicular(!anchorCopy.clockwise))
+      let markerAngle = fixedAnchor.shiftAngle(markerAngleDistance);
+      let point = fixedAnchor.pointAtAngle(markerAngle);
+      Rac.Control.makeValueMarker(this.rac, point, markerAngle.perpendicular(!fixedAnchor.clockwise))
         .attachToComposite();
     }, this);
 
@@ -110,14 +110,14 @@ class ArcControl extends Rac.Control {
 
     // Negative arrow
     if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
-      let negAngle = angle.perpendicular(anchorCopy.clockwise).inverse();
+      let negAngle = angle.perpendicular(fixedAnchor.clockwise).inverse();
       Rac.Control.makeArrowShape(this.rac, center, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
     if (this.value <= this.endLimit - this.rac.unitaryEqualityThreshold) {
-      let posAngle = angle.perpendicular(anchorCopy.clockwise);
+      let posAngle = angle.perpendicular(fixedAnchor.clockwise);
       Rac.Control.makeArrowShape(this.rac, center, posAngle)
         .attachToComposite();
     }
@@ -133,49 +133,49 @@ class ArcControl extends Rac.Control {
     }
   }
 
-  updateWithPointer(pointerControlCenter, anchorCopy) {
-    let angleDistance = anchorCopy.angleDistance();
+  updateWithPointer(pointerControlCenter, fixedAnchor) {
+    let angleDistance = fixedAnchor.angleDistance();
     let startInset = angleDistance.multOne(this.startLimit);
     let endInset = angleDistance.multOne(1 - this.endLimit);
 
-    let selectionAngle = anchorCopy.center
+    let selectionAngle = fixedAnchor.center
       .angleToPoint(pointerControlCenter);
-    selectionAngle = anchorCopy.clampToAngles(selectionAngle,
+    selectionAngle = fixedAnchor.clampToAngles(selectionAngle,
       startInset, endInset);
-    let newDistance = anchorCopy.distanceFromStart(selectionAngle);
+    let newDistance = fixedAnchor.distanceFromStart(selectionAngle);
 
     // Update control with new distance
     let distanceRatio = newDistance.turn / this.angleDistance.turnOne();
     this.value = distanceRatio;
   }
 
-  drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-    anchorCopy.attachToComposite();
+  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+    fixedAnchor.attachToComposite();
 
-    let angleDistance = anchorCopy.angleDistance();
+    let angleDistance = fixedAnchor.angleDistance();
 
     // Value markers
     this.markers.forEach(item => {
       if (item < 0 || item > 1) { return }
-      let markerAngle = anchorCopy.shiftAngle(angleDistance.multOne(item));
-      let markerPoint = anchorCopy.pointAtAngle(markerAngle);
-      Rac.Control.makeValueMarker(this.rac, markerPoint, markerAngle.perpendicular(!anchorCopy.clockwise))
+      let markerAngle = fixedAnchor.shiftAngle(angleDistance.multOne(item));
+      let markerPoint = fixedAnchor.pointAtAngle(markerAngle);
+      Rac.Control.makeValueMarker(this.rac, markerPoint, markerAngle.perpendicular(!fixedAnchor.clockwise))
         .attachToComposite();
     });
 
     // Limit markers
     if (this.startLimit > 0) {
-      let minAngle = anchorCopy.shiftAngle(angleDistance.multOne(this.startLimit));
-      let minPoint = anchorCopy.pointAtAngle(minAngle);
-      let markerAngle = minAngle.perpendicular(anchorCopy.clockwise);
+      let minAngle = fixedAnchor.shiftAngle(angleDistance.multOne(this.startLimit));
+      let minPoint = fixedAnchor.pointAtAngle(minAngle);
+      let markerAngle = minAngle.perpendicular(fixedAnchor.clockwise);
       Rac.Control.makeLimitMarker(this.rac, minPoint, markerAngle)
         .attachToComposite();
     }
 
     if (this.endLimit < 1) {
-      let maxAngle = anchorCopy.shiftAngle(angleDistance.multOne(this.endLimit));
-      let maxPoint = anchorCopy.pointAtAngle(maxAngle);
-      let markerAngle = maxAngle.perpendicular(!anchorCopy.clockwise);
+      let maxAngle = fixedAnchor.shiftAngle(angleDistance.multOne(this.endLimit));
+      let maxPoint = fixedAnchor.pointAtAngle(maxAngle);
+      let markerAngle = maxAngle.perpendicular(!fixedAnchor.clockwise);
       Rac.Control.makeLimitMarker(this.rac, maxPoint, markerAngle)
         .attachToComposite();
     }

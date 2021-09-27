@@ -16,7 +16,7 @@ class ControlSelection{
     this.control = control;
     // Copy of the control anchor, so that the control can move tied to
     // the drawing, while the interaction range remains fixed.
-    this.anchorCopy = control.copyAnchor();
+    this.fixedAnchor = control.affixAnchor();
     // Segment from the captured pointer position to the contro center,
     // used to attach the control to the point where interaction started.
     // Pointer is at `segment.start` and control center is at `segment.end`.
@@ -24,7 +24,7 @@ class ControlSelection{
   }
 
   drawSelection(pointerCenter) {
-    this.control.drawSelection(pointerCenter, this.anchorCopy, this.pointerOffset);
+    this.control.drawSelection(pointerCenter, this.fixedAnchor, this.pointerOffset);
   }
 }
 
@@ -172,14 +172,14 @@ class Controller {
     }
 
     let control = this.selection.control;
-    let anchorCopy = this.selection.anchorCopy;
+    let fixedAnchor = this.selection.fixedAnchor;
 
     // Center of dragged control in the pointer current position
     let currentPointerControlCenter = this.selection.pointerOffset
       .withStartPoint(pointerCenter)
       .endPoint();
 
-    control.updateWithPointer(currentPointerControlCenter, anchorCopy);
+    control.updateWithPointer(currentPointerControlCenter, fixedAnchor);
   }
 
 

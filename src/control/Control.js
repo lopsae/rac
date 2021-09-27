@@ -215,7 +215,15 @@ class Control {
 
 
   /**
-  * Returns the copy of the anchor to be persited during user interaction.
+  * Returns a copy of the anchor be persited during user interaction.
+  *
+  * The implementation is free to determine the type used for `anchor` and
+  * `affixAnchor()`.
+  *
+  * This fixed anchor is passed back to the control through
+  * `[updateWithPointer]{@link Rac.Control#updateWithPointer}` and
+  * `[drawSelection]{@link Rac.Control#drawSelection}` during user
+  * interaction.
   *
   * > This function must be overriden by an extending class. Calling this
   * implementation throws an error.
@@ -223,7 +231,7 @@ class Control {
   * @abstract
   * @return {object}
   */
-  copyAnchor() {
+  affixAnchor() {
     throw Rac.Exception.abstractFunctionCalled(
       `this-type:${utils.typeName(this)}`);
   }
@@ -243,7 +251,7 @@ class Control {
   }
 
   /**
-  * Updates `value` with `pointerCenter` in relation to `anchorCopy`.
+  * Updates `value` with `pointerCenter` in relation to `fixedAnchor`.
   * Called by `[rac.controller.pointerDragged]{@link Rac.Controller#pointerDragged}`
   * as the user interacts with the control.
   *
@@ -252,7 +260,7 @@ class Control {
   *
   * @abstract
   */
-  updateWithPointer(pointerCenter, anchorCopy) {
+  updateWithPointer(pointerCenter, fixedAnchor) {
     throw Rac.Exception.abstractFunctionCalled(
       `this-type:${utils.typeName(this)}`);
   }
@@ -267,7 +275,7 @@ class Control {
   *
   * @abstract
   */
-  drawSelection(pointerCenter, anchorCopy, pointerOffset) {
+  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
     throw Rac.Exception.abstractFunctionCalled(
       `this-type:${utils.typeName(this)}`);
   }

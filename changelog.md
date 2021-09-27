@@ -10,6 +10,7 @@ Changelog
 + Improved documentation on `Stroke`, `Fill`, `StyleContainer`
 + `SegmentControl` reimplemented as `RayControl`
 + Improved documentation on `Controller`, `Control`, `RayControl`, `ArcControl`
++ `control.copyAnchor` renamed to `affixAnchor`
 
 
 1.0.1 - 2021 August 20th

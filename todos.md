@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ rename copyAnchor to fixAnchor/fixedAnchor?
 + rename center to knob in all controls
 + BUG: whole circle control located at 0 shows incorrect arrows
 + recheck what is drawn with fills for controls
