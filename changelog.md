@@ -3,14 +3,15 @@ Changelog
 
 1.1.0-dev
 ---------
-+ `controller.pointerStyle` can now be `null`
-+ Added `controller.controlStyle`, `controller.autoAddControls`
-+ Added `textFormat.withAngle`
-+ Implemented `StyleContainer` as replacement of `Style`
-+ Improved documentation on `Stroke`, `Fill`, `StyleContainer`
-+ `SegmentControl` reimplemented as `RayControl`
-+ Improved documentation on `Controller`, `Control`, `RayControl`, `ArcControl`
-+ `control.copyAnchor` renamed to `affixAnchor`
++ Make `controller.pointerStyle` nullable
++ Add `controller.controlStyle`, `controller.autoAddControls`
++ Add `textFormat.withAngle`
++ Implement `StyleContainer` as replacement of `Style`
++ Improve documentation on `Stroke`, `Fill`, `StyleContainer`
++ Reimplement `SegmentControl` as `RayControl`
++ Improve documentation on `Controller`, `Control`, `RayControl`, `ArcControl`
++ Rename `control.copyAnchor` to `affixAnchor`
++ Rename `control.center` to `knob`
 
 
 1.0.1 - 2021 August 20th

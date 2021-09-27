@@ -47,14 +47,14 @@ class RayControl extends Rac.Control {
   }
 
 
-  // Returns the distance from `anchor.start` to the control center.
+  // Returns the distance from `anchor.start` to the control knob.
   distance() {
     return this.length * this.value;
   }
 
-  center() {
+  knob() {
     if (this.anchor === null) {
-      // Not posible to calculate a center
+      // Not posible to calculate the knob
       return null;
     }
     return this.anchor.pointAtDistance(this.distance());
@@ -82,7 +82,7 @@ class RayControl extends Rac.Control {
 
     fixedAnchor.draw(controlStyle);
 
-    let center = this.center();
+    let knob = this.knob();
     let angle = fixedAnchor.angle();
 
     // Value markers
@@ -93,19 +93,19 @@ class RayControl extends Rac.Control {
         .attachToComposite();
     }, this);
 
-    // Control button
-    center.arc(this.rac.controller.knobRadius)
+    // Control knob
+    knob.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
     // Negative arrow
     if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
-      Rac.Control.makeArrowShape(this.rac, center, angle.inverse())
+      Rac.Control.makeArrowShape(this.rac, knob, angle.inverse())
         .attachToComposite();
     }
 
     // Positive arrow
     if (this.value <= this.endLimit - this.rac.unitaryEqualityThreshold) {
-      Rac.Control.makeArrowShape(this.rac, center, angle)
+      Rac.Control.makeArrowShape(this.rac, knob, angle)
         .attachToComposite();
     }
 
@@ -115,7 +115,7 @@ class RayControl extends Rac.Control {
     if (this.isSelected()) {
       let pointerStyle = this.rac.controller.pointerStyle;
       if (pointerStyle !== null) {
-        center.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
+        knob.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
       }
     }
   }

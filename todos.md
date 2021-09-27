@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ rename center to knob in all controls
 + BUG: whole circle control located at 0 shows incorrect arrows
 + recheck what is drawn with fills for controls
 + can rac or drawer have a stroke factor? all applied stroke gets multiplied by this

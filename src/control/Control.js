@@ -200,7 +200,7 @@ class Control {
 
 
   /**
-  * Returns the center of the control hitpoint.
+  * Returns a `Point` at the center of the control knob.
   *
   * > This function must be overriden by an extending class. Calling this
   * implementation throws an error.
@@ -208,7 +208,7 @@ class Control {
   * @abstract
   * @return {Rac.Point}
   */
-  center() {
+  knob() {
     throw Rac.Exception.abstractFunctionCalled(
       `this-type:${utils.typeName(this)}`);
   }

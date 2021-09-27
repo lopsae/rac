@@ -50,18 +50,17 @@ class ArcControl extends Rac.Control {
     this.endLimit = (this.angleDistance.turnOne() - endInset.turn) / this.angleDistance.turnOne();
   }
 
-  // Returns the angle distance from `anchor.start` to the control center.
+  // Returns the angle distance from `anchor.start` to the control knob.
   distance() {
     return this.angleDistance.multOne(this.value);
   }
 
-  // TODO: rename control.center to control.knob or similar
-  center() {
+  knob() {
     if (this.anchor === null) {
-      // Not posible to calculate a center
+      // Not posible to calculate knob
       return null;
     }
-    return this.anchor.withAngleDistance(this.distance()).endPoint();
+    return this.anchor.pointAtAngleDistance(this.distance());
   }
 
   // Creates a copy of the current `anchor` with the control's
@@ -91,8 +90,8 @@ class ArcControl extends Rac.Control {
     // Arc anchor is always drawn without fill
     fixedAnchor.draw(anchorStyle);
 
-    let center = this.center();
-    let angle = fixedAnchor.center.angleToPoint(center);
+    let knob = this.knob();
+    let angle = fixedAnchor.center.angleToPoint(knob);
 
     // Value markers
     this.markers.forEach(item => {
@@ -104,21 +103,21 @@ class ArcControl extends Rac.Control {
         .attachToComposite();
     }, this);
 
-    // Control button
-    center.arc(this.rac.controller.knobRadius)
+    // Control knob
+    knob.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
     // Negative arrow
     if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
       let negAngle = angle.perpendicular(fixedAnchor.clockwise).inverse();
-      Rac.Control.makeArrowShape(this.rac, center, negAngle)
+      Rac.Control.makeArrowShape(this.rac, knob, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
     if (this.value <= this.endLimit - this.rac.unitaryEqualityThreshold) {
       let posAngle = angle.perpendicular(fixedAnchor.clockwise);
-      Rac.Control.makeArrowShape(this.rac, center, posAngle)
+      Rac.Control.makeArrowShape(this.rac, knob, posAngle)
         .attachToComposite();
     }
 
@@ -128,7 +127,7 @@ class ArcControl extends Rac.Control {
     if (this.isSelected()) {
       let pointerStyle = this.rac.controller.pointerStyle;
       if (pointerStyle !== null) {
-        center.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
+        knob.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
       }
     }
   }

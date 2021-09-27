@@ -20,7 +20,7 @@ class ControlSelection{
     // Segment from the captured pointer position to the contro center,
     // used to attach the control to the point where interaction started.
     // Pointer is at `segment.start` and control center is at `segment.end`.
-    this.pointerOffset = pointerCenter.segmentToPoint(control.center());
+    this.pointerOffset = pointerCenter.segmentToPoint(control.knob());
   }
 
   drawSelection(pointerCenter) {
@@ -148,9 +148,9 @@ class Controller {
 
     // Test pointer hit
     const selected = this.controls.find( item => {
-      const controlCenter = item.center();
-      if (controlCenter === null) { return false; }
-      if (controlCenter.distanceToPoint(pointerCenter) <= this.knobRadius) {
+      const controlKnob = item.knob();
+      if (controlKnob === null) { return false; }
+      if (controlKnob.distanceToPoint(pointerCenter) <= this.knobRadius) {
         return true;
       }
       return false;
