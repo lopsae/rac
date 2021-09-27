@@ -5,18 +5,19 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ BUG: whole circle control located at 0 shows incorrect arrows
-+ recheck what is drawn with fills for controls
-+ can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
 + popComposite,popShape,stack are still setup as static properties of Rac
++ recheck what is drawn with fills for controls
++ recheck all documentation for Controller, Control, RayControl, ArcControl
++ BUG: whole circle control located at 0 shows incorrect arrows
++ can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
 + add arc.withLengthAdd
 + Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd)
 
-+ Can Arc have a null end? to signal full circle
 
 
 For version change
 ------------------
+
 
 
 
@@ -25,7 +26,9 @@ Future
 + Docs: reference instance.X on class
 + Docs: reference class on instance.X
 
-+ Color can be a style object, applyed to fill and stroke when available?
++ Can Arc have a null end? to signal full circle
+
++ Color can be a style object, applied to fill and stroke when available?
 
 + what is the behaviour when equalityThreshold is zero? check and document
 
