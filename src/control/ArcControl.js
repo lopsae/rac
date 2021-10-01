@@ -83,11 +83,11 @@ class ArcControl extends Rac.Control {
       ? controllerStyle.appendStyle(this.style)
       : this.style;
 
+    // Arc anchor is always drawn without fill
     let anchorStyle = controlStyle !== null
       ? controlStyle.appendStyle(this.rac.Fill.none)
       : this.rac.Fill.none;
 
-    // Arc anchor is always drawn without fill
     fixedAnchor.draw(anchorStyle);
 
     let knob = this.knob();
@@ -154,10 +154,13 @@ class ArcControl extends Rac.Control {
     let pointerStyle = this.rac.controller.pointerStyle;
     if (pointerStyle === null) { return; }
 
-    this.rac.pushComposite();
-    fixedAnchor.attachToComposite();
+    // Arc anchor is always drawn without fill
+    let anchorStyle = pointerStyle.appendStyle(this.rac.Fill.none);
+    fixedAnchor.draw(anchorStyle);
 
     let angleDistance = fixedAnchor.angleDistance();
+
+    this.rac.pushComposite();
 
     // Value markers
     this.markers.forEach(item => {

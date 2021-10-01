@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ recheck what is drawn with fills for controls
 + recheck all documentation for Controller, Control, RayControl, ArcControl
 + BUG: whole circle control located at 0 shows incorrect arrows
 + can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
