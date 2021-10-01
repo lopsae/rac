@@ -93,6 +93,8 @@ class ArcControl extends Rac.Control {
     let knob = this.knob();
     let angle = fixedAnchor.center.angleToPoint(knob);
 
+    this.rac.pushComposite();
+
     // Value markers
     this.markers.forEach(item => {
       if (item < 0 || item > 1) { return }
@@ -121,7 +123,7 @@ class ArcControl extends Rac.Control {
         .attachToComposite();
     }
 
-    Rac.popComposite().draw(controlStyle);
+    this.rac.popComposite().draw(controlStyle);
 
     // Selection
     if (this.isSelected()) {
@@ -149,6 +151,10 @@ class ArcControl extends Rac.Control {
   }
 
   drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+    let pointerStyle = this.rac.controller.pointerStyle;
+    if (pointerStyle === null) { return; }
+
+    this.rac.pushComposite();
     fixedAnchor.attachToComposite();
 
     let angleDistance = fixedAnchor.angleDistance();
@@ -188,13 +194,9 @@ class ArcControl extends Rac.Control {
     draggedCenter.arc(2)
       .attachToComposite();
 
-    let composite = Rac.popComposite();
+    this.rac.popComposite().draw(pointerStyle);
 
     // TODO: implement arc control dragging visuals!
-    let pointerStyle = this.rac.controller.pointerStyle;
-    if (pointerStyle !== null) {
-      composite.draw(pointerStyle);
-    }
   }
 
 } // class ArcControl

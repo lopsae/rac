@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ popComposite,popShape,stack are still setup as static properties of Rac
 + recheck what is drawn with fills for controls
 + recheck all documentation for Controller, Control, RayControl, ArcControl
 + BUG: whole circle control located at 0 shows incorrect arrows

@@ -85,6 +85,8 @@ class RayControl extends Rac.Control {
     let knob = this.knob();
     let angle = fixedAnchor.angle();
 
+    this.rac.pushComposite();
+
     // Value markers
     this.markers.forEach(item => {
       if (item < 0 || item > 1) { return }
@@ -109,7 +111,7 @@ class RayControl extends Rac.Control {
         .attachToComposite();
     }
 
-    Rac.popComposite().draw(controlStyle);
+    this.rac.popComposite().draw(controlStyle);
 
     // Selection
     if (this.isSelected()) {
@@ -138,6 +140,10 @@ class RayControl extends Rac.Control {
   }
 
   drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+    let pointerStyle = this.rac.controller.pointerStyle;
+    if (pointerStyle === null) { return; }
+
+    this.rac.pushComposite();
     fixedAnchor.attachToComposite();
 
     let angle = fixedAnchor.angle();
@@ -221,12 +227,7 @@ class RayControl extends Rac.Control {
     draggedTail.withLength(easedLength).attachToComposite();
 
     // Draw all!
-    let composite = Rac.popComposite();
-
-    let pointerStyle = this.rac.controller.pointerStyle;
-    if (pointerStyle !== null) {
-      composite.draw(pointerStyle);
-    }
+    this.rac.popComposite().draw(pointerStyle);
   }
 
 } // class RayControl

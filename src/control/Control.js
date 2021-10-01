@@ -303,14 +303,14 @@ Control.makeArrowShape = function(rac, center, angle) {
   let point = rightWall.pointAtIntersection(leftWall);
 
   // Shape
-  let arrow = new Rac.Shape(rac);
+  rac.pushShape();
   point.segmentToPoint(arc.startPoint())
-    .attachTo(arrow);
-  arc.attachTo(arrow)
-    .endPoint().segmentToPoint(point)
-    .attachTo(arrow);
+    .attachToShape();
+  arc.attachToShape();
+  arc.endPoint().segmentToPoint(point)
+    .attachToShape();
 
-    return arrow;
+  return rac.popShape();
 };
 
 Control.makeLimitMarker = function(rac, point, angle) {
