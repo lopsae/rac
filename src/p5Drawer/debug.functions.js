@@ -229,12 +229,12 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   let endMarkerStart = segment
     .nextSegmentPerpendicular()
     .withLength(markerRadius/2)
-    .withStartExtended(-pointRadius)
+    .withStartExtension(-pointRadius)
     .draw();
   let endMarkerEnd = segment
     .nextSegmentPerpendicular(false)
     .withLength(markerRadius/2)
-    .withStartExtended(-pointRadius)
+    .withStartExtension(-pointRadius)
     .draw();
   // Little end half circle
   segment.endPoint()
@@ -362,7 +362,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
     .arc(pointRadius).draw();
   startPoint
     .segmentToAngle(arc.start, markerRadius)
-    .withStartExtended(-markerRadius/2)
+    .withStartExtension(-markerRadius/2)
     .draw();
 
   // Orientation marker

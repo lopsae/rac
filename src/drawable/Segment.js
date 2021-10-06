@@ -238,7 +238,7 @@ class Segment {
   * @param {number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
-  withStartExtended(distance) {
+  withStartExtension(distance) {
     const newRay = this.ray.translateToDistance(-distance);
     return new Segment(this.rac, newRay, this.length + distance);
   }

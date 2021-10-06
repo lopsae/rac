@@ -112,16 +112,16 @@ tools.test( function accesors() {
 });
 
 
-tools.test( function withStartAndExtended() {
+tools.test( function withStartAndExtension() {
   expect(diagonal.withStartPoint(hunty))
     .equalsSegment(100, 100, 1/8, 72);
 
   const hyp = tools.hypotenuse(55);
-  expect(diagonal.withStartExtended(0))
+  expect(diagonal.withStartExtension(0))
     .equalsSegment(55, 55, 1/8, 72);
-  expect(diagonal.withStartExtended(hyp))
+  expect(diagonal.withStartExtension(hyp))
     .equalsSegment(0, 0, 1/8, 72+hyp);
-  expect(diagonal.withStartExtended(-hyp))
+  expect(diagonal.withStartExtension(-hyp))
     .equalsSegment(110, 110, 1/8, 72-hyp);
 });
 

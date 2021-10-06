@@ -319,7 +319,7 @@ Control.makeLimitMarker = function(rac, point, angle) {
   let composite = new Rac.Composite(rac);
 
   point.segmentToAngle(perpendicular, 4)
-    .withStartExtended(4)
+    .withStartExtension(4)
     .attachTo(composite);
   point.pointToAngle(perpendicular, 8).arc(3)
     .attachTo(composite);
@@ -330,6 +330,6 @@ Control.makeLimitMarker = function(rac, point, angle) {
 Control.makeValueMarker = function(rac, point, angle) {
   angle = rac.Angle.from(angle);
   return point.segmentToAngle(angle.perpendicular(), 3)
-    .withStartExtended(3);
+    .withStartExtension(3);
 };
 
