@@ -5,7 +5,6 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ add arc.withLengthAdd, test
 + Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd), and test
 + recheck all documentation for Controller, Control, RayControl, ArcControl
 

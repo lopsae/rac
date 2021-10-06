@@ -366,6 +366,28 @@ class Arc{
 
 
   /**
+  * Returns a new `Arc` with `length` added to the part of the
+  * circumference `this` represents. This changes `end` for the
+  * new `Arc`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * The actual `length()` of the resulting `Arc` will always be in the
+  * range `[0,radius*TAU)`. When the resulting `length` is larger that the
+  * circumference of the arc as a complete circle, the resulting arc length
+  * will be cut back into range through a modulo operation.
+  *
+  * @param {number} length - The length to add
+  * @returns {Rac.Arc}
+  * @see Rac.Arc#length
+  */
+  withLengthAdd(length) {
+    const newAngleDistance = (this.length() + length) / this.circumference();
+    return this.withAngleDistance(newAngleDistance);
+  }
+
+
+  /**
   * Returns a new `Arc` with a `length()` of `this.length() * ratio`. This
   * changes `end` for the new `Arc`.
   *

@@ -5,6 +5,7 @@ Changelog
 ---------
 + Add `controller.controlStyle`, `controller.autoAddControls`
 + Add `textFormat.withAngle`
++ Add `arc.withLengthAdd`
 + Make `controller.pointerStyle` nullable
 + Implement `StyleContainer` as replacement of `Style`
 + Implement `p5Drawer.strokeWeightFactor`
@@ -18,15 +19,15 @@ Changelog
 1.0.1 - 2021 August 20th
 ------------------------
 Improvement for tutorials
-+ Additional documentation for Stroke, Fill, Color
-+ Added `angle.sin/cos/tan`
-+ Added `color.linearTransition`
-+ Added `ray.[ray|point]AtCanvasEdge
-+ Added `arc.with[Start|End]Extension`, `arc.with[Start|End]Point`
-+ Implemented debug display for Ray
-+ `color.stroke` now defaults to `null` weight
-+ `color.alpha` renamed to `a`
-+ `p5Drawer.debugRadius` renamed to `debugMarkerRadius`
++ Add `angle.sin/cos/tan`
++ Add `color.linearTransition`
++ Add `ray.[ray|point]AtCanvasEdge
++ Add `arc.with[Start|End]Extension`, `arc.with[Start|End]Point`
++ Change `color.stroke()` to default to `null` weight
++ Implement debug display for `Ray`
++ Improve documentation for `Stroke`, `Fill`, `Color`
++ Rename `color.alpha` to `a`
++ Rename `p5Drawer.debugRadius` to `debugMarkerRadius`
 
 
 1.0.0 - 2021 June 1st
