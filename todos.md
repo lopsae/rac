@@ -5,17 +5,14 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
++ add arc.withLengthAdd, test
++ Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd), and test
 + recheck all documentation for Controller, Control, RayControl, ArcControl
-+ BUG: whole circle control located at 0 shows incorrect arrows
-+ can rac or drawer have a stroke factor? all applied stroke gets multiplied by this
-+ add arc.withLengthAdd
-+ Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd)
 
 
 
 For version change
 ------------------
-
 
 
 
@@ -42,4 +39,4 @@ Future
 
 Bugs
 ----
-+
++ BUG: whole circle control located at 0 shows incorrect arrows

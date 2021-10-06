@@ -60,6 +60,15 @@ class P5Drawer {
     */
     this.debugMarkerRadius = 22;
 
+    /**
+    * Factor applied to stroke weight setting. Stroke weight is set to
+    * `stroke.weight * strokeWeightFactor` when applicable.
+    *
+    * @type {number}
+    * @default 1
+    */
+    this.strokeWeightFactor = 1;
+
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
     this.setupAllApplyFunctions();
@@ -385,7 +394,7 @@ class P5Drawer {
       }
 
       if (stroke.weight !== null) {
-        drawer.p5.strokeWeight(stroke.weight);
+        drawer.p5.strokeWeight(stroke.weight * drawer.strokeWeightFactor);
       }
     });
 
