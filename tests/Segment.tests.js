@@ -112,10 +112,13 @@ tools.test( function accesors() {
 });
 
 
-tools.test( function withStartAndExtension() {
+tools.test( function withStartPoint() {
   expect(diagonal.withStartPoint(hunty))
     .equalsSegment(100, 100, 1/8, 72);
+});
 
+
+tools.test( function withStartExtension() {
   const hyp = tools.hypotenuse(55);
   expect(diagonal.withStartExtension(0))
     .equalsSegment(55, 55, 1/8, 72);
@@ -128,25 +131,30 @@ tools.test( function withStartAndExtension() {
 
 tools.test( function withAngleRayLength() {
   expect(diagonal.withAngle(rac.Ray.zero)).equalsSegment(55, 55, 0, 72);
-  expect(diagonal.withAngle(1/2)).equalsSegment(55, 55, 1/2, 72);
+  expect(diagonal.withAngle(1/2))         .equalsSegment(55, 55, 1/2, 72);
 
-  expect(diagonal.withRay(rac.Ray.zero)).equalsSegment(0, 0, 0, 72);
+  expect(diagonal.withRay(rac.Ray.zero)) .equalsSegment(0, 0, 0, 72);
   expect(diagonal.withRay(rac.Ray.yAxis)).equalsSegment(0, 0, 1/4, 72);
 
-  expect(diagonal.withLength(0)).equalsSegment(55, 55, 1/8, 0);
+  expect(diagonal.withLength(0))  .equalsSegment(55, 55, 1/8, 0);
   expect(diagonal.withLength(100)).equalsSegment(55, 55, 1/8, 100);
 });
 
 
-tools.test( function withLenghtAddAndRatio() {
-  expect(diagonal.withLengthAdd(0)).equalsSegment(55, 55, 1/8, 72);
-  expect(diagonal.withLengthAdd(28)).equalsSegment(55, 55, 1/8, 100);
+tools.test( function withLengthAddAndRatio() {
+  expect(diagonal.withLengthAdd(0))  .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withLengthAdd(28)) .equalsSegment(55, 55, 1/8, 100);
   expect(diagonal.withLengthAdd(-72)).equalsSegment(55, 55, 1/8, 0);
 
-  expect(diagonal.withLengthRatio(0)).equalsSegment(55, 55, 1/8, 0);
+  // Same as withLengthAdd
+  expect(diagonal.withEndExtension(0))  .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withEndExtension(28)) .equalsSegment(55, 55, 1/8, 100);
+  expect(diagonal.withEndExtension(-72)).equalsSegment(55, 55, 1/8, 0);
+
+  expect(diagonal.withLengthRatio(0))  .equalsSegment(55, 55, 1/8, 0);
   expect(diagonal.withLengthRatio(1/2)).equalsSegment(55, 55, 1/8, 36);
-  expect(diagonal.withLengthRatio(1)).equalsSegment(55, 55, 1/8, 72);
-  expect(diagonal.withLengthRatio(2)).equalsSegment(55, 55, 1/8, 144);
+  expect(diagonal.withLengthRatio(1))  .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.withLengthRatio(2))  .equalsSegment(55, 55, 1/8, 144);
 });
 
 

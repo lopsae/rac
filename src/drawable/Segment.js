@@ -245,6 +245,27 @@ class Segment {
 
 
   /**
+  * Returns a new `Segment` with `distance` added to `this.length`, which
+  * results in `endPoint()` for the resulting `Segment` moving in the
+  * direction of the segment's ray by the given `distance`.
+  *
+  * All other properties are copied from `this`.
+  *
+  * Using a positive `distance` results in a longer segment, using a
+  * negative `distance` results in a shorter one.
+  *
+  * This method performs the same operation as
+  * `[withLengthAdd]{@link Rac.Segment#withLengthAdd}`.
+  *
+  * @param {number} distance - The distance to add to `length`
+  * @returns {Rac.Segment}
+  */
+  withEndExtension(distance) {
+    return this.withLengthAdd(distance);
+  }
+
+
+  /**
   * Returns a new `Segment` pointing towards the
   * [perpendicular angle]{@link Rac.Angle#perpendicular} of
   * `this.angle()` in the `clockwise` orientation.

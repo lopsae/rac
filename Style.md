@@ -29,7 +29,7 @@ Order of functions in a class
 + accesors (segment.angle())
 + built properties (segment.startPoint())
 + withX simple modifiers (segment.withStart())
-+ withX complex modifiers (segment.withStartExtended())
++ withX complex modifiers (segment.withStartExtension())
 + transformations (returns same object, modified: translates, reverse)
 + data processing/calculations (segment.clamp, distanceToPoint)
 + other object builder in class order
