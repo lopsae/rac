@@ -179,10 +179,6 @@ class P5Drawer {
     }
   }
 
-  // TODO: use directly number.toFixed
-  debugNumber(number) {
-    return number.toFixed(this.debugTextOptions.fixedDigits);
-  }
 
   debugObject(object, drawsText) {
     let routine = this.debugRoutines
