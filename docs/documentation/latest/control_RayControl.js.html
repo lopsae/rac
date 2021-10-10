@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drawable/Text.js - Documentation</title>
+    <title>control/RayControl.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: drawable/Text.js</h1>
+    <h1 class="page-title">Source: control/RayControl.js</h1>
     
 
     
@@ -44,127 +44,239 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
-const Rac = require('../Rac');
-const utils = require('../util/utils');
+let Rac = require('../Rac');
+let utils = require('../util/utils');
 
 
 /**
-* Format for drawing a `[Text]{@link Rac.Text}` object.
+* Control that uses a `Ray` as anchor.
 *
-* @alias Rac.Text.Format
+* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+*
+* @alias Rac.RayControl
 */
-class TextFormat {
+class RayControl extends Rac.Control {
 
-  static defaultSize = 15;
+  // Creates a new Control instance with the given `value` and `length`.
+  // By default the value range is [0,1] and limits are set to be the equal
+  // as `startValue` and `endValue`.
+  constructor(rac, value, length) {
+    utils.assertExists(rac, value, length);
 
-  static horizontal = {
-    left: "left",
-    center: "horizontalCenter",
-    right: "right"
-  };
+    super(rac, value);
 
-  static vertical = {
-    top: "top",
-    bottom: "bottom",
-    center: "verticalCenter",
-    baseline: "baseline"
-  };
+    // Length for the copied anchor shape.
+    this.length = length;
 
-  constructor(
-    rac,
-    horizontal, vertical,
-    font = null,
-    angle = rac.Angle.zero,
-    size = TextFormat.defaultSize)
-  {
-    utils.assertExists(rac);
-    utils.assertString(horizontal, vertical);
-    utils.assertType(Rac.Angle, angle);
-    utils.assertNumber(size);
-    this.rac = rac;
-    this.horizontal = horizontal;
-    this.vertical = vertical;
-    this.font = font;
-    this.angle = angle;
-    this.size = size;
-  }
+    // Ray to which the control will be anchored. When the control is
+    // drawn and interacted a Segment is created with control's `length`.
+    this.anchor = null;
 
-  // Returns a format to draw text in the same position as `self` with
-  // the inverse angle.
-  inverse() {
-    let hEnum = TextFormat.horizontal;
-    let vEnum = TextFormat.vertical;
-    let horizontal, vertical;
-    switch (this.horizontal) {
-      case hEnum.left:
-        horizontal = hEnum.right; break;
-      case hEnum.right:
-        horizontal = hEnum.left; break;
-      default:
-        horizontal = this.horizontal; break;
+    if (rac.controller.autoAddControls) {
+      rac.controller.add(this);
     }
-    switch (this.vertical) {
-      case vEnum.top:
-        vertical = vEnum.bottom; break;
-      case vEnum.bottom:
-        vertical = vEnum.top; break;
-      default:
-        vertical = this.vertical; break;
+  }
+
+  setValueWithLength(lengthValue) {
+    let lengthRatio = lengthValue / this.length;
+    this.value = lengthRatio;
+  }
+
+  // Sets `startLimit` and `endLimit` with two inset values relative to
+  // zero and `length`.
+  setLimitsWithLengthInsets(startInset, endInset) {
+    this.startLimit = startInset / this.length;
+    this.endLimit = (this.length - endInset) / this.length;
+  }
+
+
+  // Returns the distance from `anchor.start` to the control knob.
+  distance() {
+    return this.length * this.value;
+  }
+
+  knob() {
+    if (this.anchor === null) {
+      // Not posible to calculate the knob
+      return null;
+    }
+    return this.anchor.pointAtDistance(this.distance());
+  }
+
+  // Creates a copy of the anchor: a new `Segment` based on `anchor` with
+  // the current `length`.
+  affixAnchor() {
+    if (this.anchor === null) { return null; }
+    return this.anchor.segment(this.length);
+  }
+
+  draw() {
+    if (this.anchor === null) {
+      // Unable to draw without anchor
+      return;
     }
 
-    return new TextFormat(
-      this.rac,
-      horizontal, vertical,
-      this.font,
-      this.angle.inverse(),
-      this.size)
+    let fixedAnchor = this.affixAnchor();
+
+    let controllerStyle = this.rac.controller.controlStyle;
+    let controlStyle = controllerStyle !== null
+      ? controllerStyle.appendStyle(this.style)
+      : this.style;
+
+    fixedAnchor.draw(controlStyle);
+
+    let knob = this.knob();
+    let angle = fixedAnchor.angle();
+
+    this.rac.pushComposite();
+
+    // Value markers
+    this.markers.forEach(item => {
+      if (item &lt; 0 || item > 1) { return }
+      let point = fixedAnchor.startPoint().pointToAngle(angle, this.length * item);
+      Rac.Control.makeValueMarker(this.rac, point, angle)
+        .attachToComposite();
+    }, this);
+
+    // Control knob
+    knob.arc(this.rac.controller.knobRadius)
+      .attachToComposite();
+
+    // Negative arrow
+    if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
+      Rac.Control.makeArrowShape(this.rac, knob, angle.inverse())
+        .attachToComposite();
+    }
+
+    // Positive arrow
+    if (this.value &lt;= this.endLimit - this.rac.unitaryEqualityThreshold) {
+      Rac.Control.makeArrowShape(this.rac, knob, angle)
+        .attachToComposite();
+    }
+
+    this.rac.popComposite().draw(controlStyle);
+
+    // Selection
+    if (this.isSelected()) {
+      let pointerStyle = this.rac.controller.pointerStyle;
+      if (pointerStyle !== null) {
+        knob.arc(this.rac.controller.knobRadius * 1.5).draw(pointerStyle);
+      }
+    }
   }
 
+  updateWithPointer(pointerControlCenter, fixedAnchor) {
+    let length = fixedAnchor.length;
+    let startInset = length * this.startLimit;
+    let endInset = length * (1 - this.endLimit);
 
-  withAngle(angle) {
-    angle = Rac.Angle.from(this.rac, angle);
-    return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
-      this.font,
-      angle,
-      this.size);
+    // New value from the current pointer position, relative to fixedAnchor
+    let newDistance = fixedAnchor
+      .ray.distanceToProjectedPoint(pointerControlCenter);
+    // Clamping value (javascript has no Math.clamp)
+    newDistance = fixedAnchor.clampToLength(newDistance,
+      startInset, endInset);
+
+    // Update control with new distance
+    let lengthRatio = newDistance / length;
+    this.value = lengthRatio;
   }
 
-} // class TextFormat
+  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+    let pointerStyle = this.rac.controller.pointerStyle;
+    if (pointerStyle === null) { return; }
 
+    this.rac.pushComposite();
+    fixedAnchor.attachToComposite();
 
-/**
-* String, format, and position to draw a text.
-* @alias Rac.Text
-*/
-class Text {
+    let angle = fixedAnchor.angle();
+    let length = fixedAnchor.length;
 
-  static Format = TextFormat;
+    // Value markers
+    this.markers.forEach(item => {
+      if (item &lt; 0 || item > 1) { return }
+      let markerPoint = fixedAnchor.startPoint().pointToAngle(angle, length * item);
+      Rac.Control.makeValueMarker(this.rac, markerPoint, angle)
+        .attachToComposite();
+    });
 
-  constructor(rac, point, string, format) {
-    utils.assertExists(rac, point, string, format);
-    utils.assertType(Rac.Point, point);
-    utils.assertString(string);
-    utils.assertType(Text.Format, format);
-    this.rac = rac;
-    this.point = point;
-    this.string = string;
-    this.format = format;
+    // Limit markers
+    if (this.startLimit > 0) {
+      let minPoint = fixedAnchor.startPoint().pointToAngle(angle, length * this.startLimit);
+      Rac.Control.makeLimitMarker(this.rac, minPoint, angle)
+        .attachToComposite();
+    }
+
+    if (this.endLimit &lt; 1) {
+      let maxPoint = fixedAnchor.startPoint().pointToAngle(angle, length * this.endLimit);
+      Rac.Control.makeLimitMarker(this.rac, maxPoint, angle.inverse())
+        .attachToComposite();
+    }
+
+    // Segment from pointer to control dragged center
+    let draggedCenter = pointerOffset
+      .withStartPoint(pointerCenter)
+      .endPoint();
+
+    // Control dragged center, attached to pointer
+    draggedCenter.arc(2)
+      .attachToComposite();
+
+    // Constrained length clamped to limits
+    let constrainedLength = fixedAnchor
+      .ray.distanceToProjectedPoint(draggedCenter);
+    let startInset = length * this.startLimit;
+    let endInset = length * (1 - this.endLimit);
+    constrainedLength = fixedAnchor.clampToLength(constrainedLength,
+      startInset, endInset);
+
+    let constrainedAnchorCenter = fixedAnchor
+      .withLength(constrainedLength)
+      .endPoint();
+
+    // Control center constrained to anchor
+    constrainedAnchorCenter.arc(this.rac.controller.knobRadius)
+      .attachToComposite();
+
+    // Dragged shadow center, semi attached to pointer
+    // always perpendicular to anchor
+    let draggedShadowCenter = draggedCenter
+      .segmentToProjectionInRay(fixedAnchor.ray)
+      // reverse and translated to constraint to anchor
+      .reverse()
+      .withStartPoint(constrainedAnchorCenter)
+      // Segment from constrained center to shadow center
+      .attachToComposite()
+      .endPoint();
+
+    // Control shadow center
+    draggedShadowCenter.arc(this.rac.controller.knobRadius / 2)
+      .attachToComposite();
+
+    // Ease for segment to dragged shadow center
+    let easeOut = Rac.EaseFunction.makeEaseOut();
+    easeOut.postBehavior = Rac.EaseFunction.Behavior.clamp;
+
+    // Tail will stop stretching at 2x the max tail length
+    let maxDraggedTailLength = this.rac.controller.knobRadius * 5;
+    easeOut.inRange = maxDraggedTailLength * 2;
+    easeOut.outRange = maxDraggedTailLength;
+
+    // Segment to dragged shadow center
+    let draggedTail = draggedShadowCenter
+      .segmentToPoint(draggedCenter);
+
+    let easedLength = easeOut.easeValue(draggedTail.length);
+    draggedTail.withLength(easedLength).attachToComposite();
+
+    // Draw all!
+    this.rac.popComposite().draw(pointerStyle);
   }
 
-
-  /**
-  * Returns a string representation intended for human consumption.
-  * @returns {string}
-  */
-  toString() {
-    return `Text((${this.point.x},${this.point.y}) "${this.string}")`;
-  }
-
-} // class Text
+} // class RayControl
 
 
-module.exports = Text;
+module.exports = RayControl;
 
 </code></pre>
         </article>
