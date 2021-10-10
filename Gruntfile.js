@@ -144,12 +144,12 @@ module.exports = function(grunt) {
 
 
   // Saves the version file with the current version.
-  // When there are no changes in the working tree the version is setup as:
+  // When there are NO changes in the working tree the version is setup as:
   // `{commitCount}-{shortHash}`
   //
-  // When there are changes in the working tree the version is setup as:
+  // When there ARE changes in the working tree the version is setup as:
   // `localBuild-{localTime}-{commitCount}-{shortHash}`
-  grunt.registerTask('makeVersionFile', function(target) {
+  grunt.registerTask('saveVersionFile', function(target) {
     grunt.config.requires(
       'pkg.version',
       'exec.shortHash.value',
@@ -197,14 +197,14 @@ module.exports = function(grunt) {
 
 
   grunt.registerTask('versionFile', function(target) {
-    let makeVersionFile = target === undefined
-      ? 'makeVersionFile'
-      : `makeVersionFile:${target}`;
+    let saveVersionFile = target === undefined
+      ? 'saveVersionFile'
+      : `saveVersionFile:${target}`;
     grunt.task.run(
       'exec:shortHash',
       'exec:commitCount',
       'exec:statusCount',
-      makeVersionFile);
+      saveVersionFile);
     if (target === undefined) {
       grunt.log.writeln(`Queued versionFile tasks`);
     } else {
