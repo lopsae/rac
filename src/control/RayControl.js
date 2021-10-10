@@ -122,14 +122,14 @@ class RayControl extends Rac.Control {
     }
   }
 
-  updateWithPointer(pointerControlCenter, fixedAnchor) {
+  updateWithPointer(pointerKnobCenter, fixedAnchor) {
     let length = fixedAnchor.length;
     let startInset = length * this.startLimit;
     let endInset = length * (1 - this.endLimit);
 
     // New value from the current pointer position, relative to fixedAnchor
     let newDistance = fixedAnchor
-      .ray.distanceToProjectedPoint(pointerControlCenter);
+      .ray.distanceToProjectedPoint(pointerKnobCenter);
     // Clamping value (javascript has no Math.clamp)
     newDistance = fixedAnchor.clampToLength(newDistance,
       startInset, endInset);
@@ -139,7 +139,7 @@ class RayControl extends Rac.Control {
     this.value = lengthRatio;
   }
 
-  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+  drawSelection(pointerCenter, fixedAnchor, pointerToKnobOffset) {
     let pointerStyle = this.rac.controller.pointerStyle;
     if (pointerStyle === null) { return; }
 
@@ -171,7 +171,7 @@ class RayControl extends Rac.Control {
     }
 
     // Segment from pointer to control dragged center
-    let draggedCenter = pointerOffset
+    let draggedCenter = pointerToKnobOffset
       .withStartPoint(pointerCenter)
       .endPoint();
 

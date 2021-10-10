@@ -8,24 +8,24 @@ let utils = require('../util/utils');
 /**
 * Abstract class for controls that select a value within a range.
 *
-* Depending on the implementation, controls may use an `anchor` object
-* to determine the visual position of the control's interactive elements.
-* The `anchor` is tightly coupled with the specific implementation of a
-* control, for example `[ArcControl]{@link Rac.ArcControl}` uses an
-* `[Arc]{@link Rac.Arc}` as anchor, which defines where the control is
-* drawn, what orientation it uses, and the position of the control knob
-* through the range of possible values.
+* Controls may use an `anchor` object to determine the visual position of
+* the control's interactive elements. Each implementation determines the
+* class used for this `anchor`, for example
+* `[ArcControl]{@link Rac.ArcControl}` uses an `[Arc]{@link Rac.Arc}` as
+* anchor, which defines where the control is drawn, what orientation it
+* uses, and the position of the control knob through the range of possible
+* values.
 *
 * A control keeps a `value` property in the range *[0,1]* for the currently
 * selected value.
 *
 * The `projectionStart` and `projectionEnd` properties can be used to
 * project `value` into the range `[projectionStart,projectionEnd]` by using
-* the `projectedValue()` method.
+* the `projectedValue()` method. By default set to *[0,1]*.
 *
 * The `startLimit` and `endLimit` can be used to restrain the allowable
-* values that can be selected through user interaction. Both are set in
-* *[0,1]* range.
+* values that can be selected through user interaction. By default set to
+* *[0,1]*.
 *
 * @alias Rac.Control
 */
@@ -117,9 +117,12 @@ class Control {
   * `[projectionStart,projectionEnd]`.
   *
   * By default the projection range is *[0,1]*, in which case `value` and
-  * `projectedValue()` are the same. Projection ranges with a negative
-  * direction (when `projectionStart` is greater that `projectionEnd`) are
-  * supported.
+  * `projectedValue()` are equal.
+  *
+  * Projection ranges with a negative direction (E.g. *[50,30]*, when
+  * `projectionStart` is greater that `projectionEnd`) are supported. As
+  * `value` increases, the projection returned decreases from
+  * `projectionStart` until reaching `projectionEnd`.
   *
   * > E.g.
   * > ```
@@ -128,10 +131,10 @@ class Control {
   * > + when value is 0.5, projectionValue() is 150
   * > + when value is 1,   projectionValue() is 200
   * >
-  * > For a control with a projection range of [50, 40]
+  * > For a control with a projection range of [50,30]
   * > + when value is 0,   projectionValue() is 50
-  * > + when value is 0.5, projectionValue() is 45
-  * > + when value is 1,   projectionValue() is 40
+  * > + when value is 0.5, projectionValue() is 40
+  * > + when value is 1,   projectionValue() is 30
   * > ```
   *
   * @returns {number}
@@ -151,19 +154,19 @@ class Control {
 
 
   /**
-   * Sets both `startLimit` and `endLimit` with the given insets from `0`,
-   * `1`, correspondingly.
-   *
-   * > E.g.
-   * > ```
-   * > control.setLimitsWithInsets(0.1, 0.2)
-   * > // sets startLimit as 0.1
-   * > // sets endLimit   as 0.8
-   * > ```
-   *
-   * @param {number} startInset - The inset from `0` to use for `startLimit`
-   * @param {number} endInset - The inset from `1` to use for `endLimit`
-   */
+  * Sets both `startLimit` and `endLimit` with the given insets from `0`,
+  * `1`, correspondingly.
+  *
+  * > E.g.
+  * > ```
+  * > control.setLimitsWithInsets(0.1, 0.2)
+  * > // sets startLimit as 0.1
+  * > // sets endLimit   as 0.8
+  * > ```
+  *
+  * @param {number} startInset - The inset from `0` to use for `startLimit`
+  * @param {number} endInset - The inset from `1` to use for `endLimit`
+  */
   setLimitsWithInsets(startInset, endInset) {
     this.startLimit = startInset;
     this.endLimit = 1 - endInset;
@@ -202,8 +205,8 @@ class Control {
   /**
   * Returns a `Point` at the center of the control knob.
   *
-  * > This function must be overriden by an extending class. Calling this
-  * implementation throws an error.
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
   *
   * @abstract
   * @return {Rac.Point}
@@ -215,9 +218,9 @@ class Control {
 
 
   /**
-  * Returns a copy of the anchor be persited during user interaction.
+  * Returns a copy of the anchor to be persited during user interaction.
   *
-  * Each implementation is free to determine the type used for `anchor` and
+  * Each implementation determines the type used for `anchor` and
   * `affixAnchor()`.
   *
   * This fixed anchor is passed back to the control through
@@ -225,8 +228,8 @@ class Control {
   * `[drawSelection]{@link Rac.Control#drawSelection}` during user
   * interaction.
   *
-  * > This function must be overriden by an extending class. Calling this
-  * implementation throws an error.
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
   *
   * @abstract
   * @return {object}
@@ -240,8 +243,8 @@ class Control {
   /**
   * Draws the current state.
   *
-  * > This method must be overriden by an extending class. Calling this
-  * implementation throws an error.
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
   *
   * @abstract
   */
@@ -251,16 +254,25 @@ class Control {
   }
 
   /**
-  * Updates `value` with `pointerCenter` in relation to `fixedAnchor`.
+  * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
   * Called by `[rac.controller.pointerDragged]{@link Rac.Controller#pointerDragged}`
   * as the user interacts with the control.
   *
-  * > This function must be overriden by an extending class. Calling this
-  * implementation throws an error.
+  * Each implementation interprets `pointerKnobCenter` against `fixedAnchor`
+  * to update its own value. The current `anchor` is not used for this
+  * update since `anchor` could change during redraw in response to updates
+  * in `value`.
+  *
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
   *
   * @abstract
+  * @param {Rac.Point} pointerKnobCenter - The position of the knob center
+  *   as interacted by the user pointer
+  * @param {object} fixedAnchor - Anchor of the control produced when user
+  *   interaction started
   */
-  updateWithPointer(pointerCenter, fixedAnchor) {
+  updateWithPointer(pointerKnobCenter, fixedAnchor) {
     throw Rac.Exception.abstractFunctionCalled(
       `this-type:${utils.typeName(this)}`);
   }
@@ -268,14 +280,20 @@ class Control {
   /**
   * Draws the selection state along with pointer interaction visuals.
   * Called by `[rac.controller.drawControls]{@link Rac.Controller#drawControls}`
-  * only for the currently selected control.
+  * only for the selected control.
   *
-  * > This function must be overriden by an extending class. Calling this
-  * implementation throws an error.
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
   *
   * @abstract
+  * @param {Rac.Point} pointerCenter - The position of the user pointer
+  * @param {object} fixedAnchor - Anchor of the control produced when user
+  *   interaction started
+  * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
+  *   the offset from `pointerCenter` to the control knob when user
+  *   interaction started.
   */
-  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+  drawSelection(pointerCenter, fixedAnchor, pointerToKnobOffset) {
     throw Rac.Exception.abstractFunctionCalled(
       `this-type:${utils.typeName(this)}`);
   }

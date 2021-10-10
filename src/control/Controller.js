@@ -6,7 +6,8 @@ let utils = require('../util/utils');
 
 
 /**
-* Information regarding the currently selected `Control`.
+* Information regarding the currently selected
+* `[Control]{@link Rac.Control}`.
 *
 * Created and kept by `[Controller]{@link Rac.Controller}` when a control
 * becomes selected.
@@ -45,27 +46,30 @@ class ControlSelection{
     this.fixedAnchor = control.affixAnchor();
 
     /**
-    * Segment created from the pointer position to the control knob center.
+    * `Segment` that represents the offset from the pointer position to the
+    * control knob center.
     *
     * Used to interact with the control knob at a constant offset position
-    * from the pointer.
+    * during user interaction.
     *
-    * Pointer starting location is at `segment.startPoint()`, control knob
-    * center is at `segment.endPoint()`
+    * The pointer starting location is equal to `segment.startPoint()`,
+    * the control knob center starting position is equal to
+    * `segment.endPoint()`.
     *
     * @type {Rac.Segment}
     */
-    this.pointerOffset = pointerCenter.segmentToPoint(control.knob());
+    this.pointerToKnobOffset = pointerCenter.segmentToPoint(control.knob());
   }
 
   drawSelection(pointerCenter) {
-    this.control.drawSelection(pointerCenter, this.fixedAnchor, this.pointerOffset);
+    this.control.drawSelection(pointerCenter, this.fixedAnchor, this.pointerToKnobOffset);
   }
 }
 
 
 /**
-* Manager of interactive controls for an instance of `Rac`.
+* Manager of interactive `[Control]{@link Rac.Control}`s for an instance
+* of `Rac`.
 *
 * Contains a list of all managed controls and coordinates drawing and user
 * interaction between them.
@@ -235,12 +239,12 @@ class Controller {
     let control = this.selection.control;
     let fixedAnchor = this.selection.fixedAnchor;
 
-    // Center of dragged control in the pointer current position
-    let currentPointerControlCenter = this.selection.pointerOffset
+    // Offset center of dragged control knob from the pointer position
+    let pointerKnobCenter = this.selection.pointerToKnobOffset
       .withStartPoint(pointerCenter)
       .endPoint();
 
-    control.updateWithPointer(currentPointerControlCenter, fixedAnchor);
+    control.updateWithPointer(pointerKnobCenter, fixedAnchor);
   }
 
 

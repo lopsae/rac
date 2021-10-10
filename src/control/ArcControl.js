@@ -134,13 +134,13 @@ class ArcControl extends Rac.Control {
     }
   }
 
-  updateWithPointer(pointerControlCenter, fixedAnchor) {
+  updateWithPointer(pointerKnobCenter, fixedAnchor) {
     let angleDistance = fixedAnchor.angleDistance();
     let startInset = angleDistance.multOne(this.startLimit);
     let endInset = angleDistance.multOne(1 - this.endLimit);
 
     let selectionAngle = fixedAnchor.center
-      .angleToPoint(pointerControlCenter);
+      .angleToPoint(pointerKnobCenter);
     selectionAngle = fixedAnchor.clampToAngles(selectionAngle,
       startInset, endInset);
     let newDistance = fixedAnchor.distanceFromStart(selectionAngle);
@@ -150,7 +150,7 @@ class ArcControl extends Rac.Control {
     this.value = distanceRatio;
   }
 
-  drawSelection(pointerCenter, fixedAnchor, pointerOffset) {
+  drawSelection(pointerCenter, fixedAnchor, pointerToKnobOffset) {
     let pointerStyle = this.rac.controller.pointerStyle;
     if (pointerStyle === null) { return; }
 
@@ -189,7 +189,7 @@ class ArcControl extends Rac.Control {
     }
 
     // Segment from pointer to control dragged center
-    let draggedCenter = pointerOffset
+    let draggedCenter = pointerToKnobOffset
       .withStartPoint(pointerCenter)
       .endPoint();
 

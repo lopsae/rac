@@ -16,6 +16,7 @@ Changelog
 + Rename `control.copyAnchor` to `affixAnchor`
 + Rename `control.center` to `knob`
 + Rename `segment.withStartExtended` to `withStartExtension`
++ Rename `rac.controller.selection.pointerOffset` to `pointerToKnobOffset`
 
 
 1.0.1 - 2021 August 20th
