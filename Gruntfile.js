@@ -57,7 +57,7 @@ module.exports = function(grunt) {
     watch: {
       serve: {
         files: ['src/**/*.js'],
-        tasks: ['versionFile', 'browserify']
+        tasks: ['makeVersionFile', 'browserify']
       }
     }, // watch
 
@@ -196,7 +196,8 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('versionFile', function(target) {
+  // Queues all the tasks required to make the version file.
+  grunt.registerTask('makeVersionFile', function(target) {
     let saveVersionFile = target === undefined
       ? 'saveVersionFile'
       : `saveVersionFile:${target}`;
@@ -206,9 +207,9 @@ module.exports = function(grunt) {
       'exec:statusCount',
       saveVersionFile);
     if (target === undefined) {
-      grunt.log.writeln(`Queued versionFile tasks`);
+      grunt.log.writeln(`Queued all tasks to make version file`);
     } else {
-      grunt.log.writeln(`Queued versionFile tasks - target:${target}`);
+      grunt.log.writeln(`Queued all tasks to make version file - target:${target}`);
     }
 
   });
@@ -221,14 +222,14 @@ module.exports = function(grunt) {
 
   // Builds a dev bundle, serves it, and watches for source changes
   grunt.registerTask('serve', [
-    'versionFile',
+    'makeVersionFile',
     'browserify:dev',
     'connect:server',
     'watch:serve']);
 
   // Builds a dev/main/mini bundle with a clean version, serves it for confirmation
   grunt.registerTask('dist', [
-    'versionFile:clean',
+    'makeVersionFile:clean',
     'browserify:dev',
     'browserify:main',
     'uglify',
