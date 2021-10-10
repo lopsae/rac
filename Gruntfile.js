@@ -144,11 +144,16 @@ module.exports = function(grunt) {
 
 
   // Saves the version file with the current version.
-  // When there are NO changes in the working tree the version is setup as:
+  // When there are NO changes in the working tree the version is setup as
+  // clean:
   // `{commitCount}-{shortHash}`
   //
-  // When there ARE changes in the working tree the version is setup as:
+  // When there ARE changes in the working tree the version is setup as
+  // dirty:
   // `localBuild-{localTime}-{commitCount}-{shortHash}`
+  //
+  // When `target == "clean"` the version is setup as forced-clean:
+  // `{commitCount}-{shortHash}`
   grunt.registerTask('saveVersionFile', function(target) {
     grunt.config.requires(
       'pkg.version',
