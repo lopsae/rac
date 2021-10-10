@@ -143,6 +143,12 @@ module.exports = function(grunt) {
   });
 
 
+  // Saves the version file with the current version.
+  // When there are no changes in the working tree the version is setup as:
+  // `{commitCount}-{shortHash}`
+  //
+  // When there are changes in the working tree the version is setup as:
+  // `localBuild-{localTime}-{commitCount}-{shortHash}`
   grunt.registerTask('makeVersionFile', function(target) {
     grunt.config.requires(
       'pkg.version',
@@ -180,9 +186,11 @@ module.exports = function(grunt) {
       buildString: buildString
     }});
 
+    const saveType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
+
     const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
-    grunt.log.writeln(`Saved ${clean?"clean ".green.bold:""}version file:`);
+    grunt.log.writeln(`Saved ${saveType.green.bold} version file:`);
     grunt.log.writeln(`version: ${versionString.green}`);
     grunt.log.writeln(`build:   ${buildString.green}`);
   });
