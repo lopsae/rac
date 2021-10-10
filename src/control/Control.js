@@ -217,7 +217,7 @@ class Control {
   /**
   * Returns a copy of the anchor be persited during user interaction.
   *
-  * The implementation is free to determine the type used for `anchor` and
+  * Each implementation is free to determine the type used for `anchor` and
   * `affixAnchor()`.
   *
   * This fixed anchor is passed back to the control through

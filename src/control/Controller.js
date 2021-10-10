@@ -6,20 +6,55 @@ let utils = require('../util/utils');
 
 
 /**
-* Container for information regarding the currently selected `Control`.
+* Information regarding the currently selected `Control`.
+*
+* Created and kept by `[Controller]{@link Rac.Controller}` when a control
+* becomes selected.
 *
 * @alias Rac.Controller.Selection
 */
 class ControlSelection{
+
+  /**
+  * Builds a new `Selection` with the given `control` and pointer located
+  * at `pointerCenter`.
+  *
+  * @param {Rac.Control} control - The selected control
+  * @param {Rac.Point} pointerCenter - The location of the pointer when
+  *   the selection started
+  */
   constructor(control, pointerCenter) {
-    // Selected control instance.
+
+    /**
+    * The selected control.
+    * @type {Rac.Control}
+    */
     this.control = control;
-    // Copy of the control anchor, so that the control can move tied to
-    // the drawing, while the interaction range remains fixed.
+
+    /**
+    * Anchor produced by
+    * `[control.affixAnchor]{@link Rac.Control#affixAnchor}` when the
+    * selection began.
+    *
+    * This anchor is persisted during user interaction as to allow the user
+    * to interact with the selected control in a fixed location, even if
+    * the control moves during the interaction.
+    *
+    * @type {object}
+    */
     this.fixedAnchor = control.affixAnchor();
-    // Segment from the captured pointer position to the contro center,
-    // used to attach the control to the point where interaction started.
-    // Pointer is at `segment.start` and control center is at `segment.end`.
+
+    /**
+    * Segment created from the pointer position to the control knob center.
+    *
+    * Used to interact with the control knob at a constant offset position
+    * from the pointer.
+    *
+    * Pointer starting location is at `segment.startPoint()`, control knob
+    * center is at `segment.endPoint()`
+    *
+    * @type {Rac.Segment}
+    */
     this.pointerOffset = pointerCenter.segmentToPoint(control.knob());
   }
 
@@ -55,6 +90,8 @@ class Controller {
 
   /**
   * Builds a new `Controller` with the given `Rac` instance.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
   */
   constructor(rac) {
 
