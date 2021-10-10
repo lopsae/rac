@@ -30,14 +30,21 @@ class ControlSelection{
 
 
 /**
-* The `Controller` is the object that manages the control system for an
-* instance of `Rac`.
+* Manager of interactive controls for an instance of `Rac`.
 *
-* The instance contains the `pointerStyle` and settings shared between all
-* controls like the `knobRadius`. It also keeps the list of all managed
-* controls and the currenty selected control.
+* Contains a list of all managed controls and coordinates drawing and user
+* interaction between them.
 *
-* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+* For controls to be functional the `pointerPressed`, `pointerReleased`,
+* and `pointerDragged` methods have to be called as pointer interactions
+* happen. The `drawControls` method handles the drawing of all controls
+* and the currently selected control, it is usually called at the very end
+* of drawing.
+*
+* Also contains settings shared between all controls and used for user
+* interaction, like `pointerStyle` to draw the pointer, `controlStyle` as
+* a default style for drawing controls, and `knobRadius` that defines the
+* size of the interactive element of most controls.
 *
 * @alias Rac.Controller
 */
@@ -68,9 +75,8 @@ class Controller {
     this.knobRadius = 22;
 
     /**
-    * Collection of all controlls managed by the instance. This list is
-    * used for pointer hit testing with the `pointer...()` functions and
-    * for drawing with `[drawControls]{@link Rac.Controller#drawControls}`.
+    * Collection of all controlls managed by the instance. Controls in this
+    * list are considered for pointer hit testing and for drawing.
     *
     * @type {Rac.Control[]}
     * @default []
@@ -122,6 +128,7 @@ class Controller {
     /**
     * Selection information for the currently selected control, or `null`
     * when there is no selection.
+    *
     * @type {?Rac.Controller.Selection}
     */
     this.selection = null;
@@ -131,7 +138,7 @@ class Controller {
 
   /**
   * Pushes `control` into `this.controls`, allowing the instance to handle
-  * pointer interaction with `control`.
+  * pointer interaction and drawing of `control`.
   *
   * @param {Rac.Control} control - A `Control` to add into `controls`
   */
@@ -140,9 +147,17 @@ class Controller {
   }
 
 
-  // Call to signal the pointer being pressed. If the ponter hits a control
-  // it will be considered selected. When a control is selected a copy of its
-  // anchor is stored as to allow interaction with a fixed anchor.
+  /**
+  * Notifies the instance that the pointer has been pressed at the
+  * `pointerCenter` location. All controls are hit tested and the first
+  * control to be hit is marked as selected.
+  *
+  * This function must be called along pointer press interaction for all
+  * managed controls to properly work.
+  *
+  * @param {Rac.Point} pointerCenter - The location where the pointer was
+  *   pressed
+  */
   pointerPressed(pointerCenter) {
     this.lastPointer = null;
 
@@ -164,8 +179,17 @@ class Controller {
   }
 
 
-  // Call to signal the pointer being dragged. As the pointer moves the
-  // selected control is updated with a new `distance`.
+  /**
+  * Notifies the instance that the pointer has been dragged to the
+  * `pointerCenter` location. When there is a selected control, user
+  * interaction is performed and the control value is updated.
+  *
+  * This function must be called along pointer drag interaction for all
+  * managed controls to properly work.
+  *
+  * @param {Rac.Point} pointerCenter - The location where the pointer was
+  *   dragged
+  */
   pointerDragged(pointerCenter){
     if (this.selection === null) {
       return;
@@ -183,8 +207,17 @@ class Controller {
   }
 
 
-  // Call to signal the pointer being released. Upon release the selected
-  // control is cleared.
+  /**
+  * Notifies the instance that the pointer has been released at the
+  * `pointerCenter` location. When there is a selected control, user
+  * interaction is finalized and the control selection is cleared.
+  *
+  * This function must be called along pointer drag interaction for all
+  * managed controls to properly work.
+  *
+  * @param {Rac.Point} pointerCenter - The location where the pointer was
+  *   released
+  */
   pointerReleased(pointerCenter) {
     if (this.selection === null) {
       this.lastPointer = pointerCenter;
@@ -198,7 +231,7 @@ class Controller {
 
   /**
   * Draws all controls contained in
-  * `[controls]{@link Rac.Controller#controls}` along the visual element
+  * `[controls]{@link Rac.Controller#controls}` along the visual elements
   * for pointer and control selection.
   *
   * Usually called at the end of drawing, as to draw controls on top of
