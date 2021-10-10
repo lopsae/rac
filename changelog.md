@@ -7,7 +7,7 @@ Changelog
 + Add `textFormat.withAngle`
 + Add `arc.withLengthAdd`
 + Add `segment.withEndExtension`
-+ Make `controller.pointerStyle` nullable
++ Modify `controller.pointerStyle` to nullable
 + Implement `StyleContainer` as replacement of `Style`
 + Implement `p5Drawer.strokeWeightFactor`
 + Improve documentation on `Stroke`, `Fill`, `StyleContainer`
