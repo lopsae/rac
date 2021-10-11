@@ -172,6 +172,7 @@ module.exports = function(grunt) {
     const versionString = '' + pkgVersion;
 
     let buildString;
+    let localTime = null;
     if (statusCount == 0 || clean) {
       buildString =`${commitCount}-${shortHash}`;
     } else {
@@ -180,9 +181,8 @@ module.exports = function(grunt) {
       let seconds = now.getSeconds();
       minutes = minutes >= 10 ? minutes : `0${minutes}`;
       seconds = seconds >= 10 ? seconds : `0${seconds}`;
-      const localTime = `${now.getHours()}:${minutes}:${seconds}`;
+      localTime = `${now.getHours()}:${minutes}:${seconds}`;
       buildString =`localBuild-${localTime}-${commitCount}-${shortHash}`;
-      grunt.log.writeln(`Built at: ${localTime.green.bold}`);
     }
 
     const templateContents = grunt.file.read('template/version.js.template');
@@ -196,8 +196,11 @@ module.exports = function(grunt) {
     const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
     grunt.log.writeln(`Saved ${saveType.green.bold} version file:`);
-    grunt.log.writeln(`version: ${versionString.green}`);
-    grunt.log.writeln(`build:   ${buildString.green}`);
+    if (localTime !== null) {
+    grunt.log.writeln(`Built at: ${localTime.green.bold}`);
+    }
+    grunt.log.writeln(`version:  ${versionString.green}`);
+    grunt.log.writeln(`build:    ${buildString.green}`);
   });
 
 
