@@ -154,8 +154,8 @@ class Control {
 
 
   /**
-  * Sets both `startLimit` and `endLimit` with the given insets from `0`,
-  * `1`, correspondingly.
+  * Sets both `startLimit` and `endLimit` with the given insets from `0`
+  * and `1`, correspondingly.
   *
   * > E.g.
   * > ```
@@ -269,8 +269,8 @@ class Control {
   * @abstract
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
-  * @param {object} fixedAnchor - Anchor of the control produced when user
-  *   interaction started
+  * @param {object} fixedAnchor - Anchor produced when user interaction
+  *   started
   */
   updateWithPointer(pointerKnobCenter, fixedAnchor) {
     throw Rac.Exception.abstractFunctionCalled(

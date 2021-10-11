@@ -6,27 +6,56 @@ let utils = require('../util/utils');
 
 
 /**
-* Control that uses a `Ray` as anchor.
+* Control that allows the selection of a value with a knob that slides
+* in the segment of a ray.
 *
-* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+* Uses a `Ray` as anchor, which defines the position where the control is
+* drawn. Keeps a `length` property that defines the length of the segment
+* in the `anchor` ray which is usable for user interaction. In this segment
+* of the ray the user can slide the control knob to select a value.
 *
 * @alias Rac.RayControl
+* @extends Rac.Control
 */
 class RayControl extends Rac.Control {
 
   // Creates a new Control instance with the given `value` and `length`.
   // By default the value range is [0,1] and limits are set to be the equal
   // as `startValue` and `endValue`.
+  /**
+  * Creates a new `RayControl` instance with the starting `value` and the
+  * interactive `length`.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {number} value - The initial value of the control, in the
+  *   *[0,1]* range
+  * @param {number} length - The length of the `anchor` ray used for user
+  *   interaction
+  */
   constructor(rac, value, length) {
     utils.assertExists(rac, value, length);
+    utils.assertNumber(value, length);
 
     super(rac, value);
 
-    // Length for the copied anchor shape.
+    /**
+    * Length of the `anchor` ray in which is available for user
+    * interaction.
+    *
+    * @type {number}
+    */
     this.length = length;
 
-    // Ray to which the control will be anchored. When the control is
-    // drawn and interacted a Segment is created with control's `length`.
+    /**
+    * `Ray` to which the control will be anchored. Defines the location
+    * where the control is drawn.
+    *
+    * Along with `[length]{@link Rac.RayControl#length}` defines the
+    * segment in which the control is interactive.
+    *
+    * @type {Rac.Ray}
+    * @default null
+    */
     this.anchor = null;
 
     if (rac.controller.autoAddControls) {
@@ -34,24 +63,60 @@ class RayControl extends Rac.Control {
     }
   }
 
+
+  /**
+  * Sets `value` using the projection of `lengthValue` in the `[0,length]`
+  * range.
+  *
+  * @param {number} lengthValue - The length at which the set the current
+  *   value
+  */
   setValueWithLength(lengthValue) {
     let lengthRatio = lengthValue / this.length;
     this.value = lengthRatio;
   }
 
-  // Sets `startLimit` and `endLimit` with two inset values relative to
-  // zero and `length`.
+
+  /**
+  * Sets both `startLimit` and `endLimit` with the given insets from `0`,
+  * `length`, correspondingly, both projected in the `[0,length]` range.
+  *
+  * > E.g.
+  * > ```
+  * > // For a RayControl with length of 100
+  * > control.setLimitsWithLengthInsets(10, 20)
+  * > // sets startLimit as 0.1 which is at length 10
+  * > // sets endLimit   as 0.8 which is at length 80
+  * > ```
+  *
+  * @param {number} startInset - The inset from `0` in the range
+  *   `[0,length]` to use for `startLimit`
+  * @param {number} endInset - The inset from `length` in the range
+  *   `[0,length]` to use for `endLimit`
+  */
   setLimitsWithLengthInsets(startInset, endInset) {
     this.startLimit = startInset / this.length;
     this.endLimit = (this.length - endInset) / this.length;
   }
 
 
-  // Returns the distance from `anchor.start` to the control knob.
+  /**
+  * Returns the distance between the `anchor` ray `start` and the control
+  * knob.
+  *
+  * Equivalent to the control `value` projected to the range `[0,length]`.
+  *
+  * @returns {number}
+  */
   distance() {
     return this.length * this.value;
   }
 
+
+  /**
+  * Returns a `Point` at the center of the control knob.
+  * @return {Rac.Point}
+  */
   knob() {
     if (this.anchor === null) {
       // Not posible to calculate the knob
@@ -60,13 +125,22 @@ class RayControl extends Rac.Control {
     return this.anchor.pointAtDistance(this.distance());
   }
 
-  // Creates a copy of the anchor: a new `Segment` based on `anchor` with
-  // the current `length`.
+
+  /**
+  * Returns a new `Segment` produced with the `anchor` ray and `length` to
+  * be persisted during user interaction.
+  *
+  * @returns {Rac.Segment}
+  */
   affixAnchor() {
     if (this.anchor === null) { return null; }
     return this.anchor.segment(this.length);
   }
 
+
+  /**
+  * Draws the current state.
+  */
   draw() {
     if (this.anchor === null) {
       // Unable to draw without anchor
@@ -122,6 +196,15 @@ class RayControl extends Rac.Control {
     }
   }
 
+
+  /**
+  * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
+  *
+  * @param {Rac.Point} pointerKnobCenter - The position of the knob center
+  *   as interacted by the user pointer
+  * @param {Rac.Segment} fixedAnchor - Anchor produced when user
+  *   interaction started
+  */
   updateWithPointer(pointerKnobCenter, fixedAnchor) {
     let length = fixedAnchor.length;
     let startInset = length * this.startLimit;
@@ -139,6 +222,17 @@ class RayControl extends Rac.Control {
     this.value = lengthRatio;
   }
 
+
+  /**
+  * Draws the selection state along with pointer interaction visuals.
+  *
+  * @param {Rac.Point} pointerCenter - The position of the user pointer
+  * @param {Rac.Segment} fixedAnchor - Anchor produced when user
+  *   interaction started
+  * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
+  *   the offset from `pointerCenter` to the control knob when user
+  *   interaction started.
+  */
   drawSelection(pointerCenter, fixedAnchor, pointerToKnobOffset) {
     let pointerStyle = this.rac.controller.pointerStyle;
     if (pointerStyle === null) { return; }

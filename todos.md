@@ -5,7 +5,7 @@ Latest stabe npm used: 7.5.3, checked 2021 Aug 16th
 
 In progress
 -----------
-+ recheck all documentation for RayControl, ArcControl
++ recheck all documentation for ArcControl
 
 
 
