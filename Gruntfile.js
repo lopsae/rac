@@ -9,7 +9,8 @@ module.exports = function(grunt) {
         src: 'src/main.js',
         dest: 'dist/rac.dev.js',
         options: {
-          banner: '// RAC - ruler-and-compass - <%= pkg.version %> - development with sourcemaps',
+          banner: '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %> \n'
+                + '// Development distribution with sourcemaps',
           browserifyOptions: {
             debug: true
           }
@@ -20,7 +21,8 @@ module.exports = function(grunt) {
         src: 'src/main.js',
         dest: 'dist/rac.js',
         options: {
-          banner: '// RAC - ruler-and-compass - <%= pkg.version %>',
+          banner: '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %> \n'
+                + '// Production distribution',
           browserifyOptions: {}
         }
       }
@@ -30,7 +32,7 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         mangle: false,
-        banner: '// RAC - ruler-and-compass - <%= pkg.version %> - minified',
+        banner: '// RAC - ruler-and-compass - minified - <%= pkg.version %> <%= makeBuildString.buildString %>'
       },
       main: {
         files: {
