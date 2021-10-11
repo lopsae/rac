@@ -6,30 +6,57 @@ let utils = require('../util/utils');
 
 
 /**
-* Control that uses an `Arc` as anchor.
+* Control that allows the selection of a value with a knob that slides
+* through the section of an `Arc`.
 *
-* ⚠️ The API for controls is **planned to change** in a future minor release. ⚠️
+* Uses an `Arc` as `[anchor]{@link Rac.ArcControl#anchor}`, which defines
+* the position where the control is drawn.
+*
+* `[angleDistance]{@link Rac.ArcControl#angleDistance}` defines the
+* section of the `anchor` arc which is available for user interaction.
+* Within this section the user can slide the control knob to select a
+* value.
 *
 * @alias Rac.ArcControl
+* @extends Rac.Control
 */
 class ArcControl extends Rac.Control {
 
-  // Creates a new Control instance with the given `value` and an
-  // `angleDistance` from `someAngleDistance`.
-  // By default the value range is [0,1] and limits are set to be the equal
-  // as `startValue` and `endValue`.
+  /**
+  * Creates a new `ArcControl` instance with the starting `value` and the
+  * interactive `angleDistance`.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {number} value - The initial value of the control, in the
+  *   *[0,1]* range
+  * @param {Rac.Angle} angleDistance - The angleDistance of the `anchor`
+  *   arc available for user interaction
+  */
   constructor(rac, value, angleDistance) {
-    utils.assertExists(rac, angleDistance);
+    utils.assertExists(rac);
     utils.assertNumber(value);
+    utils.assertType(Rac.Angle, angleDistance);
 
     super(rac, value);
 
-    // Angle distance for the copied anchor object.
+    /**
+    * Angle distance of the `anchor` arc available for user interaction.
+    * @type {number}
+    */
     this.angleDistance = Rac.Angle.from(rac, angleDistance);
 
-    // `Arc`` to which the control will be anchored. When the control is
-    // drawn and interacted a copy of the anchor is created with the
-    // control's `angleDistance`.
+    /**
+    * `Arc` to which the control will be anchored. Defines the location
+    * where the control is drawn.
+    *
+    * Along with `[angleDistance]{@link Rac.ArcControl#angleDistance}`
+    * defines the section available for user interaction.
+    *
+    * The control cannot be drawn or selected until this property is set.
+    *
+    * @type {Rac.Arc?}
+    * @default null
+    */
     this.anchor = null;
 
     if (rac.controller.autoAddControls) {
@@ -37,12 +64,41 @@ class ArcControl extends Rac.Control {
     }
   }
 
+
+  /**
+  * Sets `value` using the projection of `valueAngleDistance.turn` in the
+  * `[0,angleLength.turn]` range.
+  *
+  * @param {Rac.Angle|number} valueAngleDistance - The angle distance at
+  *   which to set the current value
+  */
   setValueWithAngleDistance(valueAngleDistance) {
     valueAngleDistance = Rac.Angle.from(this.rac, valueAngleDistance)
     let distanceRatio = valueAngleDistance.turn / this.angleDistance.turnOne();
     this.value = distanceRatio;
   }
 
+
+  /**
+  * Sets both `startLimit` and `endLimit` with the given insets from `0`
+  * and `endInset.turn`, correspondingly, both projected in the
+  * `[0,angleDistance.turn]` range.
+  *
+  * > E.g.
+  * > ```
+  * > // For an ArcControl with angle distance of 0.5 turn
+  * > control.setLimitsWithAngleDistanceInsets(0.1, 0.3)
+  * > // sets startLimit as 0.2 which is at angle distance 0.1
+  * > // sets endLimit   as 0.4 which is at angle distance 0.2
+  * > //   0.1 inset from 0   = 0.1
+  * > //   0.3 inset from 0.5 = 0.2
+  * > ```
+  *
+  * @param {Rac.Angle|number} startInset - The inset from `0` in the range
+  *   `[0,angleDistance.turn]` to use for `startLimit`
+  * @param {Rac.Angle|number} endInset - The inset from `angleDistance.turn`
+  *   in the range `[0,angleDistance.turn]` to use for `endLimit`
+  */
   setLimitsWithAngleDistanceInsets(startInset, endInset) {
     startInset = Rac.Angle.from(this.rac, startInset);
     endInset = Rac.Angle.from(this.rac, endInset);
@@ -50,11 +106,28 @@ class ArcControl extends Rac.Control {
     this.endLimit = (this.angleDistance.turnOne() - endInset.turn) / this.angleDistance.turnOne();
   }
 
-  // Returns the angle distance from `anchor.start` to the control knob.
+
+  /**
+  * Returns the  [angle `distance`]{@link Rac.Angle#distance} between the
+  * `anchor` arc `start` and the control knob.
+  *
+  * The `turn` of the returned `Angle` is equivalent to the control `value`
+  * projected to the range `[0,angleDistance.turn]`.
+  *
+  * @returns {Rac.Angle}
+  */
   distance() {
     return this.angleDistance.multOne(this.value);
   }
 
+
+  /**
+  * Returns a `Point` at the center of the control knob.
+  *
+  * When `anchor` is not set, returns `null` instead.
+  *
+  * @return {Rac.Point?}
+  */
   knob() {
     if (this.anchor === null) {
       // Not posible to calculate knob
@@ -63,13 +136,27 @@ class ArcControl extends Rac.Control {
     return this.anchor.pointAtAngleDistance(this.distance());
   }
 
-  // Creates a copy of the current `anchor` with the control's
-  // `angleDistance`.
+
+  /**
+  * Returns a new `Arc` produced with the `anchor` arc with
+  * `angleDistance`, to be persisted during user interaction.
+  *
+  * An error is thrown if `anchor` is not set.
+  *
+  * @returns {Rac.Arc}
+  */
   affixAnchor() {
-    if (this.anchor === null) { return null; }
+    if (this.anchor === null) {
+      throw Rac.Exception.invalidObjectConfiguration(
+        `Expected anchor to be set, null found instead`);
+    }
     return this.anchor.withAngleDistance(this.angleDistance);
   }
 
+
+  /**
+  * Draws the current state.
+  */
   draw() {
     if (this.anchor === null) {
       // Unable to draw without anchor
@@ -134,6 +221,15 @@ class ArcControl extends Rac.Control {
     }
   }
 
+
+  /**
+  * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
+  *
+  * @param {Rac.Point} pointerKnobCenter - The position of the knob center
+  *   as interacted by the user pointer
+  * @param {Rac.Arc} fixedAnchor - Anchor produced with `affixAnchor` when
+  *   user interaction started
+  */
   updateWithPointer(pointerKnobCenter, fixedAnchor) {
     let angleDistance = fixedAnchor.angleDistance();
     let startInset = angleDistance.multOne(this.startLimit);
@@ -150,6 +246,17 @@ class ArcControl extends Rac.Control {
     this.value = distanceRatio;
   }
 
+
+  /**
+  * Draws the selection state along with pointer interaction visuals.
+  *
+  * @param {Rac.Point} pointerCenter - The position of the user pointer
+  * @param {Rac.Arc} fixedAnchor - `Arc` produced with `affixAnchor` when
+  *   user interaction started
+  * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
+  *   the offset from `pointerCenter` to the control knob when user
+  *   interaction started.
+  */
   drawSelection(pointerCenter, fixedAnchor, pointerToKnobOffset) {
     let pointerStyle = this.rac.controller.pointerStyle;
     if (pointerStyle === null) { return; }
