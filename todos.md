@@ -4,7 +4,8 @@ TODO's
 
 In progress
 -----------
-+ Add initial tests for Control, RayControl, ArcControl
++ Add initial tests for ArcControl
++ add doc notes about updateWithPointer respecting limits
 
 
 
