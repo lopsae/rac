@@ -143,18 +143,20 @@ module.exports = function(grunt) {
   });
 
 
-  // Saves the version file with the current version.
-  // When there are NO changes in the working tree the version is setup as
-  // clean:
+  // Makes and stores the full version into the config value
+  // `makeBuildString.buildString`.
+  //
+  // When there are NO changes in the working tree the build is setup as
+  // *clean*:
   // `{commitCount}-{shortHash}`
   //
-  // When there ARE changes in the working tree the version is setup as
-  // dirty:
+  // When there ARE changes in the working tree the build is setup as
+  // *dirty*:
   // `localBuild-{localTime}-{commitCount}-{shortHash}`
   //
-  // When `target == "clean"` the version is setup as forced-clean:
+  // When `target == "clean"` the build is setup as *forced-clean*:
   // `{commitCount}-{shortHash}`
-  grunt.registerTask('saveVersionFile', function(target) {
+  grunt.registerTask('makeBuildString', function(target) {
     grunt.config.requires(
       'pkg.version',
       'exec.shortHash.value',
@@ -162,9 +164,9 @@ module.exports = function(grunt) {
       'exec.commitCount.value',
       'exec.statusCount.value');
 
-    const pkgVersion = grunt.config('pkg.version');
-    const shortHash = grunt.config('exec.shortHash.value');
-    const parentHash = grunt.config('exec.shortHash.parentHash');
+    const pkgVersion  = grunt.config('pkg.version');
+    const shortHash   = grunt.config('exec.shortHash.value');
+    const parentHash  = grunt.config('exec.shortHash.parentHash');
     const commitCount = grunt.config('exec.commitCount.value');
     const statusCount = grunt.config('exec.statusCount.value');
     const clean = target === 'clean';
@@ -185,35 +187,55 @@ module.exports = function(grunt) {
       buildString =`localBuild-${localTime}-${commitCount}-${shortHash}`;
     }
 
+    const makeType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
+
+    grunt.config('makeBuildString.buildString', buildString);
+
+    grunt.log.writeln(`Stored ${makeType.green.bold} buildString:`);
+    if (localTime !== null) {
+    grunt.log.writeln(`Built at:    ${localTime.green.bold}`);
+    }
+    grunt.log.writeln(`buildString: ${buildString.green}`);
+  });
+
+
+
+  // Saves the version file with the current version and build.
+  grunt.registerTask('saveVersionFile', function() {
+    grunt.config.requires(
+      'pkg.version',
+      'makeBuildString.buildString');
+
+    const pkgVersion  = grunt.config('pkg.version');
+    const buildString = grunt.config('makeBuildString.buildString');
+
+    const versionString = '' + pkgVersion;
+
     const templateContents = grunt.file.read('template/version.js.template');
     const processedTemplate = grunt.template.process(templateContents, {data: {
       versionString: versionString,
       buildString: buildString
     }});
 
-    const saveType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
 
     const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
-    grunt.log.writeln(`Saved ${saveType.green.bold} version file:`);
-    if (localTime !== null) {
-    grunt.log.writeln(`Built at: ${localTime.green.bold}`);
-    }
-    grunt.log.writeln(`version:  ${versionString.green}`);
-    grunt.log.writeln(`build:    ${buildString.green}`);
+
+    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green}`);
   });
 
 
   // Queues all the tasks required to make the version file.
   grunt.registerTask('makeVersionFile', function(target) {
-    let saveVersionFile = target === undefined
-      ? 'saveVersionFile'
-      : `saveVersionFile:${target}`;
+    let makeBuildStringTask = target === undefined
+      ? 'makeBuildString'
+      : `makeBuildString:${target}`;
     grunt.task.run(
       'exec:shortHash',
       'exec:commitCount',
       'exec:statusCount',
-      saveVersionFile);
+      makeBuildStringTask,
+      'saveVersionFile');
     if (target === undefined) {
       grunt.log.writeln(`Queued all tasks to make version file`);
     } else {
