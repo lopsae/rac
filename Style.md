@@ -62,6 +62,11 @@ When object type retured is same as instance, ommit type in function name:
 + Instead: `ray.perpendicular()`
 
 
+Functions that throw an error in a specific circumstance must mention it:
++ `An error is thrown if `anchor` is not set.`
++ `An error is thrown if `hexString` is misformatted or cannot be parsed.`
+
+
 
 Language Questions
 ==================
