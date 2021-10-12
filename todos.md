@@ -4,7 +4,6 @@ TODO's
 
 In progress
 -----------
-+ add doc notes about updateWithPointer respecting limits
 
 
 

@@ -225,6 +225,9 @@ class ArcControl extends Rac.Control {
   /**
   * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
   *
+  * `value` is always updated by this method to be within *[0,1]* and
+  * `[startLimit,endLimit]`.
+  *
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
   * @param {Rac.Arc} fixedAnchor - Anchor produced with `affixAnchor` when

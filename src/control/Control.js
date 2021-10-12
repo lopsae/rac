@@ -263,6 +263,12 @@ class Control {
   * update since `anchor` could change during redraw in response to updates
   * in `value`.
   *
+  * Each implementation is also responsible of keeping the updated `value`
+  * within the range `[startLimit,endLimit]`. This method is the only path
+  * for updating the control through user interaction, and thus the only
+  * place where each implementation must enforce a valid `value` within
+  * *[0,1]* and `[startLimit,endLimit]`.
+  *
   * > ⚠️ This method must be overriden by an extending class. Calling this
   * > implementation throws an error.
   *
