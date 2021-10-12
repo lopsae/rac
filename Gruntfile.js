@@ -81,6 +81,9 @@ module.exports = function(grunt) {
   });
 
 
+  // Stores in this task config:
+  // + in `value` the last git commit short-hash
+  // + in `parentHash` the parent-of-last git commit short-hash
   grunt.config.set('exec.shortHash', {
     cmd: 'git --no-pager log --max-count=2 --format="%h"',
     stdout: false,
@@ -97,6 +100,7 @@ module.exports = function(grunt) {
   }); // exec.shortHash
 
 
+  // Stores in this task config in `value` the current git commit count.
   grunt.config.set('exec.commitCount', {
     cmd: 'git rev-list --count HEAD',
     stdout: false,
@@ -110,6 +114,9 @@ module.exports = function(grunt) {
   }); // exec.commitCount
 
 
+  // Stores in this task config in `value` the count of files with a git
+  // status in the workspace and index. When there are no workspace changes
+  // `value` would be `0`.
   grunt.config.set('exec.statusCount', {
     cmd: 'git status --porcelain | wc -l',
     stdout: false,
@@ -131,6 +138,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jsdoc');
 
 
+  // Recreates the templated file for the documentation home, saved in
+  // `built/docs_home.md`.
   grunt.registerTask('makeDocsReadme', function() {
     grunt.config.requires('pkg.version');
     let versionString = grunt.config('pkg.version');
@@ -202,7 +211,8 @@ module.exports = function(grunt) {
 
 
 
-  // Saves the version file with the current version and build.
+  // Saves the version file with the current version and build, saved into
+  // `built/version.js`.
   grunt.registerTask('saveVersionFile', function() {
     grunt.config.requires(
       'pkg.version',
@@ -218,7 +228,6 @@ module.exports = function(grunt) {
       versionString: versionString,
       buildString: buildString
     }});
-
 
     const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
@@ -247,10 +256,10 @@ module.exports = function(grunt) {
   });
 
 
-  grunt.registerTask('default', ['serve']);
-
+  // Queues the tasks to produce all documentation.
   grunt.registerTask('makeDocs', [
     'makeDocsReadme', 'jsdoc']);
+
 
   // Builds a dev bundle, serves it, and watches for source changes
   grunt.registerTask('serve', [
@@ -259,13 +268,18 @@ module.exports = function(grunt) {
     'connect:server',
     'watch:serve']);
 
-  // Builds a dev/main/mini bundle with a clean version, serves it for confirmation
+
+  // Builds a dev/main/mini bundle with a clean version, serves it for
+  // confirmation.
   grunt.registerTask('dist', [
     'makeVersionFile:clean',
     'browserify:dev',
     'browserify:main',
     'uglify',
     'connect:server:keepalive']);
+
+
+  grunt.registerTask('default', ['serve']);
 
 };
 
