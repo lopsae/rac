@@ -84,6 +84,11 @@ https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js
 https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
 ```
 
+When a purge is needed:
+```
+https://purge.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
+```
+
 
 
 Finish tag
