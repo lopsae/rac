@@ -12,7 +12,7 @@ git flow release start n.e.w
 
 Check changelog update
 ----------------------
-+ and update listed version
++ update and date n.e.w version
 
 
 
@@ -33,7 +33,7 @@ Build dev and test locally
 npm start
 ```
 
-Commit message: `commit dev build n.e.w-hash`
+Commit message: `commit dev build n.e.w count-hash`
 
 
 
@@ -43,11 +43,11 @@ Build dist, test, and commit
 npm run dist
 ```
 
-Commit message: `commit dist build n.e.w-hash`
+Commit message: `commit dist build n.e.w count-hash`
 
 
 
-Make copy of currend docs
+Make copy of current docs
 -------------------------
 ```
 mv docs/documentation/latest docs/documentation/o.l.d
@@ -82,6 +82,11 @@ Pushed release is accesible at:
 https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.js
 https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js
 https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
+```
+
+When a purge is needed:
+```
+https://purge.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
 ```
 
 

@@ -1,6 +1,6 @@
 'useStrict';
 
-// Ruler and Compass - version
+// Ruler and Compass - version and build
 module.exports = {
 	version: '<%= versionString %>',
 	build: '<%= buildString %>'
