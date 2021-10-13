@@ -33,7 +33,7 @@ Build dev and test locally
 npm start
 ```
 
-Commit message: `commit dev build n.e.w-hash`
+Commit message: `commit dev build n.e.w count-hash`
 
 
 
@@ -43,7 +43,7 @@ Build dist, test, and commit
 npm run dist
 ```
 
-Commit message: `commit dist build n.e.w-hash`
+Commit message: `commit dist build n.e.w count-hash`
 
 
 
