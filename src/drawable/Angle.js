@@ -94,6 +94,8 @@ class Angle {
   *
   * @param {Rac.Angle|number} angle - An `Angle` to compare
   * @returns {boolean}
+  *
+  * @see Rac.Angle.from
   */
   equals(otherAngle) {
     if (otherAngle instanceof Rac.Angle) {

@@ -51,75 +51,50 @@ module.exports = function attachProtoFunctions(Rac) {
   };
 
 
-  // TODO: has to be moved to rac instance
-  Rac.stack = [];
-
-  Rac.stack.peek = function() {
-    return Rac.stack[Rac.stack.length - 1];
-  }
-
   Rac.drawableProtoFunctions.push = function() {
-    Rac.stack.push(this);
+    this.rac.pushStack(this);
     return this;
   }
+
 
   Rac.drawableProtoFunctions.pop = function() {
-    return Rac.stack.pop();
+    return this.rac.popStack();
   }
+
 
   Rac.drawableProtoFunctions.peek = function() {
-    return Rac.stack.peek();
+    return this.rac.peekStack();
   }
 
-  // TODO: shape and composite should be stacks, so that several can be
-  // started in different contexts
-  // TODO: has to be moved to rac instance
-  Rac.currentShape = null;
-  Rac.currentComposite = null;
-
-  Rac.popShape = function() {
-    let shape = Rac.currentShape;
-    Rac.currentShape = null;
-    return shape;
-  }
-
-  Rac.popComposite = function() {
-    let composite = Rac.currentComposite;
-    Rac.currentComposite = null;
-    return composite;
-  }
 
   Rac.drawableProtoFunctions.attachToShape = function() {
-    if (Rac.currentShape === null) {
-      Rac.currentShape = new Rac.Shape(this.rac);
-    }
-
-    this.attachTo(Rac.currentShape);
+    this.rac.peekShape().addOutline(this);
     return this;
   }
+
 
   Rac.drawableProtoFunctions.popShape = function() {
-    return Rac.popShape();
+    return this.rac.popShape();
   }
+
 
   Rac.drawableProtoFunctions.popShapeToComposite = function() {
-    let shape = Rac.popShape();
-    shape.attachToComposite();
+    let shape = this.rac.popShape();
+    this.rac.peekComposite().add(shape);
     return this;
   }
+
 
   Rac.drawableProtoFunctions.attachToComposite = function() {
-    if (Rac.currentComposite === null) {
-      Rac.currentComposite = new Rac.Composite(this.rac);
-    }
-
-    this.attachTo(Rac.currentComposite);
+    this.rac.peekComposite().add(this);
     return this;
   }
 
+
   Rac.drawableProtoFunctions.popComposite = function() {
-    return Rac.popComposite();
+    return this.rac.popComposite();
   }
+
 
   Rac.drawableProtoFunctions.attachTo = function(someComposite) {
     if (someComposite instanceof Rac.Composite) {
@@ -153,6 +128,15 @@ module.exports = function attachProtoFunctions(Rac) {
   Rac.styleProtoFunctions.apply = function(){
     assertDrawer(this);
     this.rac.drawer.applyObject(this);
+  };
+
+
+  Rac.styleProtoFunctions.log = Rac.drawableProtoFunctions.log;
+
+
+  Rac.styleProtoFunctions.applyToClass = function(classObj) {
+    assertDrawer(this);
+    this.rac.drawer.setClassDrawStyle(classObj, this);
   };
 
 }; // attachProtoFunctions

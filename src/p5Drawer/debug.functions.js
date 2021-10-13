@@ -10,9 +10,10 @@ function reversesText(angle) {
 
 
 exports.debugAngle = function(drawer, angle, point, drawsText) {
-  const rac = drawer.rac;
-  const pointRadius = drawer.debugPointRadius;
+  const rac =          drawer.rac;
+  const pointRadius =  drawer.debugPointRadius;
   const markerRadius = drawer.debugMarkerRadius;
+  const digits =       drawer.debugTextOptions.fixedDigits;
 
   // Zero segment
   point
@@ -67,7 +68,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   }
 
   // Turn text
-  let turnString = `turn:${drawer.debugNumber(angle.turn)}`;
+  let turnString = `turn:${angle.turn.toFixed(digits)}`;
   point
     .pointToAngle(angle, markerRadius*2)
     .text(turnString, format)
@@ -76,9 +77,10 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
 
 
 exports.debugPoint = function(drawer, point, drawsText) {
-  const rac = drawer.rac;
-  const pointRadius = drawer.debugPointRadius;
+  const rac =          drawer.rac;
+  const pointRadius =  drawer.debugPointRadius;
   const markerRadius = drawer.debugMarkerRadius;
+  const digits =       drawer.debugTextOptions.fixedDigits;
 
   point.draw();
 
@@ -100,7 +102,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let string = `x:${drawer.debugNumber(point.x)}\ny:${drawer.debugNumber(point.y)}`;
+  let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
   let format = new Rac.Text.Format(
     rac,
     Rac.Text.Format.horizontal.left,
@@ -201,9 +203,10 @@ exports.debugRay = function(drawer, ray, drawsText) {
 
 
 exports.debugSegment = function(drawer, segment, drawsText) {
-  const rac = drawer.rac;
-  const pointRadius = drawer.debugPointRadius;
+  const rac =          drawer.rac;
+  const pointRadius =  drawer.debugPointRadius;
   const markerRadius = drawer.debugMarkerRadius;
+  const digits =       drawer.debugTextOptions.fixedDigits;
 
   segment.draw();
 
@@ -229,12 +232,12 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   let endMarkerStart = segment
     .nextSegmentPerpendicular()
     .withLength(markerRadius/2)
-    .withStartExtended(-pointRadius)
+    .withStartExtension(-pointRadius)
     .draw();
   let endMarkerEnd = segment
     .nextSegmentPerpendicular(false)
     .withLength(markerRadius/2)
-    .withStartExtended(-pointRadius)
+    .withStartExtension(-pointRadius)
     .draw();
   // Little end half circle
   segment.endPoint()
@@ -285,7 +288,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   }
 
   // Length
-  let lengthString = `length:${drawer.debugNumber(segment.length)}`;
+  let lengthString = `length:${segment.length.toFixed(digits)}`;
   segment.startPoint()
     .pointToAngle(angle, pointRadius)
     .pointToAngle(angle.subtract(1/4), markerRadius/2)
@@ -293,7 +296,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .draw(drawer.debugTextStyle);
 
     // Angle
-  let angleString = `angle:${drawer.debugNumber(angle.turn)}`;
+  let angleString = `angle:${angle.turn.toFixed(digits)}`;
   segment.startPoint()
     .pointToAngle(angle, pointRadius)
     .pointToAngle(angle.add(1/4), markerRadius/2)
@@ -303,9 +306,10 @@ exports.debugSegment = function(drawer, segment, drawsText) {
 
 
 exports.debugArc = function(drawer, arc, drawsText) {
-  const rac = drawer.rac;
-  const pointRadius = drawer.debugPointRadius;
+  const rac =          drawer.rac;
+  const pointRadius =  drawer.debugPointRadius;
   const markerRadius = drawer.debugMarkerRadius;
+  const digits =       drawer.debugTextOptions.fixedDigits;
 
   arc.draw();
 
@@ -362,7 +366,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
     .arc(pointRadius).draw();
   startPoint
     .segmentToAngle(arc.start, markerRadius)
-    .withStartExtended(-markerRadius/2)
+    .withStartExtension(-markerRadius/2)
     .draw();
 
   // Orientation marker
@@ -461,12 +465,12 @@ exports.debugArc = function(drawer, arc, drawsText) {
     tailFormat = tailFormat.inverse();
   }
 
-  let startString = `start:${drawer.debugNumber(arc.start.turn)}`;
-  let radiusString = `radius:${drawer.debugNumber(arc.radius)}`;
-  let endString = `end:${drawer.debugNumber(arc.end.turn)}`;
+  let startString = `start:${arc.start.turn.toFixed(digits)}`;
+  let radiusString = `radius:${arc.radius.toFixed(digits)}`;
+  let endString = `end:${arc.end.turn.toFixed(digits)}`;
 
   let angleDistance = arc.angleDistance();
-  let distanceString = `distance:${drawer.debugNumber(angleDistance.turn)}`;
+  let distanceString = `distance:${angleDistance.turn.toFixed(digits)}`;
 
   let tailString = `${distanceString}\n${endString}`;
   let headString;

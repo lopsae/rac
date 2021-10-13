@@ -5,97 +5,195 @@ let Rac = require('../Rac');
 let utils = require('../util/utils');
 
 
-// TODO: fix uses of someAngle
-
-
 /**
-* Parent class for all controls for manipulating a value with the pointer.
-* Represents a control with a value, value-range, limits, markers, and
-* drawing style. By default the control returns a `value` in the range
-* [0,1] coresponding to the location of the control center in relation to
-* the anchor shape. The value-range is defined by `startValue` and
-* `endValue`.
+* Abstract class for controls that select a value within a range.
+*
+* Controls may use an `anchor` object to determine the visual position of
+* the control's interactive elements. Each implementation determines the
+* class used for this `anchor`, for example
+* `[ArcControl]{@link Rac.ArcControl}` uses an `[Arc]{@link Rac.Arc}` as
+* anchor, which defines where the control is drawn, what orientation it
+* uses, and the position of the control knob through the range of possible
+* values.
+*
+* A control keeps a `value` property in the range *[0,1]* for the currently
+* selected value.
+*
+* The `projectionStart` and `projectionEnd` properties can be used to
+* project `value` into the range `[projectionStart,projectionEnd]` by using
+* the `projectedValue()` method. By default set to *[0,1]*.
+*
+* The `startLimit` and `endLimit` can be used to restrain the allowable
+* values that can be selected through user interaction. By default set to
+* *[0,1]*.
+*
 * @alias Rac.Control
 */
 class Control {
 
-  // Creates a new Control instance with the given `value`, a default
-  // value-range of [0,1], and limits set equal to the value-range.
-  constructor(rac, value, startValue = 0, endValue = 1) {
-    utils.assertExists(rac, value, startValue, endValue);
+  /**
+  * Creates a new `Control` instance.
+  *
+  * @param {Rac} rac - Instance to use for drawing and creating other objects
+  * @param {number} value - The initial value of the control, in the
+  *   *[0,1]* range
+  */
+  constructor(rac, value) {
+    utils.assertExists(rac);
+    utils.assertNumber(value);
 
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
 
-    // Value is a number between startValue and endValue.
+    /**
+    * Current selected value, in the range *[0,1]*.
+    *
+    * May be further constrained to `[startLimit,endLimit]`.
+    *
+    * @type {number}
+    */
     this.value = value;
 
-    // Start and end of the value range.
-    this.startValue = startValue;
-    this.endValue = endValue;
+    /**
+    * [Projected value]{@link Rac.Control#projectedValue} to use when
+    * `value` is `0`.
+    *
+    * @type {number}
+    * @default 0
+    */
+    this.projectionStart = 0;
 
-    // Limits to which the control can be dragged. Interpreted as values in
-    // the value-range.
-    this.startLimit = startValue;
-    this.endLimit = endValue;
+    /**
+    * [Projected value]{@link Rac.Control#projectedValue} to use when
+    * `value` is `1`.
+    *
+    * @type {number}
+    * @default 1
+    */
+    this.projectionEnd = 1;
 
-    // Collection of values at which markers are drawn.
+    /**
+    * Minimum `value` that can be selected through user interaction.
+    *
+    * @type {number}
+    * @default 0
+    */
+    this.startLimit = 0;
+
+    /**
+    * Maximum `value` that can be selected through user interaction.
+    *
+    * @type {number}
+    * @default 1
+    */
+    this.endLimit = 1;
+
+    /**
+    * Collection of values at which visual markers are drawn.
+    *
+    * @type {number[]}
+    * @default []
+    */
     this.markers = [];
 
+    /**
+    * Style to apply when drawing. This style gets applied after
+    * `[rac.controller.controlStyle]{@link Rac.Controller#controlStyle}`.
+    *
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} [style=null]
+    * @default null
+    */
     this.style = null;
   }
 
-  // Returns the `value` of the control in a [0,1] range.
-  ratioValue() {
-    return this.ratioOf(this.value);
+
+  /**
+  * Returns `value` projected into the range
+  * `[projectionStart,projectionEnd]`.
+  *
+  * By default the projection range is *[0,1]*, in which case `value` and
+  * `projectedValue()` are equal.
+  *
+  * Projection ranges with a negative direction (E.g. *[50,30]*, when
+  * `projectionStart` is greater that `projectionEnd`) are supported. As
+  * `value` increases, the projection returned decreases from
+  * `projectionStart` until reaching `projectionEnd`.
+  *
+  * > E.g.
+  * > ```
+  * > For a control with a projection range of [100,200]
+  * > + when value is 0,   projectionValue() is 100
+  * > + when value is 0.5, projectionValue() is 150
+  * > + when value is 1,   projectionValue() is 200
+  * >
+  * > For a control with a projection range of [50,30]
+  * > + when value is 0,   projectionValue() is 50
+  * > + when value is 0.5, projectionValue() is 40
+  * > + when value is 1,   projectionValue() is 30
+  * > ```
+  *
+  * @returns {number}
+  */
+  projectedValue() {
+    let projectionRange = this.projectionEnd - this.projectionStart;
+    return (this.value * projectionRange) + this.projectionStart;
   }
 
-  // Returns the `startLimit` of the control in a [0,1] range.
-  ratioStartLimit() {
-    return this.ratioOf(this.startLimit);
+  // TODO: reintroduce when tested
+  // Returns the corresponding value in the range *[0,1]* for the
+  // `projectedValue` in the range `[projectionStart,projectionEnd]`.
+  // valueOfProjected(projectedValue) {
+  //   let projectionRange = this.projectionEnd - this.projectionStart;
+  //   return (projectedValue - this.projectionStart) / projectionRange;
+  // }
+
+
+  /**
+  * Sets both `startLimit` and `endLimit` with the given insets from `0`
+  * and `1`, correspondingly.
+  *
+  * > E.g.
+  * > ```
+  * > control.setLimitsWithInsets(0.1, 0.2)
+  * > // sets startLimit as 0.1
+  * > // sets endLimit   as 0.8
+  * > ```
+  *
+  * @param {number} startInset - The inset from `0` to use for `startLimit`
+  * @param {number} endInset - The inset from `1` to use for `endLimit`
+  */
+  setLimitsWithInsets(startInset, endInset) {
+    this.startLimit = startInset;
+    this.endLimit = 1 - endInset;
   }
 
-  // Returns the `endLimit` of the control in a [0,1] range.
-  ratioEndLimit() {
-    return this.ratioOf(this.endLimit);
-  }
 
-  // Returns the equivalent of the given `value` in a [0,1] range.
-  ratioOf(value) {
-    return (value - this.startValue) / this.valueRange();
-  }
-
-  // Returns the equivalent of the given ratio in the range [0,1] to a value
-  // in the value range.
-  valueOf(ratio) {
-    return (ratio * this.valueRange()) + this.startValue;
-  }
-
-  valueRange() {
-    return this.endValue - this.startValue;
-  }
-
-  // Sets `startLimit` and `endLimit` with two inset values relative to
-  // `startValue` and `endValue`.
-  setLimitsWithValueInsets(startInset, endInset) {
-    let rangeDirection = this.valueRange() >= 0 ? 1 : -1;
-
-    this.startLimit = this.startValue + (startInset * rangeDirection);
-    this.endLimit = this.endValue - (endInset * rangeDirection);
-  }
-
+  // TODO: reintroduce when tested
   // Sets `startLimit` and `endLimit` with two inset values relative to the
   // [0,1] range.
-  setLimitsWithRatioInsets(startInset, endInset) {
-    this.startLimit = this.valueOf(startInset);
-    this.endLimit = this.valueOf(1 - endInset);
-  }
+  // setLimitsWithProjectionInsets(startInset, endInset) {
+  //   this.startLimit = this.valueOf(startInset);
+  //   this.endLimit = this.valueOf(1 - endInset);
+  // }
 
-  // Adds a marker at the current `value`.
+
+  /**
+  * Adds a marker at the current `value`.
+  */
   addMarkerAtCurrentValue() {
     this.markers.push(this.value);
   }
 
-  // Returns `true` if this control is the currently selected control.
+  /**
+  * Returns `true` when this control is the currently selected control.
+  *
+  * @returns {boolean}
+  */
   isSelected() {
     if (this.rac.controller.selection === null) {
       return false;
@@ -103,44 +201,107 @@ class Control {
     return this.rac.controller.selection.control === this;
   }
 
-  // Abstract function.
-  // Returns the center of the control hitpoint.
-  center() {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+
+  /**
+  * Returns a `Point` at the center of the control knob.
+  *
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
+  *
+  * @abstract
+  * @return {Rac.Point}
+  */
+  knob() {
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
-  // Abstract function.
-  // Returns the persistent copy of the control anchor to be used during
-  // user interaction.
-  copyAnchor() {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+
+  /**
+  * Returns a copy of the anchor to be persited during user interaction.
+  *
+  * Each implementation determines the type used for `anchor` and
+  * `affixAnchor()`.
+  *
+  * This fixed anchor is passed back to the control through
+  * `[updateWithPointer]{@link Rac.Control#updateWithPointer}` and
+  * `[drawSelection]{@link Rac.Control#drawSelection}` during user
+  * interaction.
+  *
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
+  *
+  * @abstract
+  * @return {object}
+  */
+  affixAnchor() {
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
-  // Abstract function.
-  // Draws the current state of the control.
+
+  /**
+  * Draws the current state.
+  *
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
+  *
+  * @abstract
+  */
   draw() {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
-  // Abstract function.
-  // Updates the control value with `pointerControlCenter` in relation to
-  // `anchorCopy`. Called by `pointerDragged` as the user interacts with a
-  // selected control.
-  updateWithPointer(pointerControlCenter, anchorCopy) {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+  /**
+  * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
+  * Called by `[rac.controller.pointerDragged]{@link Rac.Controller#pointerDragged}`
+  * as the user interacts with the control.
+  *
+  * Each implementation interprets `pointerKnobCenter` against `fixedAnchor`
+  * to update its own value. The current `anchor` is not used for this
+  * update since `anchor` could change during redraw in response to updates
+  * in `value`.
+  *
+  * Each implementation is also responsible of keeping the updated `value`
+  * within the range `[startLimit,endLimit]`. This method is the only path
+  * for updating the control through user interaction, and thus the only
+  * place where each implementation must enforce a valid `value` within
+  * *[0,1]* and `[startLimit,endLimit]`.
+  *
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
+  *
+  * @abstract
+  * @param {Rac.Point} pointerKnobCenter - The position of the knob center
+  *   as interacted by the user pointer
+  * @param {object} fixedAnchor - Anchor produced when user interaction
+  *   started
+  */
+  updateWithPointer(pointerKnobCenter, fixedAnchor) {
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
-  // Abstract function.
-  // Draws the selection state for the control, along with pointer
-  // interaction visuals. Called by `drawControls` for the currently
-  // selected control.
-  drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-    console.trace(`Abstract function called - this-type:${utils.typeName(this)}`);
-    throw rac.Error.abstractFunctionCalled;
+  /**
+  * Draws the selection state along with pointer interaction visuals.
+  * Called by `[rac.controller.drawControls]{@link Rac.Controller#drawControls}`
+  * only for the selected control.
+  *
+  * > ⚠️ This method must be overriden by an extending class. Calling this
+  * > implementation throws an error.
+  *
+  * @abstract
+  * @param {Rac.Point} pointerCenter - The position of the user pointer
+  * @param {object} fixedAnchor - Anchor of the control produced when user
+  *   interaction started
+  * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
+  *   the offset from `pointerCenter` to the control knob when user
+  *   interaction started.
+  */
+  drawSelection(pointerCenter, fixedAnchor, pointerToKnobOffset) {
+    throw Rac.Exception.abstractFunctionCalled(
+      `this-type:${utils.typeName(this)}`);
   }
 
 } // class Control
@@ -166,23 +327,23 @@ Control.makeArrowShape = function(rac, center, angle) {
   let point = rightWall.pointAtIntersection(leftWall);
 
   // Shape
-  let arrow = new Rac.Shape(rac);
+  rac.pushShape();
   point.segmentToPoint(arc.startPoint())
-    .attachTo(arrow);
-  arc.attachTo(arrow)
-    .endPoint().segmentToPoint(point)
-    .attachTo(arrow);
+    .attachToShape();
+  arc.attachToShape();
+  arc.endPoint().segmentToPoint(point)
+    .attachToShape();
 
-    return arrow;
+  return rac.popShape();
 };
 
-Control.makeLimitMarker = function(rac, point, someAngle) {
-  let angle = rac.Angle.from(someAngle);
+Control.makeLimitMarker = function(rac, point, angle) {
+  angle = rac.Angle.from(angle);
   let perpendicular = angle.perpendicular(false);
   let composite = new Rac.Composite(rac);
 
   point.segmentToAngle(perpendicular, 4)
-    .withStartExtended(4)
+    .withStartExtension(4)
     .attachTo(composite);
   point.pointToAngle(perpendicular, 8).arc(3)
     .attachTo(composite);
@@ -190,9 +351,9 @@ Control.makeLimitMarker = function(rac, point, someAngle) {
   return composite;
 };
 
-Control.makeValueMarker = function(rac, point, someAngle) {
-  let angle = rac.Angle.from(someAngle);
+Control.makeValueMarker = function(rac, point, angle) {
+  angle = rac.Angle.from(angle);
   return point.segmentToAngle(angle.perpendicular(), 3)
-    .withStartExtended(3);
+    .withStartExtension(3);
 };
 

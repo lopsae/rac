@@ -25,7 +25,7 @@ class Fill {
   * @param {?Rac.Color} color - A `Color` for the fill setting, or `null`
   *   to apply a *no-fill* setting
   */
-  constructor(rac, color = null) {
+  constructor(rac, color) {
     utils.assertExists(rac);
     color !== null && utils.assertType(Rac.Color, color);
 
@@ -70,9 +70,46 @@ class Fill {
       `Cannot derive Rac.Fill - something-type:${utils.typeName(something)}`);
   }
 
-  styleWithStroke(someStroke) {
+
+  /**
+  * Returns a new `StyleContainer` containing only `this`.
+  *
+  * @returns {Rac.StyleContainer}
+  */
+  container() {
+    return new Rac.StyleContainer(this.rac, [this]);
+  }
+
+
+  /**
+  * Returns a new `StyleContainer` containing `this` and `style`. When
+  * `style` is `null`, returns `this` instead.
+  *
+  * @param {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} style - A style object
+  *   to contain along `this`
+  * @returns {Rac.StyleContainer|Rac.Fill}
+  */
+  appendStyle(style) {
+    if (style === null) {
+      return this;
+    }
+    return new Rac.StyleContainer(this.rac, [this, style]);
+  }
+
+
+  /**
+  * Returns a new `StyleContainer` containing `this` and the `Stroke`
+  * derived [from]{@link Rac.Stroke.from} `someStroke`.
+  *
+  * @param {Rac.Stroke|Rac.Color|Rac.Fill} someStroke - An object to derive
+  *   a `Stroke` from
+  * @returns {Rac.StyleContainer}
+  *
+  * @see Rac.Stroke.from
+  */
+  appendStroke(someStroke) {
     let stroke = Rac.Stroke.from(this.rac, someStroke);
-    return new Rac.Style(this.rac, stroke, this);
+    return new Rac.StyleContainer(this.rac, [this, stroke]);
   }
 
 } // class Fill

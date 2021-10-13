@@ -1,7 +1,6 @@
 TODO's
 ======
 
-Latest stabe npm used: 7.5.3
 
 In progress
 -----------
@@ -10,8 +9,7 @@ In progress
 
 For version change
 ------------------
-+ Style could be Styles, or StyleContainer? Just a list of styles, which would allow for additional style objects
-+ Rename segment.withStartExtended to withStartExtension, maybe add withEndExtension (same as withLengthAdd)
+
 
 
 Future
@@ -19,18 +17,22 @@ Future
 + Docs: reference instance.X on class
 + Docs: reference class on instance.X
 
-+ Color can be a style object, applyed to fill and stroke when available?
++ Can Arc have a null end? to signal full circle
+
++ Color can be a style object, applied to fill and stroke when available?
 
 + what is the behaviour when equalityThreshold is zero? check and document
 
 + angle.debug could receive any drawable?
 
 + function to push marker to controls
-+ function controller.push to push to controller.controls
-+ controls should work without style
-+ add arc.withLengthAdd
+
++ separate drawing/style of control selection, effects, and pointer
+
++ Control -> RangeControl? when controls with boolean/toggle-value are defined
++ Leave still a base Control class?
+
 
 Bugs
 ----
-+ whole circle control located at 0 shows incorrect arrows
-
++ BUG: whole circle control located at 0 shows incorrect arrows

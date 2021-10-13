@@ -444,6 +444,7 @@ class Ray {
   *
   * @param {Rac.Point} point - A `Point` to measure the orientation to
   * @returns {boolean}
+  *
   * @see Rac.Point#equals
   * @see Rac.Ray#inverse
   */

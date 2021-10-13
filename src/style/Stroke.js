@@ -32,7 +32,8 @@ class Stroke {
   *
   * @param {Rac} rac -  Instance to use for drawing and creating other objects
   * @param {?number} weight - The weight of the stroke, or `null` to skip weight
-  * @param {?Rac.Color} color - A `Color` for the stroke, or `null` to skip color
+  * @param {?Rac.Color} [color=null] - A `Color` for the stroke, or `null`
+  *   to skip color
   */
   constructor(rac, weight, color = null) {
     utils.assertExists(rac);
@@ -63,7 +64,7 @@ class Stroke {
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
   * @param {Rac.Stroke|Rac.Color|Rac.Fill} something - An object to
-  * derive a `Stroke` from
+  *   derive a `Stroke` from
   * @returns {Rac.Stroke}
   */
   static from(rac, something) {
@@ -115,9 +116,45 @@ class Stroke {
   }
 
 
-  styleWithFill(someFill) {
+  /**
+  * Returns a new `StyleContainer` containing only `this`.
+  *
+  * @returns {Rac.StyleContainer}
+  */
+  container() {
+    return new Rac.StyleContainer(this.rac, [this]);
+  }
+
+
+  /**
+  * Returns a new `StyleContainer` containing `this` and `style`. When
+  * `style` is `null`, returns `this` instead.
+  *
+  * @param {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} style - A style object
+  *   to contain along `this`
+  * @returns {Rac.StyleContainer|Rac.Stroke}
+  */
+  appendStyle(style) {
+    if (style === null) {
+      return this;
+    }
+    return new Rac.StyleContainer(this.rac, [this, style]);
+  }
+
+
+  /**
+  * Returns a new `StyleContainer` containing `this` and the `Fill`
+  * derived [from]{@link Rac.Fill.from} `someFill`.
+  *
+  * @param {Rac.Fill|Rac.Color|Rac.Stroke} someFill - An object to derive
+  *   a `Fill` from
+  * @returns {Rac.StyleContainer}
+  *
+  * @see Rac.Fill.from
+  */
+  appendFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);
-    return new Rac.Style(this.rac, this, fill);
+    return new Rac.StyleContainer(this.rac, [this, fill]);
   }
 
 } // class Stroke

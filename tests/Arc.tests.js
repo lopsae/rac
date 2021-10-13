@@ -227,7 +227,7 @@ tools.test( function withAngleDistance() {
 });
 
 
-tools.test( function withLengthAndRatio() {
+tools.test( function withLengthAddRatio() {
   const circumference = 55 * Rac.TAU;
   expect(half.withLength(0))
     .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);
@@ -242,6 +242,20 @@ tools.test( function withLengthAndRatio() {
     .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.right, true);
   expect(half.withLength(-circumference / 4))
     .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.left, true);
+
+  expect(half.withLengthAdd(0))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.down, true);
+  expect(half.withLengthAdd(circumference))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.down, true);
+  expect(half.withLengthAdd(-circumference))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.down, true);
+  expect(half.withLengthAdd(7*circumference))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.down, true);
+
+  expect(half.withLengthAdd(circumference / 4))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.left, true);
+  expect(half.withLengthAdd(-circumference / 4))
+    .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.right, true);
 
   expect(half.withLengthRatio(0))
     .equalsArc(100, 100, 55, rac.Angle.up, rac.Angle.up, true);

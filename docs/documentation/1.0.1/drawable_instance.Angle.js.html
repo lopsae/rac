@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>control/SegmentControl.js - Documentation</title>
+    <title>drawable/instance.Angle.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: control/SegmentControl.js</h1>
+    <h1 class="page-title">Source: drawable/instance.Angle.js</h1>
     
 
     
@@ -44,217 +44,226 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 
-let Rac = require('../Rac');
-let utils = require('../util/utils');
+const Rac = require('../Rac');
 
 
 /**
-* Control that uses a `Segment` as anchor.
-* @alias Rac.SegmentControl
+* The `instance.Angle` function contains convenience methods and members
+* for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
+*
+* @namespace instance.Angle
 */
-class SegmentControl extends Rac.Control {
+module.exports = function attachRacAngle(rac) {
+  // Intended to receive a Rac instance as parameter
 
-  // Creates a new Control instance with the given `value` and `length`.
-  // By default the value range is [0,1] and limits are set to be the equal
-  // as `startValue` and `endValue`.
-  constructor(rac, value, length, startValue = 0, endValue = 1) {
-    utils.assertExists(rac, value, length, startValue, endValue);
-
-    super(rac, value, startValue, endValue);
-
-    // Length for the copied anchor shape.
-    this.length = length;
-
-    // Segment to which the control will be anchored. When the control is
-    // drawn and interacted a copy of the anchor is created with the
-    // control's `length`.
-    this.anchor = null;
-  }
-
-  setValueWithLength(lengthValue) {
-    let lengthRatio = lengthValue / this.length;
-    this.value = this.valueOf(lengthRatio);
-  }
-
-  // Sets `startLimit` and `endLimit` with two inset values relative to
-  // zero and `length`.
-  setLimitsWithLengthInsets(startInset, endInset) {
-    this.startLimit = this.valueOf(startInset / this.length);
-    this.endLimit = this.valueOf((this.length - endInset) / this.length);
-  }
+  /**
+  * Returns an `Angle` derived from `something`.
+  *
+  * Calls`{@link Rac.Angle.from}` using `this`.
+  *
+  * @see Rac.Angle.from
+  *
+  * @param {number|Rac.Angle|Rac.Ray|Rac.Segment} something - An object to
+  * derive an `Angle` from
+  * @returns {Rac.Angle}
+  *
+  * @function from
+  * @memberof instance.Angle#
+  */
+  rac.Angle.from = function(something) {
+    return Rac.Angle.from(rac, something);
+  };
 
 
-  // Returns the distance from `anchor.start` to the control center.
-  distance() {
-    return this.length * this.ratioValue();
-  }
-
-  center() {
-    // Not posible to calculate a center
-    if (this.anchor === null) { return null; }
-    return this.anchor.withLength(this.distance()).endPoint();
-  }
-
-  // Creates a copy of the current `anchor` with the control `length`.
-  copyAnchor() {
-    // No anchor to copy
-    if (this.anchor === null) { return null; }
-    return this.anchor.withLength(this.length);
-  }
-
-  draw() {
-    let anchorCopy = this.copyAnchor();
-    anchorCopy.draw(this.style);
-
-    let center = this.center();
-    let angle = anchorCopy.angle();
-
-    // Value markers
-    this.markers.forEach(item => {
-      let markerRatio = this.ratioOf(item);
-      if (markerRatio &lt; 0 || markerRatio > 1) { return }
-      let point = anchorCopy.start.pointToAngle(angle, this.length * markerRatio);
-      Rac.Control.makeValueMarker(this.rac, point, angle)
-        .attachToComposite();
-    }, this);
-
-    // Control button
-    center.arc(this.rac.controller.knobRadius)
-      .attachToComposite();
-
-    let ratioValue = this.ratioValue();
-
-    // Negative arrow
-    if (ratioValue >= this.ratioStartLimit() + this.rac.unitaryEqualityThreshold) {
-      Rac.Control.makeArrowShape(this.rac, center, angle.inverse())
-        .attachToComposite();
-    }
-
-    // Positive arrow
-    if (ratioValue &lt;= this.ratioEndLimit() - this.rac.unitaryEqualityThreshold) {
-      Rac.Control.makeArrowShape(this.rac, center, angle)
-        .attachToComposite();
-    }
-
-    Rac.popComposite().draw(this.style);
-
-    // Selection
-    if (this.isSelected()) {
-      center.arc(this.rac.controller.knobRadius * 1.5).draw(this.rac.controller.pointerStyle);
-    }
-  }
-
-  updateWithPointer(pointerControlCenter, anchorCopy) {
-    let length = anchorCopy.length;
-    let startInset = length * this.ratioStartLimit();
-    let endInset = length * (1 - this.ratioEndLimit());
-
-    // New value from the current pointer position, relative to anchorCopy
-    let newDistance = anchorCopy
-      .ray.distanceToProjectedPoint(pointerControlCenter);
-    // Clamping value (javascript has no Math.clamp)
-    newDistance = anchorCopy.clampToLength(newDistance,
-      startInset, endInset);
-
-    // Update control with new distance
-    let lengthRatio = newDistance / length;
-    this.value = this.valueOf(lengthRatio);
-  }
-
-  drawSelection(pointerCenter, anchorCopy, pointerOffset) {
-    anchorCopy.attachToComposite();
-
-    let angle = anchorCopy.angle();
-    let length = anchorCopy.length;
-
-    // Value markers
-    this.markers.forEach(item => {
-      let markerRatio = this.ratioOf(item);
-      if (markerRatio &lt; 0 || markerRatio > 1) { return }
-      let markerPoint = anchorCopy.start.pointToAngle(angle, length * markerRatio);
-      Rac.Control.makeValueMarker(this.rac, markerPoint, angle)
-        .attachToComposite();
-    });
-
-    // Limit markers
-    let ratioStartLimit = this.ratioStartLimit();
-    if (ratioStartLimit > 0) {
-      let minPoint = anchorCopy.start.pointToAngle(angle, length * ratioStartLimit);
-      Rac.Control.makeLimitMarker(this.rac, minPoint, angle)
-        .attachToComposite();
-    }
-
-    let ratioEndLimit = this.ratioEndLimit();
-    if (ratioEndLimit &lt; 1) {
-      let maxPoint = anchorCopy.start.pointToAngle(angle, length * ratioEndLimit);
-      Rac.Control.makeLimitMarker(this.rac, maxPoint, angle.inverse())
-        .attachToComposite();
-    }
-
-    // Segment from pointer to control dragged center
-    let draggedCenter = pointerOffset
-      .withStartPoint(pointerCenter)
-      .endPoint();
-
-    // Control dragged center, attached to pointer
-    draggedCenter.arc(2)
-      .attachToComposite();
-
-    // Constrained length clamped to limits
-    let constrainedLength = anchorCopy
-      .ray.distanceToProjectedPoint(draggedCenter);
-    let startInset = length * ratioStartLimit;
-    let endInset = length * (1 - ratioEndLimit);
-    constrainedLength = anchorCopy.clampToLength(constrainedLength,
-      startInset, endInset);
-
-    let constrainedAnchorCenter = anchorCopy
-      .withLength(constrainedLength)
-      .endPoint();
-
-    // Control center constrained to anchor
-    constrainedAnchorCenter.arc(this.rac.controller.knobRadius)
-      .attachToComposite();
-
-    // Dragged shadow center, semi attached to pointer
-    // always perpendicular to anchor
-    let draggedShadowCenter = draggedCenter
-      .segmentToProjectionInRay(anchorCopy.ray)
-      // reverse and translated to constraint to anchor
-      .reverse()
-      .withStartPoint(constrainedAnchorCenter)
-      // Segment from constrained center to shadow center
-      .attachToComposite()
-      .endPoint();
-
-    // Control shadow center
-    draggedShadowCenter.arc(this.rac.controller.knobRadius / 2)
-      .attachToComposite();
-
-    // Ease for segment to dragged shadow center
-    let easeOut = Rac.EaseFunction.makeEaseOut();
-    easeOut.postBehavior = Rac.EaseFunction.Behavior.clamp;
-
-    // Tail will stop stretching at 2x the max tail length
-    let maxDraggedTailLength = this.rac.controller.knobRadius * 5;
-    easeOut.inRange = maxDraggedTailLength * 2;
-    easeOut.outRange = maxDraggedTailLength;
-
-    // Segment to dragged shadow center
-    let draggedTail = draggedShadowCenter
-      .segmentToPoint(draggedCenter);
-
-    let easedLength = easeOut.easeValue(draggedTail.length);
-    draggedTail.withLength(easedLength).attachToComposite();
-
-    // Draw all!
-    Rac.popComposite().draw(this.rac.controller.pointerStyle);
-  }
-
-} // class SegmentControl
+  /**
+  * Returns an `Angle` derived from `radians`.
+  *
+  * Calls `{@link Rac.Angle.fromRadians}` using `this`.
+  *
+  * @see Rac.Angle.fromRadians
+  *
+  * @param {number} radians - The measure of the angle, in radians
+  * @returns {Rac.Angle}
+  *
+  * @function fromRadians
+  * @memberof instance.Angle#
+  */
+  rac.Angle.fromRadians = function(radians) {
+    return Rac.Angle.fromRadians(rac, radians);
+  };
 
 
-module.exports = SegmentControl;
+  /**
+  * Returns an `Angle` derived from `degrees`.
+  *
+  * Calls `{@link Rac.Angle.fromDegrees}` using `this`.
+  *
+  * @see Rac.Angle.fromDegrees
+  *
+  * @param {number} degrees - The measure of the angle, in degrees
+  * @returns {Rac.Angle}
+  *
+  * @function fromDegrees
+  * @memberof instance.Angle#
+  */
+  rac.Angle.fromDegrees = function(degrees) {
+    return Rac.Angle.fromDegrees(rac, degrees);
+  };
+
+
+  /**
+  * An `Angle` with turn `0`.
+  *
+  * Also named as: `right`, `r`, `east`, `e`.
+  *
+  * @name zero
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.zero = rac.Angle(0.0);
+
+  /**
+  * An `Angle` with turn `1/2`.
+  *
+  * Also named as: `left`, `l`, `west`, `w`, `inverse`.
+  *
+  * @name half
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.half = rac.Angle(1/2);
+  rac.Angle.inverse = rac.Angle.half;
+
+  /**
+  * An `Angle` with turn `1/4`.
+  *
+  * Also named as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
+  *
+  * @name quarter
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.quarter = rac.Angle(1/4);
+  rac.Angle.square =  rac.Angle.quarter;
+
+  /**
+  * An `Angle` with turn `1/8`.
+  *
+  * Also named as: `bottomRight`, `br`, `se`.
+  *
+  * @name eighth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.eighth =  rac.Angle(1/8);
+
+  /**
+  * An `Angle` with turn `7/8`, negative angle of
+  * `{@link instance.Angle#eighth eighth}`.
+  *
+  * Also named as: `topRight`, `tr`, `ne`.
+  *
+  * @name neighth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.neighth =  rac.Angle(-1/8);
+
+
+  /**
+  * An `Angle` with turn `1/16`.
+  *
+  * @name sixteenth
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.sixteenth = rac.Angle(1/16);
+
+  /**
+  * An `Angle` with turn `3/4`.
+  *
+  * Also named as: `up`, `u`, `top`, `t`.
+  *
+  * @name north
+  * @type {Rac.Point}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.north = rac.Angle(3/4);
+  rac.Angle.east  = rac.Angle(0/4);
+  rac.Angle.south = rac.Angle(1/4);
+  rac.Angle.west  = rac.Angle(2/4);
+
+  rac.Angle.e = rac.Angle.east;
+  rac.Angle.s = rac.Angle.south;
+  rac.Angle.w = rac.Angle.west;
+  rac.Angle.n = rac.Angle.north;
+
+  rac.Angle.ne = rac.Angle.n.add(1/8);
+  rac.Angle.se = rac.Angle.e.add(1/8);
+  rac.Angle.sw = rac.Angle.s.add(1/8);
+  rac.Angle.nw = rac.Angle.w.add(1/8);
+
+  // North north-east
+  rac.Angle.nne = rac.Angle.ne.add(-1/16);
+  // East north-east
+  rac.Angle.ene = rac.Angle.ne.add(+1/16);
+  // North-east north
+  rac.Angle.nen = rac.Angle.nne;
+  // North-east east
+  rac.Angle.nee = rac.Angle.ene;
+
+  // East south-east
+  rac.Angle.ese = rac.Angle.se.add(-1/16);
+  // South south-east
+  rac.Angle.sse = rac.Angle.se.add(+1/16);
+  // South-east east
+  rac.Angle.see = rac.Angle.ese;
+  // South-east south
+  rac.Angle.ses = rac.Angle.sse;
+
+  // South south-west
+  rac.Angle.ssw = rac.Angle.sw.add(-1/16);
+  // West south-west
+  rac.Angle.wsw = rac.Angle.sw.add(+1/16);
+  // South-west south
+  rac.Angle.sws = rac.Angle.ssw;
+  // South-west west
+  rac.Angle.sww = rac.Angle.wsw;
+
+  // West north-west
+  rac.Angle.wnw = rac.Angle.nw.add(-1/16);
+  // North north-west
+  rac.Angle.nnw = rac.Angle.nw.add(+1/16);
+  // Nort-hwest west
+  rac.Angle.nww = rac.Angle.wnw;
+  // North-west north
+  rac.Angle.nwn = rac.Angle.nnw;
+
+  rac.Angle.right = rac.Angle.e;
+  rac.Angle.down  = rac.Angle.s;
+  rac.Angle.left  = rac.Angle.w;
+  rac.Angle.up    = rac.Angle.n;
+
+  rac.Angle.r = rac.Angle.right;
+  rac.Angle.d = rac.Angle.down;
+  rac.Angle.l = rac.Angle.left;
+  rac.Angle.u = rac.Angle.up;
+
+  rac.Angle.top    = rac.Angle.up;
+  rac.Angle.bottom = rac.Angle.down;
+  rac.Angle.t      = rac.Angle.top;
+  rac.Angle.b      = rac.Angle.bottom;
+
+  rac.Angle.topRight    = rac.Angle.ne;
+  rac.Angle.tr          = rac.Angle.ne;
+  rac.Angle.topLeft     = rac.Angle.nw;
+  rac.Angle.tl          = rac.Angle.nw;
+  rac.Angle.bottomRight = rac.Angle.se;
+  rac.Angle.br          = rac.Angle.se;
+  rac.Angle.bottomLeft  = rac.Angle.sw;
+  rac.Angle.bl          = rac.Angle.sw;
+
+} // attachRacAngle
 
 </code></pre>
         </article>

@@ -83,19 +83,16 @@ class Rac {
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
+    this.stack = [];
+    this.shapeStack = [];
+    this.compositeStack = [];
+
     /**
     * Drawer of the instance. This object handles the drawing of all
     * drawable object using this instance of `Rac`.
     * @type {object}
     */
     this.drawer = null;
-
-    /**
-    * Controller of the instance. This objecs handles all of the controls
-    * and pointer events related to this instance of `Rac`.
-    */
-    this.controller = new Rac.Controller(this);
-
 
     require('./attachInstanceFunctions')(this);
 
@@ -111,6 +108,12 @@ class Rac {
 
     // Depends on instance.Point and instance.Angle being already setup
     require('./drawable/instance.Text')(this);
+
+    /**
+    * Controller of the instance. This objecs handles all of the controls
+    * and pointer events related to this instance of `Rac`.
+    */
+    this.controller = new Rac.Controller(this);
   }
 
   /**
@@ -157,6 +160,73 @@ class Rac {
     if (a === null || b === null) { return false; }
     const diff = Math.abs(a-b);
     return diff < this.unitaryEqualityThreshold;
+  }
+
+
+  pushStack(obj) {
+    this.stack.push(obj);
+  }
+
+
+  peekStack() {
+    if (this.stack.length <= 0) {
+      return null;
+    }
+    return this.stack[this.stack.length - 1];
+  }
+
+
+  popStack() {
+    if (this.stack.length <= 0) {
+      return null;
+    }
+    return this.stack.pop();
+  }
+
+
+  pushShape(shape = null) {
+    shape = shape ?? new Rac.Shape(this);
+    this.shapeStack.push(shape);
+    return shape;
+  }
+
+
+  peekShape() {
+    if (this.shapeStack.length <= 0) {
+      return null;
+    }
+    return this.shapeStack[this.shapeStack.length - 1];
+  }
+
+
+  popShape() {
+    if (this.shapeStack.length <= 0) {
+      return null;
+    }
+    return this.shapeStack.pop();
+  }
+
+
+  pushComposite(composite) {
+    composite = composite ?? new Rac.Composite(this);
+    this.compositeStack.push(composite);
+    return composite;
+  }
+
+
+  peekComposite() {
+    if (this.compositeStack.length <= 0) {
+      return null;
+    }
+    return this.compositeStack[this.compositeStack.length - 1];
+  }
+
+
+  popComposite() {
+    if (this.compositeStack.length <= 0) {
+      return null;
+    }
+    return this.compositeStack.pop();
   }
 
 } // class Rac
@@ -243,9 +313,9 @@ Rac.Fill = require('./style/Fill');
 Rac.setupStyleProtoFunctions(Rac.Fill);
 
 
-// Style
-Rac.Style = require('./style/Style');
-Rac.setupStyleProtoFunctions(Rac.Style);
+// StyleContainer
+Rac.StyleContainer = require('./style/StyleContainer');
+Rac.setupStyleProtoFunctions(Rac.StyleContainer);
 
 
 // Angle
@@ -304,8 +374,8 @@ Rac.Controller = require('./control/Controller');
 Rac.Control = require('./control/Control');
 
 
-// SegmentControl
-Rac.SegmentControl = require('./control/SegmentControl');
+// RayControl
+Rac.RayControl = require('./control/RayControl');
 
 
 // ArcControl
