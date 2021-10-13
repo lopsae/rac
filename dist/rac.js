@@ -1,11 +1,12 @@
-// RAC - ruler-and-compass - 1.1.0-dev
+// RAC - ruler-and-compass - 1.1.0 850-409e8eb 
+// Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
-// Ruler and Compass - version
+// Ruler and Compass - version and build
 module.exports = {
-	version: '1.1.0-dev',
-	build: '840-423393e'
+	version: '1.1.0',
+	build: '850-409e8eb'
 };
 
 
@@ -1060,6 +1061,9 @@ class ArcControl extends Rac.Control {
   /**
   * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
   *
+  * `value` is always updated by this method to be within *[0,1]* and
+  * `[startLimit,endLimit]`.
+  *
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
   * @param {Rac.Arc} fixedAnchor - Anchor produced with `affixAnchor` when
@@ -1415,6 +1419,12 @@ class Control {
   * to update its own value. The current `anchor` is not used for this
   * update since `anchor` could change during redraw in response to updates
   * in `value`.
+  *
+  * Each implementation is also responsible of keeping the updated `value`
+  * within the range `[startLimit,endLimit]`. This method is the only path
+  * for updating the control through user interaction, and thus the only
+  * place where each implementation must enforce a valid `value` within
+  * *[0,1]* and `[startLimit,endLimit]`.
   *
   * > ⚠️ This method must be overriden by an extending class. Calling this
   * > implementation throws an error.
@@ -2043,6 +2053,9 @@ class RayControl extends Rac.Control {
 
   /**
   * Updates `value` using `pointerKnobCenter` in relation to `fixedAnchor`.
+  *
+  * `value` is always updated by this method to be within *[0,1]* and
+  * `[startLimit,endLimit]`.
   *
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
