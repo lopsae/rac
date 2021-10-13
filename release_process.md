@@ -12,7 +12,7 @@ git flow release start n.e.w
 
 Check changelog update
 ----------------------
-+ and update listed version
++ update and date n.e.w version
 
 
 

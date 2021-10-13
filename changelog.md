@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1.0-dev
----------
+1.1.0 - 2021 October 12th
+-------------------------
 + Add `controller.controlStyle`, `controller.autoAddControls`
 + Add `textFormat.withAngle`
 + Add `arc.withLengthAdd`
