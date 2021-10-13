@@ -47,7 +47,7 @@ Commit message: `commit dist build n.e.w count-hash`
 
 
 
-Make copy of currend docs
+Make copy of current docs
 -------------------------
 ```
 mv docs/documentation/latest docs/documentation/o.l.d
