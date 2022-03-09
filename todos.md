@@ -14,6 +14,7 @@ For version change
 
 Future
 ------
++ Test todo
 + Docs: reference instance.X on class
 + Docs: reference class on instance.X
 
