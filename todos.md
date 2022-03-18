@@ -14,7 +14,8 @@ For version change
 
 Future
 ------
-+ Test todo
++ Control.anchor, make it a method to type check
++ Controller.pointer..., type check the received object
 + Docs: reference instance.X on class
 + Docs: reference class on instance.X
 
