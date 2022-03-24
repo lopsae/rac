@@ -352,6 +352,7 @@ class P5Drawer {
       } else {
         functions.debugAngle(drawer, this, point, drawsText);
       }
+      return this;
     };
 
     Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
