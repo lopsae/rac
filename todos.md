@@ -14,6 +14,8 @@ For version change
 
 Future
 ------
++ implement Angle.log
++ implement point.pointAtBisector
 + Control.anchor, make it a method to type check
 + Controller.pointer..., type check the received object
 + Docs: reference instance.X on class
