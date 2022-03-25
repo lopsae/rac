@@ -4,6 +4,7 @@ Changelog
 1.1.0 - x
 ---------
 + Add `point.pointAtBisector`
++ Add `segment.inverse`
 
 
 1.1.0 - 2021 October 13th

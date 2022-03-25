@@ -265,6 +265,14 @@ class Segment {
   }
 
 
+  // RELEASE-TODO: document
+  // RELEASE-TODO: test
+  inverse() {
+    const newRay = this.ray.inverse();
+    return new Segment(this.rac, newRay, this.length);
+  }
+
+
   /**
   * Returns a new `Segment` pointing towards the
   * [perpendicular angle]{@link Rac.Angle#perpendicular} of
