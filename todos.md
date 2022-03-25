@@ -5,6 +5,7 @@ TODO's
 In progress
 -----------
 + document/test point.pointAtBisector
++ document/test ray.bezierArc
 + document/test segment.inverse
 
 

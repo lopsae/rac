@@ -4,6 +4,7 @@ Changelog
 1.1.0 - x
 ---------
 + Add `point.pointAtBisector`
++ Add `ray.bezierArc`
 + Add `segment.inverse`
 
 

@@ -568,6 +568,67 @@ class Ray {
       clockwise);
   }
 
+
+  // RELEASE-TODO: document
+  // RELEASE-TODO: test
+  bezierArc(otherRay) {
+    if (this.start.equals(otherRay.start)) {
+      // When both rays have the same start, returns a point bezier.
+      return new Rac.Bezier(this.rac,
+        this.start, this.start,
+        this.start, this.start);
+    }
+
+    let intersection = this.perpendicular()
+      .pointAtIntersection(otherRay.perpendicular());
+
+    let orientation = null;
+    let radiusA = null;
+    let radiusB = null;
+
+    // Check for parallel rays
+    if (intersection !== null) {
+      // Normal intersection case
+      orientation = this.pointOrientation(intersection);
+      radiusA = intersection.segmentToPoint(this.start);
+      radiusB = intersection.segmentToPoint(otherRay.start);
+
+    } else {
+      // In case of parallel rays, otherRay gets shifted to be
+      // perpendicular to this.
+      let shiftedIntersection = this.perpendicular()
+        .pointAtIntersection(otherRay);
+      if (shiftedIntersection === null || this.start.equals(shiftedIntersection)) {
+        // When both rays lay on top of each other, the shifting produces
+        // rays with the same start; function returns a linear bezier.
+        return new Rac.Bezier(this.rac,
+          this.start, this.start,
+          otherRay.start, otherRay.start);
+      }
+      intersection = this.start.pointAtBisector(shiftedIntersection);
+
+      // Case for shifted intersection between two rays
+      orientation = this.pointOrientation(intersection);
+      radiusA = intersection.segmentToPoint(this.start);
+      radiusB = radiusA.inverse();
+    }
+
+    let angleDistance = radiusA.angle().distance(radiusB.angle(), orientation);
+    let quarterAngle = angleDistance.mult(1/4);
+    // TODO: what happens with square angles? is this covered by intersection logic?
+    let quarterTan = quarterAngle.tan();
+
+    let tangentA = quarterTan * radiusA.length * 4/3;
+    let anchorA = this.pointAtDistance(tangentA);
+
+    let tangentB = quarterTan * radiusB.length * 4/3;
+    let anchorB = otherRay.pointAtDistance(tangentB);
+
+    return new Rac.Bezier(this.rac,
+        this.start, anchorA,
+        anchorB, otherRay.start);
+  }
+
 } // class Ray
 
 
