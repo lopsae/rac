@@ -571,6 +571,7 @@ class Ray {
 
   // RELEASE-TODO: document
   // RELEASE-TODO: test
+  // based on https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
   bezierArc(otherRay) {
     if (this.start.equals(otherRay.start)) {
       // When both rays have the same start, returns a point bezier.
@@ -613,16 +614,16 @@ class Ray {
       radiusB = radiusA.inverse();
     }
 
-    let angleDistance = radiusA.angle().distance(radiusB.angle(), orientation);
-    let quarterAngle = angleDistance.mult(1/4);
-    // TODO: what happens with square angles? is this covered by intersection logic?
-    let quarterTan = quarterAngle.tan();
+    const angleDistance = radiusA.angle().distance(radiusB.angle(), orientation);
+    const quarterAngle = angleDistance.mult(1/4);
+    // RELEASE-TODO: what happens with square angles? is this covered by intersection logic?
+    const quarterTan = quarterAngle.tan();
 
-    let tangentA = quarterTan * radiusA.length * 4/3;
-    let anchorA = this.pointAtDistance(tangentA);
+    const tangentA = quarterTan * radiusA.length * 4/3;
+    const anchorA = this.pointAtDistance(tangentA);
 
-    let tangentB = quarterTan * radiusB.length * 4/3;
-    let anchorB = otherRay.pointAtDistance(tangentB);
+    const tangentB = quarterTan * radiusB.length * 4/3;
+    const anchorB = otherRay.pointAtDistance(tangentB);
 
     return new Rac.Bezier(this.rac,
         this.start, anchorA,
