@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.1.0 - x
+---------
++ Add `point.pointAtBisector`
+
+
 1.1.0 - 2021 October 13th
 -------------------------
 Finalize and document Controls and Styles

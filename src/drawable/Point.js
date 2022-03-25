@@ -246,6 +246,15 @@ class Point{
   }
 
 
+  // RELEASE-TODO: document
+  // RELEASE-TODO: test
+  pointAtBisector(point) {
+    let xOffset = (point.x - this.x) / 2;
+    let yOffset = (point.y - this.y) / 2;
+    return new Point(this.rac, this.x + xOffset, this.y + yOffset);
+  }
+
+
   /**
   * Returns a new `Ray` from `this` towards `angle`.
   * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`

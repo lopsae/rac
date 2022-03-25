@@ -4,6 +4,7 @@ TODO's
 
 In progress
 -----------
++ document/test point.pointAtBisector
 
 
 
