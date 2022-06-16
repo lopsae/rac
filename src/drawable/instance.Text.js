@@ -16,7 +16,7 @@ module.exports = function attachRacText(rac) {
 
   rac.Text.Format = function(
     horizontal, vertical,
-    font = null,
+    font = Rac.Text.Format.defaultFont,
     angle = rac.Angle.zero,
     size = Rac.Text.Format.defaultSize)
   {
@@ -28,15 +28,18 @@ module.exports = function attachRacText(rac) {
   };
 
 
+  // RELEASE-TODO: how are these updated if defaults change afterwards? specially font
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
+    Rac.Text.Format.defaultFont,
     rac.Angle.zero,
     Rac.Text.Format.defaultSize);
 
   rac.Text.Format.topRight = rac.Text.Format(
     Rac.Text.Format.horizontal.right,
     Rac.Text.Format.vertical.top,
+    Rac.Text.Format.defaultFont,
     rac.Angle.zero,
     Rac.Text.Format.defaultSize);
 
