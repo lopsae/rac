@@ -12,8 +12,6 @@ const utils = require('../util/utils');
 */
 class TextFormat {
 
-  static defaultSize = 15;
-
   static horizontal = {
     left: "left",
     center: "horizontalCenter",
@@ -27,10 +25,18 @@ class TextFormat {
     baseline: "baseline"
   };
 
+  // RELEASE-TODO: document
+  static defaultSize = 15;
+  static defaultHorizAlign = TextFormat.horizontal.left;
+  static defaultVertAlign = TextFormat.vertical.top;
+  static defaultFont = null;
+
+  // RELEASE-TODO: make font and size optional?
   constructor(
     rac,
-    horizontal, vertical,
-    font = null,
+    horizontal = TextFormat.defaultHorizAlign,
+    vertical = TextFormat.defaultVertAlign,
+    font = TextFormat.defaultFont,
     angle = rac.Angle.zero,
     size = TextFormat.defaultSize)
   {

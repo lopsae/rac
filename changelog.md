@@ -7,6 +7,8 @@ Changelog
 + Add `ray.bezierArc`
 + Add `segment.inverse`
 + Add `text.format.toString`
++ Add `Text.Format.defaultFont`, `Text.Format.defaultHorizAlign`, `Text.Format.defaultVertAlign`
++ Modify `Text.Format` constructor default values
 
 
 1.1.0 - 2021 October 13th
