@@ -68,7 +68,6 @@ class Rac {
     this.equalityThreshold = 0.001;
 
 
-
     /**
     * Value used to determine equality between two unitary numeric values.
     * Used for values that tend to exist in the `[0, 1]` range, like

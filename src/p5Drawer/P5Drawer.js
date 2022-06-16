@@ -293,31 +293,31 @@ class P5Drawer {
     // Applies all text properties and translates to the given `point`.
     // After the format is applied the text should be drawn at the origin.
     Rac.Text.Format.prototype.apply = function(point) {
-      let hAlign;
-      let hOptions = Rac.Text.Format.horizontal;
+      let horizAlign;
+      let horizOptions = Rac.Text.Format.horizontal;
       switch (this.horizontal) {
-        case hOptions.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
-        case hOptions.center: hAlign = this.rac.drawer.p5.CENTER; break;
-        case hOptions.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
+        case horizOptions.left:   horizAlign = this.rac.drawer.p5.LEFT;   break;
+        case horizOptions.center: horizAlign = this.rac.drawer.p5.CENTER; break;
+        case horizOptions.right:  horizAlign = this.rac.drawer.p5.RIGHT;  break;
         default:
           console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
-      let vAlign;
-      let vOptions = Rac.Text.Format.vertical;
+      let vertAlign;
+      let vertOptions = Rac.Text.Format.vertical;
       switch (this.vertical) {
-        case vOptions.top:      vAlign = this.rac.drawer.p5.TOP;      break;
-        case vOptions.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vOptions.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
-        case vOptions.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
+        case vertOptions.top:      vertAlign = this.rac.drawer.p5.TOP;      break;
+        case vertOptions.bottom:   vertAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vertOptions.center:   vertAlign = this.rac.drawer.p5.CENTER;   break;
+        case vertOptions.baseline: vertAlign = this.rac.drawer.p5.BASELINE; break;
         default:
           console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
       // Text properties
-      this.rac.drawer.p5.textAlign(hAlign, vAlign);
+      this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
       this.rac.drawer.p5.textSize(this.size);
       if (this.font !== null) {
         this.rac.drawer.p5.textFont(this.font);
