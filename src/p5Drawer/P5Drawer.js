@@ -72,6 +72,7 @@ class P5Drawer {
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
     this.setupAllApplyFunctions();
+    // TODO: add a customized function for new classes!
   }
 
   // Adds a DrawRoutine for the given class.
