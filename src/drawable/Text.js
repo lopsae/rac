@@ -87,6 +87,16 @@ class TextFormat {
       this.size);
   }
 
+  /**
+  * Returns a string representation intended for human consumption.
+  * @returns {string}
+  */
+  toString(digits = null) {
+    const angleStr = utils.cutDigits(this.angle.turn, digits);
+    const sizeStr = utils.cutDigits(this.size, digits);
+    return `Text.Format(ha:${this.horizontal} va:${this.vertical} f:${this.font} a:${angleStr} s:${sizeStr})`;
+  }
+
 } // class TextFormat
 
 

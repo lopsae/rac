@@ -6,6 +6,7 @@ Changelog
 + Add `point.pointAtBisector`
 + Add `ray.bezierArc`
 + Add `segment.inverse`
++ Add `text.format.toString`
 
 
 1.1.0 - 2021 October 13th
