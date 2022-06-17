@@ -25,7 +25,7 @@ class TextFormat {
     baseline: "baseline"
   };
 
-  // RELEASE-TODO: document
+  // RELEASE-TODO: document - document
   static defaultSize = 15;
   static defaultHorizAlign = TextFormat.horizontal.left;
   static defaultVertAlign = TextFormat.vertical.top;
@@ -80,14 +80,36 @@ class TextFormat {
   }
 
 
-  withAngle(angle) {
-    angle = Rac.Angle.from(this.rac, angle);
+  // RELEASE-TODO: document - document
+  withAngle(newAngle) {
+    newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
       this.horizontal, this.vertical,
-      angle,
+      newAngle,
       this.font,
       this.size);
   }
+
+
+  // RELEASE-TODO: document - document
+  withFont(newFont) {
+    return new TextFormat(this.rac,
+      this.horizontal, this.vertical,
+      this.angle,
+      newFont,
+      this.size);
+  }
+
+
+  // RELEASE-TODO: document - document
+  withSize(newSize) {
+    return new TextFormat(this.rac,
+      this.horizontal, this.vertical,
+      this.angle,
+      this.font,
+      newSize);
+  }
+
 
   /**
   * Returns a string representation intended for human consumption.
@@ -115,7 +137,7 @@ class Text {
 
   static Format = TextFormat;
 
-  // RELEASE-TODO make text format optional
+  // RELEASE-TODO: document - document
   constructor(rac, point, string, format) {
     utils.assertExists(rac, point, string, format);
     utils.assertType(Rac.Point, point);
@@ -125,6 +147,20 @@ class Text {
     this.point = point;
     this.string = string;
     this.format = format;
+  }
+
+
+  // RELEASE-TODO: document - document
+  withFont(newFont) {
+    const newFormat = this.format.withFont(newFont);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  // RELEASE-TODO: document - document
+  withSize(newSize) {
+    const newFormat = this.format.withSize(newSize);
+    return new Text(this.rac, this.point, this.string, newFormat);
   }
 
 
