@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.0 - x
+1.2.0-dev - IN PROGRESS
 ---------
 + Add `point.pointAtBisector`
 + Add `ray.bezierArc`
