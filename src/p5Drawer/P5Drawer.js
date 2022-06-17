@@ -288,54 +288,9 @@ class P5Drawer {
       text.format.apply(text.point);
       drawer.p5.text(text.string, 0, 0);
     });
+    // `text.format.apply` makes translate and rotation modifications to
+    // the drawing matrix, this requires a push-pop on every draw
     this.setDrawOptions(Rac.Text, {requiresPushPop: true});
-
-    // Applies all text properties and translates to the given `point`.
-    // After the format is applied the text should be drawn at the origin.
-    Rac.Text.Format.prototype.apply = function(point) {
-      let horizAlign;
-      let horizOptions = Rac.Text.Format.horizontal;
-      switch (this.horizontal) {
-        case horizOptions.left:   horizAlign = this.rac.drawer.p5.LEFT;   break;
-        case horizOptions.center: horizAlign = this.rac.drawer.p5.CENTER; break;
-        case horizOptions.right:  horizAlign = this.rac.drawer.p5.RIGHT;  break;
-        default:
-          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      let vertAlign;
-      let vertOptions = Rac.Text.Format.vertical;
-      switch (this.vertical) {
-        case vertOptions.top:      vertAlign = this.rac.drawer.p5.TOP;      break;
-        case vertOptions.bottom:   vertAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vertOptions.center:   vertAlign = this.rac.drawer.p5.CENTER;   break;
-        case vertOptions.baseline: vertAlign = this.rac.drawer.p5.BASELINE; break;
-        default:
-          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      // Align
-      this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
-
-      // Size
-      const textSize = this.size ?? Rac.Text.Format.defaultSize;
-      this.rac.drawer.p5.textSize(textSize);
-
-      // Font
-      const textFont = this.font ?? Rac.Text.Format.defaultFont;
-      if (textFont !== null) {
-        this.rac.drawer.p5.textFont(textFont);
-      }
-
-      // Positioning
-      this.rac.drawer.p5.translate(point.x, point.y);
-      if (this.angle.turn != 0) {
-        this.rac.drawer.p5.rotate(this.angle.radians());
-      }
-    } // Rac.Text.Format.prototype.apply
-
   } // setupAllDrawFunctions
 
 
@@ -418,6 +373,58 @@ class P5Drawer {
         item.apply();
       });
     });
+
+    // Text.Format
+    // Applies all text properties and translates to the given `point`.
+    // After the format is applied the text should be drawn at the origin.
+    //
+    // Calling this function requires a push-pop to the drawing style
+    // settings since translate and rotation modifications are made to the
+    // drawing matrix. Otherwise all other subsequent drawing will be
+    // impacted.
+    Rac.Text.Format.prototype.apply = function(point) {
+      let horizAlign;
+      let horizOptions = Rac.Text.Format.horizontal;
+      switch (this.horizontal) {
+        case horizOptions.left:   horizAlign = this.rac.drawer.p5.LEFT;   break;
+        case horizOptions.center: horizAlign = this.rac.drawer.p5.CENTER; break;
+        case horizOptions.right:  horizAlign = this.rac.drawer.p5.RIGHT;  break;
+        default:
+          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      let vertAlign;
+      let vertOptions = Rac.Text.Format.vertical;
+      switch (this.vertical) {
+        case vertOptions.top:      vertAlign = this.rac.drawer.p5.TOP;      break;
+        case vertOptions.bottom:   vertAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vertOptions.center:   vertAlign = this.rac.drawer.p5.CENTER;   break;
+        case vertOptions.baseline: vertAlign = this.rac.drawer.p5.BASELINE; break;
+        default:
+          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      // Align
+      this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
+
+      // Size
+      const textSize = this.size ?? Rac.Text.Format.defaultSize;
+      this.rac.drawer.p5.textSize(textSize);
+
+      // Font
+      const textFont = this.font ?? Rac.Text.Format.defaultFont;
+      if (textFont !== null) {
+        this.rac.drawer.p5.textFont(textFont);
+      }
+
+      // Positioning
+      this.rac.drawer.p5.translate(point.x, point.y);
+      if (this.angle.turn != 0) {
+        this.rac.drawer.p5.rotate(this.angle.radians());
+      }
+    } // Rac.Text.Format.prototype.apply
 
   } // setupAllApplyFunctions
 
