@@ -1,12 +1,12 @@
-// RAC - ruler-and-compass - 1.1.0 850-409e8eb 
+// RAC - ruler-and-compass - 1.2.0-dev 883-fbfc6b5
 // Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
 // Ruler and Compass - version and build
 module.exports = {
-	version: '1.1.0',
-	build: '850-409e8eb'
+	version: '1.2.0-dev',
+	build: '883-fbfc6b5'
 };
 
 
@@ -81,7 +81,6 @@ class Rac {
     this.equalityThreshold = 0.001;
 
 
-
     /**
     * Value used to determine equality between two unitary numeric values.
     * Used for values that tend to exist in the `[0, 1]` range, like
@@ -95,6 +94,9 @@ class Rac {
     * @type {number}
     */
     this.unitaryEqualityThreshold = 0.0000003;
+
+
+    // TODO: also add utils to instance
 
     this.stack = [];
     this.shapeStack = [];
@@ -2493,7 +2495,7 @@ class Angle {
 
 
   /**
-  * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
+  * Returns a new `Angle` with `turn` set to `this.turn * factor`.
   *
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
@@ -4233,6 +4235,15 @@ class Point{
   }
 
 
+  // RELEASE-TODO: document
+  // RELEASE-TODO: test
+  pointAtBisector(point) {
+    const xOffset = (point.x - this.x) / 2;
+    const yOffset = (point.y - this.y) / 2;
+    return new Point(this.rac, this.x + xOffset, this.y + yOffset);
+  }
+
+
   /**
   * Returns a new `Ray` from `this` towards `angle`.
   * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`
@@ -4424,9 +4435,9 @@ class Point{
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
   * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} [someStart=rac.Angle.zero] - The start
+  * @param {Rac.Angle|number} [start=rac.Angle.zero] - The start
   * `Angle` of the new `Arc`
-  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new
+  * @param {?Rac.Angle|number} [end=null] - The end `Angle` of the new
   * `Arc`; when `null` or ommited, `start` is used instead
   * @param {boolean=} clockwise=true - The orientation of the new `Arc`
   * @returns {Rac.Arc}
@@ -4446,12 +4457,16 @@ class Point{
 
 
   /**
-  * Returns a new `Text` with the given `string` and `format`.
+  * Returns a new `Text` located at `this` with the given `string` and
+  * `format`.
   * @param {string} string - The string of the new `Text`
-  * @param {Rac.Text.Format} format - The format of the new `Text`
+  * @param {Rac.Text.Format} [format=null] - The format of the new `Text`;
+  * when ommited a default format is created instead.
   * @returns {Rac.Text}
   */
-  text(string, format) {
+  // RELEASE-TODO: check if test needs to udpate
+  text(string, format = null) {
+    format = format ?? new Rac.Text.Format(this.rac);
     return new Rac.Text(this.rac, this, string, format);
   }
 
@@ -5032,6 +5047,68 @@ class Ray {
       clockwise);
   }
 
+
+  // RELEASE-TODO: document
+  // RELEASE-TODO: test
+  // based on https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
+  bezierArc(otherRay) {
+    if (this.start.equals(otherRay.start)) {
+      // When both rays have the same start, returns a point bezier.
+      return new Rac.Bezier(this.rac,
+        this.start, this.start,
+        this.start, this.start);
+    }
+
+    let intersection = this.perpendicular()
+      .pointAtIntersection(otherRay.perpendicular());
+
+    let orientation = null;
+    let radiusA = null;
+    let radiusB = null;
+
+    // Check for parallel rays
+    if (intersection !== null) {
+      // Normal intersection case
+      orientation = this.pointOrientation(intersection);
+      radiusA = intersection.segmentToPoint(this.start);
+      radiusB = intersection.segmentToPoint(otherRay.start);
+
+    } else {
+      // In case of parallel rays, otherRay gets shifted to be
+      // perpendicular to this.
+      let shiftedIntersection = this.perpendicular()
+        .pointAtIntersection(otherRay);
+      if (shiftedIntersection === null || this.start.equals(shiftedIntersection)) {
+        // When both rays lay on top of each other, the shifting produces
+        // rays with the same start; function returns a linear bezier.
+        return new Rac.Bezier(this.rac,
+          this.start, this.start,
+          otherRay.start, otherRay.start);
+      }
+      intersection = this.start.pointAtBisector(shiftedIntersection);
+
+      // Case for shifted intersection between two rays
+      orientation = this.pointOrientation(intersection);
+      radiusA = intersection.segmentToPoint(this.start);
+      radiusB = radiusA.inverse();
+    }
+
+    const angleDistance = radiusA.angle().distance(radiusB.angle(), orientation);
+    const quarterAngle = angleDistance.mult(1/4);
+    // RELEASE-TODO: what happens with square angles? is this covered by intersection logic?
+    const quarterTan = quarterAngle.tan();
+
+    const tangentA = quarterTan * radiusA.length * 4/3;
+    const anchorA = this.pointAtDistance(tangentA);
+
+    const tangentB = quarterTan * radiusB.length * 4/3;
+    const anchorB = otherRay.pointAtDistance(tangentB);
+
+    return new Rac.Bezier(this.rac,
+        this.start, anchorA,
+        anchorB, otherRay.start);
+  }
+
 } // class Ray
 
 
@@ -5303,6 +5380,14 @@ class Segment {
   */
   withEndExtension(distance) {
     return this.withLengthAdd(distance);
+  }
+
+
+  // RELEASE-TODO: document
+  // RELEASE-TODO: test
+  inverse() {
+    const newRay = this.ray.inverse();
+    return new Segment(this.rac, newRay, this.length);
   }
 
 
@@ -5804,8 +5889,6 @@ const utils = require('../util/utils');
 */
 class TextFormat {
 
-  static defaultSize = 15;
-
   static horizontal = {
     left: "left",
     center: "horizontalCenter",
@@ -5819,64 +5902,106 @@ class TextFormat {
     baseline: "baseline"
   };
 
+  // RELEASE-TODO: document - test
+  static defaultSize = 15;
+  static defaultHorizAlign = TextFormat.horizontal.left;
+  static defaultVertAlign = TextFormat.vertical.top;
+  static defaultFont = null;
+
+  // RELEASE-TODO: document - test
   constructor(
     rac,
-    horizontal, vertical,
-    font = null,
+    horizontal = TextFormat.defaultHorizAlign,
+    vertical = TextFormat.defaultVertAlign,
     angle = rac.Angle.zero,
-    size = TextFormat.defaultSize)
+    font = null,
+    size = null)
   {
     utils.assertExists(rac);
     utils.assertString(horizontal, vertical);
     utils.assertType(Rac.Angle, angle);
-    utils.assertNumber(size);
+    font !== null && utils.assertString(font);
+    size !== null && utils.assertNumber(size);
+
     this.rac = rac;
     this.horizontal = horizontal;
     this.vertical = vertical;
-    this.font = font;
     this.angle = angle;
+    this.font = font;
     this.size = size;
   }
 
   // Returns a format to draw text in the same position as `self` with
   // the inverse angle.
+  // RELEASE-TODO: document - test
   inverse() {
     let hEnum = TextFormat.horizontal;
     let vEnum = TextFormat.vertical;
     let horizontal, vertical;
     switch (this.horizontal) {
-      case hEnum.left:
-        horizontal = hEnum.right; break;
-      case hEnum.right:
-        horizontal = hEnum.left; break;
-      default:
-        horizontal = this.horizontal; break;
+      case hEnum.left:  horizontal = hEnum.right; break;
+      case hEnum.right: horizontal = hEnum.left; break;
+      default:          horizontal = this.horizontal; break;
     }
     switch (this.vertical) {
-      case vEnum.top:
-        vertical = vEnum.bottom; break;
-      case vEnum.bottom:
-        vertical = vEnum.top; break;
-      default:
-        vertical = this.vertical; break;
+      case vEnum.top:    vertical = vEnum.bottom; break;
+      case vEnum.bottom: vertical = vEnum.top; break;
+      default:           vertical = this.vertical; break;
     }
 
     return new TextFormat(
       this.rac,
       horizontal, vertical,
-      this.font,
       this.angle.inverse(),
+      this.font,
       this.size)
   }
 
 
-  withAngle(angle) {
-    angle = Rac.Angle.from(this.rac, angle);
+  // RELEASE-TODO: document - test
+  withAngle(newAngle) {
+    newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
       this.horizontal, this.vertical,
+      newAngle,
       this.font,
-      angle,
       this.size);
+  }
+
+
+  // RELEASE-TODO: document - test
+  withFont(newFont) {
+    return new TextFormat(this.rac,
+      this.horizontal, this.vertical,
+      this.angle,
+      newFont,
+      this.size);
+  }
+
+
+  // RELEASE-TODO: document - test
+  withSize(newSize) {
+    return new TextFormat(this.rac,
+      this.horizontal, this.vertical,
+      this.angle,
+      this.font,
+      newSize);
+  }
+
+
+  /**
+  * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
+  */
+  toString(digits = null) {
+    const angleStr = utils.cutDigits(this.angle.turn, digits);
+    const sizeStr = this.size === null
+      ? "null"
+      : utils.cutDigits(this.size, digits);
+    return `Text.Format(ha:${this.horizontal} va:${this.vertical} a:${angleStr} f:${this.font} s:${sizeStr})`;
   }
 
 } // class TextFormat
@@ -5890,6 +6015,7 @@ class Text {
 
   static Format = TextFormat;
 
+  // RELEASE-TODO: document - test
   constructor(rac, point, string, format) {
     utils.assertExists(rac, point, string, format);
     utils.assertType(Rac.Point, point);
@@ -5902,12 +6028,38 @@ class Text {
   }
 
 
+  // RELEASE-TODO: document - test
+  withAngle(newAngle) {
+    const newFormat = this.format.withAngle(newAngle);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  // RELEASE-TODO: document - test
+  withFont(newFont) {
+    const newFormat = this.format.withFont(newFont);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  // RELEASE-TODO: document - test
+  withSize(newSize) {
+    const newFormat = this.format.withSize(newSize);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
-  toString() {
-    return `Text((${this.point.x},${this.point.y}) "${this.string}")`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.point.x, digits);
+    const yStr = utils.cutDigits(this.point.y, digits);
+    return `Text((${xStr},${yStr}) "${this.string}")`;
   }
 
 } // class Text
@@ -6332,31 +6484,46 @@ module.exports = function attachRacText(rac) {
   // Intended to receive a Rac instance as parameter
 
 
+  // RELEASE-TODO: document - test
   rac.Text.Format = function(
-    horizontal, vertical,
-    font = null,
+    horizontal = Rac.Text.Format.defaultHorizAlign,
+    vertical = Rac.Text.Format.defaultVertAlign,
     angle = rac.Angle.zero,
-    size = Rac.Text.Format.defaultSize)
+    font = null,
+    size = null)
   {
     angle = rac.Angle.from(angle);
     return new Rac.Text.Format(
       rac,
       horizontal, vertical,
-      font, angle, size);
+      angle, font, size);
   };
 
 
+  // RELEASE-TODO: document - test
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultSize);
+    Rac.Text.Format.vertical.top);
 
   rac.Text.Format.topRight = rac.Text.Format(
     Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultSize);
+    Rac.Text.Format.vertical.top);
+
+  rac.Text.Format.centerLeft = rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.center);
+
+  rac.Text.Format.centerRight = rac.Text.Format(
+    Rac.Text.Format.horizontal.right,
+    Rac.Text.Format.vertical.center);
+
+  rac.Text.Format.bottomLeft = rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.bottom);
+
+  rac.Text.Format.bottomRight = rac.Text.Format(
+    Rac.Text.Format.horizontal.right,
+    Rac.Text.Format.vertical.bottom);
 
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at
@@ -6491,6 +6658,7 @@ class P5Drawer {
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
     this.setupAllApplyFunctions();
+    // TODO: add a customized function for new classes!
   }
 
   // Adds a DrawRoutine for the given class.
@@ -6706,48 +6874,9 @@ class P5Drawer {
       text.format.apply(text.point);
       drawer.p5.text(text.string, 0, 0);
     });
+    // `text.format.apply` makes translate and rotation modifications to
+    // the drawing matrix, this requires a push-pop on every draw
     this.setDrawOptions(Rac.Text, {requiresPushPop: true});
-
-    // Applies all text properties and translates to the given `point`.
-    // After the format is applied the text should be drawn at the origin.
-    Rac.Text.Format.prototype.apply = function(point) {
-      let hAlign;
-      let hOptions = Rac.Text.Format.horizontal;
-      switch (this.horizontal) {
-        case hOptions.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
-        case hOptions.center: hAlign = this.rac.drawer.p5.CENTER; break;
-        case hOptions.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
-        default:
-          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      let vAlign;
-      let vOptions = Rac.Text.Format.vertical;
-      switch (this.vertical) {
-        case vOptions.top:      vAlign = this.rac.drawer.p5.TOP;      break;
-        case vOptions.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vOptions.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
-        case vOptions.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
-        default:
-          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      // Text properties
-      this.rac.drawer.p5.textAlign(hAlign, vAlign);
-      this.rac.drawer.p5.textSize(this.size);
-      if (this.font !== null) {
-        this.rac.drawer.p5.textFont(this.font);
-      }
-
-      // Positioning
-      this.rac.drawer.p5.translate(point.x, point.y);
-      if (this.angle.turn != 0) {
-        this.rac.drawer.p5.rotate(this.angle.radians());
-      }
-    } // Rac.Text.Format.prototype.apply
-
   } // setupAllDrawFunctions
 
 
@@ -6771,6 +6900,7 @@ class P5Drawer {
       } else {
         functions.debugAngle(drawer, this, point, drawsText);
       }
+      return this;
     };
 
     Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
@@ -6829,6 +6959,58 @@ class P5Drawer {
         item.apply();
       });
     });
+
+    // Text.Format
+    // Applies all text properties and translates to the given `point`.
+    // After the format is applied the text should be drawn at the origin.
+    //
+    // Calling this function requires a push-pop to the drawing style
+    // settings since translate and rotation modifications are made to the
+    // drawing matrix. Otherwise all other subsequent drawing will be
+    // impacted.
+    Rac.Text.Format.prototype.apply = function(point) {
+      let horizAlign;
+      let horizOptions = Rac.Text.Format.horizontal;
+      switch (this.horizontal) {
+        case horizOptions.left:   horizAlign = this.rac.drawer.p5.LEFT;   break;
+        case horizOptions.center: horizAlign = this.rac.drawer.p5.CENTER; break;
+        case horizOptions.right:  horizAlign = this.rac.drawer.p5.RIGHT;  break;
+        default:
+          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      let vertAlign;
+      let vertOptions = Rac.Text.Format.vertical;
+      switch (this.vertical) {
+        case vertOptions.top:      vertAlign = this.rac.drawer.p5.TOP;      break;
+        case vertOptions.bottom:   vertAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vertOptions.center:   vertAlign = this.rac.drawer.p5.CENTER;   break;
+        case vertOptions.baseline: vertAlign = this.rac.drawer.p5.BASELINE; break;
+        default:
+          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      // Align
+      this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
+
+      // Size
+      const textSize = this.size ?? Rac.Text.Format.defaultSize;
+      this.rac.drawer.p5.textSize(textSize);
+
+      // Font
+      const textFont = this.font ?? Rac.Text.Format.defaultFont;
+      if (textFont !== null) {
+        this.rac.drawer.p5.textFont(textFont);
+      }
+
+      // Positioning
+      this.rac.drawer.p5.translate(point.x, point.y);
+      if (this.angle.turn != 0) {
+        this.rac.drawer.p5.rotate(this.angle.radians());
+      }
+    } // Rac.Text.Format.prototype.apply
 
   } // setupAllApplyFunctions
 
@@ -7217,8 +7399,8 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.center,
-    drawer.debugTextOptions.font,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
@@ -7265,8 +7447,8 @@ exports.debugPoint = function(drawer, point, drawsText) {
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
-    drawer.debugTextOptions.font,
     rac.Angle.e,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   point
     .pointToAngle(rac.Angle.se, pointRadius*2)
@@ -7332,10 +7514,10 @@ exports.debugRay = function(drawer, ray, drawsText) {
   // Normal orientation
   let startFormat = new Rac.Text.Format(rac,
     hFormat.left, vFormat.bottom,
-    font, angle, size);
+    angle, font, size);
   let angleFormat = new Rac.Text.Format(rac,
     hFormat.left, vFormat.top,
-    font, angle, size);
+    angle, font, size);
   if (reversesText(angle)) {
     // Reverse orientation
     startFormat = startFormat.inverse();
@@ -7429,15 +7611,15 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.bottom,
-    drawer.debugTextOptions.font,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let angleFormat = new Rac.Text.Format(
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
-    drawer.debugTextOptions.font,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
@@ -7596,22 +7778,22 @@ exports.debugArc = function(drawer, arc, drawsText) {
     rac,
     hFormat.left,
     headVertical,
-    drawer.debugTextOptions.font,
     arc.start,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let tailFormat = new Rac.Text.Format(
     rac,
     hFormat.left,
     tailVertical,
-    drawer.debugTextOptions.font,
     arc.end,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let radiusFormat = new Rac.Text.Format(
     rac,
     hFormat.left,
     radiusVertical,
-    drawer.debugTextOptions.font,
     arc.start,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
 
   // Reverse orientation
