@@ -14,6 +14,7 @@ module.exports = function attachRacText(rac) {
   // Intended to receive a Rac instance as parameter
 
 
+  // RELEASE-TODO: document - test
   rac.Text.Format = function(
     horizontal = Rac.Text.Format.defaultHorizAlign,
     vertical = Rac.Text.Format.defaultVertAlign,
@@ -29,7 +30,7 @@ module.exports = function attachRacText(rac) {
   };
 
 
-  // RELEASE-TODO: how are these updated if defaults change afterwards? specially font
+  // RELEASE-TODO: document - test
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top);

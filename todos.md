@@ -9,7 +9,6 @@ In progress
 + document/test segment.inverse
 + Fix RELEASE-TODOs
 + Add docs to rac.Text.Format.topLeft and rac.Text.Format.topRight
-+ Allow point.text function to skip text format, is there a text format default?
 + rename TextFormat hor/ver to hAnchor, vAnchor?
 + Allow Text to have trailing function to modify anchor
 + Add documentation to TextFormat, check https://p5js.org/reference/#/p5/textAlign for examples for names and description

@@ -25,13 +25,13 @@ class TextFormat {
     baseline: "baseline"
   };
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   static defaultSize = 15;
   static defaultHorizAlign = TextFormat.horizontal.left;
   static defaultVertAlign = TextFormat.vertical.top;
   static defaultFont = null;
 
-  // RELEASE-TODO: document and test
+  // RELEASE-TODO: document - test
   constructor(
     rac,
     horizontal = TextFormat.defaultHorizAlign,
@@ -56,6 +56,7 @@ class TextFormat {
 
   // Returns a format to draw text in the same position as `self` with
   // the inverse angle.
+  // RELEASE-TODO: document - test
   inverse() {
     let hEnum = TextFormat.horizontal;
     let vEnum = TextFormat.vertical;
@@ -80,7 +81,7 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   withAngle(newAngle) {
     newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
@@ -91,7 +92,7 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   withFont(newFont) {
     return new TextFormat(this.rac,
       this.horizontal, this.vertical,
@@ -101,7 +102,7 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   withSize(newSize) {
     return new TextFormat(this.rac,
       this.horizontal, this.vertical,
@@ -137,7 +138,7 @@ class Text {
 
   static Format = TextFormat;
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   constructor(rac, point, string, format) {
     utils.assertExists(rac, point, string, format);
     utils.assertType(Rac.Point, point);
@@ -150,14 +151,14 @@ class Text {
   }
 
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   withFont(newFont) {
     const newFormat = this.format.withFont(newFont);
     return new Text(this.rac, this.point, this.string, newFormat);
   }
 
 
-  // RELEASE-TODO: document - document
+  // RELEASE-TODO: document - test
   withSize(newSize) {
     const newFormat = this.format.withSize(newSize);
     return new Text(this.rac, this.point, this.string, newFormat);
