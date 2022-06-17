@@ -31,14 +31,14 @@ class TextFormat {
   static defaultVertAlign = TextFormat.vertical.top;
   static defaultFont = null;
 
-  // RELEASE-TODO: make font and size optional?
+  // RELEASE-TODO: document and test
   constructor(
     rac,
     horizontal = TextFormat.defaultHorizAlign,
     vertical = TextFormat.defaultVertAlign,
     angle = rac.Angle.zero,
-    font = TextFormat.defaultFont,
-    size = TextFormat.defaultSize)
+    font = null,
+    size = null)
   {
     utils.assertExists(rac);
     utils.assertString(horizontal, vertical);
@@ -61,20 +61,14 @@ class TextFormat {
     let vEnum = TextFormat.vertical;
     let horizontal, vertical;
     switch (this.horizontal) {
-      case hEnum.left:
-        horizontal = hEnum.right; break;
-      case hEnum.right:
-        horizontal = hEnum.left; break;
-      default:
-        horizontal = this.horizontal; break;
+      case hEnum.left:  horizontal = hEnum.right; break;
+      case hEnum.right: horizontal = hEnum.left; break;
+      default:          horizontal = this.horizontal; break;
     }
     switch (this.vertical) {
-      case vEnum.top:
-        vertical = vEnum.bottom; break;
-      case vEnum.bottom:
-        vertical = vEnum.top; break;
-      default:
-        vertical = this.vertical; break;
+      case vEnum.top:    vertical = vEnum.bottom; break;
+      case vEnum.bottom: vertical = vEnum.top; break;
+      default:           vertical = this.vertical; break;
     }
 
     return new TextFormat(
@@ -101,7 +95,9 @@ class TextFormat {
   */
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
-    const sizeStr = utils.cutDigits(this.size, digits);
+    const sizeStr = this.size === null
+      ? "null"
+      : utils.cutDigits(this.size, digits);
     return `Text.Format(ha:${this.horizontal} va:${this.vertical} a:${angleStr} f:${this.font} s:${sizeStr})`;
   }
 

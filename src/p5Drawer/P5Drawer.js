@@ -316,11 +316,17 @@ class P5Drawer {
           throw Rac.Error.invalidObjectConfiguration;
       }
 
-      // Text properties
+      // Align
       this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
-      this.rac.drawer.p5.textSize(this.size);
-      if (this.font !== null) {
-        this.rac.drawer.p5.textFont(this.font);
+
+      // Size
+      const textSize = this.size ?? Rac.Text.Format.defaultSize;
+      this.rac.drawer.p5.textSize(textSize);
+
+      // Font
+      const textFont = this.font ?? Rac.Text.Format.defaultFont;
+      if (textFont !== null) {
+        this.rac.drawer.p5.textFont(textFont);
       }
 
       // Positioning

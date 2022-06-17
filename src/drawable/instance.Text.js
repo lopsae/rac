@@ -15,10 +15,11 @@ module.exports = function attachRacText(rac) {
 
 
   rac.Text.Format = function(
-    horizontal, vertical,
+    horizontal = Rac.Text.Format.defaultHorizAlign,
+    vertical = Rac.Text.Format.defaultVertAlign,
     angle = rac.Angle.zero,
-    font = Rac.Text.Format.defaultFont,
-    size = Rac.Text.Format.defaultSize)
+    font = null,
+    size = null)
   {
     angle = rac.Angle.from(angle);
     return new Rac.Text.Format(
@@ -31,17 +32,27 @@ module.exports = function attachRacText(rac) {
   // RELEASE-TODO: how are these updated if defaults change afterwards? specially font
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultFont,
-    Rac.Text.Format.defaultSize);
+    Rac.Text.Format.vertical.top);
 
   rac.Text.Format.topRight = rac.Text.Format(
     Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultFont,
-    Rac.Text.Format.defaultSize);
+    Rac.Text.Format.vertical.top);
+
+  rac.Text.Format.centerLeft = rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.center);
+
+  rac.Text.Format.centerRight = rac.Text.Format(
+    Rac.Text.Format.horizontal.right,
+    Rac.Text.Format.vertical.center);
+
+  rac.Text.Format.bottomLeft = rac.Text.Format(
+    Rac.Text.Format.horizontal.left,
+    Rac.Text.Format.vertical.bottom);
+
+  rac.Text.Format.bottomRight = rac.Text.Format(
+    Rac.Text.Format.horizontal.right,
+    Rac.Text.Format.vertical.bottom);
 
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at

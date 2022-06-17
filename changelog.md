@@ -8,7 +8,8 @@ Changelog
 + Add `segment.inverse`
 + Add `text.format.toString`
 + Add `Text.Format.defaultFont`, `Text.Format.defaultHorizAlign`, `Text.Format.defaultVertAlign`
-+ Modify `Text.Format` constructor default values
++ Modify `Text.Format` constructor defaults and parameter order
++ Modify `Text.Format` to allow nullable `size` and `font`
 + Fix incorrect values set in `rac.Text.Format.topLeft` and `rac.Text.Format.topRight`
 
 
