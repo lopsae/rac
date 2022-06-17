@@ -23,6 +23,11 @@ In files:
 + hardcoded in jsdoc.json
 + hardcoded in docs/index.md
 
+Update `package-lock.json` by running:
+```
+npm install
+```
+
 Commit message: `bump version to n.e.w`
 
 
@@ -63,7 +68,7 @@ Build latest docs
 npm run docs:fresh
 ```
 
-Commit message: `rebuilt docs`
+Commit message: `rebuilt docs for n.e.w`
 
 
 
