@@ -8,7 +8,7 @@ Changelog
 + Add `segment.inverse`
 + Add `text.format.toString`
 + Add `Text.Format.defaultFont`, `Text.Format.defaultHorizAlign`, `Text.Format.defaultVertAlign`
-+ Add `text.withFont`, `text.withSize`
++ Add `text.withAngle`, `text.withFont`, `text.withSize`
 + Add `text.format.withFont`, `text.format.withSize`
 + Modify `Text.Format` constructor defaults and parameter order
 + Modify `Text.Format` to allow nullable `size` and `font`

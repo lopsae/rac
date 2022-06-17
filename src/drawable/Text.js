@@ -152,6 +152,13 @@ class Text {
 
 
   // RELEASE-TODO: document - test
+  withAngle(newAngle) {
+    const newFormat = this.format.withAngle(newAngle);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  // RELEASE-TODO: document - test
   withFont(newFont) {
     const newFormat = this.format.withFont(newFont);
     return new Text(this.rac, this.point, this.string, newFormat);
