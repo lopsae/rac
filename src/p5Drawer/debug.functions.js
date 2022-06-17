@@ -59,8 +59,8 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.center,
-    drawer.debugTextOptions.font,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
@@ -107,8 +107,8 @@ exports.debugPoint = function(drawer, point, drawsText) {
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
-    drawer.debugTextOptions.font,
     rac.Angle.e,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   point
     .pointToAngle(rac.Angle.se, pointRadius*2)
@@ -174,10 +174,10 @@ exports.debugRay = function(drawer, ray, drawsText) {
   // Normal orientation
   let startFormat = new Rac.Text.Format(rac,
     hFormat.left, vFormat.bottom,
-    font, angle, size);
+    angle, font, size);
   let angleFormat = new Rac.Text.Format(rac,
     hFormat.left, vFormat.top,
-    font, angle, size);
+    angle, font, size);
   if (reversesText(angle)) {
     // Reverse orientation
     startFormat = startFormat.inverse();
@@ -271,15 +271,15 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.bottom,
-    drawer.debugTextOptions.font,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let angleFormat = new Rac.Text.Format(
     rac,
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
-    drawer.debugTextOptions.font,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
@@ -438,22 +438,22 @@ exports.debugArc = function(drawer, arc, drawsText) {
     rac,
     hFormat.left,
     headVertical,
-    drawer.debugTextOptions.font,
     arc.start,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let tailFormat = new Rac.Text.Format(
     rac,
     hFormat.left,
     tailVertical,
-    drawer.debugTextOptions.font,
     arc.end,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let radiusFormat = new Rac.Text.Format(
     rac,
     hFormat.left,
     radiusVertical,
-    drawer.debugTextOptions.font,
     arc.start,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
 
   // Reverse orientation

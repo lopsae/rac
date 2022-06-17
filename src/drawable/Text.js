@@ -36,19 +36,21 @@ class TextFormat {
     rac,
     horizontal = TextFormat.defaultHorizAlign,
     vertical = TextFormat.defaultVertAlign,
-    font = TextFormat.defaultFont,
     angle = rac.Angle.zero,
+    font = TextFormat.defaultFont,
     size = TextFormat.defaultSize)
   {
     utils.assertExists(rac);
     utils.assertString(horizontal, vertical);
     utils.assertType(Rac.Angle, angle);
-    utils.assertNumber(size);
+    font !== null && utils.assertString(font);
+    size !== null && utils.assertNumber(size);
+
     this.rac = rac;
     this.horizontal = horizontal;
     this.vertical = vertical;
-    this.font = font;
     this.angle = angle;
+    this.font = font;
     this.size = size;
   }
 
@@ -78,8 +80,8 @@ class TextFormat {
     return new TextFormat(
       this.rac,
       horizontal, vertical,
-      this.font,
       this.angle.inverse(),
+      this.font,
       this.size)
   }
 
@@ -88,8 +90,8 @@ class TextFormat {
     angle = Rac.Angle.from(this.rac, angle);
     return new TextFormat(this.rac,
       this.horizontal, this.vertical,
-      this.font,
       angle,
+      this.font,
       this.size);
   }
 
@@ -100,7 +102,7 @@ class TextFormat {
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
     const sizeStr = utils.cutDigits(this.size, digits);
-    return `Text.Format(ha:${this.horizontal} va:${this.vertical} f:${this.font} a:${angleStr} s:${sizeStr})`;
+    return `Text.Format(ha:${this.horizontal} va:${this.vertical} a:${angleStr} f:${this.font} s:${sizeStr})`;
   }
 
 } // class TextFormat
@@ -114,6 +116,7 @@ class Text {
 
   static Format = TextFormat;
 
+  // RELEASE-TODO make text format optional
   constructor(rac, point, string, format) {
     utils.assertExists(rac, point, string, format);
     utils.assertType(Rac.Point, point);

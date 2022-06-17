@@ -16,15 +16,15 @@ module.exports = function attachRacText(rac) {
 
   rac.Text.Format = function(
     horizontal, vertical,
-    font = Rac.Text.Format.defaultFont,
     angle = rac.Angle.zero,
+    font = Rac.Text.Format.defaultFont,
     size = Rac.Text.Format.defaultSize)
   {
     angle = rac.Angle.from(angle);
     return new Rac.Text.Format(
       rac,
       horizontal, vertical,
-      font, angle, size);
+      angle, font, size);
   };
 
 
@@ -32,15 +32,15 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontal.left,
     Rac.Text.Format.vertical.top,
-    Rac.Text.Format.defaultFont,
     rac.Angle.zero,
+    Rac.Text.Format.defaultFont,
     Rac.Text.Format.defaultSize);
 
   rac.Text.Format.topRight = rac.Text.Format(
     Rac.Text.Format.horizontal.right,
     Rac.Text.Format.vertical.top,
-    Rac.Text.Format.defaultFont,
     rac.Angle.zero,
+    Rac.Text.Format.defaultFont,
     Rac.Text.Format.defaultSize);
 
   /**
