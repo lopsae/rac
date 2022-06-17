@@ -7,11 +7,11 @@ In progress
 + document/test point.pointAtBisector
 + document/test ray.bezierArc
 + document/test segment.inverse
-+ Fix RELEASE-TODOs
++ Fix RELEASE-TODO's
 + Add docs to rac.Text.Format.topLeft and rac.Text.Format.topRight
 + rename TextFormat hor/ver to hAnchor, vAnchor?
-+ Allow Text to have trailing function to modify anchor
 + Add documentation to TextFormat, check https://p5js.org/reference/#/p5/textAlign for examples for names and description
++ Text.Format.defaults may need to move to rac instance, otherwise these are shared between instances
 
 
 For version change
