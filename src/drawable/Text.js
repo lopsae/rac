@@ -91,6 +91,9 @@ class TextFormat {
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
   toString(digits = null) {
@@ -127,10 +130,15 @@ class Text {
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
-  toString() {
-    return `Text((${this.point.x},${this.point.y}) "${this.string}")`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.point.x, digits);
+    const yStr = utils.cutDigits(this.point.y, digits);
+    return `Text((${xStr},${yStr}) "${this.string}")`;
   }
 
 } // class Text

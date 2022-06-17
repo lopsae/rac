@@ -446,9 +446,9 @@ class Point{
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
   * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} [someStart=rac.Angle.zero] - The start
+  * @param {Rac.Angle|number} [start=rac.Angle.zero] - The start
   * `Angle` of the new `Arc`
-  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new
+  * @param {?Rac.Angle|number} [end=null] - The end `Angle` of the new
   * `Arc`; when `null` or ommited, `start` is used instead
   * @param {boolean=} clockwise=true - The orientation of the new `Arc`
   * @returns {Rac.Arc}
@@ -468,12 +468,16 @@ class Point{
 
 
   /**
-  * Returns a new `Text` with the given `string` and `format`.
+  * Returns a new `Text` located at `this` with the given `string` and
+  * `format`.
   * @param {string} string - The string of the new `Text`
-  * @param {Rac.Text.Format} format - The format of the new `Text`
+  * @param {Rac.Text.Format} [format=null] - The format of the new `Text`;
+  * when ommited a default format is created instead.
   * @returns {Rac.Text}
   */
-  text(string, format) {
+  // RELEASE-TODO: check if test needs to udpate
+  text(string, format = null) {
+    format = format ?? new Rac.Text.Format(this.rac);
     return new Rac.Text(this.rac, this, string, format);
   }
 
