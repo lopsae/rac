@@ -383,31 +383,31 @@ class P5Drawer {
     // drawing matrix. Otherwise all other subsequent drawing will be
     // impacted.
     Rac.Text.Format.prototype.apply = function(point) {
-      let horizAlign;
-      let horizOptions = Rac.Text.Format.horizontal;
-      switch (this.horizontal) {
-        case horizOptions.left:   horizAlign = this.rac.drawer.p5.LEFT;   break;
-        case horizOptions.center: horizAlign = this.rac.drawer.p5.CENTER; break;
-        case horizOptions.right:  horizAlign = this.rac.drawer.p5.RIGHT;  break;
+      let hAlign;
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      switch (this.hAlign) {
+        case hEnum.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
+        case hEnum.center: hAlign = this.rac.drawer.p5.CENTER; break;
+        case hEnum.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
         default:
-          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+          console.trace(`Invalid hAlign configuration - hAlign:${this.hAlign}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
-      let vertAlign;
-      let vertOptions = Rac.Text.Format.vertical;
-      switch (this.vertical) {
-        case vertOptions.top:      vertAlign = this.rac.drawer.p5.TOP;      break;
-        case vertOptions.bottom:   vertAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vertOptions.center:   vertAlign = this.rac.drawer.p5.CENTER;   break;
-        case vertOptions.baseline: vertAlign = this.rac.drawer.p5.BASELINE; break;
+      let vAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      switch (this.vAlign) {
+        case vEnum.top:      vAlign = this.rac.drawer.p5.TOP;      break;
+        case vEnum.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vEnum.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
+        case vEnum.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
         default:
-          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+          console.trace(`Invalid vAlign configuration - vAlign:${this.vAlign}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
       // Align
-      this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
+      this.rac.drawer.p5.textAlign(hAlign, vAlign);
 
       // Size
       const textSize = this.size ?? this.rac.textFormatDefaults.size;

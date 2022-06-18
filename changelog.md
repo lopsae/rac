@@ -15,6 +15,8 @@ Changelog
 + Modify `Text.Format` to allow nullable `size` and `font`
 + Fix incorrect values set in `rac.Text.Format.topLeft` and `rac.Text.Format.topRight`
 + Modify `point.text` to allow an optional `format` parameter
++ Rename `Text.Format.horizontal` to `horizontalAlign`
++ Rename `Text.Format.vertical` to `verticalAlign`
 
 
 1.1.0 - 2021 October 13th

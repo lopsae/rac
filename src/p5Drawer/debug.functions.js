@@ -57,8 +57,8 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Normal orientation
   let format = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.center,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.center,
     angle,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
@@ -105,8 +105,8 @@ exports.debugPoint = function(drawer, point, drawsText) {
   let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
   let format = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top,
     rac.Angle.e,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
@@ -165,18 +165,18 @@ exports.debugRay = function(drawer, ray, drawsText) {
   if (drawsText !== true) { return; }
 
   const angle  = ray.angle;
-  const hFormat = Rac.Text.Format.horizontal;
-  const vFormat = Rac.Text.Format.vertical;
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
   const font   = drawer.debugTextOptions.font;
   const size   = drawer.debugTextOptions.size;
   const digits = drawer.debugTextOptions.fixedDigits;
 
   // Normal orientation
   let startFormat = new Rac.Text.Format(rac,
-    hFormat.left, vFormat.bottom,
+    hEnum.left, vEnum.bottom,
     angle, font, size);
   let angleFormat = new Rac.Text.Format(rac,
-    hFormat.left, vFormat.top,
+    hEnum.left, vEnum.top,
     angle, font, size);
   if (reversesText(angle)) {
     // Reverse orientation
@@ -269,15 +269,15 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Normal orientation
   let lengthFormat = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.bottom,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.bottom,
     angle,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let angleFormat = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top,
     angle,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
@@ -420,37 +420,37 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let hFormat = Rac.Text.Format.horizontal;
-  let vFormat = Rac.Text.Format.vertical;
+  let hEnum = Rac.Text.Format.horizontalAlign;
+  let vEnum = Rac.Text.Format.verticalAlign;
 
   let headVertical = arc.clockwise
-    ? vFormat.top
-    : vFormat.bottom;
+    ? vEnum.top
+    : vEnum.bottom;
   let tailVertical = arc.clockwise
-    ? vFormat.bottom
-    : vFormat.top;
+    ? vEnum.bottom
+    : vEnum.top;
   let radiusVertical = arc.clockwise
-    ? vFormat.bottom
-    : vFormat.top;
+    ? vEnum.bottom
+    : vEnum.top;
 
   // Normal orientation
   let headFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     headVertical,
     arc.start,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let tailFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     tailVertical,
     arc.end,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let radiusFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     radiusVertical,
     arc.start,
     drawer.debugTextOptions.font,

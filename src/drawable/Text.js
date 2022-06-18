@@ -12,13 +12,15 @@ const utils = require('../util/utils');
 */
 class TextFormat {
 
-  static horizontal = {
+  // RELEASE-TODO: document
+  static horizontalAlign = {
     left: "left",
     center: "horizontalCenter",
     right: "right"
   };
 
-  static vertical = {
+  // RELEASE-TODO: document
+  static verticalAlign = {
     top: "top",
     bottom: "bottom",
     center: "verticalCenter",
@@ -29,21 +31,21 @@ class TextFormat {
   // RELEASE-TODO: document - test
   constructor(
     rac,
-    horizontal,
-    vertical,
+    hAlign,
+    vAlign,
     angle = rac.Angle.zero,
     font = null,
     size = null)
   {
     utils.assertExists(rac);
-    utils.assertString(horizontal, vertical);
+    utils.assertString(hAlign, vAlign);
     utils.assertType(Rac.Angle, angle);
     font !== null && utils.assertString(font);
     size !== null && utils.assertNumber(size);
 
     this.rac = rac;
-    this.horizontal = horizontal;
-    this.vertical = vertical;
+    this.hAlign = hAlign;
+    this.vAlign = vAlign;
     this.angle = angle;
     this.font = font;
     this.size = size;
@@ -53,23 +55,23 @@ class TextFormat {
   // the inverse angle.
   // RELEASE-TODO: document - test
   inverse() {
-    let hEnum = TextFormat.horizontal;
-    let vEnum = TextFormat.vertical;
-    let horizontal, vertical;
-    switch (this.horizontal) {
-      case hEnum.left:  horizontal = hEnum.right; break;
-      case hEnum.right: horizontal = hEnum.left; break;
-      default:          horizontal = this.horizontal; break;
+    let hEnum = TextFormat.horizontalAlign;
+    let vEnum = TextFormat.verticalAlign;
+    let hAlign, vAlign;
+    switch (this.hAlign) {
+      case hEnum.left:  hAlign = hEnum.right; break;
+      case hEnum.right: hAlign = hEnum.left; break;
+      default:          hAlign = this.hAlign; break;
     }
-    switch (this.vertical) {
-      case vEnum.top:    vertical = vEnum.bottom; break;
-      case vEnum.bottom: vertical = vEnum.top; break;
-      default:           vertical = this.vertical; break;
+    switch (this.vAlign) {
+      case vEnum.top:    vAlign = vEnum.bottom; break;
+      case vEnum.bottom: vAlign = vEnum.top; break;
+      default:           vAlign = this.vAlign; break;
     }
 
     return new TextFormat(
       this.rac,
-      horizontal, vertical,
+      hAlign, vAlign,
       this.angle.inverse(),
       this.font,
       this.size)
@@ -80,7 +82,7 @@ class TextFormat {
   withAngle(newAngle) {
     newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
+      this.hAlign, this.vAlign,
       newAngle,
       this.font,
       this.size);
@@ -90,7 +92,7 @@ class TextFormat {
   // RELEASE-TODO: document - test
   withFont(newFont) {
     return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
+      this.hAlign, this.vAlign,
       this.angle,
       newFont,
       this.size);
@@ -100,7 +102,7 @@ class TextFormat {
   // RELEASE-TODO: document - test
   withSize(newSize) {
     return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
+      this.hAlign, this.vAlign,
       this.angle,
       this.font,
       newSize);
@@ -119,7 +121,7 @@ class TextFormat {
     const sizeStr = this.size === null
       ? "null"
       : utils.cutDigits(this.size, digits);
-    return `Text.Format(ha:${this.horizontal} va:${this.vertical} a:${angleStr} f:${this.font} s:${sizeStr})`;
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${this.font} s:${sizeStr})`;
   }
 
 } // class TextFormat

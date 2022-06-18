@@ -16,8 +16,8 @@ module.exports = function attachRacText(rac) {
 
   // RELEASE-TODO: document - test
   rac.Text.Format = function(
-    horizontal,
-    vertical,
+    hAlign,
+    vAlign,
     angle = rac.Angle.zero,
     font = null,
     size = null)
@@ -25,35 +25,35 @@ module.exports = function attachRacText(rac) {
     angle = rac.Angle.from(angle);
     return new Rac.Text.Format(
       rac,
-      horizontal, vertical,
+      hAlign, vAlign,
       angle, font, size);
   };
 
 
   // RELEASE-TODO: document - test
   rac.Text.Format.topLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top);
 
   rac.Text.Format.topRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.top);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.top);
 
   rac.Text.Format.centerLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.center);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.center);
 
   rac.Text.Format.centerRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.center);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.center);
 
   rac.Text.Format.bottomLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.bottom);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.bottom);
 
   rac.Text.Format.bottomRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.bottom);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.bottom);
 
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at
