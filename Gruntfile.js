@@ -73,9 +73,9 @@ module.exports = function(grunt) {
     }, // connect
 
     watch: {
-      serve: {
+      serve_again: {
         files: ['src/**/*.js'],
-        tasks: ['makeVersionFile', 'browserify']
+        tasks: ['makeVersionFile', 'browserify:dev']
       }
     }, // watch
 
@@ -282,7 +282,7 @@ module.exports = function(grunt) {
     'makeVersionFile',
     'browserify:dev',
     'connect:server',
-    'watch:serve']);
+    'watch:serve_again']);
 
 
   // Builds a dev/main/mini bundle with a clean version, serves it for
