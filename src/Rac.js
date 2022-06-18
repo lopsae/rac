@@ -84,10 +84,12 @@ class Rac {
 
 
     // TODO: also add utils to instance
+    this.utils = utils
 
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
+
 
     /**
     * Drawer of the instance. This object handles the drawing of all

@@ -10,6 +10,7 @@ Changelog
 + Add `Text.Format.defaultFont`, `Text.Format.defaultHorizAlign`, `Text.Format.defaultVertAlign`
 + Add `text.withAngle`, `text.withFont`, `text.withSize`
 + Add `text.format.withFont`, `text.format.withSize`
++ Add `rac.utils`
 + Modify `Text.Format` constructor defaults and parameter order
 + Modify `Text.Format` to allow nullable `size` and `font`
 + Fix incorrect values set in `rac.Text.Format.topLeft` and `rac.Text.Format.topRight`
