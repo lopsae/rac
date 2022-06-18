@@ -25,17 +25,12 @@ class TextFormat {
     baseline: "baseline"
   };
 
-  // RELEASE-TODO: document - test
-  static defaultSize = 15;
-  static defaultHorizAlign = TextFormat.horizontal.left;
-  static defaultVertAlign = TextFormat.vertical.top;
-  static defaultFont = null;
 
   // RELEASE-TODO: document - test
   constructor(
     rac,
-    horizontal = TextFormat.defaultHorizAlign,
-    vertical = TextFormat.defaultVertAlign,
+    horizontal,
+    vertical,
     angle = rac.Angle.zero,
     font = null,
     size = null)

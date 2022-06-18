@@ -44,7 +44,7 @@ class P5Drawer {
     */
     this.debugTextOptions = {
       font: 'monospace',
-      size: Rac.Text.Format.defaultSize,
+      size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };
 
@@ -410,11 +410,11 @@ class P5Drawer {
       this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
 
       // Size
-      const textSize = this.size ?? Rac.Text.Format.defaultSize;
+      const textSize = this.size ?? this.rac.textFormatDefaults.size;
       this.rac.drawer.p5.textSize(textSize);
 
       // Font
-      const textFont = this.font ?? Rac.Text.Format.defaultFont;
+      const textFont = this.font ?? this.rac.textFormatDefaults.font;
       if (textFont !== null) {
         this.rac.drawer.p5.textFont(textFont);
       }

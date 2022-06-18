@@ -472,12 +472,14 @@ class Point{
   * `format`.
   * @param {string} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=null] - The format of the new `Text`;
-  * when ommited a default format is created instead.
+  * when ommited `[instance.Text.Format.topLeft]{@link instance.Text.Format#topLeft}`
+  * is used instead.
   * @returns {Rac.Text}
   */
+  // RELEASE-TODO: check link
   // RELEASE-TODO: check if test needs to udpate
   text(string, format = null) {
-    format = format ?? new Rac.Text.Format(this.rac);
+    format = format ?? this.rac.Text.Format.topLeft;
     return new Rac.Text(this.rac, this, string, format);
   }
 

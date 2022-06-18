@@ -7,7 +7,7 @@ Changelog
 + Add `ray.bezierArc`
 + Add `segment.inverse`
 + Add `text.format.toString`
-+ Add `Text.Format.defaultFont`, `Text.Format.defaultHorizAlign`, `Text.Format.defaultVertAlign`
++ Add `rac.textFormatDefaults`
 + Add `text.withAngle`, `text.withFont`, `text.withSize`
 + Add `text.format.withFont`, `text.format.withSize`
 + Add `rac.utils`

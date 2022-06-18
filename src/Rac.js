@@ -83,12 +83,19 @@ class Rac {
     this.unitaryEqualityThreshold = 0.0000003;
 
 
-    // TODO: also add utils to instance
+    // RELEASE-TODO: document
     this.utils = utils
 
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
+
+
+    // RELEASE-TODO: document - test
+    this.textFormatDefaults = {
+      font: null,
+      size: 15
+    };
 
 
     /**

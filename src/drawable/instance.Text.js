@@ -16,8 +16,8 @@ module.exports = function attachRacText(rac) {
 
   // RELEASE-TODO: document - test
   rac.Text.Format = function(
-    horizontal = Rac.Text.Format.defaultHorizAlign,
-    vertical = Rac.Text.Format.defaultVertAlign,
+    horizontal,
+    vertical,
     angle = rac.Angle.zero,
     font = null,
     size = null)
