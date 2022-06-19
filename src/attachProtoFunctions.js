@@ -4,8 +4,9 @@
 const utils = require('./util/utils');
 
 
-// Attaches functions to attach drawing and apply methods to other
-// prototypes.
+// Attaches utility functions to a Rac instance that add functions to all
+// drawable and style class prototypes.
+//
 // Intended to receive the Rac class as parameter.
 module.exports = function attachProtoFunctions(Rac) {
 
