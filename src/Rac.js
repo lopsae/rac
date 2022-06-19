@@ -331,6 +331,7 @@ Rac.setupStyleProtoFunctions(Rac.StyleContainer);
 
 // Angle
 Rac.Angle = require('./drawable/Angle');
+Rac.Angle.prototype.log = Rac.drawableProtoFunctions.log;
 
 
 // Point
