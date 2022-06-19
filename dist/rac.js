@@ -1,4 +1,4 @@
-// RAC - ruler-and-compass - 1.2.0-dev 883-fbfc6b5
+// RAC - ruler-and-compass - 1.2.0-dev 891-7ff81e5
 // Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
@@ -6,7 +6,7 @@
 // Ruler and Compass - version and build
 module.exports = {
 	version: '1.2.0-dev',
-	build: '883-fbfc6b5'
+	build: '891-7ff81e5'
 };
 
 
@@ -96,11 +96,20 @@ class Rac {
     this.unitaryEqualityThreshold = 0.0000003;
 
 
-    // TODO: also add utils to instance
+    // RELEASE-TODO: document
+    this.utils = utils
 
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
+
+
+    // RELEASE-TODO: document - test
+    this.textFormatDefaults = {
+      font: null,
+      size: 15
+    };
+
 
     /**
     * Drawer of the instance. This object handles the drawing of all
@@ -335,6 +344,7 @@ Rac.setupStyleProtoFunctions(Rac.StyleContainer);
 
 // Angle
 Rac.Angle = require('./drawable/Angle');
+Rac.Angle.prototype.log = Rac.drawableProtoFunctions.log;
 
 
 // Point
@@ -697,8 +707,9 @@ module.exports = function attachInstanceFunctions(rac) {
 const utils = require('./util/utils');
 
 
-// Attaches functions to attach drawing and apply methods to other
-// prototypes.
+// Attaches utility functions to a Rac instance that add functions to all
+// drawable and style class prototypes.
+//
 // Intended to receive the Rac class as parameter.
 module.exports = function attachProtoFunctions(Rac) {
 
@@ -4461,12 +4472,14 @@ class Point{
   * `format`.
   * @param {string} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=null] - The format of the new `Text`;
-  * when ommited a default format is created instead.
+  * when ommited `[instance.Text.Format.topLeft]{@link instance.Text.Format#topLeft}`
+  * is used instead.
   * @returns {Rac.Text}
   */
+  // RELEASE-TODO: check link
   // RELEASE-TODO: check if test needs to udpate
   text(string, format = null) {
-    format = format ?? new Rac.Text.Format(this.rac);
+    format = format ?? this.rac.Text.Format.topLeft;
     return new Rac.Text(this.rac, this, string, format);
   }
 
@@ -5889,43 +5902,40 @@ const utils = require('../util/utils');
 */
 class TextFormat {
 
-  static horizontal = {
+  // RELEASE-TODO: document
+  static horizontalAlign = {
     left: "left",
     center: "horizontalCenter",
     right: "right"
   };
 
-  static vertical = {
+  // RELEASE-TODO: document
+  static verticalAlign = {
     top: "top",
     bottom: "bottom",
     center: "verticalCenter",
     baseline: "baseline"
   };
 
-  // RELEASE-TODO: document - test
-  static defaultSize = 15;
-  static defaultHorizAlign = TextFormat.horizontal.left;
-  static defaultVertAlign = TextFormat.vertical.top;
-  static defaultFont = null;
 
   // RELEASE-TODO: document - test
   constructor(
     rac,
-    horizontal = TextFormat.defaultHorizAlign,
-    vertical = TextFormat.defaultVertAlign,
+    hAlign,
+    vAlign,
     angle = rac.Angle.zero,
     font = null,
     size = null)
   {
     utils.assertExists(rac);
-    utils.assertString(horizontal, vertical);
+    utils.assertString(hAlign, vAlign);
     utils.assertType(Rac.Angle, angle);
     font !== null && utils.assertString(font);
     size !== null && utils.assertNumber(size);
 
     this.rac = rac;
-    this.horizontal = horizontal;
-    this.vertical = vertical;
+    this.hAlign = hAlign;
+    this.vAlign = vAlign;
     this.angle = angle;
     this.font = font;
     this.size = size;
@@ -5935,23 +5945,23 @@ class TextFormat {
   // the inverse angle.
   // RELEASE-TODO: document - test
   inverse() {
-    let hEnum = TextFormat.horizontal;
-    let vEnum = TextFormat.vertical;
-    let horizontal, vertical;
-    switch (this.horizontal) {
-      case hEnum.left:  horizontal = hEnum.right; break;
-      case hEnum.right: horizontal = hEnum.left; break;
-      default:          horizontal = this.horizontal; break;
+    let hEnum = TextFormat.horizontalAlign;
+    let vEnum = TextFormat.verticalAlign;
+    let hAlign, vAlign;
+    switch (this.hAlign) {
+      case hEnum.left:  hAlign = hEnum.right; break;
+      case hEnum.right: hAlign = hEnum.left; break;
+      default:          hAlign = this.hAlign; break;
     }
-    switch (this.vertical) {
-      case vEnum.top:    vertical = vEnum.bottom; break;
-      case vEnum.bottom: vertical = vEnum.top; break;
-      default:           vertical = this.vertical; break;
+    switch (this.vAlign) {
+      case vEnum.top:    vAlign = vEnum.bottom; break;
+      case vEnum.bottom: vAlign = vEnum.top; break;
+      default:           vAlign = this.vAlign; break;
     }
 
     return new TextFormat(
       this.rac,
-      horizontal, vertical,
+      hAlign, vAlign,
       this.angle.inverse(),
       this.font,
       this.size)
@@ -5962,7 +5972,7 @@ class TextFormat {
   withAngle(newAngle) {
     newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
+      this.hAlign, this.vAlign,
       newAngle,
       this.font,
       this.size);
@@ -5972,7 +5982,7 @@ class TextFormat {
   // RELEASE-TODO: document - test
   withFont(newFont) {
     return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
+      this.hAlign, this.vAlign,
       this.angle,
       newFont,
       this.size);
@@ -5982,7 +5992,7 @@ class TextFormat {
   // RELEASE-TODO: document - test
   withSize(newSize) {
     return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
+      this.hAlign, this.vAlign,
       this.angle,
       this.font,
       newSize);
@@ -6001,7 +6011,7 @@ class TextFormat {
     const sizeStr = this.size === null
       ? "null"
       : utils.cutDigits(this.size, digits);
-    return `Text.Format(ha:${this.horizontal} va:${this.vertical} a:${angleStr} f:${this.font} s:${sizeStr})`;
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${this.font} s:${sizeStr})`;
   }
 
 } // class TextFormat
@@ -6486,8 +6496,8 @@ module.exports = function attachRacText(rac) {
 
   // RELEASE-TODO: document - test
   rac.Text.Format = function(
-    horizontal = Rac.Text.Format.defaultHorizAlign,
-    vertical = Rac.Text.Format.defaultVertAlign,
+    hAlign,
+    vAlign,
     angle = rac.Angle.zero,
     font = null,
     size = null)
@@ -6495,35 +6505,35 @@ module.exports = function attachRacText(rac) {
     angle = rac.Angle.from(angle);
     return new Rac.Text.Format(
       rac,
-      horizontal, vertical,
+      hAlign, vAlign,
       angle, font, size);
   };
 
 
   // RELEASE-TODO: document - test
   rac.Text.Format.topLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top);
 
   rac.Text.Format.topRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.top);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.top);
 
   rac.Text.Format.centerLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.center);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.center);
 
   rac.Text.Format.centerRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.center);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.center);
 
   rac.Text.Format.bottomLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.bottom);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.bottom);
 
   rac.Text.Format.bottomRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.bottom);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.bottom);
 
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at
@@ -6630,7 +6640,7 @@ class P5Drawer {
     */
     this.debugTextOptions = {
       font: 'monospace',
-      size: Rac.Text.Format.defaultSize,
+      size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };
 
@@ -6969,38 +6979,38 @@ class P5Drawer {
     // drawing matrix. Otherwise all other subsequent drawing will be
     // impacted.
     Rac.Text.Format.prototype.apply = function(point) {
-      let horizAlign;
-      let horizOptions = Rac.Text.Format.horizontal;
-      switch (this.horizontal) {
-        case horizOptions.left:   horizAlign = this.rac.drawer.p5.LEFT;   break;
-        case horizOptions.center: horizAlign = this.rac.drawer.p5.CENTER; break;
-        case horizOptions.right:  horizAlign = this.rac.drawer.p5.RIGHT;  break;
+      let hAlign;
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      switch (this.hAlign) {
+        case hEnum.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
+        case hEnum.center: hAlign = this.rac.drawer.p5.CENTER; break;
+        case hEnum.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
         default:
-          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
+          console.trace(`Invalid hAlign configuration - hAlign:${this.hAlign}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
-      let vertAlign;
-      let vertOptions = Rac.Text.Format.vertical;
-      switch (this.vertical) {
-        case vertOptions.top:      vertAlign = this.rac.drawer.p5.TOP;      break;
-        case vertOptions.bottom:   vertAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vertOptions.center:   vertAlign = this.rac.drawer.p5.CENTER;   break;
-        case vertOptions.baseline: vertAlign = this.rac.drawer.p5.BASELINE; break;
+      let vAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      switch (this.vAlign) {
+        case vEnum.top:      vAlign = this.rac.drawer.p5.TOP;      break;
+        case vEnum.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vEnum.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
+        case vEnum.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
         default:
-          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
+          console.trace(`Invalid vAlign configuration - vAlign:${this.vAlign}`);
           throw Rac.Error.invalidObjectConfiguration;
       }
 
       // Align
-      this.rac.drawer.p5.textAlign(horizAlign, vertAlign);
+      this.rac.drawer.p5.textAlign(hAlign, vAlign);
 
       // Size
-      const textSize = this.size ?? Rac.Text.Format.defaultSize;
+      const textSize = this.size ?? this.rac.textFormatDefaults.size;
       this.rac.drawer.p5.textSize(textSize);
 
       // Font
-      const textFont = this.font ?? Rac.Text.Format.defaultFont;
+      const textFont = this.font ?? this.rac.textFormatDefaults.font;
       if (textFont !== null) {
         this.rac.drawer.p5.textFont(textFont);
       }
@@ -7397,8 +7407,8 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Normal orientation
   let format = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.center,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.center,
     angle,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
@@ -7445,8 +7455,8 @@ exports.debugPoint = function(drawer, point, drawsText) {
   let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
   let format = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top,
     rac.Angle.e,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
@@ -7505,18 +7515,18 @@ exports.debugRay = function(drawer, ray, drawsText) {
   if (drawsText !== true) { return; }
 
   const angle  = ray.angle;
-  const hFormat = Rac.Text.Format.horizontal;
-  const vFormat = Rac.Text.Format.vertical;
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
   const font   = drawer.debugTextOptions.font;
   const size   = drawer.debugTextOptions.size;
   const digits = drawer.debugTextOptions.fixedDigits;
 
   // Normal orientation
   let startFormat = new Rac.Text.Format(rac,
-    hFormat.left, vFormat.bottom,
+    hEnum.left, vEnum.bottom,
     angle, font, size);
   let angleFormat = new Rac.Text.Format(rac,
-    hFormat.left, vFormat.top,
+    hEnum.left, vEnum.top,
     angle, font, size);
   if (reversesText(angle)) {
     // Reverse orientation
@@ -7609,15 +7619,15 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Normal orientation
   let lengthFormat = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.bottom,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.bottom,
     angle,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let angleFormat = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top,
     angle,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
@@ -7760,37 +7770,37 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let hFormat = Rac.Text.Format.horizontal;
-  let vFormat = Rac.Text.Format.vertical;
+  let hEnum = Rac.Text.Format.horizontalAlign;
+  let vEnum = Rac.Text.Format.verticalAlign;
 
   let headVertical = arc.clockwise
-    ? vFormat.top
-    : vFormat.bottom;
+    ? vEnum.top
+    : vEnum.bottom;
   let tailVertical = arc.clockwise
-    ? vFormat.bottom
-    : vFormat.top;
+    ? vEnum.bottom
+    : vEnum.top;
   let radiusVertical = arc.clockwise
-    ? vFormat.bottom
-    : vFormat.top;
+    ? vEnum.bottom
+    : vEnum.top;
 
   // Normal orientation
   let headFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     headVertical,
     arc.start,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let tailFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     tailVertical,
     arc.end,
     drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let radiusFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     radiusVertical,
     arc.start,
     drawer.debugTextOptions.font,
