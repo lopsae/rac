@@ -433,35 +433,80 @@ class P5Drawer {
 module.exports = P5Drawer;
 
 
-// Encapsulates the drawing function and options for a specific class.
-// The draw function is called with two parameters: the instance of the
-// drawer, and the object to draw.
+// Contains the drawing function and options for drawing objects of a
+// specific class.
 //
-// Optionally a `style` can be asigned to always be applied before
-// drawing an instance of the associated class. This style will be
-// applied before any styles provided to the `draw` function.
-//
-// Optionally `requiresPushPop` can be set to `true` to always peform
-// a `push` and `pop` before and after all the style and drawing in
-// the routine. This is intended for objects which drawing operations
-// may need to push transformation to the stack.
+// An instance is created for each drawable class that the drawer can
+// support, which contains all the settings needed for drawing.
 class DrawRoutine {
+
+  // TODO: Rename to drawableClass
   constructor (classObj, drawFunction) {
+    // Class associated with the contained settings.
     this.classObj = classObj;
+
+    // Drawing function for objects of type `classObj` with the signature:
+    // `drawFunction(drawer, objectOfClass)`
+    // + `drawer: P5Drawer` - Instance to use for drawing
+    // + `objectOfClass: classObj` - Instance of `classObj` to draw
+    //
+    // The function is intended to perform drawing using `drawer.p5`
+    // functions or calling `draw()` in other drawable objects. All styles
+    // are pushed beforehand and popped afterwards.
+    //
+    // In general it is expected that the `drawFunction` peforms no changes
+    // to the drawing settings in order for each drawing call to use only a
+    // single `push/pop` when necessary. For classes that require
+    // modifications to the drawing settings the `requiresPushPop`
+    // property can be set to force a `push/pop` with each drawing call
+    // regardless if styles are applied.
     this.drawFunction = drawFunction;
+
+    // When set, this style is always applied before each drawing call to
+    // objects of type `classObj`. This `style` is applied before the
+    // `style` provided to the drawing call.
     this.style = null;
 
-    // Options
+    // When set to `true`, a `push/pop` is always peformed before and after
+    // all the style are applied and drawing is performed. This is intended
+    // for objects which drawing operations may need to perform
+    // transformations to the drawing settings.
     this.requiresPushPop = false;
-  }
+  } // constructor
+
 } // DrawRoutine
 
 
+// Contains the debug-drawing function and options for debug-drawing
+// objects of a specific class.
+//
+// An instance is created for each drawable class that the drawer can
+// support, which contains all the settings needed for debug-drawing.
+//
+// When a drawable object does not have a `DebugRoutine` setup, calling
+// `debug()` simply calls `draw()` with the debug style applied.
 class DebugRoutine {
+
   constructor (classObj, debugFunction) {
+    // Class associated with the contained settings.
     this.classObj = classObj;
+
+    // Debug function for objects of type `classObj` with the signature:
+    // `debugFunction(drawer, objectOfClass, drawsText)`
+    // + `drawer: P5Drawer` - Instance to use for drawing
+    // + `objectOfClass: classObj` - Instance of `classObj` to debug
+    //
+    // The function is intended to perform debug-drawing using `drawer.p5`
+    // functions or calling `draw()` in other drawable objects. The debug
+    //style is pushed beforehand and popped afterwards.
+    //
+    // In general it is expected that the `drawFunction` peforms no changes
+    // to the drawing settings in order for each drawing call to use only a
+    // single `push/pop` when necessary.
+    //
     this.debugFunction = debugFunction;
-  }
+  } // constructor
+
 }
 
 
