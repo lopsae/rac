@@ -51,7 +51,7 @@ When possible, functions that create a new object should start with that object 
 + `arc.pointAtLength(length)`
 
 
-Sometimes functions that create a new object can start with a particular word to group several functions with related functionality, usually defines a caracteristic that is intrinsic to the instance, like radius for arcs, or *next* for segments:
+Sometimes functions that create a new object can start with a particular word to group several functions with related functionality, usually defines a caracteristic that is intrinsic to the instance, like *radius* for arcs, or *next* for segments:
 + `arc.radiusSegmentAtAngle(angle)`, `arc.radiusSegmentTowardsPoint(point)`
 + `segment.nextSegmentPerpendicular(clockwise, length)`, `nextSegmentToAngle(angle, length)`
 + `arc.intersectionArc(otherArc)`, `arc.intersectionChord(otherArc)`
@@ -63,8 +63,17 @@ When object type retured is same as instance, ommit type in function name:
 
 
 Functions that throw an error in a specific circumstance must mention it:
-+ `An error is thrown if `anchor` is not set.`
-+ `An error is thrown if `hexString` is misformatted or cannot be parsed.`
++ > An error is thrown if `anchor` is not set.
++ > An error is thrown if `hexString` is misformatted or cannot be parsed.
+
+Documentation that refers to the instance itself should use `this`.
++ Not: Class associated with the setings in the instance.
++ Instead: Class associated with the setings in `this`.
+
++ Not: Returns a new `Segment` using the object and the given `length`.
++ Instead: Returns a new `Segment` using `this` and the given `length`.
+
+
 
 
 
