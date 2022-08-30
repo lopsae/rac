@@ -63,8 +63,8 @@ When object type retured is same as instance, ommit type in function name:
 
 
 Functions that throw an error in a specific circumstance must mention it:
-+ > An error is thrown if `anchor` is not set.
-+ > An error is thrown if `hexString` is misformatted or cannot be parsed.
++ > An error is thrown when `anchor` is not set.
++ > An error is thrown when `hexString` is misformatted or cannot be parsed.
 
 Documentation that refers to the instance itself should use `this`.
 + Not: Class associated with the setings in the instance.

@@ -495,10 +495,12 @@ class DebugRoutine {
     // `debugFunction(drawer, objectOfClass, drawsText)`
     // + `drawer: P5Drawer` - Instance to use for drawing
     // + `objectOfClass: classObj` - Instance of `classObj` to debug
+    // + `drawsText: bool` - When `true` text should be drawn with
+    //   additional information.
     //
     // The function is intended to perform debug-drawing using `drawer.p5`
     // functions or calling `draw()` in other drawable objects. The debug
-    //style is pushed beforehand and popped afterwards.
+    // style is pushed beforehand and popped afterwards.
     //
     // In general it is expected that the `drawFunction` peforms no changes
     // to the drawing settings in order for each drawing call to use only a

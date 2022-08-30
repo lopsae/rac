@@ -316,7 +316,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Center markers
   let centerArcRadius = markerRadius * 2/3;
   if (arc.radius > markerRadius/3 && arc.radius < markerRadius) {
-    // If radius is to close to the center-arc markers
+    // If radius is too close to the center-arc markers
     // Make the center-arc be outside of the arc
     centerArcRadius = arc.radius + markerRadius/3;
   }
