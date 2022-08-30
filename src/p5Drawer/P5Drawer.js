@@ -75,8 +75,9 @@ class P5Drawer {
     // TODO: add a customized function for new classes!
   }
 
+
   /**
-  * Sets the given `drawFunction` to perform the drawing of instances of
+  * Sets the given `drawFunction` to perform the drawing for instances of
   * class `drawableClass`.
   *
   * `drawFunction` is expected to have the signature:
@@ -84,7 +85,7 @@ class P5Drawer {
   * drawFunction(drawer, objectOfClass)
   * ```
   * + `drawer: P5Drawer` - Instance to use for drawing
-  * + `objectOfClass: classObj` - Instance of `drawableClass` to draw
+  * + `objectOfClass: drawableClass` - Instance of `drawableClass` to draw
   *
   * @param {class} drawableClass - Class of the instances to draw
   * @param {function} drawFunction - Function that performs drawing
@@ -106,6 +107,7 @@ class P5Drawer {
     this.drawRoutines.push(routine);
   }
 
+
   setDrawOptions(classObj, options) {
     let routine = this.drawRoutines
       .find(routine => routine.classObj === classObj);
@@ -119,6 +121,7 @@ class P5Drawer {
     }
   }
 
+
   setClassDrawStyle(classObj, style) {
     let routine = this.drawRoutines
       .find(routine => routine.classObj === classObj);
@@ -130,15 +133,34 @@ class P5Drawer {
     routine.style = style;
   }
 
-  // Adds a DebugRoutine for the given class.
-  // RELEASE-TODO: document
-  setDebugFunction(classObj, debugFunction) {
+
+  /**
+  * Sets the given `debugFunction` to perform the debug-drawing for
+  * instances of class `drawableClass`.
+  *
+  * When a drawable class does not have a `debugFunction` setup, calling
+  * `drawable.debug()` simply calls `draw()` with
+  * `[debugStyle]{@link Rac.P5Drawer#debugStyle}` applied.
+  *
+  * `debugFunction` is expected to have the signature:
+  * ```
+  * debugFunction(drawer, objectOfClass, drawsText)
+  * ```
+  * + `drawer: P5Drawer` - Instance to use for drawing
+  * + `objectOfClass: drawableClass` - Instance of `drawableClass` to draw
+  * + `drawsText: bool` - When `true` text should be drawn with
+  *    additional information.
+  *
+  * @param {class} drawableClass - Class of the instances to draw
+  * @param {function} debugFunction - Function that performs debug-drawing
+  */
+  setDebugFunction(drawableClass, debugFunction) {
     let index = this.debugRoutines
-      .findIndex(routine => routine.classObj === classObj);
+      .findIndex(routine => routine.classObj === drawableClass);
 
     let routine;
     if (index === -1) {
-      routine = new DebugRoutine(classObj, debugFunction);
+      routine = new DebugRoutine(drawableClass, debugFunction);
     } else {
       routine = this.debugRoutines[index];
       routine.debugFunction = debugFunction;
@@ -148,6 +170,7 @@ class P5Drawer {
 
     this.debugRoutines.push(routine);
   }
+
 
   // Adds a ApplyRoutine for the given class.
   setApplyFunction(classObj, applyFunction) {
@@ -166,6 +189,7 @@ class P5Drawer {
 
     this.applyRoutines.push(routine);
   }
+
 
   drawObject(object, style = null) {
     let routine = this.drawRoutines
@@ -214,6 +238,7 @@ class P5Drawer {
     }
   }
 
+
   applyObject(object) {
     let routine = this.applyRoutines
       .find(routine => object instanceof routine.classObj);
@@ -224,6 +249,7 @@ class P5Drawer {
 
     routine.applyFunction(this, object);
   }
+
 
   // Sets up all drawing routines for rac drawable clases.
   // Also attaches additional prototype and static functions in relevant

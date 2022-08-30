@@ -18,6 +18,7 @@ Changelog
 + Modify `point.text` to allow an optional `format` parameter
 + Rename `Text.Format.horizontal` to `horizontalAlign`
 + Rename `Text.Format.vertical` to `verticalAlign`
++ Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`
 
 
 1.1.0 - 2021 October 13th
