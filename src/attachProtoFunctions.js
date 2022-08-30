@@ -21,6 +21,7 @@ module.exports = function attachProtoFunctions(Rac) {
   // Container of prototype functions for drawable classes.
   Rac.drawableProtoFunctions = {};
 
+  // RELEASE-TODO: document
   // Adds to the given class prototype all the functions contained in
   // `Rac.drawableProtoFunctions`. These are functions shared by all
   // drawable objects (E.g. `draw()` and `debug()`).

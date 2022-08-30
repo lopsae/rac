@@ -75,14 +75,27 @@ class P5Drawer {
     // TODO: add a customized function for new classes!
   }
 
-  // Adds a DrawRoutine for the given class.
-  setDrawFunction(classObj, drawFunction) {
+  /**
+  * Sets the given `drawFunction` to perform the drawing of instances of
+  * class `drawableClass`.
+  *
+  * `drawFunction` is expected to have the signature:
+  * ```
+  * drawFunction(drawer, objectOfClass)
+  * ```
+  * + `drawer: P5Drawer` - Instance to use for drawing
+  * + `objectOfClass: classObj` - Instance of `drawableClass` to draw
+  *
+  * @param {class} drawableClass - Class of the instances to draw
+  * @param {function} drawFunction - Function that performs drawing
+  */
+  setDrawFunction(drawableClass, drawFunction) {
     let index = this.drawRoutines
-      .findIndex(routine => routine.classObj === classObj);
+      .findIndex(routine => routine.classObj === drawableClass);
 
     let routine;
     if (index === -1) {
-      routine = new DrawRoutine(classObj, drawFunction);
+      routine = new DrawRoutine(drawableClass, drawFunction);
     } else {
       routine = this.drawRoutines[index];
       routine.drawFunction = drawFunction;
@@ -118,6 +131,7 @@ class P5Drawer {
   }
 
   // Adds a DebugRoutine for the given class.
+  // RELEASE-TODO: document
   setDebugFunction(classObj, debugFunction) {
     let index = this.debugRoutines
       .findIndex(routine => routine.classObj === classObj);
