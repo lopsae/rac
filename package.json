@@ -24,7 +24,7 @@
     "test:open": "open ./coverage/lcov-report/index.html",
     "docs": "grunt --debug makeDocs && npm run docs:open",
     "docs:open": "open ./docs/documentation/latest/index.html",
-    "docs:clean": "git checkout HEAD -- docs/documentation/latest",
+    "docs:clean": "git checkout HEAD -- docs/documentation/latest built/docs_home.md",
     "docs:fresh": "npm run docs:delete && npm run docs",
     "docs:delete": "rm -rfv docs/documentation/latest/*",
     "pages": "cd docs; bundle exec jekyll serve",
