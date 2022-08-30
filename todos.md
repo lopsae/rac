@@ -36,6 +36,8 @@ Future
 + Control -> RangeControl? when controls with boolean/toggle-value are defined
 + Leave still a base Control class?
 
++ Docs: Documentation output for # links show an odd `class="maic"`
+
 
 Bugs
 ----
