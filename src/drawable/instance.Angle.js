@@ -5,8 +5,9 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Angle` function contains convenience methods and members
-* for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
+* The [`instance.Angle` function]{@link Rac#Angle} contains convenience
+* methods and members for `{@link Rac.Angle}` objects setup with the owning
+* `Rac` instance.
 *
 * @namespace instance.Angle
 */
@@ -74,7 +75,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `right`, `r`, `east`, `e`.
   *
   * @name zero
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.zero = rac.Angle(0.0);
@@ -85,7 +86,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `left`, `l`, `west`, `w`, `inverse`.
   *
   * @name half
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.half = rac.Angle(1/2);
@@ -97,7 +98,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
   *
   * @name quarter
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.quarter = rac.Angle(1/4);
@@ -109,19 +110,19 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `bottomRight`, `br`, `se`.
   *
   * @name eighth
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.eighth =  rac.Angle(1/8);
 
   /**
   * An `Angle` with turn `7/8`, negative angle of
-  * `{@link instance.Angle#eighth eighth}`.
+  * [`eighth`]{@link instance.Angle#eighth}.
   *
   * Also named as: `topRight`, `tr`, `ne`.
   *
   * @name neighth
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.neighth =  rac.Angle(-1/8);
@@ -131,7 +132,7 @@ module.exports = function attachRacAngle(rac) {
   * An `Angle` with turn `1/16`.
   *
   * @name sixteenth
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.sixteenth = rac.Angle(1/16);
@@ -142,7 +143,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `up`, `u`, `top`, `t`.
   *
   * @name north
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.north = rac.Angle(3/4);
