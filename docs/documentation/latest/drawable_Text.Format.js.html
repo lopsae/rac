@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>drawable/Text.js - Documentation</title>
+    <title>drawable/Text.Format.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -31,7 +31,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: drawable/Text.js</h1>
+    <h1 class="page-title">Source: drawable/Text.Format.js</h1>
     
 
     
@@ -48,23 +48,71 @@ const Rac = require('../Rac');
 const utils = require('../util/utils');
 
 
-const TextFormat = require('./Text.Format')
-
-
 /**
-* String, format, and position to draw a text.
-* @alias Rac.Text
+* Determines the alignment, angle, font, and size for for drawing a
+* [`Text`]{@link Rac.Text} object.
+*
+* @alias Rac.Text.Format
 */
-class Text {
+class TextFormat {
 
-  static Format = TextFormat;
+  /**
+   * Supported values for [`hAlign`]{@link Rac.Text.Format#hAlign} which
+   * dermines the left-to-right alignment of the drawn text in relation to
+   * its [`text.point`]{@link Rac.Text#point}.
+   *
+   * Contained values are:
+   * + `left` - aligns `text.point` to the left edge of the drawn text
+   * + `center` - aligns `text.point` to the center, from side to
+   *   side, of the drawn text
+   * + `right` - aligns `text.point` to the right edge of the drawn text
+   *
+   * @type {object}
+   * @memberof Rac.Text.Format
+   */
+  static horizontalAlign = {
+    left: "left",
+    center: "horizontalCenter",
+    right: "right"
+  };
+
+  /**
+   * Supported values for [`vAlign`]{@link Rac.Text.Format#vAlign} which
+   * dermines the top-to-bottom alignment of the drawn text in relation to
+   * its [`text.point`]{@link Rac.Text#point}.
+   *
+   * Contained values are:
+   * + `top` - aligns `text.point` to the top edge of the drawn text
+   * + `center` - aligns `text.point` to the center, from top to
+   *   bottom, of the drawn text
+   * + `baseline` - aligns `text.point` to the baseline of the drawn text
+   * + `bottom` - aligns `text.point` to the bottom edge of the drawn text
+   *
+   * @type {object}
+   * @memberof Rac.Text.Format
+   */
+  static verticalAlign = {
+    top: "top",
+    center: "verticalCenter",
+    baseline: "baseline",
+    bottom: "bottom"
+  };
+
 
   // RELEASE-TODO: document - test
-  constructor(rac, point, string, format) {
-    utils.assertExists(rac, point, string, format);
-    utils.assertType(Rac.Point, point);
-    utils.assertString(string);
-    utils.assertType(Text.Format, format);
+  constructor(
+    rac,
+    hAlign,
+    vAlign,
+    angle = rac.Angle.zero,
+    font = null,
+    size = null)
+  {
+    utils.assertExists(rac);
+    utils.assertString(hAlign, vAlign);
+    utils.assertType(Rac.Angle, angle);
+    font !== null &amp;&amp; utils.assertString(font);
+    size !== null &amp;&amp; utils.assertNumber(size);
 
     /**
     * Instance of `Rac` used for drawing and passed along to any created
@@ -75,49 +123,49 @@ class Text {
     this.rac = rac;
 
     /**
-    * The location where the text will be drawn.
+    * The horizontal alignment, left-to-right, to position a text relative
+    * to its [`point`]{@link Rac.Text#point}.
     *
-    * The text will be drawn relative to this point based on the
-    * alignment and angle configuration of
-    * [`format`]{@link Rac.Text#format}.
+    * Supported values are available through the
+    * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
     *
-    * @type {Rac.Point}
-    */
-    this.point = point;
-
-    /**
-    * The string to draw.
     * @type {string}
     */
-    this.string = string;
+    this.hAlign = hAlign;
 
     /**
-    * The alignment, angle, font, and size to use to draw the text.
-    * @type {Rac.Text.Format}
+    * The vertical alignment, top-to-bottom, to position a text relative to
+    * its [`point`]{@link Rac.Text#point}.
+    *
+    * Supported values are available through the
+    * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.
+    *
+    * @type {string}
     */
-    this.format = format;
-  }
+    this.vAlign = vAlign;
 
+    /**
+    * The angle towards which the text is drawn.
+    *
+    * An angle of [`zero`]{@link instance.Angle#zero} wil draw the text
+    * towards the right of the screen.
+    *
+    * @type {Rac.Angle}
+    */
+    this.angle = angle;
 
-  // RELEASE-TODO: document - test
-  withAngle(newAngle) {
-    const newFormat = this.format.withAngle(newAngle);
-    return new Text(this.rac, this.point, this.string, newFormat);
-  }
+    /**
+    * The font name of the text to draw.
+    * @type {string}
+    */
+    this.font = font;
 
-
-  // RELEASE-TODO: document - test
-  withFont(newFont) {
-    const newFormat = this.format.withFont(newFont);
-    return new Text(this.rac, this.point, this.string, newFormat);
-  }
-
-
-  // RELEASE-TODO: document - test
-  withSize(newSize) {
-    const newFormat = this.format.withSize(newSize);
-    return new Text(this.rac, this.point, this.string, newFormat);
-  }
+    /**
+    * The size of the text to draw.
+    * @type {number}
+    */
+    this.size = size;
+  } // constructor
 
 
   /**
@@ -128,15 +176,75 @@ class Text {
   * @returns {string}
   */
   toString(digits = null) {
-    const xStr = utils.cutDigits(this.point.x, digits);
-    const yStr = utils.cutDigits(this.point.y, digits);
-    return `Text((${xStr},${yStr}) "${this.string}")`;
+    const angleStr = utils.cutDigits(this.angle.turn, digits);
+    const sizeStr = this.size === null
+      ? "null"
+      : utils.cutDigits(this.size, digits);
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${this.font} s:${sizeStr})`;
   }
 
-} // class Text
+
+  // Returns a format to draw text in the same position as `self` with
+  // the inverse angle.
+  // RELEASE-TODO: document - test
+  inverse() {
+    let hEnum = TextFormat.horizontalAlign;
+    let vEnum = TextFormat.verticalAlign;
+    let hAlign, vAlign;
+    switch (this.hAlign) {
+      case hEnum.left:  hAlign = hEnum.right; break;
+      case hEnum.right: hAlign = hEnum.left; break;
+      default:          hAlign = this.hAlign; break;
+    }
+    switch (this.vAlign) {
+      case vEnum.top:    vAlign = vEnum.bottom; break;
+      case vEnum.bottom: vAlign = vEnum.top; break;
+      default:           vAlign = this.vAlign; break;
+    }
+
+    return new TextFormat(
+      this.rac,
+      hAlign, vAlign,
+      this.angle.inverse(),
+      this.font,
+      this.size)
+  }
 
 
-module.exports = Text;
+  // RELEASE-TODO: document - test
+  withAngle(newAngle) {
+    newAngle = Rac.Angle.from(this.rac, newAngle);
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      newAngle,
+      this.font,
+      this.size);
+  }
+
+
+  // RELEASE-TODO: document - test
+  withFont(newFont) {
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      this.angle,
+      newFont,
+      this.size);
+  }
+
+
+  // RELEASE-TODO: document - test
+  withSize(newSize) {
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      this.angle,
+      this.font,
+      newSize);
+  }
+
+} // class TextFormat
+
+
+module.exports = TextFormat;
 
 </code></pre>
         </article>
