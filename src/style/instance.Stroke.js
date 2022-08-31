@@ -7,7 +7,7 @@
 *
 * @namespace instance.Stroke
 */
-module.exports = function attachRacPoint(rac) {
+module.exports = function attachRacStroke(rac) {
   // Intended to receive a Rac instance as parameter
 
   /**

@@ -5,8 +5,9 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Text` function contains convenience methods and members
-* for `{@link Rac.Text}` objects setup with the owning `Rac` instance.
+* The [`instance.Text` function]{@link Rac#Text} contains convenience
+* methods and members for `{@link Rac.Text}` objects setup with the owning
+* `Rac` instance.
 *
 * @namespace instance.Text
 */
@@ -14,23 +15,22 @@ module.exports = function attachRacText(rac) {
   // Intended to receive a Rac instance as parameter
 
 
-  // RELEASE-TODO: document - test
-  rac.Text.Format = function(
-    hAlign,
-    vAlign,
-    angle = rac.Angle.zero,
-    font = null,
-    size = null)
-  {
-    angle = rac.Angle.from(angle);
-    return new Rac.Text.Format(
-      rac,
-      hAlign, vAlign,
-      angle, font, size);
-  };
-
+  /**
+  * The [`instance.Text.Format` function]{@link instance.Text#Format}
+  * contains convenience methods and members for `{@link Rac.Text.Format}`
+  * objects setup with the owning `Rac` instance.
+  *
+  * @namespace instance.Text.Format
+  */
 
   // RELEASE-TODO: document - test
+
+  /**
+  * A `Text.Format` for drawing text aligned to the top-left.
+  * @name topLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.top);
@@ -59,6 +59,7 @@ module.exports = function attachRacText(rac) {
   * A `Text` for drawing `hello world` with `topLeft` format at
   * `Point.zero`.
   * @name hello
+  * @type {Rac.Text}
   * @memberof instance.Text#
   */
   rac.Text.hello = rac.Text(0, 0, 'hello world!',
@@ -68,10 +69,11 @@ module.exports = function attachRacText(rac) {
   * A `Text` for drawing the pangram `sphinx of black quartz, judge my vow`
   * with `topLeft` format at `Point.zero`.
   * @name sphinx
+  * @type {Rac.Text}
   * @memberof instance.Text#
   */
   rac.Text.sphinx = rac.Text(0, 0, 'sphinx of black quartz, judge my vow',
     rac.Text.Format.topLeft);
 
-} // attachRacPoint
+} // attachRacText
 

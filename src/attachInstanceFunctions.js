@@ -254,6 +254,41 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
+  // RELEASE-TODO: test - recheck docs along with Text.Format?
+  /**
+  * Convenience function that creates a new `Text.Format` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Text.Format}`.
+  *
+  * @param {string} hAlign
+  * @param {string} vAlign
+  * @param {Rac.Angle} [angle={@link instance.Angle#zero}]
+  * @param {string} [font]
+  * @param {number} [size]
+  *
+  * @returns {Rac.Text.Format}
+  *
+  * @see instance.Text.Format
+  *
+  * @function Format
+  * @memberof instance.Text#
+  */
+  rac.Text.Format = function makeTextFormat(
+    hAlign,
+    vAlign,
+    angle = rac.Angle.zero,
+    font = null,
+    size = null)
+  {
+    angle = rac.Angle.from(angle);
+    return new Rac.Text.Format(
+      rac,
+      hAlign, vAlign,
+      angle, font, size);
+  };
+
+
   /**
   * Convenience function that creates a new `Bezier` setup with `this`.
   *
