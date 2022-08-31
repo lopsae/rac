@@ -263,7 +263,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @param {string} hAlign
   * @param {string} vAlign
-  * @param {Rac.Angle} [angle={@link instance.Angle#zero}]
+  * @param {Rac.Angle} [angle={@link instance.Angle#zero rac.Angle.zero}]
   * @param {string} [font]
   * @param {number} [size]
   *

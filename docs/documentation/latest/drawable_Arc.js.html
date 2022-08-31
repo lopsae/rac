@@ -648,10 +648,10 @@ class Arc{
   * clampled to `[start, end]`.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to clamp
-  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero}] - The inset
-  * for the lower limit of the clamping range
-  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero}] - The inset
-  * for the higher limit of the clamping range
+  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
+  *   The inset for the lower limit of the clamping range
+  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
+  *   The inset for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
   clampToAngles(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
