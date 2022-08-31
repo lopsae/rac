@@ -49,25 +49,53 @@ const utils = require('../util/utils');
 
 
 /**
-* Format for drawing a `[Text]{@link Rac.Text}` object.
+* Determines the alignment, angle, font, and size for for drawing a
+* [`Text`]{@link Rac.Text} object.
 *
 * @alias Rac.Text.Format
 */
 class TextFormat {
 
-  // RELEASE-TODO: document
+  /**
+   * Supported values for [`hAlign`]{@link Rac.Text.Format#hAlign} which
+   * dermines the left-to-right alignment of the drawn text in relation to
+   * its [`text.point`]{@link Rac.Text#point}.
+   *
+   * Contained values are:
+   * + `left` - aligns `text.point` to the left edge of the drawn text
+   * + `center` - aligns `text.point` to the center, from side to
+   *   side, of the drawn text
+   * + `right` - aligns `text.point` to the right edge of the drawn text
+   *
+   * @type {object}
+   * @memberof Rac.Text.Format
+   */
   static horizontalAlign = {
     left: "left",
     center: "horizontalCenter",
     right: "right"
   };
 
-  // RELEASE-TODO: document
+  /**
+   * Supported values for [`vAlign`]{@link Rac.Text.Format#vAlign} which
+   * dermines the top-to-bottom alignment of the drawn text in relation to
+   * its [`text.point`]{@link Rac.Text#point}.
+   *
+   * Contained values are:
+   * + `top` - aligns `text.point` to the top edge of the drawn text
+   * + `center` - aligns `text.point` to the center, from top to
+   *   bottom, of the drawn text
+   * + `baseline` - aligns `text.point` to the baseline of the drawn text
+   * + `bottom` - aligns `text.point` to the bottom edge of the drawn text
+   *
+   * @type {object}
+   * @memberof Rac.Text.Format
+   */
   static verticalAlign = {
     top: "top",
-    bottom: "bottom",
     center: "verticalCenter",
-    baseline: "baseline"
+    baseline: "baseline",
+    bottom: "bottom"
   };
 
 
@@ -86,11 +114,41 @@ class TextFormat {
     font !== null &amp;&amp; utils.assertString(font);
     size !== null &amp;&amp; utils.assertNumber(size);
 
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * Horizontal, left-to-right, alignment to position a text relative to
+    * its [`point`]{@link Rac.Text#point}.
+    *
+    * Supported values are available through the
+    * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
+    *
+    * @type {string}
+    */
     this.hAlign = hAlign;
+
+    /**
+    * Vertical, top-to-bottom, alignment to position a text relative to
+    * its [`point`]{@link Rac.Text#point}.
+    *
+    * Supported values are available through the
+    * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.
+    *
+    * @type {string}
+    */
     this.vAlign = vAlign;
+
+    // RELEASE-TODO: document
     this.angle = angle;
+    // RELEASE-TODO: document
     this.font = font;
+    // RELEASE-TODO: document
     this.size = size;
   }
 
@@ -184,9 +242,36 @@ class Text {
     utils.assertType(Rac.Point, point);
     utils.assertString(string);
     utils.assertType(Text.Format, format);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The location where the text will be drawn.
+    *
+    * The text will be drawn relative to this point based on the
+    * alignment and angle configuration of
+    * [`format`]{@link Rac.Text#format}.
+    *
+    * @type {Rac.Point}
+    */
     this.point = point;
+
+    /**
+    * The string to draw.
+    * @type {string}
+    */
     this.string = string;
+
+    /**
+    * The alignment, angle, font, and size to use to draw the text.
+    * @type {Rac.Text.Format}
+    */
     this.format = format;
   }
 
