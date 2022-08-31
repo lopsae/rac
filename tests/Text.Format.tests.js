@@ -63,19 +63,6 @@ test('Identity', () => {
   expect(centered.equals(rac.Ray.zero)).toBe(false);
   expect(centered.equals(rac.Segment.zero)).toBe(false);
   expect(centered.equals(rac.Text.sphinx)).toBe(false);
-
-
-  // from text
-
-  // expect(null).not.equalsText(0, 0, "Identity");
-
-  // expect(wizards).equalsText(55, 55, 'The five boxing wizards jump quickly');
-  // expect(wizards).not.equalsText(7, 7, 'The five boxing wizards jump quickly');
-
-  // let string = wizards.toString();
-  // expect(string).toMatch('Text');
-  // expect(string).toMatch('55,55');
-  // expect(string).toMatch('The five boxing wizards jump quickly');
 });
 
 

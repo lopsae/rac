@@ -230,6 +230,8 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
+  // RELEASE-TODO: make format optional?
+  // RELEASE-TODO: in which case, does point.text needs to be updated?
   /**
   * Convenience function that creates a new `Text` setup with `this`.
   *
