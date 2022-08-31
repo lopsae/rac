@@ -29,5 +29,24 @@ test('Identity', () => {
 });
 
 
+tools.test( function toString() {
+  // RELEASE-TODO: topLeft may be made optional
+  const text = rac.Text(1.12345, 2.12345, 'judge my vow', rac.Text.Format.topLeft);
+
+  const string = text.toString();
+  expect(string).toMatch('Text');
+  expect(string).toMatch('(1.12345,2.12345)');
+  expect(string).toMatch('"judge my vow"');
+
+  const cutString = text.toString(2);
+  expect(cutString).toMatch('Text');
+  expect(cutString).toMatch('(1.12,2.12)');
+  expect(cutString).toMatch('"judge my vow"');
+
+  expect(cutString).not.toMatch('1.123');
+  expect(cutString).not.toMatch('2.123');
+});
+
+
 TODO: test.todo('Check for coverage!');
 
