@@ -26,6 +26,7 @@ Order of functions in a class
 -----------------------------
 + Constructor
 + toString
++ equals
 + accesors (segment.angle())
 + built properties (segment.startPoint())
 + withX simple modifiers (segment.withStart())
