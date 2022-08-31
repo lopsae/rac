@@ -27,9 +27,9 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     *
-    * @type {string}
+    * E.g. `1.2.0`.
     *
-    * @name version
+    * @constant {string} version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
@@ -38,9 +38,9 @@ class Rac {
     /**
     * Build of the instance, same as `{@link Rac.build}`.
     *
-    * @type {string}
+    * E.g. `904-011be8f`.
     *
-    * @name build
+    * @constant {string} build
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'build', build);
@@ -75,7 +75,7 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Default value is based on 1/000 of the turn of an arc of radius 500
+    * Default value is based on 1/1000 of the turn of an arc of radius 500
     * and length of 1: `1/(500*6.28)/1000`
     *
     * @type {number}
@@ -270,13 +270,12 @@ const utils = require(`./util/utils`);
 Rac.utils = utils;
 
 
-// RELEASE-TODO: document with constant?
 /**
 * Version of the class. Same as the version used for the npm package.
 *
-* @type {string}
+* E.g. `1.2.0`.
 *
-* @name version
+* @constant {string} version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -288,9 +287,9 @@ utils.addConstantTo(Rac, 'version', version);
 * Contains a commit-count and short-hash of the repository when the build
 * was done.
 *
-* @type {string}
+* E.g. `904-011be8f`.
 *
-* @name build
+* @constant {string} build
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'build', build);
@@ -301,9 +300,7 @@ utils.addConstantTo(Rac, 'build', build);
 *
 * [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
-* @type {number}
-*
-* @name TAU
+* @constant {number} TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
