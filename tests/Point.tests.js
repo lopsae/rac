@@ -61,16 +61,8 @@ tools.test( function identity() {
 tools.test( function toString() {
   const point = rac.Point(1.12345, 2.12345);
 
-  const string = point.toString();
-  expect(string).toMatch('Point');
-  expect(string).toMatch('(1.12345,2.12345)');
-
-  const cutString = point.toString(2);
-  expect(cutString).toMatch('Point');
-  expect(cutString).toMatch('(1.12,2.12)');
-
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
+  expect(point.toString()) .toBe('Point(1.12345,2.12345)');
+  expect(point.toString(2)).toBe('Point(1.12,2.12)');
 });
 
 
