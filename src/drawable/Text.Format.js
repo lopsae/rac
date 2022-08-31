@@ -59,6 +59,7 @@ class TextFormat {
   // RELEASE-TODO: test
   /**
   * Creates a new `Text.Format` instance.
+  *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {string} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
@@ -150,6 +151,27 @@ class TextFormat {
       ? "null"
       : utils.cutDigits(this.size, digits);
     return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${this.font} s:${sizeStr})`;
+  }
+
+
+  /**
+  * Returns `true` when all members, except `rac`, of both formats are
+  * equal, otherwise returns `false`.
+  *
+  * When `otherFormat` is any class other that `Rac.Text.Format`, returns
+  * `false`.
+  *
+  * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
+  * @returns {boolean}
+  * @see Rac.Angle#equals
+  */
+  equals(otherFormat) {
+    return otherFormat instanceof TextFormat
+      && this.hAlign === otherFormat.hAlign
+      && this.vAlign === otherFormat.vAlign
+      && this.angle.equals(otherFormat.angle)
+      && this.font === otherFormat.font
+      && this.size === otherFormat.size;
   }
 
 
