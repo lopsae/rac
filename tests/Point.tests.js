@@ -15,6 +15,8 @@ tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
   expect(otherRac.Point.zero).not.equalsPoint(0, 0);
+  // TODO: add check for equals with different rac
+  expect(otherRac.Point.zero.equals(rac.Point.zero)).toBe(true);
 
   // Instance members
   expect(rac.Point.zero).equalsPoint(0, 0);
