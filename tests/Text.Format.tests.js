@@ -34,25 +34,35 @@ test('Identity', () => {
   expect(centered).not.equalsTextFormat(ha.center, va.center, 0,  'sans', null);
   expect(centered).not.equalsTextFormat(ha.center, va.center, 0,   null,  10);
 
-  // Unexpected type for equalsPoint
-  // expect(null)            .not.equalsPoint(0, 0);
-  // expect(0)               .not.equalsPoint(0, 0);
-  // expect('0')             .not.equalsPoint(0, 0);
-  // expect(rac.Angle.zero)  .not.equalsPoint(0, 0);
-  // expect(rac.Ray.zero)    .not.equalsPoint(0, 0);
-  // expect(rac.Segment.zero).not.equalsPoint(0, 0);
+  // Unexpected type for equalsTextFormat
+  expect(null)            .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(0)               .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect('')              .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect('0')             .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(true)            .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(false)           .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(rac.Point.zero)  .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(rac.Ray.zero)    .not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(rac.Segment.zero).not.equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(rac.Text.sphinx) .not.equalsTextFormat(ha.center, va.center, 0, null, null);
 
   // Expected type for equals
-  // expect(hunty.equals(hunty)).toBe(true);
-  // expect(hunty.equals(fifty)).toBe(false);
+  expect(centered.equals(rac.Text.Format.centerCenter)).toBe(true);
+  expect(centered.equals(rac.Text.Format.topLeft))     .toBe(false);
 
   // Unexpected type for equals
-  // expect(hunty.equals(null))            .toBe(false);
-  // expect(hunty.equals(100))             .toBe(false);
-  // expect(hunty.equals('100'))           .toBe(false);
-  // expect(hunty.equals(rac.Angle.zero))  .toBe(false);
-  // expect(hunty.equals(rac.Ray.zero))    .toBe(false);
-  // expect(hunty.equals(rac.Segment.zero)).toBe(false);
+  expect(centered.equals(null)).toBe(false);
+  expect(centered.equals(0)).toBe(false);
+  expect(centered.equals('')).toBe(false);
+  expect(centered.equals('0')).toBe(false);
+  expect(centered.equals(100)).toBe(false);
+  expect(centered.equals('100')).toBe(false);
+  expect(centered.equals(true)).toBe(false);
+  expect(centered.equals(false)).toBe(false);
+  expect(centered.equals(rac.Point.zero)).toBe(false);
+  expect(centered.equals(rac.Ray.zero)).toBe(false);
+  expect(centered.equals(rac.Segment.zero)).toBe(false);
+  expect(centered.equals(rac.Text.sphinx)).toBe(false);
 
 
   // from text
