@@ -83,7 +83,7 @@ class Angle {
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
-  * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
+  * `{@link Rac#unitaryEqualityThreshold}`; otherwise returns `false`.
   *
   * For this method `otherAngle` can only be `Angle` or `number`, any other
   * type returns `false`.

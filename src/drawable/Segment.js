@@ -70,7 +70,8 @@ class Segment {
 
 
   /**
-  * Returns `true` when `ray` and `length` in both segments are equal.
+  * Returns `true` when `ray` and `length` in both segments are equal;
+  * otherwise returns `false`.
   *
   * When `otherSegment` is any class other that `Rac.Segment`, returns `false`.
   *

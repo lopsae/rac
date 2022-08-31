@@ -62,7 +62,8 @@ class Ray {
 
 
   /**
-  * Returns `true` when `start` and `angle` in both rays are equal.
+  * Returns `true` when `start` and `angle` in both rays are equal;
+  * otherwise returns `false`.
   *
   * When `otherRay` is any class other that `Rac.Ray`, returns `false`.
   *

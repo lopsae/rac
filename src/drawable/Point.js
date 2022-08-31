@@ -68,7 +68,7 @@ class Point{
 
   /**
   * Returns `true` when the difference with `otherPoint` for each coordinate is
-  * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
+  * under `{@link Rac#equalityThreshold}`; otherwise returns `false`.
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
