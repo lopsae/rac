@@ -269,6 +269,36 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
 }}); // equalsArc
 
 
+expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle, font, size) {
+  const msg = new Messenger(this,
+    'equalsTextFormat',
+    'equal Text.Format properties');
+
+  const expected = rac.Text.Format(hAlign, vAlign, angle, font, size);
+
+  if (format == null) {
+    return msg.fail('null', expected);
+  }
+
+  if (!(format instanceof Rac.Text.Format)) {
+    return msg.fail(format.toString(), expected,
+      `Received type: ${msg.r(Rac.utils.typeName(format))}`,
+      `Expected type: ${msg.e('Rac.Text.Format')}`);
+  }
+
+  if (format.rac !== expected.rac) {
+    return msg.fail(format.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(format.rac)}`);
+  }
+
+  const isEqual = expected.equals(format);
+
+  return msg.done(isEqual, format, expected,
+    `Received: ${msg.r(format.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
+}}); // equalsTextFormat
+
+
 // Checks all text properties, except for `format`
 expect.extend({ equalsText(text, x, y, string) {
   const messenger = new Messenger(this,

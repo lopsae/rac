@@ -43,6 +43,10 @@ module.exports = function attachRacText(rac) {
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.center);
 
+  rac.Text.Format.centerCenter = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.center,
+    Rac.Text.Format.verticalAlign.center);
+
   rac.Text.Format.centerRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.center);
