@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>attachProtoFunctions.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">RAC — Ruler and Compass<br/>1.1.0</a></li>
+    
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.RayControl.html">Rac.RayControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: attachProtoFunctions.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+
+const utils = require('./util/utils');
+
+
+// Attaches utility functions to a Rac instance that add functions to all
+// drawable and style class prototypes.
+//
+// Intended to receive the Rac class as parameter.
+module.exports = function attachProtoFunctions(Rac) {
+
+  function assertDrawer(drawable) {
+    if (drawable.rac == null || drawable.rac.drawer == null) {
+      throw Rac.Exception.drawerNotSetup(
+        `drawable-type:${utils.typeName(drawable)}`);
+    }
+  }
+
+
+  // Container of prototype functions for drawable classes.
+  Rac.drawableProtoFunctions = {};
+
+
+  /**
+  * Adds to `drawableClass.prototype` all the functions contained in
+  * `Rac.drawableProtoFunctions`. These are the functions shared by all
+  * drawable objects, for example `draw()` and `debug()`.
+  *
+  * @param {class} drawableClass - Class to setup with drawable functions
+  */
+  Rac.setupDrawableProtoFunctions = function(drawableClass) {
+    Object.keys(Rac.drawableProtoFunctions).forEach(name => {
+      drawableClass.prototype[name] = Rac.drawableProtoFunctions[name];
+    });
+  }
+
+
+  Rac.drawableProtoFunctions.draw = function(style = null){
+    assertDrawer(this);
+    this.rac.drawer.drawObject(this, style);
+    return this;
+  };
+
+
+  Rac.drawableProtoFunctions.debug = function(drawsText = false){
+    assertDrawer(this);
+    this.rac.drawer.debugObject(this, drawsText);
+    return this;
+  };
+
+
+  Rac.drawableProtoFunctions.log = function(message = null){
+    let coalescedMessage = message ?? '%o';
+    console.log(coalescedMessage, this);
+    return this;
+  };
+
+
+  Rac.drawableProtoFunctions.push = function() {
+    this.rac.pushStack(this);
+    return this;
+  }
+
+
+  Rac.drawableProtoFunctions.pop = function() {
+    return this.rac.popStack();
+  }
+
+
+  Rac.drawableProtoFunctions.peek = function() {
+    return this.rac.peekStack();
+  }
+
+
+  Rac.drawableProtoFunctions.attachToShape = function() {
+    this.rac.peekShape().addOutline(this);
+    return this;
+  }
+
+
+  Rac.drawableProtoFunctions.popShape = function() {
+    return this.rac.popShape();
+  }
+
+
+  Rac.drawableProtoFunctions.popShapeToComposite = function() {
+    let shape = this.rac.popShape();
+    this.rac.peekComposite().add(shape);
+    return this;
+  }
+
+
+  Rac.drawableProtoFunctions.attachToComposite = function() {
+    this.rac.peekComposite().add(this);
+    return this;
+  }
+
+
+  Rac.drawableProtoFunctions.popComposite = function() {
+    return this.rac.popComposite();
+  }
+
+
+  Rac.drawableProtoFunctions.attachTo = function(someComposite) {
+    if (someComposite instanceof Rac.Composite) {
+      someComposite.add(this);
+      return this;
+    }
+
+    if (someComposite instanceof Rac.Shape) {
+      someComposite.addOutline(this);
+      return this;
+    }
+
+    throw Rac.Exception.invalidObjectType(
+      `Cannot attachTo composite - someComposite-type:${utils.typeName(someComposite)}`);
+  };
+
+
+  // Container of prototype functions for style classes.
+  Rac.styleProtoFunctions = {};
+
+  // Adds to the given class prototype all the functions contained in
+  // `Rac.styleProtoFunctions`. These are functions shared by all
+  // style objects (E.g. `apply()`).
+  Rac.setupStyleProtoFunctions = function(classObj) {
+    Object.keys(Rac.styleProtoFunctions).forEach(name => {
+      classObj.prototype[name] = Rac.styleProtoFunctions[name];
+    });
+  }
+
+
+  Rac.styleProtoFunctions.apply = function(){
+    assertDrawer(this);
+    this.rac.drawer.applyObject(this);
+  };
+
+
+  Rac.styleProtoFunctions.log = Rac.drawableProtoFunctions.log;
+
+
+  Rac.styleProtoFunctions.applyToClass = function(classObj) {
+    assertDrawer(this);
+    this.rac.drawer.setClassDrawStyle(classObj, this);
+  };
+
+}; // attachProtoFunctions
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> using the <a href="https://github.com/lopsae/minami-rac">Minami-rac</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

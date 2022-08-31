@@ -21,13 +21,17 @@ module.exports = function attachProtoFunctions(Rac) {
   // Container of prototype functions for drawable classes.
   Rac.drawableProtoFunctions = {};
 
-  // RELEASE-TODO: document
-  // Adds to the given class prototype all the functions contained in
-  // `Rac.drawableProtoFunctions`. These are functions shared by all
-  // drawable objects (E.g. `draw()` and `debug()`).
-  Rac.setupDrawableProtoFunctions = function(classObj) {
+
+  /**
+  * Adds to `drawableClass.prototype` all the functions contained in
+  * `Rac.drawableProtoFunctions`. These are the functions shared by all
+  * drawable objects, for example `draw()` and `debug()`.
+  *
+  * @param {class} drawableClass - Class to setup with drawable functions
+  */
+  Rac.setupDrawableProtoFunctions = function(drawableClass) {
     Object.keys(Rac.drawableProtoFunctions).forEach(name => {
-      classObj.prototype[name] = Rac.drawableProtoFunctions[name];
+      drawableClass.prototype[name] = Rac.drawableProtoFunctions[name];
     });
   }
 

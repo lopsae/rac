@@ -83,7 +83,14 @@ class Rac {
     this.unitaryEqualityThreshold = 0.0000003;
 
 
-    // RELEASE-TODO: document
+    /**
+    * Container of utility functions. See `{@link utils}` for the available
+    * members.
+    *
+    * Also available through `{@link Rac.utils}`.
+    *
+    * @type {utils}
+    */
     this.utils = utils
 
     this.stack = [];
@@ -250,16 +257,20 @@ module.exports = Rac;
 // as to prevent cyclic dependency with Rac.
 
 
-const utils = require(`./util/utils`);
 /**
 * Container of utility functions. See `{@link utils}` for the available
 * members.
 *
-* @type {object}
+* Also available through `{@link Rac#utils}`.
+*
+* @var {utils}
+* @memberof Rac
 */
+const utils = require(`./util/utils`);
 Rac.utils = utils;
 
 
+// RELEASE-TODO: document with constant?
 /**
 * Version of the class. Same as the version used for the npm package.
 *
