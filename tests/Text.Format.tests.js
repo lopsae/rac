@@ -14,7 +14,7 @@ const centered = rac.Text.Format(ha.center, va.center);
 const upright = rac.Text.Format(ha.left, va.baseline, 3/4);
 
 
-test('Identity', () => {
+tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
   expect(otherRac.Text.Format.centerCenter)
@@ -22,10 +22,6 @@ test('Identity', () => {
   expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center, 0, null, null);
   expect(otherRac.Text.Format.centerCenter.equals(rac.Text.Format.centerCenter))
     .toBe(true);
-
-  // Instance members
-  expect(rac.Text.Format.topLeft).equalsTextFormat(ha.left, va.top, 0, null, null);
-  expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center, 0, null, null);
 
   // Testing Constants
   expect(centered).equalsTextFormat(ha.center, va.center, 0, null, null);
@@ -89,5 +85,14 @@ tools.test( function toString() {
 });
 
 
-TODO: test.todo('Check for coverage!');
+// thrownErrors
+
+
+tools.test( function instanceMembers() {
+  expect(rac.Text.Format.topLeft).equalsTextFormat(ha.left, va.top);
+  expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center);
+});
+
+
+test.todo('Check for coverage!');
 

@@ -269,7 +269,7 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
 }}); // equalsArc
 
 
-expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle, font, size) {
+expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle = 0, font = null, size = null) {
   const msg = new Messenger(this,
     'equalsTextFormat',
     'equal Text.Format properties');
