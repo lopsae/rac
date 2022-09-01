@@ -93,7 +93,8 @@ Build latest docs
 npm run docs:fresh
 ```
 
-Commit message: `rebuilt docs for n.e.w`
+Commit message: `rebuild docs for n.e.w`
+formerly: `rebuilt docs for n.e.w`
 
 
 
