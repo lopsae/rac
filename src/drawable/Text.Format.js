@@ -78,7 +78,7 @@ class TextFormat {
     font = null,
     size = null)
   {
-    utils.assertExists(rac);
+    utils.assertType(Rac, rac);
     utils.assertString(hAlign, vAlign);
     utils.assertType(Rac.Angle, angle);
     font !== null && utils.assertString(font);

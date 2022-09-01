@@ -80,9 +80,9 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const format = rac.Text.Format(ha.right, va.bottom, 0.12345, 'monospace', 15);
-  expect(format.toString()) .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"monospace" s:15)');
-  expect(format.toString(2)).toBe('Text.Format(ha:right va:bottom a:0.12 f:"monospace" s:15.00)');
+  const format = rac.Text.Format(ha.right, va.bottom, 0.12345, 'monospace', 14);
+  expect(format.toString()) .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"monospace" s:14)');
+  expect(format.toString(2)).toBe('Text.Format(ha:right va:bottom a:0.12 f:"monospace" s:14.00)');
 
   const zeroFormat = rac.Text.Format(ha.right, va.bottom, 0.12345, '', 0);
   expect(zeroFormat.toString()) .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"" s:0)');
@@ -94,7 +94,34 @@ tools.test( function toString() {
 });
 
 
-// thrownErrors
+tools.test( function thrownErrors() {
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, 'sans', 14);})
+    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, null, null);})
+    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Missing parameter
+  expect(() => {new Rac.Text.Format(null, ha.left, va.top, rac.Angle.zero, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, null, va.top, rac.Angle.zero, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, null, rac.Angle.zero, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid parameters
+  expect(() => {new Rac.Text.Format('rac', ha.left, va.top, rac.Angle.zero, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.nonsense, va.top, rac.Angle.zero, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.nonsense, rac.Angle.zero, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.top, 0, 'sans', 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, 1337, 14);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, 'sans', '14');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
 
 
 tools.test( function instanceMembers() {
