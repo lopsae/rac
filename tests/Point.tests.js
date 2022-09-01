@@ -18,10 +18,6 @@ tools.test( function identity() {
   // TODO: add check for equals with different rac
   expect(otherRac.Point.zero.equals(rac.Point.zero)).toBe(true);
 
-  // Instance members
-  expect(rac.Point.zero).equalsPoint(0, 0);
-  expect(rac.Point.origin).equalsPoint(0, 0);
-
   // Testing Constants
   expect(hunty).equalsPoint(100, 100);
   expect(fifty).equalsPoint(55, 55);
@@ -85,6 +81,12 @@ tools.test( function thrownErrors() {
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Point(rac, NaN, 100);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+tools.test( function instanceMembers() {
+  expect(rac.Point.zero).equalsPoint(0, 0);
+  expect(rac.Point.origin).equalsPoint(0, 0);
 });
 
 
