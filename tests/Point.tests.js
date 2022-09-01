@@ -21,6 +21,8 @@ tools.test( function identity() {
   // Instance members
   expect(rac.Point.zero).equalsPoint(0, 0);
   expect(rac.Point.origin).equalsPoint(0, 0);
+
+  // Testing Constants
   expect(hunty).equalsPoint(100, 100);
   expect(fifty).equalsPoint(55, 55);
 
@@ -45,8 +47,8 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(hunty.equals(null))            .toBe(false);
-  expect(hunty.equals(0))               .toBe(false);
   expect(hunty.equals(''))              .toBe(false);
+  expect(hunty.equals(0))               .toBe(false);
   expect(hunty.equals('0'))             .toBe(false);
   expect(hunty.equals(100))             .toBe(false);
   expect(hunty.equals('100'))           .toBe(false);

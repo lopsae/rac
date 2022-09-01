@@ -11,6 +11,7 @@ const ha = Rac.Text.Format.horizontalAlign;
 const va = Rac.Text.Format.verticalAlign;
 
 const centered = rac.Text.Format(ha.center, va.center);
+const upright = rac.Text.Format(ha.left, va.baseline, 3/4);
 
 
 test('Identity', () => {
@@ -25,7 +26,14 @@ test('Identity', () => {
   // Instance members
   expect(rac.Text.Format.topLeft).equalsTextFormat(ha.left, va.top, 0, null, null);
   expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center, 0, null, null);
+
+  // Testing Constants
   expect(centered).equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(upright).equalsTextFormat(ha.left, va.baseline, 3/4, null, null);
+
+  // Angle/number parameter
+  expect(upright).equalsTextFormat(ha.left, va.baseline, rac.Angle.up, null, null);
+  expect(upright).equalsTextFormat(ha.left, va.baseline, 3/4, null, null);
 
   // Inequality
   expect(centered).not.equalsTextFormat(ha.left,   va.center, 0,   null,  null);
