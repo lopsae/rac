@@ -148,9 +148,12 @@ class TextFormat {
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
     const sizeStr = this.size === null
-      ? "null"
+      ? 'null'
       : utils.cutDigits(this.size, digits);
-    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${this.font} s:${sizeStr})`;
+    const fontStr = this.font === null
+      ? 'null'
+      : `"${this.font}"`;
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr})`;
   }
 
 

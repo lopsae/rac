@@ -74,5 +74,20 @@ test('Identity', () => {
 });
 
 
+tools.test( function toString() {
+  const format = rac.Text.Format(ha.right, va.bottom, 0.12345, 'monospace', 15);
+  expect(format.toString()) .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"monospace" s:15)');
+  expect(format.toString(2)).toBe('Text.Format(ha:right va:bottom a:0.12 f:"monospace" s:15.00)');
+
+  const zeroFormat = rac.Text.Format(ha.right, va.bottom, 0.12345, '', 0);
+  expect(zeroFormat.toString()) .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"" s:0)');
+  expect(zeroFormat.toString(2)).toBe('Text.Format(ha:right va:bottom a:0.12 f:"" s:0.00)');
+
+  const nullFormat = rac.Text.Format(ha.right, va.bottom, 0.12345, null, null);
+  expect(nullFormat.toString()) .toBe('Text.Format(ha:right va:bottom a:0.12345 f:null s:null)');
+  expect(nullFormat.toString(2)).toBe('Text.Format(ha:right va:bottom a:0.12 f:null s:null)');
+});
+
+
 TODO: test.todo('Check for coverage!');
 
