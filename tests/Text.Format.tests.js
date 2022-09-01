@@ -98,8 +98,15 @@ tools.test( function toString() {
 
 
 tools.test( function instanceMembers() {
-  expect(rac.Text.Format.topLeft).equalsTextFormat(ha.left, va.top);
+  expect(rac.Text.Format.topLeft)     .equalsTextFormat(ha.left, va.top);
+  expect(rac.Text.Format.topRight)    .equalsTextFormat(ha.right, va.top);
+
+  expect(rac.Text.Format.centerLeft)  .equalsTextFormat(ha.left, va.center);
   expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center);
+  expect(rac.Text.Format.centerRight) .equalsTextFormat(ha.right, va.center);
+
+  expect(rac.Text.Format.bottomLeft)  .equalsTextFormat(ha.left, va.bottom);
+  expect(rac.Text.Format.bottomRight) .equalsTextFormat(ha.right, va.bottom);
 });
 
 
