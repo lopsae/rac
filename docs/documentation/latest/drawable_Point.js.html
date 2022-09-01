@@ -111,7 +111,7 @@ class Point{
 
   /**
   * Returns `true` when the difference with `otherPoint` for each coordinate is
-  * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
+  * under `{@link Rac#equalityThreshold}`; otherwise returns `false`.
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
@@ -520,7 +520,7 @@ class Point{
   * @returns {Rac.Text}
   */
   // RELEASE-TODO: check link
-  // RELEASE-TODO: check if test needs to udpate
+  // RELEASE-TODO: check if test needs to update
   text(string, format = null) {
     format = format ?? this.rac.Text.Format.topLeft;
     return new Rac.Text(this.rac, this, string, format);

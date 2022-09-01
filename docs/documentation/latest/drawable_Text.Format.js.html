@@ -102,6 +102,7 @@ class TextFormat {
   // RELEASE-TODO: test
   /**
   * Creates a new `Text.Format` instance.
+  *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {string} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
@@ -190,9 +191,33 @@ class TextFormat {
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
     const sizeStr = this.size === null
-      ? "null"
+      ? 'null'
       : utils.cutDigits(this.size, digits);
-    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${this.font} s:${sizeStr})`;
+    const fontStr = this.font === null
+      ? 'null'
+      : `"${this.font}"`;
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr})`;
+  }
+
+
+  /**
+  * Returns `true` when all members, except `rac`, of both formats are
+  * equal, otherwise returns `false`.
+  *
+  * When `otherFormat` is any class other that `Rac.Text.Format`, returns
+  * `false`.
+  *
+  * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
+  * @returns {boolean}
+  * @see Rac.Angle#equals
+  */
+  equals(otherFormat) {
+    return otherFormat instanceof TextFormat
+      &amp;&amp; this.hAlign === otherFormat.hAlign
+      &amp;&amp; this.vAlign === otherFormat.vAlign
+      &amp;&amp; this.angle.equals(otherFormat.angle)
+      &amp;&amp; this.font === otherFormat.font
+      &amp;&amp; this.size === otherFormat.size;
   }
 
 
