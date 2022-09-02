@@ -76,6 +76,26 @@ Documentation that refers to the instance itself should use `this`.
 
 
 
+Usual Cases
+===========
+
+Nullable params
+---------------
+Parameters that can be set to null and dont have a default.
+```
+@param {?string} newFont - The font name for the new `Text.Format`; can be set to `null`
+```
+
+Nullable params with default
+----------------------------
+Parameters that can be st to null and have a default value.
+```
+@param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new `Arc`; when ommited or set to `null`, `this.angle` is used instead
+```
+// MAICTODO: correct in ray to have example used
+
+
+
 
 
 Language Questions
