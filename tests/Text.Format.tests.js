@@ -99,6 +99,8 @@ tools.test( function thrownErrors() {
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, null, null);})
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text.Format(rac, ha.left, va.top);})
+    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 
   // Missing parameter
   expect(() => {new Rac.Text.Format(null, ha.left, va.top, rac.Angle.zero, 'sans', 14);})
