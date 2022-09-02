@@ -99,6 +99,7 @@ class Rac {
 
 
     // RELEASE-TODO: document - test
+    // RELEASE-TODO: mention in Text.Format.font/size when null
     this.textFormatDefaults = {
       font: null,
       size: 15

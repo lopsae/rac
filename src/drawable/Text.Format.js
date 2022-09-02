@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Determines the alignment, angle, font, and size for for drawing a
+* Determines the alignment, angle, font, and size for drawing a
 * [`Text`]{@link Rac.Text} object.
 *
 * @alias Rac.Text.Format
@@ -18,7 +18,7 @@ class TextFormat {
    * dermines the left-to-right alignment of the drawn text in relation to
    * its [`text.point`]{@link Rac.Text#point}.
    *
-   * Contained values are:
+   * Members are:
    * + `left` - aligns `text.point` to the left edge of the drawn text
    * + `center` - aligns `text.point` to the center, from side to
    *   side, of the drawn text
@@ -38,7 +38,7 @@ class TextFormat {
    * dermines the top-to-bottom alignment of the drawn text in relation to
    * its [`text.point`]{@link Rac.Text#point}.
    *
-   * Contained values are:
+   * Members are:
    * + `top` - aligns `text.point` to the top edge of the drawn text
    * + `center` - aligns `text.point` to the center, from top to
    *   bottom, of the drawn text
@@ -66,8 +66,8 @@ class TextFormat {
   *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle={@link instance.Angle#zero rac.Angle.zero}] -
   *   The angle towards which the text is drawn
-  * @param {string} [font] - The font name
-  * @param {number} [size] - The font size
+  * @param {string} [font=null] - The font name
+  * @param {number} [size=null] - The font size
   */
   constructor(
     rac,
@@ -202,6 +202,9 @@ class TextFormat {
 
 
   // RELEASE-TODO: document
+  /**
+  * @param {?number} newSize
+  */
   withSize(newSize) {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
