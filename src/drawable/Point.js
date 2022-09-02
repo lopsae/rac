@@ -256,7 +256,11 @@ class Point{
   }
 
 
-  // RELEASE-TODO: document
+  /**
+  * Returns a new `Point` located in the middle between `this` and `point`.
+  * @param {Rac.Point} point - A `Point` to calculate a bisector to
+  * @returns {Rac.Point}
+  */
   pointAtBisector(point) {
     const xOffset = (point.x - this.x) / 2;
     const yOffset = (point.y - this.y) / 2;
