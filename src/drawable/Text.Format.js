@@ -137,6 +137,7 @@ class TextFormat {
   } // constructor
 
 
+// RELEASE-TODO: add an example here and in point
   /**
   * Returns a string representation intended for human consumption.
   *
@@ -177,7 +178,12 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document
+  /**
+  * Returns a new `Text.Format` with `angle` set to the `Angle` derived
+  * from `newAngle`.
+  * @param {Rac.Angle|number} newAngle - The angle for the new `Text.Format`
+  * @returns {Rac.Text.Format}
+  */
   withAngle(newAngle) {
     newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
@@ -188,9 +194,11 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document
   /**
-  * @param {?string} newFont
+  * Returns a new `Text.Format` with `font` set to `newFont`.
+  * @param {?string} newFont - The font name for the new `Text.Format`;
+  *   can be set to `null`.
+  * @returns {Rac.Text.Format}
   */
   withFont(newFont) {
     return new TextFormat(this.rac,
@@ -201,9 +209,11 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document
   /**
-  * @param {?number} newSize
+  * Returns a new `Text.Format` with `size` set to `newSize`.
+  * @param {?string} newFont - The font name for the new `Text.Format`;
+  *   can be set to `null`.
+  * @returns {Rac.Text.Format}
   */
   withSize(newSize) {
     return new TextFormat(this.rac,
