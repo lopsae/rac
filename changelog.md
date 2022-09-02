@@ -20,6 +20,7 @@ Changelog
 + Rename `Text.Format.vertical` to `verticalAlign`
 + Rename `text.format.inverse` to `reverse`
 + Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`, `Rac.utils`, `rac.utils`
++ Document `Text.Format`
 
 
 1.1.0 - 2021 October 13th

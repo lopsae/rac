@@ -15,8 +15,8 @@ class TextFormat {
 
   /**
    * Supported values for [`hAlign`]{@link Rac.Text.Format#hAlign} which
-   * dermines the left-to-right alignment of the drawn text in relation to
-   * its [`text.point`]{@link Rac.Text#point}.
+   * dermines the left-to-right alignment of the drawn `Text` in relation
+   * to its [`text.point`]{@link Rac.Text#point}.
    *
    * Members are:
    * + `left` - aligns `text.point` to the left edge of the drawn text
@@ -35,8 +35,8 @@ class TextFormat {
 
   /**
    * Supported values for [`vAlign`]{@link Rac.Text.Format#vAlign} which
-   * dermines the top-to-bottom alignment of the drawn text in relation to
-   * its [`text.point`]{@link Rac.Text#point}.
+   * dermines the top-to-bottom alignment of the drawn `Text` in relation
+   * to its [`text.point`]{@link Rac.Text#point}.
    *
    * Members are:
    * + `top` - aligns `text.point` to the top edge of the drawn text
@@ -92,8 +92,8 @@ class TextFormat {
     this.rac = rac;
 
     /**
-    * The horizontal alignment, left-to-right, to position a text relative
-    * to its [`point`]{@link Rac.Text#point}.
+    * The horizontal alignment, left-to-right, to position a `Text`
+    * relative to its [`point`]{@link Rac.Text#point}.
     *
     * Supported values are available through the
     * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
@@ -103,8 +103,8 @@ class TextFormat {
     this.hAlign = hAlign;
 
     /**
-    * The vertical alignment, top-to-bottom, to position a text relative to
-    * its [`point`]{@link Rac.Text#point}.
+    * The vertical alignment, top-to-bottom, to position a `Text` relative
+    * to its [`point`]{@link Rac.Text#point}.
     *
     * Supported values are available through the
     * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.

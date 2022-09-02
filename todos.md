@@ -5,7 +5,6 @@ TODO's
 In progress
 -----------
 + Fix RELEASE-TODO's
-+ Add documentation to TextFormat, check https://p5js.org/reference/#/p5/textAlign for examples for names and description
 
 
 
