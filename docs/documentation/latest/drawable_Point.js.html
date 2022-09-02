@@ -257,8 +257,9 @@ class Point{
   * `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the angle to
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to return when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle={@link instance.Angle#zero rac.Angle.zero}]
+  *   An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
   * @see Rac.Point#equals
   */
@@ -316,8 +317,9 @@ class Point{
   * the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle={@link instance.Angle#zero rac.Angle.zero}]
+  *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Ray}
   */
   rayToPoint(point, defaultAngle = this.rac.Angle.zero) {
@@ -418,8 +420,9 @@ class Point{
   * the new `Segment` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle={@link instance.Angle#zero rac.Angle.zero}]
+  *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
   * @see Rac.Point#equals
   */
@@ -489,13 +492,15 @@ class Point{
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
   * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} [start=rac.Angle.zero] - The start
-  * `Angle` of the new `Arc`
+  * @param {Rac.Angle|number}
+  *   [start={@link instance.Angle#zero rac.Angle.zero}]
+  *   The start `Angle` of the new `Arc`
   * @param {?Rac.Angle|number} [end=null] - The end `Angle` of the new
-  * `Arc`; when `null` or ommited, `start` is used instead
+  *   `Arc`; when `null` or ommited, `start` is used instead
   * @param {boolean=} clockwise=true - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
+  // MAICTODO: search for =}
   arc(
     radius,
     start = this.rac.Angle.zero,
