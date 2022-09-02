@@ -524,5 +524,7 @@ tools.test( function arcWithAngleDistance() {
 });
 
 
-// Full coverage!
+// RELEASE-TODO: test!
+test.todo('Check for coverage!');
+// NOT Full coverage!
 

@@ -38,5 +38,7 @@ tools.test( function toString() {
 });
 
 
-TODO: test.todo('Check for coverage!');
+// RELEASE-TODO: test!
+test.todo('Check for coverage!');
+// NOT Full coverage!
 
