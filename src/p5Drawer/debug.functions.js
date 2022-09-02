@@ -64,7 +64,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
-    format = format.inverse();
+    format = format.reverse();
   }
 
   // Turn text
@@ -180,8 +180,8 @@ exports.debugRay = function(drawer, ray, drawsText) {
     angle, font, size);
   if (reversesText(angle)) {
     // Reverse orientation
-    startFormat = startFormat.inverse();
-    angleFormat = angleFormat.inverse();
+    startFormat = startFormat.reverse();
+    angleFormat = angleFormat.reverse();
   }
 
   // Start text
@@ -283,8 +283,8 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
-    lengthFormat = lengthFormat.inverse();
-    angleFormat = angleFormat.inverse();
+    lengthFormat = lengthFormat.reverse();
+    angleFormat = angleFormat.reverse();
   }
 
   // Length
@@ -458,11 +458,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
 
   // Reverse orientation
   if (reversesText(arc.start)) {
-    headFormat = headFormat.inverse();
-    radiusFormat = radiusFormat.inverse();
+    headFormat = headFormat.reverse();
+    radiusFormat = radiusFormat.reverse();
   }
   if (reversesText(arc.end)) {
-    tailFormat = tailFormat.inverse();
+    tailFormat = tailFormat.reverse();
   }
 
   let startString = `start:${arc.start.turn.toFixed(digits)}`;

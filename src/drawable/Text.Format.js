@@ -227,7 +227,7 @@ class TextFormat {
   // Returns a format to draw text in the same position as `self` with
   // the inverse angle.
   // RELEASE-TODO: document
-  inverse() {
+  reverse() {
     let hEnum = TextFormat.horizontalAlign;
     let vEnum = TextFormat.verticalAlign;
     let hAlign, vAlign;
