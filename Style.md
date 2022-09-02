@@ -58,9 +58,14 @@ Sometimes functions that create a new object can start with a particular word to
 + `arc.intersectionArc(otherArc)`, `arc.intersectionChord(otherArc)`
 
 
-When object type retured is same as instance, ommit type in function name:
+When object type retured is same as instance and the operation is transformation, ommit type in function name:
 + Not: `ray.perpendicularRay()`
 + Instead: `ray.perpendicular()`
+
+
+When object type retured is same as instance, but operation is dependant on other objects, type in function name may be used:
++ Not: `point.atBisector(otherPoint)`
++ Instead: `point.pointAtBisector(otherPoint)`
 
 
 Functions that throw an error in a specific circumstance must mention it:
