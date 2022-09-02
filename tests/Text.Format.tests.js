@@ -160,5 +160,5 @@ tools.test( function inverse() {
 });
 
 
-test.todo('Check for coverage!');
+// Full coverage!
 

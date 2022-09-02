@@ -56,7 +56,6 @@ class TextFormat {
   };
 
 
-  // RELEASE-TODO: test
   /**
   * Creates a new `Text.Format` instance.
   *
@@ -178,7 +177,7 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   withAngle(newAngle) {
     newAngle = Rac.Angle.from(this.rac, newAngle);
     return new TextFormat(this.rac,
@@ -189,7 +188,7 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   /**
   * @param {?string} newFont
   */
@@ -202,7 +201,7 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   withSize(newSize) {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
@@ -214,7 +213,7 @@ class TextFormat {
 
   // Returns a format to draw text in the same position as `self` with
   // the inverse angle.
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   inverse() {
     let hEnum = TextFormat.horizontalAlign;
     let vEnum = TextFormat.verticalAlign;
