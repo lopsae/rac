@@ -157,8 +157,10 @@ tools.test(function distanceToPoint() {
 
 
 tools.test(function transformations() {
+  // negative
   expect(hunty.negative()).equalsPoint(-100, -100);
 
+  // pointToAngle
   expect(hunty.pointToAngle(rac.Angle.zero, 100))
     .equalsPoint(200, 100);
   expect(hunty.pointToAngle(rac.Angle.down, 100))
@@ -171,6 +173,11 @@ tools.test(function transformations() {
   let cathetus = tools.cathetus(100);
   expect(hunty.pointToAngle(rac.Angle.eighth, 100))
     .equalsPoint(100+cathetus, 100+cathetus);
+
+  // pointAtBisector
+  expect(fifty.pointAtBisector(hunty)).equalsPoint(55+22.5, 55+22.5);
+  expect(hunty.pointAtBisector(fifty)).equalsPoint(100-22.5, 100-22.5);
+  expect(hunty.pointAtBisector(hunty)).equalsPoint(100, 100);
 });
 
 

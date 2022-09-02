@@ -257,7 +257,6 @@ class Point{
 
 
   // RELEASE-TODO: document
-  // RELEASE-TODO: test
   pointAtBisector(point) {
     const xOffset = (point.x - this.x) / 2;
     const yOffset = (point.y - this.y) / 2;
