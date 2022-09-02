@@ -51,8 +51,8 @@
 <p>Several methods will return an adjusted value or perform adjustments in
 their operation when two points are close enough as to be considered
 equal. When the the difference of each coordinate of two points
-is under the <code><a href="Rac.html#equalityThreshold">equalityThreshold</a></code> the
-points are considered equal. The <code><a href="Rac.Point.html#equals">equals</a></code>
+is under the <a href="Rac.html#equalityThreshold"><code>equalityThreshold</code></a> the
+points are considered equal. The <a href="Rac.Point.html#equals"><code>equals</code></a>
 method performs this check.</p></div>
         
     
@@ -512,7 +512,7 @@ object.</p>
     <span><a href="Rac.Point.html#add" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line149">line 149</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line150">line 150</a>
         </span>
     
     </div>
@@ -688,7 +688,7 @@ object.</p>
     <span><a href="Rac.Point.html#addPoint" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line135">line 135</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line136">line 136</a>
         </span>
     
     </div>
@@ -838,7 +838,7 @@ object.</p>
     <span><a href="Rac.Point.html#addX" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line113">line 113</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line114">line 114</a>
         </span>
     
     </div>
@@ -988,7 +988,7 @@ object.</p>
     <span><a href="Rac.Point.html#addY" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line124">line 124</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line125">line 125</a>
         </span>
     
     </div>
@@ -1138,7 +1138,7 @@ object.</p>
     <span><a href="Rac.Point.html#angleToPoint" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line223">line 223</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line225">line 225</a>
         </span>
     
     </div>
@@ -1151,9 +1151,8 @@ object.</p>
 
 <div class="description">
     <p>Returns the angle from <code>this</code> to <code>point</code>.</p>
-<p>When <code>this</code> and <code>point</code> are considered
-<a href="Rac.Point.html#equals">equal</a>, returns the angle produced with
-<code>defaultAngle</code>.</p>
+<p>When <code>this</code> and <code>point</code> are <a href="Rac.Point.html#equals">considered equal</a>,
+returns the angle produced with <code>defaultAngle</code>.</p>
 </div>
 
 
@@ -1359,7 +1358,7 @@ object.</p>
     <span><a href="Rac.Point.html#arc" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line461">line 461</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line463">line 463</a>
         </span>
     
     </div>
@@ -1658,7 +1657,7 @@ object.</p>
     <span><a href="Rac.Point.html#distanceToPoint" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line199">line 199</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line202">line 202</a>
         </span>
     
     </div>
@@ -1670,8 +1669,9 @@ object.</p>
 
 
 <div class="description">
-    <p>Returns the distance from <code>this</code> to <code>point</code>, or returns <code>0</code> when
-<code>this</code> and <code>point</code> are considered <a href="Rac.Point.html#equals">equal</a>.</p>
+    <p>Returns the distance from <code>this</code> to <code>point</code>.</p>
+<p>When <code>this</code> and <code>point</code> are <a href="Rac.Point.html#equals">considered equal</a>,
+returns the angle produced with <code>defaultAngle</code>.</p>
 </div>
 
 
@@ -1816,7 +1816,7 @@ object.</p>
     <span><a href="Rac.Point.html#equals" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line81">line 81</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line82">line 82</a>
         </span>
     
     </div>
@@ -1828,10 +1828,11 @@ object.</p>
 
 
 <div class="description">
-    <p>Returns <code>true</code> when the difference with <code>otherPoint</code> for each coordinate is
-under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code>; otherwise returns <code>false</code>.</p>
+    <p>Returns <code>true</code> when the difference with <code>otherPoint</code> for each
+coordinate is under <a href="Rac.html#equalityThreshold"><code>equalityThreshold</code></a>;
+otherwise returns <code>false</code>.</p>
 <p>When <code>otherPoint</code> is any class other that <code>Rac.Point</code>, returns <code>false</code>.</p>
-<p>Values are compared using <code><a href="Rac.html#equals">Rac#equals</a></code>.</p>
+<p>Values are compared using <a href="Rac.html#equals"><code>Rac.equals</code></a>.</p>
 </div>
 
 
@@ -1976,7 +1977,7 @@ under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code
     <span><a href="Rac.Point.html#negative" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line186">line 186</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line187">line 187</a>
         </span>
     
     </div>
@@ -2074,7 +2075,7 @@ under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code
     <span><a href="Rac.Point.html#pointToAngle" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line242">line 242</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line244">line 244</a>
         </span>
     
     </div>
@@ -2254,7 +2255,7 @@ under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code
     <span><a href="Rac.Point.html#ray" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line264">line 264</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line266">line 266</a>
         </span>
     
     </div>
@@ -2407,7 +2408,7 @@ under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code
     <span><a href="Rac.Point.html#rayTangentToArc" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line328">line 328</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line331">line 331</a>
         </span>
     
     </div>
@@ -2628,7 +2629,7 @@ as a complete circle</p>
     <span><a href="Rac.Point.html#rayToPoint" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line282">line 282</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line284">line 284</a>
         </span>
     
     </div>
@@ -2641,8 +2642,8 @@ as a complete circle</p>
 
 <div class="description">
     <p>Returns a new <code>Ray</code> from <code>this</code> towards <code>point</code>.</p>
-<p>When <code>this</code> and <code>point</code> are considered equal, the new <code>Ray</code> will use
-the angle produced with <code>defaultAngle</code>.</p>
+<p>When <code>this</code> and <code>point</code> are <a href="Rac.Point.html#equals">considered equal</a>,
+the new <code>Ray</code> will use the angle produced with <code>defaultAngle</code>.</p>
 </div>
 
 
@@ -2841,7 +2842,7 @@ the angle produced with <code>defaultAngle</code>.</p>
     <span><a href="Rac.Point.html#rayToProjectionInRay" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line297">line 297</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line300">line 300</a>
         </span>
     
     </div>
@@ -2854,7 +2855,8 @@ the angle produced with <code>defaultAngle</code>.</p>
 
 <div class="description">
     <p>Returns a new <code>Ray</code> from <code>this</code> to the projection of <code>this</code> in <code>ray</code>.</p>
-<p>When the projected point is equal to <code>this</code> the produced ray will have
+<p>When the projected point and <code>this</code> are
+<a href="Rac.Point.html#equals">considered equal</a> the produced ray will have
 an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
 </div>
 
@@ -2993,7 +2995,7 @@ an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#segmentTangentToArc" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line435">line 435</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line438">line 438</a>
         </span>
     
     </div>
@@ -3214,7 +3216,7 @@ as a complete circle</p>
     <span><a href="Rac.Point.html#segmentToAngle" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line366">line 366</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line369">line 369</a>
         </span>
     
     </div>
@@ -3395,7 +3397,7 @@ towards</p>
     <span><a href="Rac.Point.html#segmentToPoint" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line386">line 386</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line389">line 389</a>
         </span>
     
     </div>
@@ -3408,7 +3410,7 @@ towards</p>
 
 <div class="description">
     <p>Returns a new <code>Segment</code> from <code>this</code> to <code>point</code>.</p>
-<p>When <code>this</code> and <code>point</code> are considered <a href="Rac.Point.html#equals">equal</a>,
+<p>When <code>this</code> and <code>point</code> are <a href="Rac.Point.html#equals">considered equal</a>,
 the new <code>Segment</code> will use the angle produced with <code>defaultAngle</code>.</p>
 </div>
 
@@ -3615,7 +3617,7 @@ the new <code>Segment</code> will use the angle produced with <code>defaultAngle
     <span><a href="Rac.Point.html#segmentToProjectionInRay" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line404">line 404</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line407">line 407</a>
         </span>
     
     </div>
@@ -3768,7 +3770,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#subtract" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line174">line 174</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line175">line 175</a>
         </span>
     
     </div>
@@ -3944,7 +3946,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#subtractPoint" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line160">line 160</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line161">line 161</a>
         </span>
     
     </div>
@@ -4094,7 +4096,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#text" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line486">line 486</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line489">line 489</a>
         </span>
     
     </div>
@@ -4259,7 +4261,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
 
             <td class="description last">
                 <p>The format of the new <code>Text</code>;
-when ommited <code><a href="instance.Text.Format.html#topLeft">instance.Text.Format.topLeft</a></code>
+when ommited <a href="instance.Text.Format.html#topLeft"><code>rac.Text.Format.topLeft</code></a>
 is used instead.</p>
                 
             </td>
@@ -4576,7 +4578,7 @@ decimal point, when ommited all digits are printed</p>
     <span><a href="Rac.Point.html#withX" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line93">line 93</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line94">line 94</a>
         </span>
     
     </div>
@@ -4726,7 +4728,7 @@ decimal point, when ommited all digits are printed</p>
     <span><a href="Rac.Point.html#withY" class="maic">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line103">line 103</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line104">line 104</a>
         </span>
     
     </div>
