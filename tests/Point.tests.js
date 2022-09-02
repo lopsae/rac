@@ -90,7 +90,7 @@ tools.test( function instanceMembers() {
 });
 
 
-test('Function withX/Y', () => {
+tools.test(function withX_Y() {
   expect(hunty.withX(77))
     .equalsPoint(77, 100);
   expect(hunty.withY(77))
@@ -98,7 +98,7 @@ test('Function withX/Y', () => {
 });
 
 
-test('Function add/subtract', () => {
+tools.test(function add_substract() {
   expect(hunty.addPoint(rac.Point.zero))
     .equalsPoint(100, 100);
   expect(hunty.addPoint(fifty))
@@ -134,7 +134,7 @@ test('Function add/subtract', () => {
 });
 
 
-test('Function distanceToPoint', () => {
+tools.test(function distanceToPoint() {
   expect(hunty.distanceToPoint(rac.Point(100, 200)))
     .toBe(100);
   expect(hunty.distanceToPoint(rac.Point(200, 100)))
@@ -156,7 +156,7 @@ test('Function distanceToPoint', () => {
 });
 
 
-test('Transformations', () => {
+tools.test(function transformations() {
   expect(hunty.negative()).equalsPoint(-100, -100);
 
   expect(hunty.pointToAngle(rac.Angle.zero, 100))
@@ -174,7 +174,7 @@ test('Transformations', () => {
 });
 
 
-test('Transforms to Angle', () => {
+tools.test(function transformsToAngle() {
   expect(hunty.angleToPoint(fifty)).equalsAngle(rac.Angle.nw);
   expect(fifty.angleToPoint(hunty)).equalsAngle(rac.Angle.se);
 
@@ -185,7 +185,7 @@ test('Transforms to Angle', () => {
 });
 
 
-test('Transforms to Ray', () => {
+tools.test(function transformsToRay() {
   expect(hunty.ray(rac.Angle.zero))
     .equalsRay(100, 100, rac.Angle.zero);
   expect(hunty.ray(rac.Angle.up))
@@ -214,7 +214,7 @@ test('Transforms to Ray', () => {
 });
 
 
-test('Transforms to Segment', () => {
+tools.test(function transformsToSegment() {
   expect(hunty.segmentToAngle(rac.Angle.s, 55))
     .equalsSegment(100, 100, rac.Angle.s, 55);
 
@@ -393,7 +393,7 @@ test('Transforms to Arc', () => {
 });
 
 
-test('Miscelaneous', () => {
+tools.test(function miscelaneous() {
   expect(hunty.text("sphinx", rac.Text.Format.topLeft))
     .equalsText(100, 100, 'sphinx');
 });
