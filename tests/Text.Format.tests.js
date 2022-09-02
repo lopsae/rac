@@ -149,5 +149,14 @@ tools.test( function withAngleFontSize() {
 });
 
 
+tools.test( function inverse() {
+  expect(rac.Text.Format.topRight.inverse()).equalsTextFormat(ha.left, va.bottom, 1/2);
+  expect(rac.Text.Format.bottomLeft.inverse()).equalsTextFormat(ha.right, va.top, 1/2);
+  expect(rac.Text.Format.centerCenter.inverse()).equalsTextFormat(ha.center, va.center, 1/2);
+
+  expect(upright.inverse()).equalsTextFormat(ha.right, va.baseline, 1/4);
+});
+
+
 test.todo('Check for coverage!');
 

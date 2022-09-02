@@ -178,33 +178,6 @@ class TextFormat {
   }
 
 
-  // Returns a format to draw text in the same position as `self` with
-  // the inverse angle.
-  // RELEASE-TODO: document - test
-  inverse() {
-    let hEnum = TextFormat.horizontalAlign;
-    let vEnum = TextFormat.verticalAlign;
-    let hAlign, vAlign;
-    switch (this.hAlign) {
-      case hEnum.left:  hAlign = hEnum.right; break;
-      case hEnum.right: hAlign = hEnum.left; break;
-      default:          hAlign = this.hAlign; break;
-    }
-    switch (this.vAlign) {
-      case vEnum.top:    vAlign = vEnum.bottom; break;
-      case vEnum.bottom: vAlign = vEnum.top; break;
-      default:           vAlign = this.vAlign; break;
-    }
-
-    return new TextFormat(
-      this.rac,
-      hAlign, vAlign,
-      this.angle.inverse(),
-      this.font,
-      this.size)
-  }
-
-
   // RELEASE-TODO: document - test
   withAngle(newAngle) {
     newAngle = Rac.Angle.from(this.rac, newAngle);
@@ -236,6 +209,33 @@ class TextFormat {
       this.angle,
       this.font,
       newSize);
+  }
+
+
+  // Returns a format to draw text in the same position as `self` with
+  // the inverse angle.
+  // RELEASE-TODO: document - test
+  inverse() {
+    let hEnum = TextFormat.horizontalAlign;
+    let vEnum = TextFormat.verticalAlign;
+    let hAlign, vAlign;
+    switch (this.hAlign) {
+      case hEnum.left:  hAlign = hEnum.right; break;
+      case hEnum.right: hAlign = hEnum.left; break;
+      default:          hAlign = this.hAlign; break;
+    }
+    switch (this.vAlign) {
+      case vEnum.top:    vAlign = vEnum.bottom; break;
+      case vEnum.bottom: vAlign = vEnum.top; break;
+      default:           vAlign = this.vAlign; break;
+    }
+
+    return new TextFormat(
+      this.rac,
+      hAlign, vAlign,
+      this.angle.inverse(),
+      this.font,
+      this.size)
   }
 
 } // class TextFormat
