@@ -224,9 +224,11 @@ class TextFormat {
   }
 
 
-  // Returns a format to draw text in the same position as `self` with
-  // the inverse angle.
-  // RELEASE-TODO: document
+  /**
+  * Returns a new `Text.Format` that will draw a text reversed, upside-down,
+  * in generally the same position as `this` would draw the same text.
+  * @returns {Rac.Text.Format}
+  */
   reverse() {
     let hEnum = TextFormat.horizontalAlign;
     let vEnum = TextFormat.verticalAlign;
