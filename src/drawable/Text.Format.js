@@ -217,6 +217,9 @@ class TextFormat {
 
 
   // RELEASE-TODO: document - test
+  /**
+  * @param {?string} newFont
+  */
   withFont(newFont) {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,

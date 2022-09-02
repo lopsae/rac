@@ -137,5 +137,17 @@ tools.test( function instanceMembers() {
 });
 
 
+tools.test( function withAngleFontSize() {
+  expect(upright.withAngle(1/4)).equalsTextFormat(ha.left, va.baseline, 1/4);
+  expect(upright.withAngle(rac.Angle.quarter)).equalsTextFormat(ha.left, va.baseline, 1/4);
+
+  expect(upright.withFont('sans')).equalsTextFormat(ha.left, va.baseline, 3/4, 'sans');
+  expect(mono.withFont(null)).equalsTextFormat(ha.left, va.top, 0, null, 14);
+
+  expect(upright.withSize(14)).equalsTextFormat(ha.left, va.baseline, 3/4, null, 14);
+  expect(mono.withSize(null)).equalsTextFormat(ha.left, va.top, 0, 'mono', null);
+});
+
+
 test.todo('Check for coverage!');
 
