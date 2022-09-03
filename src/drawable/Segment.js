@@ -266,7 +266,6 @@ class Segment {
   }
 
 
-  // RELEASE-TODO: test
   /**
   * Returns a new `Segment` poiting towards the
   * [inverse angle]{@link Rac.Angle#inverse} of `this.angle()`.
