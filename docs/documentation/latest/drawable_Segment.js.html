@@ -309,8 +309,17 @@ class Segment {
   }
 
 
-  // RELEASE-TODO: document
   // RELEASE-TODO: test
+  /**
+  * Returns a new `Segment` poiting towards the
+  * [inverse angle]{@link Rac.Angle#inverse} of `this.angle()`.
+  *
+  * The resulting `Segment` will have the same `startPoint()` and `length`
+  * as `this`.
+  *
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#inverse
+  */
   inverse() {
     const newRay = this.ray.inverse();
     return new Segment(this.rac, newRay, this.length);
