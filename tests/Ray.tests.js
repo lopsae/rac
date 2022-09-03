@@ -441,7 +441,7 @@ test('Transforms to Arc', () => {
 });
 
 
-// RELEASE-TODO: test!
-test.todo('Check for coverage!');
-// NOT Full coverage!
+
+// test.todo('Check for coverage!');
+// ALMOST Full coverage! only missing undocumented functions
 
