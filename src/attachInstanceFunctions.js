@@ -260,7 +260,6 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
-  // RELEASE-TODO: test - recheck docs along with Text.Format?
   /**
   * Convenience function that creates a new `Text.Format` setup with `this`.
   *
@@ -296,6 +295,18 @@ module.exports = function attachInstanceFunctions(rac) {
       hAlign, vAlign,
       angle, font, size);
   };
+
+
+  /**
+  * Alias of [`rac.Text.Format`]{@link instance.Text#Format}.
+  *
+  * To display in documentation along the rest of
+  * [utility instance functions]{@link instance}.
+  *
+  * @function TextFormat
+  * @memberof Rac#
+  */
+  rac.TextFormat = rac.Text.Format;
 
 
   /**
