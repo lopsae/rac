@@ -570,7 +570,7 @@ class Ray {
   }
 
 
-  // TODO: Added but not documented yet
+  // TODO: Leaving undocumented for now, until better use/explanation is found
   // based on https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
   bezierArc(otherRay) {
     if (this.start.equals(otherRay.start)) {
@@ -616,7 +616,7 @@ class Ray {
 
     const angleDistance = radiusA.angle().distance(radiusB.angle(), orientation);
     const quarterAngle = angleDistance.mult(1/4);
-    // RELEASE-TODO: what happens with square angles? is this covered by intersection logic?
+    // TODO: what happens with square angles? is this covered by intersection logic?
     const quarterTan = quarterAngle.tan();
 
     const tangentA = quarterTan * radiusA.length * 4/3;
