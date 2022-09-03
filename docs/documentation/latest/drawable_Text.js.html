@@ -61,7 +61,7 @@ class Text {
 
   // RELEASE-TODO: document - test
   constructor(rac, point, string, format) {
-    utils.assertExists(rac, point, string, format);
+    utils.assertType(Rac, rac);
     utils.assertType(Rac.Point, point);
     utils.assertString(string);
     utils.assertType(Text.Format, format);

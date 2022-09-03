@@ -79,8 +79,11 @@ exports.assertExists = function(...parameters) {
 
 
 /**
-* Asserts that all `elements` are objects or the given `typeo`, otherwise a
+* Asserts that all `elements` are objects or the given `type`, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
+*
+* When any member of `elements` is `null` or `undefined`, the exception is
+* also thrown.
 *
 * @param {function} type
 * @param {...Object} elements
