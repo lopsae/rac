@@ -5,7 +5,6 @@ Changelog
 ---------
 + Add `angle.log`
 + Add `point.pointAtBisector`
-+ Add `ray.bezierArc`
 + Add `segment.inverse`
 + Add `text.format.toString`
 + Add `rac.textFormatDefaults`
