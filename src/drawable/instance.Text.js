@@ -23,10 +23,10 @@ module.exports = function attachRacText(rac) {
   * @namespace instance.Text.Format
   */
 
-  // RELEASE-TODO: document - test
 
   /**
-  * A `Text.Format` for drawing text aligned to the top-left.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * top-left edge of the drawn text.
   * @name topLeft
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -35,26 +35,72 @@ module.exports = function attachRacText(rac) {
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.top);
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * top-right edge of the drawn text.
+  * @name topRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.topRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.top);
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * center-left edge of the drawn text.
+  * @name centerLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.centerLeft = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.center);
 
+  /**
+  * A `Text.Format` to position the [`text.point`]{@link Rac.Text#point} at the
+  * center of the drawn text.
+  *
+  * Also available as: `centered`.
+  *
+  * @name centerCenter
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.centerCenter = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.center,
     Rac.Text.Format.verticalAlign.center);
+  rac.Text.Format.centered = rac.Text.Format.centerCenter;
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * center-right of the drawn text.
+  * @name centerRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.centerRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.center);
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * bottom-left of the drawn text.
+  * @name bottomLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.bottomLeft = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.bottom);
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * bottom-right of the drawn text.
+  * @name bottomRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.bottomRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.bottom);

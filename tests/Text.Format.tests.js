@@ -132,6 +132,7 @@ tools.test( function instanceMembers() {
 
   expect(rac.Text.Format.centerLeft)  .equalsTextFormat(ha.left, va.center);
   expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center);
+  expect(rac.Text.Format.centered)    .equalsTextFormat(ha.center, va.center);
   expect(rac.Text.Format.centerRight) .equalsTextFormat(ha.right, va.center);
 
   expect(rac.Text.Format.bottomLeft)  .equalsTextFormat(ha.left, va.bottom);
