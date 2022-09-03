@@ -5,7 +5,7 @@ const Rac = require('ruler-and-compass');
 const tools = require('./tools');
 
 
-test('Errors/Exception catched', () => {
+tools.test(function errorsExceptionCatched() {
   let storedBuildErrors = Rac.Exception.buildsErrors;
 
   Rac.Exception.buildsErrors = true;
@@ -30,7 +30,7 @@ test('Errors/Exception catched', () => {
 });
 
 
-test('Function assertExists', () => {
+tools.test(function assertExists() {
   expect(() => {Rac.utils.assertExists();})
     .not.toThrow();
   expect(() => {Rac.utils.assertExists(1, true);})
@@ -38,6 +38,8 @@ test('Function assertExists', () => {
   expect(() => {Rac.utils.assertExists(0, "one", "two", false);})
     .not.toThrow();
 
+  expect(() => {Rac.utils.assertExists(null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {Rac.utils.assertExists("one", null);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {Rac.utils.assertExists("one", null, "three");})
@@ -47,7 +49,7 @@ test('Function assertExists', () => {
 });
 
 
-test('Function assertNumber', () => {
+tools.test(function assertNumber() {
   expect(() => {Rac.utils.assertNumber(-1, 0, 1, 2);})
     .not.toThrow();
 
@@ -64,7 +66,7 @@ test('Function assertNumber', () => {
 });
 
 
-test('Function typeName', () => {
+tools.test(function typeName() {
   let Duck = class Duck {};
   let duck = new Duck();
 
@@ -103,7 +105,7 @@ test('Function typeName', () => {
 });
 
 
-test('Function addConstantTo', () => {
+tools.test(function addConstantTo() {
   let obj = {};
   expect(obj).not.toHaveProperty('prop');
 
@@ -120,7 +122,7 @@ test('Function addConstantTo', () => {
 });
 
 
-test('Function cutDigits', () => {
+tools.test(function cutDigits() {
   const string = Rac.utils.cutDigits(0.12345);
   expect(string).toMatch('0.12345');
 
@@ -130,7 +132,8 @@ test('Function cutDigits', () => {
 });
 
 
-// TODO: test.todo('assertType');
+// RELEASE-TODO: test assertType
+test.todo('assertType');
 // TODO: test.todo('assertBoolean');
 
 
