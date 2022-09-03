@@ -127,6 +127,9 @@ tools.test( function thrownErrors() {
 
 
 tools.test( function instanceMembers() {
+  expect(rac.TextFormat(ha.left, va.baseline, 1/8, 'mono', 14))
+    .equalsTextFormat(ha.left, va.baseline, 1/8, 'mono', 14);
+
   expect(rac.Text.Format.topLeft)     .equalsTextFormat(ha.left, va.top);
   expect(rac.Text.Format.topRight)    .equalsTextFormat(ha.right, va.top);
 
