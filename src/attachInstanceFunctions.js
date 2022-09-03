@@ -6,14 +6,17 @@ const Rac = require('./Rac');
 
 /**
 * This namespace lists utility functions attached to an instance of
-* `{@link Rac}` used to produce drawable and other objects, and to access
-* ready-build convenience objects like `{@link instance.Angle#north}` or
-* `{@link instance.Point#zero}`.
+* `{@link Rac}` during initialization. Each drawable and style class gets
+* a corresponding function like [`rac.Point`]{@link instance.Point} or
+* [`rac.Color`]{@link instance.Color}.
 *
-* Drawable and related objects require a reference to a `rac` instance in
-* order to perform drawing operations. These functions build new objects
-* using the calling `Rac` instance, and contain ready-made convenience
-* objects that are also setup with the same `Rac` instance.
+* Drawable and style objects require for construction a reference to a
+* `rac` instance in order to perform drawing operations. The attached
+* functions build new objects using the calling `Rac` instance.
+*
+* These functions are also setup with ready-made convenience objects for
+* many usual values like [`rac.Angle.north`]{@link instance.Angle#north} or
+* [`rac.Point.zero`]{@link instance.Point#zero}.
 *
 * @namespace instance
 */
@@ -22,7 +25,7 @@ const Rac = require('./Rac');
 // Attaches the convenience functions to create objects with this instance
 // of Rac. These functions are attached as properties (instead of into the
 // prototype) because these are later populated with more properties and
-// methods, and thus need to be an independent instance.
+// methods, and thus need to be independent for each instance.
 //
 // Intended to receive the a Rac instance as parameter.
 module.exports = function attachInstanceFunctions(rac) {
@@ -136,8 +139,8 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Point}`.
   *
-  * @param {number} x
-  * @param {number} y
+  * @param {number} x - The x coordinate
+  * @param {number} y - The y coordinate
   *
   * @returns {Rac.Point}
   *
@@ -207,11 +210,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} start
-  * @param {?Rac.Angle|number} [end=null]
-  * @param {boolean} [clockwise=true]
+  * @param {number} x - The _x_ coordinate for the arc center
+  * @param {number} y - The _y_ coordinate for the arc center
+  * @param {Rac.Angle|number} start - The start of the arc
+  * @param {?Rac.Angle|number} [end=null] - The end of the arc; when
+  *   ommited or set to `null`, `start` is used instead
+  * @param {boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
   *

@@ -53,13 +53,15 @@
     
         
             <div class="description"><p>This namespace lists utility functions attached to an instance of
-<code><a href="Rac.html">Rac</a></code> used to produce drawable and other objects, and to access
-ready-build convenience objects like <code><a href="instance.Angle.html#north">instance.Angle#north</a></code> or
-<code><a href="instance.Point.html#zero">instance.Point#zero</a></code>.</p>
-<p>Drawable and related objects require a reference to a <code>rac</code> instance in
-order to perform drawing operations. These functions build new objects
-using the calling <code>Rac</code> instance, and contain ready-made convenience
-objects that are also setup with the same <code>Rac</code> instance.</p></div>
+<code><a href="Rac.html">Rac</a></code> during initialization. Each drawable and style class gets
+a corresponding function like <a href="instance.Point.html"><code>rac.Point</code></a> or
+<a href="instance.Color.html"><code>rac.Color</code></a>.</p>
+<p>Drawable and style objects require for construction a reference to a
+<code>rac</code> instance in order to perform drawing operations. The attached
+functions build new objects using the calling <code>Rac</code> instance.</p>
+<p>These functions are also setup with ready-made convenience objects for
+many usual values like <a href="instance.Angle.html#north"><code>rac.Angle.north</code></a> or
+<a href="instance.Point.html#zero"><code>rac.Point.zero</code></a>.</p></div>
         
 
         
