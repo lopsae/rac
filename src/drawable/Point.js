@@ -55,12 +55,10 @@ class Point{
   /**
   * Returns a string representation intended for human consumption.
   *
-  * > E.g.
-  * > ```
-  * > (new Rac.Point(rac, 55, 77)).toString()
-  * > // Returns:
-  * > // Point(55,77)
-  * > ```
+  * ```
+  * (new Rac.Point(rac, 55, 77)).toString()
+  * // Returns: Point(55,77)
+  * ```
   *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
