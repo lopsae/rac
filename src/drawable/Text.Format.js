@@ -64,7 +64,7 @@ class TextFormat {
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
   * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
   *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
-  * @param {Rac.Angle} [angle={@link instance.Angle#zero rac.Angle.zero}] -
+  * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
   * @param {string} [font=null] - The font name
   * @param {number} [size=null] - The font size
