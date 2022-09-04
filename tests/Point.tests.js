@@ -415,7 +415,5 @@ tools.test(function miscelaneous() {
 });
 
 
-// RELEASE-TODO: test!
-test.todo('Check for coverage!');
-// NOT Full coverage!
+// Full coverage!
 
