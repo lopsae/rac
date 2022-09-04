@@ -494,7 +494,6 @@ class Point{
   */
   // RELEASE-TODO: check link
   // RELEASE-TODO: update docs
-  // RELEASE-TODO: recheck tests
   text(string, format = this.rac.Text.Format.topLeft) {
     return new Rac.Text(this.rac, this, string, format);
   }

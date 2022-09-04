@@ -402,9 +402,16 @@ tools.test(function transformsToArc() {
 
 
 tools.test(function miscelaneous() {
-  // RELEASE-TODO: recheck with default formats
-  expect(hunty.text("sphinx", rac.Text.Format.topLeft))
-    .equalsText(100, 100, 'sphinx');
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = hunty.text("sphinx");
+  expect(defaultSphinx).equalsText(100, 100, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top);
+
+  const formattedVow = hunty.text("vow", rac.Text.Format.centered);
+  expect(formattedVow).equalsText(100, 100, 'vow');
+  expect(formattedVow.format).equalsTextFormat(ha.center, va.center);
 });
 
 
