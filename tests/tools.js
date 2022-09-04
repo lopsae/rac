@@ -305,7 +305,7 @@ expect.extend({ equalsText(text, x, y, string) {
     'equalsText',
     'equal Text properties');
 
-  const expected = rac.Text(x, y, string, rac.Text.Format.topLeft);
+  const expected = rac.Text(x, y, string);
   if (text == null) {
     return messenger.fail('null', expected);
   }
@@ -315,7 +315,7 @@ expect.extend({ equalsText(text, x, y, string) {
       `Unexpected Rac instance: ${Rac.utils.typeName(text.rac)}`);
   }
 
-  // TODO: implement text.equals?
+  // RELEASE-TODO: implement text.equals
   const isEqual = expected.string === text.string
     && expected.point.equals(text.point);
   return messenger.done(isEqual, text, expected)

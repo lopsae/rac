@@ -61,7 +61,7 @@ tools.test( function identity() {
 
   // Expected type for equals
   expect(centered.equals(rac.Text.Format.centerCenter)).toBe(true);
-  expect(centered.equals(rac.Text.Format.topLeft))     .toBe(false);
+  expect(centered.equals(rac.Text.Format.bottomRight))     .toBe(false);
 
   // Unexpected type for equals
   expect(centered.equals(null)).toBe(false);

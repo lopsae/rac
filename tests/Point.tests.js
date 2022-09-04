@@ -401,6 +401,7 @@ test('Transforms to Arc', () => {
 
 
 tools.test(function miscelaneous() {
+  // RELEASE-TODO: recheck with default formats
   expect(hunty.text("sphinx", rac.Text.Format.topLeft))
     .equalsText(100, 100, 'sphinx');
 });

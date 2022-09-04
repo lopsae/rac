@@ -32,8 +32,12 @@ test('Identity', () => {
 
 
 tools.test( function toString() {
-  // RELEASE-TODO: topLeft may be made optional
-  const text = rac.Text(1.12345, 2.12345, 'judge my vow', rac.Text.Format.topLeft);
+  const formatLessText = rac.Text(3.12345, 4.12345, 'sphinx of black quartz');
+
+  expect(formatLessText.toString()) .toBe('Text((3.12345,4.12345) "sphinx of black quartz")');
+  expect(formatLessText.toString(2)).toBe('Text((3.12,4.12) "sphinx of black quartz")');
+
+  const text = rac.Text(1.12345, 2.12345, 'judge my vow', rac.Text.Format.bottomRight);
 
   expect(text.toString()) .toBe('Text((1.12345,2.12345) "judge my vow")');
   expect(text.toString(2)).toBe('Text((1.12,2.12) "judge my vow")');
