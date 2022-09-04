@@ -255,7 +255,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * @function Text
   * @memberof Rac#
   */
-  rac.Text = function makeText(x, y, string, format) {
+  rac.Text = function makeText(x, y, string, format = this.Text.Format.topLeft) {
     const point = new Rac.Point(this, x, y);
     return new Rac.Text(this, point, string, format);
   };

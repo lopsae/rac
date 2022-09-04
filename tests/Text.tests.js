@@ -8,7 +8,9 @@ const rac = tools.rac;
 
 
 const wizards = rac.Text(55, 55, 'The five boxing wizards jump quickly',
-  rac.Text.Format.topLeft);
+  rac.Text.Format.centered);
+const example = rac.Text(100, 100, 'example');
+// RELEASE-TODO: test that equalsText is ignoring format
 
 
 test('Identity', () => {
