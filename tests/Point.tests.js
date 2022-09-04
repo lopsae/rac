@@ -15,7 +15,8 @@ tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
   expect(otherRac.Point.zero).not.equalsPoint(0, 0);
-  // TODO: add check for equals with different rac
+  expect(rac.Point.zero)         .equalsPoint(0, 0);
+
   expect(otherRac.Point.zero.equals(rac.Point.zero)).toBe(true);
 
   // Testing Constants
@@ -384,7 +385,7 @@ tools.test( function arcTangentsEdgeCases() {
 });
 
 
-test('Transforms to Arc', () => {
+tools.test(function transformsToArc() {
   expect(hunty.arc(155))
     .equalsArc(100, 100, 155, rac.Angle.zero, rac.Angle.zero, true);
 
