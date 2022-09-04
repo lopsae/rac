@@ -487,13 +487,10 @@ class Point{
   * `format`.
   *
   * @param {string} string - The string of the new `Text`
-  * @param {Rac.Text.Format} [format=null] - The format of the new `Text`;
-  * when ommited [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}
-  * is used instead.
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format of the new `Text`
   * @returns {Rac.Text}
   */
-  // RELEASE-TODO: check link
-  // RELEASE-TODO: update docs
   text(string, format = this.rac.Text.Format.topLeft) {
     return new Rac.Text(this.rac, this, string, format);
   }
