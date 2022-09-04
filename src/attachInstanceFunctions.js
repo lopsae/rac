@@ -236,6 +236,7 @@ module.exports = function attachInstanceFunctions(rac) {
 
   // RELEASE-TODO: make format optional?
   // RELEASE-TODO: in which case, does point.text needs to be updated?
+  // RELEASE-TODO: finish documentation
   /**
   * Convenience function that creates a new `Text` setup with `this`.
   *
@@ -289,7 +290,9 @@ module.exports = function attachInstanceFunctions(rac) {
     font = null,
     size = null)
   {
-    angle = rac.Angle.from(angle);
+    // This functions uses `rac` instead of `this`, since `this` points to
+    // `rac.Text` here and to `rac` in the `TextFormat` alias
+    angle = Rac.Angle.from(rac, angle);
     return new Rac.Text.Format(
       rac,
       hAlign, vAlign,
