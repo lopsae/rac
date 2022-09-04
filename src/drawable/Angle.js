@@ -43,7 +43,8 @@ class Angle {
   * @param {number} turn - The turn value
   */
   constructor(rac, turn) {
-    utils.assertExists(rac);
+    // TODO: changed to assertType, test
+    utils.assertType(Rac, rac);
     utils.assertNumber(turn);
 
     /**
