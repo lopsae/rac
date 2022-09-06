@@ -105,7 +105,6 @@ module.exports = function attachRacText(rac) {
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.bottom);
 
-  // RELEASE-TODO: test instance members
 
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at

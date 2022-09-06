@@ -114,10 +114,14 @@ tools.test( function thrownErrors() {
 });
 
 
-// Testing instance members
-// Testing Constants
-  // expect(rac.Text.hello).not.equalsText(0, 0, 'hello world!');
-  // expect(rac.Text.sphinx).not.equalsText(0, 0, 'sphinx of black quartz, judge my vow');
+tools.test( function instanceMembers() {
+  expect(rac.Text.hello).equalsText(0, 0, 'hello world!');
+  expect(rac.Text.hello.format).equalsTextFormat(ha.left, va.top);
+
+  expect(rac.Text.sphinx).equalsText(0, 0, 'sphinx of black quartz, judge my vow');
+  expect(rac.Text.sphinx.format).equalsTextFormat(ha.left, va.top);
+});
+
 
 
 // RELEASE-TODO: test!
