@@ -7,11 +7,13 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-const zebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.centered);
-const quartz = rac.Text(100, 100, 'black quartz');
-
 const ha = Rac.Text.Format.horizontalAlign;
 const va = Rac.Text.Format.verticalAlign;
+
+const zebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.centered);
+const quartz = rac.Text(100, 100, 'black quartz');
+const nymph = rac.Text(77, 77, 'quiz nymph',
+  rac.Text.Format(ha.right, va.baseline, 3/4, 'sans', 14));
 
 
 tools.test( function identity() {
@@ -28,6 +30,9 @@ tools.test( function identity() {
 
   expect(quartz).equalsText(100, 100, 'black quartz');
   expect(quartz.format).equalsTextFormat(ha.left, va.top);
+
+  expect(nymph).equalsText(77, 77, 'quiz nymph');
+  expect(nymph.format).equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14);
 
   // Inequality
   expect(zebras).not.equalsText(0,  55, 'daft zebras');
@@ -56,7 +61,7 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(zebras.equals(null))                    .toBe(false);
-  expect(zebras.equals(undefined))                    .toBe(false);
+  expect(zebras.equals(undefined))               .toBe(false);
   expect(zebras.equals(''))                      .toBe(false);
   expect(zebras.equals(0))                       .toBe(false);
   expect(zebras.equals('0'))                     .toBe(false);
@@ -122,6 +127,7 @@ tools.test( function instanceMembers() {
 
 
 tools.test( function ignoresFormats() {
+  // Different formats, same properties
   const rightZebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.bottomRight);
   expect(rightZebras).equalsText(55, 55, 'daft zebras');
   expect(rightZebras.format).equalsTextFormat(ha.right, va.bottom);
@@ -131,6 +137,7 @@ tools.test( function ignoresFormats() {
 
   expect(zebras.equals(rightZebras)).toBe(true);
 
+  // Different strings, same formats
   const whiteQuartz = rac.Text(100, 100, 'white quartz');
   expect(whiteQuartz).equalsText(100, 100, 'white quartz');
   expect(whiteQuartz.format).equalsTextFormat(ha.left, va.top);
@@ -139,6 +146,26 @@ tools.test( function ignoresFormats() {
   expect(quartz.format).equalsTextFormat(ha.left, va.top);
 
   expect(quartz.equals(whiteQuartz)).toBe(false);
+});
+
+
+tools.test(function withAngle_Font_Size() {
+  expect(quartz.withAngle(1/2).format)
+    .equalsTextFormat(ha.left, va.top, 1/2);
+  expect(quartz.withAngle(5/4).format)
+    .equalsTextFormat(ha.left, va.top, 1/4);
+  expect(quartz.withAngle(rac.Angle.eighth).format)
+    .equalsTextFormat(ha.left, va.top, 1/8);
+
+  expect(quartz.withFont('sans').format)
+    .equalsTextFormat(ha.left, va.top, 0, 'sans');
+  expect(nymph.withFont(null).format)
+    .equalsTextFormat(ha.right, va.baseline, 3/4, null, 14);
+
+  expect(quartz.withSize(55).format)
+    .equalsTextFormat(ha.left, va.top, 0, null, 55);
+  expect(nymph.withSize(null).format)
+    .equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', null);
 });
 
 

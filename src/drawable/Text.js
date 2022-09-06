@@ -98,27 +98,25 @@ class Text {
   }
 
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   withAngle(newAngle) {
     const newFormat = this.format.withAngle(newAngle);
     return new Text(this.rac, this.point, this.string, newFormat);
   }
 
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   withFont(newFont) {
     const newFormat = this.format.withFont(newFont);
     return new Text(this.rac, this.point, this.string, newFormat);
   }
 
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   withSize(newSize) {
     const newFormat = this.format.withSize(newSize);
     return new Text(this.rac, this.point, this.string, newFormat);
   }
-
-
 
 
 } // class Text
