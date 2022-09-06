@@ -22,7 +22,7 @@ class Text {
 
   static Format = TextFormat;
 
-  // RELEASE-TODO: document - test
+  // RELEASE-TODO: document
   constructor(rac, point, string, format) {
     utils.assertType(Rac, rac);
     utils.assertType(Rac.Point, point);

@@ -38,6 +38,7 @@ tools.test( function identity() {
 
   // Unexpected type for equalsText
   expect(null)                    .not.equalsText(0, 0, '');
+  expect(undefined)               .not.equalsText(0, 0, '');
   expect(0)                       .not.equalsText(0, 0, '');
   expect('')                      .not.equalsText(0, 0, '');
   expect('0')                     .not.equalsText(0, 0, '');
@@ -57,6 +58,7 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(zebras.equals(null))                    .toBe(false);
+  expect(zebras.equals(undefined))                    .toBe(false);
   expect(zebras.equals(''))                      .toBe(false);
   expect(zebras.equals(0))                       .toBe(false);
   expect(zebras.equals('0'))                     .toBe(false);
@@ -74,14 +76,41 @@ tools.test( function identity() {
 
 tools.test( function toString() {
   const formatLessText = rac.Text(3.12345, 4.12345, 'sphinx of black quartz');
-
   expect(formatLessText.toString()) .toBe('Text((3.12345,4.12345) "sphinx of black quartz")');
   expect(formatLessText.toString(2)).toBe('Text((3.12,4.12) "sphinx of black quartz")');
 
   const text = rac.Text(1.12345, 2.12345, 'judge my vow', rac.Text.Format.bottomRight);
-
   expect(text.toString()) .toBe('Text((1.12345,2.12345) "judge my vow")');
   expect(text.toString(2)).toBe('Text((1.12,2.12) "judge my vow")');
+});
+
+
+tools.test( function thrownErrors() {
+  const zero = rac.Point.zero;
+  const centered = rac.Text.Format.centered;
+
+  expect(() => {new Rac.Text(rac, zero, 'string', centered);})
+    .not.toThrow();
+
+  // Missing parameter
+  expect(() => {new Rac.Text(null, zero, 'string', centered);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text(rac, null, 'string', centered);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text(rac, zero, null, centered);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text(rac, zero, 'string', null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid parameters
+  expect(() => {new Rac.Text('rac', zero, 'string', centered);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text(rac, rac.Angle.zero, 'string', centered);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text(rac, zero, 1337, centered);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Text(rac, zero, 'string', `centered`);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 
