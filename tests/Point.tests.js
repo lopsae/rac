@@ -32,6 +32,9 @@ tools.test( function identity() {
   expect(0)               .not.equalsPoint(0, 0);
   expect('')              .not.equalsPoint(0, 0);
   expect('0')             .not.equalsPoint(0, 0);
+  expect(55)              .not.equalsPoint(0, 0);
+  expect('55')            .not.equalsPoint(0, 0);
+  expect('some')          .not.equalsPoint(0, 0);
   expect(true)            .not.equalsPoint(0, 0);
   expect(false)           .not.equalsPoint(0, 0);
   expect(rac.Angle.zero)  .not.equalsPoint(0, 0);
@@ -47,8 +50,9 @@ tools.test( function identity() {
   expect(hunty.equals(''))              .toBe(false);
   expect(hunty.equals(0))               .toBe(false);
   expect(hunty.equals('0'))             .toBe(false);
-  expect(hunty.equals(100))             .toBe(false);
-  expect(hunty.equals('100'))           .toBe(false);
+  expect(hunty.equals(55))              .toBe(false);
+  expect(hunty.equals('55'))            .toBe(false);
+  expect(hunty.equals('some'))          .toBe(false);
   expect(hunty.equals(true))            .toBe(false);
   expect(hunty.equals(false))           .toBe(false);
   expect(hunty.equals(rac.Angle.zero))  .toBe(false);

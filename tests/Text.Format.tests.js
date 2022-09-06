@@ -52,11 +52,14 @@ tools.test( function identity() {
   expect(0)               .not.equalsTextFormat(ha.center, va.center);
   expect('')              .not.equalsTextFormat(ha.center, va.center);
   expect('0')             .not.equalsTextFormat(ha.center, va.center);
+  expect(55)              .not.equalsTextFormat(ha.center, va.center);
+  expect('55')            .not.equalsTextFormat(ha.center, va.center);
+  expect('some')          .not.equalsTextFormat(ha.center, va.center);
   expect(true)            .not.equalsTextFormat(ha.center, va.center);
   expect(false)           .not.equalsTextFormat(ha.center, va.center);
+  expect(rac.Angle.zero)  .not.equalsTextFormat(ha.center, va.center);
   expect(rac.Point.zero)  .not.equalsTextFormat(ha.center, va.center);
   expect(rac.Ray.zero)    .not.equalsTextFormat(ha.center, va.center);
-  expect(rac.Segment.zero).not.equalsTextFormat(ha.center, va.center);
   expect(rac.Text.sphinx) .not.equalsTextFormat(ha.center, va.center);
 
   // Expected type for equals
@@ -64,18 +67,19 @@ tools.test( function identity() {
   expect(centered.equals(rac.Text.Format.bottomRight))     .toBe(false);
 
   // Unexpected type for equals
-  expect(centered.equals(null)).toBe(false);
-  expect(centered.equals(0)).toBe(false);
-  expect(centered.equals('')).toBe(false);
-  expect(centered.equals('0')).toBe(false);
-  expect(centered.equals(100)).toBe(false);
-  expect(centered.equals('100')).toBe(false);
-  expect(centered.equals(true)).toBe(false);
-  expect(centered.equals(false)).toBe(false);
-  expect(centered.equals(rac.Point.zero)).toBe(false);
-  expect(centered.equals(rac.Ray.zero)).toBe(false);
-  expect(centered.equals(rac.Segment.zero)).toBe(false);
-  expect(centered.equals(rac.Text.sphinx)).toBe(false);
+  expect(centered.equals(null))            .toBe(false);
+  expect(centered.equals(0))               .toBe(false);
+  expect(centered.equals(''))              .toBe(false);
+  expect(centered.equals('0'))             .toBe(false);
+  expect(centered.equals(55))              .toBe(false);
+  expect(centered.equals('55'))            .toBe(false);
+  expect(centered.equals('some'))          .toBe(false);
+  expect(centered.equals(true))            .toBe(false);
+  expect(centered.equals(false))           .toBe(false);
+  expect(centered.equals(rac.Angle.zero))  .toBe(false);
+  expect(centered.equals(rac.Point.zero))  .toBe(false);
+  expect(centered.equals(rac.Ray.zero))    .toBe(false);
+  expect(centered.equals(rac.Text.sphinx)) .toBe(false);
 });
 
 
