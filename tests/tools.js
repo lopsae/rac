@@ -167,8 +167,9 @@ expect.extend({ equalsPoint(point, x, y) {
   }
 
   if (!(point instanceof Rac.Point)) {
+    let pointTypeName = Rac.utils.typeName(point);
     return msg.fail(point.toString(), expected,
-      `Received type: ${msg.r(Rac.utils.typeName(point))}`,
+      `Received type: ${msg.r(pointTypeName)}`,
       `Expected type: ${msg.e('Rac.Point')}`);
   }
 
@@ -281,8 +282,9 @@ expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle = 0, font = null,
   }
 
   if (!(format instanceof Rac.Text.Format)) {
+    let formatTypeName = Rac.utils.typeName(format);
     return msg.fail(format.toString(), expected,
-      `Received type: ${msg.r(Rac.utils.typeName(format))}`,
+      `Received type: ${msg.r(formatTypeName)}`,
       `Expected type: ${msg.e('Rac.Text.Format')}`);
   }
 
@@ -301,24 +303,33 @@ expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle = 0, font = null,
 
 // Checks all text properties, except for `format`
 expect.extend({ equalsText(text, x, y, string) {
-  const messenger = new Messenger(this,
+  const msg = new Messenger(this,
     'equalsText',
     'equal Text properties');
 
   const expected = rac.Text(x, y, string);
+
   if (text == null) {
-    return messenger.fail('null', expected);
+    return msg.fail('null', expected);
+  }
+
+  if (!(text instanceof Rac.Text)) {
+    let textTypeName = Rac.utils.typeName(text);
+    return msg.fail(text.toString(), expected,
+      `Received type: ${msg.r(textTypeName)}`,
+      `Expected type: ${msg.e('Rac.Text.Format')}`);
   }
 
   if (text.rac !== expected.rac) {
-    return messenger.fail(text.toString(), expected,
+    return msg.fail(text.toString(digits), expected,
       `Unexpected Rac instance: ${Rac.utils.typeName(text.rac)}`);
   }
 
-  // RELEASE-TODO: implement text.equals
-  const isEqual = expected.string === text.string
-    && expected.point.equals(text.point);
-  return messenger.done(isEqual, text, expected)
+  const isEqual = expected.equals(text);
+
+  return msg.done(isEqual, text, expected,
+    `Received: ${msg.r(text.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
 }}); // equalsText
 
 

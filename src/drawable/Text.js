@@ -8,6 +8,12 @@ const utils = require('../util/utils');
 const TextFormat = require('./Text.Format')
 
 
+// RELEASE-TODO: add
+// TO fully draw a text a Text.Format object is required, which provides
+// the font and size configuration, orientation angle for the text, and the
+// alignment relative to `point`.
+// Link to format.
+// Maybe: String, position, and [format] to draw a text.
 /**
 * String, format, and position to draw a text.
 * @alias Rac.Text
@@ -56,6 +62,42 @@ class Text {
   }
 
 
+  /**
+  * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
+  */
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.point.x, digits);
+    const yStr = utils.cutDigits(this.point.y, digits);
+    return `Text((${xStr},${yStr}) "${this.string}")`;
+  }
+
+
+  // RELEASE-TODO: check docs
+  /**
+  * Returns `true` when the `string` and `point` of both texts are equal;
+  * otherwise returns `false`.
+  *
+  * When `otherText` is any class other that `Rac.Text`, returns `false`.
+  *
+  * `point`s are compared using [`point.equals`]{@link Rac.Point#equals}.
+  *
+  * The `format` objects are ignored in this comparison.
+  *
+  * @param {Rac.Text} otherText - A `Text` to compare
+  * @returns {boolean}
+  * @see Rac.Point#equals
+  */
+  equals(otherText) {
+    return otherText instanceof Text
+      && this.string === otherText.string
+      && this.point.equals(otherText.point);
+  }
+
+
   // RELEASE-TODO: document - test
   withAngle(newAngle) {
     const newFormat = this.format.withAngle(newAngle);
@@ -77,18 +119,7 @@ class Text {
   }
 
 
-  /**
-  * Returns a string representation intended for human consumption.
-  *
-  * @param {number} [digits] - The number of digits to print after the
-  * decimal point, when ommited all digits are printed
-  * @returns {string}
-  */
-  toString(digits = null) {
-    const xStr = utils.cutDigits(this.point.x, digits);
-    const yStr = utils.cutDigits(this.point.y, digits);
-    return `Text((${xStr},${yStr}) "${this.string}")`;
-  }
+
 
 } // class Text
 
