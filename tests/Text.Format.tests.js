@@ -49,6 +49,7 @@ tools.test( function identity() {
 
   // Unexpected type for equalsTextFormat
   expect(null)            .not.equalsTextFormat(ha.center, va.center);
+  expect(undefined)       .not.equalsTextFormat(ha.center, va.center);
   expect(0)               .not.equalsTextFormat(ha.center, va.center);
   expect('')              .not.equalsTextFormat(ha.center, va.center);
   expect('0')             .not.equalsTextFormat(ha.center, va.center);
@@ -68,6 +69,7 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(centered.equals(null))            .toBe(false);
+  expect(centered.equals(undefined))       .toBe(false);
   expect(centered.equals(0))               .toBe(false);
   expect(centered.equals(''))              .toBe(false);
   expect(centered.equals('0'))             .toBe(false);
@@ -100,11 +102,11 @@ tools.test( function toString() {
 
 tools.test( function thrownErrors() {
   expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, 'sans', 14);})
-    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+    .not.toThrow();
   expect(() => {new Rac.Text.Format(rac, ha.left, va.top, rac.Angle.zero, null, null);})
-    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+    .not.toThrow();
   expect(() => {new Rac.Text.Format(rac, ha.left, va.top);})
-    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+    .not.toThrow();
 
   // Missing parameter
   expect(() => {new Rac.Text.Format(null, ha.left, va.top, rac.Angle.zero, 'sans', 14);})

@@ -29,6 +29,7 @@ tools.test( function identity() {
 
   // Unexpected type for equalsPoint
   expect(null)            .not.equalsPoint(0, 0);
+  expect(undefined)       .not.equalsPoint(0, 0);
   expect(0)               .not.equalsPoint(0, 0);
   expect('')              .not.equalsPoint(0, 0);
   expect('0')             .not.equalsPoint(0, 0);
@@ -47,6 +48,7 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(hunty.equals(null))            .toBe(false);
+  expect(hunty.equals(undefined))       .toBe(false);
   expect(hunty.equals(''))              .toBe(false);
   expect(hunty.equals(0))               .toBe(false);
   expect(hunty.equals('0'))             .toBe(false);
@@ -71,7 +73,7 @@ tools.test( function toString() {
 
 tools.test( function thrownErrors() {
   expect(() => {new Rac.Point(rac, 100, 100);})
-    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+    .not.toThrow();
 
   // Missing parameter
   expect(() => {new Rac.Point(null, 100, 100);})
