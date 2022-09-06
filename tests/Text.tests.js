@@ -169,8 +169,5 @@ tools.test(function withAngle_Font_Size() {
 });
 
 
-
-// RELEASE-TODO: test!
-test.todo('Check for coverage!');
-// NOT Full coverage!
+// Full coverage!
 
