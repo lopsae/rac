@@ -7,10 +7,8 @@ const tools = require('./tools');
 const rac = tools.rac;
 
 
-const zebras = rac.Text(55, 55, 'daft zebras',
-  rac.Text.Format.centered);
+const zebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.centered);
 const quartz = rac.Text(100, 100, 'black quartz');
-// RELEASE-TODO: test that equalsText is ignoring format
 
 const ha = Rac.Text.Format.horizontalAlign;
 const va = Rac.Text.Format.verticalAlign;
@@ -120,6 +118,27 @@ tools.test( function instanceMembers() {
 
   expect(rac.Text.sphinx).equalsText(0, 0, 'sphinx of black quartz, judge my vow');
   expect(rac.Text.sphinx.format).equalsTextFormat(ha.left, va.top);
+});
+
+
+tools.test( function ignoresFormats() {
+  const rightZebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.bottomRight);
+  expect(rightZebras).equalsText(55, 55, 'daft zebras');
+  expect(rightZebras.format).equalsTextFormat(ha.right, va.bottom);
+
+  expect(zebras).equalsText(55, 55, 'daft zebras');
+  expect(zebras.format).equalsTextFormat(ha.center, va.center);
+
+  expect(zebras.equals(rightZebras)).toBe(true);
+
+  const whiteQuartz = rac.Text(100, 100, 'white quartz');
+  expect(whiteQuartz).equalsText(100, 100, 'white quartz');
+  expect(whiteQuartz.format).equalsTextFormat(ha.left, va.top);
+
+  expect(quartz).equalsText(100, 100, 'black quartz');
+  expect(quartz.format).equalsTextFormat(ha.left, va.top);
+
+  expect(quartz.equals(whiteQuartz)).toBe(false);
 });
 
 

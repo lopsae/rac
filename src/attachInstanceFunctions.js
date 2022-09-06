@@ -235,7 +235,6 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   // RELEASE-TODO: finish documentation
-  // RELEASE-TODO: test
   /**
   * Convenience function that creates a new `Text` setup with `this`.
   *
