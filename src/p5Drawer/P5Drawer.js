@@ -37,8 +37,14 @@ class P5Drawer {
     this.debugTextStyle = null;
 
     /**
-    * Object with options used by the default implementation of
-    * `drawable.debug()`.
+    * Settings used by the default implementation of `drawable.debug()`.
+    *
+    * @property {string} font='monospace'
+    *   Font to use when drawing with `debug()`
+    * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    *   Font size to use when drawing with `debug()`
+    * @property {number} fixedDigits=2
+    *   Number of decimal digits to print when drawing with `debug()`
     *
     * @type {object}
     */
