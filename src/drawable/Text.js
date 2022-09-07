@@ -8,14 +8,14 @@ const utils = require('../util/utils');
 const TextFormat = require('./Text.Format')
 
 
-// RELEASE-TODO: add
-// TO fully draw a text a Text.Format object is required, which provides
-// the font and size configuration, orientation angle for the text, and the
-// alignment relative to `point`.
-// Link to format.
-// Maybe: String, position, and [format] to draw a text.
 /**
-* String, format, and position to draw a text.
+* String, position and [format]{@link Rac.Text.Format} to draw a text.
+*
+* An instance of this object contains the string and a `Point` used to
+* determine the location of the drawn text. The
+* [`Text.Format`]{@link Rac.Text.Format} object determines the font, size,
+* orientation angle, and the alignment relative to `point` to draw the text.
+*
 * @alias Rac.Text
 */
 class Text {
