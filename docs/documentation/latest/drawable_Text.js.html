@@ -119,7 +119,6 @@ class Text {
   }
 
 
-  // RELEASE-TODO: check docs
   /**
   * Returns `true` when the `string` and `point` of both texts are equal;
   * otherwise returns `false`.
@@ -141,21 +140,37 @@ class Text {
   }
 
 
-  // RELEASE-TODO: document
+  /**
+  * Returns a new `Text` and `Format` with `format.angle` set to the
+  * `Angle` derived from `newAngle`.
+  * @param {Rac.Angle|number} newAngle - The angle for the new `Text` and
+  *   `Text.Format`
+  * @returns {Rac.Text}
+  */
   withAngle(newAngle) {
     const newFormat = this.format.withAngle(newAngle);
     return new Text(this.rac, this.point, this.string, newFormat);
   }
 
 
-  // RELEASE-TODO: document
+  /**
+  * Returns a new `Text` and `Format` with `format.font` set to `newFont`.
+  * @param {?string} newFont - The font name for the new `Text` and
+  *   `Text.Format`; can be set to `null`.
+  * @returns {Rac.Text}
+  */
   withFont(newFont) {
     const newFormat = this.format.withFont(newFont);
     return new Text(this.rac, this.point, this.string, newFormat);
   }
 
 
-  // RELEASE-TODO: document
+  /**
+  * Returns a new `Text` and `Format` with `format.size` set to `newSize`.
+  * @param {?number} newSize - The font size for the new `Text` and
+  *   `Text.Format`; can be set to `null`.
+  * @returns {Rac.Text}
+  */
   withSize(newSize) {
     const newFormat = this.format.withSize(newSize);
     return new Text(this.rac, this.point, this.string, newFormat);
