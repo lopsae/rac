@@ -19,7 +19,7 @@ Changelog
 + Rename `Text.Format.horizontal` to `horizontalAlign`
 + Rename `Text.Format.vertical` to `verticalAlign`
 + Rename `text.format.inverse` to `reverse`
-+ Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`, `Rac.utils`, `rac.utils`
++ Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`, `Rac.utils`, `rac.utils`, `rac.textFormatDefaults`
 + Document `Text`, `Text.Format`
 
 

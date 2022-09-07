@@ -173,12 +173,22 @@ class TextFormat {
 
     /**
     * The font name of the text to draw.
+    *
+    * When set to `null` the font defined in
+    * [`rac.textFormatDefaults.font`]{@link Rac#textFormatDefaults} is
+    * used instead upon drawing.
+    *
     * @type {?string}
     */
     this.font = font;
 
     /**
     * The font size of the text to draw.
+    *
+    * When set to `null` the size defined in
+    * [`rac.textFormatDefaults.size`]{@link Rac#textFormatDefaults} is
+    * used instead upon drawing.
+    *
     * @type {?number}
     */
     this.size = size;

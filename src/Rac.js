@@ -98,8 +98,26 @@ class Rac {
     this.compositeStack = [];
 
 
-    // RELEASE-TODO: document - test
-    // RELEASE-TODO: mention in Text.Format.font/size when null
+
+
+    /**
+    * Defaults for the optional properties of
+    * [`Text.Format`]{@link Rac.Text.Format}.
+    *
+    * When a [`Text`]{@link Rac.Text} is draw which
+    * [`format.font`]{@link Rac.Text.Format#font} or
+    * [`format.size`]{@link Rac.Text.Format#size} is set to `null`, the
+    * values set here are used instead.
+    *
+    * @type {object}
+    * @property {?string} font=null
+    *   Default font, used when drawing a `Text` which
+    *   [`format.font`]{@link Rac.Text.Format#font} is set to `null`; when
+    *   set to `null` the font is not set upon drawing
+    * @property {number} size=15
+    *   Default size, used when drawing a `Text` which
+    *   [`format.size`]{@link Rac.Text.Format#size} is set to `null`
+    */
     this.textFormatDefaults = {
       font: null,
       size: 15
