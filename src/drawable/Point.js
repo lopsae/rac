@@ -22,9 +22,12 @@ class Point{
 
   /**
   * Creates a new `Point` instance.
-  * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} x - The x coordinate
-  * @param {number} y - The y coordinate
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {number} x
+  *   The x coordinate
+  * @param {number} y
+  *   The y coordinate
   */
   constructor(rac, x, y) {
     utils.assertExists(rac, x, y);

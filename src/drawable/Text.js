@@ -22,7 +22,18 @@ class Text {
 
   static Format = TextFormat;
 
-  // RELEASE-TODO: document
+  /**
+  * Creates a new `Text` instance.
+  *
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {Rac.Point} point
+  *   The location for the drawn text
+  * @param {string} string
+  *   The string to draw
+  * @param {Rac.Text.Format} format
+  *   The format for the drawn text
+  */
   constructor(rac, point, string, format) {
     utils.assertType(Rac, rac);
     utils.assertType(Rac.Point, point);

@@ -59,15 +59,20 @@ class TextFormat {
   /**
   * Creates a new `Text.Format` instance.
   *
-  * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {string} hAlign - The horizontal alignment, left-to-right; one
-  *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
-  *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {string} hAlign
+  *   The horizontal alignment, left-to-right; one of the values from
+  *   [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
+  * @param {string} vAlign
+  *   The vertical alignment, top-to-bottom; one of the values from
+  *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null] - The font name
-  * @param {number} [size=null] - The font size
+  * @param {string} [font=null]
+  *   The font name
+  * @param {number} [size=null]
+  *   The font size
   */
   constructor(
     rac,
