@@ -57,19 +57,20 @@ const utils = require('../util/utils');
 class TextFormat {
 
   /**
-   * Supported values for [`hAlign`]{@link Rac.Text.Format#hAlign} which
-   * dermines the left-to-right alignment of the drawn `Text` in relation
-   * to its [`text.point`]{@link Rac.Text#point}.
-   *
-   * Members are:
-   * + `left` - aligns `text.point` to the left edge of the drawn text
-   * + `center` - aligns `text.point` to the center, from side to
-   *   side, of the drawn text
-   * + `right` - aligns `text.point` to the right edge of the drawn text
-   *
-   * @type {object}
-   * @memberof Rac.Text.Format
-   */
+  * Supported values for [`hAlign`]{@link Rac.Text.Format#hAlign} which
+  * dermines the left-to-right alignment of the drawn `Text` in relation
+  * to its [`text.point`]{@link Rac.Text#point}.
+  *
+  * @property {string} left
+  *   aligns `text.point` to the left edge of the drawn text
+  * @property {string} center
+  *   aligns `text.point` to the center, from side to
+  * @property {string} right
+  *   aligns `text.point` to the right edge of the drawn text
+  *
+  * @type {object}
+  * @memberof Rac.Text.Format
+  */
   static horizontalAlign = {
     left: "left",
     center: "horizontalCenter",
@@ -77,20 +78,22 @@ class TextFormat {
   };
 
   /**
-   * Supported values for [`vAlign`]{@link Rac.Text.Format#vAlign} which
-   * dermines the top-to-bottom alignment of the drawn `Text` in relation
-   * to its [`text.point`]{@link Rac.Text#point}.
-   *
-   * Members are:
-   * + `top` - aligns `text.point` to the top edge of the drawn text
-   * + `center` - aligns `text.point` to the center, from top to
-   *   bottom, of the drawn text
-   * + `baseline` - aligns `text.point` to the baseline of the drawn text
-   * + `bottom` - aligns `text.point` to the bottom edge of the drawn text
-   *
-   * @type {object}
-   * @memberof Rac.Text.Format
-   */
+  * Supported values for [`vAlign`]{@link Rac.Text.Format#vAlign} which
+  * dermines the top-to-bottom alignment of the drawn `Text` in relation
+  * to its [`text.point`]{@link Rac.Text#point}.
+  *
+  * @property {string} top
+  *   aligns `text.point` to the top edge of the drawn text
+  * @property {string} center
+  *   aligns `text.point` to the center, from top to bottom, of the drawn text
+  * @property {string} baseline
+  *   aligns `text.point` to the baseline of the drawn text
+  * @property {string} bottom
+  *   aligns `text.point` to the bottom edge of the drawn text
+  *
+  * @type {object}
+  * @memberof Rac.Text.Format
+  */
   static verticalAlign = {
     top: "top",
     center: "verticalCenter",
