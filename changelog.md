@@ -1,8 +1,9 @@
 Changelog
 =========
 
-1.2.0-dev - IN PROGRESS
----------
+1.2.0 - 2022 September 8th
+--------------------------
++ Fix incorrect values set in `rac.Text.Format.topLeft` and `rac.Text.Format.topRight`
 + Add `angle.log`
 + Add `point.pointAtBisector`
 + Add `segment.inverse`
@@ -13,12 +14,12 @@ Changelog
 + Add `rac.utils`
 + Modify `Text.Format` constructor defaults and parameter order
 + Modify `Text.Format` to allow nullable `size` and `font`
-+ Fix incorrect values set in `rac.Text.Format.topLeft` and `rac.Text.Format.topRight`
 + Modify `rac.Text` to allow an optional `format` parameter
 + Modify `point.text` to allow an optional `format` parameter
 + Rename `Text.Format.horizontal` to `horizontalAlign`
 + Rename `Text.Format.vertical` to `verticalAlign`
 + Rename `text.format.inverse` to `reverse`
++ Improve documentation for `p5drawer.debugTextOptions`
 + Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`, `Rac.utils`, `rac.utils`, `rac.textFormatDefaults`
 + Document `Text`, `Text.Format`
 
@@ -33,13 +34,13 @@ Finalize and document Controls and Styles
 + Modify `controller.pointerStyle` to nullable
 + Implement `StyleContainer` as replacement of `Style`
 + Implement `p5Drawer.strokeWeightFactor`
-+ Improve documentation on `Stroke`, `Fill`, `StyleContainer`
-+ Improve documentation on `Controller`, `Control`, `RayControl`, `ArcControl`
 + Reimplement `SegmentControl` as `RayControl`
 + Rename `control.copyAnchor` to `affixAnchor`
 + Rename `control.center` to `knob`
 + Rename `segment.withStartExtended` to `withStartExtension`
 + Rename `rac.controller.selection.pointerOffset` to `pointerToKnobOffset`
++ Improve documentation for `Stroke`, `Fill`, `StyleContainer`
++ Improve documentation for `Controller`, `Control`, `RayControl`, `ArcControl`
 
 
 1.0.1 - 2021 August 20th
