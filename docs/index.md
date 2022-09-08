@@ -5,9 +5,10 @@ RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/
 
 ### Documentation
 
-[Latest (1.1.0)](./documentation/latest/)
+[Latest (1.2.0)](./documentation/latest/)
 
 Previous versions:
++ [1.1.0](./documentation/1.1.0/)
 + [1.0.1](./documentation/1.0.1/)
 + [1.0.0](./documentation/1.0.0/)
 + [0.10.3-dev](./documentation/0.10.3-dev/)
