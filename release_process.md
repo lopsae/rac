@@ -75,6 +75,17 @@ When a purge is needed:
 https://purge.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
 ```
 
+or
+```
+curl -v -X POST 'https://purge.jsdelivr.net/' \
+  -H 'cache-control: no-cache' -H 'content-type: application/json' \
+  -d '{ "path": [
+    "/gh/lopsae/rac@release/n.e.w/dist/rac.js",
+    "/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js",
+    "/gh/lopsae/rac@release/n.e.w/dist/rac.min.js"
+  ]}'
+```
+
 
 
 Make copy of current docs
