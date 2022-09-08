@@ -7,6 +7,9 @@ const utils = require('../util/utils');
 
 const TextFormat = require('./Text.Format')
 
+// Not used, Seems like uglify minification needs a reference here;
+// otherwise TextFormat is not correctly required.
+var minifyHelper = TextFormat
 
 /**
 * String, position and [format]{@link Rac.Text.Format} to draw a text.
