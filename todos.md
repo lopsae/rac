@@ -14,12 +14,15 @@ For version change
 
 Future
 ------
++ Add `dated` along with version/build
 + Control.anchor, make it a method to type check
 + Controller.pointer..., type check the received object
 + Docs: reference instance.X on class
 + Docs: reference class on instance.X
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
+
++ Observable: see if rac can use dynamic import: https://observablehq.com/@observablehq/require at the end of page
 
 + Can Arc have a null end? to signal full circle
 
