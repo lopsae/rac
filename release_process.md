@@ -1,6 +1,33 @@
 Release process
 ===============
 
+Set dev version
+---------------
+In `package.json` set `version` to `n.e.w-dev`
+
+Commit message: `bump version to n.e.w-dev`
+
+
+
+Create new documentation
+------------------------
+```
+npm run docs
+```
+
+Commit message: `build new docs for n.e.w-dev`
+
+As documentation changes:
+
+Commit message: `rebuild docs with ...`
+
+
+
+Develop!
+--------
+🛠🛠🛠
+
+
 
 Start release branch
 --------------------
@@ -19,9 +46,10 @@ Check changelog update
 Update versions
 ---------------
 In files:
-+ npm package.json
-+ hardcoded in jsdoc.json
-+ hardcoded in docs/index.md
++ npm `package.json`
++ hardcoded in `jsdoc.json`
++ hardcoded in `docs/index.md`
++ hardcoded in `readme.md`
 
 Update `package-lock.json` by running:
 ```
@@ -93,25 +121,23 @@ curl -v -X POST 'https://purge.jsdelivr.net/' \
 
 
 
-Make copy of current docs
--------------------------
-// RELEASE-TODO, may no longer be current now that docs are produced directly to the pkgVersion folder
+Promote docs to current version
+-------------------------------
 ```
-mv docs/documentation/latest docs/documentation/o.l.d
+mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
 ```
 
-Commit message: `freeze copy of o.l.d documentation`
+Commit message: `promote documentation to n.e.w`
 
 
 
-Build latest docs
------------------
+Rebuild current docs
+--------------------
 ```
 npm run docs:fresh
 ```
 
 Commit message: `rebuild docs for n.e.w`
-formerly: `rebuilt docs for n.e.w`
 
 
 

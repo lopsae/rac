@@ -4,7 +4,7 @@ TODO's
 
 In progress
 -----------
-+ RELEASE-TODO: search for `latest` and fix
+
 
 
 For version change
