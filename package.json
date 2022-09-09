@@ -25,8 +25,8 @@
     "docs": "grunt --debug makeDocs openDocs",
     "docs:open": "grunt openDocs",
     "docs:clean": "grunt cleanDocs",
-    "docs:fresh": "npm run docs:delete && npm run docs",
     "docs:delete": "grunt --debug deleteDocs",
+    "docs:fresh": "grunt --debug deleteDocs makeDocs openDocs",
     "pages": "cd docs; bundle exec jekyll serve",
     "dist": "npm test && grunt dist"
   },

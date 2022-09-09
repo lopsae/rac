@@ -21,10 +21,10 @@ Produces a debug build and starts localhost server, rebuilds whenever a source f
 ### `npm run docs`
 Produces documentation for the current package version and opens its index.
 
++ `npm run docs:open` - Opens the documentation index for the current package version
 + `npm run docs:clean` - Checks-out HEAD into the documentation files for the current package version
 + `npm run docs:delete` - Deletes the documentation folder for the current package version
-+ `npm run docs:fresh` - Runs `docs:clean` and produces documentation
-+ `npm run docs:open` - Opens the documentation index for the current package version
++ `npm run docs:fresh` - Deletes and produces the documentation for the current package version, and opens its index
 
 
 Documentation uses a custom Minami theme package. When necessary the `package.json` dependency can be modified to a local buld:
