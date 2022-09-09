@@ -87,7 +87,7 @@ module.exports = function(grunt) {
           readme: "./built/docs_home.md",
           destination: 'docs/documentation/<%= pkg.version %>',
           verbose: true,
-          // pedantic: true,
+          pedantic: true,
           // debug: true,
           // explain: true,
           configure: './jsdoc.json',
