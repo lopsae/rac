@@ -3,7 +3,7 @@ Release process
 
 Set dev version
 ---------------
-In `package.json` set `version` to `n.e.w-dev`
+Update `package.json`, set `version` to `n.e.w-dev`
 
 Commit message: `bump version to n.e.w-dev`
 
@@ -11,6 +11,10 @@ Commit message: `bump version to n.e.w-dev`
 
 Create new documentation
 ------------------------
+Update `jsdoc.json`, set `o.l.d` to `n.e.w-dev`
+
+Commit message: `update jsdoc homelabel with n.e.w-dev`
+
 ```
 npm run docs
 ```
