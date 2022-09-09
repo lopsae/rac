@@ -322,7 +322,7 @@ class Ray {
   * The ray is considered an unbounded line.
   *
   * @param {number} y - The y coordinate to calculate a point in the ray
-  * @retursn {Rac.Point}
+  * @returns {Rac.Point}
   */
   pointAtY(y) {
     const slope = this.slope();
