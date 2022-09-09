@@ -105,7 +105,7 @@ class Control {
     * Style to apply when drawing. This style gets applied after
     * `[rac.controller.controlStyle]{@link Rac.Controller#controlStyle}`.
     *
-    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} [style=null]
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
     * @default null
     */
     this.style = null;
