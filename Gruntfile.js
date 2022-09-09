@@ -85,7 +85,7 @@ module.exports = function(grunt) {
         options: {
           template: "./node_modules/minami-rac",
           readme: "./built/docs_home.md",
-          destination: 'docs/documentation/latest',
+          destination: 'docs/documentation/<%= pkg.version %>',
           verbose: true,
           // pedantic: true,
           // debug: true,
