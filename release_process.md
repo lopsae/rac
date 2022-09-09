@@ -130,10 +130,11 @@ git flow release finish a.b.c
 
 
 
-Push to origin
---------------
+Push tag to origin
+------------------
+Notice that the tag is prefixed with 'v':
 ```
-git push origin n.e.w
+git push origin vn.e.w
 ```
 
 
