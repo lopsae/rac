@@ -90,7 +90,9 @@ module.exports = function(grunt) {
           // pedantic: true,
           // debug: true,
           // explain: true,
-          configure: './jsdoc.json'
+          configure: './jsdoc.json',
+          // Not needed, using the actual package changes the output dir
+          package: '',
         }
       }
     } // jsdoc
