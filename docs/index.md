@@ -5,7 +5,7 @@ RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/
 
 ### Documentation
 
-[Latest (1.2.0)](./documentation/latest/)
+[Latest (1.2.0)](./documentation/1.2.0/)
 
 Previous versions:
 + [1.1.0](./documentation/1.1.0/)
@@ -34,7 +34,7 @@ npm install ruler-and-compass@1.2.0
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
-It can be imported directly as a script, which will assign the [`Rac` constructor](./documentation/latest/Rac.html) to the `Rac` global variable:
+It can be imported directly as a script, which will assign the [`Rac` constructor](./documentation/1.2.0/Rac.html) to the `Rac` global variable:
 ```
 <script src="https://unpkg.com/ruler-and-compass@1.2.0"></script>
 ```

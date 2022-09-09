@@ -5,7 +5,7 @@ Library to express geometrical constructions through ruler-and-compass operation
 RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/) instance, or in a node enviroment as a npm package.
 
 + [Project Page](https://lopsae.github.io/rac)
-+ [Latest documentation](https://lopsae.github.io/rac/documentation/latest/)
++ [Latest Documentation (1.2.0)](https://lopsae.github.io/rac/documentation/1.2.0/)
 
 
 
@@ -28,7 +28,7 @@ npm install ruler-and-compass
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
-It can be imported directly as a script, which will assign the [`Rac` constructor](./documentation/latest/Rac.html) to the `Rac` global variable:
+It can be imported directly as a script, which will assign the [`Rac` constructor](./documentation/1.2.0/Rac.html) to the `Rac` global variable:
 ```
 <script src="https://unpkg.com/ruler-and-compass"></script>
 ```
