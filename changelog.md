@@ -3,6 +3,7 @@ Changelog
 
 1.2.0 - 2022 September 8th
 --------------------------
+Streamline and document Text and Text.Format
 + Fix incorrect values set in `rac.Text.Format.topLeft` and `rac.Text.Format.topRight`
 + Add `angle.log`
 + Add `point.pointAtBisector`
