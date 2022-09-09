@@ -158,6 +158,7 @@ Update gh-pages
 ---------------
 + Hard reset of `gp-pages` to `n.e.w` tag
 + Push `gp-pages`
++ Check at https://rulerandcompass.org/
 
 
 
