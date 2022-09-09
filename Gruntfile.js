@@ -146,6 +146,21 @@ module.exports = function(grunt) {
   }); // exec.statusCount
 
 
+  // Opens the documentation index for the current package version.
+  grunt.config.set('exec.openDocs', {
+    cmd: 'open ./docs/documentation/<%= pkg.version %>/index.html',
+    stdout: false,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      grunt.config.requires('pkg.version');
+      const pkgVersion = grunt.config('pkg.version');
+
+      grunt.log.writeln(`Opened docs for: ${pkgVersion.green.bold}`);
+    }
+  }); // exec.openDocs
+
+
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -158,7 +173,10 @@ module.exports = function(grunt) {
   // `built/docs_home.md`.
   grunt.registerTask('makeDocsReadme', function() {
     grunt.config.requires('pkg.version');
-    let versionString = grunt.config('pkg.version');
+    const pkgVersion = grunt.config('pkg.version');
+
+    // TODO: why is this necessary? does a 0.1 version becomes a float?
+    const versionString = '' + pkgVersion;
 
     let templateContents = grunt.file.read('template/docs_home.md.template');
     let processedTemplate = grunt.template.process(templateContents, {data: {
@@ -275,6 +293,10 @@ module.exports = function(grunt) {
   // Queues the tasks to produce all documentation.
   grunt.registerTask('makeDocs', [
     'makeDocsReadme', 'jsdoc']);
+
+
+  grunt.registerTask('openDocs', [
+    'exec:openDocs']);
 
 
   // Builds a dev bundle, serves it, and watches for source changes
