@@ -156,7 +156,7 @@ module.exports = function(grunt) {
       grunt.config.requires('pkg.version');
       const pkgVersion = grunt.config('pkg.version');
 
-      grunt.log.writeln(`Opened docs for: ${pkgVersion.green.bold}`);
+      grunt.log.writeln(`Opened docs for: ${pkgVersion.green}`);
     }
   }); // exec.openDocs
 
@@ -171,7 +171,7 @@ module.exports = function(grunt) {
       grunt.config.requires('pkg.version');
       const pkgVersion = grunt.config('pkg.version');
 
-      grunt.log.writeln(`Cleaned docs for: ${pkgVersion.green.bold}`);
+      grunt.log.writeln(`Cleaned docs for: ${pkgVersion.green}`);
     }
   }); // exec.cleanDocs
 
@@ -187,7 +187,7 @@ module.exports = function(grunt) {
       const pkgVersion = grunt.config('pkg.version');
 
       let deleted = 'Deleted'.red.bold;
-      grunt.log.writeln(`${deleted} docs for: ${pkgVersion.green.bold}`);
+      grunt.log.writeln(`${deleted} docs for: ${pkgVersion.green}`);
     }
   }); // exec.deleteDocs
 
