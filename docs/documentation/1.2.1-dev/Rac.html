@@ -1,0 +1,4592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">RAC — Ruler and Compass<br/>1.2.1-dev</a></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#.build">build</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#.TAU">TAU</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#.utils">utils</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#.version">version</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#build">build</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#controller">controller</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#drawer">drawer</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#equalityThreshold">equalityThreshold</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#textFormatDefaults">textFormatDefaults</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#unitaryEqualityThreshold">unitaryEqualityThreshold</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#utils">utils</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.html#version">version</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#.setupDrawableProtoFunctions">setupDrawableProtoFunctions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Angle">Angle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Arc">Arc</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Bezier">Bezier</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Color">Color</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#equals">equals</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Fill">Fill</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Point">Point</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Ray">Ray</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Segment">Segment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#setupDrawer">setupDrawer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Stroke">Stroke</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Style">Style</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#Text">Text</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#TextFormat">TextFormat</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.html#unitaryEquals">unitaryEquals</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.RayControl.html">Rac.RayControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.Format.html">instance.Text.Format</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+        Rac
+        </h2>
+        
+            <div class="class-description"><p>Root class of RAC. All drawable, style, control, and drawer classes are
+contained in this class.</p>
+<p>An instance must be created with <code>new Rac()</code> in order to
+build drawable, style, and other objects.</p>
+<p>To perform drawing operations, a drawer must be setup with
+<code><a href="Rac.html#setupDrawer">setupDrawer</a></code>. Currently the only available
+implementation is <code><a href="Rac.P5Drawer.html">P5Drawer</a></code>.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Rac"><span class="type-signature"></span>new Rac<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line20">line 20</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new instance of Rac. The new instance has no <code>drawer</code> setup.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="Rac.Angle.html">Angle</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Arc.html">Arc</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.ArcControl.html">ArcControl</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Bezier.html">Bezier</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Color.html">Color</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Composite.html">Composite</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Control.html">Control</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Controller.html">Controller</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Exception.html">Exception</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Fill.html">Fill</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.P5Drawer.html">P5Drawer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Point.html">Point</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Ray.html">Ray</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.RayControl.html">RayControl</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Segment.html">Segment</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Shape.html">Shape</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Stroke.html">Stroke</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.StyleContainer.html">StyleContainer</a></dt>
+            <dd></dd>
+        
+            <dt><a href="Rac.Text.html">Text</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id=".build"><span class="type-signature">(static, constant) </span>build<span class="type-signature"> :string</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#.build" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line304">line 304</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Build of the class. Intended for debugging purpouses.</p>
+<p>Contains a commit-count and short-hash of the repository when the build
+was done.</p>
+<p>E.g. <code>904-011be8f</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id=".TAU"><span class="type-signature">(static, constant) </span>TAU<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#.TAU" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line318">line 318</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Tau, equal to <code>Math.PI * 2</code>.</p>
+<p><a href="https://tauday.com/tau-manifesto">Tau Manifesto</a>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id=".utils"><span class="type-signature">(static, constant) </span>utils<span class="type-signature"> :<a href="utils.html">utils</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#.utils" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line289">line 289</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Container of utility functions. See <code><a href="utils.html">utils</a></code> for the available
+members.</p>
+<p>Also available through <code><a href="Rac.html#utils">Rac#utils</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id=".version"><span class="type-signature">(static, constant) </span>version<span class="type-signature"> :string</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#.version" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line293">line 293</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Version of the class. Same as the version used for the npm package.</p>
+<p>E.g. <code>1.2.0</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="build"><span class="type-signature">(constant) </span>build<span class="type-signature"> :string</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#build" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line38">line 38</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Build of the instance, same as <code><a href="Rac.html#.build">Rac.build</a></code>.</p>
+<p>E.g. <code>904-011be8f</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="controller"><span class="type-signature"></span>controller<span class="type-signature"></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#controller" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line154">line 154</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Controller of the instance. This objecs handles all of the controls
+and pointer events related to this instance of <code>Rac</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="drawer"><span class="type-signature"></span>drawer<span class="type-signature"> :object</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#drawer" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line133">line 133</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Drawer of the instance. This object handles the drawing for all
+drawable object created using <code>this</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="equalityThreshold"><span class="type-signature"></span>equalityThreshold<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#equalityThreshold" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line68">line 68</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Value used to determine equality between two numeric values. Used for
+values that tend to be integers, like screen coordinates. Used by
+<code><a href="Rac.html#equals">Rac#equals</a></code>.</p>
+<p>When checking for equality <code>x</code> is equal to non-inclusive
+<code>(x-equalityThreshold, x+equalityThreshold)</code>:</p>
+<ul>
+<li><code>x</code> is <strong>not equal</strong> to <code>x ± equalityThreshold</code></li>
+<li><code>x</code> is <strong>equal</strong> to <code>x ± equalityThreshold/2</code></li>
+</ul>
+<p>Due to floating point precision some opertation like intersections
+can return odd or oscilating values. This threshold is used to snap
+values too close to a limit, as to prevent oscilating efects in
+user interaction.</p>
+<p>Default value is based on <code>1/1000</code> of a point.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="textFormatDefaults"><span class="type-signature"></span>textFormatDefaults<span class="type-signature"> :object</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#textFormatDefaults" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line122">line 122</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Defaults for the optional properties of
+<a href="Rac.Text.Format.html"><code>Text.Format</code></a>.</p>
+<p>When a <a href="Rac.Text.html"><code>Text</code></a> is draw which
+<a href="Rac.Text.Format.html#font"><code>format.font</code></a> or
+<a href="Rac.Text.Format.html#size"><code>format.size</code></a> is set to <code>null</code>, the
+values set here are used instead.</p>
+</div>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>font</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>Default font, used when drawing a <code>Text</code> which
+<a href="Rac.Text.Format.html#font"><code>format.font</code></a> is set to <code>null</code>; when
+set to <code>null</code> the font is not set upon drawing</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>size</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    15
+                
+                </td>
+            
+
+            <td class="description last"><p>Default size, used when drawing a <code>Text</code> which
+<a href="Rac.Text.Format.html#size"><code>format.size</code></a> is set to <code>null</code></p></td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="unitaryEqualityThreshold"><span class="type-signature"></span>unitaryEqualityThreshold<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#unitaryEqualityThreshold" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line83">line 83</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Value used to determine equality between two unitary numeric values.
+Used for values that tend to exist in the <code>[0, 1]</code> range, like
+<code><a href="Rac.Angle.html#turn">Rac.Angle#turn</a></code>. Used by <code><a href="Rac.html#unitaryEquals">Rac#unitaryEquals</a></code>.</p>
+<p>Equality logic is the same as <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code>.</p>
+<p>Default value is based on 1/1000 of the turn of an arc of radius 500
+and length of 1: <code>1/(500*6.28)/1000</code></p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="utils"><span class="type-signature"></span>utils<span class="type-signature"> :<a href="utils.html">utils</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#utils" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line94">line 94</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Container of utility functions. See <code><a href="utils.html">utils</a></code> for the available
+members.</p>
+<p>Also available through <code><a href="Rac.html#.utils">Rac.utils</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="version"><span class="type-signature">(constant) </span>version<span class="type-signature"> :string</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.html#version" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line27">line 27</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Version of the instance, same as <code><a href="Rac.html#.version">Rac.version</a></code>.</p>
+<p>E.g. <code>1.2.0</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title methods-subsection">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id=".setupDrawableProtoFunctions"><span class="type-signature">(static) </span>setupDrawableProtoFunctions<span class="signature">(drawableClass)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#.setupDrawableProtoFunctions" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachProtoFunctions.js.html">attachProtoFunctions.js</a>, <a href="attachProtoFunctions.js.html#line32">line 32</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Adds to <code>drawableClass.prototype</code> all the functions contained in
+<code>Rac.drawableProtoFunctions</code>. These are the functions shared by all
+drawable objects, for example <code>draw()</code> and <code>debug()</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>drawableClass</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>class</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Class to setup with drawable functions</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Angle"><span class="type-signature"></span>Angle<span class="signature">(turn)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Angle" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line117">line 117</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Angle</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Angle.html">instance.Angle</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Angle.html">instance.Angle</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>turn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The turn value of the angle, in the range <code>[O,1)</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Arc"><span class="type-signature"></span>Arc<span class="signature">(x, y, start, end<span class="signature-attributes">opt</span>, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Arc" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line207">line 207</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Arc</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Arc.html">instance.Arc</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Arc.html">instance.Arc</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The <em>x</em> coordinate for the arc center</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The <em>y</em> coordinate for the arc center</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The start of the arc</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The end of the arc; when
+ommited or set to <code>null</code>, <code>start</code> is used instead</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The orientation of the arc</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Bezier"><span class="type-signature"></span>Bezier<span class="signature">(startX, startY, startAnchorX, startAnchorY, endAnchorX, endAnchorY, endX, endY)</span><span class="type-signature"> &rarr; {<a href="Rac.Bezier.html">Rac.Bezier</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Bezier" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line312">line 312</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Bezier</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Bezier.html">instance.Bezier</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Bezier.html">instance.Bezier</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startAnchorX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startAnchorY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endAnchorX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endAnchorY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endX</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endY</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Color"><span class="type-signature"></span>Color<span class="signature">(r, g, b, a<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Color.html">Rac.Color</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Color" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line33">line 33</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Color</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Color.html">instance.Color</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Color.html">instance.Color</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>g</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="equals"><span class="type-signature"></span>equals<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#equals" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line181">line 181</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> if the absolute distance between <code>a</code> and <code>b</code> is
+under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>First number to compare</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Second number to compare</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Fill"><span class="type-signature"></span>Fill<span class="signature">(color<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Fill.html">Rac.Fill</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Fill" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line77">line 77</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Fill</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Fill.html">instance.Fill</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Fill.html">instance.Fill</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Color.html">Rac.Color</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Point"><span class="type-signature"></span>Point<span class="signature">(x, y)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Point" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line136">line 136</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Point</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Point.html">instance.Point</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Point.html">instance.Point</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The x coordinate</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The y coordinate</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Ray"><span class="type-signature"></span>Ray<span class="signature">(x, y, angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Ray" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line157">line 157</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Ray</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Ray.html">instance.Ray</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Ray.html">instance.Ray</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Segment"><span class="type-signature"></span>Segment<span class="signature">(x, y, angle, length)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Segment" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line181">line 181</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Segment</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Segment.html">instance.Segment</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Segment.html">instance.Segment</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="setupDrawer"><span class="type-signature"></span>setupDrawer<span class="signature">(p5Instance)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#setupDrawer" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line167">line 167</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Sets the drawer for the instance. Currently only a p5.js instance is
+supported.</p>
+<p>The drawer will also populate some classes with prototype functions
+relevant to the drawer. For p5.js this include <code>apply</code> functions for
+colors and style object, and <code>vertex</code> functions for drawable objects.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>p5Instance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>P5</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Stroke"><span class="type-signature"></span>Stroke<span class="signature">(weight<span class="signature-attributes">nullable</span>, color<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Stroke.html">Rac.Stroke</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Stroke" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line56">line 56</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Stroke</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Stroke.html">instance.Stroke</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Stroke.html">instance.Stroke</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>weight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Color.html">Rac.Color</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Style"><span class="type-signature"></span>Style<span class="signature">(stroke<span class="signature-attributes">nullable</span>, fill<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {Rac.Style}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Style" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line96">line 96</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Style</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code>instance.Style</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li>instance.Style</li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stroke</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Stroke.html">Rac.Stroke</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fill</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Fill.html">Rac.Fill</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="Text"><span class="type-signature"></span>Text<span class="signature">(x, y, string, format)</span><span class="type-signature"> &rarr; {<a href="Rac.Text.html">Rac.Text</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#Text" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line237">line 237</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Convenience function that creates a new <code>Text</code> setup with <code>this</code>.</p>
+<p>The function also contains additional methods and properties listed in
+<code><a href="instance.Text.html">instance.Text</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+    <dt class="tag-see">See:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><a href="instance.Text.html">instance.Text</a></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The x coordinate location for the drawn text</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The y coordinate location for the drawn text</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>string</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The string to draw</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>format</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Text.Format.html">Rac.Text.Format</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The format for the drawn text</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="TextFormat"><span class="type-signature"></span>TextFormat<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#TextFormat" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="attachInstanceFunctions.js.html">attachInstanceFunctions.js</a>, <a href="attachInstanceFunctions.js.html#line300">line 300</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Alias of <a href="instance.Text.html#Format"><code>rac.Text.Format</code></a>.</p>
+<p>To display in documentation along the rest of
+<a href="instance.html">utility instance functions</a>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="unitaryEquals"><span class="type-signature"></span>unitaryEquals<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.html#unitaryEquals" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line197">line 197</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> if the absolute distance between <code>a</code> and <code>b</code> is
+under <code><a href="Rac.html#unitaryEqualityThreshold">Rac#unitaryEqualityThreshold</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>First number to compare</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Second number to compare</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> using the <a href="https://github.com/lopsae/minami-rac">Minami-rac</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

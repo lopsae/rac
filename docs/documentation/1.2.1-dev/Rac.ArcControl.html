@@ -1,0 +1,2789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac.ArcControl - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">RAC — Ruler and Compass<br/>1.2.1-dev</a></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.ArcControl.html#anchor">anchor</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.ArcControl.html#angleDistance">angleDistance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#affixAnchor">affixAnchor</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#distance">distance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#draw">draw</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#drawSelection">drawSelection</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#knob">knob</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#setLimitsWithAngleDistanceInsets">setLimitsWithAngleDistanceInsets</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#setValueWithAngleDistance">setValueWithAngleDistance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.ArcControl.html#updateWithPointer">updateWithPointer</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.RayControl.html">Rac.RayControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.Format.html">instance.Text.Format</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>
+        
+        ArcControl
+        </h2>
+        
+            <div class="class-description"><p>Control that allows the selection of a value with a knob that slides
+through the section of an <code>Arc</code>.</p>
+<p>Uses an <code>Arc</code> as <code><a href="Rac.ArcControl.html#anchor">anchor</a></code>, which defines
+the position where the control is drawn.</p>
+<p><code><a href="Rac.ArcControl.html#angleDistance">angleDistance</a></code> defines the
+section of the <code>anchor</code> arc which is available for user interaction.
+Within this section the user can slide the control knob to select a
+value.</p></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="ArcControl"><span class="type-signature"></span>new ArcControl<span class="signature">(rac, value, angleDistance)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line23">line 23</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>ArcControl</code> instance with the starting <code>value</code> and the
+interactive <code>angleDistance</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The initial value of the control, in the
+<em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>angleDistance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The angleDistance of the <code>anchor</code>
+arc available for user interaction</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="Rac.Control.html">Rac.Control</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="anchor"><span class="type-signature">(nullable) </span>anchor<span class="type-signature"> :<a href="Rac.Arc.html">Rac.Arc</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#anchor" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line60">line 60</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p><code>Arc</code> to which the control will be anchored. Defines the location
+where the control is drawn.</p>
+<p>Along with <code><a href="Rac.ArcControl.html#angleDistance">angleDistance</a></code>
+defines the section available for user interaction.</p>
+<p>The control cannot be drawn or selected until this property is set.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="angleDistance"><span class="type-signature"></span>angleDistance<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#angleDistance" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line46">line 46</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Angle distance of the <code>anchor</code> arc available for user interaction.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="endLimit"><span class="type-signature"></span>endLimit<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#endLimit" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line94">line 94</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Maximum <code>value</code> that can be selected through user interaction.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#endLimit">Rac.Control#endLimit</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>1</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="markers"><span class="type-signature"></span>markers<span class="type-signature"> :Array.&lt;number></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#markers" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line102">line 102</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Collection of values at which visual markers are drawn.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#markers">Rac.Control#markers</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>[]</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="projectionEnd"><span class="type-signature"></span>projectionEnd<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#projectionEnd" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line78">line 78</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p><a href="Rac.Control.html#projectedValue">Projected value</a> to use when
+<code>value</code> is <code>1</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#projectionEnd">Rac.Control#projectionEnd</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>1</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="projectionStart"><span class="type-signature"></span>projectionStart<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#projectionStart" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line69">line 69</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p><a href="Rac.Control.html#projectedValue">Projected value</a> to use when
+<code>value</code> is <code>0</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#projectionStart">Rac.Control#projectionStart</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>0</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="rac"><span class="type-signature"></span>rac<span class="type-signature"> :<a href="Rac.html">Rac</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#rac" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line51">line 51</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Instance of <code>Rac</code> used for drawing and passed along to any created
+object.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#rac">Rac.Control#rac</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="startLimit"><span class="type-signature"></span>startLimit<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#startLimit" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line86">line 86</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Minimum <code>value</code> that can be selected through user interaction.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#startLimit">Rac.Control#startLimit</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>0</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="style"><span class="type-signature"></span>style<span class="type-signature"> :<a href="Rac.Stroke.html">Rac.Stroke</a>|<a href="Rac.Fill.html">Rac.Fill</a>|<a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#style" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line111">line 111</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Style to apply when drawing. This style gets applied after
+<code><a href="Rac.Controller.html#controlStyle">rac.controller.controlStyle</a></code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#style">Rac.Control#style</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy">
+            <li>null</li>
+        </ul></dd>
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="value"><span class="type-signature"></span>value<span class="type-signature"> :number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.ArcControl.html#value" class="maic">#</a></span>
+
+    <span> | source:
+    <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line60">line 60</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Current selected value, in the range <em>[0,1]</em>.</p>
+<p>May be further constrained to <code>[startLimit,endLimit]</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#value">Rac.Control#value</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title methods-subsection">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="addMarkerAtCurrentValue"><span class="type-signature"></span>addMarkerAtCurrentValue<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#addMarkerAtCurrentValue" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line188">line 188</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Adds a marker at the current <code>value</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#addMarkerAtCurrentValue">Rac.Control#addMarkerAtCurrentValue</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="affixAnchor"><span class="type-signature"></span>affixAnchor<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#affixAnchor" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line148">line 148</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> produced with the <code>anchor</code> arc with
+<code>angleDistance</code>, to be persisted during user interaction.</p>
+<p>An error is thrown if <code>anchor</code> is not set.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#affixAnchor">Rac.Control#affixAnchor</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="distance"><span class="type-signature"></span>distance<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#distance" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line119">line 119</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the  <a href="Rac.Angle.html#distance">angle <code>distance</code></a> between the
+<code>anchor</code> arc <code>start</code> and the control knob.</p>
+<p>The <code>turn</code> of the returned <code>Angle</code> is equivalent to the control <code>value</code>
+projected to the range <code>[0,angleDistance.turn]</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="draw"><span class="type-signature"></span>draw<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#draw" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line160">line 160</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Draws the current state.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#draw">Rac.Control#draw</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="drawSelection"><span class="type-signature"></span>drawSelection<span class="signature">(pointerCenter, fixedAnchor, pointerToKnobOffset)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#drawSelection" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line263">line 263</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Draws the selection state along with pointer interaction visuals.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#drawSelection">Rac.Control#drawSelection</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pointerCenter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The position of the user pointer</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fixedAnchor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Arc.html">Rac.Arc</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p><code>Arc</code> produced with <code>affixAnchor</code> when
+user interaction started</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pointerToKnobOffset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Segment.html">Rac.Segment</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Segment</code> that represents
+the offset from <code>pointerCenter</code> to the control knob when user
+interaction started.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="isSelected"><span class="type-signature"></span>isSelected<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#isSelected" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line197">line 197</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when this control is the currently selected control.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#isSelected">Rac.Control#isSelected</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="knob"><span class="type-signature"></span>knob<span class="signature">()</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#knob" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line131">line 131</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a <code>Point</code> at the center of the control knob.</p>
+<p>When <code>anchor</code> is not set, returns <code>null</code> instead.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#knob">Rac.Control#knob</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="projectedValue"><span class="type-signature"></span>projectedValue<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#projectedValue" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line142">line 142</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>value</code> projected into the range
+<code>[projectionStart,projectionEnd]</code>.</p>
+<p>By default the projection range is <em>[0,1]</em>, in which case <code>value</code> and
+<code>projectedValue()</code> are equal.</p>
+<p>Projection ranges with a negative direction (E.g. <em>[50,30]</em>, when
+<code>projectionStart</code> is greater that <code>projectionEnd</code>) are supported. As
+<code>value</code> increases, the projection returned decreases from
+<code>projectionStart</code> until reaching <code>projectionEnd</code>.</p>
+<blockquote>
+<p>E.g.</p>
+<pre class="prettyprint source"><code>For a control with a projection range of [100,200]
++ when value is 0,   projectionValue() is 100
++ when value is 0.5, projectionValue() is 150
++ when value is 1,   projectionValue() is 200
+
+For a control with a projection range of [50,30]
++ when value is 0,   projectionValue() is 50
++ when value is 0.5, projectionValue() is 40
++ when value is 1,   projectionValue() is 30
+</code></pre>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#projectedValue">Rac.Control#projectedValue</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="setLimitsWithAngleDistanceInsets"><span class="type-signature"></span>setLimitsWithAngleDistanceInsets<span class="signature">(startInset, endInset)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#setLimitsWithAngleDistanceInsets" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line102">line 102</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Sets both <code>startLimit</code> and <code>endLimit</code> with the given insets from <code>0</code>
+and <code>endInset.turn</code>, correspondingly, both projected in the
+<code>[0,angleDistance.turn]</code> range.</p>
+<blockquote>
+<p>E.g.</p>
+<pre class="prettyprint source"><code>// For an ArcControl with angle distance of 0.5 turn
+control.setLimitsWithAngleDistanceInsets(0.1, 0.3)
+// sets startLimit as 0.2 which is at angle distance 0.1
+// sets endLimit   as 0.4 which is at angle distance 0.2
+//   0.1 inset from 0   = 0.1
+//   0.3 inset from 0.5 = 0.2
+</code></pre>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The inset from <code>0</code> in the range
+<code>[0,angleDistance.turn]</code> to use for <code>startLimit</code></p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The inset from <code>angleDistance.turn</code>
+in the range <code>[0,angleDistance.turn]</code> to use for <code>endLimit</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="setLimitsWithInsets"><span class="type-signature"></span>setLimitsWithInsets<span class="signature">(startInset, endInset)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#setLimitsWithInsets" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line170">line 170</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Sets both <code>startLimit</code> and <code>endLimit</code> with the given insets from <code>0</code>
+and <code>1</code>, correspondingly.</p>
+<blockquote>
+<p>E.g.</p>
+<pre class="prettyprint source"><code>control.setLimitsWithInsets(0.1, 0.2)
+// sets startLimit as 0.1
+// sets endLimit   as 0.8
+</code></pre>
+</blockquote>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#setLimitsWithInsets">Rac.Control#setLimitsWithInsets</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The inset from <code>0</code> to use for <code>startLimit</code></p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The inset from <code>1</code> to use for <code>endLimit</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="setValueWithAngleDistance"><span class="type-signature"></span>setValueWithAngleDistance<span class="signature">(valueAngleDistance)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#setValueWithAngleDistance" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line75">line 75</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Sets <code>value</code> using the projection of <code>valueAngleDistance.turn</code> in the
+<code>[0,angleLength.turn]</code> range.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>valueAngleDistance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The angle distance at
+which to set the current value</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="updateWithPointer"><span class="type-signature"></span>updateWithPointer<span class="signature">(pointerKnobCenter, fixedAnchor)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.ArcControl.html#updateWithPointer" class="maic">#</a></span>
+    
+        <span> | source:
+        <a href="control_ArcControl.js.html">control/ArcControl.js</a>, <a href="control_ArcControl.js.html#line236">line 236</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Updates <code>value</code> using <code>pointerKnobCenter</code> in relation to <code>fixedAnchor</code>.</p>
+<p><code>value</code> is always updated by this method to be within <em>[0,1]</em> and
+<code>[startLimit,endLimit]</code>.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-overrides">Overrides:</dt>
+    <dd class="tag-overrides"><ul class="dummy"><li>
+        <a href="Rac.Control.html#updateWithPointer">Rac.Control#updateWithPointer</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>pointerKnobCenter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The position of the knob center
+as interacted by the user pointer</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fixedAnchor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Arc.html">Rac.Arc</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Anchor produced with <code>affixAnchor</code> when
+user interaction started</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> using the <a href="https://github.com/lopsae/minami-rac">Minami-rac</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
