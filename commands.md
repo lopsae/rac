@@ -19,9 +19,9 @@ Produces a debug build and starts localhost server, rebuilds whenever a source f
 
 
 ### `npm run docs`
-Produces documentation and opens its index.
+Produces documentation for the current package version and opens its index.
 
-+ `npm run docs:clean` - Checks-out HEAD into the latest documentation files
++ `npm run docs:clean` - Checks-out HEAD into the current documentation files
 + `npm run docs:delete` - Deletes the `latest` documentation folder
 + `npm run docs:fresh` - Runs `docs:clean` and produces documentation
 + `npm run docs:open` - Opens the index of the latest documentation

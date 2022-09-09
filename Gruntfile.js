@@ -161,6 +161,25 @@ module.exports = function(grunt) {
   }); // exec.openDocs
 
 
+  // Checks out the commited version of the the documentation and its home.
+  grunt.config.set('exec.cleanDocs', {
+    cmd: 'git checkout HEAD -- docs/documentation/<%= pkg.version %> built/docs_home.md',
+    stdout: true,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      grunt.config.requires('pkg.version');
+      const pkgVersion = grunt.config('pkg.version');
+
+      grunt.log.writeln(`Cleaned docs for: ${pkgVersion.green.bold}`);
+    }
+  }); // exec.cleanDocs
+
+
+  //RELEASE-TODO: "docs:delete": "rm -rfv docs/documentation/latest/*",
+
+
+
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -297,6 +316,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('openDocs', [
     'exec:openDocs']);
+
+
+  grunt.registerTask('cleanDocs', [
+    'exec:cleanDocs']);
 
 
   // Builds a dev bundle, serves it, and watches for source changes
