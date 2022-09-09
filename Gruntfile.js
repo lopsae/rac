@@ -1,6 +1,9 @@
 
 module.exports = function(grunt) {
 
+  const bannerHead =
+    '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %>'
+
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -9,8 +12,21 @@ module.exports = function(grunt) {
         src: 'src/main.js',
         dest: 'dist/rac.dev.js',
         options: {
-          banner: '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %> \n'
-                + '// Development distribution with sourcemaps',
+          banner: bannerHead + '\n'
+            + '// Development distribution with sourcemaps \n'
+            + '// DIRTY BUILD - DO NOT COMMIT',
+          browserifyOptions: {
+            debug: true
+          }
+        }
+      },
+
+      dev_clean: {
+        src: 'src/main.js',
+        dest: 'dist/rac.dev.js',
+        options: {
+          banner: bannerHead + '\n'
+            + '// Development distribution with sourcemaps',
           browserifyOptions: {
             debug: true
           }
@@ -21,8 +37,8 @@ module.exports = function(grunt) {
         src: 'src/main.js',
         dest: 'dist/rac.js',
         options: {
-          banner: '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %> \n'
-                + '// Production distribution',
+          banner: bannerHead + '\n'
+            + '// Production distribution',
           browserifyOptions: {}
         }
       }
@@ -57,9 +73,9 @@ module.exports = function(grunt) {
     }, // connect
 
     watch: {
-      serve: {
+      serve_again: {
         files: ['src/**/*.js'],
-        tasks: ['makeVersionFile', 'browserify']
+        tasks: ['makeVersionFile', 'browserify:dev']
       }
     }, // watch
 
@@ -266,14 +282,14 @@ module.exports = function(grunt) {
     'makeVersionFile',
     'browserify:dev',
     'connect:server',
-    'watch:serve']);
+    'watch:serve_again']);
 
 
   // Builds a dev/main/mini bundle with a clean version, serves it for
   // confirmation.
   grunt.registerTask('dist', [
     'makeVersionFile:clean',
-    'browserify:dev',
+    'browserify:dev_clean',
     'browserify:main',
     'uglify',
     'connect:server:keepalive']);

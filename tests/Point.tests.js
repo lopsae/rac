@@ -15,10 +15,11 @@ tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
   expect(otherRac.Point.zero).not.equalsPoint(0, 0);
+  expect(rac.Point.zero)         .equalsPoint(0, 0);
 
-  // Instance members
-  expect(rac.Point.zero).equalsPoint(0, 0);
-  expect(rac.Point.origin).equalsPoint(0, 0);
+  expect(otherRac.Point.zero.equals(rac.Point.zero)).toBe(true);
+
+  // Testing Constants
   expect(hunty).equalsPoint(100, 100);
   expect(fifty).equalsPoint(55, 55);
 
@@ -28,8 +29,15 @@ tools.test( function identity() {
 
   // Unexpected type for equalsPoint
   expect(null)            .not.equalsPoint(0, 0);
+  expect(undefined)       .not.equalsPoint(0, 0);
   expect(0)               .not.equalsPoint(0, 0);
+  expect('')              .not.equalsPoint(0, 0);
   expect('0')             .not.equalsPoint(0, 0);
+  expect(55)              .not.equalsPoint(0, 0);
+  expect('55')            .not.equalsPoint(0, 0);
+  expect('some')          .not.equalsPoint(0, 0);
+  expect(true)            .not.equalsPoint(0, 0);
+  expect(false)           .not.equalsPoint(0, 0);
   expect(rac.Angle.zero)  .not.equalsPoint(0, 0);
   expect(rac.Ray.zero)    .not.equalsPoint(0, 0);
   expect(rac.Segment.zero).not.equalsPoint(0, 0);
@@ -40,8 +48,15 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(hunty.equals(null))            .toBe(false);
-  expect(hunty.equals(100))             .toBe(false);
-  expect(hunty.equals('100'))           .toBe(false);
+  expect(hunty.equals(undefined))       .toBe(false);
+  expect(hunty.equals(''))              .toBe(false);
+  expect(hunty.equals(0))               .toBe(false);
+  expect(hunty.equals('0'))             .toBe(false);
+  expect(hunty.equals(55))              .toBe(false);
+  expect(hunty.equals('55'))            .toBe(false);
+  expect(hunty.equals('some'))          .toBe(false);
+  expect(hunty.equals(true))            .toBe(false);
+  expect(hunty.equals(false))           .toBe(false);
   expect(hunty.equals(rac.Angle.zero))  .toBe(false);
   expect(hunty.equals(rac.Ray.zero))    .toBe(false);
   expect(hunty.equals(rac.Segment.zero)).toBe(false);
@@ -51,22 +66,14 @@ tools.test( function identity() {
 tools.test( function toString() {
   const point = rac.Point(1.12345, 2.12345);
 
-  const string = point.toString();
-  expect(string).toMatch('Point');
-  expect(string).toMatch('(1.12345,2.12345)');
-
-  const cutString = point.toString(2);
-  expect(cutString).toMatch('Point');
-  expect(cutString).toMatch('(1.12,2.12)');
-
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
+  expect(point.toString()) .toBe('Point(1.12345,2.12345)');
+  expect(point.toString(2)).toBe('Point(1.12,2.12)');
 });
 
 
 tools.test( function thrownErrors() {
   expect(() => {new Rac.Point(rac, 100, 100);})
-    .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+    .not.toThrow();
 
   // Missing parameter
   expect(() => {new Rac.Point(null, 100, 100);})
@@ -84,7 +91,13 @@ tools.test( function thrownErrors() {
 });
 
 
-test('Function withX/Y', () => {
+tools.test( function instanceMembers() {
+  expect(rac.Point.zero).equalsPoint(0, 0);
+  expect(rac.Point.origin).equalsPoint(0, 0);
+});
+
+
+tools.test(function withX_Y() {
   expect(hunty.withX(77))
     .equalsPoint(77, 100);
   expect(hunty.withY(77))
@@ -92,7 +105,7 @@ test('Function withX/Y', () => {
 });
 
 
-test('Function add/subtract', () => {
+tools.test(function add_substract() {
   expect(hunty.addPoint(rac.Point.zero))
     .equalsPoint(100, 100);
   expect(hunty.addPoint(fifty))
@@ -128,7 +141,7 @@ test('Function add/subtract', () => {
 });
 
 
-test('Function distanceToPoint', () => {
+tools.test(function distanceToPoint() {
   expect(hunty.distanceToPoint(rac.Point(100, 200)))
     .toBe(100);
   expect(hunty.distanceToPoint(rac.Point(200, 100)))
@@ -150,9 +163,11 @@ test('Function distanceToPoint', () => {
 });
 
 
-test('Transformations', () => {
+tools.test(function transformations() {
+  // negative
   expect(hunty.negative()).equalsPoint(-100, -100);
 
+  // pointToAngle
   expect(hunty.pointToAngle(rac.Angle.zero, 100))
     .equalsPoint(200, 100);
   expect(hunty.pointToAngle(rac.Angle.down, 100))
@@ -165,10 +180,15 @@ test('Transformations', () => {
   let cathetus = tools.cathetus(100);
   expect(hunty.pointToAngle(rac.Angle.eighth, 100))
     .equalsPoint(100+cathetus, 100+cathetus);
+
+  // pointAtBisector
+  expect(fifty.pointAtBisector(hunty)).equalsPoint(55+22.5, 55+22.5);
+  expect(hunty.pointAtBisector(fifty)).equalsPoint(100-22.5, 100-22.5);
+  expect(hunty.pointAtBisector(hunty)).equalsPoint(100, 100);
 });
 
 
-test('Transforms to Angle', () => {
+tools.test(function transformsToAngle() {
   expect(hunty.angleToPoint(fifty)).equalsAngle(rac.Angle.nw);
   expect(fifty.angleToPoint(hunty)).equalsAngle(rac.Angle.se);
 
@@ -179,7 +199,7 @@ test('Transforms to Angle', () => {
 });
 
 
-test('Transforms to Ray', () => {
+tools.test(function transformsToRay() {
   expect(hunty.ray(rac.Angle.zero))
     .equalsRay(100, 100, rac.Angle.zero);
   expect(hunty.ray(rac.Angle.up))
@@ -208,7 +228,7 @@ test('Transforms to Ray', () => {
 });
 
 
-test('Transforms to Segment', () => {
+tools.test(function transformsToSegment() {
   expect(hunty.segmentToAngle(rac.Angle.s, 55))
     .equalsSegment(100, 100, rac.Angle.s, 55);
 
@@ -371,7 +391,7 @@ tools.test( function arcTangentsEdgeCases() {
 });
 
 
-test('Transforms to Arc', () => {
+tools.test(function transformsToArc() {
   expect(hunty.arc(155))
     .equalsArc(100, 100, 155, rac.Angle.zero, rac.Angle.zero, true);
 
@@ -387,9 +407,17 @@ test('Transforms to Arc', () => {
 });
 
 
-test('Miscelaneous', () => {
-  expect(hunty.text("sphinx", rac.Text.Format.topLeft))
-    .equalsText(100, 100, 'sphinx');
+tools.test(function miscelaneous() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = hunty.text("sphinx");
+  expect(defaultSphinx).equalsText(100, 100, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top);
+
+  const formattedVow = hunty.text("vow", rac.Text.Format.centered);
+  expect(formattedVow).equalsText(100, 100, 'vow');
+  expect(formattedVow.format).equalsTextFormat(ha.center, va.center);
 });
 
 

@@ -5,7 +5,10 @@ const Rac = require('ruler-and-compass');
 const tools = require('./tools');
 
 
-test('Errors/Exception catched', () => {
+const rac = tools.rac;
+
+
+tools.test(function errorsExceptionCatched() {
   let storedBuildErrors = Rac.Exception.buildsErrors;
 
   Rac.Exception.buildsErrors = true;
@@ -30,7 +33,7 @@ test('Errors/Exception catched', () => {
 });
 
 
-test('Function assertExists', () => {
+tools.test(function assertExists() {
   expect(() => {Rac.utils.assertExists();})
     .not.toThrow();
   expect(() => {Rac.utils.assertExists(1, true);})
@@ -38,16 +41,62 @@ test('Function assertExists', () => {
   expect(() => {Rac.utils.assertExists(0, "one", "two", false);})
     .not.toThrow();
 
+  expect(() => {Rac.utils.assertExists(null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {Rac.utils.assertExists("one", null);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {Rac.utils.assertExists("one", null, "three");})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
-    expect(() => {Rac.utils.assertExists("one", 2, undefined);})
+  expect(() => {Rac.utils.assertExists("one", 2, undefined);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
 });
 
 
-test('Function assertNumber', () => {
+tools.test(function assertType() {
+  expect(() => {Rac.utils.assertType(Rac.Point);})
+    .not.toThrow();
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Point(55, 55));})
+    .not.toThrow();
+  expect(() => {Rac.utils.assertType(Rac.Angle, rac.Angle.half, rac.Angle(1/2));})
+    .not.toThrow();
+
+  expect(() => {Rac.utils.assertType(Rac.Point, null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, undefined);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Point(1, 1), null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Point(2, 2), undefined);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  expect(() => {Rac.utils.assertType(Rac.Point, '');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, 0);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, '0');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, 100);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, '100');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, 'nonsense');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Angle.zero);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Ray.zero);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Point.zero, rac.Angle.zero);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.Angle.zero, rac.Point.zero);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  expect(() => {Rac.utils.assertType(Rac.Point, rac.nonsense);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+tools.test(function assertNumber() {
   expect(() => {Rac.utils.assertNumber(-1, 0, 1, 2);})
     .not.toThrow();
 
@@ -64,7 +113,7 @@ test('Function assertNumber', () => {
 });
 
 
-test('Function typeName', () => {
+tools.test(function typeName() {
   let Duck = class Duck {};
   let duck = new Duck();
 
@@ -103,7 +152,7 @@ test('Function typeName', () => {
 });
 
 
-test('Function addConstantTo', () => {
+tools.test(function addConstantTo() {
   let obj = {};
   expect(obj).not.toHaveProperty('prop');
 
@@ -120,7 +169,7 @@ test('Function addConstantTo', () => {
 });
 
 
-test('Function cutDigits', () => {
+tools.test(function cutDigits() {
   const string = Rac.utils.cutDigits(0.12345);
   expect(string).toMatch('0.12345');
 
@@ -130,7 +179,6 @@ test('Function cutDigits', () => {
 });
 
 
-// TODO: test.todo('assertType');
 // TODO: test.todo('assertBoolean');
 
 

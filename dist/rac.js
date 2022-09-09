@@ -1,12 +1,12 @@
-// RAC - ruler-and-compass - 1.1.0 850-409e8eb 
+// RAC - ruler-and-compass - 1.2.0 1005-94b722f
 // Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
 // Ruler and Compass - version and build
 module.exports = {
-	version: '1.1.0',
-	build: '850-409e8eb'
+	version: '1.2.0',
+	build: '1005-94b722f'
 };
 
 
@@ -40,9 +40,9 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     *
-    * @type {string}
+    * E.g. `1.2.0`.
     *
-    * @name version
+    * @constant {string} version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
@@ -51,9 +51,9 @@ class Rac {
     /**
     * Build of the instance, same as `{@link Rac.build}`.
     *
-    * @type {string}
+    * E.g. `904-011be8f`.
     *
-    * @name build
+    * @constant {string} build
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'build', build);
@@ -81,7 +81,6 @@ class Rac {
     this.equalityThreshold = 0.001;
 
 
-
     /**
     * Value used to determine equality between two unitary numeric values.
     * Used for values that tend to exist in the `[0, 1]` range, like
@@ -89,20 +88,59 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Default value is based on 1/000 of the turn of an arc of radius 500
+    * Default value is based on 1/1000 of the turn of an arc of radius 500
     * and length of 1: `1/(500*6.28)/1000`
     *
     * @type {number}
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
+
+    /**
+    * Container of utility functions. See `{@link utils}` for the available
+    * members.
+    *
+    * Also available through `{@link Rac.utils}`.
+    *
+    * @type {utils}
+    */
+    this.utils = utils
+
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
 
+
+
+
     /**
-    * Drawer of the instance. This object handles the drawing of all
-    * drawable object using this instance of `Rac`.
+    * Defaults for the optional properties of
+    * [`Text.Format`]{@link Rac.Text.Format}.
+    *
+    * When a [`Text`]{@link Rac.Text} is draw which
+    * [`format.font`]{@link Rac.Text.Format#font} or
+    * [`format.size`]{@link Rac.Text.Format#size} is set to `null`, the
+    * values set here are used instead.
+    *
+    * @property {?string} font=null
+    *   Default font, used when drawing a `Text` which
+    *   [`format.font`]{@link Rac.Text.Format#font} is set to `null`; when
+    *   set to `null` the font is not set upon drawing
+    * @property {number} size=15
+    *   Default size, used when drawing a `Text` which
+    *   [`format.size`]{@link Rac.Text.Format#size} is set to `null`
+    *
+    * @type {object}
+    */
+    this.textFormatDefaults = {
+      font: null,
+      size: 15
+    };
+
+
+    /**
+    * Drawer of the instance. This object handles the drawing for all
+    * drawable object created using `this`.
     * @type {object}
     */
     this.drawer = null;
@@ -252,22 +290,25 @@ module.exports = Rac;
 // as to prevent cyclic dependency with Rac.
 
 
-const utils = require(`./util/utils`);
 /**
 * Container of utility functions. See `{@link utils}` for the available
 * members.
 *
-* @type {object}
+* Also available through `{@link Rac#utils}`.
+*
+* @var {utils}
+* @memberof Rac
 */
+const utils = require(`./util/utils`);
 Rac.utils = utils;
 
 
 /**
 * Version of the class. Same as the version used for the npm package.
 *
-* @type {string}
+* E.g. `1.2.0`.
 *
-* @name version
+* @constant {string} version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -279,9 +320,9 @@ utils.addConstantTo(Rac, 'version', version);
 * Contains a commit-count and short-hash of the repository when the build
 * was done.
 *
-* @type {string}
+* E.g. `904-011be8f`.
 *
-* @name build
+* @constant {string} build
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'build', build);
@@ -292,9 +333,7 @@ utils.addConstantTo(Rac, 'build', build);
 *
 * [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
-* @type {number}
-*
-* @name TAU
+* @constant {number} TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
@@ -333,6 +372,7 @@ Rac.setupStyleProtoFunctions(Rac.StyleContainer);
 
 // Angle
 Rac.Angle = require('./drawable/Angle');
+Rac.Angle.prototype.log = Rac.drawableProtoFunctions.log;
 
 
 // Point
@@ -395,7 +435,7 @@ Rac.RayControl = require('./control/RayControl');
 Rac.ArcControl = require('./control/ArcControl');
 
 
-},{"../built/version":1,"./attachInstanceFunctions":3,"./attachProtoFunctions":4,"./control/ArcControl":5,"./control/Control":6,"./control/Controller":7,"./control/RayControl":8,"./drawable/Angle":9,"./drawable/Arc":10,"./drawable/Bezier":11,"./drawable/Composite":12,"./drawable/Point":13,"./drawable/Ray":14,"./drawable/Segment":15,"./drawable/Shape":16,"./drawable/Text":17,"./drawable/instance.Angle":18,"./drawable/instance.Arc":19,"./drawable/instance.Bezier":20,"./drawable/instance.Point":21,"./drawable/instance.Ray":22,"./drawable/instance.Segment":23,"./drawable/instance.Text":24,"./p5Drawer/P5Drawer":26,"./style/Color":32,"./style/Fill":33,"./style/Stroke":34,"./style/StyleContainer":35,"./style/instance.Color":36,"./style/instance.Fill":37,"./style/instance.Stroke":38,"./util/EaseFunction":39,"./util/Exception":40,"./util/utils":41}],3:[function(require,module,exports){
+},{"../built/version":1,"./attachInstanceFunctions":3,"./attachProtoFunctions":4,"./control/ArcControl":5,"./control/Control":6,"./control/Controller":7,"./control/RayControl":8,"./drawable/Angle":9,"./drawable/Arc":10,"./drawable/Bezier":11,"./drawable/Composite":12,"./drawable/Point":13,"./drawable/Ray":14,"./drawable/Segment":15,"./drawable/Shape":16,"./drawable/Text":18,"./drawable/instance.Angle":19,"./drawable/instance.Arc":20,"./drawable/instance.Bezier":21,"./drawable/instance.Point":22,"./drawable/instance.Ray":23,"./drawable/instance.Segment":24,"./drawable/instance.Text":25,"./p5Drawer/P5Drawer":27,"./style/Color":33,"./style/Fill":34,"./style/Stroke":35,"./style/StyleContainer":36,"./style/instance.Color":37,"./style/instance.Fill":38,"./style/instance.Stroke":39,"./util/EaseFunction":40,"./util/Exception":41,"./util/utils":42}],3:[function(require,module,exports){
 'use strict';
 
 
@@ -404,14 +444,17 @@ const Rac = require('./Rac');
 
 /**
 * This namespace lists utility functions attached to an instance of
-* `{@link Rac}` used to produce drawable and other objects, and to access
-* ready-build convenience objects like `{@link instance.Angle#north}` or
-* `{@link instance.Point#zero}`.
+* `{@link Rac}` during initialization. Each drawable and style class gets
+* a corresponding function like [`rac.Point`]{@link instance.Point} or
+* [`rac.Color`]{@link instance.Color}.
 *
-* Drawable and related objects require a reference to a `rac` instance in
-* order to perform drawing operations. These functions build new objects
-* using the calling `Rac` instance, and contain ready-made convenience
-* objects that are also setup with the same `Rac` instance.
+* Drawable and style objects require for construction a reference to a
+* `rac` instance in order to perform drawing operations. The attached
+* functions build new objects using the calling `Rac` instance.
+*
+* These functions are also setup with ready-made convenience objects for
+* many usual values like [`rac.Angle.north`]{@link instance.Angle#north} or
+* [`rac.Point.zero`]{@link instance.Point#zero}.
 *
 * @namespace instance
 */
@@ -420,7 +463,7 @@ const Rac = require('./Rac');
 // Attaches the convenience functions to create objects with this instance
 // of Rac. These functions are attached as properties (instead of into the
 // prototype) because these are later populated with more properties and
-// methods, and thus need to be an independent instance.
+// methods, and thus need to be independent for each instance.
 //
 // Intended to receive the a Rac instance as parameter.
 module.exports = function attachInstanceFunctions(rac) {
@@ -534,8 +577,8 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Point}`.
   *
-  * @param {number} x
-  * @param {number} y
+  * @param {number} x - The x coordinate
+  * @param {number} y - The y coordinate
   *
   * @returns {Rac.Point}
   *
@@ -605,11 +648,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} start
-  * @param {?Rac.Angle|number} [end=null]
-  * @param {boolean} [clockwise=true]
+  * @param {number} x - The _x_ coordinate for the arc center
+  * @param {number} y - The _y_ coordinate for the arc center
+  * @param {Rac.Angle|number} start - The start of the arc
+  * @param {?Rac.Angle|number} [end=null] - The end of the arc; when
+  *   ommited or set to `null`, `start` is used instead
+  * @param {boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
   *
@@ -634,10 +678,10 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {string} string
-  * @param {Rac.Text.Format} format
+  * @param {number} x - The x coordinate location for the drawn text
+  * @param {number} y - The y coordinate location for the drawn text
+  * @param {string} string - The string to draw
+  * @param {Rac.Text.Format} format - The format for the drawn text
   *
   * @returns {Rac.Text}
   *
@@ -646,10 +690,61 @@ module.exports = function attachInstanceFunctions(rac) {
   * @function Text
   * @memberof Rac#
   */
-  rac.Text = function makeText(x, y, string, format) {
+  rac.Text = function makeText(x, y, string, format = this.Text.Format.topLeft) {
     const point = new Rac.Point(this, x, y);
     return new Rac.Text(this, point, string, format);
   };
+
+
+  /**
+  * Convenience function that creates a new `Text.Format` setup with `this`.
+  *
+  * The function also contains additional methods and properties listed in
+  * `{@link instance.Text.Format}`.
+  *
+  * @param {string} hAlign - The horizontal alignment, left-to-right; one
+  *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
+  * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
+  *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
+  * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The angle towards which the text is drawn
+  * @param {string} [font=null] - The font name
+  * @param {number} [size=null] - The font size
+  *
+  * @returns {Rac.Text.Format}
+  *
+  * @see instance.Text.Format
+  *
+  * @function Format
+  * @memberof instance.Text#
+  */
+  rac.Text.Format = function makeTextFormat(
+    hAlign,
+    vAlign,
+    angle = rac.Angle.zero,
+    font = null,
+    size = null)
+  {
+    // This functions uses `rac` instead of `this`, since `this` points to
+    // `rac.Text` here and to `rac` in the `TextFormat` alias
+    angle = Rac.Angle.from(rac, angle);
+    return new Rac.Text.Format(
+      rac,
+      hAlign, vAlign,
+      angle, font, size);
+  };
+
+
+  /**
+  * Alias of [`rac.Text.Format`]{@link instance.Text#Format}.
+  *
+  * To display in documentation along the rest of
+  * [utility instance functions]{@link instance}.
+  *
+  * @function TextFormat
+  * @memberof Rac#
+  */
+  rac.TextFormat = rac.Text.Format;
 
 
   /**
@@ -695,8 +790,9 @@ module.exports = function attachInstanceFunctions(rac) {
 const utils = require('./util/utils');
 
 
-// Attaches functions to attach drawing and apply methods to other
-// prototypes.
+// Attaches utility functions to a Rac instance that add functions to all
+// drawable and style class prototypes.
+//
 // Intended to receive the Rac class as parameter.
 module.exports = function attachProtoFunctions(Rac) {
 
@@ -711,12 +807,17 @@ module.exports = function attachProtoFunctions(Rac) {
   // Container of prototype functions for drawable classes.
   Rac.drawableProtoFunctions = {};
 
-  // Adds to the given class prototype all the functions contained in
-  // `Rac.drawableProtoFunctions`. These are functions shared by all
-  // drawable objects (E.g. `draw()` and `debug()`).
-  Rac.setupDrawableProtoFunctions = function(classObj) {
+
+  /**
+  * Adds to `drawableClass.prototype` all the functions contained in
+  * `Rac.drawableProtoFunctions`. These are the functions shared by all
+  * drawable objects, for example `draw()` and `debug()`.
+  *
+  * @param {class} drawableClass - Class to setup with drawable functions
+  */
+  Rac.setupDrawableProtoFunctions = function(drawableClass) {
     Object.keys(Rac.drawableProtoFunctions).forEach(name => {
-      classObj.prototype[name] = Rac.drawableProtoFunctions[name];
+      drawableClass.prototype[name] = Rac.drawableProtoFunctions[name];
     });
   }
 
@@ -833,7 +934,7 @@ module.exports = function attachProtoFunctions(Rac) {
 }; // attachProtoFunctions
 
 
-},{"./util/utils":41}],5:[function(require,module,exports){
+},{"./util/utils":42}],5:[function(require,module,exports){
 'use strict';
 
 
@@ -1154,7 +1255,7 @@ class ArcControl extends Rac.Control {
 module.exports = ArcControl;
 
 
-},{"../Rac":2,"../util/utils":41}],6:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],6:[function(require,module,exports){
 'use strict';
 
 
@@ -1515,7 +1616,7 @@ Control.makeValueMarker = function(rac, point, angle) {
 };
 
 
-},{"../Rac":2,"../util/utils":41}],7:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],7:[function(require,module,exports){
 'use strict';
 
 
@@ -1840,7 +1941,7 @@ class Controller {
 module.exports = Controller;
 
 
-},{"../Rac":2,"../util/utils":41}],8:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],8:[function(require,module,exports){
 'use strict';
 
 
@@ -2187,7 +2288,7 @@ class RayControl extends Rac.Control {
 module.exports = RayControl;
 
 
-},{"../Rac":2,"../util/utils":41}],9:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],9:[function(require,module,exports){
 'use strict';
 
 
@@ -2233,7 +2334,8 @@ class Angle {
   * @param {number} turn - The turn value
   */
   constructor(rac, turn) {
-    utils.assertExists(rac);
+    // TODO: changed to assertType, test
+    utils.assertType(Rac, rac);
     utils.assertNumber(turn);
 
     /**
@@ -2273,7 +2375,7 @@ class Angle {
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
-  * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
+  * `{@link Rac#unitaryEqualityThreshold}`; otherwise returns `false`.
   *
   * For this method `otherAngle` can only be `Angle` or `number`, any other
   * type returns `false`.
@@ -2493,7 +2595,7 @@ class Angle {
 
 
   /**
-  * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
+  * Returns a new `Angle` with `turn` set to `this.turn * factor`.
   *
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
@@ -2598,7 +2700,7 @@ class Angle {
 module.exports = Angle;
 
 
-},{"../Rac":2,"../util/utils":41}],10:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],10:[function(require,module,exports){
 'use strict';
 
 
@@ -2708,7 +2810,8 @@ class Arc{
 
 
   /**
-  * Returns `true` when all members of both arcs are equal.
+  * Returns `true` when all members, except `rac`, of both arcs are equal;
+  * otherwise returns `false`.
   *
   * When `otherArc` is any class other that `Rac.Arc`, returns `false`.
   *
@@ -3206,10 +3309,10 @@ class Arc{
   * clampled to `[start, end]`.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to clamp
-  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero}] - The inset
-  * for the lower limit of the clamping range
-  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero}] - The inset
-  * for the higher limit of the clamping range
+  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
+  *   The inset for the lower limit of the clamping range
+  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
+  *   The inset for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
   clampToAngles(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {
@@ -3847,7 +3950,7 @@ class Arc{
 module.exports = Arc;
 
 
-},{"../Rac":2,"../util/utils":41}],11:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],11:[function(require,module,exports){
 'use strict';
 
 
@@ -3895,8 +3998,8 @@ class Bezier {
 
 
   /**
-  * Returns `true` when all members of both beziers are
-  * [considered equal]{@link Rac.Point#equals}.
+  * Returns `true` when all members, except `rac`, of both beziers are
+  * [considered equal]{@link Rac.Point#equals}; otherwise returns `false`.
   *
   * When `otherBezier` is any class other that `Rac.Bezier`, returns
   * `false`.
@@ -3937,7 +4040,7 @@ Bezier.prototype.reverse = function() {
 };
 
 
-},{"../Rac":2,"../util/utils":41}],12:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],12:[function(require,module,exports){
 'use strict';
 
 
@@ -3984,7 +4087,7 @@ Composite.prototype.reverse = function() {
 };
 
 
-},{"../Rac":2,"../util/utils":41}],13:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],13:[function(require,module,exports){
 'use strict';
 
 
@@ -3998,8 +4101,8 @@ const utils = require('../util/utils');
 * Several methods will return an adjusted value or perform adjustments in
 * their operation when two points are close enough as to be considered
 * equal. When the the difference of each coordinate of two points
-* is under the `[equalityThreshold]{@link Rac#equalityThreshold}` the
-* points are considered equal. The `[equals]{@link Rac.Point#equals}`
+* is under the [`equalityThreshold`]{@link Rac#equalityThreshold} the
+* points are considered equal. The [`equals`]{@link Rac.Point#equals}
 * method performs this check.
 *
 * @alias Rac.Point
@@ -4009,9 +4112,12 @@ class Point{
 
   /**
   * Creates a new `Point` instance.
-  * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} x - The x coordinate
-  * @param {number} y - The y coordinate
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {number} x
+  *   The x coordinate
+  * @param {number} y
+  *   The y coordinate
   */
   constructor(rac, x, y) {
     utils.assertExists(rac, x, y);
@@ -4042,6 +4148,11 @@ class Point{
   /**
   * Returns a string representation intended for human consumption.
   *
+  * ```
+  * (new Rac.Point(rac, 55, 77)).toString()
+  * // Returns: Point(55,77)
+  * ```
+  *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {string}
@@ -4054,12 +4165,13 @@ class Point{
 
 
   /**
-  * Returns `true` when the difference with `otherPoint` for each coordinate is
-  * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
+  * Returns `true` when the difference with `otherPoint` for each
+  * coordinate is under [`equalityThreshold`]{@link Rac#equalityThreshold};
+  * otherwise returns `false`.
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
-  * Values are compared using `{@link Rac#equals}`.
+  * Values are compared using [`Rac.equals`]{@link Rac#equals}.
   *
   * @param {Rac.Point} otherPoint - A `Point` to compare
   * @returns {boolean}
@@ -4176,8 +4288,10 @@ class Point{
 
 
   /**
-  * Returns the distance from `this` to `point`, or returns `0` when
-  * `this` and `point` are considered [equal]{@link Rac.Point#equals}.
+  * Returns the distance from `this` to `point`.
+  *
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
+  * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the distance to
   * @returns {number}
@@ -4196,13 +4310,13 @@ class Point{
   /**
   * Returns the angle from `this` to `point`.
   *
-  * When `this` and `point` are considered
-  * [equal]{@link Rac.Point#equals}, returns the angle produced with
-  * `defaultAngle`.
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
+  * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the angle to
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to return when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
   * @see Rac.Point#equals
   */
@@ -4234,6 +4348,18 @@ class Point{
 
 
   /**
+  * Returns a new `Point` located in the middle between `this` and `point`.
+  * @param {Rac.Point} point - A `Point` to calculate a bisector to
+  * @returns {Rac.Point}
+  */
+  pointAtBisector(point) {
+    const xOffset = (point.x - this.x) / 2;
+    const yOffset = (point.y - this.y) / 2;
+    return new Point(this.rac, this.x + xOffset, this.y + yOffset);
+  }
+
+
+  /**
   * Returns a new `Ray` from `this` towards `angle`.
   * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`
   * @returns {Rac.Ray}
@@ -4247,12 +4373,13 @@ class Point{
   /**
   * Returns a new `Ray` from `this` towards `point`.
   *
-  * When `this` and `point` are considered equal, the new `Ray` will use
-  * the angle produced with `defaultAngle`.
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
+  * the new `Ray` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Ray}
   */
   rayToPoint(point, defaultAngle = this.rac.Angle.zero) {
@@ -4264,7 +4391,8 @@ class Point{
   /**
   * Returns a new `Ray` from `this` to the projection of `this` in `ray`.
   *
-  * When the projected point is equal to `this` the produced ray will have
+  * When the projected point and `this` are
+  * [considered equal]{@link Rac.Point#equals} the produced ray will have
   * an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
@@ -4299,7 +4427,7 @@ class Point{
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
   * @param {boolean} [clockwise=true] - the orientation of the new `Ray`
-  * @return {Rac.Ray?}
+  * @return {?Rac.Ray}
   */
   rayTangentToArc(arc, clockwise = true) {
     // A default angle is given for the edge case of a zero-radius arc
@@ -4349,12 +4477,13 @@ class Point{
   /**
   * Returns a new `Segment` from `this` to `point`.
   *
-  * When `this` and `point` are considered [equal]{@link Rac.Point#equals},
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
   * the new `Segment` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
   * @see Rac.Point#equals
   */
@@ -4405,7 +4534,7 @@ class Point{
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
   * @param {boolean} [clockwise=true] - the orientation of the new `Segment`
-  * @return {Rac.Segment?}
+  * @return {?Rac.Segment}
   */
   segmentTangentToArc(arc, clockwise = true) {
     const tangentRay = this.rayTangentToArc(arc, clockwise);
@@ -4424,11 +4553,12 @@ class Point{
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
   * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} [someStart=rac.Angle.zero] - The start
-  * `Angle` of the new `Arc`
-  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new
-  * `Arc`; when `null` or ommited, `start` is used instead
-  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
+  * @param {Rac.Angle|number}
+  *   [start=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The start `Angle` of the new `Arc`
+  * @param {Rac.Angle|number} [end=null] - The end `Angle` of the new
+  *   `Arc`; when `null` or ommited, `start` is used instead
+  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(
@@ -4446,12 +4576,15 @@ class Point{
 
 
   /**
-  * Returns a new `Text` with the given `string` and `format`.
+  * Returns a new `Text` located at `this` with the given `string` and
+  * `format`.
+  *
   * @param {string} string - The string of the new `Text`
-  * @param {Rac.Text.Format} format - The format of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format of the new `Text`
   * @returns {Rac.Text}
   */
-  text(string, format) {
+  text(string, format = this.rac.Text.Format.topLeft) {
     return new Rac.Text(this.rac, this, string, format);
   }
 
@@ -4461,7 +4594,7 @@ class Point{
 module.exports = Point;
 
 
-},{"../Rac":2,"../util/utils":41}],14:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],14:[function(require,module,exports){
 'use strict';
 
 
@@ -4526,7 +4659,8 @@ class Ray {
 
 
   /**
-  * Returns `true` when `start` and `angle` in both rays are equal.
+  * Returns `true` when `start` and `angle` in both rays are equal;
+  * otherwise returns `false`.
   *
   * When `otherRay` is any class other that `Rac.Ray`, returns `false`.
   *
@@ -5032,13 +5166,74 @@ class Ray {
       clockwise);
   }
 
+
+  // TODO: Leaving undocumented for now, until better use/explanation is found
+  // based on https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
+  bezierArc(otherRay) {
+    if (this.start.equals(otherRay.start)) {
+      // When both rays have the same start, returns a point bezier.
+      return new Rac.Bezier(this.rac,
+        this.start, this.start,
+        this.start, this.start);
+    }
+
+    let intersection = this.perpendicular()
+      .pointAtIntersection(otherRay.perpendicular());
+
+    let orientation = null;
+    let radiusA = null;
+    let radiusB = null;
+
+    // Check for parallel rays
+    if (intersection !== null) {
+      // Normal intersection case
+      orientation = this.pointOrientation(intersection);
+      radiusA = intersection.segmentToPoint(this.start);
+      radiusB = intersection.segmentToPoint(otherRay.start);
+
+    } else {
+      // In case of parallel rays, otherRay gets shifted to be
+      // perpendicular to this.
+      let shiftedIntersection = this.perpendicular()
+        .pointAtIntersection(otherRay);
+      if (shiftedIntersection === null || this.start.equals(shiftedIntersection)) {
+        // When both rays lay on top of each other, the shifting produces
+        // rays with the same start; function returns a linear bezier.
+        return new Rac.Bezier(this.rac,
+          this.start, this.start,
+          otherRay.start, otherRay.start);
+      }
+      intersection = this.start.pointAtBisector(shiftedIntersection);
+
+      // Case for shifted intersection between two rays
+      orientation = this.pointOrientation(intersection);
+      radiusA = intersection.segmentToPoint(this.start);
+      radiusB = radiusA.inverse();
+    }
+
+    const angleDistance = radiusA.angle().distance(radiusB.angle(), orientation);
+    const quarterAngle = angleDistance.mult(1/4);
+    // TODO: what happens with square angles? is this covered by intersection logic?
+    const quarterTan = quarterAngle.tan();
+
+    const tangentA = quarterTan * radiusA.length * 4/3;
+    const anchorA = this.pointAtDistance(tangentA);
+
+    const tangentB = quarterTan * radiusB.length * 4/3;
+    const anchorB = otherRay.pointAtDistance(tangentB);
+
+    return new Rac.Bezier(this.rac,
+        this.start, anchorA,
+        anchorB, otherRay.start);
+  }
+
 } // class Ray
 
 
 module.exports = Ray;
 
 
-},{"../Rac":2,"../util/utils":41}],15:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],15:[function(require,module,exports){
 'use strict';
 
 
@@ -5111,7 +5306,8 @@ class Segment {
 
 
   /**
-  * Returns `true` when `ray` and `length` in both segments are equal.
+  * Returns `true` when `ray` and `length` in both segments are equal;
+  * otherwise returns `false`.
   *
   * When `otherSegment` is any class other that `Rac.Segment`, returns `false`.
   *
@@ -5303,6 +5499,22 @@ class Segment {
   */
   withEndExtension(distance) {
     return this.withLengthAdd(distance);
+  }
+
+
+  /**
+  * Returns a new `Segment` poiting towards the
+  * [inverse angle]{@link Rac.Angle#inverse} of `this.angle()`.
+  *
+  * The resulting `Segment` will have the same `startPoint()` and `length`
+  * as `this`.
+  *
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#inverse
+  */
+  inverse() {
+    const newRay = this.ray.inverse();
+    return new Segment(this.rac, newRay, this.length);
   }
 
 
@@ -5748,7 +5960,7 @@ class Segment {
 module.exports = Segment;
 
 
-},{"../Rac":2,"../util/utils":41}],16:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],16:[function(require,module,exports){
 'use strict';
 
 
@@ -5789,7 +6001,7 @@ Shape.prototype.addContour = function(element) {
 };
 
 
-},{"../Rac":2,"../util/utils":41}],17:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],17:[function(require,module,exports){
 'use strict';
 
 
@@ -5798,117 +6010,430 @@ const utils = require('../util/utils');
 
 
 /**
-* Format for drawing a `[Text]{@link Rac.Text}` object.
+* Determines the alignment, angle, font, and size for drawing a
+* [`Text`]{@link Rac.Text} object.
 *
 * @alias Rac.Text.Format
 */
 class TextFormat {
 
-  static defaultSize = 15;
-
-  static horizontal = {
+  /**
+  * Supported values for [`hAlign`]{@link Rac.Text.Format#hAlign} which
+  * dermines the left-to-right alignment of the drawn `Text` in relation
+  * to its [`text.point`]{@link Rac.Text#point}.
+  *
+  * @property {string} left
+  *   aligns `text.point` to the left edge of the drawn text
+  * @property {string} center
+  *   aligns `text.point` to the center, from side to
+  * @property {string} right
+  *   aligns `text.point` to the right edge of the drawn text
+  *
+  * @type {object}
+  * @memberof Rac.Text.Format
+  */
+  static horizontalAlign = {
     left: "left",
     center: "horizontalCenter",
     right: "right"
   };
 
-  static vertical = {
+  /**
+  * Supported values for [`vAlign`]{@link Rac.Text.Format#vAlign} which
+  * dermines the top-to-bottom alignment of the drawn `Text` in relation
+  * to its [`text.point`]{@link Rac.Text#point}.
+  *
+  * @property {string} top
+  *   aligns `text.point` to the top edge of the drawn text
+  * @property {string} center
+  *   aligns `text.point` to the center, from top to bottom, of the drawn text
+  * @property {string} baseline
+  *   aligns `text.point` to the baseline of the drawn text
+  * @property {string} bottom
+  *   aligns `text.point` to the bottom edge of the drawn text
+  *
+  * @type {object}
+  * @memberof Rac.Text.Format
+  */
+  static verticalAlign = {
     top: "top",
-    bottom: "bottom",
     center: "verticalCenter",
-    baseline: "baseline"
+    baseline: "baseline",
+    bottom: "bottom"
   };
 
+
+  /**
+  * Creates a new `Text.Format` instance.
+  *
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {string} hAlign
+  *   The horizontal alignment, left-to-right; one of the values from
+  *   [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
+  * @param {string} vAlign
+  *   The vertical alignment, top-to-bottom; one of the values from
+  *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
+  * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The angle towards which the text is drawn
+  * @param {string} [font=null]
+  *   The font name
+  * @param {number} [size=null]
+  *   The font size
+  */
   constructor(
     rac,
-    horizontal, vertical,
-    font = null,
+    hAlign,
+    vAlign,
     angle = rac.Angle.zero,
-    size = TextFormat.defaultSize)
+    font = null,
+    size = null)
   {
-    utils.assertExists(rac);
-    utils.assertString(horizontal, vertical);
+    utils.assertType(Rac, rac);
+    utils.assertString(hAlign, vAlign);
     utils.assertType(Rac.Angle, angle);
-    utils.assertNumber(size);
+    font !== null && utils.assertString(font);
+    size !== null && utils.assertNumber(size);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
-    this.horizontal = horizontal;
-    this.vertical = vertical;
-    this.font = font;
+
+    /**
+    * The horizontal alignment, left-to-right, to position a `Text`
+    * relative to its [`point`]{@link Rac.Text#point}.
+    *
+    * Supported values are available through the
+    * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
+    *
+    * @type {string}
+    */
+    this.hAlign = hAlign;
+
+    /**
+    * The vertical alignment, top-to-bottom, to position a `Text` relative
+    * to its [`point`]{@link Rac.Text#point}.
+    *
+    * Supported values are available through the
+    * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.
+    *
+    * @type {string}
+    */
+    this.vAlign = vAlign;
+
+    /**
+    * The angle towards which the text is drawn.
+    *
+    * An angle of [`zero`]{@link instance.Angle#zero} wil draw the text
+    * towards the right of the screen.
+    *
+    * @type {Rac.Angle}
+    */
     this.angle = angle;
+
+    /**
+    * The font name of the text to draw.
+    *
+    * When set to `null` the font defined in
+    * [`rac.textFormatDefaults.font`]{@link Rac#textFormatDefaults} is
+    * used instead upon drawing.
+    *
+    * @type {?string}
+    */
+    this.font = font;
+
+    /**
+    * The font size of the text to draw.
+    *
+    * When set to `null` the size defined in
+    * [`rac.textFormatDefaults.size`]{@link Rac#textFormatDefaults} is
+    * used instead upon drawing.
+    *
+    * @type {?number}
+    */
     this.size = size;
+  } // constructor
+
+
+  /**
+  * Returns a string representation intended for human consumption.
+  *
+  * ```
+  * (new Rac.Text.Format(rac, 'left', 'top', 0.5, 'sans', 14)).toString()
+  * // Returns: Text.Format(ha:left va:top a:0.5 f:"sans" s:14)
+  * ```
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
+  * @returns {string}
+  */
+  toString(digits = null) {
+    const angleStr = utils.cutDigits(this.angle.turn, digits);
+    const sizeStr = this.size === null
+      ? 'null'
+      : utils.cutDigits(this.size, digits);
+    const fontStr = this.font === null
+      ? 'null'
+      : `"${this.font}"`;
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr})`;
   }
 
-  // Returns a format to draw text in the same position as `self` with
-  // the inverse angle.
-  inverse() {
-    let hEnum = TextFormat.horizontal;
-    let vEnum = TextFormat.vertical;
-    let horizontal, vertical;
-    switch (this.horizontal) {
-      case hEnum.left:
-        horizontal = hEnum.right; break;
-      case hEnum.right:
-        horizontal = hEnum.left; break;
-      default:
-        horizontal = this.horizontal; break;
+
+  /**
+  * Returns `true` when all members, except `rac`, of both formats are
+  * equal, otherwise returns `false`.
+  *
+  * When `otherFormat` is any class other that `Rac.Text.Format`, returns
+  * `false`.
+  *
+  * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
+  * @returns {boolean}
+  * @see Rac.Angle#equals
+  */
+  equals(otherFormat) {
+    return otherFormat instanceof TextFormat
+      && this.hAlign === otherFormat.hAlign
+      && this.vAlign === otherFormat.vAlign
+      && this.angle.equals(otherFormat.angle)
+      && this.font === otherFormat.font
+      && this.size === otherFormat.size;
+  }
+
+
+  /**
+  * Returns a new `Text.Format` with `angle` set to the `Angle` derived
+  * from `newAngle`.
+  * @param {Rac.Angle|number} newAngle - The angle for the new `Text.Format`
+  * @returns {Rac.Text.Format}
+  */
+  withAngle(newAngle) {
+    newAngle = Rac.Angle.from(this.rac, newAngle);
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      newAngle,
+      this.font,
+      this.size);
+  }
+
+
+  /**
+  * Returns a new `Text.Format` with `font` set to `newFont`.
+  * @param {?string} newFont - The font name for the new `Text.Format`;
+  *   can be set to `null`.
+  * @returns {Rac.Text.Format}
+  */
+  withFont(newFont) {
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      this.angle,
+      newFont,
+      this.size);
+  }
+
+
+  /**
+  * Returns a new `Text.Format` with `size` set to `newSize`.
+  * @param {?number} newSize - The font size for the new `Text.Format`;
+  *   can be set to `null`.
+  * @returns {Rac.Text.Format}
+  */
+  withSize(newSize) {
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      this.angle,
+      this.font,
+      newSize);
+  }
+
+
+  /**
+  * Returns a new `Text.Format` that will draw a text reversed, upside-down,
+  * in generally the same position as `this` would draw the same text.
+  * @returns {Rac.Text.Format}
+  */
+  reverse() {
+    let hEnum = TextFormat.horizontalAlign;
+    let vEnum = TextFormat.verticalAlign;
+    let hAlign, vAlign;
+    switch (this.hAlign) {
+      case hEnum.left:  hAlign = hEnum.right; break;
+      case hEnum.right: hAlign = hEnum.left; break;
+      default:          hAlign = this.hAlign; break;
     }
-    switch (this.vertical) {
-      case vEnum.top:
-        vertical = vEnum.bottom; break;
-      case vEnum.bottom:
-        vertical = vEnum.top; break;
-      default:
-        vertical = this.vertical; break;
+    switch (this.vAlign) {
+      case vEnum.top:    vAlign = vEnum.bottom; break;
+      case vEnum.bottom: vAlign = vEnum.top; break;
+      default:           vAlign = this.vAlign; break;
     }
 
     return new TextFormat(
       this.rac,
-      horizontal, vertical,
-      this.font,
+      hAlign, vAlign,
       this.angle.inverse(),
-      this.size)
-  }
-
-
-  withAngle(angle) {
-    angle = Rac.Angle.from(this.rac, angle);
-    return new TextFormat(this.rac,
-      this.horizontal, this.vertical,
       this.font,
-      angle,
-      this.size);
+      this.size)
   }
 
 } // class TextFormat
 
 
+module.exports = TextFormat;
+
+
+},{"../Rac":2,"../util/utils":42}],18:[function(require,module,exports){
+'use strict';
+
+
+const Rac = require('../Rac');
+const utils = require('../util/utils');
+
+
+const TextFormat = require('./Text.Format')
+
+// Not used, Seems like uglify minification needs a reference here;
+// otherwise TextFormat is not correctly required.
+var minifyHelper = TextFormat
+
 /**
-* String, format, and position to draw a text.
+* String, position and [format]{@link Rac.Text.Format} to draw a text.
+*
+* An instance of this object contains the string and a `Point` used to
+* determine the location of the drawn text. The
+* [`Text.Format`]{@link Rac.Text.Format} object determines the font, size,
+* orientation angle, and the alignment relative to `point` to draw the text.
+*
 * @alias Rac.Text
 */
 class Text {
 
   static Format = TextFormat;
 
+  /**
+  * Creates a new `Text` instance.
+  *
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {Rac.Point} point
+  *   The location for the drawn text
+  * @param {string} string
+  *   The string to draw
+  * @param {Rac.Text.Format} format
+  *   The format for the drawn text
+  */
   constructor(rac, point, string, format) {
-    utils.assertExists(rac, point, string, format);
+    utils.assertType(Rac, rac);
     utils.assertType(Rac.Point, point);
     utils.assertString(string);
     utils.assertType(Text.Format, format);
+
+    /**
+    * Instance of `Rac` used for drawing and passed along to any created
+    * object.
+    *
+    * @type {Rac}
+    */
     this.rac = rac;
+
+    /**
+    * The location where the text will be drawn.
+    *
+    * The text will be drawn relative to this point based on the
+    * alignment and angle configuration of
+    * [`format`]{@link Rac.Text#format}.
+    *
+    * @type {Rac.Point}
+    */
     this.point = point;
+
+    /**
+    * The string to draw.
+    * @type {string}
+    */
     this.string = string;
+
+    /**
+    * The alignment, angle, font, and size to use to draw the text.
+    * @type {Rac.Text.Format}
+    */
     this.format = format;
   }
 
 
   /**
   * Returns a string representation intended for human consumption.
+  *
+  * @param {number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {string}
   */
-  toString() {
-    return `Text((${this.point.x},${this.point.y}) "${this.string}")`;
+  toString(digits = null) {
+    const xStr = utils.cutDigits(this.point.x, digits);
+    const yStr = utils.cutDigits(this.point.y, digits);
+    return `Text((${xStr},${yStr}) "${this.string}")`;
   }
+
+
+  /**
+  * Returns `true` when the `string` and `point` of both texts are equal;
+  * otherwise returns `false`.
+  *
+  * When `otherText` is any class other that `Rac.Text`, returns `false`.
+  *
+  * `point`s are compared using [`point.equals`]{@link Rac.Point#equals}.
+  *
+  * The `format` objects are ignored in this comparison.
+  *
+  * @param {Rac.Text} otherText - A `Text` to compare
+  * @returns {boolean}
+  * @see Rac.Point#equals
+  */
+  equals(otherText) {
+    return otherText instanceof Text
+      && this.string === otherText.string
+      && this.point.equals(otherText.point);
+  }
+
+
+  /**
+  * Returns a new `Text` and `Format` with `format.angle` set to the
+  * `Angle` derived from `newAngle`.
+  * @param {Rac.Angle|number} newAngle - The angle for the new `Text` and
+  *   `Text.Format`
+  * @returns {Rac.Text}
+  */
+  withAngle(newAngle) {
+    const newFormat = this.format.withAngle(newAngle);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  /**
+  * Returns a new `Text` and `Format` with `format.font` set to `newFont`.
+  * @param {?string} newFont - The font name for the new `Text` and
+  *   `Text.Format`; can be set to `null`.
+  * @returns {Rac.Text}
+  */
+  withFont(newFont) {
+    const newFormat = this.format.withFont(newFont);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  /**
+  * Returns a new `Text` and `Format` with `format.size` set to `newSize`.
+  * @param {?number} newSize - The font size for the new `Text` and
+  *   `Text.Format`; can be set to `null`.
+  * @returns {Rac.Text}
+  */
+  withSize(newSize) {
+    const newFormat = this.format.withSize(newSize);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
 
 } // class Text
 
@@ -5916,7 +6441,7 @@ class Text {
 module.exports = Text;
 
 
-},{"../Rac":2,"../util/utils":41}],18:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42,"./Text.Format":17}],19:[function(require,module,exports){
 'use strict';
 
 
@@ -5924,8 +6449,9 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Angle` function contains convenience methods and members
-* for `{@link Rac.Angle}` objects setup with the owning `Rac` instance.
+* The [`instance.Angle` function]{@link Rac#Angle} contains convenience
+* methods and members for `{@link Rac.Angle}` objects setup with the owning
+* `Rac` instance.
 *
 * @namespace instance.Angle
 */
@@ -5993,7 +6519,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `right`, `r`, `east`, `e`.
   *
   * @name zero
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.zero = rac.Angle(0.0);
@@ -6004,7 +6530,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `left`, `l`, `west`, `w`, `inverse`.
   *
   * @name half
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.half = rac.Angle(1/2);
@@ -6016,7 +6542,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
   *
   * @name quarter
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.quarter = rac.Angle(1/4);
@@ -6028,19 +6554,19 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `bottomRight`, `br`, `se`.
   *
   * @name eighth
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.eighth =  rac.Angle(1/8);
 
   /**
   * An `Angle` with turn `7/8`, negative angle of
-  * `{@link instance.Angle#eighth eighth}`.
+  * [`eighth`]{@link instance.Angle#eighth}.
   *
   * Also named as: `topRight`, `tr`, `ne`.
   *
   * @name neighth
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.neighth =  rac.Angle(-1/8);
@@ -6050,7 +6576,7 @@ module.exports = function attachRacAngle(rac) {
   * An `Angle` with turn `1/16`.
   *
   * @name sixteenth
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.sixteenth = rac.Angle(1/16);
@@ -6061,7 +6587,7 @@ module.exports = function attachRacAngle(rac) {
   * Also named as: `up`, `u`, `top`, `t`.
   *
   * @name north
-  * @type {Rac.Point}
+  * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
   rac.Angle.north = rac.Angle(3/4);
@@ -6142,7 +6668,7 @@ module.exports = function attachRacAngle(rac) {
 } // attachRacAngle
 
 
-},{"../Rac":2}],19:[function(require,module,exports){
+},{"../Rac":2}],20:[function(require,module,exports){
 'use strict';
 
 
@@ -6167,7 +6693,7 @@ module.exports = function attachRacArc(rac) {
 } // attachRacArc
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 
@@ -6194,13 +6720,14 @@ module.exports = function attachInstanceBezier(rac) {
 } // attachInstanceBezier
 
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 
 /**
-* The `instance.Point` function contains convenience methods and members
-* for `{@link Rac.Point}` objects setup with the owning `Rac` instance.
+* The [`instance.Point` function]{@link Rac#Point} contains convenience
+* methods and members for `{@link Rac.Point}` objects setup with the owning
+* `Rac` instance.
 *
 * @namespace instance.Point
 */
@@ -6231,7 +6758,7 @@ module.exports = function attachRacPoint(rac) {
 } // attachRacPoint
 
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 
@@ -6288,7 +6815,7 @@ module.exports = function attachRacRay(rac) {
 } // attachRacRay
 
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 
@@ -6315,7 +6842,7 @@ module.exports = function attachRacSegment(rac) {
 } // attachRacSegment
 
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 
@@ -6323,8 +6850,9 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Text` function contains convenience methods and members
-* for `{@link Rac.Text}` objects setup with the owning `Rac` instance.
+* The [`instance.Text` function]{@link Rac#Text} contains convenience
+* methods and members for `{@link Rac.Text}` objects setup with the owning
+* `Rac` instance.
 *
 * @namespace instance.Text
 */
@@ -6332,54 +6860,119 @@ module.exports = function attachRacText(rac) {
   // Intended to receive a Rac instance as parameter
 
 
-  rac.Text.Format = function(
-    horizontal, vertical,
-    font = null,
-    angle = rac.Angle.zero,
-    size = Rac.Text.Format.defaultSize)
-  {
-    angle = rac.Angle.from(angle);
-    return new Rac.Text.Format(
-      rac,
-      horizontal, vertical,
-      font, angle, size);
-  };
+  /**
+  * The [`instance.Text.Format` function]{@link instance.Text#Format}
+  * contains convenience methods and members for `{@link Rac.Text.Format}`
+  * objects setup with the owning `Rac` instance.
+  *
+  * @namespace instance.Text.Format
+  */
 
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * top-left edge of the drawn text.
+  * @name topLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.topLeft = rac.Text.Format(
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultSize);
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top);
 
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * top-right edge of the drawn text.
+  * @name topRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
   rac.Text.Format.topRight = rac.Text.Format(
-    Rac.Text.Format.horizontal.right,
-    Rac.Text.Format.vertical.top,
-    rac.Angle.zero,
-    Rac.Text.Format.defaultSize);
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.top);
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * center-left edge of the drawn text.
+  * @name centerLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.centerLeft = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.center);
+
+  /**
+  * A `Text.Format` to position the [`text.point`]{@link Rac.Text#point} at the
+  * center of the drawn text.
+  *
+  * Also available as: `centered`.
+  *
+  * @name centerCenter
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.centerCenter = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.center,
+    Rac.Text.Format.verticalAlign.center);
+  rac.Text.Format.centered = rac.Text.Format.centerCenter;
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * center-right of the drawn text.
+  * @name centerRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.centerRight = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.center);
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * bottom-left of the drawn text.
+  * @name bottomLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.bottomLeft = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.bottom);
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * bottom-right of the drawn text.
+  * @name bottomRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.bottomRight = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.bottom);
+
 
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at
   * `Point.zero`.
   * @name hello
+  * @type {Rac.Text}
   * @memberof instance.Text#
   */
-  rac.Text.hello = rac.Text(0, 0, 'hello world!',
-    rac.Text.Format.topLeft);
+  rac.Text.hello = rac.Text(0, 0, 'hello world!');
 
   /**
   * A `Text` for drawing the pangram `sphinx of black quartz, judge my vow`
   * with `topLeft` format at `Point.zero`.
   * @name sphinx
+  * @type {Rac.Text}
   * @memberof instance.Text#
   */
-  rac.Text.sphinx = rac.Text(0, 0, 'sphinx of black quartz, judge my vow',
-    rac.Text.Format.topLeft);
+  rac.Text.sphinx = rac.Text(0, 0, 'sphinx of black quartz, judge my vow');
 
-} // attachRacPoint
+} // attachRacText
 
 
-},{"../Rac":2}],25:[function(require,module,exports){
+},{"../Rac":2}],26:[function(require,module,exports){
 
 
 // https://github.com/umdjs/umd/blob/master/templates/returnExports.js
@@ -6416,7 +7009,7 @@ module.exports = function attachRacText(rac) {
 }));
 
 
-},{"./Rac":2}],26:[function(require,module,exports){
+},{"./Rac":2}],27:[function(require,module,exports){
 'use strict';
 
 
@@ -6456,14 +7049,20 @@ class P5Drawer {
     this.debugTextStyle = null;
 
     /**
-    * Object with options used by the default implementation of
-    * `drawable.debug()`.
+    * Settings used by the default implementation of `drawable.debug()`.
+    *
+    * @property {string} font='monospace'
+    *   Font to use when drawing with `debug()`
+    * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    *   Font size to use when drawing with `debug()`
+    * @property {number} fixedDigits=2
+    *   Number of decimal digits to print when drawing with `debug()`
     *
     * @type {object}
     */
     this.debugTextOptions = {
       font: 'monospace',
-      size: Rac.Text.Format.defaultSize,
+      size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };
 
@@ -6491,16 +7090,31 @@ class P5Drawer {
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
     this.setupAllApplyFunctions();
+    // TODO: add a customized function for new classes!
   }
 
-  // Adds a DrawRoutine for the given class.
-  setDrawFunction(classObj, drawFunction) {
+
+  /**
+  * Sets the given `drawFunction` to perform the drawing for instances of
+  * class `drawableClass`.
+  *
+  * `drawFunction` is expected to have the signature:
+  * ```
+  * drawFunction(drawer, objectOfClass)
+  * ```
+  * + `drawer: P5Drawer` - Instance to use for drawing
+  * + `objectOfClass: drawableClass` - Instance of `drawableClass` to draw
+  *
+  * @param {class} drawableClass - Class of the instances to draw
+  * @param {function} drawFunction - Function that performs drawing
+  */
+  setDrawFunction(drawableClass, drawFunction) {
     let index = this.drawRoutines
-      .findIndex(routine => routine.classObj === classObj);
+      .findIndex(routine => routine.classObj === drawableClass);
 
     let routine;
     if (index === -1) {
-      routine = new DrawRoutine(classObj, drawFunction);
+      routine = new DrawRoutine(drawableClass, drawFunction);
     } else {
       routine = this.drawRoutines[index];
       routine.drawFunction = drawFunction;
@@ -6510,6 +7124,7 @@ class P5Drawer {
 
     this.drawRoutines.push(routine);
   }
+
 
   setDrawOptions(classObj, options) {
     let routine = this.drawRoutines
@@ -6524,6 +7139,7 @@ class P5Drawer {
     }
   }
 
+
   setClassDrawStyle(classObj, style) {
     let routine = this.drawRoutines
       .find(routine => routine.classObj === classObj);
@@ -6535,14 +7151,34 @@ class P5Drawer {
     routine.style = style;
   }
 
-  // Adds a DebugRoutine for the given class.
-  setDebugFunction(classObj, debugFunction) {
+
+  /**
+  * Sets the given `debugFunction` to perform the debug-drawing for
+  * instances of class `drawableClass`.
+  *
+  * When a drawable class does not have a `debugFunction` setup, calling
+  * `drawable.debug()` simply calls `draw()` with
+  * `[debugStyle]{@link Rac.P5Drawer#debugStyle}` applied.
+  *
+  * `debugFunction` is expected to have the signature:
+  * ```
+  * debugFunction(drawer, objectOfClass, drawsText)
+  * ```
+  * + `drawer: P5Drawer` - Instance to use for drawing
+  * + `objectOfClass: drawableClass` - Instance of `drawableClass` to draw
+  * + `drawsText: bool` - When `true` text should be drawn with
+  *    additional information.
+  *
+  * @param {class} drawableClass - Class of the instances to draw
+  * @param {function} debugFunction - Function that performs debug-drawing
+  */
+  setDebugFunction(drawableClass, debugFunction) {
     let index = this.debugRoutines
-      .findIndex(routine => routine.classObj === classObj);
+      .findIndex(routine => routine.classObj === drawableClass);
 
     let routine;
     if (index === -1) {
-      routine = new DebugRoutine(classObj, debugFunction);
+      routine = new DebugRoutine(drawableClass, debugFunction);
     } else {
       routine = this.debugRoutines[index];
       routine.debugFunction = debugFunction;
@@ -6552,6 +7188,7 @@ class P5Drawer {
 
     this.debugRoutines.push(routine);
   }
+
 
   // Adds a ApplyRoutine for the given class.
   setApplyFunction(classObj, applyFunction) {
@@ -6570,6 +7207,7 @@ class P5Drawer {
 
     this.applyRoutines.push(routine);
   }
+
 
   drawObject(object, style = null) {
     let routine = this.drawRoutines
@@ -6618,6 +7256,7 @@ class P5Drawer {
     }
   }
 
+
   applyObject(object) {
     let routine = this.applyRoutines
       .find(routine => object instanceof routine.classObj);
@@ -6628,6 +7267,7 @@ class P5Drawer {
 
     routine.applyFunction(this, object);
   }
+
 
   // Sets up all drawing routines for rac drawable clases.
   // Also attaches additional prototype and static functions in relevant
@@ -6706,48 +7346,9 @@ class P5Drawer {
       text.format.apply(text.point);
       drawer.p5.text(text.string, 0, 0);
     });
+    // `text.format.apply` makes translate and rotation modifications to
+    // the drawing matrix, this requires a push-pop on every draw
     this.setDrawOptions(Rac.Text, {requiresPushPop: true});
-
-    // Applies all text properties and translates to the given `point`.
-    // After the format is applied the text should be drawn at the origin.
-    Rac.Text.Format.prototype.apply = function(point) {
-      let hAlign;
-      let hOptions = Rac.Text.Format.horizontal;
-      switch (this.horizontal) {
-        case hOptions.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
-        case hOptions.center: hAlign = this.rac.drawer.p5.CENTER; break;
-        case hOptions.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
-        default:
-          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      let vAlign;
-      let vOptions = Rac.Text.Format.vertical;
-      switch (this.vertical) {
-        case vOptions.top:      vAlign = this.rac.drawer.p5.TOP;      break;
-        case vOptions.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vOptions.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
-        case vOptions.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
-        default:
-          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      // Text properties
-      this.rac.drawer.p5.textAlign(hAlign, vAlign);
-      this.rac.drawer.p5.textSize(this.size);
-      if (this.font !== null) {
-        this.rac.drawer.p5.textFont(this.font);
-      }
-
-      // Positioning
-      this.rac.drawer.p5.translate(point.x, point.y);
-      if (this.angle.turn != 0) {
-        this.rac.drawer.p5.rotate(this.angle.radians());
-      }
-    } // Rac.Text.Format.prototype.apply
-
   } // setupAllDrawFunctions
 
 
@@ -6771,6 +7372,7 @@ class P5Drawer {
       } else {
         functions.debugAngle(drawer, this, point, drawsText);
       }
+      return this;
     };
 
     Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
@@ -6830,6 +7432,58 @@ class P5Drawer {
       });
     });
 
+    // Text.Format
+    // Applies all text properties and translates to the given `point`.
+    // After the format is applied the text should be drawn at the origin.
+    //
+    // Calling this function requires a push-pop to the drawing style
+    // settings since translate and rotation modifications are made to the
+    // drawing matrix. Otherwise all other subsequent drawing will be
+    // impacted.
+    Rac.Text.Format.prototype.apply = function(point) {
+      let hAlign;
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      switch (this.hAlign) {
+        case hEnum.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
+        case hEnum.center: hAlign = this.rac.drawer.p5.CENTER; break;
+        case hEnum.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
+        default:
+          console.trace(`Invalid hAlign configuration - hAlign:${this.hAlign}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      let vAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      switch (this.vAlign) {
+        case vEnum.top:      vAlign = this.rac.drawer.p5.TOP;      break;
+        case vEnum.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vEnum.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
+        case vEnum.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
+        default:
+          console.trace(`Invalid vAlign configuration - vAlign:${this.vAlign}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      // Align
+      this.rac.drawer.p5.textAlign(hAlign, vAlign);
+
+      // Size
+      const textSize = this.size ?? this.rac.textFormatDefaults.size;
+      this.rac.drawer.p5.textSize(textSize);
+
+      // Font
+      const textFont = this.font ?? this.rac.textFormatDefaults.font;
+      if (textFont !== null) {
+        this.rac.drawer.p5.textFont(textFont);
+      }
+
+      // Positioning
+      this.rac.drawer.p5.translate(point.x, point.y);
+      if (this.angle.turn != 0) {
+        this.rac.drawer.p5.rotate(this.angle.radians());
+      }
+    } // Rac.Text.Format.prototype.apply
+
   } // setupAllApplyFunctions
 
 } // class P5Drawer
@@ -6837,35 +7491,82 @@ class P5Drawer {
 module.exports = P5Drawer;
 
 
-// Encapsulates the drawing function and options for a specific class.
-// The draw function is called with two parameters: the instance of the
-// drawer, and the object to draw.
+// Contains the drawing function and options for drawing objects of a
+// specific class.
 //
-// Optionally a `style` can be asigned to always be applied before
-// drawing an instance of the associated class. This style will be
-// applied before any styles provided to the `draw` function.
-//
-// Optionally `requiresPushPop` can be set to `true` to always peform
-// a `push` and `pop` before and after all the style and drawing in
-// the routine. This is intended for objects which drawing operations
-// may need to push transformation to the stack.
+// An instance is created for each drawable class that the drawer can
+// support, which contains all the settings needed for drawing.
 class DrawRoutine {
+
+  // TODO: Rename to drawableClass
   constructor (classObj, drawFunction) {
+    // Class associated with the contained settings.
     this.classObj = classObj;
+
+    // Drawing function for objects of type `classObj` with the signature:
+    // `drawFunction(drawer, objectOfClass)`
+    // + `drawer: P5Drawer` - Instance to use for drawing
+    // + `objectOfClass: classObj` - Instance of `classObj` to draw
+    //
+    // The function is intended to perform drawing using `drawer.p5`
+    // functions or calling `draw()` in other drawable objects. All styles
+    // are pushed beforehand and popped afterwards.
+    //
+    // In general it is expected that the `drawFunction` peforms no changes
+    // to the drawing settings in order for each drawing call to use only a
+    // single `push/pop` when necessary. For classes that require
+    // modifications to the drawing settings the `requiresPushPop`
+    // property can be set to force a `push/pop` with each drawing call
+    // regardless if styles are applied.
     this.drawFunction = drawFunction;
+
+    // When set, this style is always applied before each drawing call to
+    // objects of type `classObj`. This `style` is applied before the
+    // `style` provided to the drawing call.
     this.style = null;
 
-    // Options
+    // When set to `true`, a `push/pop` is always peformed before and after
+    // all the style are applied and drawing is performed. This is intended
+    // for objects which drawing operations may need to perform
+    // transformations to the drawing settings.
     this.requiresPushPop = false;
-  }
+  } // constructor
+
 } // DrawRoutine
 
 
+// Contains the debug-drawing function and options for debug-drawing
+// objects of a specific class.
+//
+// An instance is created for each drawable class that the drawer can
+// support, which contains all the settings needed for debug-drawing.
+//
+// When a drawable object does not have a `DebugRoutine` setup, calling
+// `debug()` simply calls `draw()` with the debug style applied.
 class DebugRoutine {
+
   constructor (classObj, debugFunction) {
+    // Class associated with the contained settings.
     this.classObj = classObj;
+
+    // Debug function for objects of type `classObj` with the signature:
+    // `debugFunction(drawer, objectOfClass, drawsText)`
+    // + `drawer: P5Drawer` - Instance to use for drawing
+    // + `objectOfClass: classObj` - Instance of `classObj` to debug
+    // + `drawsText: bool` - When `true` text should be drawn with
+    //   additional information.
+    //
+    // The function is intended to perform debug-drawing using `drawer.p5`
+    // functions or calling `draw()` in other drawable objects. The debug
+    // style is pushed beforehand and popped afterwards.
+    //
+    // In general it is expected that the `drawFunction` peforms no changes
+    // to the drawing settings in order for each drawing call to use only a
+    // single `push/pop` when necessary.
+    //
     this.debugFunction = debugFunction;
-  }
+  } // constructor
+
 }
 
 
@@ -6877,7 +7578,7 @@ class ApplyRoutine {
 }
 
 
-},{"../Rac":2,"../util/utils":41,"./Point.functions":27,"./Ray.functions":28,"./Segment.functions":29,"./debug.functions":30,"./draw.functions":31}],27:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42,"./Point.functions":28,"./Ray.functions":29,"./Segment.functions":30,"./debug.functions":31,"./draw.functions":32}],28:[function(require,module,exports){
 'use strict';
 
 
@@ -6946,7 +7647,7 @@ module.exports = function attachPointFunctions(rac) {
 } // attachPointFunctions
 
 
-},{"../Rac":2,"../util/utils":41}],28:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],29:[function(require,module,exports){
 'use strict';
 
 
@@ -7055,7 +7756,7 @@ module.exports = function attachRayFunctions(rac) {
 } // attachRayFunctions
 
 
-},{"../Rac":2,"../util/utils":41}],29:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],30:[function(require,module,exports){
 'use strict';
 
 
@@ -7155,7 +7856,7 @@ module.exports = function attachSegmentFunctions(rac) {
 } // attachSegmentFunctions
 
 
-},{"../Rac":2,"../util/utils":41}],30:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],31:[function(require,module,exports){
 'use strict';
 
 
@@ -7215,14 +7916,14 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
   // Normal orientation
   let format = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.center,
-    drawer.debugTextOptions.font,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.center,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
-    format = format.inverse();
+    format = format.reverse();
   }
 
   // Turn text
@@ -7263,10 +7964,10 @@ exports.debugPoint = function(drawer, point, drawsText) {
   let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
   let format = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
-    drawer.debugTextOptions.font,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top,
     rac.Angle.e,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   point
     .pointToAngle(rac.Angle.se, pointRadius*2)
@@ -7323,23 +8024,23 @@ exports.debugRay = function(drawer, ray, drawsText) {
   if (drawsText !== true) { return; }
 
   const angle  = ray.angle;
-  const hFormat = Rac.Text.Format.horizontal;
-  const vFormat = Rac.Text.Format.vertical;
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
   const font   = drawer.debugTextOptions.font;
   const size   = drawer.debugTextOptions.size;
   const digits = drawer.debugTextOptions.fixedDigits;
 
   // Normal orientation
   let startFormat = new Rac.Text.Format(rac,
-    hFormat.left, vFormat.bottom,
-    font, angle, size);
+    hEnum.left, vEnum.bottom,
+    angle, font, size);
   let angleFormat = new Rac.Text.Format(rac,
-    hFormat.left, vFormat.top,
-    font, angle, size);
+    hEnum.left, vEnum.top,
+    angle, font, size);
   if (reversesText(angle)) {
     // Reverse orientation
-    startFormat = startFormat.inverse();
-    angleFormat = angleFormat.inverse();
+    startFormat = startFormat.reverse();
+    angleFormat = angleFormat.reverse();
   }
 
   // Start text
@@ -7427,22 +8128,22 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   // Normal orientation
   let lengthFormat = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.bottom,
-    drawer.debugTextOptions.font,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.bottom,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let angleFormat = new Rac.Text.Format(
     rac,
-    Rac.Text.Format.horizontal.left,
-    Rac.Text.Format.vertical.top,
-    drawer.debugTextOptions.font,
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.top,
     angle,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   if (reversesText(angle)) {
     // Reverse orientation
-    lengthFormat = lengthFormat.inverse();
-    angleFormat = angleFormat.inverse();
+    lengthFormat = lengthFormat.reverse();
+    angleFormat = angleFormat.reverse();
   }
 
   // Length
@@ -7474,7 +8175,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Center markers
   let centerArcRadius = markerRadius * 2/3;
   if (arc.radius > markerRadius/3 && arc.radius < markerRadius) {
-    // If radius is to close to the center-arc markers
+    // If radius is too close to the center-arc markers
     // Make the center-arc be outside of the arc
     centerArcRadius = arc.radius + markerRadius/3;
   }
@@ -7578,49 +8279,49 @@ exports.debugArc = function(drawer, arc, drawsText) {
   // Text
   if (drawsText !== true) { return; }
 
-  let hFormat = Rac.Text.Format.horizontal;
-  let vFormat = Rac.Text.Format.vertical;
+  let hEnum = Rac.Text.Format.horizontalAlign;
+  let vEnum = Rac.Text.Format.verticalAlign;
 
   let headVertical = arc.clockwise
-    ? vFormat.top
-    : vFormat.bottom;
+    ? vEnum.top
+    : vEnum.bottom;
   let tailVertical = arc.clockwise
-    ? vFormat.bottom
-    : vFormat.top;
+    ? vEnum.bottom
+    : vEnum.top;
   let radiusVertical = arc.clockwise
-    ? vFormat.bottom
-    : vFormat.top;
+    ? vEnum.bottom
+    : vEnum.top;
 
   // Normal orientation
   let headFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     headVertical,
-    drawer.debugTextOptions.font,
     arc.start,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let tailFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     tailVertical,
-    drawer.debugTextOptions.font,
     arc.end,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
   let radiusFormat = new Rac.Text.Format(
     rac,
-    hFormat.left,
+    hEnum.left,
     radiusVertical,
-    drawer.debugTextOptions.font,
     arc.start,
+    drawer.debugTextOptions.font,
     drawer.debugTextOptions.size);
 
   // Reverse orientation
   if (reversesText(arc.start)) {
-    headFormat = headFormat.inverse();
-    radiusFormat = radiusFormat.inverse();
+    headFormat = headFormat.reverse();
+    radiusFormat = radiusFormat.reverse();
   }
   if (reversesText(arc.end)) {
-    tailFormat = tailFormat.inverse();
+    tailFormat = tailFormat.reverse();
   }
 
   let startString = `start:${arc.start.turn.toFixed(digits)}`;
@@ -7675,7 +8376,7 @@ exports.debugArc = function(drawer, arc, drawsText) {
 // TODO: debug routine of Text
 
 
-},{"../Rac":2}],31:[function(require,module,exports){
+},{"../Rac":2}],32:[function(require,module,exports){
 'use strict';
 
 
@@ -7735,7 +8436,7 @@ exports.drawArc = function(drawer, arc) {
 }; // drawArc
 
 
-},{"../Rac":2}],32:[function(require,module,exports){
+},{"../Rac":2}],33:[function(require,module,exports){
 'use strict';
 
 
@@ -7939,7 +8640,7 @@ class Color {
 module.exports = Color;
 
 
-},{"../Rac":2,"../util/utils":41}],33:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],34:[function(require,module,exports){
   'use strict';
 
 
@@ -8060,7 +8761,7 @@ class Fill {
 module.exports = Fill;
 
 
-},{"../Rac":2,"../util/utils":41}],34:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],35:[function(require,module,exports){
 'use strict';
 
 
@@ -8226,7 +8927,7 @@ class Stroke {
 module.exports = Stroke;
 
 
-},{"../Rac":2,"../util/utils":41}],35:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],36:[function(require,module,exports){
 'use strict';
 
 
@@ -8319,7 +9020,7 @@ class StyleContainer {
 module.exports = StyleContainer;
 
 
-},{"../Rac":2,"../util/utils":41}],36:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],37:[function(require,module,exports){
 'use strict';
 
 
@@ -8397,7 +9098,7 @@ module.exports = function attachRacColor(rac) {
 } // attachRacColor
 
 
-},{"../Rac":2}],37:[function(require,module,exports){
+},{"../Rac":2}],38:[function(require,module,exports){
 'use strict';
 
 
@@ -8420,7 +9121,7 @@ module.exports = function attachRacFill(rac) {
 } // attachRacFill
 
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 
@@ -8430,7 +9131,7 @@ module.exports = function attachRacFill(rac) {
 *
 * @namespace instance.Stroke
 */
-module.exports = function attachRacPoint(rac) {
+module.exports = function attachRacStroke(rac) {
   // Intended to receive a Rac instance as parameter
 
   /**
@@ -8455,7 +9156,7 @@ module.exports = function attachRacPoint(rac) {
 } // attachRacStroke
 
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 
@@ -8622,7 +9323,7 @@ class EaseFunction {
 module.exports = EaseFunction;
 
 
-},{"../Rac":2,"../util/utils":41}],40:[function(require,module,exports){
+},{"../Rac":2,"../util/utils":42}],41:[function(require,module,exports){
 'use strict';
 
 
@@ -8699,7 +9400,7 @@ class Exception {
 module.exports = Exception;
 
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 
 
@@ -8738,8 +9439,11 @@ exports.assertExists = function(...parameters) {
 
 
 /**
-* Asserts that all `elements` are objects or the given `typeo`, otherwise a
+* Asserts that all `elements` are objects or the given `type`, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
+*
+* When any member of `elements` is `null` or `undefined`, the exception is
+* also thrown.
 *
 * @param {function} type
 * @param {...Object} elements
@@ -8753,7 +9457,7 @@ exports.assertType = function(type, ...elements) {
   elements.forEach(item => {
     if (!(item instanceof type)) {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type - element:${item} element-type:${typeName(item)} expected-type-name:${type.name}`);
+        `Element is unexpected type - element-type:${typeName(item)} expected-type-name:${type.name} element:${item}`);
     }
   });
 }
@@ -8773,7 +9477,7 @@ exports.assertNumber = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'number' || isNaN(item)) {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type, expecting number primitive - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting number primitive - element-type:${typeName(item)} element:${item}`);
     }
   });
 }
@@ -8793,7 +9497,7 @@ exports.assertString = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'string') {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type, expecting string primitive - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting string primitive - element-type:${typeName(item)} element:${item}`);
     }
   });
 }
@@ -8813,7 +9517,7 @@ exports.assertBoolean = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'boolean') {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type, expecting boolean primitive - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting boolean primitive - element-type:${typeName(item)} element:${item}`);
     }
   });
 }
@@ -8880,4 +9584,4 @@ exports.cutDigits = function(number, digits = null) {
 }
 
 
-},{"../Rac":2}]},{},[25]);
+},{"../Rac":2}]},{},[26]);

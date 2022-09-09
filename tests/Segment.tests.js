@@ -129,7 +129,7 @@ tools.test( function withStartExtension() {
 });
 
 
-tools.test( function withAngleRayLength() {
+tools.test( function withAngle_Ray_Length() {
   expect(diagonal.withAngle(rac.Ray.zero)).equalsSegment(55, 55, 0, 72);
   expect(diagonal.withAngle(1/2))         .equalsSegment(55, 55, 1/2, 72);
 
@@ -141,7 +141,7 @@ tools.test( function withAngleRayLength() {
 });
 
 
-tools.test( function withLengthAddAndRatio() {
+tools.test( function withLengthAdd_EndExtension_LengthRatio() {
   expect(diagonal.withLengthAdd(0))  .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.withLengthAdd(28)) .equalsSegment(55, 55, 1/8, 100);
   expect(diagonal.withLengthAdd(-72)).equalsSegment(55, 55, 1/8, 0);
@@ -158,7 +158,7 @@ tools.test( function withLengthAddAndRatio() {
 });
 
 
-tools.test( function withAngleAddAndShift() {
+tools.test( function withAngleAdd_AngleShift() {
   expect(diagonal.withAngleAdd(0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.withAngleAdd(rac.Angle.zero))
@@ -181,10 +181,16 @@ tools.test( function withAngleAddAndShift() {
 });
 
 
-tools.test( function perpendicularAndReverse() {
+tools.test( function transformations() {
+  // inverse
+  expect(diagonal.inverse()).equalsSegment(55, 55, 5/8, 72);
+  expect(horizontal.inverse()).equalsSegment(100, 100, 1/2, 72);
+
+  // perpendicular
   expect(diagonal.perpendicular()).equalsSegment(55, 55, 3/8, 72);
   expect(diagonal.perpendicular(false)).equalsSegment(55, 55, 7/8, 72);
 
+  // reverse
   const cathetus = tools.cathetus(72);
   expect(diagonal.reverse())
     .equalsSegment(55+cathetus, 55+cathetus, 5/8, 72);
@@ -194,7 +200,7 @@ tools.test( function perpendicularAndReverse() {
 });
 
 
-tools.test( function transToAngleAndLength() {
+tools.test( function transToAngle_Length() {
   expect(diagonal.translateToAngle(0, 0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translateToAngle(rac.Angle.zero, 0))
@@ -274,7 +280,7 @@ tools.test( function clampToLength() {
 });
 
 
-tools.test( function pointAtLenghtRatioBisector() {
+tools.test( function pointAtLenght_Ratio_Bisector() {
   const zero = rac.Segment.zero;
 
   // pointAtLength

@@ -107,7 +107,8 @@ class Arc{
 
 
   /**
-  * Returns `true` when all members of both arcs are equal.
+  * Returns `true` when all members, except `rac`, of both arcs are equal;
+  * otherwise returns `false`.
   *
   * When `otherArc` is any class other that `Rac.Arc`, returns `false`.
   *
@@ -605,10 +606,10 @@ class Arc{
   * clampled to `[start, end]`.
   *
   * @param {Rac.Angle|number} angle - An `Angle` to clamp
-  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero}] - The inset
-  * for the lower limit of the clamping range
-  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero}] - The inset
-  * for the higher limit of the clamping range
+  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
+  *   The inset for the lower limit of the clamping range
+  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
+  *   The inset for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
   clampToAngles(angle, startInset = this.rac.Angle.zero, endInset = this.rac.Angle.zero) {

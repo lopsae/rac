@@ -23,6 +23,11 @@ In files:
 + hardcoded in jsdoc.json
 + hardcoded in docs/index.md
 
+Update `package-lock.json` by running:
+```
+npm install
+```
+
 Commit message: `bump version to n.e.w`
 
 
@@ -33,7 +38,10 @@ Build dev and test locally
 npm start
 ```
 
-Commit message: `commit dev build n.e.w count-hash`
+Built file is available at:
+```
+http://localhost:9001/rac.dev.js
+```
 
 
 
@@ -43,7 +51,45 @@ Build dist, test, and commit
 npm run dist
 ```
 
+Built files are available at:
+```
+http://localhost:9001/rac.js
+http://localhost:9001/rac.min.js
+```
+
 Commit message: `commit dist build n.e.w count-hash`
+
+
+
+Push and test online
+--------------------
+Pushed release is accesible at:
+```
+https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.js
+https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js
+https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
+```
+
+Or with a commit:
+```
+https://cdn.jsdelivr.net/gh/lopsae/rac@commit/dist/rac.min.js
+```
+
+When a purge is needed:
+```
+https://purge.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
+```
+
+or
+```
+curl -v -X POST 'https://purge.jsdelivr.net/' \
+  -H 'cache-control: no-cache' -H 'content-type: application/json' \
+  -d '{ "path": [
+    "/gh/lopsae/rac@release/n.e.w/dist/rac.js",
+    "/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js",
+    "/gh/lopsae/rac@release/n.e.w/dist/rac.min.js"
+  ]}'
+```
 
 
 
@@ -63,7 +109,8 @@ Build latest docs
 npm run docs:fresh
 ```
 
-Commit message: `rebuilt docs`
+Commit message: `rebuild docs for n.e.w`
+formerly: `rebuilt docs for n.e.w`
 
 
 
@@ -71,22 +118,6 @@ Check gh-pages locally
 ----------------------
 ```
 npm run pages
-```
-
-
-
-Push and test online
---------------------
-Pushed release is accesible at:
-```
-https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.js
-https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.dev.js
-https://cdn.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
-```
-
-When a purge is needed:
-```
-https://purge.jsdelivr.net/gh/lopsae/rac@release/n.e.w/dist/rac.min.js
 ```
 
 

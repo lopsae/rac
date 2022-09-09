@@ -24,6 +24,11 @@ tools.test( function identity() {
   expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
   expect(rac.Ray.yAxis).equalsRay(0, 0, 1/4);
 
+  // Testing Constants
+  expect(diagonal).equalsRay(55, 55, 1/8);
+  expect(horizontal).equalsRay(100, 100, 0);
+  expect(vertical).equalsRay(100, 100, 1/4);
+
   // Angle/number parameter
   expect(diagonal).equalsRay(55, 55, 1/8);
   expect(diagonal).equalsRay(55, 55, rac.Angle.eighth);
@@ -35,8 +40,11 @@ tools.test( function identity() {
 
   // Unexpected type for equalsRay
   expect(null)            .not.equalsRay(0, 0, 0);
+  expect('')              .not.equalsRay(0, 0, 0);
   expect(0)               .not.equalsRay(0, 0, 0);
   expect('0')             .not.equalsRay(0, 0, 0);
+  expect(true)            .not.equalsRay(0, 0, 0);
+  expect(false)           .not.equalsRay(0, 0, 0);
   expect(rac.Angle.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Point.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Segment.zero).not.equalsRay(0, 0, 0);
@@ -47,8 +55,13 @@ tools.test( function identity() {
 
   // Unexpected type for equals
   expect(diagonal.equals(null))            .toBe(false);
+  expect(diagonal.equals(''))              .toBe(false);
+  expect(diagonal.equals(0))               .toBe(false);
+  expect(diagonal.equals('0'))             .toBe(false);
   expect(diagonal.equals(55))              .toBe(false);
   expect(diagonal.equals('55'))            .toBe(false);
+  expect(diagonal.equals(true))            .toBe(false);
+  expect(diagonal.equals(false))           .toBe(false);
   expect(diagonal.equals(rac.Angle.eighth)).toBe(false);
   expect(diagonal.equals(rac.Point.zero))  .toBe(false);
   expect(diagonal.equals(rac.Segment.zero)).toBe(false);
@@ -428,5 +441,7 @@ test('Transforms to Arc', () => {
 });
 
 
-// Full coverage!
+
+// test.todo('Check for coverage!');
+// ALMOST Full coverage! only missing undocumented functions
 

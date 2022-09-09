@@ -27,9 +27,9 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     *
-    * @type {string}
+    * E.g. `1.2.0`.
     *
-    * @name version
+    * @constant {string} version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
@@ -38,9 +38,9 @@ class Rac {
     /**
     * Build of the instance, same as `{@link Rac.build}`.
     *
-    * @type {string}
+    * E.g. `904-011be8f`.
     *
-    * @name build
+    * @constant {string} build
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'build', build);
@@ -68,7 +68,6 @@ class Rac {
     this.equalityThreshold = 0.001;
 
 
-
     /**
     * Value used to determine equality between two unitary numeric values.
     * Used for values that tend to exist in the `[0, 1]` range, like
@@ -76,20 +75,59 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Default value is based on 1/000 of the turn of an arc of radius 500
+    * Default value is based on 1/1000 of the turn of an arc of radius 500
     * and length of 1: `1/(500*6.28)/1000`
     *
     * @type {number}
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
+
+    /**
+    * Container of utility functions. See `{@link utils}` for the available
+    * members.
+    *
+    * Also available through `{@link Rac.utils}`.
+    *
+    * @type {utils}
+    */
+    this.utils = utils
+
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
 
+
+
+
     /**
-    * Drawer of the instance. This object handles the drawing of all
-    * drawable object using this instance of `Rac`.
+    * Defaults for the optional properties of
+    * [`Text.Format`]{@link Rac.Text.Format}.
+    *
+    * When a [`Text`]{@link Rac.Text} is draw which
+    * [`format.font`]{@link Rac.Text.Format#font} or
+    * [`format.size`]{@link Rac.Text.Format#size} is set to `null`, the
+    * values set here are used instead.
+    *
+    * @property {?string} font=null
+    *   Default font, used when drawing a `Text` which
+    *   [`format.font`]{@link Rac.Text.Format#font} is set to `null`; when
+    *   set to `null` the font is not set upon drawing
+    * @property {number} size=15
+    *   Default size, used when drawing a `Text` which
+    *   [`format.size`]{@link Rac.Text.Format#size} is set to `null`
+    *
+    * @type {object}
+    */
+    this.textFormatDefaults = {
+      font: null,
+      size: 15
+    };
+
+
+    /**
+    * Drawer of the instance. This object handles the drawing for all
+    * drawable object created using `this`.
     * @type {object}
     */
     this.drawer = null;
@@ -239,22 +277,25 @@ module.exports = Rac;
 // as to prevent cyclic dependency with Rac.
 
 
-const utils = require(`./util/utils`);
 /**
 * Container of utility functions. See `{@link utils}` for the available
 * members.
 *
-* @type {object}
+* Also available through `{@link Rac#utils}`.
+*
+* @var {utils}
+* @memberof Rac
 */
+const utils = require(`./util/utils`);
 Rac.utils = utils;
 
 
 /**
 * Version of the class. Same as the version used for the npm package.
 *
-* @type {string}
+* E.g. `1.2.0`.
 *
-* @name version
+* @constant {string} version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -266,9 +307,9 @@ utils.addConstantTo(Rac, 'version', version);
 * Contains a commit-count and short-hash of the repository when the build
 * was done.
 *
-* @type {string}
+* E.g. `904-011be8f`.
 *
-* @name build
+* @constant {string} build
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'build', build);
@@ -279,9 +320,7 @@ utils.addConstantTo(Rac, 'build', build);
 *
 * [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
-* @type {number}
-*
-* @name TAU
+* @constant {number} TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
@@ -320,6 +359,7 @@ Rac.setupStyleProtoFunctions(Rac.StyleContainer);
 
 // Angle
 Rac.Angle = require('./drawable/Angle');
+Rac.Angle.prototype.log = Rac.drawableProtoFunctions.log;
 
 
 // Point

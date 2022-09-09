@@ -11,8 +11,8 @@ const utils = require('../util/utils');
 * Several methods will return an adjusted value or perform adjustments in
 * their operation when two points are close enough as to be considered
 * equal. When the the difference of each coordinate of two points
-* is under the `[equalityThreshold]{@link Rac#equalityThreshold}` the
-* points are considered equal. The `[equals]{@link Rac.Point#equals}`
+* is under the [`equalityThreshold`]{@link Rac#equalityThreshold} the
+* points are considered equal. The [`equals`]{@link Rac.Point#equals}
 * method performs this check.
 *
 * @alias Rac.Point
@@ -22,9 +22,12 @@ class Point{
 
   /**
   * Creates a new `Point` instance.
-  * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} x - The x coordinate
-  * @param {number} y - The y coordinate
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {number} x
+  *   The x coordinate
+  * @param {number} y
+  *   The y coordinate
   */
   constructor(rac, x, y) {
     utils.assertExists(rac, x, y);
@@ -55,6 +58,11 @@ class Point{
   /**
   * Returns a string representation intended for human consumption.
   *
+  * ```
+  * (new Rac.Point(rac, 55, 77)).toString()
+  * // Returns: Point(55,77)
+  * ```
+  *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {string}
@@ -67,12 +75,13 @@ class Point{
 
 
   /**
-  * Returns `true` when the difference with `otherPoint` for each coordinate is
-  * under `{@link Rac#equalityThreshold}`, otherwise returns `false`.
+  * Returns `true` when the difference with `otherPoint` for each
+  * coordinate is under [`equalityThreshold`]{@link Rac#equalityThreshold};
+  * otherwise returns `false`.
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
-  * Values are compared using `{@link Rac#equals}`.
+  * Values are compared using [`Rac.equals`]{@link Rac#equals}.
   *
   * @param {Rac.Point} otherPoint - A `Point` to compare
   * @returns {boolean}
@@ -189,8 +198,10 @@ class Point{
 
 
   /**
-  * Returns the distance from `this` to `point`, or returns `0` when
-  * `this` and `point` are considered [equal]{@link Rac.Point#equals}.
+  * Returns the distance from `this` to `point`.
+  *
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
+  * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the distance to
   * @returns {number}
@@ -209,13 +220,13 @@ class Point{
   /**
   * Returns the angle from `this` to `point`.
   *
-  * When `this` and `point` are considered
-  * [equal]{@link Rac.Point#equals}, returns the angle produced with
-  * `defaultAngle`.
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
+  * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the angle to
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to return when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
   * @see Rac.Point#equals
   */
@@ -247,6 +258,18 @@ class Point{
 
 
   /**
+  * Returns a new `Point` located in the middle between `this` and `point`.
+  * @param {Rac.Point} point - A `Point` to calculate a bisector to
+  * @returns {Rac.Point}
+  */
+  pointAtBisector(point) {
+    const xOffset = (point.x - this.x) / 2;
+    const yOffset = (point.y - this.y) / 2;
+    return new Point(this.rac, this.x + xOffset, this.y + yOffset);
+  }
+
+
+  /**
   * Returns a new `Ray` from `this` towards `angle`.
   * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`
   * @returns {Rac.Ray}
@@ -260,12 +283,13 @@ class Point{
   /**
   * Returns a new `Ray` from `this` towards `point`.
   *
-  * When `this` and `point` are considered equal, the new `Ray` will use
-  * the angle produced with `defaultAngle`.
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
+  * the new `Ray` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Ray}
   */
   rayToPoint(point, defaultAngle = this.rac.Angle.zero) {
@@ -277,7 +301,8 @@ class Point{
   /**
   * Returns a new `Ray` from `this` to the projection of `this` in `ray`.
   *
-  * When the projected point is equal to `this` the produced ray will have
+  * When the projected point and `this` are
+  * [considered equal]{@link Rac.Point#equals} the produced ray will have
   * an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
@@ -312,7 +337,7 @@ class Point{
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
   * @param {boolean} [clockwise=true] - the orientation of the new `Ray`
-  * @return {Rac.Ray?}
+  * @return {?Rac.Ray}
   */
   rayTangentToArc(arc, clockwise = true) {
     // A default angle is given for the edge case of a zero-radius arc
@@ -362,12 +387,13 @@ class Point{
   /**
   * Returns a new `Segment` from `this` to `point`.
   *
-  * When `this` and `point` are considered [equal]{@link Rac.Point#equals},
+  * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
   * the new `Segment` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
-  * @param {Rac.Angle|number} [defaultAngle=instance.Angle.Zero] -
-  * An `Angle` to use when `this` and `point` are equal
+  * @param {Rac.Angle|number}
+  *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
   * @see Rac.Point#equals
   */
@@ -418,7 +444,7 @@ class Point{
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
   * @param {boolean} [clockwise=true] - the orientation of the new `Segment`
-  * @return {Rac.Segment?}
+  * @return {?Rac.Segment}
   */
   segmentTangentToArc(arc, clockwise = true) {
     const tangentRay = this.rayTangentToArc(arc, clockwise);
@@ -437,11 +463,12 @@ class Point{
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
   * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} [someStart=rac.Angle.zero] - The start
-  * `Angle` of the new `Arc`
-  * @param {?Rac.Angle|number} [someEnd=null] - The end `Angle` of the new
-  * `Arc`; when `null` or ommited, `start` is used instead
-  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
+  * @param {Rac.Angle|number}
+  *   [start=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The start `Angle` of the new `Arc`
+  * @param {Rac.Angle|number} [end=null] - The end `Angle` of the new
+  *   `Arc`; when `null` or ommited, `start` is used instead
+  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(
@@ -459,12 +486,15 @@ class Point{
 
 
   /**
-  * Returns a new `Text` with the given `string` and `format`.
+  * Returns a new `Text` located at `this` with the given `string` and
+  * `format`.
+  *
   * @param {string} string - The string of the new `Text`
-  * @param {Rac.Text.Format} format - The format of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format of the new `Text`
   * @returns {Rac.Text}
   */
-  text(string, format) {
+  text(string, format = this.rac.Text.Format.topLeft) {
     return new Rac.Text(this.rac, this, string, format);
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "ruler-and-compass",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Ruler and Compass",
   "main": "src/main.js",
   "unpkg": "dist/rac.min.js",
@@ -14,6 +14,7 @@
     "dist/*.js"
   ],
   "scripts": {
+    "start": "npm test && grunt serve",
     "test": "jest",
     "test:clean": "rm -rf ./coverage",
     "test:fresh": "npm run test:clean; npm test",
@@ -21,14 +22,13 @@
     "test:c": "npm run test:coverage",
     "test:cc": "npm run test:clean; npm run test:coverage",
     "test:open": "open ./coverage/lcov-report/index.html",
-    "start": "npm test && grunt serve",
-    "dist": "npm test && grunt dist",
     "docs": "grunt --debug makeDocs && npm run docs:open",
     "docs:open": "open ./docs/documentation/latest/index.html",
-    "docs:clean": "git checkout HEAD -- docs/documentation/latest",
+    "docs:clean": "git checkout HEAD -- docs/documentation/latest built/docs_home.md",
     "docs:fresh": "npm run docs:delete && npm run docs",
     "docs:delete": "rm -rfv docs/documentation/latest/*",
-    "pages": "cd docs; bundle exec jekyll serve"
+    "pages": "cd docs; bundle exec jekyll serve",
+    "dist": "npm test && grunt dist"
   },
   "devDependencies": {
     "grunt": "^1.3.0",

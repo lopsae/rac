@@ -36,8 +36,11 @@ exports.assertExists = function(...parameters) {
 
 
 /**
-* Asserts that all `elements` are objects or the given `typeo`, otherwise a
+* Asserts that all `elements` are objects or the given `type`, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
+*
+* When any member of `elements` is `null` or `undefined`, the exception is
+* also thrown.
 *
 * @param {function} type
 * @param {...Object} elements
@@ -51,7 +54,7 @@ exports.assertType = function(type, ...elements) {
   elements.forEach(item => {
     if (!(item instanceof type)) {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type - element:${item} element-type:${typeName(item)} expected-type-name:${type.name}`);
+        `Element is unexpected type - element-type:${typeName(item)} expected-type-name:${type.name} element:${item}`);
     }
   });
 }
@@ -71,7 +74,7 @@ exports.assertNumber = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'number' || isNaN(item)) {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type, expecting number primitive - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting number primitive - element-type:${typeName(item)} element:${item}`);
     }
   });
 }
@@ -91,7 +94,7 @@ exports.assertString = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'string') {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type, expecting string primitive - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting string primitive - element-type:${typeName(item)} element:${item}`);
     }
   });
 }
@@ -111,7 +114,7 @@ exports.assertBoolean = function(...elements) {
   elements.forEach(item => {
     if (typeof item !== 'boolean') {
       throw Rac.Exception.failedAssert(
-        `Element is unexpected type, expecting boolean primitive - element:${item} element-type:${typeName(item)}`);
+        `Element is unexpected type, expecting boolean primitive - element-type:${typeName(item)} element:${item}`);
     }
   });
 }

@@ -43,7 +43,8 @@ class Angle {
   * @param {number} turn - The turn value
   */
   constructor(rac, turn) {
-    utils.assertExists(rac);
+    // TODO: changed to assertType, test
+    utils.assertType(Rac, rac);
     utils.assertNumber(turn);
 
     /**
@@ -83,7 +84,7 @@ class Angle {
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
-  * `{@link Rac#unitaryEqualityThreshold}`, otherwise returns `false`.
+  * `{@link Rac#unitaryEqualityThreshold}`; otherwise returns `false`.
   *
   * For this method `otherAngle` can only be `Angle` or `number`, any other
   * type returns `false`.
@@ -303,7 +304,7 @@ class Angle {
 
 
   /**
-  * Returns a new `Angle` with `turn`` set to `this.turn * factor`.
+  * Returns a new `Angle` with `turn` set to `this.turn * factor`.
   *
   * @param {number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}

@@ -70,7 +70,8 @@ class Segment {
 
 
   /**
-  * Returns `true` when `ray` and `length` in both segments are equal.
+  * Returns `true` when `ray` and `length` in both segments are equal;
+  * otherwise returns `false`.
   *
   * When `otherSegment` is any class other that `Rac.Segment`, returns `false`.
   *
@@ -262,6 +263,22 @@ class Segment {
   */
   withEndExtension(distance) {
     return this.withLengthAdd(distance);
+  }
+
+
+  /**
+  * Returns a new `Segment` poiting towards the
+  * [inverse angle]{@link Rac.Angle#inverse} of `this.angle()`.
+  *
+  * The resulting `Segment` will have the same `startPoint()` and `length`
+  * as `this`.
+  *
+  * @returns {Rac.Segment}
+  * @see Rac.Angle#inverse
+  */
+  inverse() {
+    const newRay = this.ray.inverse();
+    return new Segment(this.rac, newRay, this.length);
   }
 
 

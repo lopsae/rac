@@ -26,6 +26,7 @@ Order of functions in a class
 -----------------------------
 + Constructor
 + toString
++ equals
 + accesors (segment.angle())
 + built properties (segment.startPoint())
 + withX simple modifiers (segment.withStart())
@@ -51,20 +52,54 @@ When possible, functions that create a new object should start with that object 
 + `arc.pointAtLength(length)`
 
 
-Sometimes functions that create a new object can start with a particular word to group several functions with related functionality, usually defines a caracteristic that is intrinsic to the instance, like radius for arcs, or *next* for segments:
+Sometimes functions that create a new object can start with a particular word to group several functions with related functionality, usually defines a caracteristic that is intrinsic to the instance, like *radius* for arcs, or *next* for segments:
 + `arc.radiusSegmentAtAngle(angle)`, `arc.radiusSegmentTowardsPoint(point)`
 + `segment.nextSegmentPerpendicular(clockwise, length)`, `nextSegmentToAngle(angle, length)`
 + `arc.intersectionArc(otherArc)`, `arc.intersectionChord(otherArc)`
 
 
-When object type retured is same as instance, ommit type in function name:
+When object type retured is same as instance and the operation is transformation, ommit type in function name:
 + Not: `ray.perpendicularRay()`
 + Instead: `ray.perpendicular()`
 
 
+When object type retured is same as instance, but operation is dependant on other objects, type in function name may be used:
++ Not: `point.atBisector(otherPoint)`
++ Instead: `point.pointAtBisector(otherPoint)`
+
+
 Functions that throw an error in a specific circumstance must mention it:
-+ `An error is thrown if `anchor` is not set.`
-+ `An error is thrown if `hexString` is misformatted or cannot be parsed.`
++ > An error is thrown when `anchor` is not set.
++ > An error is thrown when `hexString` is misformatted or cannot be parsed.
+
+Documentation that refers to the instance itself should use `this`.
++ Not: Class associated with the setings in the instance.
++ Instead: Class associated with the setings in `this`.
+
++ Not: Returns a new `Segment` using the object and the given `length`.
++ Instead: Returns a new `Segment` using `this` and the given `length`.
+
+
+
+Usual Cases
+===========
+
+Nullable params
+---------------
+Parameters that can be set to null and dont have a default.
+```
+@param {?string} newFont - The font name for the new `Text.Format`; can be set to `null`
+```
+
+Nullable params with default
+----------------------------
+Parameters that can be st to null and have a default value.
+```
+@param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new `Arc`; when ommited or set to `null`, `this.angle` is used instead
+```
+// MAICTODO: correct in ray to have example used
+
+
 
 
 

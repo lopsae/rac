@@ -37,14 +37,20 @@ class P5Drawer {
     this.debugTextStyle = null;
 
     /**
-    * Object with options used by the default implementation of
-    * `drawable.debug()`.
+    * Settings used by the default implementation of `drawable.debug()`.
+    *
+    * @property {string} font='monospace'
+    *   Font to use when drawing with `debug()`
+    * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    *   Font size to use when drawing with `debug()`
+    * @property {number} fixedDigits=2
+    *   Number of decimal digits to print when drawing with `debug()`
     *
     * @type {object}
     */
     this.debugTextOptions = {
       font: 'monospace',
-      size: Rac.Text.Format.defaultSize,
+      size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };
 
@@ -72,16 +78,31 @@ class P5Drawer {
     this.setupAllDrawFunctions();
     this.setupAllDebugFunctions();
     this.setupAllApplyFunctions();
+    // TODO: add a customized function for new classes!
   }
 
-  // Adds a DrawRoutine for the given class.
-  setDrawFunction(classObj, drawFunction) {
+
+  /**
+  * Sets the given `drawFunction` to perform the drawing for instances of
+  * class `drawableClass`.
+  *
+  * `drawFunction` is expected to have the signature:
+  * ```
+  * drawFunction(drawer, objectOfClass)
+  * ```
+  * + `drawer: P5Drawer` - Instance to use for drawing
+  * + `objectOfClass: drawableClass` - Instance of `drawableClass` to draw
+  *
+  * @param {class} drawableClass - Class of the instances to draw
+  * @param {function} drawFunction - Function that performs drawing
+  */
+  setDrawFunction(drawableClass, drawFunction) {
     let index = this.drawRoutines
-      .findIndex(routine => routine.classObj === classObj);
+      .findIndex(routine => routine.classObj === drawableClass);
 
     let routine;
     if (index === -1) {
-      routine = new DrawRoutine(classObj, drawFunction);
+      routine = new DrawRoutine(drawableClass, drawFunction);
     } else {
       routine = this.drawRoutines[index];
       routine.drawFunction = drawFunction;
@@ -91,6 +112,7 @@ class P5Drawer {
 
     this.drawRoutines.push(routine);
   }
+
 
   setDrawOptions(classObj, options) {
     let routine = this.drawRoutines
@@ -105,6 +127,7 @@ class P5Drawer {
     }
   }
 
+
   setClassDrawStyle(classObj, style) {
     let routine = this.drawRoutines
       .find(routine => routine.classObj === classObj);
@@ -116,14 +139,34 @@ class P5Drawer {
     routine.style = style;
   }
 
-  // Adds a DebugRoutine for the given class.
-  setDebugFunction(classObj, debugFunction) {
+
+  /**
+  * Sets the given `debugFunction` to perform the debug-drawing for
+  * instances of class `drawableClass`.
+  *
+  * When a drawable class does not have a `debugFunction` setup, calling
+  * `drawable.debug()` simply calls `draw()` with
+  * `[debugStyle]{@link Rac.P5Drawer#debugStyle}` applied.
+  *
+  * `debugFunction` is expected to have the signature:
+  * ```
+  * debugFunction(drawer, objectOfClass, drawsText)
+  * ```
+  * + `drawer: P5Drawer` - Instance to use for drawing
+  * + `objectOfClass: drawableClass` - Instance of `drawableClass` to draw
+  * + `drawsText: bool` - When `true` text should be drawn with
+  *    additional information.
+  *
+  * @param {class} drawableClass - Class of the instances to draw
+  * @param {function} debugFunction - Function that performs debug-drawing
+  */
+  setDebugFunction(drawableClass, debugFunction) {
     let index = this.debugRoutines
-      .findIndex(routine => routine.classObj === classObj);
+      .findIndex(routine => routine.classObj === drawableClass);
 
     let routine;
     if (index === -1) {
-      routine = new DebugRoutine(classObj, debugFunction);
+      routine = new DebugRoutine(drawableClass, debugFunction);
     } else {
       routine = this.debugRoutines[index];
       routine.debugFunction = debugFunction;
@@ -133,6 +176,7 @@ class P5Drawer {
 
     this.debugRoutines.push(routine);
   }
+
 
   // Adds a ApplyRoutine for the given class.
   setApplyFunction(classObj, applyFunction) {
@@ -151,6 +195,7 @@ class P5Drawer {
 
     this.applyRoutines.push(routine);
   }
+
 
   drawObject(object, style = null) {
     let routine = this.drawRoutines
@@ -199,6 +244,7 @@ class P5Drawer {
     }
   }
 
+
   applyObject(object) {
     let routine = this.applyRoutines
       .find(routine => object instanceof routine.classObj);
@@ -209,6 +255,7 @@ class P5Drawer {
 
     routine.applyFunction(this, object);
   }
+
 
   // Sets up all drawing routines for rac drawable clases.
   // Also attaches additional prototype and static functions in relevant
@@ -287,48 +334,9 @@ class P5Drawer {
       text.format.apply(text.point);
       drawer.p5.text(text.string, 0, 0);
     });
+    // `text.format.apply` makes translate and rotation modifications to
+    // the drawing matrix, this requires a push-pop on every draw
     this.setDrawOptions(Rac.Text, {requiresPushPop: true});
-
-    // Applies all text properties and translates to the given `point`.
-    // After the format is applied the text should be drawn at the origin.
-    Rac.Text.Format.prototype.apply = function(point) {
-      let hAlign;
-      let hOptions = Rac.Text.Format.horizontal;
-      switch (this.horizontal) {
-        case hOptions.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
-        case hOptions.center: hAlign = this.rac.drawer.p5.CENTER; break;
-        case hOptions.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
-        default:
-          console.trace(`Invalid horizontal configuration - horizontal:${this.horizontal}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      let vAlign;
-      let vOptions = Rac.Text.Format.vertical;
-      switch (this.vertical) {
-        case vOptions.top:      vAlign = this.rac.drawer.p5.TOP;      break;
-        case vOptions.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
-        case vOptions.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
-        case vOptions.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
-        default:
-          console.trace(`Invalid vertical configuration - vertical:${this.vertical}`);
-          throw Rac.Error.invalidObjectConfiguration;
-      }
-
-      // Text properties
-      this.rac.drawer.p5.textAlign(hAlign, vAlign);
-      this.rac.drawer.p5.textSize(this.size);
-      if (this.font !== null) {
-        this.rac.drawer.p5.textFont(this.font);
-      }
-
-      // Positioning
-      this.rac.drawer.p5.translate(point.x, point.y);
-      if (this.angle.turn != 0) {
-        this.rac.drawer.p5.rotate(this.angle.radians());
-      }
-    } // Rac.Text.Format.prototype.apply
-
   } // setupAllDrawFunctions
 
 
@@ -352,6 +360,7 @@ class P5Drawer {
       } else {
         functions.debugAngle(drawer, this, point, drawsText);
       }
+      return this;
     };
 
     Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
@@ -411,6 +420,58 @@ class P5Drawer {
       });
     });
 
+    // Text.Format
+    // Applies all text properties and translates to the given `point`.
+    // After the format is applied the text should be drawn at the origin.
+    //
+    // Calling this function requires a push-pop to the drawing style
+    // settings since translate and rotation modifications are made to the
+    // drawing matrix. Otherwise all other subsequent drawing will be
+    // impacted.
+    Rac.Text.Format.prototype.apply = function(point) {
+      let hAlign;
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      switch (this.hAlign) {
+        case hEnum.left:   hAlign = this.rac.drawer.p5.LEFT;   break;
+        case hEnum.center: hAlign = this.rac.drawer.p5.CENTER; break;
+        case hEnum.right:  hAlign = this.rac.drawer.p5.RIGHT;  break;
+        default:
+          console.trace(`Invalid hAlign configuration - hAlign:${this.hAlign}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      let vAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      switch (this.vAlign) {
+        case vEnum.top:      vAlign = this.rac.drawer.p5.TOP;      break;
+        case vEnum.bottom:   vAlign = this.rac.drawer.p5.BOTTOM;   break;
+        case vEnum.center:   vAlign = this.rac.drawer.p5.CENTER;   break;
+        case vEnum.baseline: vAlign = this.rac.drawer.p5.BASELINE; break;
+        default:
+          console.trace(`Invalid vAlign configuration - vAlign:${this.vAlign}`);
+          throw Rac.Error.invalidObjectConfiguration;
+      }
+
+      // Align
+      this.rac.drawer.p5.textAlign(hAlign, vAlign);
+
+      // Size
+      const textSize = this.size ?? this.rac.textFormatDefaults.size;
+      this.rac.drawer.p5.textSize(textSize);
+
+      // Font
+      const textFont = this.font ?? this.rac.textFormatDefaults.font;
+      if (textFont !== null) {
+        this.rac.drawer.p5.textFont(textFont);
+      }
+
+      // Positioning
+      this.rac.drawer.p5.translate(point.x, point.y);
+      if (this.angle.turn != 0) {
+        this.rac.drawer.p5.rotate(this.angle.radians());
+      }
+    } // Rac.Text.Format.prototype.apply
+
   } // setupAllApplyFunctions
 
 } // class P5Drawer
@@ -418,35 +479,82 @@ class P5Drawer {
 module.exports = P5Drawer;
 
 
-// Encapsulates the drawing function and options for a specific class.
-// The draw function is called with two parameters: the instance of the
-// drawer, and the object to draw.
+// Contains the drawing function and options for drawing objects of a
+// specific class.
 //
-// Optionally a `style` can be asigned to always be applied before
-// drawing an instance of the associated class. This style will be
-// applied before any styles provided to the `draw` function.
-//
-// Optionally `requiresPushPop` can be set to `true` to always peform
-// a `push` and `pop` before and after all the style and drawing in
-// the routine. This is intended for objects which drawing operations
-// may need to push transformation to the stack.
+// An instance is created for each drawable class that the drawer can
+// support, which contains all the settings needed for drawing.
 class DrawRoutine {
+
+  // TODO: Rename to drawableClass
   constructor (classObj, drawFunction) {
+    // Class associated with the contained settings.
     this.classObj = classObj;
+
+    // Drawing function for objects of type `classObj` with the signature:
+    // `drawFunction(drawer, objectOfClass)`
+    // + `drawer: P5Drawer` - Instance to use for drawing
+    // + `objectOfClass: classObj` - Instance of `classObj` to draw
+    //
+    // The function is intended to perform drawing using `drawer.p5`
+    // functions or calling `draw()` in other drawable objects. All styles
+    // are pushed beforehand and popped afterwards.
+    //
+    // In general it is expected that the `drawFunction` peforms no changes
+    // to the drawing settings in order for each drawing call to use only a
+    // single `push/pop` when necessary. For classes that require
+    // modifications to the drawing settings the `requiresPushPop`
+    // property can be set to force a `push/pop` with each drawing call
+    // regardless if styles are applied.
     this.drawFunction = drawFunction;
+
+    // When set, this style is always applied before each drawing call to
+    // objects of type `classObj`. This `style` is applied before the
+    // `style` provided to the drawing call.
     this.style = null;
 
-    // Options
+    // When set to `true`, a `push/pop` is always peformed before and after
+    // all the style are applied and drawing is performed. This is intended
+    // for objects which drawing operations may need to perform
+    // transformations to the drawing settings.
     this.requiresPushPop = false;
-  }
+  } // constructor
+
 } // DrawRoutine
 
 
+// Contains the debug-drawing function and options for debug-drawing
+// objects of a specific class.
+//
+// An instance is created for each drawable class that the drawer can
+// support, which contains all the settings needed for debug-drawing.
+//
+// When a drawable object does not have a `DebugRoutine` setup, calling
+// `debug()` simply calls `draw()` with the debug style applied.
 class DebugRoutine {
+
   constructor (classObj, debugFunction) {
+    // Class associated with the contained settings.
     this.classObj = classObj;
+
+    // Debug function for objects of type `classObj` with the signature:
+    // `debugFunction(drawer, objectOfClass, drawsText)`
+    // + `drawer: P5Drawer` - Instance to use for drawing
+    // + `objectOfClass: classObj` - Instance of `classObj` to debug
+    // + `drawsText: bool` - When `true` text should be drawn with
+    //   additional information.
+    //
+    // The function is intended to perform debug-drawing using `drawer.p5`
+    // functions or calling `draw()` in other drawable objects. The debug
+    // style is pushed beforehand and popped afterwards.
+    //
+    // In general it is expected that the `drawFunction` peforms no changes
+    // to the drawing settings in order for each drawing call to use only a
+    // single `push/pop` when necessary.
+    //
     this.debugFunction = debugFunction;
-  }
+  } // constructor
+
 }
 
 
