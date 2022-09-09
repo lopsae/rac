@@ -176,7 +176,20 @@ module.exports = function(grunt) {
   }); // exec.cleanDocs
 
 
-  //RELEASE-TODO: "docs:delete": "rm -rfv docs/documentation/latest/*",
+  // Deletes all documentation files of the current package version.
+  grunt.config.set('exec.deleteDocs', {
+    cmd: 'rm -rfv docs/documentation/<%= pkg.version %>/*',
+    stdout: true,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      grunt.config.requires('pkg.version');
+      const pkgVersion = grunt.config('pkg.version');
+
+      let deleted = 'Deleted'.red.bold;
+      grunt.log.writeln(`${deleted} docs for: ${pkgVersion.green.bold}`);
+    }
+  }); // exec.deleteDocs
 
 
 
@@ -314,12 +327,10 @@ module.exports = function(grunt) {
     'makeDocsReadme', 'jsdoc']);
 
 
-  grunt.registerTask('openDocs', [
-    'exec:openDocs']);
+  grunt.registerTask('openDocs', ['exec:openDocs']);
+  grunt.registerTask('cleanDocs', ['exec:cleanDocs']);
+  grunt.registerTask('deleteDocs', ['exec:deleteDocs']);
 
-
-  grunt.registerTask('cleanDocs', [
-    'exec:cleanDocs']);
 
 
   // Builds a dev bundle, serves it, and watches for source changes

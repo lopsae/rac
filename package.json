@@ -26,7 +26,7 @@
     "docs:open": "grunt openDocs",
     "docs:clean": "grunt cleanDocs",
     "docs:fresh": "npm run docs:delete && npm run docs",
-    "docs:delete": "rm -rfv docs/documentation/latest/*",
+    "docs:delete": "grunt --debug deleteDocs",
     "pages": "cd docs; bundle exec jekyll serve",
     "dist": "npm test && grunt dist"
   },
