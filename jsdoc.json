@@ -17,7 +17,7 @@
     }
   },
   "tags": {
-    "allowUnknownTags": true,
+    "allowUnknownTags": false,
     "dictionaries": ["jsdoc"]
   }
 }
