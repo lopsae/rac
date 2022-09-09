@@ -95,6 +95,7 @@ curl -v -X POST 'https://purge.jsdelivr.net/' \
 
 Make copy of current docs
 -------------------------
+// RELEASE-TODO, may no longer be current now that docs are produced directly to the pkgVersion folder
 ```
 mv docs/documentation/latest docs/documentation/o.l.d
 ```
