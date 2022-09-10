@@ -5,16 +5,16 @@
   "templates": {
     "minami" : {
       "homeNavItem": "RAC — Ruler and Compass",
-      "versionNavItem": "1.2.1-dev"
+      "versionNavItem": "1.2.1-dev",
+      "showInheritedInNav": false,
+      "showMethodsInNav": false,
+      "showMembersInNav": false
     },
     "default" : {
       "cleverLinks": false,
       "monospaceLinks": false,
       "includeDate" : false,
-      "useLongnameInNav": 3,
-      "showInheritedInNav": false,
-      "showMethodsInNav": false,
-      "showMembersInNav": false
+      "useLongnameInNav": 3
     }
   },
   "tags": {
