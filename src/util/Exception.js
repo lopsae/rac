@@ -35,6 +35,7 @@ class Exception {
   /**
   * Returns an convenience function for building throwable objects.
   *
+  * // RELEASE-TODO: try @example
   * The function can can be used as following:
   * ```
   * func(message) // returns an `Exception`` object with `name` and `message`

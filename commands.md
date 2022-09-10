@@ -27,7 +27,7 @@ Produces documentation for the current package version and opens its index.
 + `npm run docs:fresh` - Deletes and produces the documentation for the current package version, and opens its index
 
 
-Documentation uses a custom Minami theme package. When necessary the `package.json` dependency can be modified to a local buld:
+Documentation uses a custom Minami theme package. For modification or development the `package.json` dependency can be pointed to a local buld:
 ```
 "minami-rac": "file:../minami-rac/minami-rac-1.3.1-dev.tgz"
 ```

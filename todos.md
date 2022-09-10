@@ -18,7 +18,7 @@ For version change
 + Docs: reference class on instance.X
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
-+ Docs: look for > E.g., see if to keep it
++ Docs: look for > E.g., see if to keep it, try @example
 
 
 
