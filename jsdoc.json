@@ -6,7 +6,7 @@
     "minami" : {
       "homeNavItem": "RAC — Ruler and Compass",
       "versionNavItem": "1.2.1-dev",
-      "showInheritedInNav": false,
+      "showInheritedInNav": true,
       "showMethodsInNav": false,
       "showMembersInNav": false
     },
