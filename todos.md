@@ -10,6 +10,7 @@ In progress
 For version change
 ------------------
 + Fix RELEASE-TODO's
++ change showInheritedInNav to true
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + Docs: Documentation output for # links show an odd `class="maic"`
 + BUG: whole circle control located at 0 shows incorrect arrows
@@ -19,6 +20,7 @@ For version change
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
 + Docs: look for > E.g., see if to keep it, try @example
++ Add better tutorial links in readmes!
 
 
 
