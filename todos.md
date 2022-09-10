@@ -12,7 +12,6 @@ For version change
 + Fix RELEASE-TODO's
 + change showInheritedInNav to true
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
-+ Docs: Documentation output for # links show an odd `class="maic"`
 + BUG: whole circle control located at 0 shows incorrect arrows
 + Add `dated` along with version/build
 + Docs: reference instance.X on class
