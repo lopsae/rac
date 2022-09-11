@@ -27,6 +27,7 @@
     "docs:clean": "grunt cleanDocs",
     "docs:delete": "grunt --debug deleteDocs",
     "docs:fresh": "grunt --debug deleteDocs makeDocs openDocs",
+    "docs:repack": "npm update minami-rac && npm run docs",
     "pages": "cd docs; bundle exec jekyll serve",
     "dist": "npm test && grunt dist"
   },

@@ -25,11 +25,12 @@ Produces documentation for the current package version and opens its index.
 + `npm run docs:clean` - Checks-out HEAD into the documentation files for the current package version
 + `npm run docs:delete` - Deletes the documentation folder for the current package version
 + `npm run docs:fresh` - Deletes and produces the documentation for the current package version, and opens its index
++ `docs:repack` - Updates the `minami-rac` package, builds and opens the documentation; useful with a local version of `minami-rac` during development
 
 
 Documentation uses a custom Minami theme package. For modification or development the `package.json` dependency can be pointed to a local buld:
 ```
-"minami-rac": "file:../minami-rac/minami-rac-1.3.1-dev.tgz"
+"minami-rac": "file:../minami-rac/minami-rac-1.4.0-dev.tgz"
 ```
 
 Run in the minami-rac directory:
