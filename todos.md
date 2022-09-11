@@ -4,12 +4,15 @@ TODO's
 
 In progress
 -----------
++ See if "Default Value" can print with <code></code>
++ remove "Source" from Type Definitions, see `Rac.Exception~namedFactory`
 
 
 
 For version change
 ------------------
 + Fix RELEASE-TODO's
++ create a npm script to update theme and build docs!
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + BUG: whole circle control located at 0 shows incorrect arrows
 + Add `dated` along with version/build
@@ -17,6 +20,7 @@ For version change
 + Docs: reference class on instance.X
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
++ Docs: replace with {String} {Object} {Number}
 + Docs: look for > E.g., see if to keep it, try @example
 + Add better tutorial links in readmes!
 
