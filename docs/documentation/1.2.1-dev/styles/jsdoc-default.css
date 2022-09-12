@@ -59,7 +59,7 @@ h1.page-title {
 
 h2 {
   font-size: 32px;
-  margin: 1.2em 0 .8em;
+  margin: 1.2em 0 0em;
   font-weight: bold;
 }
 
@@ -447,6 +447,11 @@ footer {
    margin: 0
 }
 
+.details dd.tag-source li {
+  font-size: 90%;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+}
+
 .details .object-value {
    padding-top: 0
 }
@@ -456,6 +461,15 @@ footer {
   border-left: 2px solid #DDD;
   font-size: 12px;
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
+}
+
+.header-details-mini {
+  color: #888;
+  padding-left: 8px;
+  border-left: 2px solid #DDD;
+  font-size: 12px;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  margin: 0.5em 0px 1em 0px;
 }
 
 .description {
