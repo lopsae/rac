@@ -23,6 +23,10 @@ For version change
 + Docs: replace with {String} {Object} {Number}
 + Docs: look for > E.g., see if to keep it, try @example
 + Add better tutorial links in readmes!
++ .section-examples .prettyprint code,
+.description .prettyprint code {
+    background-color: #f4f4f4;
+}
 
 
 
