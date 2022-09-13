@@ -67,6 +67,7 @@
         
 
         
+        
 <div class="section-method">
 
     
@@ -96,6 +97,7 @@
 <div class="description">
     <p>Creates a new <code>Segment</code> instance.</p>
 </div>
+
 
 
 
@@ -309,6 +311,7 @@
 
 
 
+
 <dl class="details">
 
     
@@ -377,6 +380,7 @@ object.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -439,6 +443,7 @@ object.</p>
 <div class="description">
     <p>The <code>Ray</code> the segment is based of.</p>
 </div>
+
 
 
 
@@ -520,6 +525,7 @@ object.</p>
 <div class="description">
     <p>Returns the <code><a href="Rac.Ray.html#angle">angle</a></code> of the segment's <code>ray</code>.</p>
 </div>
+
 
 
 
@@ -620,6 +626,7 @@ as <code>start</code>, and its length as <code>radius</code>.</p>
 <p>When <code>endAngle</code> is ommited or <code>null</code>, the segment's angle is used
 instead resulting in a complete-circle arc.</p>
 </div>
+
 
 
 
@@ -841,6 +848,7 @@ as <code>start</code>, and its length as <code>radius</code>.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -1049,6 +1057,7 @@ clamp becomes imposible to fulfill. In this case the returned value
 will be the centered between the range limits and still clampled to
 <code>[0, length]</code>.</p>
 </div>
+
 
 
 
@@ -1303,6 +1312,7 @@ clamping range</p>
 
 
 
+
 <dl class="details">
 
     
@@ -1396,6 +1406,7 @@ otherwise returns <code>false</code>.</p>
 <p>When <code>otherSegment</code> is any class other that <code>Rac.Segment</code>, returns <code>false</code>.</p>
 <p>Segments' <code>length</code> are compared using <code><a href="Rac.html#equals">Rac#equals</a></code>.</p>
 </div>
+
 
 
 
@@ -1560,6 +1571,7 @@ as <code>this</code>.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -1661,6 +1673,7 @@ as <code>this</code>.</p>
 <a href="Rac.Point.html#equals">equal</a>, the new <code>Segment</code> will use
 <code>this.angle()</code>.</p>
 </div>
+
 
 
 
@@ -1824,6 +1837,7 @@ as <code>this</code>.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -1980,6 +1994,7 @@ orientation.</p>
 <p>When <code>hypotenuse</code> is smaller that the segment's <code>length</code>, returns
 <code>null</code> since no right triangle is possible.</p>
 </div>
+
 
 
 
@@ -2201,6 +2216,7 @@ perpendicular angle from <code>endPoint()</code></p>
 segment's angle. E.g. with <code>clockwise</code> as <code>true</code>, the resulting
 <code>Segment</code> will be pointing towards <code>this.angle().perpendicular(false)</code>.</p>
 </div>
+
 
 
 
@@ -2429,6 +2445,7 @@ with the given <code>length</code>.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -2644,6 +2661,7 @@ segment's angle. E.g. with an <code>angleDistance</code> of <code>0</code> the r
 <code>this</code>. As the <code>angleDistance</code> increases the two segments separate with
 the pivot at <code>endPoint()</code>.</p>
 </div>
+
 
 
 
@@ -2915,6 +2933,7 @@ from <code>endPoint()</code></p>
 
 
 
+
 <dl class="details">
 
     
@@ -3070,6 +3089,7 @@ from <code>endPoint()</code></p>
 
 
 
+
 <dl class="details">
 
     
@@ -3216,6 +3236,7 @@ from <code>endPoint()</code></p>
 <p>The resulting <code>Segment</code> will have the same <code>startPoint()</code> and <code>length</code>
 as <code>this</code>.</p>
 </div>
+
 
 
 
@@ -3395,6 +3416,7 @@ as <code>this</code>.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -3487,6 +3509,7 @@ as <code>this</code>.</p>
 <code>this.startPoint()</code>. When <code>length</code> is negative, the new <code>Point</code> is
 calculated in the inverse direction of <code>this.angle()</code>.</p>
 </div>
+
 
 
 
@@ -3649,6 +3672,7 @@ negative, the new <code>Point</code> is calculated in the inverse direction of
 
 
 
+
 <dl class="details">
 
     
@@ -3806,6 +3830,7 @@ same length as <code>this</code>.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -3906,6 +3931,7 @@ perpendicular angle in the <code>clockwise</code> orientation.</p>
 <p>The new <code>Segment</code> will have the given <code>length</code>, or when ommited or
 <code>null</code> will use <code>this.length</code> instead.</p>
 </div>
+
 
 
 
@@ -4133,6 +4159,7 @@ point.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -4235,6 +4262,7 @@ point.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -4325,6 +4353,7 @@ point.</p>
 <div class="description">
     <p>Returns a string representation intended for human consumption.</p>
 </div>
+
 
 
 
@@ -4495,6 +4524,7 @@ decimal point, when ommited all digits are printed</p>
 towards the perpendicular angle to <code>this.angle()</code> in the <code>clockwise</code>
 orientaton. All other properties are copied from <code>this</code>.</p>
 </div>
+
 
 
 
@@ -4706,6 +4736,7 @@ the given <code>distance</code>. All other properties are copied from <code>this
 
 
 
+
 <dl class="details">
 
     
@@ -4886,6 +4917,7 @@ ray by the given <code>length</code>. All other properties are copied from <code
 
 
 
+
 <dl class="details">
 
     
@@ -5035,6 +5067,7 @@ ray by the given <code>length</code>. All other properties are copied from <code
 
 
 
+
 <dl class="details">
 
     
@@ -5126,6 +5159,7 @@ ray by the given <code>length</code>. All other properties are copied from <code
     <p>Returns a new <code>Segment</code> with angle set to <code>newAngle</code>.</p>
 <p>All other properties are copied from <code>this</code>.</p>
 </div>
+
 
 
 
@@ -5282,6 +5316,7 @@ ray by the given <code>length</code>. All other properties are copied from <code
 
 
 
+
 <dl class="details">
 
     
@@ -5429,6 +5464,7 @@ ray by the given <code>length</code>. All other properties are copied from <code
 <code>this.ray.<a href="Rac.Angle.html#shift">angle.shift</a>(angle, clockwise)</code>.</p>
 <p>All other properties are copied from <code>this</code>.</p>
 </div>
+
 
 
 
@@ -5649,6 +5685,7 @@ negative <code>distance</code> results in a shorter one.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -5792,6 +5829,7 @@ negative <code>distance</code> results in a shorter one.</p>
     <p>Returns a new <code>Segment</code> with <code>length</code> set to <code>newLength</code>.</p>
 <p>All other properties are copied from <code>this</code>.</p>
 </div>
+
 
 
 
@@ -5945,6 +5983,7 @@ negative <code>distance</code> results in a shorter one.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -6093,6 +6132,7 @@ negative <code>distance</code> results in a shorter one.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -6236,6 +6276,7 @@ negative <code>distance</code> results in a shorter one.</p>
     <p>Returns a new <code>Segment</code> with <code>ray</code> set to <code>newRay</code>.</p>
 <p>All other properties are copied from <code>this</code>.</p>
 </div>
+
 
 
 
@@ -6392,6 +6433,7 @@ negative <code>distance</code> results in a shorter one.</p>
 
 
 
+
 <dl class="details">
 
     
@@ -6535,6 +6577,7 @@ negative <code>distance</code> results in a shorter one.</p>
     <p>Returns a new <code>Segment</code> with start point set to <code>newStart</code>.</p>
 <p>All other properties are copied from <code>this</code>.</p>
 </div>
+
 
 
 
