@@ -4,8 +4,11 @@ TODO's
 
 In progress
 -----------
-+ See if "Default Value" can print with <code></code>
-+ remove "Source" from Type Definitions, see `Rac.Exception~namedFactory`
++ Docs: look for > E.g., see if to keep it, try @example
++ .section-examples .prettyprint code,
+.description .prettyprint code {
+    background-color: #f4f4f4;
+}
 
 
 
@@ -21,12 +24,7 @@ For version change
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
 + Docs: replace with {String} {Object} {Number}
-+ Docs: look for > E.g., see if to keep it, try @example
 + Add better tutorial links in readmes!
-+ .section-examples .prettyprint code,
-.description .prettyprint code {
-    background-color: #f4f4f4;
-}
 
 
 
