@@ -255,7 +255,7 @@ implementation is <code><a href="Rac.P5Drawer.html">P5Drawer</a></code>.</p></di
 <span><a href="Rac.html#.build">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line304">line 304</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line307">line 307</a>
     </span>
 
 </div>
@@ -326,7 +326,7 @@ was done.</p>
 <span><a href="Rac.html#.TAU">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line318">line 318</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line321">line 321</a>
     </span>
 
 </div>
@@ -395,7 +395,7 @@ was done.</p>
 <span><a href="Rac.html#.utils">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line289">line 289</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line292">line 292</a>
     </span>
 
 </div>
@@ -465,7 +465,7 @@ members.</p>
 <span><a href="Rac.html#.version">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line293">line 293</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line296">line 296</a>
     </span>
 
 </div>
@@ -603,7 +603,7 @@ members.</p>
 <span><a href="Rac.html#controller">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line154">line 154</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line157">line 157</a>
     </span>
 
 </div>
@@ -672,7 +672,7 @@ and pointer events related to this instance of <code>Rac</code>.</p>
 <span><a href="Rac.html#drawer">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line133">line 133</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line136">line 136</a>
     </span>
 
 </div>
@@ -716,6 +716,11 @@ drawable object created using <code>this</code>.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>
+        <code>null</code>
+    </li></ul></dd>
+    
 
     
 
@@ -741,7 +746,7 @@ drawable object created using <code>this</code>.</p>
 <span><a href="Rac.html#equalityThreshold">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line68">line 68</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line69">line 69</a>
     </span>
 
 </div>
@@ -764,7 +769,7 @@ values that tend to be integers, like screen coordinates. Used by
 can return odd or oscilating values. This threshold is used to snap
 values too close to a limit, as to prevent oscilating efects in
 user interaction.</p>
-<p>Default value is based on <code>1/1000</code> of a point.</p>
+<p>The default value is based on <code>1/1000</code> of a point.</p>
 </div>
 
 
@@ -797,6 +802,11 @@ user interaction.</p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>
+        <code>0.001</code>
+    </li></ul></dd>
+    
 
     
 
@@ -822,7 +832,7 @@ user interaction.</p>
 <span><a href="Rac.html#textFormatDefaults">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line122">line 122</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line124">line 124</a>
     </span>
 
 </div>
@@ -1007,7 +1017,7 @@ set to <code>null</code> the font is not set upon drawing</p></td>
 <span><a href="Rac.html#unitaryEqualityThreshold">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line83">line 83</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line85">line 85</a>
     </span>
 
 </div>
@@ -1021,8 +1031,8 @@ set to <code>null</code> the font is not set upon drawing</p></td>
 Used for values that tend to exist in the <code>[0, 1]</code> range, like
 <code><a href="Rac.Angle.html#turn">Rac.Angle#turn</a></code>. Used by <code><a href="Rac.html#unitaryEquals">Rac#unitaryEquals</a></code>.</p>
 <p>Equality logic is the same as <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code>.</p>
-<p>Default value is based on 1/1000 of the turn of an arc of radius 500
-and length of 1: <code>1/(500*6.28)/1000</code></p>
+<p>The default value is based on 1/1000 of the turn of an arc of radius
+500 and length of 1: <code>1/(500*6.28)/1000</code></p>
 </div>
 
 
@@ -1055,6 +1065,11 @@ and length of 1: <code>1/(500*6.28)/1000</code></p>
     
 
     
+    <dt class="tag-default">Default Value:</dt>
+    <dd class="tag-default"><ul class="dummy"><li>
+        <code>0.0000003</code>
+    </li></ul></dd>
+    
 
     
 
@@ -1080,7 +1095,7 @@ and length of 1: <code>1/(500*6.28)/1000</code></p>
 <span><a href="Rac.html#utils">#</a></span>
 
     <span> | source:
-    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line94">line 94</a>
+    <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line96">line 96</a>
     </span>
 
 </div>
@@ -2488,7 +2503,7 @@ ommited or set to <code>null</code>, <code>start</code> is used instead</p>
     <span><a href="Rac.html#equals">#</a></span>
     
         <span> | source:
-        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line181">line 181</a>
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line184">line 184</a>
         </span>
     
     </div>
@@ -3465,7 +3480,7 @@ under <code><a href="Rac.html#equalityThreshold">Rac#equalityThreshold</a></code
     <span><a href="Rac.html#setupDrawer">#</a></span>
     
         <span> | source:
-        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line167">line 167</a>
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line170">line 170</a>
         </span>
     
     </div>
@@ -4360,7 +4375,7 @@ colors and style object, and <code>vertex</code> functions for drawable objects.
     <span><a href="Rac.html#unitaryEquals">#</a></span>
     
         <span> | source:
-        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line197">line 197</a>
+        <a href="Rac.js.html">Rac.js</a>, <a href="Rac.js.html#line200">line 200</a>
         </span>
     
     </div>

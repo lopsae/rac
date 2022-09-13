@@ -25,6 +25,7 @@ class P5Drawer {
     * is used.
     *
     * @type {object}
+    * @default null
     */
     this.debugStyle = null;
 
@@ -33,6 +34,7 @@ class P5Drawer {
     * applied is used.
     *
     * @type {object}
+    * @default null
     */
     this.debugTextStyle = null;
 
@@ -57,12 +59,14 @@ class P5Drawer {
     /**
     * Radius of point markers for debug drawing.
     * @type {number}
+    * @default 22
     */
     this.debugPointRadius = 4;
 
     /**
     * Radius of the main visual elements for debug drawing.
     * @type {number}
+    * @default 22
     */
     this.debugMarkerRadius = 22;
 

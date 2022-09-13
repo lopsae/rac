@@ -61,9 +61,10 @@ class Rac {
     * values too close to a limit, as to prevent oscilating efects in
     * user interaction.
     *
-    * Default value is based on `1/1000` of a point.
+    * The default value is based on `1/1000` of a point.
     *
     * @type {number}
+    * @default 0.001
     */
     this.equalityThreshold = 0.001;
 
@@ -75,10 +76,11 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Default value is based on 1/1000 of the turn of an arc of radius 500
-    * and length of 1: `1/(500*6.28)/1000`
+    * The default value is based on 1/1000 of the turn of an arc of radius
+    * 500 and length of 1: `1/(500*6.28)/1000`
     *
     * @type {number}
+    * @default 0.0000003
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
@@ -129,6 +131,7 @@ class Rac {
     * Drawer of the instance. This object handles the drawing for all
     * drawable object created using `this`.
     * @type {object}
+    * @default null
     */
     this.drawer = null;
 
