@@ -562,7 +562,9 @@ footer {
    font-size: 100%;
 }
 
-.params td.description code, .props td.description code {
+.params td.description code, .props td.description code,
+.params td.default code, .props td.default code,
+.params td.type code, .props td.type code {
   font-size: 90%;
 }
 
@@ -572,6 +574,13 @@ footer {
    vertical-align: top;
    padding: 10px;
    display: table-cell;
+}
+
+.params td.name, .params td.type, .params td.attributes, .params td.default,
+.props td.name, .props td.type, .props td.attributes, .props td.default {
+  /*To make this collumns to its smalles width*/
+  width:0.1%;
+  white-space: nowrap;
 }
 
 .params td, .props td{

@@ -52,6 +52,9 @@ class P5Drawer {
     */
     this.debugTextOptions = {
       font: 'monospace',
+      // TODO: documentation displays this as being optional
+      // in order to make the link work it has to be wrapped in [],
+      // which makes it an optional
       size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };

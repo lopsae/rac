@@ -14,7 +14,7 @@
 class Exception {
 
   /**
-   * MAICTODO: constructordocs
+   * RELEASE-TODO: constructordocs
    */
   constructor(name, message) {
     this.name = name;
