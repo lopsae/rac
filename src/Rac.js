@@ -27,7 +27,8 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     *
-    * E.g. `1.2.0`.
+    * @example
+    * rac.version // returns '1.2.1'
     *
     * @constant {string} version
     * @memberof Rac#
@@ -38,7 +39,8 @@ class Rac {
     /**
     * Build of the instance, same as `{@link Rac.build}`.
     *
-    * E.g. `904-011be8f`.
+    * @example
+    * rac.build // returns '1057-94b059d'
     *
     * @constant {string} build
     * @memberof Rac#
@@ -108,7 +110,7 @@ class Rac {
     *
     * When a [`Text`]{@link Rac.Text} is draw which
     * [`format.font`]{@link Rac.Text.Format#font} or
-    * [`format.size`]{@link Rac.Text.Format#size} is set to `null`, the
+    * [`format.size`]{@link Rac.Text.Format#size} are set to `null`, the
     * values set here are used instead.
     *
     * @property {?string} font=null
@@ -176,8 +178,8 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#equalityThreshold}`.
   *
-  * @param {number} a First number to compare
-  * @param {number} b Second number to compare
+  * @param {number} a - First number to compare
+  * @param {number} b - Second number to compare
   *
   * @returns {boolean}
   */
@@ -296,7 +298,9 @@ Rac.utils = utils;
 /**
 * Version of the class. Same as the version used for the npm package.
 *
-* E.g. `1.2.0`.
+* @example
+* Rac.version // returns '1.2.1'
+*
 *
 * @constant {string} version
 * @memberof Rac
@@ -310,7 +314,8 @@ utils.addConstantTo(Rac, 'version', version);
 * Contains a commit-count and short-hash of the repository when the build
 * was done.
 *
-* E.g. `904-011be8f`.
+* @example
+* Rac.build // returns '1057-94b059d'
 *
 * @constant {string} build
 * @memberof Rac
