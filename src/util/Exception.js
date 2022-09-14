@@ -14,8 +14,12 @@
 class Exception {
 
   /**
-   * RELEASE-TODO: constructordocs
-   */
+  * Creates a new `Exception` instance.
+  * @param {String} name
+  *   The name of the exception
+  * @param {String} message
+  *   The message of the exception
+  */
   constructor(name, message) {
     this.name = name;
     this.message = message;
@@ -29,7 +33,7 @@ class Exception {
   * (new Rac.Exception('NotAPangram', 'Waltz, bad nymph')).toString()
   * // Returns: 'Exception:NotAPangram - Waltz, bad nymph'
   *
-  * @returns {string}
+  * @returns {String}
   */
   toString() {
     return `Exception:${this.name} - ${this.message}`;
@@ -50,6 +54,7 @@ class Exception {
   * `Exception`) within a matcher results in the expectation hanging
   * indefinitely.
   *
+  * @type {Boolean}
   * @default false
   *
   * @memberof Rac.Exception
@@ -61,17 +66,13 @@ class Exception {
   * Returns a factory function that builds throwable objects with the given
   * `name`.
   *
-  * ```
-  * RELEASE-TODO: match example block style with this
-  * ```
-  *
   * @example
   * let factory = Rac.Exception.named('NotAPangram')
   * factory.exceptionName // returns 'NotAPangram'
   * factory('Waltz, bad nymph').toString()
   * // returns: 'Exception:NotAPangram - Waltz, bad nymph'
   *
-  * @param {string} name - The name for the produced throwable objects
+  * @param {String} name - The name for the produced throwable objects
   * @return {Rac.Exception~namedFactory}
   */
   static named(name) {
@@ -79,14 +80,11 @@ class Exception {
     * Factory function that returns a throwable object with the given
     * `message`.
     *
-    * ```
-    * RELEASE-TODO: remove Source in docs
-    * ```
     * @callback Rac.Exception~namedFactory
     *
-    * @property {string} exceptionName
+    * @property {String} exceptionName
     *   The name for the produced throwable objects
-    * @param {string} message
+    * @param {String} message
     *   The message for the produced throwable object.
     *
     * @return {Exception|Error}

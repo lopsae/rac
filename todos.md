@@ -5,10 +5,6 @@ TODO's
 In progress
 -----------
 + Docs: look for > E.g., see if to keep it, try @example
-+ .section-examples .prettyprint code,
-.description .prettyprint code {
-    background-color: #f4f4f4;
-}
 
 
 
@@ -23,7 +19,7 @@ For version change
 + Docs: reference class on instance.X
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
-+ Docs: replace with {String} {Object} {Number}
++ Docs: replace with {String} {Object} {Number} {Boolean}
 + Add better tutorial links in readmes!
 
 

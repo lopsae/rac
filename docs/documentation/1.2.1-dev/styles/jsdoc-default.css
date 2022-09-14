@@ -488,13 +488,14 @@ footer {
 
 .prettyprint code {
   font-size: 14px;
-  line-height: 18px;
+  line-height: 20px;
   display: block;
   background-color: #fff;
   color: #4D4E53;
 }
 
-.description .prettyprint code {
+.description .prettyprint code,
+.section-examples .prettyprint code {
   background-color: #f4f4f4;
 }
 

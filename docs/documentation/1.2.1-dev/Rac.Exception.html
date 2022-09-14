@@ -79,7 +79,7 @@ more details see <a href="Rac.Exception.html#.buildsErrors"><code>buildsErrors</
     
 
     
-    <h4 class="name method-name" id="Exception"><span class="type-signature"></span>new Exception<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name method-name" id="Exception"><span class="type-signature"></span>new Exception<span class="signature">(name, message)</span><span class="type-signature"></span></h4>
     
 
 
@@ -99,7 +99,7 @@ more details see <a href="Rac.Exception.html#.buildsErrors"><code>buildsErrors</
 
 
 <div class="description">
-    <p>RELEASE-TODO: constructordocs</p>
+    <p>Creates a new <code>Exception</code> instance.</p>
 </div>
 
 
@@ -148,6 +148,84 @@ more details see <a href="Rac.Exception.html#.buildsErrors"><code>buildsErrors</
 
 
 
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The name of the exception</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>message</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The message of the exception</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
 
 
 
@@ -188,13 +266,13 @@ more details see <a href="Rac.Exception.html#.buildsErrors"><code>buildsErrors</
         
             
 <div class="section-members">
-<h4 class="name member-name" id=".buildsErrors"><span class="type-signature">(static) </span>buildsErrors<span class="type-signature"></span></h4>
+<h4 class="name member-name" id=".buildsErrors"><span class="type-signature">(static) </span>buildsErrors<span class="type-signature"> :object</span></h4>
 
 <div class="details-mini">
 <span><a href="Rac.Exception.html#.buildsErrors">#</a></span>
 
     <span> | source:
-    <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line57">line 57</a>
+    <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line62">line 62</a>
     </span>
 
 </div>
@@ -288,7 +366,7 @@ indefinitely.</p>
     <span><a href="Rac.Exception.html#.named">#</a></span>
     
         <span> | source:
-        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line77">line 77</a>
+        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line78">line 78</a>
         </span>
     
     </div>
@@ -302,8 +380,6 @@ indefinitely.</p>
 <div class="description">
     <p>Returns a factory function that builds throwable objects with the given
 <code>name</code>.</p>
-<pre class="prettyprint source"><code>RELEASE-TODO: match example block style with this
-</code></pre>
 </div>
 
 
@@ -383,7 +459,7 @@ indefinitely.</p>
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>String</code></span>
 
 
             
@@ -441,7 +517,7 @@ factory('Waltz, bad nymph').toString()
     
 
     
-    <h4 class="name method-name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    <h4 class="name method-name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
     
 
 
@@ -449,7 +525,7 @@ factory('Waltz, bad nymph').toString()
     <span><a href="Rac.Exception.html#toString">#</a></span>
     
         <span> | source:
-        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line34">line 34</a>
+        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line38">line 38</a>
         </span>
     
     </div>
@@ -559,7 +635,7 @@ factory('Waltz, bad nymph').toString()
     <span><a href="Rac.Exception.html#~namedFactory">#</a></span>
     
         <span> | source:
-        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line78">line 78</a>
+        <a href="util_Exception.js.html">util/Exception.js</a>, <a href="util_Exception.js.html#line79">line 79</a>
         </span>
     
     </div>
@@ -573,8 +649,6 @@ factory('Waltz, bad nymph').toString()
 <div class="description">
     <p>Factory function that returns a throwable object with the given
 <code>message</code>.</p>
-<pre class="prettyprint source"><code>RELEASE-TODO: remove Source in docs
-</code></pre>
 </div>
 
 
@@ -614,7 +688,7 @@ factory('Waltz, bad nymph').toString()
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>String</code></span>
 
 
             
@@ -708,7 +782,7 @@ factory('Waltz, bad nymph').toString()
             <td class="type">
             
                 
-<span class="param-type"><code>string</code></span>
+<span class="param-type"><code>String</code></span>
 
 
             
