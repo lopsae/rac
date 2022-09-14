@@ -76,7 +76,7 @@ class Rac {
     * @example
     * rac.version // returns '1.2.1'
     *
-    * @constant {string} version
+    * @constant {String} version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
@@ -88,7 +88,7 @@ class Rac {
     * @example
     * rac.build // returns '1057-94b059d'
     *
-    * @constant {string} build
+    * @constant {String} build
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'build', build);
@@ -111,7 +111,7 @@ class Rac {
     *
     * The default value is based on `1/1000` of a point.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0.001
     */
     this.equalityThreshold = 0.001;
@@ -127,7 +127,7 @@ class Rac {
     * The default value is based on 1/1000 of the turn of an arc of radius
     * 500 and length of 1: `1/(500*6.28)/1000`
     *
-    * @type {number}
+    * @type {Number}
     * @default 0.0000003
     */
     this.unitaryEqualityThreshold = 0.0000003;
@@ -159,15 +159,15 @@ class Rac {
     * [`format.size`]{@link Rac.Text.Format#size} are set to `null`, the
     * values set here are used instead.
     *
-    * @property {?string} font=null
+    * @property {?String} font=null
     *   Default font, used when drawing a `Text` which
     *   [`format.font`]{@link Rac.Text.Format#font} is set to `null`; when
     *   set to `null` the font is not set upon drawing
-    * @property {number} size=15
+    * @property {Number} size=15
     *   Default size, used when drawing a `Text` which
     *   [`format.size`]{@link Rac.Text.Format#size} is set to `null`
     *
-    * @type {object}
+    * @type {Object}
     */
     this.textFormatDefaults = {
       font: null,
@@ -178,7 +178,7 @@ class Rac {
     /**
     * Drawer of the instance. This object handles the drawing for all
     * drawable object created using `this`.
-    * @type {object}
+    * @type {Object}
     * @default null
     */
     this.drawer = null;
@@ -224,10 +224,10 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#equalityThreshold}`.
   *
-  * @param {number} a - First number to compare
-  * @param {number} b - Second number to compare
+  * @param {Number} a - First number to compare
+  * @param {Number} b - Second number to compare
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   equals(a, b) {
     if (a === null || b === null) { return false; }
@@ -240,10 +240,10 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#unitaryEqualityThreshold}`.
   *
-  * @param {number} a First number to compare
-  * @param {number} b Second number to compare
+  * @param {Number} a First number to compare
+  * @param {Number} b Second number to compare
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   unitaryEquals(a, b) {
     if (a === null || b === null) { return false; }
@@ -348,7 +348,7 @@ Rac.utils = utils;
 * Rac.version // returns '1.2.1'
 *
 *
-* @constant {string} version
+* @constant {String} version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -363,7 +363,7 @@ utils.addConstantTo(Rac, 'version', version);
 * @example
 * Rac.build // returns '1057-94b059d'
 *
-* @constant {string} build
+* @constant {String} build
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'build', build);
@@ -374,7 +374,7 @@ utils.addConstantTo(Rac, 'build', build);
 *
 * [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
-* @constant {number} TAU
+* @constant {Number} TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
