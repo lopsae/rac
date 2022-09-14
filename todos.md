@@ -19,7 +19,7 @@ For version change
 + Docs: reference class on instance.X
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
-+ Docs: replace with {String} {Object} {Number} {Boolean}
++ Docs: replace with {String} {Object} {Number} {Boolean} and {?X}
 + Add better tutorial links in readmes!
 
 

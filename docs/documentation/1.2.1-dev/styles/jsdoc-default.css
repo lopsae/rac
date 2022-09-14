@@ -143,6 +143,7 @@ blockquote {
 }
 
 .class-description code {
+  /*MAICTODO: check? could be 90%;*/
   font-size: 18px;
 }
 
@@ -490,12 +491,7 @@ footer {
   font-size: 14px;
   line-height: 20px;
   display: block;
-  background-color: #fff;
   color: #4D4E53;
-}
-
-.description .prettyprint code,
-.section-examples .prettyprint code {
   background-color: #f4f4f4;
 }
 
@@ -505,6 +501,15 @@ footer {
 
 .prettyprint > code {
   padding: 15px
+}
+
+pre.prettyprint.linenums {
+  margin-top: 2em;
+}
+
+pre.prettyprint.linenums,
+pre.prettyprint.linenums code {
+  background-color: #f4f4f4;
 }
 
 .prettyprint .linenums code {
