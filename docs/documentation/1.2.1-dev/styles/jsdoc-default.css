@@ -124,7 +124,6 @@ tt, code, kbd, samp {
   background: #f4f4f4;
   padding: 1px 5px;
   border-radius: 5px;
-  font-size: 14px;
 }
 
 blockquote {
@@ -140,10 +139,6 @@ blockquote {
   line-height: 140%;
   margin-bottom: 1em;
   margin-top: 1em;
-}
-
-.class-description code {
-  font-size: 90%;
 }
 
 .class-description:empty {
@@ -450,7 +445,7 @@ footer {
 .details-mini {
   padding-left: 8px;
   border-left: 2px solid #DDD;
-  font-size: 12px;
+  font-size: 14px;
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
 }
 
@@ -458,7 +453,7 @@ footer {
   color: #888;
   padding-left: 8px;
   border-left: 2px solid #DDD;
-  font-size: 12px;
+  font-size: 14px;
   font-family: Consolas, Monaco, 'Andale Mono', monospace;
   margin: 0.5em 0px 1em 0px;
 }
@@ -475,7 +470,6 @@ footer {
 }
 
 .prettyprint {
-  font-size: 13px;
   border: 1px solid #ddd;
   border-radius: 3px;
   box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.05);
@@ -487,7 +481,6 @@ footer {
 }
 
 .prettyprint code {
-  font-size: 14px;
   line-height: 20px;
   display: block;
   color: #4D4E53;
@@ -510,13 +503,24 @@ pre.prettyprint.linenums {
   margin-top: 2em;
 }
 
-pre.prettyprint.linenums,
-pre.prettyprint.linenums code {
+pre.prettyprint.linenums {
   background-color: #f4f4f4;
 }
 
-.prettyprint .linenums code {
-  padding: 0 15px
+pre.prettyprint.linenums li.L1,
+pre.prettyprint.linenums li.L3,
+pre.prettyprint.linenums li.L5,
+pre.prettyprint.linenums li.L7,
+pre.prettyprint.linenums li.L9 {
+  background-color: #e4e4e4;
+}
+
+pre.prettyprint.linenums code {
+  font-size: 14px;
+  padding: 0 0 0 15px;
+  border-radius: 0;
+  background-color: transparent;
+  display: inline;
 }
 
 .prettyprint .linenums li:first-of-type code {
@@ -536,22 +540,26 @@ pre.prettyprint.linenums code {
 }
 
 .prettyprint.linenums ol {
-   padding-left: 0
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-size: 80%;
+  color: #aaa;
+  padding-left: 0;
 }
 
 .prettyprint.linenums li {
-   border-left: 3px #ddd solid
+  border-left: 3px #ddd solid;
+  line-height: 100%;
 }
 
 .prettyprint.linenums li.selected, .prettyprint.linenums li.selected * {
-   background-color: hsl(36deg 85% 70%)
+  background-color: hsl(36deg 85% 70%)
 }
 
 .prettyprint.linenums li * {
-   -webkit-user-select: text;
-   -moz-user-select: text;
-   -ms-user-select: text;
-   user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .params, .props {
@@ -566,9 +574,8 @@ pre.prettyprint.linenums code {
 }
 
 .params .name, .props .name, .name code {
-   color: #4D4E53;
-   font-family: Consolas, Monaco, 'Andale Mono', monospace;
-   font-size: 100%;
+  color: #4D4E53;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
 }
 
 .params td.description code, .props td.description code,
