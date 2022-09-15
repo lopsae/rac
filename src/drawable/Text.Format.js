@@ -158,10 +158,10 @@ class TextFormat {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * ```
-  * (new Rac.Text.Format(rac, 'left', 'top', 0.5, 'sans', 14)).toString()
-  * // Returns: Text.Format(ha:left va:top a:0.5 f:"sans" s:14)
-  * ```
+  * @example
+  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14)'
+  * rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()
+  *
   *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed

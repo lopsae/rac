@@ -1539,9 +1539,6 @@ in generally the same position as <code>this</code> would draw the same text.</p
 
 <div class="description">
     <p>Returns a string representation intended for human consumption.</p>
-<pre class="prettyprint source"><code>(new Rac.Text.Format(rac, 'left', 'top', 0.5, 'sans', 14)).toString()
-// Returns: Text.Format(ha:left va:top a:0.5 f:&quot;sans&quot; s:14)
-</code></pre>
 </div>
 
 
@@ -1681,6 +1678,14 @@ decimal point, when ommited all digits are printed</p>
 
 
 
+
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint example"><code>// returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14)'
+rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()</code></pre>
+
+</div>
 
 </div>
         
