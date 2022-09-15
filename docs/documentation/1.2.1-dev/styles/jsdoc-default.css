@@ -141,6 +141,10 @@ blockquote {
   margin-top: 1em;
 }
 
+.class-description pre.prettyprint code {
+  font-size: 16px;
+}
+
 .class-description:empty {
   margin: 0
 }
