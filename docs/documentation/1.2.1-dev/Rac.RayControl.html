@@ -1091,7 +1091,7 @@ object.</p>
     <span><a href="Rac.RayControl.html#addMarkerAtCurrentValue">#</a></span>
     
         <span> | source:
-        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line188">line 188</a>
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line196">line 196</a>
         </span>
     
     </div>
@@ -1192,7 +1192,7 @@ object.</p>
     <span><a href="Rac.RayControl.html#affixAnchor">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line143">line 143</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line157">line 157</a>
         </span>
     
     </div>
@@ -1295,7 +1295,7 @@ to be persisted during user interaction.</p>
     <span><a href="Rac.RayControl.html#distance">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line114">line 114</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line128">line 128</a>
         </span>
     
     </div>
@@ -1393,7 +1393,7 @@ knob.</p>
     <span><a href="Rac.RayControl.html#draw">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line155">line 155</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line169">line 169</a>
         </span>
     
     </div>
@@ -1494,7 +1494,7 @@ knob.</p>
     <span><a href="Rac.RayControl.html#drawSelection">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line250">line 250</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line264">line 264</a>
         </span>
     
     </div>
@@ -1702,7 +1702,7 @@ interaction started.</p>
     <span><a href="Rac.RayControl.html#isSelected">#</a></span>
     
         <span> | source:
-        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line197">line 197</a>
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line205">line 205</a>
         </span>
     
     </div>
@@ -1803,7 +1803,7 @@ interaction started.</p>
     <span><a href="Rac.RayControl.html#knob">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line126">line 126</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line140">line 140</a>
         </span>
     
     </div>
@@ -1905,7 +1905,7 @@ interaction started.</p>
     <span><a href="Rac.RayControl.html#projectedValue">#</a></span>
     
         <span> | source:
-        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line142">line 142</a>
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line143">line 143</a>
         </span>
     
     </div>
@@ -1925,19 +1925,6 @@ interaction started.</p>
 <code>projectionStart</code> is greater that <code>projectionEnd</code>) are supported. As
 <code>value</code> increases, the projection returned decreases from
 <code>projectionStart</code> until reaching <code>projectionEnd</code>.</p>
-<blockquote>
-<p>E.g.</p>
-<pre class="prettyprint source"><code>For a control with a projection range of [100,200]
-+ when value is 0,   projectionValue() is 100
-+ when value is 0.5, projectionValue() is 150
-+ when value is 1,   projectionValue() is 200
-
-For a control with a projection range of [50,30]
-+ when value is 0,   projectionValue() is 50
-+ when value is 0.5, projectionValue() is 40
-+ when value is 1,   projectionValue() is 30
-</code></pre>
-</blockquote>
 </div>
 
 
@@ -2010,6 +1997,25 @@ For a control with a projection range of [50,30]
 
 
 
+<div class="section-examples">
+<h5>Examples</h5>
+
+        <p class="code-caption">For a control with a projection range of [100,200]</p>
+    
+    <pre class="prettyprint example"><code>control.setProjectionRange(100, 200)
+control.value = 0;   control.projectionValue() // returns 100
+control.value = 0.5; control.projectionValue() // returns 150
+control.value = 1;   control.projectionValue() // returns 200</code></pre>
+
+        <p class="code-caption">For a control with a projection range of [50,30]</p>
+    
+    <pre class="prettyprint example"><code>control.setProjectionRange(30, 50)
+control.value = 0;   control.projectionValue() // returns 50
+control.value = 0.5; control.projectionValue() // returns 40
+control.value = 1;   control.projectionValue() // returns 30</code></pre>
+
+</div>
+
 </div>
         
             
@@ -2026,7 +2032,7 @@ For a control with a projection range of [50,30]
     <span><a href="Rac.RayControl.html#setLimitsWithInsets">#</a></span>
     
         <span> | source:
-        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line170">line 170</a>
+        <a href="control_Control.js.html">control/Control.js</a>, <a href="control_Control.js.html#line178">line 178</a>
         </span>
     
     </div>
@@ -2040,13 +2046,6 @@ For a control with a projection range of [50,30]
 <div class="description">
     <p>Sets both <code>startLimit</code> and <code>endLimit</code> with the given insets from <code>0</code>
 and <code>1</code>, correspondingly.</p>
-<blockquote>
-<p>E.g.</p>
-<pre class="prettyprint source"><code>control.setLimitsWithInsets(0.1, 0.2)
-// sets startLimit as 0.1
-// sets endLimit   as 0.8
-</code></pre>
-</blockquote>
 </div>
 
 
@@ -2197,6 +2196,17 @@ and <code>1</code>, correspondingly.</p>
 
 
 
+<div class="section-examples">
+<h5>Example</h5>
+
+    <pre class="prettyprint example"><code>control.setLimitsWithInsets(0.1, 0.2)
+// returns 0.1, since 0 + 0.1 = 0.1
+control.startLimit
+// returns 0.8, since 1 - 0.2 = 0.8
+control.endLimit</code></pre>
+
+</div>
+
 </div>
         
             
@@ -2213,7 +2223,7 @@ and <code>1</code>, correspondingly.</p>
     <span><a href="Rac.RayControl.html#setLimitsWithLengthInsets">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line100">line 100</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line114">line 114</a>
         </span>
     
     </div>
@@ -2228,16 +2238,6 @@ and <code>1</code>, correspondingly.</p>
     <p>Sets both <code>startLimit</code> and <code>endLimit</code> with the given insets from <code>0</code>
 and <code>length</code>, correspondingly, both projected in the <code>[0,length]</code>
 range.</p>
-<blockquote>
-<p>E.g.</p>
-<pre class="prettyprint source"><code>// For a RayControl with length of 100
-control.setLimitsWithLengthInsets(10, 20)
-// sets startLimit as 0.1 which is at length 10
-// sets endLimit   as 0.8 which is at length 80 from 100
-//   10 inset from 0 = 10
-//   20 inset from 100 = 80
-</code></pre>
-</blockquote>
 </div>
 
 
@@ -2385,6 +2385,24 @@ control.setLimitsWithLengthInsets(10, 20)
 
 
 
+<div class="section-examples">
+<h5>Example</h5>
+
+        <p class="code-caption">For a RayControl with length of 200</p>
+    
+    <pre class="prettyprint example"><code>let control = new Rac.RayControl(rac, 0.5, 200);
+control.setLimitsWithLengthInsets(10, 20);
+// returns 10, since 0 + 10 = 10
+control.startLimitLength()
+// returns 0.05, since 0 + (10 / 200) = 0.05
+control.startLimit
+// returns 180, since 200 - 20 = 180
+control.endLimitLength()
+// returns 0.9, since 1 - (20 / 200) = 0.9
+control.endLimit</code></pre>
+
+</div>
+
 </div>
         
             
@@ -2401,7 +2419,7 @@ control.setLimitsWithLengthInsets(10, 20)
     <span><a href="Rac.RayControl.html#setValueWithLength">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line74">line 74</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line85">line 85</a>
         </span>
     
     </div>
@@ -2551,7 +2569,7 @@ value</p>
     <span><a href="Rac.RayControl.html#updateWithPointer">#</a></span>
     
         <span> | source:
-        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line222">line 222</a>
+        <a href="control_RayControl.js.html">control/RayControl.js</a>, <a href="control_RayControl.js.html#line236">line 236</a>
         </span>
     
     </div>

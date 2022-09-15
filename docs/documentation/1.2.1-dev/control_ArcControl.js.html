@@ -125,20 +125,19 @@ class ArcControl extends Rac.Control {
   }
 
 
+  // RELEASE-TODO: this example/code may not be working or be innacurrate
+  // check RayControl:setLimitsWithLengthInsets for a better example
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
-  * and `endInset.turn`, correspondingly, both projected in the
-  * `[0,angleDistance.turn]` range.
+  * and `angleDistance.turn`, correspondingly, both projected in the
+  * `[0, angleDistance.turn]` range.
   *
-  * > E.g.
-  * > ```
-  * > // For an ArcControl with angle distance of 0.5 turn
-  * > control.setLimitsWithAngleDistanceInsets(0.1, 0.3)
-  * > // sets startLimit as 0.2 which is at angle distance 0.1
-  * > // sets endLimit   as 0.4 which is at angle distance 0.2
-  * > //   0.1 inset from 0   = 0.1
-  * > //   0.3 inset from 0.5 = 0.2
-  * > ```
+  * @example
+  * &lt;caption>For an ArcControl with angleDistance of 0.5 turn&lt;/caption>
+  * let control = new Rac.ArcControl(rac, 0, rac.Angle(0.5))
+  * // sets startLimit as 0.1, since   0 + 0.2 * 0.5 = 0.1
+  * // sets endLimit   as 0.3, since 0.5 - 0.4 * 0.5 = 0.3
+  * control.setLimitsWithAngleDistanceInsets(0.2, 0.4)
   *
   * @param {Rac.Angle|number} startInset - The inset from `0` in the range
   *   `[0,angleDistance.turn]` to use for `startLimit`

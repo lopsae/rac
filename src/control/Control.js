@@ -124,18 +124,19 @@ class Control {
   * `value` increases, the projection returned decreases from
   * `projectionStart` until reaching `projectionEnd`.
   *
-  * > E.g.
-  * > ```
-  * > For a control with a projection range of [100,200]
-  * > + when value is 0,   projectionValue() is 100
-  * > + when value is 0.5, projectionValue() is 150
-  * > + when value is 1,   projectionValue() is 200
-  * >
-  * > For a control with a projection range of [50,30]
-  * > + when value is 0,   projectionValue() is 50
-  * > + when value is 0.5, projectionValue() is 40
-  * > + when value is 1,   projectionValue() is 30
-  * > ```
+  * @example
+  * <caption>For a control with a projection range of [100,200]</caption>
+  * control.setProjectionRange(100, 200)
+  * control.value = 0;   control.projectionValue() // returns 100
+  * control.value = 0.5; control.projectionValue() // returns 150
+  * control.value = 1;   control.projectionValue() // returns 200
+  *
+  * @example
+  * <caption>For a control with a projection range of [50,30]</caption>
+  * control.setProjectionRange(30, 50)
+  * control.value = 0;   control.projectionValue() // returns 50
+  * control.value = 0.5; control.projectionValue() // returns 40
+  * control.value = 1;   control.projectionValue() // returns 30
   *
   * @returns {number}
   */
@@ -153,16 +154,23 @@ class Control {
   // }
 
 
+  // TODO: document, test
+  setProjectionRange(start, end) {
+    this.projectionStart = start;
+    this.projectionEnd = end;
+  }
+
+
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
   * and `1`, correspondingly.
   *
-  * > E.g.
-  * > ```
-  * > control.setLimitsWithInsets(0.1, 0.2)
-  * > // sets startLimit as 0.1
-  * > // sets endLimit   as 0.8
-  * > ```
+  * @example
+  * control.setLimitsWithInsets(0.1, 0.2)
+  * // returns 0.1, since 0 + 0.1 = 0.1
+  * control.startLimit
+  * // returns 0.8, since 1 - 0.2 = 0.8
+  * control.endLimit
   *
   * @param {number} startInset - The inset from `0` to use for `startLimit`
   * @param {number} endInset - The inset from `1` to use for `endLimit`
