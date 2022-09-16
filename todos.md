@@ -4,23 +4,22 @@ TODO's
 
 In progress
 -----------
-+ Docs: look for > E.g., see if to keep it, try @example
 
 
 
 For version change
 ------------------
 + Fix RELEASE-TODO's
-+ create a npm script to update theme and build docs!
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + BUG: whole circle control located at 0 shows incorrect arrows
 + Add `dated` along with version/build
-+ Docs: reference instance.X on class
-+ Docs: reference class on instance.X
 + Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
 + Docs: replace with {String} {Object} {Number} {Boolean} and {?X}
 + Add better tutorial links in readmes!
++ Docs: update all Classes with instance mention in Point
++ Docs: update all rac.X functions with examples in rac.Point
++ Docs: update all instance.X to be similar to instance.Point
 
 
 

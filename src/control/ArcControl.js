@@ -79,7 +79,7 @@ class ArcControl extends Rac.Control {
   }
 
 
-  // RELEASE-TODO: this example/code may not be working or be innacurrate
+  // TODO: this example/code may not be working or be innacurrate
   // check RayControl:setLimitsWithLengthInsets for a better example
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
