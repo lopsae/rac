@@ -57,8 +57,8 @@ const Rac = require('./Rac');
 * [`rac.Color`]{@link instance.Color}.
 *
 * Drawable and style objects require for construction a reference to a
-* `rac` instance in order to perform drawing operations. The attached
-* functions build new objects using the calling `Rac` instance.
+* `Rac` instance in order to perform drawing operations. The attached
+* functions build new objects using the owning `Rac` instance.
 *
 * These functions are also setup with ready-made convenience objects for
 * many usual values like [`rac.Angle.north`]{@link instance.Angle#north} or
@@ -184,6 +184,11 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Point}`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let point = rac.Point(55, 77)
+  * point.rac === rac // true
   *
   * @param {number} x - The x coordinate
   * @param {number} y - The y coordinate

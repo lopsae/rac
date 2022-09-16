@@ -48,9 +48,17 @@
 
 
 /**
-* The [`instance.Point` function]{@link Rac#Point} contains convenience
-* methods and members for `{@link Rac.Point}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Point` function]{@link Rac#Point}.
+*
+* The function contains ready-made convenience
+* [`Point` objects]{@link Rac.Point} for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Point.zero // ready-made origin point
+* rac.Point.zero.rac === rac // true
 *
 * @namespace instance.Point
 */
