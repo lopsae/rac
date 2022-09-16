@@ -707,9 +707,17 @@ class Arc{
   * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
   * `start` in the arc's orientation.
   *
-  * E.g.
-  * For a clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.6`.
-  * For a counter-clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.4`.
+  * @example
+  * <caption>For a clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(0, 0, 0.5, null, true)
+  * // returns 0.6, since 0.5 + 0.1 = 0.6
+  * arc.shiftAngle(0.1)
+  *
+  * @example
+  * <caption>For a counter-clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(0, 0, 0.5, null, false)
+  * // returns 0.3, since 0.5 - 0.2 = 0.3
+  * arc.shiftAngle(0.2)
   *
   * @param {Rac.Angle|number} angle - An `Angle` to shift
   * @returns {Rac.Angle}
@@ -720,18 +728,25 @@ class Arc{
     return this.start.shift(angle, this.clockwise);
   }
 
-  // Returns an Angle that represents the distance from `this.start` to
-  // `angle` traveling in the `clockwise` orientation.
-  // Useful to determine for a given angle, where it sits inside the arc if
-  // the arc was the origin coordinate system.
-  //
+
   /**
   * Returns a new `Angle` that represents the angle distance from `start`
   * to `angle` in the arc's orientation.
   *
-  * E.g.
-  * For a clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.1`.
-  * For a counter-clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.9`.
+  * Can be used to determine, for a given angle, where it sits inside the
+  * arc if the arc `start` was the origin angle.
+  *
+  * @example
+  * <caption>For a clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(55, 77, 0.5, null, true)
+  * // returns 0.2, since 0.7 - 0.5 = 0.2
+  * arc.distanceFromStart(0.7)
+  *
+  * @example
+  * <caption>For a counter-clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(55, 77, 0.5, null, false)
+  * // returns 0.8, since 1 - (0.7 - 0.5) = 0.8
+  * arc.distanceFromStart(0.7)
   *
   * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
   * @returns {Rac.Angle}

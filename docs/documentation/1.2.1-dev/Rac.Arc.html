@@ -1678,7 +1678,7 @@ between <code>start</code> and <code>end</code> in the arc's orientation.</p>
     <span><a href="Rac.Arc.html#distanceFromStart">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line739">line 739</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line754">line 754</a>
         </span>
     
     </div>
@@ -1692,9 +1692,8 @@ between <code>start</code> and <code>end</code> in the arc's orientation.</p>
 <div class="description">
     <p>Returns a new <code>Angle</code> that represents the angle distance from <code>start</code>
 to <code>angle</code> in the arc's orientation.</p>
-<p>E.g.
-For a clockwise arc starting at <code>0.5</code>: <code>distanceFromStart(0.6)</code> is <code>0.1</code>.
-For a counter-clockwise arc starting at <code>0.5</code>: <code>distanceFromStart(0.6)</code> is <code>0.9</code>.</p>
+<p>Can be used to determine, for a given angle, where it sits inside the
+arc if the arc <code>start</code> was the origin angle.</p>
 </div>
 
 
@@ -1817,6 +1816,23 @@ For a counter-clockwise arc starting at <code>0.5</code>: <code>distanceFromStar
 
 
 
+<div class="section-examples">
+<h5>Examples</h5>
+
+        <p class="code-caption">For a clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(55, 77, 0.5, null, true)
+// returns 0.2, since 0.7 - 0.5 = 0.2
+arc.distanceFromStart(0.7)</code></pre>
+
+        <p class="code-caption">For a counter-clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(55, 77, 0.5, null, false)
+// returns 0.8, since 1 - (0.7 - 0.5) = 0.8
+arc.distanceFromStart(0.7)</code></pre>
+
+</div>
+
 </div>
         
             
@@ -1833,7 +1849,7 @@ For a counter-clockwise arc starting at <code>0.5</code>: <code>distanceFromStar
     <span><a href="Rac.Arc.html#divideToArcs">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1149">line 1149</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1164">line 1164</a>
         </span>
     
     </div>
@@ -1985,7 +2001,7 @@ divided into <code>count</code> arcs, all with the same
     <span><a href="Rac.Arc.html#divideToBeziers">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1210">line 1210</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1225">line 1225</a>
         </span>
     
     </div>
@@ -2143,7 +2159,7 @@ arc.</p>
     <span><a href="Rac.Arc.html#divideToSegments">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1178">line 1178</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1193">line 1193</a>
         </span>
     
     </div>
@@ -2745,7 +2761,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Arc.html#intersectionArc">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1008">line 1008</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1023">line 1023</a>
         </span>
     
     </div>
@@ -2902,7 +2918,7 @@ which is interpreted as a complete-circle arc.</p>
     <span><a href="Rac.Arc.html#intersectionChord">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line853">line 853</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line868">line 868</a>
         </span>
     
     </div>
@@ -3055,7 +3071,7 @@ the actual arcs.</p>
     <span><a href="Rac.Arc.html#intersectionChordEndWithRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line975">line 975</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line990">line 990</a>
         </span>
     
     </div>
@@ -3209,7 +3225,7 @@ unbounded line.</p>
     <span><a href="Rac.Arc.html#intersectionChordWithRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line926">line 926</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line941">line 941</a>
         </span>
     
     </div>
@@ -3562,7 +3578,7 @@ represents.</p>
     <span><a href="Rac.Arc.html#pointAtAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line754">line 754</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line769">line 769</a>
         </span>
     
     </div>
@@ -3715,7 +3731,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#pointAtAngleDistance">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line769">line 769</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line784">line 784</a>
         </span>
     
     </div>
@@ -3865,7 +3881,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#pointAtLength">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line784">line 784</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line799">line 799</a>
         </span>
     
     </div>
@@ -4015,7 +4031,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#pointAtLengthRatio">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line799">line 799</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line814">line 814</a>
         </span>
     
     </div>
@@ -4165,7 +4181,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#radiusSegmentAtAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line816">line 816</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line831">line 831</a>
         </span>
     
     </div>
@@ -4319,7 +4335,7 @@ the arc.</p>
     <span><a href="Rac.Arc.html#radiusSegmentTowardsPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line833">line 833</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line848">line 848</a>
         </span>
     
     </div>
@@ -4568,7 +4584,7 @@ same as <code>this</code>.</p>
     <span><a href="Rac.Arc.html#shiftAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line718">line 718</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line726">line 726</a>
         </span>
     
     </div>
@@ -4582,9 +4598,6 @@ same as <code>this</code>.</p>
 <div class="description">
     <p>Returns a new <code>Angle</code> with <code>angle</code> <a href="Rac.Angle.html#shift">shifted by</a>
 <code>start</code> in the arc's orientation.</p>
-<p>E.g.
-For a clockwise arc starting at <code>0.5</code>: <code>shiftAngle(0.1)</code> is <code>0.6</code>.
-For a counter-clockwise arc starting at <code>0.5</code>: <code>shiftAngle(0.1)</code> is <code>0.4</code>.</p>
 </div>
 
 
@@ -4713,6 +4726,23 @@ For a counter-clockwise arc starting at <code>0.5</code>: <code>shiftAngle(0.1)<
 
 
 
+
+<div class="section-examples">
+<h5>Examples</h5>
+
+        <p class="code-caption">For a clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(0, 0, 0.5, null, true)
+// returns 0.6, since 0.5 + 0.1 = 0.6
+arc.shiftAngle(0.1)</code></pre>
+
+        <p class="code-caption">For a counter-clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(0, 0, 0.5, null, false)
+// returns 0.3, since 0.5 - 0.2 = 0.3
+arc.shiftAngle(0.2)</code></pre>
+
+</div>
 
 </div>
         
@@ -5018,7 +5048,7 @@ For a counter-clockwise arc starting at <code>0.5</code>: <code>shiftAngle(0.1)<
     <span><a href="Rac.Arc.html#tangentSegment">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1099">line 1099</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1114">line 1114</a>
         </span>
     
     </div>

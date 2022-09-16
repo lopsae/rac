@@ -4,7 +4,7 @@ Changelog
 1.2.1-dev - IN PROGRESS
 -----------------------
 + Update `minami-rac` to `1.4.0`
-+ Improve documentation for `Exception`
++ Improve documentation examples for `Angle`, `Arc`, `Exception`, `Control`, `RayControl`, `ArcControl`
 
 
 1.2.0 - 2022 September 8th
