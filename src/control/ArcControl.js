@@ -54,7 +54,7 @@ class ArcControl extends Rac.Control {
     *
     * The control cannot be drawn or selected until this property is set.
     *
-    * @type {Rac.Arc?}
+    * @type {?Rac.Arc}
     * @default null
     */
     this.anchor = null;
@@ -125,7 +125,7 @@ class ArcControl extends Rac.Control {
   *
   * When `anchor` is not set, returns `null` instead.
   *
-  * @return {Rac.Point?}
+  * @return {?Rac.Point}
   */
   knob() {
     if (this.anchor === null) {
