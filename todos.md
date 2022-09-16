@@ -13,7 +13,6 @@ For version change
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + BUG: whole circle control located at 0 shows incorrect arrows
 + Add `dated` along with version/build
-+ Docs: search and correct for `=}` -> `@param {x} [y=z]`
 + Docs: search and correct for `?}` -> `{?`, only on type or return
 + Docs: replace with {String} {Object} {Number} {Boolean} and {?X}
 + Add better tutorial links in readmes!

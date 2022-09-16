@@ -132,7 +132,7 @@ class Rac {
     /**
     * Drawer of the instance. This object handles the drawing for all
     * drawable object created using `this`.
-    * @type {Object}
+    * @type {?Object}
     * @default null
     */
     this.drawer = null;

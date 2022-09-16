@@ -39,7 +39,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {number} r
   * @param {number} g
   * @param {number} b
-  * @param {number=} a
+  * @param {number} [a=1]
   *
   * @returns {Rac.Color}
   *
@@ -60,7 +60,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * `{@link instance.Stroke}`.
   *
   * @param {?number} weight
-  * @param {?Rac.Color} color
+  * @param {Rac.Color} [color=null]
   *
   * @returns {Rac.Stroke}
   *
@@ -80,7 +80,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Fill}`.
   *
-  * @param {Rac.Color=} color
+  * @param {Rac.Color} [color=null]
   * @returns {Rac.Fill}
   *
   * @see instance.Fill
@@ -99,8 +99,8 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Style}`.
   *
-  * @param {?Rac.Stroke} stroke
-  * @param {?Rac.Fill} fill
+  * @param {Rac.Stroke} [stroke=null]
+  * @param {Rac.Fill} [fill=null]
   *
   * @returns {Rac.Style}
   *
