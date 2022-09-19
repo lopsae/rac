@@ -74,7 +74,7 @@ class TextFormat {
   *   The angle towards which the text is drawn
   * @param {String} [font=null]
   *   The font name
-  * @param {number} [size=null]
+  * @param {Number} [size=null]
   *   The font size
   */
   constructor(
@@ -149,7 +149,7 @@ class TextFormat {
     * [`rac.textFormatDefaults.size`]{@link Rac#textFormatDefaults} is
     * used instead upon drawing.
     *
-    * @type {?number}
+    * @type {?Number}
     */
     this.size = size;
   } // constructor
@@ -163,7 +163,7 @@ class TextFormat {
   * rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()
   *
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
   */
@@ -203,7 +203,7 @@ class TextFormat {
   /**
   * Returns a new `Text.Format` with `angle` set to the `Angle` derived
   * from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text.Format`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text.Format`
   * @returns {Rac.Text.Format}
   */
   withAngle(newAngle) {
@@ -233,7 +233,7 @@ class TextFormat {
 
   /**
   * Returns a new `Text.Format` with `size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text.Format`;
+  * @param {?Number} newSize - The font size for the new `Text.Format`;
   *   can be set to `null`.
   * @returns {Rac.Text.Format}
   */

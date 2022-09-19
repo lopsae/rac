@@ -64,7 +64,7 @@ exports.assertType = function(type, ...elements) {
 * Asserts that all `elements` are number primitives and not NaN, otherwise
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...number} elements
+* @param {...Number} elements
 * @returns {boolean}
 *
 * @function assertNumber
@@ -165,8 +165,8 @@ exports.addConstantTo = function(obj, propName, value) {
 * Returns a string of `number` format using fixed-point notation or the
 * complete `number` string.
 *
-* @param {number} number - The number to format
-* @param {?number} [digits] - The amount of digits to print, or `null` to
+* @param {Number} number - The number to format
+* @param {?Number} [digits] - The amount of digits to print, or `null` to
 * print all digits.
 *
 * @returns {String}

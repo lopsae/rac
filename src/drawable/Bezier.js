@@ -26,7 +26,7 @@ class Bezier {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
   */

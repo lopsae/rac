@@ -49,7 +49,7 @@ class Ray {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
   */
@@ -84,7 +84,7 @@ class Ray {
   *
   * In the line formula `y = mx + b` the slope is `m`.
   *
-  * @returns {?number}
+  * @returns {?Number}
   */
   slope() {
     let isVertical =
@@ -105,7 +105,7 @@ class Ray {
   *
   * In the line formula `y = mx + b` the y-intercept is `b`.
   *
-  * @returns {?number}
+  * @returns {?Number}
   */
   yIntercept() {
     let slope = this.slope();
@@ -136,7 +136,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newX - The x coordinate for the new `Ray`
+  * @param {Number} newX - The x coordinate for the new `Ray`
   * @returns {Rac.Ray}
   */
   withX(newX) {
@@ -149,7 +149,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newY - The y coordinate for the new `Ray`
+  * @param {Number} newY - The y coordinate for the new `Ray`
   * @returns {Rac.Ray}
   */
   withY(newY) {
@@ -162,7 +162,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Ray`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Ray`
   * @returns {Rac.Ray}
   */
   withAngle(newAngle) {
@@ -176,7 +176,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to add
+  * @param {Rac.Angle|Number} angle - The angle to add
   * @returns {Rac.Ray}
   */
   withAngleAdd(angle) {
@@ -191,7 +191,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to be shifted by
+  * @param {Rac.Angle|Number} angle - The angle to be shifted by
   * @param {boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Ray}
   */
@@ -234,7 +234,7 @@ class Ray {
   * When `distance` is negative, `start` is moved in
   * the inverse direction of `angle`.
   *
-  * @param {number} distance - The distance to move `start` by
+  * @param {Number} distance - The distance to move `start` by
   * @returns {Rac.Ray}
   */
   translateToDistance(distance) {
@@ -247,8 +247,8 @@ class Ray {
   * Returns a new `Ray` with `start` moved towards `angle` by the given
   * `distance`. All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to move `start` towards
-  * @param {number} distance - The distance to move `start` by
+  * @param {Rac.Angle|Number} angle - An `Angle` to move `start` towards
+  * @param {Number} distance - The distance to move `start` by
   * @returns {Rac.Ray}
   */
   translateToAngle(angle, distance) {
@@ -261,7 +261,7 @@ class Ray {
   * Returns a new `Ray` with `start` moved by the given distance toward the
   * `angle.perpendicular()`. All other properties are copied from `this`.
   *
-  * @param {number} distance - The distance to move `start` by
+  * @param {Number} distance - The distance to move `start` by
   * @param {boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Ray}
   */
@@ -293,7 +293,7 @@ class Ray {
   *
   * The ray is considered a unbounded line.
   *
-  * @param {number} x - The x coordinate to calculate a point in the ray
+  * @param {Number} x - The x coordinate to calculate a point in the ray
   * @returns {Rac.Point}
   */
   pointAtX(x) {
@@ -321,7 +321,7 @@ class Ray {
   *
   * The ray is considered an unbounded line.
   *
-  * @param {number} y - The y coordinate to calculate a point in the ray
+  * @param {Number} y - The y coordinate to calculate a point in the ray
   * @returns {Rac.Point}
   */
   pointAtY(y) {
@@ -348,7 +348,7 @@ class Ray {
   * `this.start`. When `distance` is negative, the new `Point` is calculated
   * in the inverse direction of `angle`.
   *
-  * @param {number} distance - The distance from `this.start`
+  * @param {Number} distance - The distance from `this.start`
   * @returns {Rac.Point}
   */
   pointAtDistance(distance) {
@@ -413,7 +413,7 @@ class Ray {
   *
   * @param {Rac.Point} point - A `Point` to project and measure the
   * distance to
-  * @returns {number}
+  * @returns {Number}
   */
   distanceToProjectedPoint(point) {
     const projected = this.pointProjection(point);
@@ -480,7 +480,7 @@ class Ray {
 
   /**
   * Returns a new `Segment` using `this` and the given `length`.
-  * @param {number} length - The length of the new `Segment`
+  * @param {Number} length - The length of the new `Segment`
   * @returns {Rac.Segment}
   */
   segment(length) {
@@ -533,8 +533,8 @@ class Ray {
   * Returns a new `Arc` with center at `this.start`, start at `this.angle`
   * and the given arc properties.
   *
-  * @param {number} radius - The radius of the new `Arc`
-  * @param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new
+  * @param {Number} radius - The radius of the new `Arc`
+  * @param {?Rac.Angle|Number} [endAngle=null] - The end `Angle` of the new
   * `Arc`; when `null` or ommited, `this.angle` is used instead
   * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
@@ -555,8 +555,8 @@ class Ray {
   * and end at the given `angleDistance` from `this.start` in the
   * `clockwise` orientation.
   *
-  * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} angleDistance - The angle distance from
+  * @param {Number} radius - The radius of the new `Arc`
+  * @param {Rac.Angle|Number} angleDistance - The angle distance from
   * `this.start` to the new `Arc` end
   * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}

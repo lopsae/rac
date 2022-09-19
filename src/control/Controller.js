@@ -111,7 +111,7 @@ class Controller {
     * Distance at which the pointer is considered to interact with a
     * control knob. Also used by controls for drawing.
     *
-    * @type {number}
+    * @type {Number}
     */
     this.knobRadius = 22;
 

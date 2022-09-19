@@ -27,7 +27,7 @@ class ArcControl extends Rac.Control {
   * interactive `angleDistance`.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
   * @param {Rac.Angle} angleDistance - The angleDistance of the `anchor`
   *   arc available for user interaction
@@ -41,7 +41,7 @@ class ArcControl extends Rac.Control {
 
     /**
     * Angle distance of the `anchor` arc available for user interaction.
-    * @type {number}
+    * @type {Number}
     */
     this.angleDistance = Rac.Angle.from(rac, angleDistance);
 
@@ -69,7 +69,7 @@ class ArcControl extends Rac.Control {
   * Sets `value` using the projection of `valueAngleDistance.turn` in the
   * `[0,angleLength.turn]` range.
   *
-  * @param {Rac.Angle|number} valueAngleDistance - The angle distance at
+  * @param {Rac.Angle|Number} valueAngleDistance - The angle distance at
   *   which to set the current value
   */
   setValueWithAngleDistance(valueAngleDistance) {
@@ -93,9 +93,9 @@ class ArcControl extends Rac.Control {
   * // sets endLimit   as 0.3, since 0.5 - 0.4 * 0.5 = 0.3
   * control.setLimitsWithAngleDistanceInsets(0.2, 0.4)
   *
-  * @param {Rac.Angle|number} startInset - The inset from `0` in the range
+  * @param {Rac.Angle|Number} startInset - The inset from `0` in the range
   *   `[0,angleDistance.turn]` to use for `startLimit`
-  * @param {Rac.Angle|number} endInset - The inset from `angleDistance.turn`
+  * @param {Rac.Angle|Number} endInset - The inset from `angleDistance.turn`
   *   in the range `[0,angleDistance.turn]` to use for `endLimit`
   */
   setLimitsWithAngleDistanceInsets(startInset, endInset) {

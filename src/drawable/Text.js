@@ -83,7 +83,7 @@ class Text {
   * // returns 'Text((55,77) "sphinx of black quartz")'
   * rac.Text(55, 77, 'sphinx of black quartz').toString()
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
   */
@@ -118,7 +118,7 @@ class Text {
   /**
   * Returns a new `Text` and `Format` with `format.angle` set to the
   * `Angle` derived from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text` and
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text` and
   *   `Text.Format`
   * @returns {Rac.Text}
   */
@@ -142,7 +142,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text` and
+  * @param {?Number} newSize - The font size for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */

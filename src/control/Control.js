@@ -35,7 +35,7 @@ class Control {
   * Creates a new `Control` instance.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
   */
   constructor(rac, value) {
@@ -55,7 +55,7 @@ class Control {
     *
     * May be further constrained to `[startLimit,endLimit]`.
     *
-    * @type {number}
+    * @type {Number}
     */
     this.value = value;
 
@@ -63,7 +63,7 @@ class Control {
     * [Projected value]{@link Rac.Control#projectedValue} to use when
     * `value` is `0`.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0
     */
     this.projectionStart = 0;
@@ -72,7 +72,7 @@ class Control {
     * [Projected value]{@link Rac.Control#projectedValue} to use when
     * `value` is `1`.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.projectionEnd = 1;
@@ -80,7 +80,7 @@ class Control {
     /**
     * Minimum `value` that can be selected through user interaction.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0
     */
     this.startLimit = 0;
@@ -88,7 +88,7 @@ class Control {
     /**
     * Maximum `value` that can be selected through user interaction.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.endLimit = 1;
@@ -138,7 +138,7 @@ class Control {
   * control.value = 0.5; control.projectionValue() // returns 40
   * control.value = 1;   control.projectionValue() // returns 30
   *
-  * @returns {number}
+  * @returns {Number}
   */
   projectedValue() {
     let projectionRange = this.projectionEnd - this.projectionStart;
@@ -172,8 +172,8 @@ class Control {
   * // returns 0.8, since 1 - 0.2 = 0.8
   * control.endLimit
   *
-  * @param {number} startInset - The inset from `0` to use for `startLimit`
-  * @param {number} endInset - The inset from `1` to use for `endLimit`
+  * @param {Number} startInset - The inset from `0` to use for `startLimit`
+  * @param {Number} endInset - The inset from `1` to use for `endLimit`
   */
   setLimitsWithInsets(startInset, endInset) {
     this.startLimit = startInset;

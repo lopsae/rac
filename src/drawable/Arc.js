@@ -21,7 +21,7 @@ class Arc{
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {Rac.Point} center - The center of the arc
-  * @param {number} radius - The radius of the arc
+  * @param {Number} radius - The radius of the arc
   * @param {Rac.Angle} start - An `Angle` where the arc starts
   * @param {Rac.Angle} end - Ang `Angle` where the arc ends
   * @param {boolean} clockwise - The orientation of the arc
@@ -53,7 +53,7 @@ class Arc{
 
     /**
     * The radius of the arc.
-    * @type {number}
+    * @type {Number}
     */
     this.radius = radius;
 
@@ -92,7 +92,7 @@ class Arc{
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
   */
@@ -133,7 +133,7 @@ class Arc{
   /**
   * Returns the length of the arc: the part of the circumference the arc
   * represents.
-  * @returns {number}
+  * @returns {Number}
   */
   length() {
     return this.angleDistance().turnOne() * this.radius * Rac.TAU;
@@ -143,7 +143,7 @@ class Arc{
   /**
   * Returns the length of circumference of the arc considered as a complete
   * circle.
-  * @returns {number}
+  * @returns {Number}
   */
   circumference() {
     return this.radius * Rac.TAU;
@@ -262,7 +262,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newStart - The start for the new `Arc`
+  * @param {Rac.Angle|Number} newStart - The start for the new `Arc`
   * @returns {Rac.Arc}
   */
   withStart(newStart) {
@@ -279,7 +279,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newEnd - The end for the new `Arc`
+  * @param {Rac.Angle|Number} newEnd - The end for the new `Arc`
   * @returns {Rac.Arc}
   */
   withEnd(newEnd) {
@@ -296,7 +296,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newRadius - The radius for the new `Arc`
+  * @param {Number} newRadius - The radius for the new `Arc`
   * @returns {Rac.Arc}
   */
   withRadius(newRadius) {
@@ -330,7 +330,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angleDistance - The angle distance of the
+  * @param {Rac.Angle|Number} angleDistance - The angle distance of the
   * new `Arc`
   * @returns {Rac.Arc}
   * @see Rac.Arc#angleDistance
@@ -356,7 +356,7 @@ class Arc{
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
-  * @param {number} length - The length of the new `Arc`
+  * @param {Number} length - The length of the new `Arc`
   * @returns {Rac.Arc}
   * @see Rac.Arc#length
   */
@@ -378,7 +378,7 @@ class Arc{
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
-  * @param {number} length - The length to add
+  * @param {Number} length - The length to add
   * @returns {Rac.Arc}
   * @see Rac.Arc#length
   */
@@ -399,7 +399,7 @@ class Arc{
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
-  * @param {number} ratio - The factor to multiply `length()` by
+  * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
   *
   * @see Rac.Arc#length
@@ -605,10 +605,10 @@ class Arc{
   * returned value will be the centered between the range limits and still
   * clampled to `[start, end]`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to clamp
-  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
+  * @param {Rac.Angle|Number} angle - An `Angle` to clamp
+  * @param {Rac.Angle|Number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
   *   The inset for the lower limit of the clamping range
-  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
+  * @param {Rac.Angle|Number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
   *   The inset for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
@@ -670,7 +670,7 @@ class Arc{
   *
   * When the arc represents a complete circle, `true` is always returned.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to evaluate
+  * @param {Rac.Angle|Number} angle - An `Angle` to evaluate
   * @returns {boolean}
   */
   containsAngle(angle) {
@@ -719,7 +719,7 @@ class Arc{
   * // returns 0.3, since 0.5 - 0.2 = 0.3
   * arc.shiftAngle(0.2)
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to shift
+  * @param {Rac.Angle|Number} angle - An `Angle` to shift
   * @returns {Rac.Angle}
   * @see Rac.Angle#shift
   */
@@ -748,7 +748,7 @@ class Arc{
   * // returns 0.8, since 1 - (0.7 - 0.5) = 0.8
   * arc.distanceFromStart(0.7)
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
+  * @param {Rac.Angle|Number} angle - An `Angle` to measure the distance to
   * @returns {Rac.Angle}
   */
   distanceFromStart(angle) {
@@ -763,7 +763,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` towards the new `Point`
+  * @param {Rac.Angle|Number} angle - An `Angle` towards the new `Point`
   * @returns {Rac.Point}
   */
   pointAtAngle(angle) {
@@ -793,7 +793,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {number} length - The length from `startPoint()` to the new `Point`
+  * @param {Number} length - The length from `startPoint()` to the new `Point`
   * @returns {Rac.Point}
   */
   pointAtLength(length) {
@@ -808,7 +808,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {number} ratio - The factor to multiply `length()` by
+  * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Point}
   */
   pointAtLengthRatio(ratio) {
@@ -825,7 +825,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {Rac.Angle|number} angle - The direction of the radius to return
+  * @param {Rac.Angle|Number} angle - The direction of the radius to return
   * @returns {Rac.Segment}
   */
   radiusSegmentAtAngle(angle) {
@@ -1158,7 +1158,7 @@ class Arc{
   * When `count` is zero or lower, returns an empty array. When `count` is
   * `1` returns an arc equivalent to `this`.
   *
-  * @param {number} count - Number of arcs to divide `this` into
+  * @param {Number} count - Number of arcs to divide `this` into
   * @returns {Rac.Arc[]}
   */
   divideToArcs(count) {
@@ -1187,7 +1187,7 @@ class Arc{
   * `1` returns an arc equivalent to
   * `[this.chordSegment()]{@link Rac.Arc#chordSegment}`.
   *
-  * @param {number} count - Number of segments to divide `this` into
+  * @param {Number} count - Number of segments to divide `this` into
   * @returns {Rac.Segment[]}
   */
   divideToSegments(count) {
@@ -1217,7 +1217,7 @@ class Arc{
   *
   * When `count` is zero or lower, returns an empty `Composite`.
   *
-  * @param {number} count - Number of beziers to divide `this` into
+  * @param {Number} count - Number of beziers to divide `this` into
   * @returns {Rac.Composite}
   *
   * @see Rac.Bezier

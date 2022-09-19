@@ -40,7 +40,7 @@ module.exports = function attachRacAngle(rac) {
   *
   * @see Rac.Angle.fromRadians
   *
-  * @param {number} radians - The measure of the angle, in radians
+  * @param {Number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   *
   * @function fromRadians
@@ -58,7 +58,7 @@ module.exports = function attachRacAngle(rac) {
   *
   * @see Rac.Angle.fromDegrees
   *
-  * @param {number} degrees - The measure of the angle, in degrees
+  * @param {Number} degrees - The measure of the angle, in degrees
   * @returns {Rac.Angle}
   *
   * @function fromDegrees

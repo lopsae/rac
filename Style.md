@@ -95,7 +95,7 @@ Nullable params with default
 ----------------------------
 Parameters that can be st to null and have a default value.
 ```
-@param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new `Arc`; when ommited or set to `null`, `this.angle` is used instead
+@param {?Rac.Angle|Number} [endAngle=null] - The end `Angle` of the new `Arc`; when ommited or set to `null`, `this.angle` is used instead
 ```
 // MAICTODO: correct in ray to have example used
 

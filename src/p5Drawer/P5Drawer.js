@@ -43,9 +43,9 @@ class P5Drawer {
     *
     * @property {String} font='monospace'
     *   Font to use when drawing with `debug()`
-    * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    * @property {Number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
     *   Font size to use when drawing with `debug()`
-    * @property {number} fixedDigits=2
+    * @property {Number} fixedDigits=2
     *   Number of decimal digits to print when drawing with `debug()`
     *
     * @type {Object}
@@ -61,14 +61,14 @@ class P5Drawer {
 
     /**
     * Radius of point markers for debug drawing.
-    * @type {number}
+    * @type {Number}
     * @default 22
     */
     this.debugPointRadius = 4;
 
     /**
     * Radius of the main visual elements for debug drawing.
-    * @type {number}
+    * @type {Number}
     * @default 22
     */
     this.debugMarkerRadius = 22;
@@ -77,7 +77,7 @@ class P5Drawer {
     * Factor applied to stroke weight setting. Stroke weight is set to
     * `stroke.weight * strokeWeightFactor` when applicable.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.strokeWeightFactor = 1;

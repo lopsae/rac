@@ -31,7 +31,7 @@ class Stroke {
   * Creates a new `Stroke` instance.
   *
   * @param {Rac} rac -  Instance to use for drawing and creating other objects
-  * @param {?number} weight - The weight of the stroke, or `null` to skip weight
+  * @param {?Number} weight - The weight of the stroke, or `null` to skip weight
   * @param {?Rac.Color} [color=null] - A `Color` for the stroke, or `null`
   *   to skip color
   */
@@ -86,7 +86,7 @@ class Stroke {
   /**
   * Returns a new `Stroke` with `weight` set to `newWeight`.
   *
-  * @param {?number} newWeight - The weight of the stroke, or `null` to skip
+  * @param {?Number} newWeight - The weight of the stroke, or `null` to skip
   *   weight
   * @returns {Rac.Stroke}
   */
@@ -102,7 +102,7 @@ class Stroke {
   * When `this.color` is set to `null`, returns a new `Stroke` that is a
   * copy of `this`.
   *
-  * @param {number} newAlpha - The alpha channel of the `color` of the new
+  * @param {Number} newAlpha - The alpha channel of the `color` of the new
   *   `Stroke`
   * @returns {Rac.Stroke}
   */

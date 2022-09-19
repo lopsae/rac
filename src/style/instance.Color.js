@@ -17,10 +17,10 @@ module.exports = function attachRacColor(rac) {
   /**
   * Returns a new `Color` with each channel received in the *[0,255]* range.
   *
-  * @param {number} r - The red channel value, in the *[0,255]* range
-  * @param {number} g - The green channel value, in the *[0,255]* range
-  * @param {number} b - The blue channel value, in the *[0,255]* range
-  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
+  * @param {Number} r - The red channel value, in the *[0,255]* range
+  * @param {Number} g - The green channel value, in the *[0,255]* range
+  * @param {Number} b - The blue channel value, in the *[0,255]* range
+  * @param {Number} [a=255] - The alpha channel value, in the *[0,255]* range
   *
   * @returns {Rac.Color}
   *
