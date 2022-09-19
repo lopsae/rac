@@ -131,7 +131,7 @@ class Controller {
     * This property is a shared configuration. The behaviour is implemented
     * independently by each control constructor.
     *
-    * @type {boolean}
+    * @type {Boolean}
     * @default true
     */
     this.autoAddControls = true;

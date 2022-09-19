@@ -105,7 +105,7 @@ class Text {
   * The `format` objects are ignored in this comparison.
   *
   * @param {Rac.Text} otherText - A `Text` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Point#equals
   */
   equals(otherText) {

@@ -200,7 +200,7 @@ class Control {
   /**
   * Returns `true` when this control is the currently selected control.
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   isSelected() {
     if (this.rac.controller.selection === null) {

@@ -220,7 +220,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Rac.Angle|Number} start - The start of the arc
   * @param {?Rac.Angle|Number} [end=null] - The end of the arc; when
   *   ommited or set to `null`, `start` is used instead
-  * @param {boolean} [clockwise=true] The orientation of the arc
+  * @param {Boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
   *

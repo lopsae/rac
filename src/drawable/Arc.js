@@ -24,7 +24,7 @@ class Arc{
   * @param {Number} radius - The radius of the arc
   * @param {Rac.Angle} start - An `Angle` where the arc starts
   * @param {Rac.Angle} end - Ang `Angle` where the arc ends
-  * @param {boolean} clockwise - The orientation of the arc
+  * @param {Boolean} clockwise - The orientation of the arc
   */
   constructor(rac,
     center, radius,
@@ -83,7 +83,7 @@ class Arc{
 
     /**
     * The orientiation of the arc.
-    * @type {boolean}
+    * @type {Boolean}
     */
     this.clockwise = clockwise;
   }
@@ -115,7 +115,7 @@ class Arc{
   * Arcs' `radius` are compared using `{@link Rac#equals}`.
   *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Point#equals
   * @see Rac.Angle#equals
   * @see Rac#equals
@@ -233,7 +233,7 @@ class Arc{
   * Returns `true` if the arc is a complete circle, which is when `start`
   * and `end` are [equal angles]{@link Rac.Angle#equals}.
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Angle#equals
   */
   isCircle() {
@@ -312,7 +312,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {boolean} newClockwise - The orientation for the new `Arc`
+  * @param {Boolean} newClockwise - The orientation for the new `Arc`
   * @returns {Rac.Arc}
   */
   withClockwise(newClockwise) {
@@ -671,7 +671,7 @@ class Arc{
   * When the arc represents a complete circle, `true` is always returned.
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to evaluate
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   containsAngle(angle) {
     angle = Rac.Angle.from(this.rac, angle);
@@ -695,7 +695,7 @@ class Arc{
   * When the arc represents a complete circle, `true` is always returned.
   *
   * @param {Rac.Point} point - A `Point` to evaluate
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   containsProjectedPoint(point) {
     if (this.isCircle()) { return true; }
@@ -1105,9 +1105,9 @@ class Arc{
   * Both `this` and `otherArc` are considered complete circles.
   *
   * @param {Rac.Arc} otherArc - An `Arc` to calculate a tangent segment towards
-  * @param {boolean} startClockwise - The orientation of the new `Segment`
+  * @param {Boolean} startClockwise - The orientation of the new `Segment`
   * start point in relation to the _center axis_
-  * @param {boolean} endClockwise - The orientation of the new `Segment`
+  * @param {Boolean} endClockwise - The orientation of the new `Segment`
   * end point in relation to the _center axis_
   * @returns {?Rac.Segment}
   */

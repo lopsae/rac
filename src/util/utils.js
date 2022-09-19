@@ -16,7 +16,7 @@ const Rac = require('../Rac');
 * is thrown.
 *
 * @param {...(Object|primitive)} parameters
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertExists
 * @memberof utils#
@@ -45,7 +45,7 @@ exports.assertExists = function(...parameters) {
 * @param {function} type
 * @param {...Object} elements
 *
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertType
 * @memberof utils#
@@ -65,7 +65,7 @@ exports.assertType = function(type, ...elements) {
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
 * @param {...Number} elements
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertNumber
 * @memberof utils#
@@ -85,7 +85,7 @@ exports.assertNumber = function(...elements) {
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
 * @param {...String} elements
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertString
 * @memberof utils#
@@ -104,8 +104,8 @@ exports.assertString = function(...elements) {
 * Asserts that all `elements` are boolean primitives, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...boolean} elements
-* @returns {boolean}
+* @param {...Boolean} elements
+* @returns {Boolean}
 *
 * @function assertBoolean
 * @memberof utils#

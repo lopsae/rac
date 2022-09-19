@@ -52,7 +52,7 @@ class Bezier {
   * `false`.
   *
   * @param {Rac.Bezier} otherBezier - A `Bezier` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   *
   * @see Rac.Point#equals
   */

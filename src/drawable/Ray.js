@@ -68,7 +68,7 @@ class Ray {
   * When `otherRay` is any class other that `Rac.Ray`, returns `false`.
   *
   * @param {Rac.Ray} otherRay - A `Ray` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Point#equals
   * @see Rac.Angle#equals
   */
@@ -192,7 +192,7 @@ class Ray {
   * All other properties are copied from `this`.
   *
   * @param {Rac.Angle|Number} angle - The angle to be shifted by
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Ray}
   */
   withAngleShift(angle, clockwise = true) {
@@ -217,7 +217,7 @@ class Ray {
   * [perpendicular angle]{@link Rac.Angle#perpendicular} of
   * `angle` in the `clockwise` orientation.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Ray}
   * @see Rac.Angle#perpendicular
   */
@@ -262,7 +262,7 @@ class Ray {
   * `angle.perpendicular()`. All other properties are copied from `this`.
   *
   * @param {Number} distance - The distance to move `start` by
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Ray}
   */
   translatePerpendicular(distance, clockwise = true) {
@@ -444,7 +444,7 @@ class Ray {
   * counter-clockwise.
   *
   * @param {Rac.Point} point - A `Point` to measure the orientation to
-  * @returns {boolean}
+  * @returns {Boolean}
   *
   * @see Rac.Point#equals
   * @see Rac.Ray#inverse
@@ -536,7 +536,7 @@ class Ray {
   * @param {Number} radius - The radius of the new `Arc`
   * @param {?Rac.Angle|Number} [endAngle=null] - The end `Angle` of the new
   * `Arc`; when `null` or ommited, `this.angle` is used instead
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(radius, endAngle = null, clockwise = true) {
@@ -558,7 +558,7 @@ class Ray {
   * @param {Number} radius - The radius of the new `Arc`
   * @param {Rac.Angle|Number} angleDistance - The angle distance from
   * `this.start` to the new `Arc` end
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arcToAngleDistance(radius, angleDistance, clockwise = true) {

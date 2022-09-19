@@ -187,7 +187,7 @@ class TextFormat {
   * `false`.
   *
   * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Angle#equals
   */
   equals(otherFormat) {

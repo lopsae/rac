@@ -78,7 +78,7 @@ class Segment {
   * Segments' `length` are compared using `{@link Rac#equals}`.
   *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Ray#equals
   * @see Rac#equals
   */
@@ -219,7 +219,7 @@ class Segment {
   * All other properties are copied from `this`.
   *
   * @param {Rac.Angle|Number} angle - The angle to be shifted by
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Segment}
   */
   withAngleShift(angle, clockwise = true) {
@@ -290,7 +290,7 @@ class Segment {
   * The resulting `Segment` will have the same `startPoint()` and `length`
   * as `this`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   * @see Rac.Angle#perpendicular
   */
@@ -353,7 +353,7 @@ class Segment {
   * orientaton. All other properties are copied from `this`.
   *
   * @param {Number} distance - The distance to move the start point by
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   */
   translatePerpendicular(distance, clockwise = true) {
@@ -490,7 +490,7 @@ class Segment {
   *
   * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   * @see Rac.Segment#pointAtBisector
   * @see Rac.Angle#perpendicular
@@ -577,7 +577,7 @@ class Segment {
   *
   * @param {Rac.Angle|Number} angleDistance - An angle distance to apply to
   * the segment's angle inverse
-  * @param {boolean} [clockwise=true] - The orientation of the angle shift
+  * @param {Boolean} [clockwise=true] - The orientation of the angle shift
   * from `endPoint()`
   * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
@@ -607,7 +607,7 @@ class Segment {
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
   * `Segment` will be pointing towards `this.angle().perpendicular(false)`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the
+  * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
   * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
@@ -639,7 +639,7 @@ class Segment {
   *
   * @param {Number} hypotenuse - The length of the hypotenuse side of the
   * right triangle formed with `this` and the new `Segment`
-  * @param {boolean} [clockwise=true] - The orientation of the
+  * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
   * @returns {Rac.Segment}
   * @see Rac.Angle#inverse
@@ -670,7 +670,7 @@ class Segment {
   *
   * @param {?Rac.Angle} [endAngle=null] - An `Angle` to use as end for the
   * new `Arc`, or `null` to use `this.angle()`
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(endAngle = null, clockwise = true) {
@@ -694,7 +694,7 @@ class Segment {
   *
   * @param {Rac.Angle|Number} angleDistance - The angle distance from the
   * segment's start to the new `Arc` end
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arcWithAngleDistance(angleDistance, clockwise = true) {
