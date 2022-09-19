@@ -32,7 +32,7 @@ class Text {
   *   Instance to use for drawing and creating other objects
   * @param {Rac.Point} point
   *   The location for the drawn text
-  * @param {string} string
+  * @param {String} string
   *   The string to draw
   * @param {Rac.Text.Format} format
   *   The format for the drawn text
@@ -64,7 +64,7 @@ class Text {
 
     /**
     * The string to draw.
-    * @type {string}
+    * @type {String}
     */
     this.string = string;
 
@@ -85,7 +85,7 @@ class Text {
   *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.point.x, digits);
@@ -130,7 +130,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text` and
+  * @param {?String} newFont - The font name for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */

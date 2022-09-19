@@ -45,7 +45,7 @@ class StyleContainer {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @returns {string}
+  * @returns {String}
   */
   toString() {
     let contents = this.styles.join(' ');

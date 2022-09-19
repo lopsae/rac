@@ -84,7 +84,7 @@ exports.assertNumber = function(...elements) {
 * Asserts that all `elements` are string primitives, otherwise
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...string} elements
+* @param {...String} elements
 * @returns {boolean}
 *
 * @function assertString
@@ -125,7 +125,7 @@ exports.assertBoolean = function(...elements) {
 * Convenience function for debugging and errors.
 *
 * @param {object} obj - An `Object` to get its type name
-* @returns {string}
+* @returns {String}
 *
 * @function typeName
 * @memberof utils#
@@ -169,7 +169,7 @@ exports.addConstantTo = function(obj, propName, value) {
 * @param {?number} [digits] - The amount of digits to print, or `null` to
 * print all digits.
 *
-* @returns {string}
+* @returns {String}
 *
 * @function cutDigits
 * @memberof utils#

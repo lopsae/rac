@@ -62,7 +62,7 @@ class Color {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @returns {string}
+  * @returns {String}
   */
   toString() {
     return `Color(${this.r},${this.g},${this.b},${this.a})`;
@@ -96,7 +96,7 @@ class Color {
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {string} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The RGB hex triplet to interpret
   *
   * @returns {Rac.Color}
   */

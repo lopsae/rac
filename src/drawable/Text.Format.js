@@ -18,11 +18,11 @@ class TextFormat {
   * dermines the left-to-right alignment of the drawn `Text` in relation
   * to its [`text.point`]{@link Rac.Text#point}.
   *
-  * @property {string} left
+  * @property {String} left
   *   aligns `text.point` to the left edge of the drawn text
-  * @property {string} center
+  * @property {String} center
   *   aligns `text.point` to the center, from side to
-  * @property {string} right
+  * @property {String} right
   *   aligns `text.point` to the right edge of the drawn text
   *
   * @type {object}
@@ -39,13 +39,13 @@ class TextFormat {
   * dermines the top-to-bottom alignment of the drawn `Text` in relation
   * to its [`text.point`]{@link Rac.Text#point}.
   *
-  * @property {string} top
+  * @property {String} top
   *   aligns `text.point` to the top edge of the drawn text
-  * @property {string} center
+  * @property {String} center
   *   aligns `text.point` to the center, from top to bottom, of the drawn text
-  * @property {string} baseline
+  * @property {String} baseline
   *   aligns `text.point` to the baseline of the drawn text
-  * @property {string} bottom
+  * @property {String} bottom
   *   aligns `text.point` to the bottom edge of the drawn text
   *
   * @type {object}
@@ -64,15 +64,15 @@ class TextFormat {
   *
   * @param {Rac} rac
   *   Instance to use for drawing and creating other objects
-  * @param {string} hAlign
+  * @param {String} hAlign
   *   The horizontal alignment, left-to-right; one of the values from
   *   [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign
+  * @param {String} vAlign
   *   The vertical alignment, top-to-bottom; one of the values from
   *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null]
+  * @param {String} [font=null]
   *   The font name
   * @param {number} [size=null]
   *   The font size
@@ -106,7 +106,7 @@ class TextFormat {
     * Supported values are available through the
     * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
     *
-    * @type {string}
+    * @type {String}
     */
     this.hAlign = hAlign;
 
@@ -117,7 +117,7 @@ class TextFormat {
     * Supported values are available through the
     * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.
     *
-    * @type {string}
+    * @type {String}
     */
     this.vAlign = vAlign;
 
@@ -138,7 +138,7 @@ class TextFormat {
     * [`rac.textFormatDefaults.font`]{@link Rac#textFormatDefaults} is
     * used instead upon drawing.
     *
-    * @type {?string}
+    * @type {?String}
     */
     this.font = font;
 
@@ -165,7 +165,7 @@ class TextFormat {
   *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
@@ -218,7 +218,7 @@ class TextFormat {
 
   /**
   * Returns a new `Text.Format` with `font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text.Format`;
+  * @param {?String} newFont - The font name for the new `Text.Format`;
   *   can be set to `null`.
   * @returns {Rac.Text.Format}
   */

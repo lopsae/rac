@@ -51,7 +51,7 @@ class Ray {
   *
   * @param {number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.start.x, digits);

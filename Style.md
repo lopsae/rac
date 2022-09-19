@@ -88,7 +88,7 @@ Nullable params
 ---------------
 Parameters that can be set to null and dont have a default.
 ```
-@param {?string} newFont - The font name for the new `Text.Format`; can be set to `null`
+@param {?String} newFont - The font name for the new `Text.Format`; can be set to `null`
 ```
 
 Nullable params with default

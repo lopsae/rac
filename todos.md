@@ -13,7 +13,7 @@ For version change
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + BUG: whole circle control located at 0 shows incorrect arrows
 + Add `dated` along with version/build
-+ Docs: replace with {String} {Object} {Number} {Boolean} and {?X}
++ Docs: replace with {Object} {Number} {Boolean}, search for x}
 + Add better tutorial links in readmes!
 + Docs: update all Classes with instance mention in Point
 + Docs: update all rac.X functions with examples in rac.Point

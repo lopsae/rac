@@ -247,7 +247,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @param {number} x - The x coordinate location for the drawn text
   * @param {number} y - The y coordinate location for the drawn text
-  * @param {string} string - The string to draw
+  * @param {String} string - The string to draw
   * @param {Rac.Text.Format} format - The format for the drawn text
   *
   * @returns {Rac.Text}
@@ -269,13 +269,13 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
   *
-  * @param {string} hAlign - The horizontal alignment, left-to-right; one
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
   *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null] - The font name
+  * @param {String} [font=null] - The font name
   * @param {number} [size=null] - The font size
   *
   * @returns {Rac.Text.Format}

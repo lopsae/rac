@@ -41,7 +41,7 @@ class P5Drawer {
     /**
     * Settings used by the default implementation of `drawable.debug()`.
     *
-    * @property {string} font='monospace'
+    * @property {String} font='monospace'
     *   Font to use when drawing with `debug()`
     * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
     *   Font size to use when drawing with `debug()`

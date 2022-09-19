@@ -41,7 +41,7 @@ module.exports = function attachRacColor(rac) {
   *
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
-  * @param {string} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The RGB hex triplet to interpret
   * @returns {Rac.Color}
   */
   rac.Color.fromHex = function(hexString) {
