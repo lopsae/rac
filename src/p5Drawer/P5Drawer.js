@@ -24,7 +24,7 @@ class P5Drawer {
     * Style used for debug drawing, when `null` the style already applied
     * is used.
     *
-    * @type {object}
+    * @type {Object}
     * @default null
     */
     this.debugStyle = null;
@@ -33,7 +33,7 @@ class P5Drawer {
     * Style used for text for debug drawing, when `null` the style already
     * applied is used.
     *
-    * @type {object}
+    * @type {Object}
     * @default null
     */
     this.debugTextStyle = null;
@@ -48,7 +48,7 @@ class P5Drawer {
     * @property {number} fixedDigits=2
     *   Number of decimal digits to print when drawing with `debug()`
     *
-    * @type {object}
+    * @type {Object}
     */
     this.debugTextOptions = {
       font: 'monospace',

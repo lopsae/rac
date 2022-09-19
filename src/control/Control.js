@@ -240,7 +240,7 @@ class Control {
   * > implementation throws an error.
   *
   * @abstract
-  * @return {object}
+  * @return {Object}
   */
   affixAnchor() {
     throw Rac.Exception.abstractFunctionCalled(
@@ -283,7 +283,7 @@ class Control {
   * @abstract
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
-  * @param {object} fixedAnchor - Anchor produced when user interaction
+  * @param {Object} fixedAnchor - Anchor produced when user interaction
   *   started
   */
   updateWithPointer(pointerKnobCenter, fixedAnchor) {
@@ -301,7 +301,7 @@ class Control {
   *
   * @abstract
   * @param {Rac.Point} pointerCenter - The position of the user pointer
-  * @param {object} fixedAnchor - Anchor of the control produced when user
+  * @param {Object} fixedAnchor - Anchor of the control produced when user
   *   interaction started
   * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
   *   the offset from `pointerCenter` to the control knob when user

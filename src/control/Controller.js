@@ -41,7 +41,7 @@ class ControlSelection{
     * to interact with the selected control in a fixed location, even if
     * the control moves during the interaction.
     *
-    * @type {object}
+    * @type {Object}
     */
     this.fixedAnchor = control.affixAnchor();
 

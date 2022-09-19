@@ -25,7 +25,7 @@ class TextFormat {
   * @property {String} right
   *   aligns `text.point` to the right edge of the drawn text
   *
-  * @type {object}
+  * @type {Object}
   * @memberof Rac.Text.Format
   */
   static horizontalAlign = {
@@ -48,7 +48,7 @@ class TextFormat {
   * @property {String} bottom
   *   aligns `text.point` to the bottom edge of the drawn text
   *
-  * @type {object}
+  * @type {Object}
   * @memberof Rac.Text.Format
   */
   static verticalAlign = {

@@ -124,7 +124,7 @@ exports.assertBoolean = function(...elements) {
 * Returns the constructor name of `obj`, or its type name.
 * Convenience function for debugging and errors.
 *
-* @param {object} obj - An `Object` to get its type name
+* @param {Object} obj - An `Object` to get its type name
 * @returns {String}
 *
 * @function typeName
