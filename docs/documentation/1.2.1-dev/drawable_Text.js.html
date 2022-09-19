@@ -78,7 +78,7 @@ class Text {
   *   Instance to use for drawing and creating other objects
   * @param {Rac.Point} point
   *   The location for the drawn text
-  * @param {string} string
+  * @param {String} string
   *   The string to draw
   * @param {Rac.Text.Format} format
   *   The format for the drawn text
@@ -110,7 +110,7 @@ class Text {
 
     /**
     * The string to draw.
-    * @type {string}
+    * @type {String}
     */
     this.string = string;
 
@@ -129,9 +129,9 @@ class Text {
   * // returns 'Text((55,77) "sphinx of black quartz")'
   * rac.Text(55, 77, 'sphinx of black quartz').toString()
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.point.x, digits);
@@ -151,7 +151,7 @@ class Text {
   * The `format` objects are ignored in this comparison.
   *
   * @param {Rac.Text} otherText - A `Text` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Point#equals
   */
   equals(otherText) {
@@ -164,7 +164,7 @@ class Text {
   /**
   * Returns a new `Text` and `Format` with `format.angle` set to the
   * `Angle` derived from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text` and
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text` and
   *   `Text.Format`
   * @returns {Rac.Text}
   */
@@ -176,7 +176,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text` and
+  * @param {?String} newFont - The font name for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */
@@ -188,7 +188,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text` and
+  * @param {?Number} newSize - The font size for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */

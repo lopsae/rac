@@ -72,9 +72,9 @@ class Bezier {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const startXStr       = utils.cutDigits(this.start.x,       digits);
@@ -98,7 +98,7 @@ class Bezier {
   * `false`.
   *
   * @param {Rac.Bezier} otherBezier - A `Bezier` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   *
   * @see Rac.Point#equals
   */

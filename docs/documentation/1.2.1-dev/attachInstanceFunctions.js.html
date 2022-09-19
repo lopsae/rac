@@ -82,10 +82,10 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Color}`.
   *
-  * @param {number} r
-  * @param {number} g
-  * @param {number} b
-  * @param {number} [a=1]
+  * @param {Number} r
+  * @param {Number} g
+  * @param {Number} b
+  * @param {Number} [a=1]
   *
   * @returns {Rac.Color}
   *
@@ -105,7 +105,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Stroke}`.
   *
-  * @param {?number} weight
+  * @param {?Number} weight
   * @param {Rac.Color} [color=null]
   *
   * @returns {Rac.Stroke}
@@ -166,7 +166,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Angle}`.
   *
-  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
+  * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
   *
   * @see instance.Angle
@@ -190,8 +190,8 @@ module.exports = function attachInstanceFunctions(rac) {
   * let point = rac.Point(55, 77)
   * point.rac === rac // true
   *
-  * @param {number} x - The x coordinate
-  * @param {number} y - The y coordinate
+  * @param {Number} x - The x coordinate
+  * @param {Number} y - The y coordinate
   *
   * @returns {Rac.Point}
   *
@@ -211,9 +211,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Ray}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
+  * @param {Number} x
+  * @param {Number} y
+  * @param {Rac.Angle|Number} angle
   *
   * @returns {Rac.Ray}
   *
@@ -235,10 +235,10 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Segment}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
-  * @param {number} length
+  * @param {Number} x
+  * @param {Number} y
+  * @param {Rac.Angle|Number} angle
+  * @param {Number} length
   *
   * @returns {Rac.Segment}
   *
@@ -261,12 +261,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
   *
-  * @param {number} x - The _x_ coordinate for the arc center
-  * @param {number} y - The _y_ coordinate for the arc center
-  * @param {Rac.Angle|number} start - The start of the arc
-  * @param {?Rac.Angle|number} [end=null] - The end of the arc; when
+  * @param {Number} x - The _x_ coordinate for the arc center
+  * @param {Number} y - The _y_ coordinate for the arc center
+  * @param {Rac.Angle|Number} start - The start of the arc
+  * @param {?Rac.Angle|Number} [end=null] - The end of the arc; when
   *   ommited or set to `null`, `start` is used instead
-  * @param {boolean} [clockwise=true] The orientation of the arc
+  * @param {Boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
   *
@@ -291,9 +291,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text}`.
   *
-  * @param {number} x - The x coordinate location for the drawn text
-  * @param {number} y - The y coordinate location for the drawn text
-  * @param {string} string - The string to draw
+  * @param {Number} x - The x coordinate location for the drawn text
+  * @param {Number} y - The y coordinate location for the drawn text
+  * @param {String} string - The string to draw
   * @param {Rac.Text.Format} format - The format for the drawn text
   *
   * @returns {Rac.Text}
@@ -315,14 +315,14 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
   *
-  * @param {string} hAlign - The horizontal alignment, left-to-right; one
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
   *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null] - The font name
-  * @param {number} [size=null] - The font size
+  * @param {String} [font=null] - The font name
+  * @param {Number} [size=null] - The font size
   *
   * @returns {Rac.Text.Format}
   *
@@ -366,14 +366,14 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Bezier}`.
   *
-  * @param {number} startX
-  * @param {number} startY
-  * @param {number} startAnchorX
-  * @param {number} startAnchorY
-  * @param {number} endAnchorX
-  * @param {number} endAnchorY
-  * @param {number} endX
-  * @param {number} endY
+  * @param {Number} startX
+  * @param {Number} startY
+  * @param {Number} startAnchorX
+  * @param {Number} startAnchorY
+  * @param {Number} endAnchorX
+  * @param {Number} endAnchorY
+  * @param {Number} endX
+  * @param {Number} endY
   *
   * @returns {Rac.Bezier}
   *
