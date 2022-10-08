@@ -101,19 +101,15 @@ module.exports = function(grunt) {
 
   // Stores in this task config:
   // + in `value` the last git commit short-hash
-  // + in `parentHash` the parent-of-last git commit short-hash
   grunt.config.set('exec.shortHash', {
-    cmd: 'git --no-pager log --max-count=2 --format="%h"',
+    cmd: 'git --no-pager log --max-count=1 --format="%h"',
     stdout: false,
     callback: function(error, stdout, stderr) {
       if (error !== null) return;
 
-      let hashes = stdout.trim().split('\n');
-      let shortHash = hashes[0];
-      let parentHash = hashes[1];
+      let shortHash = stdout.trim();
       grunt.config('exec.shortHash.value', shortHash);
-      grunt.config('exec.shortHash.parentHash', parentHash);
-      grunt.log.writeln(`Git short hashes - value:${shortHash} parent:${parentHash}`);
+      grunt.log.writeln(`Git short hashe: ${shortHash}`);
     }
   }); // exec.shortHash
 
@@ -239,13 +235,11 @@ module.exports = function(grunt) {
     grunt.config.requires(
       'pkg.version',
       'exec.shortHash.value',
-      'exec.shortHash.parentHash',
       'exec.commitCount.value',
       'exec.statusCount.value');
 
     const pkgVersion  = grunt.config('pkg.version');
     const shortHash   = grunt.config('exec.shortHash.value');
-    const parentHash  = grunt.config('exec.shortHash.parentHash');
     const commitCount = grunt.config('exec.commitCount.value');
     const statusCount = grunt.config('exec.statusCount.value');
     const clean = target === 'clean';
