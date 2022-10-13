@@ -260,6 +260,7 @@ module.exports = function(grunt) {
       buildString =`localBuild-${localTime}-${commitCount}-${shortHash}`;
     }
 
+    // RELEASE-TODO: implement only-clean, or must-be-clean
     const makeType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
 
     grunt.config('makeBuildString.buildString', buildString);
