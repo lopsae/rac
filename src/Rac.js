@@ -50,6 +50,18 @@ class Rac {
 
 
     /**
+    * Date of the build of the instance, same as `{@link Rac.dated}`.
+    *
+    * @example
+    * rac.dated // returns '2022-10-13T23:06:12.500Z'
+    *
+    * @constant {String} dated
+    * @memberof Rac#
+    */
+    utils.addConstantTo(this, 'dated', dated);
+
+
+    /**
     * Value used to determine equality between two numeric values. Used for
     * values that tend to be integers, like screen coordinates. Used by
     * `{@link Rac#equals}`.
@@ -324,10 +336,25 @@ utils.addConstantTo(Rac, 'version', version);
 utils.addConstantTo(Rac, 'build', build);
 
 
+
+/**
+* Date of the build of the class. Intended for debugging purpouses.
+*
+* Contains a ISO-8601 standard date when the build was done.
+*
+* @example
+* Rac.dated // returns '2022-10-13T23:06:12.500Z'
+*
+* @constant {String} dated
+* @memberof Rac
+*/
+utils.addConstantTo(Rac, 'dated', dated);
+
+
 /**
 * Tau, equal to `Math.PI * 2`.
 *
-* [Tau Manifesto](https://tauday.com/tau-manifesto).
+* See [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
 * @constant {Number} TAU
 * @memberof Rac

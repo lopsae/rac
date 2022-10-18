@@ -260,7 +260,7 @@ module.exports = function(grunt) {
   // Makes and stores the build date into the config value
   // `makeDatedString.datedString`.
   //
-  // The date string uses the ISO_8601 standart.
+  // The date string uses the ISO-8601 standard.
   //
   // E.g. `2022-10-13T23:06:12.500Z`
   grunt.registerTask('makeDatedString', function() {
