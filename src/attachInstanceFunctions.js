@@ -36,6 +36,11 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Color}`.
   *
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * color.rac === rac // true
+  *
   * @param {Number} r
   * @param {Number} g
   * @param {Number} b
@@ -59,6 +64,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Stroke}`.
   *
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let stroke = rac.Stroke(2, color)
+  * stroke.rac === rac // true
+  *
   * @param {?Number} weight
   * @param {Rac.Color} [color=null]
   *
@@ -80,6 +91,12 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Fill}`.
   *
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let fill = rac.Fill(color)
+  * fill.rac === rac // true
+  *
   * @param {Rac.Color} [color=null]
   * @returns {Rac.Fill}
   *
@@ -98,6 +115,12 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Style}`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let style = rac.Style(rac.Stroke(2, color), rac.Fill(color))
+  * style.rac === rac // true
   *
   * @param {Rac.Stroke} [stroke=null]
   * @param {Rac.Fill} [fill=null]
@@ -119,6 +142,11 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Angle}`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let angle = rac.Angle(1/2)
+  * angle.rac === rac // true
   *
   * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
@@ -165,6 +193,11 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Ray}`.
   *
+  * @example
+  * let rac = new Rac()
+  * let ray = rac.Ray(55, 77, 1/2)
+  * ray.rac === rac // true
+  *
   * @param {Number} x
   * @param {Number} y
   * @param {Rac.Angle|Number} angle
@@ -188,6 +221,11 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Segment}`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let segment = rac.Segment(55, 77, 1/2, 100)
+  * segment.rac === rac // true
   *
   * @param {Number} x
   * @param {Number} y
@@ -214,6 +252,11 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let arc = rac.Arc(55, 77, 1/4)
+  * arc.rac === rac // true
   *
   * @param {Number} x - The _x_ coordinate for the arc center
   * @param {Number} y - The _y_ coordinate for the arc center
@@ -245,10 +288,16 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text}`.
   *
+  * @example
+  * let rac = new Rac()
+  * let text = rac.Text(55, 77, "black quartz")
+  * text.rac === rac // true
+  *
   * @param {Number} x - The x coordinate location for the drawn text
   * @param {Number} y - The y coordinate location for the drawn text
   * @param {String} string - The string to draw
-  * @param {Rac.Text.Format} format - The format for the drawn text
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format for the drawn text
   *
   * @returns {Rac.Text}
   *
@@ -268,6 +317,11 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let format = rac.Text.Format('right', 'bottom', 1/8)
+  * format.rac === rac // true
   *
   * @param {String} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
