@@ -290,7 +290,8 @@ module.exports = function(grunt) {
     const templateContents = grunt.file.read('template/version.js.template');
     const processedTemplate = grunt.template.process(templateContents, {data: {
       versionString: versionString,
-      buildString: buildString
+      buildString:   buildString,
+      datedString:   datedString
     }});
 
     const outputFile = 'built/version.js';

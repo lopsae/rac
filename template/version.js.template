@@ -3,6 +3,7 @@
 // Ruler and Compass - version and build
 module.exports = {
 	version: '<%= versionString %>',
-	build: '<%= buildString %>'
+	build:   '<%= buildString %>',
+	dated:   '<%= datedString %>'
 };
 
