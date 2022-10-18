@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     browserify: {
-      dev: {
+      dev_dirty: {
         src: 'src/main.js',
         dest: 'dist/rac.dev.js',
         options: {
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
     watch: {
       serve_again: {
         files: ['src/**/*.js'],
-        tasks: ['makeVersionFile', 'browserify:dev']
+        tasks: ['makeVersionFile:local', 'browserify:dev_dirty']
       }
     }, // watch
 
@@ -221,17 +221,20 @@ module.exports = function(grunt) {
   // Makes and stores the full version into the config value
   // `makeBuildString.buildString`.
   //
-  // When there are NO changes in the working tree the build is setup as
-  // *clean*:
-  // `{commitCount}-{shortHash}`
-  //
-  // When there ARE changes in the working tree the build is setup as
-  // *dirty*:
-  // `localBuild-{localTime}-{commitCount}-{shortHash}`
-  //
-  // When `target == "clean"` the build is setup as *forced-clean*:
-  // `{commitCount}-{shortHash}`
+  // Available targets:
+  // + `local` - Makes a version value using the current local files, even
+  //   if modifications are present in the workspace. The value is always
+  //   prefixed with `localBuild-`.
+  // + `production` - Makes a production version value, the workspace MUST
+  //   be clean of any modifications.
   grunt.registerTask('makeBuildString', function(target) {
+    let validTargets = ['local', 'production'];
+    if (!validTargets.includes(target)) {
+      grunt.fatal(`Unsupported target: ${target}`)
+      return
+    }
+    let isProduction = target === 'production';
+
     grunt.config.requires(
       'exec.shortHash.value',
       'exec.commitCount.value',
@@ -240,20 +243,21 @@ module.exports = function(grunt) {
     const shortHash   = grunt.config('exec.shortHash.value');
     const commitCount = grunt.config('exec.commitCount.value');
     const statusCount = grunt.config('exec.statusCount.value');
-    const clean = target === 'clean';
+
+    if (isProduction && statusCount != 0) {
+      grunt.fatal(`Production build string must have a clean workspace - statusCount:${statusCount}`)
+      return
+    }
 
     let buildString;
-    if (statusCount == 0 || clean) {
+    if (isProduction) {
       buildString =`${commitCount}-${shortHash}`;
     } else {
       buildString =`localBuild-${commitCount}-${shortHash}`;
     }
 
-    // RELEASE-TODO: implement only-clean, or must-be-clean
-    const makeType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
-
     grunt.config('makeBuildString.buildString', buildString);
-    grunt.log.writeln(`Stored ${makeType.green.bold} buildString: ${buildString.green}`);
+    grunt.log.writeln(`Stored ${target.green.bold} buildString: ${buildString.green}`);
   });
 
 
@@ -297,20 +301,28 @@ module.exports = function(grunt) {
     const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
 
-    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green}`);
+    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green} ${datedString.green}`);
   });
 
 
   // Queues all the tasks required to make the version file.
+  // Available targets:
+  // + `local` - Makes a version using the current local files, even if
+  //   modifications are present in the workspace.
+  // + `production` - Makes a production version file, the workspace MUST
+  //   be clean of any modifications.
   grunt.registerTask('makeVersionFile', function(target) {
-    let makeBuildStringTask = target === undefined
-      ? 'makeBuildString'
-      : `makeBuildString:${target}`;
+    let validTargets = ['local', 'production'];
+    if (!validTargets.includes(target)) {
+      grunt.fatal(`Unsupported target: ${target}`)
+      return
+    }
+
     grunt.task.run(
       'exec:shortHash',
       'exec:commitCount',
       'exec:statusCount',
-      makeBuildStringTask,
+      `makeBuildString:${target}`,
       'makeDatedString',
       'saveVersionFile');
     if (target === undefined) {
@@ -335,8 +347,8 @@ module.exports = function(grunt) {
 
   // Builds a dev bundle, serves it, and watches for source changes
   grunt.registerTask('serve', [
-    'makeVersionFile',
-    'browserify:dev',
+    'makeVersionFile:local',
+    'browserify:dev_dirty',
     'connect:server',
     'watch:serve_again']);
 
@@ -344,7 +356,7 @@ module.exports = function(grunt) {
   // Builds a dev/main/mini bundle with a clean version, serves it for
   // confirmation.
   grunt.registerTask('dist', [
-    'makeVersionFile:clean',
+    'makeVersionFile:production',
     'browserify:dev_clean',
     'browserify:main',
     'uglify',
