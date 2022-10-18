@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
 
   const bannerHead =
-    '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %>'
+    '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %> <%= makeDatedString.datedString %>'
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         mangle: false,
-        banner: '// RAC - ruler-and-compass - minified - <%= pkg.version %> <%= makeBuildString.buildString %>'
+        banner: '// RAC - ruler-and-compass - minified - <%= pkg.version %> <%= makeBuildString.buildString %> <%= makeDatedString.datedString %>'
       },
       main: {
         files: {
@@ -233,45 +233,44 @@ module.exports = function(grunt) {
   // `{commitCount}-{shortHash}`
   grunt.registerTask('makeBuildString', function(target) {
     grunt.config.requires(
-      'pkg.version',
       'exec.shortHash.value',
       'exec.commitCount.value',
       'exec.statusCount.value');
 
-    const pkgVersion  = grunt.config('pkg.version');
     const shortHash   = grunt.config('exec.shortHash.value');
     const commitCount = grunt.config('exec.commitCount.value');
     const statusCount = grunt.config('exec.statusCount.value');
     const clean = target === 'clean';
 
-    const versionString = '' + pkgVersion;
-
     let buildString;
-    let localTime = null;
     if (statusCount == 0 || clean) {
       buildString =`${commitCount}-${shortHash}`;
     } else {
-      const now = new Date();
-      let minutes = now.getMinutes();
-      let seconds = now.getSeconds();
-      minutes = minutes >= 10 ? minutes : `0${minutes}`;
-      seconds = seconds >= 10 ? seconds : `0${seconds}`;
-      localTime = `${now.getHours()}:${minutes}:${seconds}`;
-      buildString =`localBuild-${localTime}-${commitCount}-${shortHash}`;
+      buildString =`localBuild-${commitCount}-${shortHash}`;
     }
 
     // RELEASE-TODO: implement only-clean, or must-be-clean
     const makeType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
 
     grunt.config('makeBuildString.buildString', buildString);
-
-    grunt.log.writeln(`Stored ${makeType.green.bold} buildString:`);
-    if (localTime !== null) {
-    grunt.log.writeln(`Built at:    ${localTime.green.bold}`);
-    }
-    grunt.log.writeln(`buildString: ${buildString.green}`);
+    grunt.log.writeln(`Stored ${makeType.green.bold} buildString: ${buildString.green}`);
   });
 
+
+  // Makes and stores the build date into the config value
+  // `makeDatedString.datedString`.
+  //
+  // The date string uses the ISO_8601 standart.
+  //
+  // E.g. `2022-10-13T23:06:12.500Z`
+  grunt.registerTask('makeDatedString', function() {
+    grunt.config.requires();
+
+    const now = new Date();
+    const datedString = now.toISOString();
+    grunt.config('makeDatedString.datedString', datedString);
+    grunt.log.writeln(`Stored datedString: ${datedString.green.bold}`);
+  });
 
 
   // Saves the version file with the current version and build, saved into
@@ -279,10 +278,12 @@ module.exports = function(grunt) {
   grunt.registerTask('saveVersionFile', function() {
     grunt.config.requires(
       'pkg.version',
-      'makeBuildString.buildString');
+      'makeBuildString.buildString',
+      'makeDatedString.datedString');
 
     const pkgVersion  = grunt.config('pkg.version');
     const buildString = grunt.config('makeBuildString.buildString');
+    const datedString = grunt.config('makeDatedString.datedString');
 
     const versionString = '' + pkgVersion;
 
@@ -309,6 +310,7 @@ module.exports = function(grunt) {
       'exec:commitCount',
       'exec:statusCount',
       makeBuildStringTask,
+      'makeDatedString',
       'saveVersionFile');
     if (target === undefined) {
       grunt.log.writeln(`Queued all tasks to make version file`);
