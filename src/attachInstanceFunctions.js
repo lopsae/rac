@@ -318,6 +318,9 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
   *
+  * [`rac.Text.Format`]{@link instance.Text#Format} is an alias of this
+  * function.
+  *
   * @example
   * let rac = new Rac()
   * let format = rac.Text.Format('right', 'bottom', 1/8)
@@ -336,10 +339,10 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @see instance.Text.Format
   *
-  * @function Format
-  * @memberof instance.Text#
+  * @function TextFormat
+  * @memberof Rac#
   */
-  rac.Text.Format = function makeTextFormat(
+  rac.TextFormat = function makeTextFormat(
     hAlign,
     vAlign,
     angle = rac.Angle.zero,
@@ -347,7 +350,7 @@ module.exports = function attachInstanceFunctions(rac) {
     size = null)
   {
     // This functions uses `rac` instead of `this`, since `this` points to
-    // `rac.Text` here and to `rac` in the `TextFormat` alias
+    // `rac` here and to `rac.Text` in the `Text.Format` alias
     angle = Rac.Angle.from(rac, angle);
     return new Rac.Text.Format(
       rac,
@@ -357,15 +360,21 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Alias of [`rac.Text.Format`]{@link instance.Text#Format}.
+  * Alias of [`rac.TextFormat`]{@link Rac#TextFormat}.
   *
-  * To display in documentation along the rest of
-  * [utility instance functions]{@link instance}.
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
+  *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
+  *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
+  * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The angle towards which the text is drawn
+  * @param {String} [font=null] - The font name
+  * @param {Number} [size=null] - The font size
   *
-  * @function TextFormat
-  * @memberof Rac#
+  * @function Format
+  * @memberof instance.Text#
   */
-  rac.TextFormat = rac.Text.Format;
+  rac.Text.Format = rac.TextFormat;
 
 
   /**
