@@ -31,7 +31,7 @@ module.exports = function attachRacPoint(rac) {
   /**
   * A `Point` at `(0, 0)`.
   *
-  * Equal to `{@link instance.Point#zero}`.
+  * Equal to [`rac.Point.zero`]{@link instance.Point#zero}.
   *
   * @name origin
   * @type {Rac.Point}
