@@ -195,7 +195,7 @@ module.exports = function attachInstanceFunctions(rac) {
 
   /**
   * Convenience function to create a new `Ray` with the given primitive
-  * parameters. The created `ray.rac` is setup with `this`.
+  * values. The created `ray.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Ray}`.
@@ -225,7 +225,7 @@ module.exports = function attachInstanceFunctions(rac) {
 
   /**
   * Convenience function to create a new `Segment` with the given primitive
-  * parameters. The created `segment.rac` is setup with `this`.
+  * values. The created `segment.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Segment}`.
@@ -257,7 +257,7 @@ module.exports = function attachInstanceFunctions(rac) {
 
   /**
   * Convenience function to create a new `Arc` with the given primitive
-  * parameters. The created `arc.rac` is setup with `this`.
+  * values. The created `arc.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
