@@ -31,7 +31,8 @@ const Rac = require('./Rac');
 module.exports = function attachInstanceFunctions(rac) {
 
   /**
-  * Convenience function that creates a new `Color` setup with `this`.
+  * Convenience function to create a new `Color`. The created `color.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Color}`.
@@ -59,7 +60,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Stroke` setup with `this`.
+  * Convenience function to create a new `Stroke`. The created `stroke.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Stroke}`.
@@ -86,7 +88,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Fill` setup with `this`.
+  * Convenience function to create a new `Fill`. The created `fill.rac` is
+  * setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Fill}`.
@@ -111,7 +114,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Style` setup with `this`.
+  * Convenience function to create a new `Style`. The created `style.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Style}`.
@@ -138,7 +142,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Angle` setup with `this`.
+  * Convenience function to create a new `Angle`. The created `angle.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Angle}`.
@@ -162,7 +167,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Point` setup with `this`.
+  * Convenience function to create a new `Point`. The created `point.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Point}`.
@@ -188,7 +194,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Ray` setup with `this`.
+  * Convenience function to create a new `Ray` with the given primitive
+  * parameters. The created `ray.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Ray}`.
@@ -217,7 +224,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Segment` setup with `this`.
+  * Convenience function to create a new `Segment` with the given primitive
+  * parameters. The created `segment.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Segment}`.
@@ -248,7 +256,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Arc` setup with `this`.
+  * Convenience function to create a new `Arc` with the given primitive
+  * parameters. The created `arc.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
@@ -283,7 +292,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Text` setup with `this`.
+  * Convenience function to create a new `Text`. The created `text.rac` is
+  * setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text}`.
@@ -313,7 +323,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Text.Format` setup with `this`.
+  * Convenience function to create a new `Text.Format`. The created
+  * `format.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
@@ -360,7 +371,8 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Alias of [`rac.TextFormat`]{@link Rac#TextFormat}.
+  * Convenience function to create a new `Text.Format`. Alias of
+  * [`rac.TextFormat`]{@link Rac#TextFormat}.
   *
   * @param {String} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
