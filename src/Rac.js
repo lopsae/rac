@@ -340,7 +340,8 @@ utils.addConstantTo(Rac, 'build', build);
 /**
 * Date of the build of the class. Intended for debugging purpouses.
 *
-* Contains a ISO-8601 standard date when the build was done.
+* Contains a [ISO-8601 standard](https://en.wikipedia.org/wiki/ISO_8601)
+* date when the build was done.
 *
 * @example
 * Rac.dated // returns '2022-10-13T23:06:12.500Z'
