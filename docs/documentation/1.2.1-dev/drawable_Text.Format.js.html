@@ -75,9 +75,9 @@ class TextFormat {
   * @memberof Rac.Text.Format
   */
   static horizontalAlign = {
-    left: "left",
+    left:   "left",
     center: "horizontalCenter",
-    right: "right"
+    right:  "right"
   };
 
   /**
@@ -98,10 +98,10 @@ class TextFormat {
   * @memberof Rac.Text.Format
   */
   static verticalAlign = {
-    top: "top",
-    center: "verticalCenter",
+    top:      "top",
+    center:   "verticalCenter",
     baseline: "baseline",
-    bottom: "bottom"
+    bottom:   "bottom"
   };
 
 
@@ -240,9 +240,9 @@ class TextFormat {
     return otherFormat instanceof TextFormat
       &amp;&amp; this.hAlign === otherFormat.hAlign
       &amp;&amp; this.vAlign === otherFormat.vAlign
-      &amp;&amp; this.angle.equals(otherFormat.angle)
-      &amp;&amp; this.font === otherFormat.font
-      &amp;&amp; this.size === otherFormat.size;
+      &amp;&amp; this.font   === otherFormat.font
+      &amp;&amp; this.size   === otherFormat.size
+      &amp;&amp; this.angle.equals(otherFormat.angle);
   }
 
 
