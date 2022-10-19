@@ -62,9 +62,20 @@ const utils = require('../util/utils');
 * method performs this check.
 *
 * Instances of `Rac` contain a convenience
-* [`rac.Point` function]{@link Rac#Point} to easily create `Point` objects.
-* This function also contains ready-made convenience objects listed in
+* [`rac.Point` function]{@link Rac#Point} to create `Point` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Point.zero`]{@link instance.Point#zero}, listed in
 * [`instance.Point`]{@link instance.Point}.
+*
+* @example
+* let rac = new Rac()
+* // point creation
+* let point = new Point(rac, 55, 77)
+* // or
+* let otherPoint = rac.Point(55, 77)
+*
+* @see [`rac.Point`]{@link Rac#Point}
+* @see [`instance.Point`]{@link instance.Point}
 *
 * @alias Rac.Point
 */
