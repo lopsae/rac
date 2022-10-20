@@ -53,6 +53,7 @@
 <article>
     <div class="container-overview">
     
+        
         <div class="header-details-mini">
         <span><a href="Rac.RayControl.html">#</a></span>
         
@@ -72,6 +73,46 @@ segment in the <code>anchor</code> ray which is available for user interaction.
 Within this segment the user can slide the control knob to select a
 value.</p></div>
         
+
+        
+
+        
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
 
         
         
@@ -108,41 +149,6 @@ interactive <code>length</code>.</p>
 
 
 
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
 
 
 
@@ -277,7 +283,7 @@ user interaction</p>
 
 
 
-</div>
+
 
     
     </div>
@@ -1109,6 +1115,8 @@ object.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1176,7 +1184,11 @@ object.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1211,6 +1223,8 @@ to be persisted during user interaction.</p>
 
 
 
+
+    
 
 
 
@@ -1279,7 +1293,11 @@ to be persisted during user interaction.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1314,6 +1332,8 @@ knob.</p>
 
 
 
+
+    
 
 
 
@@ -1377,7 +1397,11 @@ knob.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1410,6 +1434,8 @@ knob.</p>
 
 
 
+
+    
 
 
 
@@ -1478,7 +1504,11 @@ knob.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1511,6 +1541,8 @@ knob.</p>
 
 
 
+
+    
 
 
 
@@ -1551,6 +1583,7 @@ knob.</p>
 
     
 </dl>
+
 
 
 
@@ -1686,7 +1719,10 @@ interaction started.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1719,6 +1755,8 @@ interaction started.</p>
 
 
 
+
+    
 
 
 
@@ -1787,7 +1825,11 @@ interaction started.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1821,6 +1863,8 @@ interaction started.</p>
 
 
 
+
+    
 
 
 
@@ -1889,7 +1933,11 @@ interaction started.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1929,6 +1977,8 @@ interaction started.</p>
 
 
 
+
+    
 
 
 
@@ -1997,9 +2047,12 @@ interaction started.</p>
 
 
 
-<div class="section-examples">
-<h5>Examples</h5>
 
+
+    
+    <div class="section-examples">
+    <h5>Examples</h5>
+    
         <p class="code-caption">For a control with a projection range of [100,200]</p>
     
     <pre class="prettyprint example"><code>control.setProjectionRange(100, 200)
@@ -2014,9 +2067,10 @@ control.value = 0;   control.projectionValue() // returns 50
 control.value = 0.5; control.projectionValue() // returns 40
 control.value = 1;   control.projectionValue() // returns 30</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -2050,6 +2104,8 @@ and <code>1</code>, correspondingly.</p>
 
 
 
+
+    
 
 
 
@@ -2090,6 +2146,7 @@ and <code>1</code>, correspondingly.</p>
 
     
 </dl>
+
 
 
 
@@ -2196,18 +2253,21 @@ and <code>1</code>, correspondingly.</p>
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
 
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
     <pre class="prettyprint example"><code>control.setLimitsWithInsets(0.1, 0.2)
 // returns 0.1, since 0 + 0.1 = 0.1
 control.startLimit
 // returns 0.8, since 1 - 0.2 = 0.8
 control.endLimit</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -2243,6 +2303,8 @@ range.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2277,6 +2339,7 @@ range.</p>
 
     
 </dl>
+
 
 
 
@@ -2385,9 +2448,11 @@ range.</p>
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
 
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
         <p class="code-caption">For a RayControl with length of 200</p>
     
     <pre class="prettyprint example"><code>let control = new Rac.RayControl(rac, 0.5, 200);
@@ -2401,9 +2466,10 @@ control.endLimitLength()
 // returns 0.9, since 1 - (20 / 200) = 0.9
 control.endLimit</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -2437,6 +2503,8 @@ range.</p>
 
 
 
+
+    
 
 
 
@@ -2472,6 +2540,7 @@ range.</p>
 
     
 </dl>
+
 
 
 
@@ -2553,7 +2622,10 @@ value</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2588,6 +2660,8 @@ value</p>
 
 
 
+
+    
 
 
 
@@ -2628,6 +2702,7 @@ value</p>
 
     
 </dl>
+
 
 
 
@@ -2736,7 +2811,10 @@ when user interaction started</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
     
 

@@ -53,6 +53,7 @@
 <article>
     <div class="container-overview">
     
+        
         <div class="header-details-mini">
         <span><a href="Rac.ArcControl.html">#</a></span>
         
@@ -72,6 +73,46 @@ section of the <code>anchor</code> arc which is available for user interaction.
 Within this section the user can slide the control knob to select a
 value.</p></div>
         
+
+        
+
+        
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
 
         
         
@@ -108,41 +149,6 @@ interactive <code>angleDistance</code>.</p>
 
 
 
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
 
 
 
@@ -277,7 +283,7 @@ arc available for user interaction</p>
 
 
 
-</div>
+
 
     
     </div>
@@ -1109,6 +1115,8 @@ object.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1176,7 +1184,11 @@ object.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1211,6 +1223,8 @@ object.</p>
 
 
 
+
+    
 
 
 
@@ -1279,7 +1293,11 @@ object.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1315,6 +1333,8 @@ projected to the range <code>[0,angleDistance.turn]</code>.</p>
 
 
 
+
+    
 
 
 
@@ -1378,7 +1398,11 @@ projected to the range <code>[0,angleDistance.turn]</code>.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1411,6 +1435,8 @@ projected to the range <code>[0,angleDistance.turn]</code>.</p>
 
 
 
+
+    
 
 
 
@@ -1479,7 +1505,11 @@ projected to the range <code>[0,angleDistance.turn]</code>.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1512,6 +1542,8 @@ projected to the range <code>[0,angleDistance.turn]</code>.</p>
 
 
 
+
+    
 
 
 
@@ -1552,6 +1584,7 @@ projected to the range <code>[0,angleDistance.turn]</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -1687,7 +1720,10 @@ interaction started.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1720,6 +1756,8 @@ interaction started.</p>
 
 
 
+
+    
 
 
 
@@ -1788,7 +1826,11 @@ interaction started.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1822,6 +1864,8 @@ interaction started.</p>
 
 
 
+
+    
 
 
 
@@ -1890,7 +1934,11 @@ interaction started.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1930,6 +1978,8 @@ interaction started.</p>
 
 
 
+
+    
 
 
 
@@ -1998,9 +2048,12 @@ interaction started.</p>
 
 
 
-<div class="section-examples">
-<h5>Examples</h5>
 
+
+    
+    <div class="section-examples">
+    <h5>Examples</h5>
+    
         <p class="code-caption">For a control with a projection range of [100,200]</p>
     
     <pre class="prettyprint example"><code>control.setProjectionRange(100, 200)
@@ -2015,9 +2068,10 @@ control.value = 0;   control.projectionValue() // returns 50
 control.value = 0.5; control.projectionValue() // returns 40
 control.value = 1;   control.projectionValue() // returns 30</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -2053,6 +2107,8 @@ and <code>angleDistance.turn</code>, correspondingly, both projected in the
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2087,6 +2143,7 @@ and <code>angleDistance.turn</code>, correspondingly, both projected in the
 
     
 </dl>
+
 
 
 
@@ -2201,9 +2258,11 @@ in the range <code>[0,angleDistance.turn]</code> to use for <code>endLimit</code
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
 
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
         <p class="code-caption">For an ArcControl with angleDistance of 0.5 turn</p>
     
     <pre class="prettyprint example"><code>let control = new Rac.ArcControl(rac, 0, rac.Angle(0.5))
@@ -2211,9 +2270,10 @@ in the range <code>[0,angleDistance.turn]</code> to use for <code>endLimit</code
 // sets endLimit   as 0.3, since 0.5 - 0.4 * 0.5 = 0.3
 control.setLimitsWithAngleDistanceInsets(0.2, 0.4)</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -2247,6 +2307,8 @@ and <code>1</code>, correspondingly.</p>
 
 
 
+
+    
 
 
 
@@ -2287,6 +2349,7 @@ and <code>1</code>, correspondingly.</p>
 
     
 </dl>
+
 
 
 
@@ -2393,18 +2456,21 @@ and <code>1</code>, correspondingly.</p>
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
 
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
     <pre class="prettyprint example"><code>control.setLimitsWithInsets(0.1, 0.2)
 // returns 0.1, since 0 + 0.1 = 0.1
 control.startLimit
 // returns 0.8, since 1 - 0.2 = 0.8
 control.endLimit</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -2438,6 +2504,8 @@ control.endLimit</code></pre>
 
 
 
+
+    
 
 
 
@@ -2473,6 +2541,7 @@ control.endLimit</code></pre>
 
     
 </dl>
+
 
 
 
@@ -2557,7 +2626,10 @@ which to set the current value</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2592,6 +2664,8 @@ which to set the current value</p>
 
 
 
+
+    
 
 
 
@@ -2632,6 +2706,7 @@ which to set the current value</p>
 
     
 </dl>
+
 
 
 
@@ -2740,7 +2815,10 @@ user interaction started</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
     
 

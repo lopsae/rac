@@ -53,6 +53,7 @@
 <article>
     <div class="container-overview">
     
+        
         <div class="header-details-mini">
         <span><a href="Rac.Ray.html">#</a></span>
         
@@ -73,39 +74,19 @@ objects, like <a href="instance.Ray.html#zero"><code>rac.Ray.zero</code></a>, li
         
 
         
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+// ray creation
+let point = rac.Point(55, 77)
+let angle = rac.Angle(1/4)
+let ray = new Ray(rac, point, angle)
+// or
+let otherRay = rac.Point(55, 77, 1/4)</code></pre>
+
         
-<div class="section-method">
 
-    
-    <h3 class="subsection-constructor">Constructor</h3>
-    
-
-    
-    <h4 class="name method-name" id="Ray"><span class="type-signature"></span>new Ray<span class="signature">(rac, start, angle)</span><span class="type-signature"></span></h4>
-    
-
-
-    <div class="details-mini">
-    <span><a href="Rac.Ray.html">#</a></span>
-    
-        <span> | source:
-        <a href="drawable_Ray.js.html">drawable/Ray.js</a>, <a href="drawable_Ray.js.html#line29">line 29</a>
-        </span>
-    
-    </div>
-
-
-
-    
-
-
-
-<div class="description">
-    <p>Creates a new <code>Ray</code> instance.</p>
-</div>
-
-
-
+        
 
 
 
@@ -141,6 +122,42 @@ objects, like <a href="instance.Ray.html#zero"><code>rac.Ray.zero</code></a>, li
 
     
 </dl>
+
+
+        
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Ray"><span class="type-signature"></span>new Ray<span class="signature">(rac, start, angle)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Ray.html">#</a></span>
+    
+        <span> | source:
+        <a href="drawable_Ray.js.html">drawable/Ray.js</a>, <a href="drawable_Ray.js.html#line29">line 29</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Ray</code> instance.</p>
+</div>
+
+
+
 
 
 
@@ -273,20 +290,7 @@ objects, like <a href="instance.Ray.html#zero"><code>rac.Ray.zero</code></a>, li
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
 
-    <pre class="prettyprint example"><code>let rac = new Rac()
-// ray creation
-let point = rac.Point(55, 77)
-let angle = rac.Angle(1/4)
-let ray = new Ray(rac, point, angle)
-// or
-let otherRay = rac.Point(55, 77, 1/4)</code></pre>
-
-</div>
-
-</div>
 
     
     </div>
@@ -550,6 +554,8 @@ object.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -591,6 +597,7 @@ object.</p>
 
     
 </dl>
+
 
 
 
@@ -671,7 +678,10 @@ object.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -705,6 +715,8 @@ and the given arc properties.</p>
 
 
 
+
+    
 
 
 
@@ -740,6 +752,7 @@ and the given arc properties.</p>
 
     
 </dl>
+
 
 
 
@@ -924,7 +937,10 @@ and the given arc properties.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -960,6 +976,8 @@ and end at the given <code>angleDistance</code> from <code>this.start</code> in 
 
 
 
+    
+
 
 
 <dl class="details">
@@ -994,6 +1012,7 @@ and end at the given <code>angleDistance</code> from <code>this.start</code> in 
 
     
 </dl>
+
 
 
 
@@ -1174,7 +1193,10 @@ and end at the given <code>angleDistance</code> from <code>this.start</code> in 
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1211,6 +1233,8 @@ the direction of the ray, and negative when it is behind.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1245,6 +1269,7 @@ the direction of the ray, and negative when it is behind.</p>
 
     
 </dl>
+
 
 
 
@@ -1326,7 +1351,10 @@ distance to</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1361,6 +1389,8 @@ otherwise returns <code>false</code>.</p>
 
 
 
+
+    
 
 
 
@@ -1405,6 +1435,7 @@ otherwise returns <code>false</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -1485,7 +1516,10 @@ otherwise returns <code>false</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1519,6 +1553,8 @@ otherwise returns <code>false</code>.</p>
 
 
 
+
+    
 
 
 
@@ -1582,7 +1618,11 @@ otherwise returns <code>false</code>.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1617,6 +1657,8 @@ otherwise returns <code>false</code>.</p>
 
 
 
+
+    
 
 
 
@@ -1659,6 +1701,7 @@ otherwise returns <code>false</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -1759,7 +1802,10 @@ otherwise returns <code>false</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1797,6 +1843,8 @@ returned.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1859,7 +1907,11 @@ returned.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1895,6 +1947,8 @@ in the inverse direction of <code>angle</code>.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1929,6 +1983,7 @@ in the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -2009,7 +2064,10 @@ in the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2046,6 +2104,8 @@ possible.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2080,6 +2140,7 @@ possible.</p>
 
     
 </dl>
+
 
 
 
@@ -2160,7 +2221,10 @@ possible.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2197,6 +2261,8 @@ coordinate at <code>x</code> is possible.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2231,6 +2297,7 @@ coordinate at <code>x</code> is possible.</p>
 
     
 </dl>
+
 
 
 
@@ -2311,7 +2378,10 @@ coordinate at <code>x</code> is possible.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2348,6 +2418,8 @@ coordinate at <code>y</code> is possible.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2382,6 +2454,7 @@ coordinate at <code>y</code> is possible.</p>
 
     
 </dl>
+
 
 
 
@@ -2462,7 +2535,10 @@ coordinate at <code>y</code> is possible.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2503,6 +2579,8 @@ counter-clockwise.</li>
 
 
 
+
+    
 
 
 
@@ -2547,6 +2625,7 @@ counter-clockwise.</li>
 
     
 </dl>
+
 
 
 
@@ -2627,7 +2706,10 @@ counter-clockwise.</li>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2663,6 +2745,8 @@ projected point is the closest possible point to <code>point</code>.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2697,6 +2781,7 @@ projected point is the closest possible point to <code>point</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -2777,7 +2862,10 @@ projected point is the closest possible point to <code>point</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2815,6 +2903,8 @@ returned.</p>
 
 
 
+
+    
 
 
 
@@ -2878,7 +2968,11 @@ returned.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2913,6 +3007,8 @@ returned.</p>
 
 
 
+
+    
 
 
 
@@ -2955,6 +3051,7 @@ returned.</p>
 
     
 </dl>
+
 
 
 
@@ -3035,7 +3132,10 @@ returned.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3068,6 +3168,8 @@ returned.</p>
 
 
 
+
+    
 
 
 
@@ -3103,6 +3205,7 @@ returned.</p>
 
     
 </dl>
+
 
 
 
@@ -3183,7 +3286,10 @@ returned.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3224,6 +3330,8 @@ possible.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3258,6 +3366,7 @@ possible.</p>
 
     
 </dl>
+
 
 
 
@@ -3338,7 +3447,10 @@ possible.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3374,6 +3486,8 @@ possible.</p>
 
 
 
+
+    
 
 
 
@@ -3416,6 +3530,7 @@ possible.</p>
 
     
 </dl>
+
 
 
 
@@ -3496,7 +3611,10 @@ possible.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3531,6 +3649,8 @@ possible.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3593,7 +3713,11 @@ possible.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3627,6 +3751,8 @@ possible.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3661,6 +3787,7 @@ possible.</p>
 
     
 </dl>
+
 
 
 
@@ -3762,7 +3889,10 @@ decimal point, when ommited all digits are printed</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3796,6 +3926,8 @@ decimal point, when ommited all digits are printed</p>
 
 
 
+
+    
 
 
 
@@ -3831,6 +3963,7 @@ decimal point, when ommited all digits are printed</p>
 
     
 </dl>
+
 
 
 
@@ -3969,7 +4102,10 @@ decimal point, when ommited all digits are printed</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4003,6 +4139,8 @@ decimal point, when ommited all digits are printed</p>
 
 
 
+
+    
 
 
 
@@ -4038,6 +4176,7 @@ decimal point, when ommited all digits are printed</p>
 
     
 </dl>
+
 
 
 
@@ -4147,7 +4286,10 @@ decimal point, when ommited all digits are printed</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4184,6 +4326,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4218,6 +4362,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -4298,7 +4443,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4332,6 +4480,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+
+    
 
 
 
@@ -4367,6 +4517,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -4450,7 +4601,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4484,6 +4638,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+
+    
 
 
 
@@ -4519,6 +4675,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -4602,7 +4759,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4638,6 +4798,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4672,6 +4834,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -4813,7 +4976,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4847,6 +5013,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+
+    
 
 
 
@@ -4882,6 +5050,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -4962,7 +5131,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4996,6 +5168,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+
+    
 
 
 
@@ -5031,6 +5205,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -5111,7 +5286,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5145,6 +5323,8 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
+
+    
 
 
 
@@ -5180,6 +5360,7 @@ the inverse direction of <code>angle</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -5260,7 +5441,10 @@ the inverse direction of <code>angle</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5296,6 +5480,8 @@ vertical.</p>
 
 
 
+
+    
 
 
 
@@ -5359,7 +5545,11 @@ vertical.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
     
 

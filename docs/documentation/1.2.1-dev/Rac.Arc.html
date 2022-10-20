@@ -53,6 +53,7 @@
 <article>
     <div class="container-overview">
     
+        
         <div class="header-details-mini">
         <span><a href="Rac.Arc.html">#</a></span>
         
@@ -69,39 +70,8 @@ are considered a complete circle.</p></div>
         
 
         
+
         
-<div class="section-method">
-
-    
-    <h3 class="subsection-constructor">Constructor</h3>
-    
-
-    
-    <h4 class="name method-name" id="Arc"><span class="type-signature"></span>new Arc<span class="signature">(rac, center, radius, start, end, clockwise)</span><span class="type-signature"></span></h4>
-    
-
-
-    <div class="details-mini">
-    <span><a href="Rac.Arc.html">#</a></span>
-    
-        <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line17">line 17</a>
-        </span>
-    
-    </div>
-
-
-
-    
-
-
-
-<div class="description">
-    <p>Creates a new <code>Arc</code> instance.</p>
-</div>
-
-
-
 
 
 
@@ -137,6 +107,42 @@ are considered a complete circle.</p></div>
 
     
 </dl>
+
+
+        
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Arc"><span class="type-signature"></span>new Arc<span class="signature">(rac, center, radius, start, end, clockwise)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html">#</a></span>
+    
+        <span> | source:
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line17">line 17</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Arc</code> instance.</p>
+</div>
+
+
+
 
 
 
@@ -347,7 +353,7 @@ are considered a complete circle.</p></div>
 
 
 
-</div>
+
 
     
     </div>
@@ -834,6 +840,8 @@ the arc is considered a complete circle.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -896,7 +904,11 @@ the arc is considered a complete circle.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -933,6 +945,8 @@ orientation.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -995,7 +1009,11 @@ orientation.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1030,6 +1048,8 @@ circle.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1092,7 +1112,11 @@ circle.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1136,6 +1160,8 @@ clampled to <code>[start, end]</code>.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1170,6 +1196,7 @@ clampled to <code>[start, end]</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -1359,7 +1386,10 @@ clampled to <code>[start, end]</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1395,6 +1425,8 @@ orientation.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1429,6 +1461,7 @@ orientation.</p>
 
     
 </dl>
+
 
 
 
@@ -1512,7 +1545,10 @@ orientation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1548,6 +1584,8 @@ between <code>start</code> and <code>end</code> in the arc's orientation.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1582,6 +1620,7 @@ between <code>start</code> and <code>end</code> in the arc's orientation.</p>
 
     
 </dl>
+
 
 
 
@@ -1662,7 +1701,10 @@ between <code>start</code> and <code>end</code> in the arc's orientation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -1699,6 +1741,8 @@ arc if the arc <code>start</code> was the origin angle.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1733,6 +1777,7 @@ arc if the arc <code>start</code> was the origin angle.</p>
 
     
 </dl>
+
 
 
 
@@ -1816,9 +1861,11 @@ arc if the arc <code>start</code> was the origin angle.</p>
 
 
 
-<div class="section-examples">
-<h5>Examples</h5>
 
+    
+    <div class="section-examples">
+    <h5>Examples</h5>
+    
         <p class="code-caption">For a clockwise arc starting at <code>0.5</code></p>
     
     <pre class="prettyprint example"><code>let arc = rac.Arc(55, 77, 0.5, null, true)
@@ -1831,9 +1878,10 @@ arc.distanceFromStart(0.7)</code></pre>
 // returns 0.8, since 1 - (0.7 - 0.5) = 0.8
 arc.distanceFromStart(0.7)</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -1871,6 +1919,8 @@ divided into <code>count</code> arcs, all with the same
 
 
 
+    
+
 
 
 <dl class="details">
@@ -1905,6 +1955,7 @@ divided into <code>count</code> arcs, all with the same
 
     
 </dl>
+
 
 
 
@@ -1985,7 +2036,10 @@ divided into <code>count</code> arcs, all with the same
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2021,6 +2075,8 @@ arc.</p>
 
 
 
+
+    
 
 
 
@@ -2063,6 +2119,7 @@ arc.</p>
 
     
 </dl>
+
 
 
 
@@ -2143,7 +2200,10 @@ arc.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2181,6 +2241,8 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2215,6 +2277,7 @@ divided into <code>count</code> chords, all with the same length.</p>
 
     
 </dl>
+
 
 
 
@@ -2295,7 +2358,10 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2329,6 +2395,8 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2391,7 +2459,11 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2425,6 +2497,8 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2487,7 +2561,11 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2521,6 +2599,8 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2583,7 +2663,11 @@ divided into <code>count</code> chords, all with the same length.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2619,6 +2703,8 @@ otherwise returns <code>false</code>.</p>
 
 
 
+
+    
 
 
 
@@ -2665,6 +2751,7 @@ otherwise returns <code>false</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -2745,7 +2832,10 @@ otherwise returns <code>false</code>.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2788,6 +2878,8 @@ which is interpreted as a complete-circle arc.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2822,6 +2914,7 @@ which is interpreted as a complete-circle arc.</p>
 
     
 </dl>
+
 
 
 
@@ -2902,7 +2995,10 @@ which is interpreted as a complete-circle arc.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -2941,6 +3037,8 @@ the actual arcs.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -2975,6 +3073,7 @@ the actual arcs.</p>
 
     
 </dl>
+
 
 
 
@@ -3055,7 +3154,10 @@ the actual arcs.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3095,6 +3197,8 @@ unbounded line.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3129,6 +3233,7 @@ unbounded line.</p>
 
     
 </dl>
+
 
 
 
@@ -3209,7 +3314,10 @@ unbounded line.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3247,6 +3355,8 @@ unbounded line.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3281,6 +3391,7 @@ unbounded line.</p>
 
     
 </dl>
+
 
 
 
@@ -3361,7 +3472,10 @@ unbounded line.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3395,6 +3509,8 @@ and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>.</p>
 
 
 
+
+    
 
 
 
@@ -3465,7 +3581,11 @@ and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3499,6 +3619,8 @@ represents.</p>
 
 
 
+
+    
 
 
 
@@ -3562,7 +3684,11 @@ represents.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3598,6 +3724,8 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3632,6 +3760,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
     
 </dl>
+
 
 
 
@@ -3715,7 +3844,10 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3751,6 +3883,8 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3785,6 +3919,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
     
 </dl>
+
 
 
 
@@ -3865,7 +4000,10 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -3901,6 +4039,8 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
+    
+
 
 
 <dl class="details">
@@ -3935,6 +4075,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
     
 </dl>
+
 
 
 
@@ -4015,7 +4156,10 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4051,6 +4195,8 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4085,6 +4231,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
     
 </dl>
+
 
 
 
@@ -4165,7 +4312,10 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4202,6 +4352,8 @@ the arc.</p>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4236,6 +4388,7 @@ the arc.</p>
 
     
 </dl>
+
 
 
 
@@ -4319,7 +4472,10 @@ the arc.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4356,6 +4512,8 @@ direction towards the given <code>point</code>. This method does not consider th
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4390,6 +4548,7 @@ direction towards the given <code>point</code>. This method does not consider th
 
     
 </dl>
+
 
 
 
@@ -4470,7 +4629,10 @@ direction towards the given <code>point</code>. This method does not consider th
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4505,6 +4667,8 @@ same as <code>this</code>.</p>
 
 
 
+
+    
 
 
 
@@ -4568,7 +4732,11 @@ same as <code>this</code>.</p>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4602,6 +4770,8 @@ same as <code>this</code>.</p>
 
 
 
+
+    
 
 
 
@@ -4644,6 +4814,7 @@ same as <code>this</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -4727,9 +4898,11 @@ same as <code>this</code>.</p>
 
 
 
-<div class="section-examples">
-<h5>Examples</h5>
 
+    
+    <div class="section-examples">
+    <h5>Examples</h5>
+    
         <p class="code-caption">For a clockwise arc starting at <code>0.5</code></p>
     
     <pre class="prettyprint example"><code>let arc = rac.Arc(0, 0, 0.5, null, true)
@@ -4742,9 +4915,10 @@ arc.shiftAngle(0.1)</code></pre>
 // returns 0.3, since 0.5 - 0.2 = 0.3
 arc.shiftAngle(0.2)</code></pre>
 
-</div>
+    </div>
+    
+    </div>
 
-</div>
         
             
 <div class="section-method">
@@ -4778,6 +4952,8 @@ arc.shiftAngle(0.2)</code></pre>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4840,7 +5016,11 @@ arc.shiftAngle(0.2)</code></pre>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4874,6 +5054,8 @@ arc.shiftAngle(0.2)</code></pre>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -4936,7 +5118,11 @@ arc.shiftAngle(0.2)</code></pre>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -4970,6 +5156,8 @@ arc.shiftAngle(0.2)</code></pre>
 
 
 
+    
+
 
 
 <dl class="details">
@@ -5032,7 +5220,11 @@ arc.shiftAngle(0.2)</code></pre>
 
 
 
-</div>
+
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5074,6 +5266,8 @@ point of the returned segment in relation to <em>center axis</em>, and
 
 
 
+    
+
 
 
 <dl class="details">
@@ -5108,6 +5302,7 @@ point of the returned segment in relation to <em>center axis</em>, and
 
     
 </dl>
+
 
 
 
@@ -5260,7 +5455,10 @@ end point in relation to the <em>center axis</em></p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5293,6 +5491,8 @@ end point in relation to the <em>center axis</em></p>
 
 
 
+
+    
 
 
 
@@ -5328,6 +5528,7 @@ end point in relation to the <em>center axis</em></p>
 
     
 </dl>
+
 
 
 
@@ -5429,7 +5630,10 @@ decimal point, when ommited all digits are printed</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5465,6 +5669,8 @@ for the new <code>Arc</code>.</p>
 
 
 
+
+    
 
 
 
@@ -5507,6 +5713,7 @@ for the new <code>Arc</code>.</p>
 
     
 </dl>
+
 
 
 
@@ -5591,7 +5798,10 @@ new <code>Arc</code></p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5631,6 +5841,8 @@ or <code>this.end</code> respectively.</li>
 
 
 
+
+    
 
 
 
@@ -5673,6 +5885,7 @@ or <code>this.end</code> respectively.</li>
 
     
 </dl>
+
 
 
 
@@ -5814,7 +6027,10 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5848,6 +6064,8 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
+
+    
 
 
 
@@ -5883,6 +6101,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
     
 </dl>
+
 
 
 
@@ -5963,7 +6182,10 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -5997,6 +6219,8 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
+
+    
 
 
 
@@ -6032,6 +6256,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
     
 </dl>
+
 
 
 
@@ -6112,7 +6337,10 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -6146,6 +6374,8 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
+
+    
 
 
 
@@ -6181,6 +6411,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
     
 </dl>
+
 
 
 
@@ -6264,7 +6495,10 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -6303,6 +6537,8 @@ intending to result in a new <code>Arc</code> with an increase to
 
 
 
+    
+
 
 
 <dl class="details">
@@ -6337,6 +6573,7 @@ intending to result in a new <code>Arc</code> with an increase to
 
     
 </dl>
+
 
 
 
@@ -6417,7 +6654,10 @@ intending to result in a new <code>Arc</code> with an increase to
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -6454,6 +6694,8 @@ intending to result in a new <code>Arc</code> with an increase to
 
 
 
+
+    
 
 
 
@@ -6496,6 +6738,7 @@ intending to result in a new <code>Arc</code> with an increase to
 
     
 </dl>
+
 
 
 
@@ -6576,7 +6819,10 @@ intending to result in a new <code>Arc</code> with an increase to
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -6612,6 +6858,8 @@ intending to result in a new <code>Arc</code> with an increase to
 
 
 
+
+    
 
 
 
@@ -6654,6 +6902,7 @@ intending to result in a new <code>Arc</code> with an increase to
 
     
 </dl>
+
 
 
 
@@ -6734,7 +6983,10 @@ intending to result in a new <code>Arc</code> with an increase to
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -6774,6 +7026,8 @@ will be cut back into range through a modulo operation.</p>
 
 
 
+
+    
 
 
 
@@ -6816,6 +7070,7 @@ will be cut back into range through a modulo operation.</p>
 
     
 </dl>
+
 
 
 
@@ -6896,7 +7151,10 @@ will be cut back into range through a modulo operation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -6936,6 +7194,8 @@ will be cut back into range through a modulo operation.</p>
 
 
 
+
+    
 
 
 
@@ -6978,6 +7238,7 @@ will be cut back into range through a modulo operation.</p>
 
     
 </dl>
+
 
 
 
@@ -7058,7 +7319,10 @@ will be cut back into range through a modulo operation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -7097,6 +7361,8 @@ will be cut back into range through a modulo operation.</p>
 
 
 
+
+    
 
 
 
@@ -7139,6 +7405,7 @@ will be cut back into range through a modulo operation.</p>
 
     
 </dl>
+
 
 
 
@@ -7219,7 +7486,10 @@ will be cut back into range through a modulo operation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -7253,6 +7523,8 @@ will be cut back into range through a modulo operation.</p>
 
 
 
+
+    
 
 
 
@@ -7288,6 +7560,7 @@ will be cut back into range through a modulo operation.</p>
 
     
 </dl>
+
 
 
 
@@ -7368,7 +7641,10 @@ will be cut back into range through a modulo operation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -7402,6 +7678,8 @@ will be cut back into range through a modulo operation.</p>
 
 
 
+
+    
 
 
 
@@ -7437,6 +7715,7 @@ will be cut back into range through a modulo operation.</p>
 
     
 </dl>
+
 
 
 
@@ -7520,7 +7799,10 @@ will be cut back into range through a modulo operation.</p>
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -7559,6 +7841,8 @@ orientation, intending to result in a new <code>Arc</code> with an increase to
 
 
 
+    
+
 
 
 <dl class="details">
@@ -7593,6 +7877,7 @@ orientation, intending to result in a new <code>Arc</code> with an increase to
 
     
 </dl>
+
 
 
 
@@ -7673,7 +7958,10 @@ orientation, intending to result in a new <code>Arc</code> with an increase to
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -7710,6 +7998,8 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
 
 
 
+
+    
 
 
 
@@ -7752,6 +8042,7 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
 
     
 </dl>
+
 
 
 
@@ -7832,7 +8123,10 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
 
 
 
-</div>
+
+    
+    </div>
+
         
             
 <div class="section-method">
@@ -7869,6 +8163,8 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
 
 
 
+
+    
 
 
 
@@ -7911,6 +8207,7 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
 
     
 </dl>
+
 
 
 
@@ -7991,7 +8288,10 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
 
 
 
-</div>
+
+    
+    </div>
+
         
     
 

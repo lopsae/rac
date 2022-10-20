@@ -4,7 +4,7 @@ TODO's
 
 In progress
 -----------
-
++ Move example in Angle from constructor, to code block
 
 
 For version change
