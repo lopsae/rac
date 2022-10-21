@@ -15,7 +15,7 @@ const utils = require('../util/utils');
 * points are considered equal. The [`equals`]{@link Rac.Point#equals}
 * method performs this check.
 *
-* ### `instance.Angle`
+* ### `instance.Point`
 *
 * Instances of `Rac` contain a convenience
 * [`rac.Point` function]{@link Rac#Point} to create `Point` objects with
