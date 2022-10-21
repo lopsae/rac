@@ -70,23 +70,14 @@ the amount of turn in a full circle.</p>
 also receive a <code>number</code> value that will be used as <code>turn</code> to instantiate
 a new <code>Angle</code>. The main exception to this behaviour are constructors,
 which always expect to receive <code>Angle</code> objects.</p>
-<p>For drawing operations the turn value is interpreted to be pointing to
-the following directions:</p>
+<p>For drawing operations the turn value of <code>0</code> points right, with the
+direction rotating clockwise:</p>
 <pre class="prettyprint source"><code>rac.Angle(0/4) // points right
 rac.Angle(1/4) // points downwards
 rac.Angle(2/4) // points left
 rac.Angle(3/4) // points upwards
 </code></pre></div>
         
-
-        
-            <h5>Example</h5>
-            
-    <pre class="prettyprint example"><code>(new Rac.Angle(rac, 1/4)) .turn // returns 1/4
-(new Rac.Angle(rac, 5/4)) .turn // returns 1/4
-(new Rac.Angle(rac, -1/4)).turn // returns 3/4
-(new Rac.Angle(rac, 1))   .turn // returns 0
-(new Rac.Angle(rac, 4))   .turn // returns 0</code></pre>
 
         
 
@@ -159,7 +150,13 @@ rac.Angle(3/4) // points upwards
 <div class="description">
     <p>Creates a new <code>Angle</code> instance.</p>
 <p>The <code>turn</code> value is constrained to the range <em>[0,1)</em>, any value
-outside is reduced back into range using a modulo operation.</p>
+outside is reduced into range using a modulo operation:</p>
+<pre class="prettyprint source"><code>(new Rac.Angle(rac, 1/4)) .turn // returns 1/4
+(new Rac.Angle(rac, 5/4)) .turn // returns 1/4
+(new Rac.Angle(rac, -1/4)).turn // returns 3/4
+(new Rac.Angle(rac, 1))   .turn // returns 0
+(new Rac.Angle(rac, 4))   .turn // returns 0
+</code></pre>
 </div>
 
 

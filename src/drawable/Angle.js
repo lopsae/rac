@@ -14,8 +14,8 @@ const utils = require('../util/utils');
 * a new `Angle`. The main exception to this behaviour are constructors,
 * which always expect to receive `Angle` objects.
 *
-* For drawing operations the turn value is interpreted to be pointing to
-* the following directions:
+* For drawing operations the turn value of `0` points right, with the
+* direction rotating clockwise:
 * ```
 * rac.Angle(0/4) // points right
 * rac.Angle(1/4) // points downwards
@@ -31,14 +31,14 @@ class Angle {
   * Creates a new `Angle` instance.
   *
   * The `turn` value is constrained to the range *[0,1)*, any value
-  * outside is reduced back into range using a modulo operation.
-  *
-  * @example
+  * outside is reduced into range using a modulo operation:
+  * ```
   * (new Rac.Angle(rac, 1/4)) .turn // returns 1/4
   * (new Rac.Angle(rac, 5/4)) .turn // returns 1/4
   * (new Rac.Angle(rac, -1/4)).turn // returns 3/4
   * (new Rac.Angle(rac, 1))   .turn // returns 0
   * (new Rac.Angle(rac, 4))   .turn // returns 0
+  * ```
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {Number} turn - The turn value
