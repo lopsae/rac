@@ -55,6 +55,26 @@ const utils = require('../util/utils');
 * Determines the alignment, angle, font, and size for drawing a
 * [`Text`]{@link Rac.Text} object.
 *
+* ### `instance.Text.Format`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Text.Format` function]{@link Rac#TextFormat} to create
+* `Text.Format` objects from primitive values. This function also contains
+* ready-made convenience objects, like
+* [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}, listed
+* under [`instance.Text.Format`]{@link instance.Text.Format}.
+*
+* @example
+* let rac = new Rac()
+* let angle = rac.Angle(1/8)
+* // new instance with constructor
+* let format = new Rac.Text.Format(rac, 'left', 'baseline', angle)
+* // or convenience function
+* let otherFormat = rac.Text.Format('left', 'baseline', 1/8)
+*
+* @see [`rac.Text.Format`]{@link Rac#TextFormat}
+* @see [`instance.Text.Format`]{@link instance.Text.Format}
+*
 * @alias Rac.Text.Format
 */
 class TextFormat {
@@ -234,7 +254,7 @@ class TextFormat {
   *
   * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
   * @returns {Boolean}
-  * @see Rac.Angle#equals
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
   */
   equals(otherFormat) {
     return otherFormat instanceof TextFormat

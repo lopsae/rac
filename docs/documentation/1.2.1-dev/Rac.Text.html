@@ -58,7 +58,7 @@
         <span><a href="Rac.Text.html">#</a></span>
         
             <span> | source:
-            <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line24">line 24</a>
+            <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line45">line 45</a>
             </span>
         
         </div>
@@ -68,8 +68,26 @@
 <p>An instance of this object contains the string and a <code>Point</code> used to
 determine the location of the drawn text. The
 <a href="Rac.Text.Format.html"><code>Text.Format</code></a> object determines the font, size,
-orientation angle, and the alignment relative to <code>point</code> to draw the text.</p></div>
+orientation angle, and the alignment relative to
+<a href="Rac.Text.html#point"><code>point</code></a> to draw the text.</p>
+<h3><code>instance.Text</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Text"><code>rac.Text</code> function</a> to create <code>Text</code> objects with fewer
+parameters. This function also contains ready-made convenience
+objects, like <a href="instance.Text.html#hello"><code>rac.Text.hello</code></a>, listed under
+<a href="instance.Text.html"><code>instance.Text</code></a>.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+let point = rac.Point(55, 77)
+let format = rac.Text.Format('left', 'baseline')
+// new instance with constructor
+let text = new Rac.Text(rac, point, 'black quartz', format)
+// or convenience function
+let otherText = rac.Text(55, 77, 'black quartz', format)</code></pre>
 
         
 
@@ -106,6 +124,15 @@ orientation angle, and the alignment relative to <code>point</code> to draw the 
     
 
     
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.html#Text"><code>rac.Text</code></a></p></li>
+        
+            <li><p><a href="instance.Text.html"><code>instance.Text</code></a></p></li>
+        </ul>
+    </dd>
+    
 
     
 </dl>
@@ -128,7 +155,7 @@ orientation angle, and the alignment relative to <code>point</code> to draw the 
     <span><a href="Rac.Text.html">#</a></span>
     
         <span> | source:
-        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line24">line 24</a>
+        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line45">line 45</a>
         </span>
     
     </div>
@@ -337,7 +364,7 @@ orientation angle, and the alignment relative to <code>point</code> to draw the 
 <span><a href="Rac.Text.html#format">#</a></span>
 
     <span> | source:
-    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line75">line 75</a>
+    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line96">line 96</a>
     </span>
 
 </div>
@@ -405,7 +432,7 @@ orientation angle, and the alignment relative to <code>point</code> to draw the 
 <span><a href="Rac.Text.html#point">#</a></span>
 
     <span> | source:
-    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line63">line 63</a>
+    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line84">line 84</a>
     </span>
 
 </div>
@@ -476,7 +503,7 @@ alignment and angle configuration of
 <span><a href="Rac.Text.html#rac">#</a></span>
 
     <span> | source:
-    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line52">line 52</a>
+    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line73">line 73</a>
     </span>
 
 </div>
@@ -545,7 +572,7 @@ object.</p>
 <span><a href="Rac.Text.html#string">#</a></span>
 
     <span> | source:
-    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line69">line 69</a>
+    <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line90">line 90</a>
     </span>
 
 </div>
@@ -625,7 +652,7 @@ object.</p>
     <span><a href="Rac.Text.html#equals">#</a></span>
     
         <span> | source:
-        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line111">line 111</a>
+        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line132">line 132</a>
         </span>
     
     </div>
@@ -683,7 +710,7 @@ otherwise returns <code>false</code>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -790,7 +817,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Text.html#toString">#</a></span>
     
         <span> | source:
-        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line90">line 90</a>
+        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line111">line 111</a>
         </span>
     
     </div>
@@ -973,7 +1000,7 @@ rac.Text(55, 77, 'sphinx of black quartz').toString()</code></pre>
     <span><a href="Rac.Text.html#withAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line125">line 125</a>
+        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line146">line 146</a>
         </span>
     
     </div>
@@ -1132,7 +1159,7 @@ rac.Text(55, 77, 'sphinx of black quartz').toString()</code></pre>
     <span><a href="Rac.Text.html#withFont">#</a></span>
     
         <span> | source:
-        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line137">line 137</a>
+        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line158">line 158</a>
         </span>
     
     </div>
@@ -1299,7 +1326,7 @@ rac.Text(55, 77, 'sphinx of black quartz').toString()</code></pre>
     <span><a href="Rac.Text.html#withSize">#</a></span>
     
         <span> | source:
-        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line149">line 149</a>
+        <a href="drawable_Text.js.html">drawable/Text.js</a>, <a href="drawable_Text.js.html#line170">line 170</a>
         </span>
     
     </div>

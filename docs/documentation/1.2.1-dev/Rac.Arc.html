@@ -58,7 +58,7 @@
         <span><a href="Rac.Arc.html">#</a></span>
         
             <span> | source:
-            <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line17">line 17</a>
+            <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line39">line 39</a>
             </span>
         
         </div>
@@ -66,8 +66,26 @@
         
             <div class="class-description"><p>Arc of a circle from a <code>start</code> to an <code>end</code> <a href="Rac.Angle.html">angle</a>.</p>
 <p>Arcs that have <a href="Rac.Angle.html#equals">equal</a> <code>start</code> and <code>end</code> angles
-are considered a complete circle.</p></div>
+are considered a complete circle.</p>
+<h3><code>instance.Arc</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Arc"><code>rac.Arc</code> function</a> to create <code>Arc</code> objects from
+primitive values. This function also contains ready-made convenience
+objects, like <a href="instance.Arc.html#zero"><code>rac.Arc.zero</code></a>, listed
+under <a href="instance.Arc.html"><code>instance.Arc</code></a>.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+let center = rac.Point(55, 77)
+let start = rac.Angle(1/8)
+let end = rac.Angle(3/8)
+// new instance with constructor
+let arc = new Rac.Arc(rac, center, 100, start, end, true)
+// or convenience function
+let otherArc = rac.Arc(55, 77, 1/8, 3/8)</code></pre>
 
         
 
@@ -104,6 +122,17 @@ are considered a complete circle.</p></div>
     
 
     
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
+        
+            <li><p><a href="Rac.html#Arc"><code>rac.Arc</code></a></p></li>
+        
+            <li><p><a href="instance.Arc.html"><code>instance.Arc</code></a></p></li>
+        </ul>
+    </dd>
+    
 
     
 </dl>
@@ -126,7 +155,7 @@ are considered a complete circle.</p></div>
     <span><a href="Rac.Arc.html">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line17">line 17</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line39">line 39</a>
         </span>
     
     </div>
@@ -380,7 +409,7 @@ are considered a complete circle.</p></div>
 <span><a href="Rac.Arc.html#center">#</a></span>
 
     <span> | source:
-    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line52">line 52</a>
+    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line74">line 74</a>
     </span>
 
 </div>
@@ -448,7 +477,7 @@ are considered a complete circle.</p></div>
 <span><a href="Rac.Arc.html#clockwise">#</a></span>
 
     <span> | source:
-    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line88">line 88</a>
+    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line110">line 110</a>
     </span>
 
 </div>
@@ -516,7 +545,7 @@ are considered a complete circle.</p></div>
 <span><a href="Rac.Arc.html#end">#</a></span>
 
     <span> | source:
-    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line82">line 82</a>
+    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line104">line 104</a>
     </span>
 
 </div>
@@ -569,7 +598,7 @@ the arc is considered a complete circle.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Angle.html#equals">Rac.Angle#equals</a></li>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -594,7 +623,7 @@ the arc is considered a complete circle.</p>
 <span><a href="Rac.Arc.html#rac">#</a></span>
 
     <span> | source:
-    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line46">line 46</a>
+    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line68">line 68</a>
     </span>
 
 </div>
@@ -663,7 +692,7 @@ object.</p>
 <span><a href="Rac.Arc.html#radius">#</a></span>
 
     <span> | source:
-    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line58">line 58</a>
+    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line80">line 80</a>
     </span>
 
 </div>
@@ -731,7 +760,7 @@ object.</p>
 <span><a href="Rac.Arc.html#start">#</a></span>
 
     <span> | source:
-    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line70">line 70</a>
+    <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line92">line 92</a>
     </span>
 
 </div>
@@ -784,7 +813,7 @@ the arc is considered a complete circle.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Angle.html#equals">Rac.Angle#equals</a></li>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -821,7 +850,7 @@ the arc is considered a complete circle.</p>
     <span><a href="Rac.Arc.html#angleDistance">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line158">line 158</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line180">line 180</a>
         </span>
     
     </div>
@@ -924,7 +953,7 @@ the arc is considered a complete circle.</p>
     <span><a href="Rac.Arc.html#chordSegment">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line226">line 226</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line248">line 248</a>
         </span>
     
     </div>
@@ -1029,7 +1058,7 @@ orientation.</p>
     <span><a href="Rac.Arc.html#circumference">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line148">line 148</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line170">line 170</a>
         </span>
     
     </div>
@@ -1132,7 +1161,7 @@ circle.</p>
     <span><a href="Rac.Arc.html#clampToAngles">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line615">line 615</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line637">line 637</a>
         </span>
     
     </div>
@@ -1405,7 +1434,7 @@ clampled to <code>[start, end]</code>.</p>
     <span><a href="Rac.Arc.html#containsAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line676">line 676</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line698">line 698</a>
         </span>
     
     </div>
@@ -1564,7 +1593,7 @@ orientation.</p>
     <span><a href="Rac.Arc.html#containsProjectedPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line700">line 700</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line722">line 722</a>
         </span>
     
     </div>
@@ -1720,7 +1749,7 @@ between <code>start</code> and <code>end</code> in the arc's orientation.</p>
     <span><a href="Rac.Arc.html#distanceFromStart">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line754">line 754</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line776">line 776</a>
         </span>
     
     </div>
@@ -1897,7 +1926,7 @@ arc.distanceFromStart(0.7)</code></pre>
     <span><a href="Rac.Arc.html#divideToArcs">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1164">line 1164</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1186">line 1186</a>
         </span>
     
     </div>
@@ -2055,7 +2084,7 @@ divided into <code>count</code> arcs, all with the same
     <span><a href="Rac.Arc.html#divideToBeziers">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1225">line 1225</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1247">line 1247</a>
         </span>
     
     </div>
@@ -2112,7 +2141,7 @@ arc.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Bezier.html">Rac.Bezier</a></li>
+            <li><p><a href="Rac.Bezier.html"><code>Rac.Bezier</code></a></p></li>
         </ul>
     </dd>
     
@@ -2219,7 +2248,7 @@ arc.</p>
     <span><a href="Rac.Arc.html#divideToSegments">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1193">line 1193</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1215">line 1215</a>
         </span>
     
     </div>
@@ -2377,7 +2406,7 @@ divided into <code>count</code> chords, all with the same length.</p>
     <span><a href="Rac.Arc.html#endPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line176">line 176</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line198">line 198</a>
         </span>
     
     </div>
@@ -2479,7 +2508,7 @@ divided into <code>count</code> chords, all with the same length.</p>
     <span><a href="Rac.Arc.html#endRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line194">line 194</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line216">line 216</a>
         </span>
     
     </div>
@@ -2581,7 +2610,7 @@ divided into <code>count</code> chords, all with the same length.</p>
     <span><a href="Rac.Arc.html#endSegment">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line212">line 212</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line234">line 234</a>
         </span>
     
     </div>
@@ -2683,7 +2712,7 @@ divided into <code>count</code> chords, all with the same length.</p>
     <span><a href="Rac.Arc.html#equals">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line123">line 123</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line145">line 145</a>
         </span>
     
     </div>
@@ -2740,11 +2769,11 @@ otherwise returns <code>false</code>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         
-            <li><a href="Rac.Angle.html#equals">Rac.Angle#equals</a></li>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
         
-            <li><a href="Rac.html#equals">Rac#equals</a></li>
+            <li><p><a href="Rac.html#equals"><code>rac.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -2851,7 +2880,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Arc.html#intersectionArc">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1023">line 1023</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1045">line 1045</a>
         </span>
     
     </div>
@@ -3014,7 +3043,7 @@ which is interpreted as a complete-circle arc.</p>
     <span><a href="Rac.Arc.html#intersectionChord">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line868">line 868</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line890">line 890</a>
         </span>
     
     </div>
@@ -3173,7 +3202,7 @@ the actual arcs.</p>
     <span><a href="Rac.Arc.html#intersectionChordEndWithRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line990">line 990</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1012">line 1012</a>
         </span>
     
     </div>
@@ -3333,7 +3362,7 @@ unbounded line.</p>
     <span><a href="Rac.Arc.html#intersectionChordWithRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line941">line 941</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line963">line 963</a>
         </span>
     
     </div>
@@ -3491,7 +3520,7 @@ unbounded line.</p>
     <span><a href="Rac.Arc.html#isCircle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line239">line 239</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line261">line 261</a>
         </span>
     
     </div>
@@ -3546,7 +3575,7 @@ and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Angle.html#equals">Rac.Angle#equals</a></li>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -3601,7 +3630,7 @@ and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>.</p>
     <span><a href="Rac.Arc.html#length">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line138">line 138</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line160">line 160</a>
         </span>
     
     </div>
@@ -3704,7 +3733,7 @@ represents.</p>
     <span><a href="Rac.Arc.html#pointAtAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line769">line 769</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line791">line 791</a>
         </span>
     
     </div>
@@ -3863,7 +3892,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#pointAtAngleDistance">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line784">line 784</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line806">line 806</a>
         </span>
     
     </div>
@@ -4019,7 +4048,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#pointAtLength">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line799">line 799</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line821">line 821</a>
         </span>
     
     </div>
@@ -4175,7 +4204,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#pointAtLengthRatio">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line814">line 814</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line836">line 836</a>
         </span>
     
     </div>
@@ -4331,7 +4360,7 @@ method does not consider the <code>start</code> nor <code>end</code> of the arc.
     <span><a href="Rac.Arc.html#radiusSegmentAtAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line831">line 831</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line853">line 853</a>
         </span>
     
     </div>
@@ -4491,7 +4520,7 @@ the arc.</p>
     <span><a href="Rac.Arc.html#radiusSegmentTowardsPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line848">line 848</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line870">line 870</a>
         </span>
     
     </div>
@@ -4648,7 +4677,7 @@ direction towards the given <code>point</code>. This method does not consider th
     <span><a href="Rac.Arc.html#reverse">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line584">line 584</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line606">line 606</a>
         </span>
     
     </div>
@@ -4752,7 +4781,7 @@ same as <code>this</code>.</p>
     <span><a href="Rac.Arc.html#shiftAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line726">line 726</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line748">line 748</a>
         </span>
     
     </div>
@@ -4807,7 +4836,7 @@ same as <code>this</code>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Angle.html#shift">Rac.Angle#shift</a></li>
+            <li><p><a href="Rac.Angle.html#shift"><code>angle.shift</code></a></p></li>
         </ul>
     </dd>
     
@@ -4934,7 +4963,7 @@ arc.shiftAngle(0.2)</code></pre>
     <span><a href="Rac.Arc.html#startPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line167">line 167</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line189">line 189</a>
         </span>
     
     </div>
@@ -5036,7 +5065,7 @@ arc.shiftAngle(0.2)</code></pre>
     <span><a href="Rac.Arc.html#startRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line185">line 185</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line207">line 207</a>
         </span>
     
     </div>
@@ -5138,7 +5167,7 @@ arc.shiftAngle(0.2)</code></pre>
     <span><a href="Rac.Arc.html#startSegment">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line203">line 203</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line225">line 225</a>
         </span>
     
     </div>
@@ -5240,7 +5269,7 @@ arc.shiftAngle(0.2)</code></pre>
     <span><a href="Rac.Arc.html#tangentSegment">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1114">line 1114</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line1136">line 1136</a>
         </span>
     
     </div>
@@ -5474,7 +5503,7 @@ end point in relation to the <em>center axis</em></p>
     <span><a href="Rac.Arc.html#toString">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line99">line 99</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line121">line 121</a>
         </span>
     
     </div>
@@ -5649,7 +5678,7 @@ decimal point, when ommited all digits are printed</p>
     <span><a href="Rac.Arc.html#withAngleDistance">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line338">line 338</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line360">line 360</a>
         </span>
     
     </div>
@@ -5706,7 +5735,7 @@ for the new <code>Arc</code>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Arc.html#angleDistance">Rac.Arc#angleDistance</a></li>
+            <li><p><a href="Rac.Arc.html#angleDistance"><code>arc.angleDistance</code></a></p></li>
         </ul>
     </dd>
     
@@ -5817,7 +5846,7 @@ new <code>Arc</code></p>
     <span><a href="Rac.Arc.html#withAnglesTowardsPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line521">line 521</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line543">line 543</a>
         </span>
     
     </div>
@@ -5878,7 +5907,7 @@ or <code>this.end</code> respectively.</li>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -6046,7 +6075,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
     <span><a href="Rac.Arc.html#withCenter">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line252">line 252</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line274">line 274</a>
         </span>
     
     </div>
@@ -6201,7 +6230,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
     <span><a href="Rac.Arc.html#withClockwise">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line318">line 318</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line340">line 340</a>
         </span>
     
     </div>
@@ -6356,7 +6385,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
     <span><a href="Rac.Arc.html#withEnd">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line285">line 285</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line307">line 307</a>
         </span>
     
     </div>
@@ -6514,7 +6543,7 @@ when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
     <span><a href="Rac.Arc.html#withEndExtension">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line568">line 568</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line590">line 590</a>
         </span>
     
     </div>
@@ -6673,7 +6702,7 @@ intending to result in a new <code>Arc</code> with an increase to
     <span><a href="Rac.Arc.html#withEndPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line451">line 451</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line473">line 473</a>
         </span>
     
     </div>
@@ -6731,7 +6760,7 @@ intending to result in a new <code>Arc</code> with an increase to
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -6838,7 +6867,7 @@ intending to result in a new <code>Arc</code> with an increase to
     <span><a href="Rac.Arc.html#withEndTowardsPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line496">line 496</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line518">line 518</a>
         </span>
     
     </div>
@@ -6895,7 +6924,7 @@ intending to result in a new <code>Arc</code> with an increase to
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -7002,7 +7031,7 @@ intending to result in a new <code>Arc</code> with an increase to
     <span><a href="Rac.Arc.html#withLength">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line363">line 363</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line385">line 385</a>
         </span>
     
     </div>
@@ -7063,7 +7092,7 @@ will be cut back into range through a modulo operation.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Arc.html#length">Rac.Arc#length</a></li>
+            <li><p><a href="Rac.Arc.html#length"><code>length</code></a></p></li>
         </ul>
     </dd>
     
@@ -7170,7 +7199,7 @@ will be cut back into range through a modulo operation.</p>
     <span><a href="Rac.Arc.html#withLengthAdd">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line385">line 385</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line407">line 407</a>
         </span>
     
     </div>
@@ -7231,7 +7260,7 @@ will be cut back into range through a modulo operation.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Arc.html#length">Rac.Arc#length</a></li>
+            <li><p><a href="Rac.Arc.html#length"><code>length</code></a></p></li>
         </ul>
     </dd>
     
@@ -7338,7 +7367,7 @@ will be cut back into range through a modulo operation.</p>
     <span><a href="Rac.Arc.html#withLengthRatio">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line407">line 407</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line429">line 429</a>
         </span>
     
     </div>
@@ -7398,7 +7427,7 @@ will be cut back into range through a modulo operation.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Arc.html#length">Rac.Arc#length</a></li>
+            <li><p><a href="Rac.Arc.html#length"><code>length</code></a></p></li>
         </ul>
     </dd>
     
@@ -7505,7 +7534,7 @@ will be cut back into range through a modulo operation.</p>
     <span><a href="Rac.Arc.html#withRadius">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line302">line 302</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line324">line 324</a>
         </span>
     
     </div>
@@ -7660,7 +7689,7 @@ will be cut back into range through a modulo operation.</p>
     <span><a href="Rac.Arc.html#withStart">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line268">line 268</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line290">line 290</a>
         </span>
     
     </div>
@@ -7818,7 +7847,7 @@ will be cut back into range through a modulo operation.</p>
     <span><a href="Rac.Arc.html#withStartExtension">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line546">line 546</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line568">line 568</a>
         </span>
     
     </div>
@@ -7977,7 +8006,7 @@ orientation, intending to result in a new <code>Arc</code> with an increase to
     <span><a href="Rac.Arc.html#withStartPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line427">line 427</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line449">line 449</a>
         </span>
     
     </div>
@@ -8035,7 +8064,7 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         </ul>
     </dd>
     
@@ -8142,7 +8171,7 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
     <span><a href="Rac.Arc.html#withStartTowardsPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line475">line 475</a>
+        <a href="drawable_Arc.js.html">drawable/Arc.js</a>, <a href="drawable_Arc.js.html#line497">line 497</a>
         </span>
     
     </div>
@@ -8200,7 +8229,7 @@ changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Point.html#equals">Rac.Point#equals</a></li>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
         </ul>
     </dd>
     
