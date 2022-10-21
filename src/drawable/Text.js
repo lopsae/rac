@@ -17,7 +17,28 @@ var minifyHelper = TextFormat
 * An instance of this object contains the string and a `Point` used to
 * determine the location of the drawn text. The
 * [`Text.Format`]{@link Rac.Text.Format} object determines the font, size,
-* orientation angle, and the alignment relative to `point` to draw the text.
+* orientation angle, and the alignment relative to
+* [`point`]{@link Rac.Text#point} to draw the text.
+*
+* ### `instance.Text`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Text` function]{@link Rac#Text} to create `Text` objects with fewer
+* parameters. This function also contains ready-made convenience
+* objects, like [`rac.Text.hello`]{@link instance.Text#hello}, listed under
+* [`instance.Text`]{@link instance.Text}.
+*
+* @example
+* let rac = new Rac()
+* let point = rac.Point(55, 77)
+* let format = rac.Text.Format('left', 'baseline')
+* // new instance with constructor
+* let text = new Rac.Text(rac, point, 'black quartz', format)
+* // or convenience function
+* let otherText = rac.Text(55, 77, 'black quartz', format)
+*
+* @see [`rac.Text`]{@link Rac#Text}
+* @see [`instance.Text`]{@link instance.Text}
 *
 * @alias Rac.Text
 */
@@ -106,7 +127,7 @@ class Text {
   *
   * @param {Rac.Text} otherText - A `Text` to compare
   * @returns {Boolean}
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   equals(otherText) {
     return otherText instanceof Text

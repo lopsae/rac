@@ -334,7 +334,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let format = rac.Text.Format('right', 'bottom', 1/8)
+  * let format = rac.Text.Format('left', 'baseline', 1/8)
   * format.rac === rac // true
   *
   * @param {String} hAlign - The horizontal alignment, left-to-right; one
