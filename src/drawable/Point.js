@@ -96,11 +96,11 @@ class Point{
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
-  * Values are compared using [`Rac.equals`]{@link Rac#equals}.
+  * Values are compared using [`rac.equals`]{@link Rac#equals}.
   *
   * @param {Rac.Point} otherPoint - A `Point` to compare
   * @returns {Boolean}
-  * @see Rac#equals
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherPoint) {
     return otherPoint instanceof Point
@@ -220,7 +220,7 @@ class Point{
   *
   * @param {Rac.Point} point - A `Point` to measure the distance to
   * @returns {Number}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   distanceToPoint(point) {
     if (this.equals(point)) {
@@ -243,7 +243,7 @@ class Point{
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   angleToPoint(point, defaultAngle = this.rac.Angle.zero) {
     if (this.equals(point)) {
@@ -410,7 +410,7 @@ class Point{
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   segmentToPoint(point, defaultAngle = this.rac.Angle.zero) {
     defaultAngle = this.angleToPoint(point, defaultAngle);
