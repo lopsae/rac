@@ -23,6 +23,24 @@ const utils = require('../util/utils');
 * rac.Angle(3/4) // points upwards
 * ```
 *
+* ### `instance.Angle`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Angle` function]{@link Rac#Angle} to create `Angle` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Angle.zero`]{@link instance.Angle#zero}, listed under
+* [`instance.Angle`]{@link instance.Angle}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let angle = new Rac.Angle(rac, 3/8)
+* // or convenience function
+* let otherAngle = rac.Angle(3/8)
+*
+* @see [`rac.Angle`]{@link Rac#Angle}
+* @see [`instance.Angle`]{@link instance.Angle}
+*
 * @alias Rac.Angle
 */
 class Angle {
