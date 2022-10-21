@@ -12,6 +12,28 @@ const utils = require('../util/utils');
 * Arcs that have [equal]{@link Rac.Angle#equals} `start` and `end` angles
 * are considered a complete circle.
 *
+* ### `instance.Arc`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Arc` function]{@link Rac#Arc} to create `Arc` objects from
+* primitive values. This function also contains ready-made convenience
+* objects, like [`rac.Arc.zero`]{@link instance.Arc#zero}, listed
+* under [`instance.Arc`]{@link instance.Arc}.
+*
+* @example
+* let rac = new Rac()
+* let center = rac.Point(55, 77)
+* let start = rac.Angle(1/8)
+* let end = rac.Angle(3/8)
+* // new instance with constructor
+* let arc = new Rac.Arc(rac, center, 100, start, end, true)
+* // or convenience function
+* let otherArc = rac.Arc(55, 77, 1/8, 3/8)
+*
+* @see [`angle.equals`]{@link Rac.Angle#equals}
+* @see [`rac.Arc`]{@link Rac#Arc}
+* @see [`instance.Arc`]{@link instance.Arc}
+*
 * @alias Rac.Arc
 */
 class Arc{
@@ -65,7 +87,7 @@ class Arc{
     * the arc is considered a complete circle.
     *
     * @type {Rac.Angle}
-    * @see Rac.Angle#equals
+    * @see [`angle.equals`]{@link Rac.Angle#equals}
     */
     this.start = start
 
@@ -77,7 +99,7 @@ class Arc{
     * the arc is considered a complete circle.
     *
     * @type {Rac.Angle}
-    * @see Rac.Angle#equals
+    * @see [`angle.equals`]{@link Rac.Angle#equals}
     */
     this.end = end;
 
@@ -116,9 +138,9 @@ class Arc{
   *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
   * @returns {Boolean}
-  * @see Rac.Point#equals
-  * @see Rac.Angle#equals
-  * @see Rac#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherArc) {
     return otherArc instanceof Arc
@@ -234,7 +256,7 @@ class Arc{
   * and `end` are [equal angles]{@link Rac.Angle#equals}.
   *
   * @returns {Boolean}
-  * @see Rac.Angle#equals
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
   */
   isCircle() {
     return this.start.equals(this.end);
@@ -333,7 +355,7 @@ class Arc{
   * @param {Rac.Angle|Number} angleDistance - The angle distance of the
   * new `Arc`
   * @returns {Rac.Arc}
-  * @see Rac.Arc#angleDistance
+  * @see [`arc.angleDistance`]{@link Rac.Arc#angleDistance}
   */
   withAngleDistance(angleDistance) {
     const newEnd = this.shiftAngle(angleDistance);
@@ -358,7 +380,7 @@ class Arc{
   *
   * @param {Number} length - The length of the new `Arc`
   * @returns {Rac.Arc}
-  * @see Rac.Arc#length
+  * @see [`length`]{@link Rac.Arc#length}
   */
   withLength(length) {
     const newAngleDistance = length / this.circumference();
@@ -380,7 +402,7 @@ class Arc{
   *
   * @param {Number} length - The length to add
   * @returns {Rac.Arc}
-  * @see Rac.Arc#length
+  * @see [`length`]{@link Rac.Arc#length}
   */
   withLengthAdd(length) {
     const newAngleDistance = (this.length() + length) / this.circumference();
@@ -402,7 +424,7 @@ class Arc{
   * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
   *
-  * @see Rac.Arc#length
+  * @see [`length`]{@link Rac.Arc#length}
   */
   withLengthRatio(ratio) {
     const newLength = this.length() * ratio;
@@ -422,7 +444,7 @@ class Arc{
   * @param {Rac.Point} point - A `Point` at the `startPoint() of the new `Arc`
   * @returns {Rac.Arc}
   *
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withStartPoint(point) {
     const newStart = this.center.angleToPoint(point, this.start);
@@ -446,7 +468,7 @@ class Arc{
   * @param {Rac.Point} point - A `Point` at the `endPoint() of the new `Arc`
   * @returns {Rac.Arc}
   *
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withEndPoint(point) {
     const newEnd = this.center.angleToPoint(point, this.end);
@@ -470,7 +492,7 @@ class Arc{
   * @param {Rac.Point} point - A `Point` to point `start` towards
   * @returns {Rac.Arc}
   *
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withStartTowardsPoint(point) {
     const newStart = this.center.angleToPoint(point, this.start);
@@ -491,7 +513,7 @@ class Arc{
   *
   * @param {Rac.Point} point - A `Point` to point `end` towards
   * @returns {Rac.Arc}
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withEndTowardsPoint(point) {
     const newEnd = this.center.angleToPoint(point, this.end);
@@ -516,7 +538,7 @@ class Arc{
   * @param {?Rac.Point} [endPoint=null] - A `Point` to point `end` towards;
   * when ommited or `null`, `startPoint` is used instead
   * @returns {Rac.Arc}
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withAnglesTowardsPoint(startPoint, endPoint = null) {
     const newStart = this.center.angleToPoint(startPoint, this.start);
@@ -721,7 +743,7 @@ class Arc{
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to shift
   * @returns {Rac.Angle}
-  * @see Rac.Angle#shift
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   */
   shiftAngle(angle) {
     angle = Rac.Angle.from(this.rac, angle);
@@ -1220,7 +1242,7 @@ class Arc{
   * @param {Number} count - Number of beziers to divide `this` into
   * @returns {Rac.Composite}
   *
-  * @see Rac.Bezier
+  * @see [`Rac.Bezier`]{@link Rac.Bezier}
   */
   divideToBeziers(count) {
     if (count <= 0) { return new Rac.Composite(this.rac, []); }

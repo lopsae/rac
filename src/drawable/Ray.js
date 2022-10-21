@@ -22,7 +22,7 @@ const utils = require('../util/utils');
 * let point = rac.Point(55, 77)
 * let angle = rac.Angle(1/4)
 * // new instance with constructor
-* let ray = new Ray(rac, point, angle)
+* let ray = new Rac.Ray(rac, point, angle)
 * // or convenience function
 * let otherRay = rac.Ray(55, 77, 1/4)
 *
