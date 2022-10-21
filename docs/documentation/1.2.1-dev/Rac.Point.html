@@ -58,7 +58,7 @@
         <span><a href="Rac.Point.html">#</a></span>
         
             <span> | source:
-            <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line36">line 36</a>
+            <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line38">line 38</a>
             </span>
         
         </div>
@@ -71,10 +71,11 @@ equal. When the the difference of each coordinate of two points
 is under the <a href="Rac.html#equalityThreshold"><code>equalityThreshold</code></a> the
 points are considered equal. The <a href="Rac.Point.html#equals"><code>equals</code></a>
 method performs this check.</p>
+<h3><code>instance.Angle</code></h3>
 <p>Instances of <code>Rac</code> contain a convenience
 <a href="Rac.html#Point"><code>rac.Point</code> function</a> to create <code>Point</code> objects with
 fewer parameters. This function also contains ready-made convenience
-objects, like <a href="instance.Point.html#zero"><code>rac.Point.zero</code></a>, listed in
+objects, like <a href="instance.Point.html#zero"><code>rac.Point.zero</code></a>, listed under
 <a href="instance.Point.html"><code>instance.Point</code></a>.</p></div>
         
 
@@ -82,9 +83,9 @@ objects, like <a href="instance.Point.html#zero"><code>rac.Point.zero</code></a>
             <h5>Example</h5>
             
     <pre class="prettyprint example"><code>let rac = new Rac()
-// point creation
-let point = new Point(rac, 55, 77)
-// or
+// new instance with constructor
+let point = new Rac.Point(rac, 55, 77)
+// or convenience function
 let otherPoint = rac.Point(55, 77)</code></pre>
 
         
@@ -153,7 +154,7 @@ let otherPoint = rac.Point(55, 77)</code></pre>
     <span><a href="Rac.Point.html">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line36">line 36</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line38">line 38</a>
         </span>
     
     </div>
@@ -329,7 +330,7 @@ let otherPoint = rac.Point(55, 77)</code></pre>
 <span><a href="Rac.Point.html#rac">#</a></span>
 
     <span> | source:
-    <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line58">line 58</a>
+    <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line60">line 60</a>
     </span>
 
 </div>
@@ -398,7 +399,7 @@ object.</p>
 <span><a href="Rac.Point.html#x">#</a></span>
 
     <span> | source:
-    <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line64">line 64</a>
+    <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line66">line 66</a>
     </span>
 
 </div>
@@ -466,7 +467,7 @@ object.</p>
 <span><a href="Rac.Point.html#y">#</a></span>
 
     <span> | source:
-    <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line70">line 70</a>
+    <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line72">line 72</a>
     </span>
 
 </div>
@@ -546,7 +547,7 @@ object.</p>
     <span><a href="Rac.Point.html#add">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line173">line 173</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line175">line 175</a>
         </span>
     
     </div>
@@ -726,7 +727,7 @@ object.</p>
     <span><a href="Rac.Point.html#addPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line159">line 159</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line161">line 161</a>
         </span>
     
     </div>
@@ -880,7 +881,7 @@ object.</p>
     <span><a href="Rac.Point.html#addX">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line137">line 137</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line139">line 139</a>
         </span>
     
     </div>
@@ -1034,7 +1035,7 @@ object.</p>
     <span><a href="Rac.Point.html#addY">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line148">line 148</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line150">line 150</a>
         </span>
     
     </div>
@@ -1188,7 +1189,7 @@ object.</p>
     <span><a href="Rac.Point.html#angleToPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line248">line 248</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line250">line 250</a>
         </span>
     
     </div>
@@ -1412,7 +1413,7 @@ returns the angle produced with <code>defaultAngle</code>.</p>
     <span><a href="Rac.Point.html#arc">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line489">line 489</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line491">line 491</a>
         </span>
     
     </div>
@@ -1715,7 +1716,7 @@ returns the angle produced with <code>defaultAngle</code>.</p>
     <span><a href="Rac.Point.html#distanceToPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line225">line 225</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line227">line 227</a>
         </span>
     
     </div>
@@ -1878,7 +1879,7 @@ returns the angle produced with <code>defaultAngle</code>.</p>
     <span><a href="Rac.Point.html#equals">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line105">line 105</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line107">line 107</a>
         </span>
     
     </div>
@@ -2043,7 +2044,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Point.html#negative">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line210">line 210</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line212">line 212</a>
         </span>
     
     </div>
@@ -2145,7 +2146,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Point.html#pointAtBisector">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line280">line 280</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line282">line 282</a>
         </span>
     
     </div>
@@ -2299,7 +2300,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Point.html#pointToAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line267">line 267</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line269">line 269</a>
         </span>
     
     </div>
@@ -2483,7 +2484,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Point.html#ray">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line292">line 292</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line294">line 294</a>
         </span>
     
     </div>
@@ -2640,7 +2641,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Point.html#rayTangentToArc">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line357">line 357</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line359">line 359</a>
         </span>
     
     </div>
@@ -2865,7 +2866,7 @@ as a complete circle</p>
     <span><a href="Rac.Point.html#rayToPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line310">line 310</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line312">line 312</a>
         </span>
     
     </div>
@@ -3082,7 +3083,7 @@ the new <code>Ray</code> will use the angle produced with <code>defaultAngle</co
     <span><a href="Rac.Point.html#rayToProjectionInRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line326">line 326</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line328">line 328</a>
         </span>
     
     </div>
@@ -3239,7 +3240,7 @@ an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#segmentTangentToArc">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line464">line 464</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line466">line 466</a>
         </span>
     
     </div>
@@ -3464,7 +3465,7 @@ as a complete circle</p>
     <span><a href="Rac.Point.html#segmentToAngle">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line395">line 395</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line397">line 397</a>
         </span>
     
     </div>
@@ -3649,7 +3650,7 @@ towards</p>
     <span><a href="Rac.Point.html#segmentToPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line415">line 415</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line417">line 417</a>
         </span>
     
     </div>
@@ -3873,7 +3874,7 @@ the new <code>Segment</code> will use the angle produced with <code>defaultAngle
     <span><a href="Rac.Point.html#segmentToProjectionInRay">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line433">line 433</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line435">line 435</a>
         </span>
     
     </div>
@@ -4030,7 +4031,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#subtract">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line198">line 198</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line200">line 200</a>
         </span>
     
     </div>
@@ -4210,7 +4211,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#subtractPoint">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line184">line 184</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line186">line 186</a>
         </span>
     
     </div>
@@ -4364,7 +4365,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#text">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line512">line 512</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line514">line 514</a>
         </span>
     
     </div>
@@ -4577,7 +4578,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#toString">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line85">line 85</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line87">line 87</a>
         </span>
     
     </div>
@@ -4864,7 +4865,7 @@ rac.Point(55, 77).toString()</code></pre>
     <span><a href="Rac.Point.html#withX">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line117">line 117</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line119">line 119</a>
         </span>
     
     </div>
@@ -5018,7 +5019,7 @@ rac.Point(55, 77).toString()</code></pre>
     <span><a href="Rac.Point.html#withY">#</a></span>
     
         <span> | source:
-        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line127">line 127</a>
+        <a href="drawable_Point.js.html">drawable/Point.js</a>, <a href="drawable_Point.js.html#line129">line 129</a>
         </span>
     
     </div>
