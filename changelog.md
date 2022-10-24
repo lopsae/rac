@@ -4,7 +4,9 @@ Changelog
 1.2.1-dev - IN PROGRESS
 -----------------------
 + Update `minami-rac` to `1.4.0`
-+ Improve documentation examples for `Angle`, `Arc`, `Exception`, `Control`, `RayControl`, `ArcControl`
++ Improve documentation examples for several classes.
++ Improve references to `instance` namespace for several classes.
++ Overall documentation improvements and corrections.
 
 
 1.2.0 - 2022 September 8th
@@ -29,7 +31,6 @@ Streamline and document Text and Text.Format
 + Improve documentation for `p5drawer.debugTextOptions`
 + Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`, `Rac.utils`, `rac.utils`, `rac.textFormatDefaults`
 + Document `Text`, `Text.Format`
-+ Overall documentation improvements and corrections.
 
 
 1.1.0 - 2021 October 13th
