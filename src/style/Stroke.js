@@ -23,6 +23,25 @@ const utils = require('../util/utils');
 * + when both `color` and `weight` are set: both stroke color and weight
 *   are applied
 *
+* ### `instance.Stroke`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Stroke` function]{@link Rac#Stroke} to create `Stroke` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Stroke.none`]{@link instance.Stroke#none}, listed
+* under [`instance.Stroke`]{@link instance.Stroke}.
+*
+* @example
+* let rac = new Rac()
+* let color = rac.Color(0.2, 0.4, 0.6)
+* // new instance with constructor
+* let stroke = new Rac.Stroke(rac, 2, color)
+* // or convenience function
+* let otherStroke = rac.Stroke(2, color)
+*
+* @see [`rac.Stroke`]{@link Rac#Stroke}
+* @see [`instance.Stroke`]{@link instance.Stroke}
+*
 * @alias Rac.Stroke
 */
 class Stroke {
@@ -150,7 +169,7 @@ class Stroke {
   *   a `Fill` from
   * @returns {Rac.StyleContainer}
   *
-  * @see Rac.Fill.from
+  * @see [`rac.Fill.from`]{@link Rac.Fill.from}
   */
   appendFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);

@@ -6,7 +6,25 @@ const utils = require('../util/utils');
 
 
 /**
-* Color with RBGA values, each one on the *[0,1]* range.
+* Color with RBGA values, each one in the *[0,1]* range.
+*
+* ### `instance.Color`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Color` function]{@link Rac#Color} to create `Color` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Color.black`]{@link instance.Color#black}, listed
+* under [`instance.Color`]{@link instance.Color}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let color = new Rac.Color(rac, 0.2, 0.4, 0.6)
+* // or convenience function
+* let otherColor = rac.Color(0.2, 0.4, 0.6)
+*
+* @see [`rac.Color`]{@link Rac#Color}
+* @see [`instance.Color`]{@link instance.Color}
 *
 * @alias Rac.Color
 */
