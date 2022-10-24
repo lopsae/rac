@@ -10,8 +10,6 @@ For version change
 ------------------
 + Fix RELEASE-TODO's
 + Add better tutorial links in readmes!
-+ Check version file is included in docs
-+ Release process: Should the documentation be built before packaging? relevant if the version file is included in docs
 
 
 
