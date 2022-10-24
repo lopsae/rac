@@ -12,16 +12,13 @@ const utils = require('../util/utils');
 * as the parameter of `drawable.draw(stroke)` to apply the stroke only for
 * that `draw`.
 *
-* The instance applies the stroke color and weight settings in the
-* following combinations:
-* + when `color = null` and `weight = null`: a *no-stroke* setting is
-*   applied
-* + when `color` is set and `weight = null`: only the stroke color is
-*   applied, stroke weight is not modified
-* + when `weight` is set and `color = null`: only the stroke weight is
-*   applied, stroke color is not modified
-* + when both `color` and `weight` are set: both stroke color and weight
-*   are applied
+* Applying the instance can have the following behaviours:
+* + Applies a **no-stroke** setting; when `color = null` and `weight = null`
+* + Applies **only stroke color**, leaving weight unchanged; when `color`
+*   is set and `weight = null`
+* + Applies **only stroke weight**, leaving color unchanged; when `weight`
+*   is set and `color = null`
+* + Applies **both weight and color**; when both `color` and `weight` are set
 *
 * ### `instance.Stroke`
 *
