@@ -2,8 +2,17 @@
 
 
 /**
-* The `instance.Fill` function contains convenience methods and members
-* for `{@link Rac.Fill}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Fill` function]{@link Rac#Fill}.
+*
+* The function contains ready-made convenience
+* [`Fill`]{@link Rac.Fill} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Fill.none // ready-made none fill
+* rac.Fill.none.rac === rac // true
 *
 * @namespace instance.Fill
 */

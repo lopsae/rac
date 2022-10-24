@@ -13,7 +13,7 @@ const utils = require('../util/utils');
 * Instances of `Rac` contain a convenience
 * [`rac.Color` function]{@link Rac#Color} to create `Color` objects with
 * fewer parameters. This function also contains ready-made convenience
-* objects, like [`rac.Color.black`]{@link instance.Color#black}, listed
+* objects, like [`rac.Color.red`]{@link instance.Color#red}, listed
 * under [`instance.Color`]{@link instance.Color}.
 *
 * @example

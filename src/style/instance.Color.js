@@ -5,8 +5,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Color` function contains convenience methods and members
-* for `{@link Rac.Color}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Color` function]{@link Rac#Color}.
+*
+* The function contains ready-made convenience
+* [`Color`]{@link Rac.Color} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Color.red // ready-made red color
+* rac.Color.red.rac === rac // true
 *
 * @namespace instance.Color
 */

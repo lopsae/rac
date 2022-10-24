@@ -5,9 +5,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The [`instance.Text` function]{@link Rac#Text} contains convenience
-* methods and members for `{@link Rac.Text}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Text` function]{@link Rac#Text}.
+*
+* The function contains ready-made convenience
+* [`Text`]{@link Rac.Text} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Text.hello // ready-made hello-world text
+* rac.Text.hello.rac === rac // true
 *
 * @namespace instance.Text
 */
@@ -16,9 +24,17 @@ module.exports = function attachRacText(rac) {
 
 
   /**
-  * The [`instance.Text.Format` function]{@link instance.Text#Format}
-  * contains convenience methods and members for `{@link Rac.Text.Format}`
-  * objects setup with the owning `Rac` instance.
+  * Members and methods attached to the
+  * [`rac.Text.Format` function]{@link Rac#TextFormat}.
+  *
+  * The function contains ready-made convenience
+  * [`Text.Format`]{@link Rac.Text.Format} objects for usual values, all
+  * setup with the owning `Rac` instance.
+  *
+  * @example
+  * let rac = new Rac()
+  * rac.Text.Format.topLeft // ready-made top-left text format
+  * rac.Text.Format.topLeft.rac === rac // true
   *
   * @namespace instance.Text.Format
   */
