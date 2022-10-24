@@ -81,7 +81,7 @@ module.exports = function(grunt) {
 
     jsdoc : {
       dist : {
-        src: ['src/*'],
+        src: ['src/**/*.js', 'built/*.js'],
         options: {
           template: "./node_modules/minami-rac",
           readme: "./built/docs_home.md",
