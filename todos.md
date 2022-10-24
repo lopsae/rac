@@ -9,8 +9,6 @@ In progress
 For version change
 ------------------
 + Fix RELEASE-TODO's
-+ see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
-+ BUG: whole circle control located at 0 shows incorrect arrows
 + Add better tutorial links in readmes!
 + Check version file is included in docs
 + Release process: Should the documentation be built before packaging? relevant if the version file is included in docs
@@ -19,6 +17,7 @@ For version change
 
 Future
 ------
++ see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + Control.anchor, make it a method to type check
 + Controller.pointer..., type check the received object
 

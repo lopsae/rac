@@ -3,6 +3,7 @@ Changelog
 
 1.2.1-dev - IN PROGRESS
 -----------------------
++ Fix incorrect arrows showing for ArcControl with a full circle `angleDistance`.
 + Update `minami-rac` to `1.4.0`
 + Improve documentation examples for several classes.
 + Improve references to `instance` namespace for several classes.
