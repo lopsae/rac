@@ -29,6 +29,7 @@ Streamline and document Text and Text.Format
 + Improve documentation for `p5drawer.debugTextOptions`
 + Document `P5Drawer.setDrawFunction`, `P5Drawer.setDebugFunction`, `Rac.utils`, `rac.utils`, `rac.textFormatDefaults`
 + Document `Text`, `Text.Format`
++ Overall documentation improvements and corrections.
 
 
 1.1.0 - 2021 October 13th
