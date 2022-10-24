@@ -28,7 +28,7 @@ const utils = require('../util/utils');
 * Instances of `Rac` contain a convenience
 * [`rac.Angle` function]{@link Rac#Angle} to create `Angle` objects with
 * fewer parameters. This function also contains ready-made convenience
-* objects, like [`rac.Angle.zero`]{@link instance.Angle#zero}, listed under
+* objects, like [`rac.Angle.quarter`]{@link instance.Angle#quarter}, listed under
 * [`instance.Angle`]{@link instance.Angle}.
 *
 * @example
