@@ -5,9 +5,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The [`instance.Angle` function]{@link Rac#Angle} contains convenience
-* methods and members for `{@link Rac.Angle}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Angle` function]{@link Rac#Angle}.
+*
+* The function contains ready-made convenience
+* [`Angle`]{@link Rac.Angle} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Angle.quarter // ready-made quarter angle
+* rac.Angle.quarter.rac === rac // true
 *
 * @namespace instance.Angle
 */

@@ -23,7 +23,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the top of the canvas, from top-left to
   * top-right.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -41,7 +41,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the left of the canvas, from top-left
   * to bottom-left.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -59,7 +59,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the right of the canvas, from top-right
   * to bottom-right.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -78,7 +78,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the bottom of the canvas, from
   * bottom-left to bottom-right.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
