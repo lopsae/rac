@@ -48,8 +48,17 @@
 
 
 /**
-* The `instance.Stroke` function contains convenience methods and members
-* for `{@link Rac.Stroke}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Stroke` function]{@link Rac#Stroke}.
+*
+* The function contains ready-made convenience
+* [`Stroke`]{@link Rac.Stroke} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Stroke.none // ready-made none stroke
+* rac.Stroke.none.rac === rac // true
 *
 * @namespace instance.Stroke
 */
@@ -67,8 +76,9 @@ module.exports = function attachRacStroke(rac) {
 
 
   /**
-  * A `Stroke` with `weight` of `1` and no color. Using or applying this
-  * stroke will only set the stroke weight to `1`.
+  * A `Stroke` with `weight = 1` and no color. Using or applying this
+  * stroke will only set the stroke weight to `1` leaving stroke color
+  * unchanged.
   *
   * @name one
   * @memberof instance.Stroke#

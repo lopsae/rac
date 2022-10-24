@@ -64,9 +64,19 @@
         </div>
 
         
-            <div class="class-description"><p>The <code>instance.Stroke</code> function contains convenience methods and members
-for <code><a href="Rac.Stroke.html">Rac.Stroke</a></code> objects setup with the owning <code>Rac</code> instance.</p></div>
+            <div class="class-description"><p>Members and methods attached to the
+<a href="Rac.html#Stroke"><code>rac.Stroke</code> function</a>.</p>
+<p>The function contains ready-made convenience
+<a href="Rac.Stroke.html"><code>Stroke</code></a> objects for usual values, all setup with the
+owning <code>Rac</code> instance.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+rac.Stroke.none // ready-made none stroke
+rac.Stroke.none.rac === rac // true</code></pre>
 
         
 
@@ -133,7 +143,7 @@ for <code><a href="Rac.Stroke.html">Rac.Stroke</a></code> objects setup with the
 <span><a href="instance.Stroke.html#none">#</a></span>
 
     <span> | source:
-    <a href="style_instance.Stroke.js.html">style/instance.Stroke.js</a>, <a href="style_instance.Stroke.js.html#line13">line 13</a>
+    <a href="style_instance.Stroke.js.html">style/instance.Stroke.js</a>, <a href="style_instance.Stroke.js.html#line22">line 22</a>
     </span>
 
 </div>
@@ -202,7 +212,7 @@ will disable stroke drawing.</p>
 <span><a href="instance.Stroke.html#one">#</a></span>
 
     <span> | source:
-    <a href="style_instance.Stroke.js.html">style/instance.Stroke.js</a>, <a href="style_instance.Stroke.js.html#line23">line 23</a>
+    <a href="style_instance.Stroke.js.html">style/instance.Stroke.js</a>, <a href="style_instance.Stroke.js.html#line32">line 32</a>
     </span>
 
 </div>
@@ -212,8 +222,9 @@ will disable stroke drawing.</p>
 
 
 <div class="description">
-    <p>A <code>Stroke</code> with <code>weight</code> of <code>1</code> and no color. Using or applying this
-stroke will only set the stroke weight to <code>1</code>.</p>
+    <p>A <code>Stroke</code> with <code>weight = 1</code> and no color. Using or applying this
+stroke will only set the stroke weight to <code>1</code> leaving stroke color
+unchanged.</p>
 </div>
 
 
