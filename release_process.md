@@ -151,6 +151,11 @@ Check gh-pages locally
 npm run pages
 ```
 
+Pages are available at:
+```
+http://127.0.0.1:4000
+```
+
 
 
 Finish tag
