@@ -4,7 +4,6 @@ TODO's
 
 In progress
 -----------
-+ Move example in Angle from constructor, to code block
 
 
 For version change
@@ -13,9 +12,6 @@ For version change
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + BUG: whole circle control located at 0 shows incorrect arrows
 + Add better tutorial links in readmes!
-+ Docs: update all Classes with instance.X mention and example, like in Point/Ray
-+ Docs: update all instance.X to be similar to instance.Point
-+ Docs: in classes, example is shown underneath the constructor, show before
 + Check version file is included in docs
 + Release process: Should the documentation be built before packaging? relevant if the version file is included in docs
 
