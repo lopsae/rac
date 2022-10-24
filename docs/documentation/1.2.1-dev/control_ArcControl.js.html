@@ -241,15 +241,23 @@ class ArcControl extends Rac.Control {
     knob.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
+    let isCircleControl = this.angleDistance.equals(this.rac.Angle.zero)
+      &amp;&amp; this.startLimit == 0
+      &amp;&amp; this.endLimit == 1
+    let hasNegativeRange = isCircleControl
+      || this.value >= this.startLimit + this.rac.unitaryEqualityThreshold
+    let hasPositiveRange = isCircleControl
+      || this.value &lt;= this.endLimit - this.rac.unitaryEqualityThreshold
+
     // Negative arrow
-    if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
+    if (hasNegativeRange) {
       let negAngle = angle.perpendicular(fixedAnchor.clockwise).inverse();
       Rac.Control.makeArrowShape(this.rac, knob, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
-    if (this.value &lt;= this.endLimit - this.rac.unitaryEqualityThreshold) {
+    if (hasPositiveRange) {
       let posAngle = angle.perpendicular(fixedAnchor.clockwise);
       Rac.Control.makeArrowShape(this.rac, knob, posAngle)
         .attachToComposite();
