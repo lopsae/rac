@@ -272,8 +272,10 @@ module.exports = function(grunt) {
 
     const now = new Date();
     const datedString = now.toISOString();
+    const timed = datedString.split('T').at(-1);
     grunt.config('makeDatedString.datedString', datedString);
-    grunt.log.writeln(`Stored datedString: ${datedString.green.bold}`);
+    grunt.log.writeln(`Time: ${timed.green.bold}`);
+    grunt.log.writeln(`Stored datedString: ${datedString.green}`);
   });
 
 
