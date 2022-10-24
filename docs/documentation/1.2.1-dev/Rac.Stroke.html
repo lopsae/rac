@@ -58,7 +58,7 @@
         <span><a href="Rac.Stroke.html">#</a></span>
         
             <span> | source:
-            <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line28">line 28</a>
+            <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line44">line 44</a>
             </span>
         
         </div>
@@ -68,19 +68,32 @@
 <p>Can be used as <code>stroke.apply()</code> to apply the stroke settings globally, or
 as the parameter of <code>drawable.draw(stroke)</code> to apply the stroke only for
 that <code>draw</code>.</p>
-<p>The instance applies the stroke color and weight settings in the
-following combinations:</p>
+<p>Applying the instance can have the following behaviours:</p>
 <ul>
-<li>when <code>color = null</code> and <code>weight = null</code>: a <em>no-stroke</em> setting is
-applied</li>
-<li>when <code>color</code> is set and <code>weight = null</code>: only the stroke color is
-applied, stroke weight is not modified</li>
-<li>when <code>weight</code> is set and <code>color = null</code>: only the stroke weight is
-applied, stroke color is not modified</li>
-<li>when both <code>color</code> and <code>weight</code> are set: both stroke color and weight
-are applied</li>
-</ul></div>
+<li>Applies a <strong>no-stroke</strong> setting; when <code>color = null</code> and <code>weight = null</code></li>
+<li>Applies <strong>only stroke color</strong>, leaving weight unchanged; when <code>color</code>
+is set and <code>weight = null</code></li>
+<li>Applies <strong>only stroke weight</strong>, leaving color unchanged; when <code>weight</code>
+is set and <code>color = null</code></li>
+<li>Applies <strong>both weight and color</strong>; when both <code>color</code> and <code>weight</code> are set</li>
+</ul>
+<h3><code>instance.Stroke</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Stroke"><code>rac.Stroke</code> function</a> to create <code>Stroke</code> objects with
+fewer parameters. This function also contains ready-made convenience
+objects, like <a href="instance.Stroke.html#none"><code>rac.Stroke.none</code></a>, listed
+under <a href="instance.Stroke.html"><code>instance.Stroke</code></a>.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+let color = rac.Color(0.2, 0.4, 0.6)
+// new instance with constructor
+let stroke = new Rac.Stroke(rac, 2, color)
+// or convenience function
+let otherStroke = rac.Stroke(2, color)</code></pre>
 
         
 
@@ -117,6 +130,15 @@ are applied</li>
     
 
     
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.html#Stroke"><code>rac.Stroke</code></a></p></li>
+        
+            <li><p><a href="instance.Stroke.html"><code>instance.Stroke</code></a></p></li>
+        </ul>
+    </dd>
+    
 
     
 </dl>
@@ -139,7 +161,7 @@ are applied</li>
     <span><a href="Rac.Stroke.html">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line28">line 28</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line44">line 44</a>
         </span>
     
     </div>
@@ -364,7 +386,7 @@ to skip color</p>
 <span><a href="Rac.Stroke.html#rac">#</a></span>
 
     <span> | source:
-    <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line49">line 49</a>
+    <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line65">line 65</a>
     </span>
 
 </div>
@@ -445,7 +467,7 @@ object.</p>
     <span><a href="Rac.Stroke.html#.from">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line70">line 70</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line86">line 86</a>
         </span>
     
     </div>
@@ -640,7 +662,7 @@ derive a <code>Stroke</code> from</p>
     <span><a href="Rac.Stroke.html#appendFill">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line155">line 155</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line171">line 171</a>
         </span>
     
     </div>
@@ -695,7 +717,7 @@ derived <a href="Rac.Fill.html#.from">from</a> <code>someFill</code>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Fill.html#.from">Rac.Fill.from</a></li>
+            <li><p><a href="Rac.Fill.html#.from"><code>rac.Fill.from</code></a></p></li>
         </ul>
     </dd>
     
@@ -809,7 +831,7 @@ a <code>Fill</code> from</p>
     <span><a href="Rac.Stroke.html#appendStyle">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line137">line 137</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line153">line 153</a>
         </span>
     
     </div>
@@ -971,7 +993,7 @@ to contain along <code>this</code></p>
     <span><a href="Rac.Stroke.html#container">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line124">line 124</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line140">line 140</a>
         </span>
     
     </div>
@@ -1073,7 +1095,7 @@ to contain along <code>this</code></p>
     <span><a href="Rac.Stroke.html#withAlpha">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line109">line 109</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line125">line 125</a>
         </span>
     
     </div>
@@ -1231,7 +1253,7 @@ copy of <code>this</code>.</p>
     <span><a href="Rac.Stroke.html#withWeight">#</a></span>
     
         <span> | source:
-        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line93">line 93</a>
+        <a href="style_Stroke.js.html">style/Stroke.js</a>, <a href="style_Stroke.js.html#line109">line 109</a>
         </span>
     
     </div>

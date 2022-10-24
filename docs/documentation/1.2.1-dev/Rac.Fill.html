@@ -58,7 +58,7 @@
         <span><a href="Rac.Fill.html">#</a></span>
         
             <span> | source:
-            <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line19">line 19</a>
+            <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line38">line 38</a>
             </span>
         
         </div>
@@ -67,9 +67,25 @@
             <div class="class-description"><p>Fill <a href="Rac.Color.html">color</a> for drawing.</p>
 <p>Can be used as <code>fill.apply()</code> to apply the fill settings globally, or as
 the parameter of <code>drawable.draw(fill)</code> to apply the fill only for that
-<code>draw</code>.</p>
-<p>When <code>color</code> is <code>null</code> a <em>no-fill</em> setting is applied.</p></div>
+call.</p>
+<p>When <code>color</code> is <code>null</code> a <em>no-fill</em> setting is applied.</p>
+<h3><code>instance.Fill</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Fill"><code>rac.Fill</code> function</a> to create <code>Fill</code> objects with
+fewer parameters. This function also contains ready-made convenience
+objects, like <a href="instance.Fill.html#none"><code>rac.Fill.none</code></a>, listed
+under <a href="instance.Fill.html"><code>instance.Fill</code></a>.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+let color = rac.Color(0.2, 0.4, 0.6)
+// new instance with constructor
+let fill = new Rac.Fill(rac, color)
+// or convenience function
+let otherFill = rac.Fill(color)</code></pre>
 
         
 
@@ -106,6 +122,15 @@ the parameter of <code>drawable.draw(fill)</code> to apply the fill only for tha
     
 
     
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.html#Fill"><code>rac.Fill</code></a></p></li>
+        
+            <li><p><a href="instance.Fill.html"><code>instance.Fill</code></a></p></li>
+        </ul>
+    </dd>
+    
 
     
 </dl>
@@ -128,7 +153,7 @@ the parameter of <code>drawable.draw(fill)</code> to apply the fill only for tha
     <span><a href="Rac.Fill.html">#</a></span>
     
         <span> | source:
-        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line19">line 19</a>
+        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line38">line 38</a>
         </span>
     
     </div>
@@ -299,7 +324,7 @@ to apply a <em>no-fill</em> setting</p>
 <span><a href="Rac.Fill.html#rac">#</a></span>
 
     <span> | source:
-    <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line38">line 38</a>
+    <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line57">line 57</a>
     </span>
 
 </div>
@@ -380,7 +405,7 @@ object.</p>
     <span><a href="Rac.Fill.html#.from">#</a></span>
     
         <span> | source:
-        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line58">line 58</a>
+        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line77">line 77</a>
         </span>
     
     </div>
@@ -575,7 +600,7 @@ derive a <code>Fill</code> from</p>
     <span><a href="Rac.Fill.html#appendStroke">#</a></span>
     
         <span> | source:
-        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line110">line 110</a>
+        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line129">line 129</a>
         </span>
     
     </div>
@@ -630,7 +655,7 @@ derived <a href="Rac.Stroke.html#.from">from</a> <code>someStroke</code>.</p>
     <dt class="tag-see">See also:</dt>
     <dd class="tag-see">
         <ul>
-            <li><a href="Rac.Stroke.html#.from">Rac.Stroke.from</a></li>
+            <li><p><a href="Rac.Stroke.html#.from"><code>rac.Stroke.from</code></a></p></li>
         </ul>
     </dd>
     
@@ -744,7 +769,7 @@ a <code>Stroke</code> from</p>
     <span><a href="Rac.Fill.html#appendStyle">#</a></span>
     
         <span> | source:
-        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line92">line 92</a>
+        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line111">line 111</a>
         </span>
     
     </div>
@@ -906,7 +931,7 @@ to contain along <code>this</code></p>
     <span><a href="Rac.Fill.html#container">#</a></span>
     
         <span> | source:
-        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line79">line 79</a>
+        <a href="style_Fill.js.html">style/Fill.js</a>, <a href="style_Fill.js.html#line98">line 98</a>
         </span>
     
     </div>
