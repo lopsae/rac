@@ -64,9 +64,19 @@
         </div>
 
         
-            <div class="class-description"><p>The <code>instance.Segment</code> function contains convenience methods and members
-for <code><a href="Rac.Segment.html">Rac.Segment</a></code> objects setup with the owning <code>Rac</code> instance.</p></div>
+            <div class="class-description"><p>Members and methods attached to the
+<a href="Rac.html#Segment"><code>rac.Segment</code> function</a>.</p>
+<p>The function contains ready-made convenience
+<a href="Rac.Segment.html"><code>Segment</code></a> objects for usual values, all setup with
+the owning <code>Rac</code> instance.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+rac.Segment.zero // ready-made zero segment
+rac.Segment.zero.rac === rac // true</code></pre>
 
         
 
@@ -133,7 +143,7 @@ for <code><a href="Rac.Segment.html">Rac.Segment</a></code> objects setup with t
 <span><a href="instance.Segment.html#zero">#</a></span>
 
     <span> | source:
-    <a href="drawable_instance.Segment.js.html">drawable/instance.Segment.js</a>, <a href="drawable_instance.Segment.js.html#line13">line 13</a>
+    <a href="drawable_instance.Segment.js.html">drawable/instance.Segment.js</a>, <a href="drawable_instance.Segment.js.html#line22">line 22</a>
     </span>
 
 </div>
@@ -143,9 +153,10 @@ for <code><a href="Rac.Segment.html">Rac.Segment</a></code> objects setup with t
 
 
 <div class="description">
-    <p>A <code>Segment</code> with all values set to zero, , starts at
-<code><a href="instance.Point.html#zero">instance.Point#zero</a></code>, points to
-<code><a href="instance.Angle.html#zero">instance.Angle#zero</a></code>, and has a length of zero.</p>
+    <p>A <code>Segment</code> with all values set to zero, starts at
+<a href="instance.Point.html#zero"><code>rac.Point.zero</code></a>, points to
+<a href="instance.Angle.html#zero"><code>rac.Angle.zero</code></a>, and has a length of
+zero.</p>
 </div>
 
 
@@ -229,7 +240,7 @@ for <code><a href="Rac.Segment.html">Rac.Segment</a></code> objects setup with t
 <div class="description">
     <p>Returns a <code>Segment</code> that covers the bottom of the canvas, from
 bottom-left to bottom-right.</p>
-<p>Added  to <code>instance.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
+<p>Added  to <code>rac.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
 <code><a href="Rac.html#drawer">rac.drawer</a></code>.</p>
 </div>
 
@@ -334,7 +345,7 @@ bottom-left to bottom-right.</p>
 <div class="description">
     <p>Returns a <code>Segment</code> that covers the left of the canvas, from top-left
 to bottom-left.</p>
-<p>Added  to <code>instance.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
+<p>Added  to <code>rac.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
 <code><a href="Rac.html#drawer">rac.drawer</a></code>.</p>
 </div>
 
@@ -439,7 +450,7 @@ to bottom-left.</p>
 <div class="description">
     <p>Returns a <code>Segment</code> that covers the right of the canvas, from top-right
 to bottom-right.</p>
-<p>Added  to <code>instance.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
+<p>Added  to <code>rac.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
 <code><a href="Rac.html#drawer">rac.drawer</a></code>.</p>
 </div>
 
@@ -544,7 +555,7 @@ to bottom-right.</p>
 <div class="description">
     <p>Returns a <code>Segment</code> that covers the top of the canvas, from top-left to
 top-right.</p>
-<p>Added  to <code>instance.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
+<p>Added  to <code>rac.Segment</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
 <code><a href="Rac.html#drawer">rac.drawer</a></code>.</p>
 </div>
 

@@ -48,8 +48,17 @@
 
 
 /**
-* The `instance.Arc` function contains convenience methods and members
-* for `{@link Rac.Arc}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Arc` function]{@link Rac#Arc}.
+*
+* The function contains ready-made convenience
+* [`Arc` objects]{@link Rac.Arc} for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Arc.zero // ready-made zero arc
+* rac.Arc.zero.rac === rac // true
 *
 * @namespace instance.Arc
 */

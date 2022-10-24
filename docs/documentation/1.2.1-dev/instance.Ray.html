@@ -64,9 +64,19 @@
         </div>
 
         
-            <div class="class-description"><p>The <code>instance.Ray</code> function contains convenience methods and members
-for <code><a href="Rac.Ray.html">Rac.Ray</a></code> objects setup with the owning <code>Rac</code> instance.</p></div>
+            <div class="class-description"><p>Members and methods attached to the
+<a href="Rac.html#Ray"><code>rac.Ray</code> function</a>.</p>
+<p>The function contains ready-made convenience
+<a href="Rac.Ray.html"><code>Ray</code></a> objects for usual values, all setup with the
+owning <code>Rac</code> instance.</p></div>
         
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+rac.Ray.xAxis // ready-made x-axis ray
+rac.Ray.xAxis.rac === rac // true</code></pre>
 
         
 
@@ -133,7 +143,7 @@ for <code><a href="Rac.Ray.html">Rac.Ray</a></code> objects setup with the ownin
 <span><a href="instance.Ray.html#xAxis">#</a></span>
 
     <span> | source:
-    <a href="drawable_instance.Ray.js.html">drawable/instance.Ray.js</a>, <a href="drawable_instance.Ray.js.html#line27">line 27</a>
+    <a href="drawable_instance.Ray.js.html">drawable/instance.Ray.js</a>, <a href="drawable_instance.Ray.js.html#line34">line 34</a>
     </span>
 
 </div>
@@ -143,9 +153,10 @@ for <code><a href="Rac.Ray.html">Rac.Ray</a></code> objects setup with the ownin
 
 
 <div class="description">
-    <p>A <code>Ray</code> over the x-axis, starts at <code><a href="instance.Point.html#origin">instance.Point#origin</a></code> and
-points to <code><a href="instance.Angle.html#zero">instance.Angle#zero</a></code>.</p>
-<p>Equal to <code><a href="instance.Ray.html#zero">instance.Ray#zero</a></code>.</p>
+    <p>A <code>Ray</code> over the x-axis, starts at
+<a href="instance.Point.html#origin"><code>rac.Point.origin</code></a> and points to
+<a href="instance.Angle.html#zero"><code>rac.Angle.zero</code></a>.</p>
+<p>Equal to <a href="instance.Ray.html#zero"><code>rac.Ray.zero</code></a>.</p>
 </div>
 
 
@@ -181,15 +192,6 @@ points to <code><a href="instance.Angle.html#zero">instance.Angle#zero</a></code
 
     
 
-    
-    <dt class="tag-see">See also:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="instance.Point.html#origin">instance.Point#origin</a></li>
-        
-            <li><a href="instance.Angle.html#zero">instance.Angle#zero</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -212,7 +214,7 @@ points to <code><a href="instance.Angle.html#zero">instance.Angle#zero</a></code
 <span><a href="instance.Ray.html#yAxis">#</a></span>
 
     <span> | source:
-    <a href="drawable_instance.Ray.js.html">drawable/instance.Ray.js</a>, <a href="drawable_instance.Ray.js.html#line42">line 42</a>
+    <a href="drawable_instance.Ray.js.html">drawable/instance.Ray.js</a>, <a href="drawable_instance.Ray.js.html#line48">line 48</a>
     </span>
 
 </div>
@@ -222,8 +224,9 @@ points to <code><a href="instance.Angle.html#zero">instance.Angle#zero</a></code
 
 
 <div class="description">
-    <p>A <code>Ray</code> over the y-axis, starts at<code><a href="instance.Point.html#origin">instance.Point#origin</a></code> and
-points to <code><a href="instance.Angle.html#quarter">instance.Angle#quarter</a></code>.</p>
+    <p>A <code>Ray</code> over the y-axis, starts at
+<a href="instance.Point.html#origin"><code>rac.Point.origin</code></a> and points to
+<a href="instance.Angle.html#quarter"><code>rac.Angle.quarter</code></a>.</p>
 </div>
 
 
@@ -259,15 +262,6 @@ points to <code><a href="instance.Angle.html#quarter">instance.Angle#quarter</a>
 
     
 
-    
-    <dt class="tag-see">See also:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="instance.Point.html#origin">instance.Point#origin</a></li>
-        
-            <li><a href="instance.Angle.html#quarter">instance.Angle#quarter</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -290,7 +284,7 @@ points to <code><a href="instance.Angle.html#quarter">instance.Angle#quarter</a>
 <span><a href="instance.Ray.html#zero">#</a></span>
 
     <span> | source:
-    <a href="drawable_instance.Ray.js.html">drawable/instance.Ray.js</a>, <a href="drawable_instance.Ray.js.html#line13">line 13</a>
+    <a href="drawable_instance.Ray.js.html">drawable/instance.Ray.js</a>, <a href="drawable_instance.Ray.js.html#line22">line 22</a>
     </span>
 
 </div>
@@ -301,8 +295,8 @@ points to <code><a href="instance.Angle.html#quarter">instance.Angle#quarter</a>
 
 <div class="description">
     <p>A <code>Ray</code> with all values set to zero, starts at
-<code><a href="instance.Point.html#zero">instance.Point#zero</a></code> and points to
-<code><a href="instance.Angle.html#zero">instance.Angle#zero</a></code>.</p>
+<a href="instance.Point.html#zero"><code>rac.Point.zero</code></a> and points to
+<a href="instance.Angle.html#zero"><code>rac.Angle.zero</code></a>.</p>
 </div>
 
 
@@ -338,15 +332,6 @@ points to <code><a href="instance.Angle.html#quarter">instance.Angle#quarter</a>
 
     
 
-    
-    <dt class="tag-see">See also:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="instance.Point.html#zero">instance.Point#zero</a></li>
-        
-            <li><a href="instance.Angle.html#zero">instance.Angle#zero</a></li>
-        </ul>
-    </dd>
     
 
     
