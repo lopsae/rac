@@ -91,13 +91,16 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * The default value is based on 1/1000 of the turn of an arc of radius
-    * 500 and length of 1: `1/(500*6.28)/1000`
+    * The default value is based on 1/1000 of the turn of an complete
+    * circle arc of radius 500:
+    * ```
+    * 1/(500*6.28)/1000 = 0.000_000_318471338
+    * ```
     *
     * @type {Number}
-    * @default 0.0000003
+    * @default 0.000_000_3
     */
-    this.unitaryEqualityThreshold = 0.0000003;
+    this.unitaryEqualityThreshold = 0.000_000_3;
 
 
     /**
