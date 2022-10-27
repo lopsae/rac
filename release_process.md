@@ -64,6 +64,23 @@ Commit message: `bump version to n.e.w`
 
 
 
+Promote docs to current version
+-------------------------------
+```
+mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
+```
+
+Commit message: `promote documentation to n.e.w`
+
+And rebuild to take version change:
+```
+npm run docs
+```
+
+Commit message: `rebuild docs for n.e.w`
+
+
+
 Build dev and test locally
 --------------------------
 ```
@@ -122,16 +139,6 @@ curl -v -X POST 'https://purge.jsdelivr.net/' \
     "/gh/lopsae/rac@release/n.e.w/dist/rac.min.js"
   ]}'
 ```
-
-
-
-Promote docs to current version
--------------------------------
-```
-mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
-```
-
-Commit message: `promote documentation to n.e.w`
 
 
 
