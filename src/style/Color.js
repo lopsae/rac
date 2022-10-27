@@ -6,7 +6,25 @@ const utils = require('../util/utils');
 
 
 /**
-* Color with RBGA values, each one on the *[0,1]* range.
+* Color with RBGA values, each one in the *[0,1]* range.
+*
+* ### `instance.Color`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Color` function]{@link Rac#Color} to create `Color` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Color.red`]{@link instance.Color#red}, listed
+* under [`instance.Color`]{@link instance.Color}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let color = new Rac.Color(rac, 0.2, 0.4, 0.6)
+* // or convenience function
+* let otherColor = rac.Color(0.2, 0.4, 0.6)
+*
+* @see [`rac.Color`]{@link Rac#Color}
+* @see [`instance.Color`]{@link instance.Color}
 *
 * @alias Rac.Color
 */
@@ -16,10 +34,10 @@ class Color {
   * Creates a new `Color` instance.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} r - The red channel value, in the *[0,1]* range
-  * @param {number} g - The green channel value, in the *[0,1]* range
-  * @param {number} b - The blue channel value, in the *[0,1]* range
-  * @param {number} [a=1] - The alpha channel value, in the *[0,1]* range
+  * @param {Number} r - The red channel value, in the *[0,1]* range
+  * @param {Number} g - The green channel value, in the *[0,1]* range
+  * @param {Number} b - The blue channel value, in the *[0,1]* range
+  * @param {Number} [a=1] - The alpha channel value, in the *[0,1]* range
   */
   constructor(rac, r, g, b, a = 1) {
     utils.assertExists(rac, r, g, b, a);
@@ -35,25 +53,25 @@ class Color {
 
     /**
     * The red channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.r = r;
 
     /**
     * The green channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.g = g;
 
     /**
     * The blue channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.b = b;
 
     /**
     * The alpha channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.a = a;
   }
@@ -62,7 +80,7 @@ class Color {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @returns {string}
+  * @returns {String}
   */
   toString() {
     return `Color(${this.r},${this.g},${this.b},${this.a})`;
@@ -74,10 +92,10 @@ class Color {
   * *[0,255]* range
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} r - The red channel value, in the *[0,255]* range
-  * @param {number} g - The green channel value, in the *[0,255]* range
-  * @param {number} b - The blue channel value, in the *[0,255]* range
-  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
+  * @param {Number} r - The red channel value, in the *[0,255]* range
+  * @param {Number} g - The green channel value, in the *[0,255]* range
+  * @param {Number} b - The blue channel value, in the *[0,255]* range
+  * @param {Number} [a=255] - The alpha channel value, in the *[0,255]* range
   *
   * @returns {Rac.Color}
   */
@@ -96,7 +114,7 @@ class Color {
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {string} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The RGB hex triplet to interpret
   *
   * @returns {Rac.Color}
   */
@@ -140,7 +158,7 @@ class Color {
   /**
   * Returns a new `Stroke` that uses `this` as `color`.
   *
-  * @param {?number} weight - The weight of the new `Stroke`
+  * @param {?Number} weight - The weight of the new `Stroke`
   * @returns {Rac.Stroke}
   */
   stroke(weight = null) {
@@ -151,7 +169,7 @@ class Color {
   /**
   * Returns a new `Color` with `a` set to `newAlpha`.
   *
-  * @param {number} newAlpha - The alpha channel for the new `Color`, in the
+  * @param {Number} newAlpha - The alpha channel for the new `Color`, in the
   *   *[0,1]* range
   * @returns {Rac.Color}
   */
@@ -163,7 +181,7 @@ class Color {
   /**
   * Returns a new `Color` with `a` set to `this.a * ratio`.
   *
-  * @param {number} ratio - The factor to multiply `a` by
+  * @param {Number} ratio - The factor to multiply `a` by
   * @returns {Rac.Color}
   */
   withAlphaRatio(ratio) {
@@ -179,7 +197,7 @@ class Color {
   * when `ratio` is `1` or larger the new `Color` is equivalent to
   * `target`.
   *
-  * @param {number} ratio - The transition ratio for the new `Color`
+  * @param {Number} ratio - The transition ratio for the new `Color`
   * @param {Rac.Color} target - The transition target `Color`
   * @returns {Rac.Color}
   */

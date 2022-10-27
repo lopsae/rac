@@ -16,7 +16,7 @@ const Rac = require('../Rac');
 * is thrown.
 *
 * @param {...(Object|primitive)} parameters
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertExists
 * @memberof utils#
@@ -45,7 +45,7 @@ exports.assertExists = function(...parameters) {
 * @param {function} type
 * @param {...Object} elements
 *
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertType
 * @memberof utils#
@@ -64,8 +64,8 @@ exports.assertType = function(type, ...elements) {
 * Asserts that all `elements` are number primitives and not NaN, otherwise
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...number} elements
-* @returns {boolean}
+* @param {...Number} elements
+* @returns {Boolean}
 *
 * @function assertNumber
 * @memberof utils#
@@ -84,8 +84,8 @@ exports.assertNumber = function(...elements) {
 * Asserts that all `elements` are string primitives, otherwise
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...string} elements
-* @returns {boolean}
+* @param {...String} elements
+* @returns {Boolean}
 *
 * @function assertString
 * @memberof utils#
@@ -104,8 +104,8 @@ exports.assertString = function(...elements) {
 * Asserts that all `elements` are boolean primitives, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...boolean} elements
-* @returns {boolean}
+* @param {...Boolean} elements
+* @returns {Boolean}
 *
 * @function assertBoolean
 * @memberof utils#
@@ -124,8 +124,8 @@ exports.assertBoolean = function(...elements) {
 * Returns the constructor name of `obj`, or its type name.
 * Convenience function for debugging and errors.
 *
-* @param {object} obj - An `Object` to get its type name
-* @returns {string}
+* @param {Object} obj - An `Object` to get its type name
+* @returns {String}
 *
 * @function typeName
 * @memberof utils#
@@ -165,11 +165,11 @@ exports.addConstantTo = function(obj, propName, value) {
 * Returns a string of `number` format using fixed-point notation or the
 * complete `number` string.
 *
-* @param {number} number - The number to format
-* @param {?number} [digits] - The amount of digits to print, or `null` to
+* @param {Number} number - The number to format
+* @param {?Number} [digits] - The amount of digits to print, or `null` to
 * print all digits.
 *
-* @returns {string}
+* @returns {String}
 *
 * @function cutDigits
 * @memberof utils#

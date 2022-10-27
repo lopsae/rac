@@ -9,6 +9,26 @@ const utils = require('../util/utils');
 * Determines the alignment, angle, font, and size for drawing a
 * [`Text`]{@link Rac.Text} object.
 *
+* ### `instance.Text.Format`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Text.Format` function]{@link Rac#TextFormat} to create
+* `Text.Format` objects from primitive values. This function also contains
+* ready-made convenience objects, like
+* [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}, listed
+* under [`instance.Text.Format`]{@link instance.Text.Format}.
+*
+* @example
+* let rac = new Rac()
+* let angle = rac.Angle(1/8)
+* // new instance with constructor
+* let format = new Rac.Text.Format(rac, 'left', 'baseline', angle)
+* // or convenience function
+* let otherFormat = rac.Text.Format('left', 'baseline', 1/8)
+*
+* @see [`rac.Text.Format`]{@link Rac#TextFormat}
+* @see [`instance.Text.Format`]{@link instance.Text.Format}
+*
 * @alias Rac.Text.Format
 */
 class TextFormat {
@@ -18,20 +38,20 @@ class TextFormat {
   * dermines the left-to-right alignment of the drawn `Text` in relation
   * to its [`text.point`]{@link Rac.Text#point}.
   *
-  * @property {string} left
+  * @property {String} left
   *   aligns `text.point` to the left edge of the drawn text
-  * @property {string} center
+  * @property {String} center
   *   aligns `text.point` to the center, from side to
-  * @property {string} right
+  * @property {String} right
   *   aligns `text.point` to the right edge of the drawn text
   *
-  * @type {object}
+  * @type {Object}
   * @memberof Rac.Text.Format
   */
   static horizontalAlign = {
-    left: "left",
+    left:   "left",
     center: "horizontalCenter",
-    right: "right"
+    right:  "right"
   };
 
   /**
@@ -39,23 +59,23 @@ class TextFormat {
   * dermines the top-to-bottom alignment of the drawn `Text` in relation
   * to its [`text.point`]{@link Rac.Text#point}.
   *
-  * @property {string} top
+  * @property {String} top
   *   aligns `text.point` to the top edge of the drawn text
-  * @property {string} center
+  * @property {String} center
   *   aligns `text.point` to the center, from top to bottom, of the drawn text
-  * @property {string} baseline
+  * @property {String} baseline
   *   aligns `text.point` to the baseline of the drawn text
-  * @property {string} bottom
+  * @property {String} bottom
   *   aligns `text.point` to the bottom edge of the drawn text
   *
-  * @type {object}
+  * @type {Object}
   * @memberof Rac.Text.Format
   */
   static verticalAlign = {
-    top: "top",
-    center: "verticalCenter",
+    top:      "top",
+    center:   "verticalCenter",
     baseline: "baseline",
-    bottom: "bottom"
+    bottom:   "bottom"
   };
 
 
@@ -64,17 +84,17 @@ class TextFormat {
   *
   * @param {Rac} rac
   *   Instance to use for drawing and creating other objects
-  * @param {string} hAlign
+  * @param {String} hAlign
   *   The horizontal alignment, left-to-right; one of the values from
   *   [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign
+  * @param {String} vAlign
   *   The vertical alignment, top-to-bottom; one of the values from
   *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null]
+  * @param {String} [font=null]
   *   The font name
-  * @param {number} [size=null]
+  * @param {Number} [size=null]
   *   The font size
   */
   constructor(
@@ -106,7 +126,7 @@ class TextFormat {
     * Supported values are available through the
     * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
     *
-    * @type {string}
+    * @type {String}
     */
     this.hAlign = hAlign;
 
@@ -117,7 +137,7 @@ class TextFormat {
     * Supported values are available through the
     * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.
     *
-    * @type {string}
+    * @type {String}
     */
     this.vAlign = vAlign;
 
@@ -138,7 +158,7 @@ class TextFormat {
     * [`rac.textFormatDefaults.font`]{@link Rac#textFormatDefaults} is
     * used instead upon drawing.
     *
-    * @type {?string}
+    * @type {?String}
     */
     this.font = font;
 
@@ -149,7 +169,7 @@ class TextFormat {
     * [`rac.textFormatDefaults.size`]{@link Rac#textFormatDefaults} is
     * used instead upon drawing.
     *
-    * @type {?number}
+    * @type {?Number}
     */
     this.size = size;
   } // constructor
@@ -158,14 +178,14 @@ class TextFormat {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * ```
-  * (new Rac.Text.Format(rac, 'left', 'top', 0.5, 'sans', 14)).toString()
-  * // Returns: Text.Format(ha:left va:top a:0.5 f:"sans" s:14)
-  * ```
+  * @example
+  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14)'
+  * rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()
   *
-  * @param {number} [digits] - The number of digits to print after the
+  *
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
@@ -187,23 +207,23 @@ class TextFormat {
   * `false`.
   *
   * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
-  * @returns {boolean}
-  * @see Rac.Angle#equals
+  * @returns {Boolean}
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
   */
   equals(otherFormat) {
     return otherFormat instanceof TextFormat
       && this.hAlign === otherFormat.hAlign
       && this.vAlign === otherFormat.vAlign
-      && this.angle.equals(otherFormat.angle)
-      && this.font === otherFormat.font
-      && this.size === otherFormat.size;
+      && this.font   === otherFormat.font
+      && this.size   === otherFormat.size
+      && this.angle.equals(otherFormat.angle);
   }
 
 
   /**
   * Returns a new `Text.Format` with `angle` set to the `Angle` derived
   * from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text.Format`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text.Format`
   * @returns {Rac.Text.Format}
   */
   withAngle(newAngle) {
@@ -218,7 +238,7 @@ class TextFormat {
 
   /**
   * Returns a new `Text.Format` with `font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text.Format`;
+  * @param {?String} newFont - The font name for the new `Text.Format`;
   *   can be set to `null`.
   * @returns {Rac.Text.Format}
   */
@@ -233,7 +253,7 @@ class TextFormat {
 
   /**
   * Returns a new `Text.Format` with `size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text.Format`;
+  * @param {?Number} newSize - The font size for the new `Text.Format`;
   *   can be set to `null`.
   * @returns {Rac.Text.Format}
   */

@@ -27,7 +27,7 @@ class ArcControl extends Rac.Control {
   * interactive `angleDistance`.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
   * @param {Rac.Angle} angleDistance - The angleDistance of the `anchor`
   *   arc available for user interaction
@@ -41,7 +41,7 @@ class ArcControl extends Rac.Control {
 
     /**
     * Angle distance of the `anchor` arc available for user interaction.
-    * @type {number}
+    * @type {Number}
     */
     this.angleDistance = Rac.Angle.from(rac, angleDistance);
 
@@ -54,7 +54,7 @@ class ArcControl extends Rac.Control {
     *
     * The control cannot be drawn or selected until this property is set.
     *
-    * @type {Rac.Arc?}
+    * @type {?Rac.Arc}
     * @default null
     */
     this.anchor = null;
@@ -69,7 +69,7 @@ class ArcControl extends Rac.Control {
   * Sets `value` using the projection of `valueAngleDistance.turn` in the
   * `[0,angleLength.turn]` range.
   *
-  * @param {Rac.Angle|number} valueAngleDistance - The angle distance at
+  * @param {Rac.Angle|Number} valueAngleDistance - The angle distance at
   *   which to set the current value
   */
   setValueWithAngleDistance(valueAngleDistance) {
@@ -79,24 +79,23 @@ class ArcControl extends Rac.Control {
   }
 
 
+  // TODO: this example/code may not be working or be innacurrate
+  // check RayControl:setLimitsWithLengthInsets for a better example
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
-  * and `endInset.turn`, correspondingly, both projected in the
-  * `[0,angleDistance.turn]` range.
+  * and `angleDistance.turn`, correspondingly, both projected in the
+  * `[0, angleDistance.turn]` range.
   *
-  * > E.g.
-  * > ```
-  * > // For an ArcControl with angle distance of 0.5 turn
-  * > control.setLimitsWithAngleDistanceInsets(0.1, 0.3)
-  * > // sets startLimit as 0.2 which is at angle distance 0.1
-  * > // sets endLimit   as 0.4 which is at angle distance 0.2
-  * > //   0.1 inset from 0   = 0.1
-  * > //   0.3 inset from 0.5 = 0.2
-  * > ```
+  * @example
+  * <caption>For an ArcControl with angleDistance of 0.5 turn</caption>
+  * let control = new Rac.ArcControl(rac, 0, rac.Angle(0.5))
+  * // sets startLimit as 0.1, since   0 + 0.2 * 0.5 = 0.1
+  * // sets endLimit   as 0.3, since 0.5 - 0.4 * 0.5 = 0.3
+  * control.setLimitsWithAngleDistanceInsets(0.2, 0.4)
   *
-  * @param {Rac.Angle|number} startInset - The inset from `0` in the range
+  * @param {Rac.Angle|Number} startInset - The inset from `0` in the range
   *   `[0,angleDistance.turn]` to use for `startLimit`
-  * @param {Rac.Angle|number} endInset - The inset from `angleDistance.turn`
+  * @param {Rac.Angle|Number} endInset - The inset from `angleDistance.turn`
   *   in the range `[0,angleDistance.turn]` to use for `endLimit`
   */
   setLimitsWithAngleDistanceInsets(startInset, endInset) {
@@ -126,7 +125,7 @@ class ArcControl extends Rac.Control {
   *
   * When `anchor` is not set, returns `null` instead.
   *
-  * @return {Rac.Point?}
+  * @return {?Rac.Point}
   */
   knob() {
     if (this.anchor === null) {
@@ -196,15 +195,23 @@ class ArcControl extends Rac.Control {
     knob.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
+    let isCircleControl = this.angleDistance.equals(this.rac.Angle.zero)
+      && this.startLimit == 0
+      && this.endLimit == 1
+    let hasNegativeRange = isCircleControl
+      || this.value >= this.startLimit + this.rac.unitaryEqualityThreshold
+    let hasPositiveRange = isCircleControl
+      || this.value <= this.endLimit - this.rac.unitaryEqualityThreshold
+
     // Negative arrow
-    if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
+    if (hasNegativeRange) {
       let negAngle = angle.perpendicular(fixedAnchor.clockwise).inverse();
       Rac.Control.makeArrowShape(this.rac, knob, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
-    if (this.value <= this.endLimit - this.rac.unitaryEqualityThreshold) {
+    if (hasPositiveRange) {
       let posAngle = angle.perpendicular(fixedAnchor.clockwise);
       Rac.Control.makeArrowShape(this.rac, knob, posAngle)
         .attachToComposite();

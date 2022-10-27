@@ -18,18 +18,23 @@ Produces a distribution build and starts localhost server.
 Produces a debug build and starts localhost server, rebuilds whenever a source file changes.
 
 
+### `npm run pages`
+Starts the local jekyll server for the github-io pages, and opens its index.
+
+
 ### `npm run docs`
-Produces documentation and opens its index.
+Produces documentation for the current package version and opens its index.
 
-+ `npm run docs:clean` - Checks-out HEAD into the latest documentation files
-+ `npm run docs:delete` - Deletes the `latest` documentation folder
-+ `npm run docs:fresh` - Runs `docs:clean` and produces documentation
-+ `npm run docs:open` - Opens the index of the latest documentation
++ `npm run docs:open` - Opens the documentation index for the current package version
++ `npm run docs:clean` - Checks-out HEAD into the documentation files for the current package version
++ `npm run docs:delete` - Deletes the documentation folder for the current package version
++ `npm run docs:fresh` - Deletes and produces the documentation for the current package version, and opens its index
++ `docs:repack` - Updates the `minami-rac` package, builds and opens the documentation; used during development after running `npm pack` in a local version of `minami-rac`
 
 
-Documentation uses a custom Minami theme package. When necessary the `package.json` dependency can be modified to a local buld:
+Documentation uses a custom Minami theme package. For modification or development the `package.json` dependency can be pointed to a local buld:
 ```
-"minami-rac": "file:../minami-rac/minami-rac-1.3.1-dev.tgz"
+"minami-rac": "file:../minami-rac/minami-rac-1.4.0-dev.tgz"
 ```
 
 Run in the minami-rac directory:
@@ -39,6 +44,8 @@ npm pack
 
 And afterwards reinstall in RAC directory
 ```
+npm run docs:repack
+# or
 npm update minami-rac && npm run docs
 ```
 

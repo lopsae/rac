@@ -4,20 +4,21 @@
   ],
   "templates": {
     "minami" : {
-      "homeLabel": "RAC — Ruler and Compass<br/>1.2.0"
+      "homeNavItem": "RAC — Ruler and Compass",
+      "versionNavItem": "1.2.1",
+      "showInheritedInNav": true,
+      "showMethodsInNav": false,
+      "showMembersInNav": false
     },
     "default" : {
       "cleverLinks": false,
       "monospaceLinks": false,
       "includeDate" : false,
-      "useLongnameInNav": 3,
-      "showInheritedInNav": false,
-      "showMethodsInNav": false,
-      "showMembersInNav": false
+      "useLongnameInNav": 3
     }
   },
   "tags": {
-    "allowUnknownTags": true,
+    "allowUnknownTags": false,
     "dictionaries": ["jsdoc"]
   }
 }

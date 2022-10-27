@@ -1,0 +1,8350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac.Arc - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-home-link"><a href="index.html">RAC — Ruler and Compass</a></li>
+    <li class="nav-version"><code>1.2.1</code></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Arc.html#center">center</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Arc.html#clockwise">clockwise</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Arc.html#end">end</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Arc.html#rac">rac</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Arc.html#radius">radius</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Arc.html#start">start</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#angleDistance">angleDistance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#chordSegment">chordSegment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#circumference">circumference</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#clampToAngles">clampToAngles</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#containsAngle">containsAngle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#containsProjectedPoint">containsProjectedPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#distanceFromStart">distanceFromStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#divideToArcs">divideToArcs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#divideToBeziers">divideToBeziers</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#divideToSegments">divideToSegments</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#endPoint">endPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#endRay">endRay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#endSegment">endSegment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#equals">equals</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#intersectionArc">intersectionArc</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#intersectionChord">intersectionChord</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#intersectionChordEndWithRay">intersectionChordEndWithRay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#intersectionChordWithRay">intersectionChordWithRay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#isCircle">isCircle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#length">length</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#pointAtAngle">pointAtAngle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#pointAtAngleDistance">pointAtAngleDistance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#pointAtLength">pointAtLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#pointAtLengthRatio">pointAtLengthRatio</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#radiusSegmentAtAngle">radiusSegmentAtAngle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#radiusSegmentTowardsPoint">radiusSegmentTowardsPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#reverse">reverse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#shiftAngle">shiftAngle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#startPoint">startPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#startRay">startRay</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#startSegment">startSegment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#tangentSegment">tangentSegment</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#toString">toString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withAngleDistance">withAngleDistance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withAnglesTowardsPoint">withAnglesTowardsPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withCenter">withCenter</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withClockwise">withClockwise</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withEnd">withEnd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withEndExtension">withEndExtension</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withEndPoint">withEndPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withEndTowardsPoint">withEndTowardsPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withLength">withLength</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withLengthAdd">withLengthAdd</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withLengthRatio">withLengthRatio</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withRadius">withRadius</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withStart">withStart</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withStartExtension">withStartExtension</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withStartPoint">withStartPoint</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Arc.html#withStartTowardsPoint">withStartTowardsPoint</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.RayControl.html">Rac.RayControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.Format.html">instance.Text.Format</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="version.html">version</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>
+        
+        Arc
+        </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        <div class="header-details-mini">
+        <span><a href="Rac.Arc.html">#</a></span>
+        
+            <span> | source:
+            <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line39">line 39</a>
+            </span>
+        
+        </div>
+
+        
+            <div class="class-description"><p>Arc of a circle from a <code>start</code> to an <code>end</code> <a href="Rac.Angle.html">angle</a>.</p>
+<p>Arcs that have <a href="Rac.Angle.html#equals">equal</a> <code>start</code> and <code>end</code> angles
+are considered a complete circle.</p>
+<h3><code>instance.Arc</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Arc"><code>rac.Arc</code> function</a> to create <code>Arc</code> objects from
+primitive values. This function also contains ready-made convenience
+objects, like <a href="instance.Arc.html#zero"><code>rac.Arc.zero</code></a>, listed
+under <a href="instance.Arc.html"><code>instance.Arc</code></a>.</p></div>
+        
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+let center = rac.Point(55, 77)
+let start = rac.Angle(1/8)
+let end = rac.Angle(3/8)
+// new instance with constructor
+let arc = new Rac.Arc(rac, center, 100, start, end, true)
+// or convenience function
+let otherArc = rac.Arc(55, 77, 1/8, 3/8)</code></pre>
+
+        
+
+        
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
+        
+            <li><p><a href="Rac.html#Arc"><code>rac.Arc</code></a></p></li>
+        
+            <li><p><a href="instance.Arc.html"><code>instance.Arc</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Arc"><span class="type-signature"></span>new Arc<span class="signature">(rac, center, radius, start, end, clockwise)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line39">line 39</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Arc</code> instance.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>center</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The center of the arc</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The radius of the arc</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>start</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> where the arc starts</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>end</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Ang <code>Angle</code> where the arc ends</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The orientation of the arc</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="center"><span class="type-signature"></span>center<span class="type-signature"> :<a href="Rac.Point.html">Rac.Point</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Arc.html#center">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line74">line 74</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The center <code>Point</code> of the arc.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="clockwise"><span class="type-signature"></span>clockwise<span class="type-signature"> :Boolean</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Arc.html#clockwise">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line110">line 110</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The orientiation of the arc.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="end"><span class="type-signature"></span>end<span class="type-signature"> :<a href="Rac.Angle.html">Rac.Angle</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Arc.html#end">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line104">line 104</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The end <code>Angle</code> of the arc. The arc is draw from <code>start</code> to this
+angle in the <code>clockwise</code> orientation.</p>
+<p>When <code>start</code> and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>
+the arc is considered a complete circle.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="rac"><span class="type-signature"></span>rac<span class="type-signature"> :<a href="Rac.html">Rac</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Arc.html#rac">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line68">line 68</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Instance of <code>Rac</code> used for drawing and passed along to any created
+object.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="radius"><span class="type-signature"></span>radius<span class="type-signature"> :Number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Arc.html#radius">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line80">line 80</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The radius of the arc.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="start"><span class="type-signature"></span>start<span class="type-signature"> :<a href="Rac.Angle.html">Rac.Angle</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Arc.html#start">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line92">line 92</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The start <code>Angle</code> of the arc. The arc is draw from this angle towards
+<code>end</code> in the <code>clockwise</code> orientation.</p>
+<p>When <code>start</code> and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>
+the arc is considered a complete circle.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title methods-subsection">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="angleDistance"><span class="type-signature"></span>angleDistance<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#angleDistance">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line180">line 180</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> that represents the distance between <code>start</code> and
+<code>end</code>, in the orientation of the arc.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="chordSegment"><span class="type-signature"></span>chordSegment<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#chordSegment">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line248">line 248</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> from <code>startPoint()</code> to <code>endPoint()</code>.</p>
+<p>Note that for complete circle arcs this segment will have a length of
+zero and be pointed towards the perpendicular of <code>start</code> in the arc's
+orientation.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="circumference"><span class="type-signature"></span>circumference<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#circumference">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line170">line 170</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the length of circumference of the arc considered as a complete
+circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="clampToAngles"><span class="type-signature"></span>clampToAngles<span class="signature">(angle, startInset<span class="signature-attributes">opt</span>, endInset<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#clampToAngles">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line637">line 637</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the given <code>angle</code> clamped to the range:</p>
+<pre class="prettyprint source"><code>[start + startInset, end - endInset]
+</code></pre>
+<p>where the addition happens towards the arc's orientation, and the
+subtraction against.</p>
+<p>When <code>angle</code> is outside the range, returns whichever range limit is
+closer.</p>
+<p>When the sum of the given insets is larger that <code>this.arcDistance()</code>
+the range for the clamp is imposible to fulfill. In this case the
+returned value will be the centered between the range limits and still
+clampled to <code>[start, end]</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to clamp</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code><a href="instance.Angle.html#zero">rac.Angle.zero</a></code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The inset for the lower limit of the clamping range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endInset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code><a href="instance.Angle.html#zero">rac.Angle.zero</a></code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The inset for the higher limit of the clamping range</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="containsAngle"><span class="type-signature"></span>containsAngle<span class="signature">(angle)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#containsAngle">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line698">line 698</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when <code>angle</code> is between <code>start</code> and <code>end</code> in the arc's
+orientation.</p>
+<p>When the arc represents a complete circle, <code>true</code> is always returned.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to evaluate</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="containsProjectedPoint"><span class="type-signature"></span>containsProjectedPoint<span class="signature">(point)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#containsProjectedPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line722">line 722</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when the projection of <code>point</code> in the arc is positioned
+between <code>start</code> and <code>end</code> in the arc's orientation.</p>
+<p>When the arc represents a complete circle, <code>true</code> is always returned.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> to evaluate</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="distanceFromStart"><span class="type-signature"></span>distanceFromStart<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#distanceFromStart">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line776">line 776</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> that represents the angle distance from <code>start</code>
+to <code>angle</code> in the arc's orientation.</p>
+<p>Can be used to determine, for a given angle, where it sits inside the
+arc if the arc <code>start</code> was the origin angle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to measure the distance to</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Examples</h5>
+    
+        <p class="code-caption">For a clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(55, 77, 0.5, null, true)
+// returns 0.2, since 0.7 - 0.5 = 0.2
+arc.distanceFromStart(0.7)</code></pre>
+
+        <p class="code-caption">For a counter-clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(55, 77, 0.5, null, false)
+// returns 0.8, since 1 - (0.7 - 0.5) = 0.8
+arc.distanceFromStart(0.7)</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="divideToArcs"><span class="type-signature"></span>divideToArcs<span class="signature">(count)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Rac.Arc.html">Rac.Arc</a>>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#divideToArcs">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line1186">line 1186</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns an array containing new <code>Arc</code> objects representing <code>this</code>
+divided into <code>count</code> arcs, all with the same
+<a href="Rac.Arc.html#angleDistance">angle distance</a>.</p>
+<p>When <code>count</code> is zero or lower, returns an empty array. When <code>count</code> is
+<code>1</code> returns an arc equivalent to <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Number of arcs to divide <code>this</code> into</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="divideToBeziers"><span class="type-signature"></span>divideToBeziers<span class="signature">(count)</span><span class="type-signature"> &rarr; {<a href="Rac.Composite.html">Rac.Composite</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#divideToBeziers">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line1247">line 1247</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Composite</code> that contains <code>Bezier</code> objects representing
+the arc divided into <code>count</code> beziers that approximate the shape of the
+arc.</p>
+<p>When <code>count</code> is zero or lower, returns an empty <code>Composite</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Bezier.html"><code>Rac.Bezier</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Number of beziers to divide <code>this</code> into</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="divideToSegments"><span class="type-signature"></span>divideToSegments<span class="signature">(count)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Rac.Segment.html">Rac.Segment</a>>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#divideToSegments">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line1215">line 1215</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns an array containing new <code>Segment</code> objects representing <code>this</code>
+divided into <code>count</code> chords, all with the same length.</p>
+<p>When <code>count</code> is zero or lower, returns an empty array. When <code>count</code> is
+<code>1</code> returns an arc equivalent to
+<code><a href="Rac.Arc.html#chordSegment">this.chordSegment()</a></code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Number of segments to divide <code>this</code> into</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="endPoint"><span class="type-signature"></span>endPoint<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#endPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line198">line 198</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> located where the arc ends.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="endRay"><span class="type-signature"></span>endRay<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#endRay">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line216">line 216</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Ray</code> from <code>center</code> towars <code>end</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="endSegment"><span class="type-signature"></span>endSegment<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#endSegment">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line234">line 234</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> from <code>center</code> to <code>endPoint()</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="equals"><span class="type-signature"></span>equals<span class="signature">(otherSegment)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#equals">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line145">line 145</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when all members, except <code>rac</code>, of both arcs are equal;
+otherwise returns <code>false</code>.</p>
+<p>When <code>otherArc</code> is any class other that <code>Rac.Arc</code>, returns <code>false</code>.</p>
+<p>Arcs' <code>radius</code> are compared using <code><a href="Rac.html#equals">Rac#equals</a></code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
+        
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
+        
+            <li><p><a href="Rac.html#equals"><code>rac.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>otherSegment</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Segment.html">Rac.Segment</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Segment</code> to compare</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="intersectionArc"><span class="type-signature"></span>intersectionArc<span class="signature">(otherArc)</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#intersectionArc">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line1045">line 1045</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> representing the section of <code>this</code> that is inside
+<code>otherArc</code>, or <code>null</code> when there is no intersection. The returned arc
+will have the same center, radius, and orientation as <code>this</code>.</p>
+<p>Both arcs are considered complete circles for the calculation of the
+intersection, thus the endpoints of the returned arc may not lay inside
+<code>this</code>.</p>
+<p>An edge case of this method is that when the distance between <code>this</code>
+and <code>otherArc</code> is the sum of their radius, meaning the arcs touch at a
+single point, the resulting arc may have a angle-distance of zero,
+which is interpreted as a complete-circle arc.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>otherArc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Arc.html">Rac.Arc</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Arc</code> to intersect with</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="intersectionChord"><span class="type-signature"></span>intersectionChord<span class="signature">(otherArc)</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#intersectionChord">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line890">line 890</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> for the chord formed by the intersection of
+<code>this</code> and <code>otherArc</code>, or <code>null</code> when there is no intersection.</p>
+<p>The returned <code>Segment</code> will point towards the <code>this</code> orientation.</p>
+<p>Both arcs are considered complete circles for the calculation of the
+chord, thus the endpoints of the returned segment may not lay inside
+the actual arcs.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>otherArc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Arc.html">Rac.Arc</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>description</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="intersectionChordEndWithRay"><span class="type-signature"></span>intersectionChordEndWithRay<span class="signature">(ray)</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#intersectionChordEndWithRay">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line1012">line 1012</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> representing the end of the chord formed by the
+intersection of the arc and 'ray', or <code>null</code> when no chord is possible.</p>
+<p>When <code>useProjection</code> is <code>true</code> the method will always return a <code>Point</code>
+even when there is no contact between the arc and <code>ray</code>. In this case
+the point in the arc closest to <code>ray</code> is returned.</p>
+<p>The arc is considered a complete circle and <code>ray</code> is considered an
+unbounded line.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Ray.html">Rac.Ray</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Ray</code> to calculate the intersection with</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="intersectionChordWithRay"><span class="type-signature"></span>intersectionChordWithRay<span class="signature">(ray)</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#intersectionChordWithRay">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line963">line 963</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> representing the chord formed by the
+intersection of the arc and 'ray', or <code>null</code> when no chord is possible.</p>
+<p>The returned <code>Segment</code> will always have the same angle as <code>ray</code>.</p>
+<p>The arc is considered a complete circle and <code>ray</code> is considered an
+unbounded line.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Ray.html">Rac.Ray</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Ray</code> to calculate the intersection with</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="isCircle"><span class="type-signature"></span>isCircle<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#isCircle">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line261">line 261</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> if the arc is a complete circle, which is when <code>start</code>
+and <code>end</code> are <a href="Rac.Angle.html#equals">equal angles</a>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#equals"><code>angle.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="length"><span class="type-signature"></span>length<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#length">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line160">line 160</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the length of the arc: the part of the circumference the arc
+represents.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="pointAtAngle"><span class="type-signature"></span>pointAtAngle<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#pointAtAngle">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line791">line 791</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> located in the arc at the given <code>angle</code>. This
+method does not consider the <code>start</code> nor <code>end</code> of the arc.</p>
+<p>The arc is considered a complete circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> towards the new <code>Point</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="pointAtAngleDistance"><span class="type-signature"></span>pointAtAngleDistance<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#pointAtAngleDistance">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line806">line 806</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> located in the arc at the given <code>angle</code>
+<a href="Rac.Angle.html#shift">shifted by</a> <code>start</code> in arc's orientation.</p>
+<p>The arc is considered a complete circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to be shifted by <code>start</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="pointAtLength"><span class="type-signature"></span>pointAtLength<span class="signature">(length)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#pointAtLength">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line821">line 821</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> located in the arc at the given <code>length</code> from
+<code>startPoint()</code> in arc's orientation.</p>
+<p>The arc is considered a complete circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The length from <code>startPoint()</code> to the new <code>Point</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="pointAtLengthRatio"><span class="type-signature"></span>pointAtLengthRatio<span class="signature">(ratio)</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#pointAtLengthRatio">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line836">line 836</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> located in the arc at <code>length() * ratio</code> from
+<code>startPoint()</code> in the arc's orientation.</p>
+<p>The arc is considered a complete circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ratio</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The factor to multiply <code>length()</code> by</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="radiusSegmentAtAngle"><span class="type-signature"></span>radiusSegmentAtAngle<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#radiusSegmentAtAngle">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line853">line 853</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> representing the radius of the arc at the
+given <code>angle</code>. This method does not consider the <code>start</code> nor <code>end</code> of
+the arc.</p>
+<p>The arc is considered a complete circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The direction of the radius to return</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="radiusSegmentTowardsPoint"><span class="type-signature"></span>radiusSegmentTowardsPoint<span class="signature">(point)</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#radiusSegmentTowardsPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line870">line 870</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> representing the radius of the arc in the
+direction towards the given <code>point</code>. This method does not consider the
+<code>start</code> nor <code>end</code> of the arc.</p>
+<p>The arc is considered a complete circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Rac.point</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> in the direction of the radius to return</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="reverse"><span class="type-signature"></span>reverse<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#reverse">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line606">line 606</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with its <code>start</code> and <code>end</code> exchanged, and the
+opposite clockwise orientation. The center and radius remain be the
+same as <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="shiftAngle"><span class="type-signature"></span>shiftAngle<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#shiftAngle">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line748">line 748</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> with <code>angle</code> <a href="Rac.Angle.html#shift">shifted by</a>
+<code>start</code> in the arc's orientation.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#shift"><code>angle.shift</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to shift</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Examples</h5>
+    
+        <p class="code-caption">For a clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(0, 0, 0.5, null, true)
+// returns 0.6, since 0.5 + 0.1 = 0.6
+arc.shiftAngle(0.1)</code></pre>
+
+        <p class="code-caption">For a counter-clockwise arc starting at <code>0.5</code></p>
+    
+    <pre class="prettyprint example"><code>let arc = rac.Arc(0, 0, 0.5, null, false)
+// returns 0.3, since 0.5 - 0.2 = 0.3
+arc.shiftAngle(0.2)</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="startPoint"><span class="type-signature"></span>startPoint<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Point.html">Rac.Point</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#startPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line189">line 189</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Point</code> located where the arc starts.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="startRay"><span class="type-signature"></span>startRay<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#startRay">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line207">line 207</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Ray</code> from <code>center</code> towars <code>start</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="startSegment"><span class="type-signature"></span>startSegment<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#startSegment">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line225">line 225</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> from <code>center</code> to <code>startPoint()</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="tangentSegment"><span class="type-signature"></span>tangentSegment<span class="signature">(otherArc, startClockwise, endClockwise)</span><span class="type-signature"> &rarr; (nullable) {<a href="Rac.Segment.html">Rac.Segment</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#tangentSegment">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line1136">line 1136</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Segment</code> that is tangent to both <code>this</code> and <code>otherArc</code>,
+or <code>null</code> when no tangent segment is possible. The new <code>Segment</code> starts
+at the contact point with <code>this</code> and ends at the contact point with
+<code>otherArc</code>.</p>
+<p>Considering <em>center axis</em> a ray from <code>this.center</code> towards
+<code>otherArc.center</code>, <code>startClockwise</code> determines the side of the start
+point of the returned segment in relation to <em>center axis</em>, and
+<code>endClockwise</code> the side of the end point.</p>
+<p>Both <code>this</code> and <code>otherArc</code> are considered complete circles.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>otherArc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Arc.html">Rac.Arc</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>An <code>Arc</code> to calculate a tangent segment towards</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startClockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The orientation of the new <code>Segment</code>
+start point in relation to the <em>center axis</em></p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endClockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The orientation of the new <code>Segment</code>
+end point in relation to the <em>center axis</em></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="toString"><span class="type-signature"></span>toString<span class="signature">(digits<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#toString">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line121">line 121</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a string representation intended for human consumption.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>digits</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The number of digits to print after the
+decimal point, when ommited all digits are printed</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withAngleDistance"><span class="type-signature"></span>withAngleDistance<span class="signature">(angleDistance)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withAngleDistance">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line360">line 360</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with the given <code>angleDistance</code> as the distance
+between <code>start</code> and <code>end</code> in the arc's orientation. This changes <code>end</code>
+for the new <code>Arc</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Arc.html#angleDistance"><code>arc.angleDistance</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angleDistance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The angle distance of the
+new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withAnglesTowardsPoint"><span class="type-signature"></span>withAnglesTowardsPoint<span class="signature">(startPoint, endPoint<span class="signature-attributes">opt, nullable</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withAnglesTowardsPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line543">line 543</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>start</code> pointing towards <code>startPoint</code> and
+<code>end</code> pointing towards <code>endPoint</code>, both from <code>center</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<ul>
+<li>When <code>center</code> is considered <a href="Rac.Point.html#equals">equal</a> to
+either <code>startPoint</code> or <code>endPoint</code>, the new <code>Arc</code> will use <code>this.start</code>
+or <code>this.end</code> respectively.</li>
+</ul>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>startPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> to point <code>start</code> towards</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endPoint</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> to point <code>end</code> towards;
+when ommited or <code>null</code>, <code>startPoint</code> is used instead</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withCenter"><span class="type-signature"></span>withCenter<span class="signature">(newCenter)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withCenter">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line274">line 274</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with center set to <code>newCenter</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newCenter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The center for the new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withClockwise"><span class="type-signature"></span>withClockwise<span class="signature">(newClockwise)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withClockwise">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line340">line 340</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with its orientation set to <code>newClockwise</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newClockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The orientation for the new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withEnd"><span class="type-signature"></span>withEnd<span class="signature">(newEnd)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withEnd">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line307">line 307</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with end set to <code>newEnd</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newEnd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The end for the new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withEndExtension"><span class="type-signature"></span>withEndExtension<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withEndExtension">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line590">line 590</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>end</code> shifted by the given <code>angle</code> in the
+arc's orientation.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>Notice that this method shifts <code>end</code> towards the arc's orientation,
+intending to result in a new <code>Arc</code> with an increase to
+<code>angleDistance()</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to shift <code>start</code> against</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withEndPoint"><span class="type-signature"></span>withEndPoint<span class="signature">(point)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withEndPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line473">line 473</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>endPoint()</code> located at <code>point</code>. This changes
+<code>end</code> and <code>radius</code> in the new <code>Arc</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>When <code>center</code> and <code>point</code> are considered
+<a href="Rac.Point.html#equals">equal</a>, the new <code>Arc</code> will use <code>this.end</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> at the <code>endPoint() of the new </code>Arc`</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withEndTowardsPoint"><span class="type-signature"></span>withEndTowardsPoint<span class="signature">(point)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withEndTowardsPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line518">line 518</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>end</code> pointing towards <code>point</code> from <code>center</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>When <code>center</code> and <code>point</code> are considered
+<a href="Rac.Point.html#equals">equal</a>, the new <code>Arc</code> will use <code>this.end</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> to point <code>end</code> towards</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withLength"><span class="type-signature"></span>withLength<span class="signature">(length)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withLength">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line385">line 385</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with the given <code>length</code> as the length of the
+part of the circumference it represents. This changes <code>end</code> for the
+new <code>Arc</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>The actual <code>length()</code> of the resulting <code>Arc</code> will always be in the
+range <code>[0,radius*TAU)</code>. When the given <code>length</code> is larger that the
+circumference of the arc as a complete circle, the resulting arc length
+will be cut back into range through a modulo operation.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Arc.html#length"><code>length</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The length of the new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withLengthAdd"><span class="type-signature"></span>withLengthAdd<span class="signature">(length)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withLengthAdd">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line407">line 407</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>length</code> added to the part of the
+circumference <code>this</code> represents. This changes <code>end</code> for the
+new <code>Arc</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>The actual <code>length()</code> of the resulting <code>Arc</code> will always be in the
+range <code>[0,radius*TAU)</code>. When the resulting <code>length</code> is larger that the
+circumference of the arc as a complete circle, the resulting arc length
+will be cut back into range through a modulo operation.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Arc.html#length"><code>length</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>length</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The length to add</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withLengthRatio"><span class="type-signature"></span>withLengthRatio<span class="signature">(ratio)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withLengthRatio">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line429">line 429</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with a <code>length()</code> of <code>this.length() * ratio</code>. This
+changes <code>end</code> for the new <code>Arc</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>The actual <code>length()</code> of the resulting <code>Arc</code> will always be in the
+range <em>[0,radius</em>TAU)*. When the calculated length is larger that the
+circumference of the arc as a complete circle, the resulting arc length
+will be cut back into range through a modulo operation.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Arc.html#length"><code>length</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ratio</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The factor to multiply <code>length()</code> by</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withRadius"><span class="type-signature"></span>withRadius<span class="signature">(newRadius)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withRadius">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line324">line 324</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with radius set to <code>newRadius</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newRadius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The radius for the new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withStart"><span class="type-signature"></span>withStart<span class="signature">(newStart)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withStart">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line290">line 290</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with start set to <code>newStart</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newStart</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The start for the new <code>Arc</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withStartExtension"><span class="type-signature"></span>withStartExtension<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withStartExtension">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line568">line 568</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>start</code> shifted by the given <code>angle</code> in the
+arc's opposite orientation.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>Notice that this method shifts <code>start</code> to the arc's <em>opposite</em>
+orientation, intending to result in a new <code>Arc</code> with an increase to
+<code>angleDistance()</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to shift <code>start</code> against</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withStartPoint"><span class="type-signature"></span>withStartPoint<span class="signature">(point)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withStartPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line449">line 449</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>startPoint()</code> located at <code>point</code>. This
+changes <code>start</code> and <code>radius</code> for the new <code>Arc</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>When <code>center</code> and <code>point</code> are considered
+<a href="Rac.Point.html#equals">equal</a>, the new <code>Arc</code> will use <code>this.start</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> at the <code>startPoint() of the new </code>Arc`</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withStartTowardsPoint"><span class="type-signature"></span>withStartTowardsPoint<span class="signature">(point)</span><span class="type-signature"> &rarr; {<a href="Rac.Arc.html">Rac.Arc</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Arc.html#withStartTowardsPoint">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Arc.js.html">src/drawable/Arc.js</a>, <a href="src_drawable_Arc.js.html#line497">line 497</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Arc</code> with <code>start</code> pointing towards <code>point</code> from
+<code>center</code>.</p>
+<p>All other properties are copied from <code>this</code>.</p>
+<p>When <code>center</code> and <code>point</code> are considered
+<a href="Rac.Point.html#equals">equal</a>, the new <code>Arc</code> will use <code>this.start</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Point.html#equals"><code>point.equals</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>point</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Point.html">Rac.Point</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>A <code>Point</code> to point <code>start</code> towards</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+    
+    using the <a href="https://github.com/lopsae/minami-rac">Minami-rac 1.4.1</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

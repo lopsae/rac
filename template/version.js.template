@@ -1,8 +1,34 @@
 'useStrict';
 
 // Ruler and Compass - version and build
+/**
+* Container of the version data for the package.
+* @namespace version
+*/
 module.exports = {
-	version: '<%= versionString %>',
-	build: '<%= buildString %>'
+
+  /**
+  * Version of the package. Exposed through
+  * [`Rac.version`]{@link Rac.version}.
+  * @constant {String} version
+  * @memberof version#
+  */
+  version: '<%= versionString %>',
+
+  /**
+  * Build of the package. Exposed through
+  * [`Rac.build`]{@link Rac.build}.
+  * @constant {String} build
+  * @memberof version#
+  */
+  build: '<%= buildString %>',
+
+  /**
+  * Date of build of the package. Exposed through
+  * [`Rac.dated`]{@link Rac.dated}.
+  * @constant {String} dated
+  * @memberof version#
+  */
+  dated: '<%= datedString %>'
 };
 

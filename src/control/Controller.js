@@ -41,7 +41,7 @@ class ControlSelection{
     * to interact with the selected control in a fixed location, even if
     * the control moves during the interaction.
     *
-    * @type {object}
+    * @type {Object}
     */
     this.fixedAnchor = control.affixAnchor();
 
@@ -111,7 +111,7 @@ class Controller {
     * Distance at which the pointer is considered to interact with a
     * control knob. Also used by controls for drawing.
     *
-    * @type {number}
+    * @type {Number}
     */
     this.knobRadius = 22;
 
@@ -131,7 +131,7 @@ class Controller {
     * This property is a shared configuration. The behaviour is implemented
     * independently by each control constructor.
     *
-    * @type {boolean}
+    * @type {Boolean}
     * @default true
     */
     this.autoAddControls = true;

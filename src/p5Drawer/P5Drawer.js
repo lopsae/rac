@@ -24,7 +24,8 @@ class P5Drawer {
     * Style used for debug drawing, when `null` the style already applied
     * is used.
     *
-    * @type {object}
+    * @type {Object}
+    * @default null
     */
     this.debugStyle = null;
 
@@ -32,37 +33,43 @@ class P5Drawer {
     * Style used for text for debug drawing, when `null` the style already
     * applied is used.
     *
-    * @type {object}
+    * @type {Object}
+    * @default null
     */
     this.debugTextStyle = null;
 
     /**
     * Settings used by the default implementation of `drawable.debug()`.
     *
-    * @property {string} font='monospace'
+    * @property {String} font='monospace'
     *   Font to use when drawing with `debug()`
-    * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    * @property {Number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
     *   Font size to use when drawing with `debug()`
-    * @property {number} fixedDigits=2
+    * @property {Number} fixedDigits=2
     *   Number of decimal digits to print when drawing with `debug()`
     *
-    * @type {object}
+    * @type {Object}
     */
     this.debugTextOptions = {
       font: 'monospace',
+      // TODO: documentation displays this as being optional
+      // in order to make the link work it has to be wrapped in [],
+      // which makes it an optional
       size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };
 
     /**
     * Radius of point markers for debug drawing.
-    * @type {number}
+    * @type {Number}
+    * @default 22
     */
     this.debugPointRadius = 4;
 
     /**
     * Radius of the main visual elements for debug drawing.
-    * @type {number}
+    * @type {Number}
+    * @default 22
     */
     this.debugMarkerRadius = 22;
 
@@ -70,7 +77,7 @@ class P5Drawer {
     * Factor applied to stroke weight setting. Stroke weight is set to
     * `stroke.weight * strokeWeightFactor` when applicable.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.strokeWeightFactor = 1;

@@ -35,7 +35,7 @@ class Control {
   * Creates a new `Control` instance.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
   */
   constructor(rac, value) {
@@ -55,7 +55,7 @@ class Control {
     *
     * May be further constrained to `[startLimit,endLimit]`.
     *
-    * @type {number}
+    * @type {Number}
     */
     this.value = value;
 
@@ -63,7 +63,7 @@ class Control {
     * [Projected value]{@link Rac.Control#projectedValue} to use when
     * `value` is `0`.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0
     */
     this.projectionStart = 0;
@@ -72,7 +72,7 @@ class Control {
     * [Projected value]{@link Rac.Control#projectedValue} to use when
     * `value` is `1`.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.projectionEnd = 1;
@@ -80,7 +80,7 @@ class Control {
     /**
     * Minimum `value` that can be selected through user interaction.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0
     */
     this.startLimit = 0;
@@ -88,7 +88,7 @@ class Control {
     /**
     * Maximum `value` that can be selected through user interaction.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.endLimit = 1;
@@ -105,7 +105,7 @@ class Control {
     * Style to apply when drawing. This style gets applied after
     * `[rac.controller.controlStyle]{@link Rac.Controller#controlStyle}`.
     *
-    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} [style=null]
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
     * @default null
     */
     this.style = null;
@@ -124,20 +124,21 @@ class Control {
   * `value` increases, the projection returned decreases from
   * `projectionStart` until reaching `projectionEnd`.
   *
-  * > E.g.
-  * > ```
-  * > For a control with a projection range of [100,200]
-  * > + when value is 0,   projectionValue() is 100
-  * > + when value is 0.5, projectionValue() is 150
-  * > + when value is 1,   projectionValue() is 200
-  * >
-  * > For a control with a projection range of [50,30]
-  * > + when value is 0,   projectionValue() is 50
-  * > + when value is 0.5, projectionValue() is 40
-  * > + when value is 1,   projectionValue() is 30
-  * > ```
+  * @example
+  * <caption>For a control with a projection range of [100,200]</caption>
+  * control.setProjectionRange(100, 200)
+  * control.value = 0;   control.projectionValue() // returns 100
+  * control.value = 0.5; control.projectionValue() // returns 150
+  * control.value = 1;   control.projectionValue() // returns 200
   *
-  * @returns {number}
+  * @example
+  * <caption>For a control with a projection range of [50,30]</caption>
+  * control.setProjectionRange(30, 50)
+  * control.value = 0;   control.projectionValue() // returns 50
+  * control.value = 0.5; control.projectionValue() // returns 40
+  * control.value = 1;   control.projectionValue() // returns 30
+  *
+  * @returns {Number}
   */
   projectedValue() {
     let projectionRange = this.projectionEnd - this.projectionStart;
@@ -153,19 +154,26 @@ class Control {
   // }
 
 
+  // TODO: document, test
+  setProjectionRange(start, end) {
+    this.projectionStart = start;
+    this.projectionEnd = end;
+  }
+
+
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
   * and `1`, correspondingly.
   *
-  * > E.g.
-  * > ```
-  * > control.setLimitsWithInsets(0.1, 0.2)
-  * > // sets startLimit as 0.1
-  * > // sets endLimit   as 0.8
-  * > ```
+  * @example
+  * control.setLimitsWithInsets(0.1, 0.2)
+  * // returns 0.1, since 0 + 0.1 = 0.1
+  * control.startLimit
+  * // returns 0.8, since 1 - 0.2 = 0.8
+  * control.endLimit
   *
-  * @param {number} startInset - The inset from `0` to use for `startLimit`
-  * @param {number} endInset - The inset from `1` to use for `endLimit`
+  * @param {Number} startInset - The inset from `0` to use for `startLimit`
+  * @param {Number} endInset - The inset from `1` to use for `endLimit`
   */
   setLimitsWithInsets(startInset, endInset) {
     this.startLimit = startInset;
@@ -192,7 +200,7 @@ class Control {
   /**
   * Returns `true` when this control is the currently selected control.
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   isSelected() {
     if (this.rac.controller.selection === null) {
@@ -232,7 +240,7 @@ class Control {
   * > implementation throws an error.
   *
   * @abstract
-  * @return {object}
+  * @return {Object}
   */
   affixAnchor() {
     throw Rac.Exception.abstractFunctionCalled(
@@ -275,7 +283,7 @@ class Control {
   * @abstract
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
-  * @param {object} fixedAnchor - Anchor produced when user interaction
+  * @param {Object} fixedAnchor - Anchor produced when user interaction
   *   started
   */
   updateWithPointer(pointerKnobCenter, fixedAnchor) {
@@ -293,7 +301,7 @@ class Control {
   *
   * @abstract
   * @param {Rac.Point} pointerCenter - The position of the user pointer
-  * @param {object} fixedAnchor - Anchor of the control produced when user
+  * @param {Object} fixedAnchor - Anchor of the control produced when user
   *   interaction started
   * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
   *   the offset from `pointerCenter` to the control knob when user

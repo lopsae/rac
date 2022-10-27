@@ -2,13 +2,13 @@
 module.exports = function(grunt) {
 
   const bannerHead =
-    '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %>'
+    '// RAC - ruler-and-compass - <%= pkg.version %> <%= makeBuildString.buildString %> <%= makeDatedString.datedString %>'
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     browserify: {
-      dev: {
+      dev_dirty: {
         src: 'src/main.js',
         dest: 'dist/rac.dev.js',
         options: {
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
     uglify: {
       options: {
         mangle: false,
-        banner: '// RAC - ruler-and-compass - minified - <%= pkg.version %> <%= makeBuildString.buildString %>'
+        banner: '// RAC - ruler-and-compass - minified - <%= pkg.version %> <%= makeBuildString.buildString %> <%= makeDatedString.datedString %>'
       },
       main: {
         files: {
@@ -75,22 +75,24 @@ module.exports = function(grunt) {
     watch: {
       serve_again: {
         files: ['src/**/*.js'],
-        tasks: ['makeVersionFile', 'browserify:dev']
+        tasks: ['makeVersionFile:local', 'browserify:dev_dirty']
       }
     }, // watch
 
     jsdoc : {
       dist : {
-        src: ['src/*'],
+        src: ['src/**/*.js', 'built/*.js'],
         options: {
           template: "./node_modules/minami-rac",
           readme: "./built/docs_home.md",
-          destination: 'docs/documentation/latest',
+          destination: 'docs/documentation/<%= pkg.version %>',
           verbose: true,
-          // pedantic: true,
+          pedantic: true,
           // debug: true,
           // explain: true,
-          configure: './jsdoc.json'
+          configure: './jsdoc.json',
+          // Not needed, using the actual package changes the output dir
+          package: '',
         }
       }
     } // jsdoc
@@ -99,19 +101,15 @@ module.exports = function(grunt) {
 
   // Stores in this task config:
   // + in `value` the last git commit short-hash
-  // + in `parentHash` the parent-of-last git commit short-hash
   grunt.config.set('exec.shortHash', {
-    cmd: 'git --no-pager log --max-count=2 --format="%h"',
+    cmd: 'git --no-pager log --max-count=1 --format="%h"',
     stdout: false,
     callback: function(error, stdout, stderr) {
       if (error !== null) return;
 
-      let hashes = stdout.trim().split('\n');
-      let shortHash = hashes[0];
-      let parentHash = hashes[1];
+      let shortHash = stdout.trim();
       grunt.config('exec.shortHash.value', shortHash);
-      grunt.config('exec.shortHash.parentHash', parentHash);
-      grunt.log.writeln(`Git short hashes - value:${shortHash} parent:${parentHash}`);
+      grunt.log.writeln(`Git short hashe: ${shortHash}`);
     }
   }); // exec.shortHash
 
@@ -146,6 +144,53 @@ module.exports = function(grunt) {
   }); // exec.statusCount
 
 
+  // Opens the documentation index for the current package version.
+  grunt.config.set('exec.openDocs', {
+    cmd: 'open ./docs/documentation/<%= pkg.version %>/index.html',
+    stdout: false,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      grunt.config.requires('pkg.version');
+      const pkgVersion = grunt.config('pkg.version');
+
+      grunt.log.writeln(`Opened docs for: ${pkgVersion.green}`);
+    }
+  }); // exec.openDocs
+
+
+  // Checks out the commited version of the the documentation and its home.
+  grunt.config.set('exec.cleanDocs', {
+    cmd: 'git checkout HEAD -- docs/documentation/<%= pkg.version %> built/docs_home.md',
+    stdout: true,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      grunt.config.requires('pkg.version');
+      const pkgVersion = grunt.config('pkg.version');
+
+      grunt.log.writeln(`Cleaned docs for: ${pkgVersion.green}`);
+    }
+  }); // exec.cleanDocs
+
+
+  // Deletes all documentation files of the current package version.
+  grunt.config.set('exec.deleteDocs', {
+    cmd: 'rm -rfv docs/documentation/<%= pkg.version %>/*',
+    stdout: true,
+    callback: function(error, stdout, stderr) {
+      if (error !== null) return;
+
+      grunt.config.requires('pkg.version');
+      const pkgVersion = grunt.config('pkg.version');
+
+      let deleted = 'Deleted'.red.bold;
+      grunt.log.writeln(`${deleted} docs for: ${pkgVersion.green}`);
+    }
+  }); // exec.deleteDocs
+
+
+
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -158,7 +203,10 @@ module.exports = function(grunt) {
   // `built/docs_home.md`.
   grunt.registerTask('makeDocsReadme', function() {
     grunt.config.requires('pkg.version');
-    let versionString = grunt.config('pkg.version');
+    const pkgVersion = grunt.config('pkg.version');
+
+    // TODO: why is this necessary? does a 0.1 version becomes a float?
+    const versionString = '' + pkgVersion;
 
     let templateContents = grunt.file.read('template/docs_home.md.template');
     let processedTemplate = grunt.template.process(templateContents, {data: {
@@ -173,58 +221,62 @@ module.exports = function(grunt) {
   // Makes and stores the full version into the config value
   // `makeBuildString.buildString`.
   //
-  // When there are NO changes in the working tree the build is setup as
-  // *clean*:
-  // `{commitCount}-{shortHash}`
-  //
-  // When there ARE changes in the working tree the build is setup as
-  // *dirty*:
-  // `localBuild-{localTime}-{commitCount}-{shortHash}`
-  //
-  // When `target == "clean"` the build is setup as *forced-clean*:
-  // `{commitCount}-{shortHash}`
+  // Available targets:
+  // + `local` - Makes a version value using the current local files, even
+  //   if modifications are present in the workspace. The value is always
+  //   prefixed with `localBuild-`.
+  // + `production` - Makes a production version value, the workspace MUST
+  //   be clean of any modifications.
   grunt.registerTask('makeBuildString', function(target) {
+    let validTargets = ['local', 'production'];
+    if (!validTargets.includes(target)) {
+      grunt.fatal(`Unsupported target: ${target}`)
+      return
+    }
+    let isProduction = target === 'production';
+
     grunt.config.requires(
-      'pkg.version',
       'exec.shortHash.value',
-      'exec.shortHash.parentHash',
       'exec.commitCount.value',
       'exec.statusCount.value');
 
-    const pkgVersion  = grunt.config('pkg.version');
     const shortHash   = grunt.config('exec.shortHash.value');
-    const parentHash  = grunt.config('exec.shortHash.parentHash');
     const commitCount = grunt.config('exec.commitCount.value');
     const statusCount = grunt.config('exec.statusCount.value');
-    const clean = target === 'clean';
 
-    const versionString = '' + pkgVersion;
+    if (isProduction && statusCount != 0) {
+      grunt.fatal(`Production build string must have a clean workspace - statusCount:${statusCount}`)
+      return
+    }
 
     let buildString;
-    let localTime = null;
-    if (statusCount == 0 || clean) {
+    if (isProduction) {
       buildString =`${commitCount}-${shortHash}`;
     } else {
-      const now = new Date();
-      let minutes = now.getMinutes();
-      let seconds = now.getSeconds();
-      minutes = minutes >= 10 ? minutes : `0${minutes}`;
-      seconds = seconds >= 10 ? seconds : `0${seconds}`;
-      localTime = `${now.getHours()}:${minutes}:${seconds}`;
-      buildString =`localBuild-${localTime}-${commitCount}-${shortHash}`;
+      buildString =`localBuild-${commitCount}-${shortHash}`;
     }
-
-    const makeType = clean ? "forced-clean" : statusCount == 0 ? "clean" : "dirty";
 
     grunt.config('makeBuildString.buildString', buildString);
-
-    grunt.log.writeln(`Stored ${makeType.green.bold} buildString:`);
-    if (localTime !== null) {
-    grunt.log.writeln(`Built at:    ${localTime.green.bold}`);
-    }
-    grunt.log.writeln(`buildString: ${buildString.green}`);
+    grunt.log.writeln(`Stored ${target.green.bold} buildString: ${buildString.green}`);
   });
 
+
+  // Makes and stores the build date into the config value
+  // `makeDatedString.datedString`.
+  //
+  // The date string uses the ISO-8601 standard.
+  //
+  // E.g. `2022-10-13T23:06:12.500Z`
+  grunt.registerTask('makeDatedString', function() {
+    grunt.config.requires();
+
+    const now = new Date();
+    const datedString = now.toISOString();
+    const timed = datedString.split('T').at(-1);
+    grunt.config('makeDatedString.datedString', datedString);
+    grunt.log.writeln(`Time: ${timed.green.bold}`);
+    grunt.log.writeln(`Stored datedString: ${datedString.green}`);
+  });
 
 
   // Saves the version file with the current version and build, saved into
@@ -232,36 +284,48 @@ module.exports = function(grunt) {
   grunt.registerTask('saveVersionFile', function() {
     grunt.config.requires(
       'pkg.version',
-      'makeBuildString.buildString');
+      'makeBuildString.buildString',
+      'makeDatedString.datedString');
 
     const pkgVersion  = grunt.config('pkg.version');
     const buildString = grunt.config('makeBuildString.buildString');
+    const datedString = grunt.config('makeDatedString.datedString');
 
     const versionString = '' + pkgVersion;
 
     const templateContents = grunt.file.read('template/version.js.template');
     const processedTemplate = grunt.template.process(templateContents, {data: {
       versionString: versionString,
-      buildString: buildString
+      buildString:   buildString,
+      datedString:   datedString
     }});
 
     const outputFile = 'built/version.js';
     grunt.file.write(outputFile, processedTemplate);
 
-    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green}`);
+    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green} ${datedString.green}`);
   });
 
 
   // Queues all the tasks required to make the version file.
+  // Available targets:
+  // + `local` - Makes a version using the current local files, even if
+  //   modifications are present in the workspace.
+  // + `production` - Makes a production version file, the workspace MUST
+  //   be clean of any modifications.
   grunt.registerTask('makeVersionFile', function(target) {
-    let makeBuildStringTask = target === undefined
-      ? 'makeBuildString'
-      : `makeBuildString:${target}`;
+    let validTargets = ['local', 'production'];
+    if (!validTargets.includes(target)) {
+      grunt.fatal(`Unsupported target: ${target}`)
+      return
+    }
+
     grunt.task.run(
       'exec:shortHash',
       'exec:commitCount',
       'exec:statusCount',
-      makeBuildStringTask,
+      `makeBuildString:${target}`,
+      'makeDatedString',
       'saveVersionFile');
     if (target === undefined) {
       grunt.log.writeln(`Queued all tasks to make version file`);
@@ -277,10 +341,16 @@ module.exports = function(grunt) {
     'makeDocsReadme', 'jsdoc']);
 
 
+  grunt.registerTask('openDocs', ['exec:openDocs']);
+  grunt.registerTask('cleanDocs', ['exec:cleanDocs']);
+  grunt.registerTask('deleteDocs', ['exec:deleteDocs']);
+
+
+
   // Builds a dev bundle, serves it, and watches for source changes
   grunt.registerTask('serve', [
-    'makeVersionFile',
-    'browserify:dev',
+    'makeVersionFile:local',
+    'browserify:dev_dirty',
     'connect:server',
     'watch:serve_again']);
 
@@ -288,7 +358,7 @@ module.exports = function(grunt) {
   // Builds a dev/main/mini bundle with a clean version, serves it for
   // confirmation.
   grunt.registerTask('dist', [
-    'makeVersionFile:clean',
+    'makeVersionFile:production',
     'browserify:dev_clean',
     'browserify:main',
     'uglify',

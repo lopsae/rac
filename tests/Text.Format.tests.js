@@ -149,6 +149,32 @@ tools.test( function instanceMembers() {
 });
 
 
+// Test that Text.Format and TextFormat are producing the same results
+tools.test( function instanceFunctions() {
+  let aligned   = rac.Text.Format(ha.right, va.baseline);
+  let alignedAlt = rac.TextFormat(ha.right, va.baseline);
+  expect(aligned)   .equalsTextFormat(ha.right, va.baseline, 0, null, null);
+  expect(alignedAlt).equalsTextFormat(ha.right, va.baseline, 0, null, null);
+  expect(aligned.equals(alignedAlt)).toBe(true);
+
+  let tilted   = rac.Text.Format(ha.left, va.center, 1/8);
+  let tiltedAlt = rac.TextFormat(ha.left, va.center, 1/8);
+  expect(tilted)   .equalsTextFormat(ha.left, va.center, 1/8, null, null);
+  expect(tiltedAlt).equalsTextFormat(ha.left, va.center, 1/8, null, null);
+  expect(tilted.equals(tiltedAlt)).toBe(true);
+
+  let fonted   = rac.Text.Format(ha.center, va.baseline, 0, 'mono', 14);
+  let fontedAlt = rac.TextFormat(ha.center, va.baseline, 0, 'mono', 14);
+  expect(fonted)   .equalsTextFormat(ha.center, va.baseline, 0, 'mono', 14);
+  expect(fontedAlt).equalsTextFormat(ha.center, va.baseline, 0, 'mono', 14);
+  expect(fonted.equals(fontedAlt)).toBe(true);
+
+  expect(aligned.equals(tilted)).toBe(false);
+  expect(tilted .equals(fonted)).toBe(false);
+  expect(fonted .equals(aligned)).toBe(false);
+});
+
+
 tools.test( function withAngleFontSize() {
   expect(upright.withAngle(1/4)).equalsTextFormat(ha.left, va.baseline, 1/4);
   expect(upright.withAngle(rac.Angle.quarter)).equalsTextFormat(ha.left, va.baseline, 1/4);

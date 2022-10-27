@@ -24,6 +24,13 @@ tools.test( function build() {
 });
 
 
+tools.test( function dated() {
+  expect(Rac.dated).toBeTruthy();
+  expect(rac.dated).toBeTruthy();
+  expect(Rac.dated).toBe(rac.dated);
+});
+
+
 tools.test( function equalityThreshold() {
   const threshold = rac.equalityThreshold;
   const bump = threshold/16;

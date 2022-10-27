@@ -1,6 +1,37 @@
 Release process
 ===============
 
+Set dev version
+---------------
+Update `package.json`, set `version` to `n.e.w-dev`
+
+Commit message: `bump version to n.e.w-dev`
+
+
+
+Create new documentation
+------------------------
+Update `jsdoc.json`, set `o.l.d` to `n.e.w-dev`
+
+Commit message: `update jsdoc homelabel with n.e.w-dev`
+
+```
+npm run docs
+```
+
+Commit message: `build new docs for n.e.w-dev`
+
+As documentation changes:
+
+Commit message: `rebuild docs with ...`
+
+
+
+Develop!
+--------
+🛠🛠🛠
+
+
 
 Start release branch
 --------------------
@@ -19,9 +50,10 @@ Check changelog update
 Update versions
 ---------------
 In files:
-+ npm package.json
-+ hardcoded in jsdoc.json
-+ hardcoded in docs/index.md
++ npm `package.json`
++ hardcoded in `jsdoc.json`
++ hardcoded in `docs/index.md`
++ hardcoded in `readme.md`
 
 Update `package-lock.json` by running:
 ```
@@ -29,6 +61,23 @@ npm install
 ```
 
 Commit message: `bump version to n.e.w`
+
+
+
+Promote docs to current version
+-------------------------------
+```
+mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
+```
+
+Commit message: `promote documentation to n.e.w`
+
+And rebuild to take version change:
+```
+npm run docs
+```
+
+Commit message: `rebuild docs for n.e.w`
 
 
 
@@ -93,24 +142,13 @@ curl -v -X POST 'https://purge.jsdelivr.net/' \
 
 
 
-Make copy of current docs
--------------------------
-```
-mv docs/documentation/latest docs/documentation/o.l.d
-```
-
-Commit message: `freeze copy of o.l.d documentation`
-
-
-
-Build latest docs
------------------
+Rebuild current docs
+--------------------
 ```
 npm run docs:fresh
 ```
 
 Commit message: `rebuild docs for n.e.w`
-formerly: `rebuilt docs for n.e.w`
 
 
 
@@ -118,6 +156,11 @@ Check gh-pages locally
 ----------------------
 ```
 npm run pages
+```
+
+Pages are available at:
+```
+http://127.0.0.1:4000
 ```
 
 
@@ -130,10 +173,11 @@ git flow release finish a.b.c
 
 
 
-Push to origin
---------------
+Push tag to origin
+------------------
+Notice that the tag is prefixed with 'v':
 ```
-git push origin n.e.w
+git push origin vn.e.w
 ```
 
 
@@ -157,6 +201,7 @@ Update gh-pages
 ---------------
 + Hard reset of `gp-pages` to `n.e.w` tag
 + Push `gp-pages`
++ Check at https://rulerandcompass.org/
 
 
 

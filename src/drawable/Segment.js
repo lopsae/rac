@@ -6,7 +6,26 @@ const utils = require('../util/utils');
 
 
 /**
-* Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
+* Segment of a `[Ray]{@link Rac.Ray}` with a given length.
+*
+* ### `instance.Segment`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Segment` function]{@link Rac#Segment} to create `Segment` objects
+* from primitive values. This function also contains ready-made convenience
+* objects, like [`rac.Segment.zero`]{@link instance.Segment#zero}, listed
+* under [`instance.Segment`]{@link instance.Segment}.
+*
+* @example
+* let rac = new Rac()
+* let ray = rac.Ray(55, 77, 1/4)
+* // new instance with constructor
+* let segment = new Rac.Segment(rac, ray, 100)
+* // or convenience function
+* let otherSegment = rac.Segment(55, 77, 1/4, 100)
+*
+* @see [`rac.Segment`]{@link Rac#Segment}
+* @see [`instance.Segment`]{@link instance.Segment}
 *
 * @alias Rac.Segment
 */
@@ -16,7 +35,7 @@ class Segment {
   * Creates a new `Segment` instance.
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {Rac.Ray} ray - A `Ray` the segment will be based of
-  * @param {number} length - The length of the segment
+  * @param {Number} length - The length of the segment
   */
   constructor(rac, ray, length) {
     // TODO: different approach to error throwing?
@@ -47,7 +66,7 @@ class Segment {
 
     /**
     * The length of the segment.
-    * @type {number}
+    * @type {Number}
     */
     this.length = length;
   }
@@ -56,9 +75,9 @@ class Segment {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.ray.start.x, digits);
@@ -78,9 +97,10 @@ class Segment {
   * Segments' `length` are compared using `{@link Rac#equals}`.
   *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
-  * @returns {boolean}
-  * @see Rac.Ray#equals
-  * @see Rac#equals
+  * @returns {Boolean}
+  *
+  * @see [`ray.equals`]{@link Rac.Ray#equals}
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherSegment) {
     return otherSegment instanceof Segment
@@ -121,7 +141,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Segment`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Segment`
   * @returns {Rac.Segment}
   */
   withAngle(newAngle) {
@@ -164,7 +184,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newLength - The length for the new `Segment`
+  * @param {Number} newLength - The length for the new `Segment`
   * @returns {Rac.Segment}
   */
   withLength(newLength) {
@@ -177,7 +197,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} length - The length to add
+  * @param {Number} length - The length to add
   * @returns {Rac.Segment}
   */
   withLengthAdd(length) {
@@ -190,7 +210,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} ratio - The factor to multiply `length` by
+  * @param {Number} ratio - The factor to multiply `length` by
   * @returns {Rac.Segment}
   */
   withLengthRatio(ratio) {
@@ -203,7 +223,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to add
+  * @param {Rac.Angle|Number} angle - The angle to add
   * @returns {Rac.Segment}
   */
   withAngleAdd(angle) {
@@ -218,8 +238,8 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to be shifted by
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} angle - The angle to be shifted by
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Segment}
   */
   withAngleShift(angle, clockwise = true) {
@@ -236,7 +256,7 @@ class Segment {
   * Using a positive `distance` results in a longer segment, using a
   * negative `distance` results in a shorter one.
   *
-  * @param {number} distance - The distance to move the start point by
+  * @param {Number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
   withStartExtension(distance) {
@@ -258,7 +278,7 @@ class Segment {
   * This method performs the same operation as
   * `[withLengthAdd]{@link Rac.Segment#withLengthAdd}`.
   *
-  * @param {number} distance - The distance to add to `length`
+  * @param {Number} distance - The distance to add to `length`
   * @returns {Rac.Segment}
   */
   withEndExtension(distance) {
@@ -274,7 +294,8 @@ class Segment {
   * as `this`.
   *
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  *
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   inverse() {
     const newRay = this.ray.inverse();
@@ -290,9 +311,10 @@ class Segment {
   * The resulting `Segment` will have the same `startPoint()` and `length`
   * as `this`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  * @see Rac.Angle#perpendicular
+  *
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   perpendicular(clockwise = true) {
     const newRay = this.ray.perpendicular(clockwise);
@@ -307,7 +329,7 @@ class Segment {
   * same length as `this`.
   *
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   reverse() {
     const end = this.endPoint();
@@ -320,9 +342,9 @@ class Segment {
   * Returns a new `Segment` with the start point moved towards `angle` by
   * the given `distance`. All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to move the start point
+  * @param {Rac.Angle|Number} angle - An `Angle` to move the start point
     towards
-  * @param {number} distance - The distance to move the start point by
+  * @param {Number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
   translateToAngle(angle, distance) {
@@ -338,7 +360,7 @@ class Segment {
   * When `length` is negative, `start` is moved in the inverse direction of
   * `angle`.
   *
-  * @param {number} length - The length to move the start point by
+  * @param {Number} length - The length to move the start point by
   * @returns {Rac.Segment}
   */
   translateToLength(length) {
@@ -352,8 +374,8 @@ class Segment {
   * towards the perpendicular angle to `this.angle()` in the `clockwise`
   * orientaton. All other properties are copied from `this`.
   *
-  * @param {number} distance - The distance to move the start point by
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Number} distance - The distance to move the start point by
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   */
   translatePerpendicular(distance, clockwise = true) {
@@ -370,12 +392,12 @@ class Segment {
   * will be the centered between the range limits and still clampled to
   * `[0, length]`.
   *
-  * @param {number} value - A value to clamp
-  * @param {number} [startInset=0] - The inset for the lower limit of the
+  * @param {Number} value - A value to clamp
+  * @param {Number} [startInset=0] - The inset for the lower limit of the
   * clamping range
   * @param {endInset} [endInset=0] - The inset for the higher limit of the
   * clamping range
-  * @returns {number}
+  * @returns {Number}
   */
   clampToLength(value, startInset = 0, endInset = 0) {
     const endLimit = this.length - endInset;
@@ -401,9 +423,10 @@ class Segment {
   * `this.startPoint()`. When `length` is negative, the new `Point` is
   * calculated in the inverse direction of `this.angle()`.
   *
-  * @param {number} length - The distance from `this.startPoint()`
+  * @param {Number} length - The distance from `this.startPoint()`
   * @returns {Rac.Point}
-  * @see Rac.Ray#pointAtDistance
+  *
+  * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   */
   pointAtLength(length) {
     return this.ray.pointAtDistance(length);
@@ -416,9 +439,10 @@ class Segment {
   * negative, the new `Point` is calculated in the inverse direction of
   * `this.angle()`.
   *
-  * @param {number} ratio - The factor to multiply `length` by
+  * @param {Number} ratio - The factor to multiply `length` by
   * @returns {Rac.Point}
-  * @see Rac.Ray#pointAtDistance
+  *
+  * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   */
   pointAtLengthRatio(ratio) {
     return this.ray.pointAtDistance(this.length * ratio);
@@ -444,7 +468,8 @@ class Segment {
   *
   * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  *
+  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   moveStartPoint(newStartPoint) {
     const endPoint = this.endPoint();
@@ -462,7 +487,8 @@ class Segment {
   *
   * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  *
+  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   moveEndPoint(newEndPoint) {
     return this.ray.segmentToPoint(newEndPoint);
@@ -474,7 +500,7 @@ class Segment {
   * point.
   *
   * @returns {Rac.Segment}
-  * @see Rac.Segment#pointAtBisector
+  * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
   */
   segmentToBisector() {
     return new Segment(this.rac, this.ray, this.length/2);
@@ -488,12 +514,12 @@ class Segment {
   * The new `Segment` will have the given `length`, or when ommited or
   * `null` will use `this.length` instead.
   *
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  * @see Rac.Segment#pointAtBisector
-  * @see Rac.Angle#perpendicular
+  * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   segmentBisector(length = null, clockwise = true) {
     const newStart = this.pointAtBisector();
@@ -510,7 +536,7 @@ class Segment {
   * Returns a new `Segment` starting from `endPoint()` with the given
   * `length` and the same angle as `this`.
   *
-  * @param {number} length - The length of the next `Segment`
+  * @param {Number} length - The length of the next `Segment`
   * @returns {Rac.Segment}
   */
   nextSegmentWithLength(length) {
@@ -530,7 +556,7 @@ class Segment {
   *
   * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   nextSegmentToPoint(nextEndPoint) {
     const newStart = this.endPoint();
@@ -545,8 +571,8 @@ class Segment {
   * The new `Segment` will have the given `length`, or when ommited or
   * `null` will use `this.length` instead.
   *
-  * @param {Rac.Angle|number} angle - The angle of the new `Segment`
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {Rac.Angle|Number} angle - The angle of the new `Segment`
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
   * @returns {Rac.Segment}
   */
@@ -575,14 +601,14 @@ class Segment {
   * `this`. As the `angleDistance` increases the two segments separate with
   * the pivot at `endPoint()`.
   *
-  * @param {Rac.Angle|number} angleDistance - An angle distance to apply to
+  * @param {Rac.Angle|Number} angleDistance - An angle distance to apply to
   * the segment's angle inverse
-  * @param {boolean} [clockwise=true] - The orientation of the angle shift
+  * @param {Boolean} [clockwise=true] - The orientation of the angle shift
   * from `endPoint()`
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null) {
     angleDistance = this.rac.Angle.from(angleDistance);
@@ -607,12 +633,12 @@ class Segment {
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
   * `Segment` will be pointing towards `this.angle().perpendicular(false)`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the
+  * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
   * @returns {Rac.Segment}
-  * @see Rac.Angle#perpendicular
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   nextSegmentPerpendicular(clockwise = true, length = null) {
     const newLength = length === null
@@ -637,12 +663,12 @@ class Segment {
   * When `hypotenuse` is smaller that the segment's `length`, returns
   * `null` since no right triangle is possible.
   *
-  * @param {number} hypotenuse - The length of the hypotenuse side of the
+  * @param {Number} hypotenuse - The length of the hypotenuse side of the
   * right triangle formed with `this` and the new `Segment`
-  * @param {boolean} [clockwise=true] - The orientation of the
+  * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   nextSegmentLegWithHyp(hypotenuse, clockwise = true) {
     if (hypotenuse < this.length) {
@@ -670,7 +696,7 @@ class Segment {
   *
   * @param {?Rac.Angle} [endAngle=null] - An `Angle` to use as end for the
   * new `Arc`, or `null` to use `this.angle()`
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(endAngle = null, clockwise = true) {
@@ -692,9 +718,9 @@ class Segment {
   * The returned `Arc` will use this segment's start as `center`, its angle
   * as `start`, and its length as `radius`.
   *
-  * @param {Rac.Angle|number} angleDistance - The angle distance from the
+  * @param {Rac.Angle|Number} angleDistance - The angle distance from the
   * segment's start to the new `Arc` end
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arcWithAngleDistance(angleDistance, clockwise = true) {

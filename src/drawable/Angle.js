@@ -6,20 +6,40 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured by a `turn` value in the range *[0,1)* that represents the
-* amount of turn in a full circle.
+* Angle measured with a `turn` value in the range *[0,1)* that represents
+* the amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
 * also receive a `number` value that will be used as `turn` to instantiate
 * a new `Angle`. The main exception to this behaviour are constructors,
 * which always expect to receive `Angle` objects.
 *
-* For drawing operations the turn value is interpreted to be pointing to
-* the following directions:
-* + `0/4` - points right
-* + `1/4` - points downwards
-* + `2/4` - points left
-* + `3/4` - points upwards
+* For drawing operations the turn value of `0` points right, with the
+* direction rotating clockwise:
+* ```
+* rac.Angle(0/4) // points right
+* rac.Angle(1/4) // points downwards
+* rac.Angle(2/4) // points left
+* rac.Angle(3/4) // points upwards
+* ```
+*
+* ### `instance.Angle`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Angle` function]{@link Rac#Angle} to create `Angle` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Angle.quarter`]{@link instance.Angle#quarter}, listed under
+* [`instance.Angle`]{@link instance.Angle}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let angle = new Rac.Angle(rac, 3/8)
+* // or convenience function
+* let otherAngle = rac.Angle(3/8)
+*
+* @see [`rac.Angle`]{@link Rac#Angle}
+* @see [`instance.Angle`]{@link instance.Angle}
 *
 * @alias Rac.Angle
 */
@@ -28,22 +48,21 @@ class Angle {
   /**
   * Creates a new `Angle` instance.
   *
-  * The `turn` value is constrained to the rance *[0,1)*, any value
-  * outside is reduced back into range using a modulo operation.
-  *
+  * The `turn` value is constrained to the range *[0,1)*, any value
+  * outside is reduced into range using a modulo operation:
   * ```
-  * new Rac.Angle(rac, 1/4)  // turn is 1/4
-  * new Rac.Angle(rac, 5/4)  // turn is 1/4
-  * new Rac.Angle(rac, -1/4) // turn is 3/4
-  * new Rac.Angle(rac, 1)    // turn is 0
-  * new Rac.Angle(rac, 4)    // turn is 0
+  * (new Rac.Angle(rac, 1/4)) .turn // returns 1/4
+  * (new Rac.Angle(rac, 5/4)) .turn // returns 1/4
+  * (new Rac.Angle(rac, -1/4)).turn // returns 3/4
+  * (new Rac.Angle(rac, 1))   .turn // returns 0
+  * (new Rac.Angle(rac, 4))   .turn // returns 0
   * ```
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} turn - The turn value
+  * @param {Number} turn - The turn value
   */
   constructor(rac, turn) {
-    // TODO: changed to assertType, test
+    // TODO: changed to assertType, add tests
     utils.assertType(Rac, rac);
     utils.assertNumber(turn);
 
@@ -62,7 +81,7 @@ class Angle {
 
     /**
     * Turn value of the angle, constrained to the range *[0,1)*.
-    * @type {number}
+    * @type {Number}
     */
     this.turn = turn;
   }
@@ -71,9 +90,13 @@ class Angle {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @example
+  * // returns 'Angle(0.2)'
+  * rac.Angle(0.2)).toString()
+  *
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const turnStr = utils.cutDigits(this.turn, digits);
@@ -84,19 +107,20 @@ class Angle {
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
-  * `{@link Rac#unitaryEqualityThreshold}`; otherwise returns `false`.
+  * [`rac.unitaryEqualityThreshold`]{@link Rac#unitaryEqualityThreshold};
+  * otherwise returns `false`.
   *
-  * For this method `otherAngle` can only be `Angle` or `number`, any other
+  * The `otherAngle` parameter can only be `Angle` or `number`, any other
   * type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
   * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to compare
-  * @returns {boolean}
+  * @param {Rac.Angle|Number} angle - An `Angle` to compare
+  * @returns {Boolean}
   *
-  * @see Rac.Angle.from
+  * @see [`rac.Angle.from`]{@link Rac.Angle.from}
   */
   equals(otherAngle) {
     if (otherAngle instanceof Rac.Angle) {
@@ -125,7 +149,7 @@ class Angle {
   * + Otherwise an error is thrown.
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
-  * @param {Rac.Angle|Rac.Ray|Rac.Segment|number} something - An object to
+  * @param {Rac.Angle|Rac.Ray|Rac.Segment|Number} something - An object to
   * derive an `Angle` from
   * @returns {Rac.Angle}
   */
@@ -152,7 +176,7 @@ class Angle {
   * Returns an `Angle` derived from `radians`.
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
-  * @param {number} radians - The measure of the angle, in radians
+  * @param {Number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   */
   static fromRadians(rac, radians) {
@@ -164,7 +188,7 @@ class Angle {
   * Returns an `Angle` derived from `degrees`.
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
-  * @param {number} degrees - The measure of the angle, in degrees
+  * @param {Number} degrees - The measure of the angle, in degrees
   * @returns {Rac.Angle}
   */
   static fromDegrees(rac, degrees) {
@@ -174,10 +198,12 @@ class Angle {
 
   /**
   * Returns a new `Angle` pointing in the opposite direction to `this`.
-  * ```
-  * rac.Angle(1/8).inverse() // turn is 1/8 + 1/2 = 5/8
-  * rac.Angle(7/8).inverse() // turn is 7/8 + 1/2 = 3/8
-  * ```
+  *
+  * @example
+  * // returns 3/8, since 1/8 + 1/2 = 5/8
+  * rac.Angle(1/8).inverse().turn
+  * // returns 3/8, since 7/8 + 1/2 = 3/8
+  * rac.Angle(7/8).inverse().turn
   *
   * @returns {Rac.Angle}
   */
@@ -188,10 +214,12 @@ class Angle {
 
   /**
   * Returns a new `Angle` with a turn value equivalent to `-turn`.
-  * ```
-  * rac.Angle(1/4).negative() // -1/4 becomes turn 3/4
-  * rac.Angle(3/8).negative() // -3/8 becomes turn 5/8
-  * ```
+  *
+  * @example
+  * // returns 3/4, since 1 - 1/4 = 3/4
+  * rac.Angle(1/4).negative().turn
+  * // returns 5/8, since 1 - 3/8 = 5/8
+  * rac.Angle(3/8).negative().turn
   *
   * @returns {Rac.Angle}
   */
@@ -203,10 +231,12 @@ class Angle {
   /**
   * Returns a new `Angle` which is perpendicular to `this` in the
   * `clockwise` orientation.
-  * ```
-  * rac.Angle(1/8).perpendicular(true)  // turn is 1/8 + 1/4 = 3/8
-  * rac.Angle(1/8).perpendicular(false) // turn is 1/8 - 1/4 = 7/8
-  * ```
+  *
+  * @example
+  * // returns 3/8, since 1/8 + 1/4 = 3/8
+  * rac.Angle(1/8).perpendicular(true).turn
+  * // returns 7/8, since 1/8 - 1/4 = 7/8
+  * rac.Angle(1/8).perpendicular(false).turn
   *
   * @returns {Rac.Angle}
   */
@@ -218,7 +248,7 @@ class Angle {
   /**
   * Returns the measure of the angle in radians.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   radians() {
     return this.turn * Rac.TAU;
@@ -228,7 +258,7 @@ class Angle {
   /**
   * Returns the measure of the angle in degrees.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   degrees() {
     return this.turn * 360;
@@ -238,7 +268,7 @@ class Angle {
   /**
   * Returns the sine of `this`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   sin() {
     return Math.sin(this.radians())
@@ -248,7 +278,7 @@ class Angle {
   /**
   * Returns the cosine of `this`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   cos() {
     return Math.cos(this.radians())
@@ -258,7 +288,7 @@ class Angle {
   /**
   * Returns the tangent of `this`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   tan() {
     return Math.tan(this.radians())
@@ -269,7 +299,7 @@ class Angle {
   * Returns the `turn` value in the range `(0, 1]`. When `turn` is equal to
   * `0` returns `1` instead.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   turnOne() {
     if (this.turn === 0) { return 1; }
@@ -281,7 +311,7 @@ class Angle {
   * Returns a new `Angle` with the sum of `this` and the angle derived from
   * `angle`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to add
+  * @param {Rac.Angle|Number} angle - An `Angle` to add
   * @returns {Rac.Angle}
   */
   add(angle) {
@@ -294,7 +324,7 @@ class Angle {
   * Returns a new `Angle` with the angle derived from `angle`
   * subtracted to `this`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to subtract
+  * @param {Rac.Angle|Number} angle - An `Angle` to subtract
   * @returns {Rac.Angle}
   */
   subtract(angle) {
@@ -306,7 +336,7 @@ class Angle {
   /**
   * Returns a new `Angle` with `turn` set to `this.turn * factor`.
   *
-  * @param {number} factor - The factor to multiply `turn` by
+  * @param {Number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
   */
   mult(factor) {
@@ -319,30 +349,33 @@ class Angle {
   * `{@link Rac.Angle#turnOne this.turnOne()} * factor`.
   *
   * Useful when doing ratio calculations where a zero angle corresponds to
-  * a complete-circle since:
-  * ```
-  * rac.Angle(0).mult(0.5)    // turn is 0
-  * // whereas
-  * rac.Angle(0).multOne(0.5) // turn is 0.5
-  * ```
+  * a complete-circle.
   *
-  * @param {number} factor - The factor to multiply `turn` by
-  * @returns {number}
+  * @example
+  * rac.Angle(0).mult(0.5).turn    // returns 0
+  * // whereas
+  * rac.Angle(0).multOne(0.5).turn // returns 0.5
+  *
+  * @param {Number} factor - The factor to multiply `turn` by
+  * @returns {Number}
   */
   multOne(factor) {
     return new Angle(this.rac, this.turnOne() * factor);
   }
 
+
   /**
   * Returns a new `Angle` that represents the distance from `this` to the
   * angle derived from `angle`.
-  * ```
-  * rac.Angle(1/4).distance(1/2, true)  // turn is 1/2
-  * rac.Angle(1/4).distance(1/2, false) // turn in 3/4
-  * ```
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
-  * @param {boolean} [clockwise=true] - The orientation of the measurement
+  * @example
+  * // returns 1/2, since 1/2 - 1/4 = 1/4
+  * rac.Angle(1/4).distance(1/2, true).turn
+  * // returns 3/4, since 1 - (1/2 - 1/4) = 3/4
+  * rac.Angle(1/4).distance(1/2, false).turn
+  *
+  * @param {Rac.Angle|Number} angle - An `Angle` to measure the distance to
+  * @param {Boolean} [clockwise=true] - The orientation of the measurement
   * @returns {Rac.Angle}
   */
   distance(angle, clockwise = true) {
@@ -361,13 +394,14 @@ class Angle {
   * + `this.add(angle)` when clockwise
   * + `this.subtract(angle)` when counter-clockwise
   *
-  * ```
-  * rac.Angle(0.1).shift(0.3, true)  // turn is 0.1 + 0.3 = 0.4
-  * rac.Angle(0.1).shift(0.3, false) // turn is 0.1 - 0.3 = 0.8
-  * ```
+  * @example
+  * // returns 0.4, since 0.1 + 0.3 = 0.4
+  * rac.Angle(0.1).shift(0.3, true).turn
+  * // returns 0.8, since 0.1 - 0.3 = 0.8
+  * rac.Angle(0.1).shift(0.3, false).turn
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to be shifted
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} angle - An `Angle` to be shifted
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Angle}
   */
   shift(angle, clockwise = true) {
@@ -389,13 +423,14 @@ class Angle {
   * + `origin.add(this)` when clockwise
   * + `origin.subtract(this)` when counter-clockwise
   *
-  * ```
-  * rac.Angle(0.1).shiftToOrigin(0.3, true)  // turn is 0.3 + 0.1 = 0.4
-  * rac.Angle(0.1).shiftToOrigin(0.3, false) // turn is 0.3 - 0.1 = 0.2
-  * ```
+  * @example
+  * // returns 0.4, since 0.3 + 0.1 = 0.4
+  * rac.Angle(0.1).shiftToOrigin(0.3, true).turn
+  * // returns 0.2, since 0.3 - 0.1 = 0.2
+  * rac.Angle(0.1).shiftToOrigin(0.3, false).turn
   *
-  * @param {Rac.Angle|number} origin - An `Angle` to use as origin
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} origin - An `Angle` to use as origin
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Angle}
   */
   shiftToOrigin(origin, clockwise) {

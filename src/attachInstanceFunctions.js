@@ -11,8 +11,8 @@ const Rac = require('./Rac');
 * [`rac.Color`]{@link instance.Color}.
 *
 * Drawable and style objects require for construction a reference to a
-* `rac` instance in order to perform drawing operations. The attached
-* functions build new objects using the calling `Rac` instance.
+* `Rac` instance in order to perform drawing operations. The attached
+* functions build new objects using the owning `Rac` instance.
 *
 * These functions are also setup with ready-made convenience objects for
 * many usual values like [`rac.Angle.north`]{@link instance.Angle#north} or
@@ -31,15 +31,21 @@ const Rac = require('./Rac');
 module.exports = function attachInstanceFunctions(rac) {
 
   /**
-  * Convenience function that creates a new `Color` setup with `this`.
+  * Convenience function to create a new `Color`. The created `color.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Color}`.
   *
-  * @param {number} r
-  * @param {number} g
-  * @param {number} b
-  * @param {number=} a
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * color.rac === rac // true
+  *
+  * @param {Number} r
+  * @param {Number} g
+  * @param {Number} b
+  * @param {Number} [a=1]
   *
   * @returns {Rac.Color}
   *
@@ -54,13 +60,20 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Stroke` setup with `this`.
+  * Convenience function to create a new `Stroke`. The created `stroke.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Stroke}`.
   *
-  * @param {?number} weight
-  * @param {?Rac.Color} color
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let stroke = rac.Stroke(2, color)
+  * stroke.rac === rac // true
+  *
+  * @param {?Number} weight
+  * @param {Rac.Color} [color=null]
   *
   * @returns {Rac.Stroke}
   *
@@ -75,12 +88,19 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Fill` setup with `this`.
+  * Convenience function to create a new `Fill`. The created `fill.rac` is
+  * setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Fill}`.
   *
-  * @param {Rac.Color=} color
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let fill = rac.Fill(color)
+  * fill.rac === rac // true
+  *
+  * @param {Rac.Color} [color=null]
   * @returns {Rac.Fill}
   *
   * @see instance.Fill
@@ -94,13 +114,20 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Style` setup with `this`.
+  * Convenience function to create a new `Style`. The created `style.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Style}`.
   *
-  * @param {?Rac.Stroke} stroke
-  * @param {?Rac.Fill} fill
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let style = rac.Style(rac.Stroke(2, color), rac.Fill(color))
+  * style.rac === rac // true
+  *
+  * @param {Rac.Stroke} [stroke=null]
+  * @param {Rac.Fill} [fill=null]
   *
   * @returns {Rac.Style}
   *
@@ -115,12 +142,18 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Angle` setup with `this`.
+  * Convenience function to create a new `Angle`. The created `angle.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Angle}`.
   *
-  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
+  * @example
+  * let rac = new Rac()
+  * let angle = rac.Angle(1/2)
+  * angle.rac === rac // true
+  *
+  * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
   *
   * @see instance.Angle
@@ -134,13 +167,19 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Point` setup with `this`.
+  * Convenience function to create a new `Point`. The created `point.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Point}`.
   *
-  * @param {number} x - The x coordinate
-  * @param {number} y - The y coordinate
+  * @example
+  * let rac = new Rac()
+  * let point = rac.Point(55, 77)
+  * point.rac === rac // true
+  *
+  * @param {Number} x - The x coordinate
+  * @param {Number} y - The y coordinate
   *
   * @returns {Rac.Point}
   *
@@ -155,14 +194,20 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Ray` setup with `this`.
+  * Convenience function to create a new `Ray` with the given primitive
+  * values. The created `ray.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Ray}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
+  * @example
+  * let rac = new Rac()
+  * let ray = rac.Ray(55, 77, 1/2)
+  * ray.rac === rac // true
+  *
+  * @param {Number} x
+  * @param {Number} y
+  * @param {Rac.Angle|Number} angle
   *
   * @returns {Rac.Ray}
   *
@@ -179,15 +224,21 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Segment` setup with `this`.
+  * Convenience function to create a new `Segment` with the given primitive
+  * values. The created `segment.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Segment}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
-  * @param {number} length
+  * @example
+  * let rac = new Rac()
+  * let segment = rac.Segment(55, 77, 1/2, 100)
+  * segment.rac === rac // true
+  *
+  * @param {Number} x
+  * @param {Number} y
+  * @param {Rac.Angle|Number} angle
+  * @param {Number} length
   *
   * @returns {Rac.Segment}
   *
@@ -205,17 +256,23 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Arc` setup with `this`.
+  * Convenience function to create a new `Arc` with the given primitive
+  * values. The created `arc.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
   *
-  * @param {number} x - The _x_ coordinate for the arc center
-  * @param {number} y - The _y_ coordinate for the arc center
-  * @param {Rac.Angle|number} start - The start of the arc
-  * @param {?Rac.Angle|number} [end=null] - The end of the arc; when
+  * @example
+  * let rac = new Rac()
+  * let arc = rac.Arc(55, 77, 1/4)
+  * arc.rac === rac // true
+  *
+  * @param {Number} x - The _x_ coordinate for the arc center
+  * @param {Number} y - The _y_ coordinate for the arc center
+  * @param {Rac.Angle|Number} start - The start of the arc
+  * @param {?Rac.Angle|Number} [end=null] - The end of the arc; when
   *   ommited or set to `null`, `start` is used instead
-  * @param {boolean} [clockwise=true] The orientation of the arc
+  * @param {Boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
   *
@@ -235,15 +292,22 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Text` setup with `this`.
+  * Convenience function to create a new `Text`. The created `text.rac` is
+  * setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text}`.
   *
-  * @param {number} x - The x coordinate location for the drawn text
-  * @param {number} y - The y coordinate location for the drawn text
-  * @param {string} string - The string to draw
-  * @param {Rac.Text.Format} format - The format for the drawn text
+  * @example
+  * let rac = new Rac()
+  * let text = rac.Text(55, 77, "black quartz")
+  * text.rac === rac // true
+  *
+  * @param {Number} x - The x coordinate location for the drawn text
+  * @param {Number} y - The y coordinate location for the drawn text
+  * @param {String} string - The string to draw
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format for the drawn text
   *
   * @returns {Rac.Text}
   *
@@ -259,28 +323,37 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Text.Format` setup with `this`.
+  * Convenience function to create a new `Text.Format`. The created
+  * `format.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
   *
-  * @param {string} hAlign - The horizontal alignment, left-to-right; one
+  * [`rac.Text.Format`]{@link instance.Text#Format} is an alias of this
+  * function.
+  *
+  * @example
+  * let rac = new Rac()
+  * let format = rac.Text.Format('left', 'baseline', 1/8)
+  * format.rac === rac // true
+  *
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
   *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null] - The font name
-  * @param {number} [size=null] - The font size
+  * @param {String} [font=null] - The font name
+  * @param {Number} [size=null] - The font size
   *
   * @returns {Rac.Text.Format}
   *
   * @see instance.Text.Format
   *
-  * @function Format
-  * @memberof instance.Text#
+  * @function TextFormat
+  * @memberof Rac#
   */
-  rac.Text.Format = function makeTextFormat(
+  rac.TextFormat = function makeTextFormat(
     hAlign,
     vAlign,
     angle = rac.Angle.zero,
@@ -288,7 +361,7 @@ module.exports = function attachInstanceFunctions(rac) {
     size = null)
   {
     // This functions uses `rac` instead of `this`, since `this` points to
-    // `rac.Text` here and to `rac` in the `TextFormat` alias
+    // `rac` here and to `rac.Text` in the `Text.Format` alias
     angle = Rac.Angle.from(rac, angle);
     return new Rac.Text.Format(
       rac,
@@ -298,15 +371,22 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Alias of [`rac.Text.Format`]{@link instance.Text#Format}.
+  * Convenience function to create a new `Text.Format`. Alias of
+  * [`rac.TextFormat`]{@link Rac#TextFormat}.
   *
-  * To display in documentation along the rest of
-  * [utility instance functions]{@link instance}.
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
+  *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
+  *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
+  * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The angle towards which the text is drawn
+  * @param {String} [font=null] - The font name
+  * @param {Number} [size=null] - The font size
   *
-  * @function TextFormat
-  * @memberof Rac#
+  * @function Format
+  * @memberof instance.Text#
   */
-  rac.TextFormat = rac.Text.Format;
+  rac.Text.Format = rac.TextFormat;
 
 
   /**
@@ -315,14 +395,14 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Bezier}`.
   *
-  * @param {number} startX
-  * @param {number} startY
-  * @param {number} startAnchorX
-  * @param {number} startAnchorY
-  * @param {number} endAnchorX
-  * @param {number} endAnchorY
-  * @param {number} endX
-  * @param {number} endY
+  * @param {Number} startX
+  * @param {Number} startY
+  * @param {Number} startAnchorX
+  * @param {Number} startAnchorY
+  * @param {Number} endAnchorX
+  * @param {Number} endAnchorY
+  * @param {Number} endX
+  * @param {Number} endY
   *
   * @returns {Rac.Bezier}
   *

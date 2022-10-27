@@ -27,9 +27,9 @@ class RayControl extends Rac.Control {
   * interactive `length`.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
-  * @param {number} length - The length of the `anchor` ray available for
+  * @param {Number} length - The length of the `anchor` ray available for
   *   user interaction
   */
   constructor(rac, value, length) {
@@ -40,7 +40,7 @@ class RayControl extends Rac.Control {
 
     /**
     * Length of the `anchor` ray available for user interaction.
-    * @type {number}
+    * @type {Number}
     */
     this.length = length;
 
@@ -53,7 +53,7 @@ class RayControl extends Rac.Control {
     *
     * The control cannot be drawn or selected until this property is set.
     *
-    * @type {Rac.Ray?}
+    * @type {?Rac.Ray}
     * @default null
     */
     this.anchor = null;
@@ -64,11 +64,22 @@ class RayControl extends Rac.Control {
   }
 
 
+  // TODO: document, test
+  startLimitLength() {
+    return this.startLimit * this.length;
+  }
+
+  // TODO: document, test
+  endLimitLength() {
+    return this.endLimit * this.length;
+  }
+
+
   /**
   * Sets `value` using the projection of `lengthValue` in the `[0,length]`
   * range.
   *
-  * @param {number} lengthValue - The length at which to set the current
+  * @param {Number} lengthValue - The length at which to set the current
   *   value
   */
   setValueWithLength(lengthValue) {
@@ -82,19 +93,22 @@ class RayControl extends Rac.Control {
   * and `length`, correspondingly, both projected in the `[0,length]`
   * range.
   *
-  * > E.g.
-  * > ```
-  * > // For a RayControl with length of 100
-  * > control.setLimitsWithLengthInsets(10, 20)
-  * > // sets startLimit as 0.1 which is at length 10
-  * > // sets endLimit   as 0.8 which is at length 80 from 100
-  * > //   10 inset from 0 = 10
-  * > //   20 inset from 100 = 80
-  * > ```
+  * @example
+  * <caption>For a RayControl with length of 200</caption>
+  * let control = new Rac.RayControl(rac, 0.5, 200);
+  * control.setLimitsWithLengthInsets(10, 20);
+  * // returns 10, since 0 + 10 = 10
+  * control.startLimitLength()
+  * // returns 0.05, since 0 + (10 / 200) = 0.05
+  * control.startLimit
+  * // returns 180, since 200 - 20 = 180
+  * control.endLimitLength()
+  * // returns 0.9, since 1 - (20 / 200) = 0.9
+  * control.endLimit
   *
-  * @param {number} startInset - The inset from `0` in the range
+  * @param {Number} startInset - The inset from `0` in the range
   *   `[0,length]` to use for `startLimit`
-  * @param {number} endInset - The inset from `length` in the range
+  * @param {Number} endInset - The inset from `length` in the range
   *   `[0,length]` to use for `endLimit`
   */
   setLimitsWithLengthInsets(startInset, endInset) {
@@ -109,7 +123,7 @@ class RayControl extends Rac.Control {
   *
   * Equivalent to the control `value` projected to the range `[0,length]`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   distance() {
     return this.length * this.value;
@@ -121,7 +135,7 @@ class RayControl extends Rac.Control {
   *
   * When `anchor` is not set, returns `null` instead.
   *
-  * @return {Rac.Point?}
+  * @return {?Rac.Point}
   */
   knob() {
     if (this.anchor === null) {

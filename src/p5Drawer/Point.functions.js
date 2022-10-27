@@ -20,7 +20,7 @@ module.exports = function attachPointFunctions(rac) {
   /**
   * Returns a `Point` at the current position of the pointer.
   *
-  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `rac.Point` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Point}
@@ -35,7 +35,7 @@ module.exports = function attachPointFunctions(rac) {
   /**
   * Returns a `Point` at the center of the canvas.
   *
-  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `rac.Point` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Point}
@@ -51,7 +51,7 @@ module.exports = function attachPointFunctions(rac) {
   * Returns a `Point` at the end of the canvas, that is, at the position
   * `(width,height)`.
   *
-  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `rac.Point` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Point}

@@ -5,9 +5,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The [`instance.Angle` function]{@link Rac#Angle} contains convenience
-* methods and members for `{@link Rac.Angle}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Angle` function]{@link Rac#Angle}.
+*
+* The function contains ready-made convenience
+* [`Angle`]{@link Rac.Angle} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Angle.quarter // ready-made quarter angle
+* rac.Angle.quarter.rac === rac // true
 *
 * @namespace instance.Angle
 */
@@ -40,7 +48,7 @@ module.exports = function attachRacAngle(rac) {
   *
   * @see Rac.Angle.fromRadians
   *
-  * @param {number} radians - The measure of the angle, in radians
+  * @param {Number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   *
   * @function fromRadians
@@ -58,7 +66,7 @@ module.exports = function attachRacAngle(rac) {
   *
   * @see Rac.Angle.fromDegrees
   *
-  * @param {number} degrees - The measure of the angle, in degrees
+  * @param {Number} degrees - The measure of the angle, in degrees
   * @returns {Rac.Angle}
   *
   * @function fromDegrees

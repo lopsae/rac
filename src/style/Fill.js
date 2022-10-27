@@ -10,9 +10,28 @@ const utils = require('../util/utils');
 *
 * Can be used as `fill.apply()` to apply the fill settings globally, or as
 * the parameter of `drawable.draw(fill)` to apply the fill only for that
-* `draw`.
+* call.
 *
 * When `color` is `null` a *no-fill* setting is applied.
+*
+* ### `instance.Fill`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Fill` function]{@link Rac#Fill} to create `Fill` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Fill.none`]{@link instance.Fill#none}, listed
+* under [`instance.Fill`]{@link instance.Fill}.
+*
+* @example
+* let rac = new Rac()
+* let color = rac.Color(0.2, 0.4, 0.6)
+* // new instance with constructor
+* let fill = new Rac.Fill(rac, color)
+* // or convenience function
+* let otherFill = rac.Fill(color)
+*
+* @see [`rac.Fill`]{@link Rac#Fill}
+* @see [`instance.Fill`]{@link instance.Fill}
 *
 * @alias Rac.Fill
 */
@@ -105,7 +124,7 @@ class Fill {
   *   a `Stroke` from
   * @returns {Rac.StyleContainer}
   *
-  * @see Rac.Stroke.from
+  * @see [`rac.Stroke.from`]{@link Rac.Stroke.from}
   */
   appendStroke(someStroke) {
     let stroke = Rac.Stroke.from(this.rac, someStroke);

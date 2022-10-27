@@ -17,7 +17,28 @@ var minifyHelper = TextFormat
 * An instance of this object contains the string and a `Point` used to
 * determine the location of the drawn text. The
 * [`Text.Format`]{@link Rac.Text.Format} object determines the font, size,
-* orientation angle, and the alignment relative to `point` to draw the text.
+* orientation angle, and the alignment relative to
+* [`point`]{@link Rac.Text#point} to draw the text.
+*
+* ### `instance.Text`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Text` function]{@link Rac#Text} to create `Text` objects with fewer
+* parameters. This function also contains ready-made convenience
+* objects, like [`rac.Text.hello`]{@link instance.Text#hello}, listed under
+* [`instance.Text`]{@link instance.Text}.
+*
+* @example
+* let rac = new Rac()
+* let point = rac.Point(55, 77)
+* let format = rac.Text.Format('left', 'baseline')
+* // new instance with constructor
+* let text = new Rac.Text(rac, point, 'black quartz', format)
+* // or convenience function
+* let otherText = rac.Text(55, 77, 'black quartz', format)
+*
+* @see [`rac.Text`]{@link Rac#Text}
+* @see [`instance.Text`]{@link instance.Text}
 *
 * @alias Rac.Text
 */
@@ -32,7 +53,7 @@ class Text {
   *   Instance to use for drawing and creating other objects
   * @param {Rac.Point} point
   *   The location for the drawn text
-  * @param {string} string
+  * @param {String} string
   *   The string to draw
   * @param {Rac.Text.Format} format
   *   The format for the drawn text
@@ -64,7 +85,7 @@ class Text {
 
     /**
     * The string to draw.
-    * @type {string}
+    * @type {String}
     */
     this.string = string;
 
@@ -79,9 +100,13 @@ class Text {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @example
+  * // returns 'Text((55,77) "sphinx of black quartz")'
+  * rac.Text(55, 77, 'sphinx of black quartz').toString()
+  *
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.point.x, digits);
@@ -101,8 +126,8 @@ class Text {
   * The `format` objects are ignored in this comparison.
   *
   * @param {Rac.Text} otherText - A `Text` to compare
-  * @returns {boolean}
-  * @see Rac.Point#equals
+  * @returns {Boolean}
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   equals(otherText) {
     return otherText instanceof Text
@@ -114,7 +139,7 @@ class Text {
   /**
   * Returns a new `Text` and `Format` with `format.angle` set to the
   * `Angle` derived from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text` and
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text` and
   *   `Text.Format`
   * @returns {Rac.Text}
   */
@@ -126,7 +151,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text` and
+  * @param {?String} newFont - The font name for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */
@@ -138,7 +163,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text` and
+  * @param {?Number} newSize - The font size for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */

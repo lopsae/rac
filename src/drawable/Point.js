@@ -15,6 +15,24 @@ const utils = require('../util/utils');
 * points are considered equal. The [`equals`]{@link Rac.Point#equals}
 * method performs this check.
 *
+* ### `instance.Point`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Point` function]{@link Rac#Point} to create `Point` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Point.origin`]{@link instance.Point#origin}, listed under
+* [`instance.Point`]{@link instance.Point}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let point = new Rac.Point(rac, 55, 77)
+* // or convenience function
+* let otherPoint = rac.Point(55, 77)
+*
+* @see [`rac.Point`]{@link Rac#Point}
+* @see [`instance.Point`]{@link instance.Point}
+*
 * @alias Rac.Point
 */
 class Point{
@@ -24,9 +42,9 @@ class Point{
   * Creates a new `Point` instance.
   * @param {Rac} rac
   *   Instance to use for drawing and creating other objects
-  * @param {number} x
+  * @param {Number} x
   *   The x coordinate
-  * @param {number} y
+  * @param {Number} y
   *   The y coordinate
   */
   constructor(rac, x, y) {
@@ -43,13 +61,13 @@ class Point{
 
     /**
     * X coordinate of the point.
-    * @type {number}
+    * @type {Number}
     */
     this.x = x;
 
     /**
     * Y coordinate of the point.
-    * @type {number}
+    * @type {Number}
     */
     this.y = y;
   }
@@ -58,14 +76,13 @@ class Point{
   /**
   * Returns a string representation intended for human consumption.
   *
-  * ```
-  * (new Rac.Point(rac, 55, 77)).toString()
-  * // Returns: Point(55,77)
-  * ```
+  * @example
+  * // returns: 'Point(55,77)'
+  * rac.Point(55, 77).toString()
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.x, digits);
@@ -81,11 +98,11 @@ class Point{
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
-  * Values are compared using [`Rac.equals`]{@link Rac#equals}.
+  * Values are compared using [`rac.equals`]{@link Rac#equals}.
   *
   * @param {Rac.Point} otherPoint - A `Point` to compare
-  * @returns {boolean}
-  * @see Rac#equals
+  * @returns {Boolean}
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherPoint) {
     return otherPoint instanceof Point
@@ -96,7 +113,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` set to `newX`.
-  * @param {number} newX - The x coordinate for the new `Point`
+  * @param {Number} newX - The x coordinate for the new `Point`
   * @returns {Rac.Point}
   */
   withX(newX) {
@@ -106,7 +123,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` set to `newX`.
-  * @param {number} newY - The y coordinate for the new `Point`
+  * @param {Number} newY - The y coordinate for the new `Point`
   * @returns {Rac.Point}
   */
   withY(newY) {
@@ -116,7 +133,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` added to `this.x`.
-  * @param {number} x - The x coordinate to add
+  * @param {Number} x - The x coordinate to add
   * @returns {Rac.Point}
   */
   addX(x) {
@@ -127,7 +144,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `y` added to `this.y`.
-  * @param {number} y - The y coordinate to add
+  * @param {Number} y - The y coordinate to add
   * @returns {Rac.Point}
   */
   addY(y) {
@@ -151,8 +168,8 @@ class Point{
 
   /**
   * Returns a new `Point` by adding the `x` and `y` components to `this`.
-  * @param {number} x - The x coodinate to add
-  * @param {number} y - The y coodinate to add
+  * @param {Number} x - The x coodinate to add
+  * @param {Number} y - The y coodinate to add
   * @returns {Rac.Point}
   */
   add(x, y) {
@@ -176,8 +193,8 @@ class Point{
 
   /**
   * Returns a new `Point` by subtracting the `x` and `y` components.
-  * @param {number} x - The x coodinate to subtract
-  * @param {number} y - The y coodinate to subtract
+  * @param {Number} x - The x coodinate to subtract
+  * @param {Number} y - The y coodinate to subtract
   * @returns {Rac.Point}
   */
   subtract(x, y) {
@@ -204,8 +221,8 @@ class Point{
   * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the distance to
-  * @returns {number}
-  * @see Rac.Point#equals
+  * @returns {Number}
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   distanceToPoint(point) {
     if (this.equals(point)) {
@@ -224,11 +241,11 @@ class Point{
   * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the angle to
-  * @param {Rac.Angle|number}
+  * @param {Rac.Angle|Number}
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   angleToPoint(point, defaultAngle = this.rac.Angle.zero) {
     if (this.equals(point)) {
@@ -245,8 +262,8 @@ class Point{
   * Returns a new `Point` at a `distance` from `this` in the direction of
   * `angle`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` towars the new `Point`
-  * @param {number} distance - The distance to the new `Point`
+  * @param {Rac.Angle|Number} angle - An `Angle` towars the new `Point`
+  * @param {Number} distance - The distance to the new `Point`
   * @returns {Rac.Point}
   */
   pointToAngle(angle, distance) {
@@ -271,7 +288,7 @@ class Point{
 
   /**
   * Returns a new `Ray` from `this` towards `angle`.
-  * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`
+  * @param {Rac.Angle|Number} angle - The `Angle` of the new `Ray`
   * @returns {Rac.Ray}
   */
   ray(angle) {
@@ -287,7 +304,7 @@ class Point{
   * the new `Ray` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
-  * @param {Rac.Angle|number}
+  * @param {Rac.Angle|Number}
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Ray}
@@ -336,7 +353,7 @@ class Point{
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
-  * @param {boolean} [clockwise=true] - the orientation of the new `Ray`
+  * @param {Boolean} [clockwise=true] - the orientation of the new `Ray`
   * @return {?Rac.Ray}
   */
   rayTangentToArc(arc, clockwise = true) {
@@ -372,9 +389,9 @@ class Point{
   * Returns a new `Segment` from `this` towards `angle` with the given
   * `length`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to point the segment
+  * @param {Rac.Angle|Number} angle - An `Angle` to point the segment
   * towards
-  * @param {number} length - The length of the new `Segment`
+  * @param {Number} length - The length of the new `Segment`
   * @returns {Rac.Segment}
   */
   segmentToAngle(angle, length) {
@@ -391,11 +408,11 @@ class Point{
   * the new `Segment` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
-  * @param {Rac.Angle|number}
+  * @param {Rac.Angle|Number}
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   segmentToPoint(point, defaultAngle = this.rac.Angle.zero) {
     defaultAngle = this.angleToPoint(point, defaultAngle);
@@ -443,7 +460,7 @@ class Point{
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
-  * @param {boolean} [clockwise=true] - the orientation of the new `Segment`
+  * @param {Boolean} [clockwise=true] - the orientation of the new `Segment`
   * @return {?Rac.Segment}
   */
   segmentTangentToArc(arc, clockwise = true) {
@@ -462,13 +479,13 @@ class Point{
   /**
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
-  * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number}
+  * @param {Number} radius - The radius of the new `Arc`
+  * @param {Rac.Angle|Number}
   *   [start=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The start `Angle` of the new `Arc`
-  * @param {Rac.Angle|number} [end=null] - The end `Angle` of the new
+  * @param {Rac.Angle|Number} [end=null] - The end `Angle` of the new
   *   `Arc`; when `null` or ommited, `start` is used instead
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(
@@ -489,7 +506,7 @@ class Point{
   * Returns a new `Text` located at `this` with the given `string` and
   * `format`.
   *
-  * @param {string} string - The string of the new `Text`
+  * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
   *   The format of the new `Text`
   * @returns {Rac.Text}

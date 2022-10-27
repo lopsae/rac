@@ -4,6 +4,7 @@
 // Ruler and Compass
 const version = require('../built/version').version;
 const build   = require('../built/version').build;
+const dated   = require('../built/version').dated;
 
 
 /**
@@ -27,9 +28,10 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     *
-    * E.g. `1.2.0`.
+    * @example
+    * rac.version // returns as example '1.2.1'
     *
-    * @constant {string} version
+    * @constant {String} version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
@@ -38,12 +40,25 @@ class Rac {
     /**
     * Build of the instance, same as `{@link Rac.build}`.
     *
-    * E.g. `904-011be8f`.
+    * @example
+    * rac.build // returns as example '1057-94b059d'
     *
-    * @constant {string} build
+    * @constant {String} build
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'build', build);
+
+
+    /**
+    * Date of the build of the instance, same as `{@link Rac.dated}`.
+    *
+    * @example
+    * rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+    *
+    * @constant {String} dated
+    * @memberof Rac#
+    */
+    utils.addConstantTo(this, 'dated', dated);
 
 
     /**
@@ -61,9 +76,10 @@ class Rac {
     * values too close to a limit, as to prevent oscilating efects in
     * user interaction.
     *
-    * Default value is based on `1/1000` of a point.
+    * The default value is based on `1/1000` of a point.
     *
-    * @type {number}
+    * @type {Number}
+    * @default 0.001
     */
     this.equalityThreshold = 0.001;
 
@@ -75,10 +91,14 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Default value is based on 1/1000 of the turn of an arc of radius 500
-    * and length of 1: `1/(500*6.28)/1000`
+    * The default value is based on 1/1000 of the turn of an complete
+    * circle arc of radius 500:
+    * ```
+    * 1/(500*6.28)/1000 = 0.000_000_318471338
+    * ```
     *
-    * @type {number}
+    * @type {Number}
+    * @default 0.000_000_3
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
@@ -106,18 +126,18 @@ class Rac {
     *
     * When a [`Text`]{@link Rac.Text} is draw which
     * [`format.font`]{@link Rac.Text.Format#font} or
-    * [`format.size`]{@link Rac.Text.Format#size} is set to `null`, the
+    * [`format.size`]{@link Rac.Text.Format#size} are set to `null`, the
     * values set here are used instead.
     *
-    * @property {?string} font=null
+    * @property {?String} font=null
     *   Default font, used when drawing a `Text` which
     *   [`format.font`]{@link Rac.Text.Format#font} is set to `null`; when
     *   set to `null` the font is not set upon drawing
-    * @property {number} size=15
+    * @property {Number} size=15
     *   Default size, used when drawing a `Text` which
     *   [`format.size`]{@link Rac.Text.Format#size} is set to `null`
     *
-    * @type {object}
+    * @type {Object}
     */
     this.textFormatDefaults = {
       font: null,
@@ -128,7 +148,8 @@ class Rac {
     /**
     * Drawer of the instance. This object handles the drawing for all
     * drawable object created using `this`.
-    * @type {object}
+    * @type {?Object}
+    * @default null
     */
     this.drawer = null;
 
@@ -173,10 +194,10 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#equalityThreshold}`.
   *
-  * @param {number} a First number to compare
-  * @param {number} b Second number to compare
+  * @param {Number} a - First number to compare
+  * @param {Number} b - Second number to compare
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   equals(a, b) {
     if (a === null || b === null) { return false; }
@@ -189,10 +210,10 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#unitaryEqualityThreshold}`.
   *
-  * @param {number} a First number to compare
-  * @param {number} b Second number to compare
+  * @param {Number} a First number to compare
+  * @param {Number} b Second number to compare
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   unitaryEquals(a, b) {
     if (a === null || b === null) { return false; }
@@ -293,9 +314,11 @@ Rac.utils = utils;
 /**
 * Version of the class. Same as the version used for the npm package.
 *
-* E.g. `1.2.0`.
+* @example
+* Rac.version // returns as example '1.2.1'
 *
-* @constant {string} version
+*
+* @constant {String} version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -307,20 +330,37 @@ utils.addConstantTo(Rac, 'version', version);
 * Contains a commit-count and short-hash of the repository when the build
 * was done.
 *
-* E.g. `904-011be8f`.
+* @example
+* Rac.build // returns as example '1057-94b059d'
 *
-* @constant {string} build
+* @constant {String} build
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'build', build);
 
 
+
+/**
+* Date of the build of the class. Intended for debugging purpouses.
+*
+* Contains a [ISO-8601 standard](https://en.wikipedia.org/wiki/ISO_8601)
+* date when the build was done.
+*
+* @example
+* Rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+*
+* @constant {String} dated
+* @memberof Rac
+*/
+utils.addConstantTo(Rac, 'dated', dated);
+
+
 /**
 * Tau, equal to `Math.PI * 2`.
 *
-* [Tau Manifesto](https://tauday.com/tau-manifesto).
+* See [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
-* @constant {number} TAU
+* @constant {Number} TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);

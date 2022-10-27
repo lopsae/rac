@@ -2,9 +2,17 @@
 
 
 /**
-* The [`instance.Point` function]{@link Rac#Point} contains convenience
-* methods and members for `{@link Rac.Point}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Point` function]{@link Rac#Point}.
+*
+* The function contains ready-made convenience
+* [`Point`]{@link Rac.Point} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Point.origin // ready-made origin point
+* rac.Point.origin.rac === rac // true
 *
 * @namespace instance.Point
 */
@@ -23,7 +31,7 @@ module.exports = function attachRacPoint(rac) {
   /**
   * A `Point` at `(0, 0)`.
   *
-  * Equal to `{@link instance.Point#zero}`.
+  * Equal to [`rac.Point.zero`]{@link instance.Point#zero}.
   *
   * @name origin
   * @type {Rac.Point}

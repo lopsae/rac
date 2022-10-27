@@ -1,6 +1,17 @@
 Changelog
 =========
 
+1.2.1 - 2022 October 27th
+-------------------------
+Add Rac.Dated and overhaul documentation examples and code blocks
++ Fix incorrect arrows showing for ArcControl with a full circle `angleDistance`
++ Add `Rac.dated` with the date of the build
++ Update `minami-rac` to `1.4.1` with overhauls to `example` and `code` blocks
++ Improve documentation examples for several classes
++ Improve references to `instance` namespace for several classes
++ Overall documentation improvements and corrections
+
+
 1.2.0 - 2022 September 8th
 --------------------------
 Streamline and document Text and Text.Format
