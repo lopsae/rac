@@ -75,7 +75,7 @@ class Rac {
     * Version of the instance, same as `{@link Rac.version}`.
     *
     * @example
-    * rac.version // returns '1.2.1'
+    * rac.version // returns as example '1.2.1'
     *
     * @constant {String} version
     * @memberof Rac#
@@ -87,7 +87,7 @@ class Rac {
     * Build of the instance, same as `{@link Rac.build}`.
     *
     * @example
-    * rac.build // returns '1057-94b059d'
+    * rac.build // returns as example '1057-94b059d'
     *
     * @constant {String} build
     * @memberof Rac#
@@ -99,7 +99,7 @@ class Rac {
     * Date of the build of the instance, same as `{@link Rac.dated}`.
     *
     * @example
-    * rac.dated // returns '2022-10-13T23:06:12.500Z'
+    * rac.dated // returns as example '2022-10-13T23:06:12.500Z'
     *
     * @constant {String} dated
     * @memberof Rac#
@@ -137,13 +137,16 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * The default value is based on 1/1000 of the turn of an arc of radius
-    * 500 and length of 1: `1/(500*6.28)/1000`
+    * The default value is based on 1/1000 of the turn of an complete
+    * circle arc of radius 500:
+    * ```
+    * 1/(500*6.28)/1000 = 0.000_000_318471338
+    * ```
     *
     * @type {Number}
-    * @default 0.0000003
+    * @default 0.000_000_3
     */
-    this.unitaryEqualityThreshold = 0.0000003;
+    this.unitaryEqualityThreshold = 0.000_000_3;
 
 
     /**
@@ -358,7 +361,7 @@ Rac.utils = utils;
 * Version of the class. Same as the version used for the npm package.
 *
 * @example
-* Rac.version // returns '1.2.1'
+* Rac.version // returns as example '1.2.1'
 *
 *
 * @constant {String} version
@@ -374,7 +377,7 @@ utils.addConstantTo(Rac, 'version', version);
 * was done.
 *
 * @example
-* Rac.build // returns '1057-94b059d'
+* Rac.build // returns as example '1057-94b059d'
 *
 * @constant {String} build
 * @memberof Rac
@@ -390,7 +393,7 @@ utils.addConstantTo(Rac, 'build', build);
 * date when the build was done.
 *
 * @example
-* Rac.dated // returns '2022-10-13T23:06:12.500Z'
+* Rac.dated // returns as example '2022-10-13T23:06:12.500Z'
 *
 * @constant {String} dated
 * @memberof Rac
