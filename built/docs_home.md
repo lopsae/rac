@@ -34,7 +34,7 @@ A collection of [interactive tutorials](https://observablehq.com/@lopsae/rac-tut
     <td>
       <a href="https://observablehq.com/@lopsae/rac-tutorial-base-drawables?collection=@lopsae/rac-tutorials">
       <img src="https://static.observableusercontent.com/thumbnail/1602ac3ccd7fe186b4467ad1c21c85a4e334b89be40e5bd43d51c298069e1146.jpg" alt="Base Drawables Thumbnail" width="200"/>
-      </a
+      </a>
     </td>
   </tr>
   <tr>
