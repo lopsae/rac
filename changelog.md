@@ -3,7 +3,7 @@ Changelog
 
 1.2.1 - 2022 October 27th
 -------------------------
-Add Rac.Dated and overhaul documentation examples and code blocks
+Add Rac.dated and overhaul documentation examples and code blocks
 + Fix incorrect arrows showing for ArcControl with a full circle `angleDistance`
 + Add `Rac.dated` with the date of the build
 + Update `minami-rac` to `1.4.1` with overhauls to `example` and `code` blocks
