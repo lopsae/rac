@@ -10,13 +10,81 @@ Documentation for RAC version: `1.2.1-dev`
 
 ### Tutorials
 
-A collection of [interactive tutorials](https://observablehq.com/@lopsae/rac-tutorial-home) is available in [ObservableHQ](https://observablehq.com/).
+A collection of [interactive tutorials](https://observablehq.com/@lopsae/rac-tutorial-home?collection=@lopsae/rac-tutorials) is available in [ObservableHQ](https://observablehq.com/).
+
+  <table style="display:inline-block">
+    <tr>
+      <td>
+        <a href="https://observablehq.com/@lopsae/rac-tutorial-home?collection=@lopsae/rac-tutorials">
+        <img src="https://static.observableusercontent.com/thumbnail/9802bd7d18cde48702d17122d317377618b6ec774200f56bbe10e0d2958ed8a3.jpg" alt="drawing" width="200"/>
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><a href="https://observablehq.com/@lopsae/rac-tutorial-home?collection=@lopsae/rac-tutorials">
+        Tutorials Home
+        </a></span>
+      </td>
+    </tr>
+  </table>
+
+<table style="display:inline-block">
+  <tr>
+    <td>
+      <a href="https://observablehq.com/@lopsae/rac-tutorial-base-drawables?collection=@lopsae/rac-tutorials">
+      <img src="https://static.observableusercontent.com/thumbnail/1602ac3ccd7fe186b4467ad1c21c85a4e334b89be40e5bd43d51c298069e1146.jpg" alt="drawing" width="200"/>
+      </a
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span><a href="https://observablehq.com/@lopsae/rac-tutorial-base-drawables?collection=@lopsae/rac-tutorials">
+      One - Base Drawables
+      </a></span>
+    </td>
+  </tr>
+</table>
+
+<table style="display:inline-block">
+  <tr>
+    <td>
+      <a href="https://observablehq.com/@lopsae/rac-tutorial-complex-drawables?collection=@lopsae/rac-tutorials">
+      <img src="https://static.observableusercontent.com/thumbnail/9e00d8b24b88e7050b5442ea70b1db0b6bc2dc03ee7627e14599352e7de4a063.jpg" alt="drawing" width="200"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span><a href="https://observablehq.com/@lopsae/rac-tutorial-complex-drawables?collection=@lopsae/rac-tutorials">
+      Two - Complex Drawables
+      </a></span>
+    </td>
+  </tr>
+</table>
+
+<table style="display:inline-block">
+  <tr>
+    <td>
+      <a href="https://observablehq.com/@lopsae/rac-tutorial-styles?collection=@lopsae/rac-tutorials">
+      <img src="https://static.observableusercontent.com/thumbnail/3d24088ee7c2725872eb76644de8bb787a610c7b27492121d60ce5e1cd551b28.jpg" alt="drawing" width="200"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span><a href="https://observablehq.com/@lopsae/rac-tutorial-styles?collection=@lopsae/rac-tutorials">
+      Three - Styles
+      </a></span>
+    </td>
+  </tr>
+</table>
 
 
 
 ### NPM
 
-RAC is available at [npm](https://www.npmjs.com/) at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
+RAC is available as an [npm](https://www.npmjs.com/) package at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
 npm install ruler-and-compass@1.2.1-dev
 ```
