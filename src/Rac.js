@@ -29,7 +29,7 @@ class Rac {
     * Version of the instance, same as `{@link Rac.version}`.
     *
     * @example
-    * rac.version // returns as example '1.2.1'
+    * rac.version // example return: '1.2.1'
     *
     * @constant {String} version
     * @memberof Rac#
@@ -41,7 +41,7 @@ class Rac {
     * Build of the instance, same as `{@link Rac.build}`.
     *
     * @example
-    * rac.build // returns as example '1057-94b059d'
+    * rac.build // example return: '1057-94b059d'
     *
     * @constant {String} build
     * @memberof Rac#
@@ -53,7 +53,7 @@ class Rac {
     * Date of the build of the instance, same as `{@link Rac.dated}`.
     *
     * @example
-    * rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+    * rac.dated // example return: '2022-10-13T23:06:12.500Z'
     *
     * @constant {String} dated
     * @memberof Rac#
@@ -315,7 +315,7 @@ Rac.utils = utils;
 * Version of the class. Same as the version used for the npm package.
 *
 * @example
-* Rac.version // returns as example '1.2.1'
+* Rac.version // example return: '1.2.1'
 *
 *
 * @constant {String} version
@@ -331,7 +331,7 @@ utils.addConstantTo(Rac, 'version', version);
 * was done.
 *
 * @example
-* Rac.build // returns as example '1057-94b059d'
+* Rac.build // example return: '1057-94b059d'
 *
 * @constant {String} build
 * @memberof Rac
@@ -347,7 +347,7 @@ utils.addConstantTo(Rac, 'build', build);
 * date when the build was done.
 *
 * @example
-* Rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+* Rac.dated // example return: '2022-10-13T23:06:12.500Z'
 *
 * @constant {String} dated
 * @memberof Rac
