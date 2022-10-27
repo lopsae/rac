@@ -18,6 +18,10 @@ Produces a distribution build and starts localhost server.
 Produces a debug build and starts localhost server, rebuilds whenever a source file changes.
 
 
+### `npm run pages`
+Starts the local jekyll server for the github-io pages, and opens its index.
+
+
 ### `npm run docs`
 Produces documentation for the current package version and opens its index.
 
