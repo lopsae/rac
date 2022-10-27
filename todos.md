@@ -8,8 +8,6 @@ In progress
 
 For version change
 ------------------
-+ Fix RELEASE-TODO's
-+ Add better tutorial links in readmes!
 
 
 
