@@ -13,7 +13,7 @@ module.exports = {
   * @constant {String} version
   * @memberof version#
   */
-  version: '1.2.1-dev',
+  version: '1.2.1',
 
   /**
   * Build of the package. Exposed through
@@ -21,7 +21,7 @@ module.exports = {
   * @constant {String} build
   * @memberof version#
   */
-  build: 'localBuild-1132-32ffddb',
+  build: '1160-47702d3',
 
   /**
   * Date of build of the package. Exposed through
@@ -29,6 +29,6 @@ module.exports = {
   * @constant {String} dated
   * @memberof version#
   */
-  dated: '2022-10-24T22:07:19.749Z'
+  dated: '2022-10-27T21:44:08.026Z'
 };
 

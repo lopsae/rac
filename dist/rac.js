@@ -1,12 +1,38 @@
-// RAC - ruler-and-compass - 1.2.0 1005-94b722f
+// RAC - ruler-and-compass - 1.2.1 1160-47702d3 2022-10-27T21:44:08.026Z
 // Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
 
 // Ruler and Compass - version and build
+/**
+* Container of the version data for the package.
+* @namespace version
+*/
 module.exports = {
-	version: '1.2.0',
-	build: '1005-94b722f'
+
+  /**
+  * Version of the package. Exposed through
+  * [`Rac.version`]{@link Rac.version}.
+  * @constant {String} version
+  * @memberof version#
+  */
+  version: '1.2.1',
+
+  /**
+  * Build of the package. Exposed through
+  * [`Rac.build`]{@link Rac.build}.
+  * @constant {String} build
+  * @memberof version#
+  */
+  build: '1160-47702d3',
+
+  /**
+  * Date of build of the package. Exposed through
+  * [`Rac.dated`]{@link Rac.dated}.
+  * @constant {String} dated
+  * @memberof version#
+  */
+  dated: '2022-10-27T21:44:08.026Z'
 };
 
 
@@ -17,6 +43,7 @@ module.exports = {
 // Ruler and Compass
 const version = require('../built/version').version;
 const build   = require('../built/version').build;
+const dated   = require('../built/version').dated;
 
 
 /**
@@ -40,9 +67,10 @@ class Rac {
     /**
     * Version of the instance, same as `{@link Rac.version}`.
     *
-    * E.g. `1.2.0`.
+    * @example
+    * rac.version // returns as example '1.2.1'
     *
-    * @constant {string} version
+    * @constant {String} version
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'version', version);
@@ -51,12 +79,25 @@ class Rac {
     /**
     * Build of the instance, same as `{@link Rac.build}`.
     *
-    * E.g. `904-011be8f`.
+    * @example
+    * rac.build // returns as example '1057-94b059d'
     *
-    * @constant {string} build
+    * @constant {String} build
     * @memberof Rac#
     */
     utils.addConstantTo(this, 'build', build);
+
+
+    /**
+    * Date of the build of the instance, same as `{@link Rac.dated}`.
+    *
+    * @example
+    * rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+    *
+    * @constant {String} dated
+    * @memberof Rac#
+    */
+    utils.addConstantTo(this, 'dated', dated);
 
 
     /**
@@ -74,9 +115,10 @@ class Rac {
     * values too close to a limit, as to prevent oscilating efects in
     * user interaction.
     *
-    * Default value is based on `1/1000` of a point.
+    * The default value is based on `1/1000` of a point.
     *
-    * @type {number}
+    * @type {Number}
+    * @default 0.001
     */
     this.equalityThreshold = 0.001;
 
@@ -88,10 +130,14 @@ class Rac {
     *
     * Equality logic is the same as `{@link Rac#equalityThreshold}`.
     *
-    * Default value is based on 1/1000 of the turn of an arc of radius 500
-    * and length of 1: `1/(500*6.28)/1000`
+    * The default value is based on 1/1000 of the turn of an complete
+    * circle arc of radius 500:
+    * ```
+    * 1/(500*6.28)/1000 = 0.000_000_318471338
+    * ```
     *
-    * @type {number}
+    * @type {Number}
+    * @default 0.000_000_3
     */
     this.unitaryEqualityThreshold = 0.0000003;
 
@@ -119,18 +165,18 @@ class Rac {
     *
     * When a [`Text`]{@link Rac.Text} is draw which
     * [`format.font`]{@link Rac.Text.Format#font} or
-    * [`format.size`]{@link Rac.Text.Format#size} is set to `null`, the
+    * [`format.size`]{@link Rac.Text.Format#size} are set to `null`, the
     * values set here are used instead.
     *
-    * @property {?string} font=null
+    * @property {?String} font=null
     *   Default font, used when drawing a `Text` which
     *   [`format.font`]{@link Rac.Text.Format#font} is set to `null`; when
     *   set to `null` the font is not set upon drawing
-    * @property {number} size=15
+    * @property {Number} size=15
     *   Default size, used when drawing a `Text` which
     *   [`format.size`]{@link Rac.Text.Format#size} is set to `null`
     *
-    * @type {object}
+    * @type {Object}
     */
     this.textFormatDefaults = {
       font: null,
@@ -141,7 +187,8 @@ class Rac {
     /**
     * Drawer of the instance. This object handles the drawing for all
     * drawable object created using `this`.
-    * @type {object}
+    * @type {?Object}
+    * @default null
     */
     this.drawer = null;
 
@@ -186,10 +233,10 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#equalityThreshold}`.
   *
-  * @param {number} a First number to compare
-  * @param {number} b Second number to compare
+  * @param {Number} a - First number to compare
+  * @param {Number} b - Second number to compare
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   equals(a, b) {
     if (a === null || b === null) { return false; }
@@ -202,10 +249,10 @@ class Rac {
   * Returns `true` if the absolute distance between `a` and `b` is
   * under `{@link Rac#unitaryEqualityThreshold}`.
   *
-  * @param {number} a First number to compare
-  * @param {number} b Second number to compare
+  * @param {Number} a First number to compare
+  * @param {Number} b Second number to compare
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   unitaryEquals(a, b) {
     if (a === null || b === null) { return false; }
@@ -306,9 +353,11 @@ Rac.utils = utils;
 /**
 * Version of the class. Same as the version used for the npm package.
 *
-* E.g. `1.2.0`.
+* @example
+* Rac.version // returns as example '1.2.1'
 *
-* @constant {string} version
+*
+* @constant {String} version
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'version', version);
@@ -320,20 +369,37 @@ utils.addConstantTo(Rac, 'version', version);
 * Contains a commit-count and short-hash of the repository when the build
 * was done.
 *
-* E.g. `904-011be8f`.
+* @example
+* Rac.build // returns as example '1057-94b059d'
 *
-* @constant {string} build
+* @constant {String} build
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'build', build);
 
 
+
+/**
+* Date of the build of the class. Intended for debugging purpouses.
+*
+* Contains a [ISO-8601 standard](https://en.wikipedia.org/wiki/ISO_8601)
+* date when the build was done.
+*
+* @example
+* Rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+*
+* @constant {String} dated
+* @memberof Rac
+*/
+utils.addConstantTo(Rac, 'dated', dated);
+
+
 /**
 * Tau, equal to `Math.PI * 2`.
 *
-* [Tau Manifesto](https://tauday.com/tau-manifesto).
+* See [Tau Manifesto](https://tauday.com/tau-manifesto).
 *
-* @constant {number} TAU
+* @constant {Number} TAU
 * @memberof Rac
 */
 utils.addConstantTo(Rac, 'TAU', Math.PI * 2);
@@ -449,8 +515,8 @@ const Rac = require('./Rac');
 * [`rac.Color`]{@link instance.Color}.
 *
 * Drawable and style objects require for construction a reference to a
-* `rac` instance in order to perform drawing operations. The attached
-* functions build new objects using the calling `Rac` instance.
+* `Rac` instance in order to perform drawing operations. The attached
+* functions build new objects using the owning `Rac` instance.
 *
 * These functions are also setup with ready-made convenience objects for
 * many usual values like [`rac.Angle.north`]{@link instance.Angle#north} or
@@ -469,15 +535,21 @@ const Rac = require('./Rac');
 module.exports = function attachInstanceFunctions(rac) {
 
   /**
-  * Convenience function that creates a new `Color` setup with `this`.
+  * Convenience function to create a new `Color`. The created `color.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Color}`.
   *
-  * @param {number} r
-  * @param {number} g
-  * @param {number} b
-  * @param {number=} a
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * color.rac === rac // true
+  *
+  * @param {Number} r
+  * @param {Number} g
+  * @param {Number} b
+  * @param {Number} [a=1]
   *
   * @returns {Rac.Color}
   *
@@ -492,13 +564,20 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Stroke` setup with `this`.
+  * Convenience function to create a new `Stroke`. The created `stroke.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Stroke}`.
   *
-  * @param {?number} weight
-  * @param {?Rac.Color} color
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let stroke = rac.Stroke(2, color)
+  * stroke.rac === rac // true
+  *
+  * @param {?Number} weight
+  * @param {Rac.Color} [color=null]
   *
   * @returns {Rac.Stroke}
   *
@@ -513,12 +592,19 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Fill` setup with `this`.
+  * Convenience function to create a new `Fill`. The created `fill.rac` is
+  * setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Fill}`.
   *
-  * @param {Rac.Color=} color
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let fill = rac.Fill(color)
+  * fill.rac === rac // true
+  *
+  * @param {Rac.Color} [color=null]
   * @returns {Rac.Fill}
   *
   * @see instance.Fill
@@ -532,13 +618,20 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Style` setup with `this`.
+  * Convenience function to create a new `Style`. The created `style.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Style}`.
   *
-  * @param {?Rac.Stroke} stroke
-  * @param {?Rac.Fill} fill
+  * @example
+  * let rac = new Rac()
+  * let color = rac.Color(0.2, 0.4, 0.6)
+  * let style = rac.Style(rac.Stroke(2, color), rac.Fill(color))
+  * style.rac === rac // true
+  *
+  * @param {Rac.Stroke} [stroke=null]
+  * @param {Rac.Fill} [fill=null]
   *
   * @returns {Rac.Style}
   *
@@ -553,12 +646,18 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Angle` setup with `this`.
+  * Convenience function to create a new `Angle`. The created `angle.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Angle}`.
   *
-  * @param {number} turn - The turn value of the angle, in the range `[O,1)`
+  * @example
+  * let rac = new Rac()
+  * let angle = rac.Angle(1/2)
+  * angle.rac === rac // true
+  *
+  * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
   *
   * @see instance.Angle
@@ -572,13 +671,19 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Point` setup with `this`.
+  * Convenience function to create a new `Point`. The created `point.rac`
+  * is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Point}`.
   *
-  * @param {number} x - The x coordinate
-  * @param {number} y - The y coordinate
+  * @example
+  * let rac = new Rac()
+  * let point = rac.Point(55, 77)
+  * point.rac === rac // true
+  *
+  * @param {Number} x - The x coordinate
+  * @param {Number} y - The y coordinate
   *
   * @returns {Rac.Point}
   *
@@ -593,14 +698,20 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Ray` setup with `this`.
+  * Convenience function to create a new `Ray` with the given primitive
+  * values. The created `ray.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Ray}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
+  * @example
+  * let rac = new Rac()
+  * let ray = rac.Ray(55, 77, 1/2)
+  * ray.rac === rac // true
+  *
+  * @param {Number} x
+  * @param {Number} y
+  * @param {Rac.Angle|Number} angle
   *
   * @returns {Rac.Ray}
   *
@@ -617,15 +728,21 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Segment` setup with `this`.
+  * Convenience function to create a new `Segment` with the given primitive
+  * values. The created `segment.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Segment}`.
   *
-  * @param {number} x
-  * @param {number} y
-  * @param {Rac.Angle|number} angle
-  * @param {number} length
+  * @example
+  * let rac = new Rac()
+  * let segment = rac.Segment(55, 77, 1/2, 100)
+  * segment.rac === rac // true
+  *
+  * @param {Number} x
+  * @param {Number} y
+  * @param {Rac.Angle|Number} angle
+  * @param {Number} length
   *
   * @returns {Rac.Segment}
   *
@@ -643,17 +760,23 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Arc` setup with `this`.
+  * Convenience function to create a new `Arc` with the given primitive
+  * values. The created `arc.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Arc}`.
   *
-  * @param {number} x - The _x_ coordinate for the arc center
-  * @param {number} y - The _y_ coordinate for the arc center
-  * @param {Rac.Angle|number} start - The start of the arc
-  * @param {?Rac.Angle|number} [end=null] - The end of the arc; when
+  * @example
+  * let rac = new Rac()
+  * let arc = rac.Arc(55, 77, 1/4)
+  * arc.rac === rac // true
+  *
+  * @param {Number} x - The _x_ coordinate for the arc center
+  * @param {Number} y - The _y_ coordinate for the arc center
+  * @param {Rac.Angle|Number} start - The start of the arc
+  * @param {?Rac.Angle|Number} [end=null] - The end of the arc; when
   *   ommited or set to `null`, `start` is used instead
-  * @param {boolean} [clockwise=true] The orientation of the arc
+  * @param {Boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
   *
@@ -673,15 +796,22 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Text` setup with `this`.
+  * Convenience function to create a new `Text`. The created `text.rac` is
+  * setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text}`.
   *
-  * @param {number} x - The x coordinate location for the drawn text
-  * @param {number} y - The y coordinate location for the drawn text
-  * @param {string} string - The string to draw
-  * @param {Rac.Text.Format} format - The format for the drawn text
+  * @example
+  * let rac = new Rac()
+  * let text = rac.Text(55, 77, "black quartz")
+  * text.rac === rac // true
+  *
+  * @param {Number} x - The x coordinate location for the drawn text
+  * @param {Number} y - The y coordinate location for the drawn text
+  * @param {String} string - The string to draw
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format for the drawn text
   *
   * @returns {Rac.Text}
   *
@@ -697,28 +827,37 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Convenience function that creates a new `Text.Format` setup with `this`.
+  * Convenience function to create a new `Text.Format`. The created
+  * `format.rac` is setup with `this`.
   *
   * The function also contains additional methods and properties listed in
   * `{@link instance.Text.Format}`.
   *
-  * @param {string} hAlign - The horizontal alignment, left-to-right; one
+  * [`rac.Text.Format`]{@link instance.Text#Format} is an alias of this
+  * function.
+  *
+  * @example
+  * let rac = new Rac()
+  * let format = rac.Text.Format('left', 'baseline', 1/8)
+  * format.rac === rac // true
+  *
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
   *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign - The vertical alignment, top-to-bottom; one of
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
   *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null] - The font name
-  * @param {number} [size=null] - The font size
+  * @param {String} [font=null] - The font name
+  * @param {Number} [size=null] - The font size
   *
   * @returns {Rac.Text.Format}
   *
   * @see instance.Text.Format
   *
-  * @function Format
-  * @memberof instance.Text#
+  * @function TextFormat
+  * @memberof Rac#
   */
-  rac.Text.Format = function makeTextFormat(
+  rac.TextFormat = function makeTextFormat(
     hAlign,
     vAlign,
     angle = rac.Angle.zero,
@@ -726,7 +865,7 @@ module.exports = function attachInstanceFunctions(rac) {
     size = null)
   {
     // This functions uses `rac` instead of `this`, since `this` points to
-    // `rac.Text` here and to `rac` in the `TextFormat` alias
+    // `rac` here and to `rac.Text` in the `Text.Format` alias
     angle = Rac.Angle.from(rac, angle);
     return new Rac.Text.Format(
       rac,
@@ -736,15 +875,22 @@ module.exports = function attachInstanceFunctions(rac) {
 
 
   /**
-  * Alias of [`rac.Text.Format`]{@link instance.Text#Format}.
+  * Convenience function to create a new `Text.Format`. Alias of
+  * [`rac.TextFormat`]{@link Rac#TextFormat}.
   *
-  * To display in documentation along the rest of
-  * [utility instance functions]{@link instance}.
+  * @param {String} hAlign - The horizontal alignment, left-to-right; one
+  *   of the values from [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
+  * @param {String} vAlign - The vertical alignment, top-to-bottom; one of
+  *   the values from [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
+  * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
+  *   The angle towards which the text is drawn
+  * @param {String} [font=null] - The font name
+  * @param {Number} [size=null] - The font size
   *
-  * @function TextFormat
-  * @memberof Rac#
+  * @function Format
+  * @memberof instance.Text#
   */
-  rac.TextFormat = rac.Text.Format;
+  rac.Text.Format = rac.TextFormat;
 
 
   /**
@@ -753,14 +899,14 @@ module.exports = function attachInstanceFunctions(rac) {
   * The function also contains additional methods and properties listed in
   * `{@link instance.Bezier}`.
   *
-  * @param {number} startX
-  * @param {number} startY
-  * @param {number} startAnchorX
-  * @param {number} startAnchorY
-  * @param {number} endAnchorX
-  * @param {number} endAnchorY
-  * @param {number} endX
-  * @param {number} endY
+  * @param {Number} startX
+  * @param {Number} startY
+  * @param {Number} startAnchorX
+  * @param {Number} startAnchorY
+  * @param {Number} endAnchorX
+  * @param {Number} endAnchorY
+  * @param {Number} endX
+  * @param {Number} endY
   *
   * @returns {Rac.Bezier}
   *
@@ -964,7 +1110,7 @@ class ArcControl extends Rac.Control {
   * interactive `angleDistance`.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
   * @param {Rac.Angle} angleDistance - The angleDistance of the `anchor`
   *   arc available for user interaction
@@ -978,7 +1124,7 @@ class ArcControl extends Rac.Control {
 
     /**
     * Angle distance of the `anchor` arc available for user interaction.
-    * @type {number}
+    * @type {Number}
     */
     this.angleDistance = Rac.Angle.from(rac, angleDistance);
 
@@ -991,7 +1137,7 @@ class ArcControl extends Rac.Control {
     *
     * The control cannot be drawn or selected until this property is set.
     *
-    * @type {Rac.Arc?}
+    * @type {?Rac.Arc}
     * @default null
     */
     this.anchor = null;
@@ -1006,7 +1152,7 @@ class ArcControl extends Rac.Control {
   * Sets `value` using the projection of `valueAngleDistance.turn` in the
   * `[0,angleLength.turn]` range.
   *
-  * @param {Rac.Angle|number} valueAngleDistance - The angle distance at
+  * @param {Rac.Angle|Number} valueAngleDistance - The angle distance at
   *   which to set the current value
   */
   setValueWithAngleDistance(valueAngleDistance) {
@@ -1016,24 +1162,23 @@ class ArcControl extends Rac.Control {
   }
 
 
+  // TODO: this example/code may not be working or be innacurrate
+  // check RayControl:setLimitsWithLengthInsets for a better example
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
-  * and `endInset.turn`, correspondingly, both projected in the
-  * `[0,angleDistance.turn]` range.
+  * and `angleDistance.turn`, correspondingly, both projected in the
+  * `[0, angleDistance.turn]` range.
   *
-  * > E.g.
-  * > ```
-  * > // For an ArcControl with angle distance of 0.5 turn
-  * > control.setLimitsWithAngleDistanceInsets(0.1, 0.3)
-  * > // sets startLimit as 0.2 which is at angle distance 0.1
-  * > // sets endLimit   as 0.4 which is at angle distance 0.2
-  * > //   0.1 inset from 0   = 0.1
-  * > //   0.3 inset from 0.5 = 0.2
-  * > ```
+  * @example
+  * <caption>For an ArcControl with angleDistance of 0.5 turn</caption>
+  * let control = new Rac.ArcControl(rac, 0, rac.Angle(0.5))
+  * // sets startLimit as 0.1, since   0 + 0.2 * 0.5 = 0.1
+  * // sets endLimit   as 0.3, since 0.5 - 0.4 * 0.5 = 0.3
+  * control.setLimitsWithAngleDistanceInsets(0.2, 0.4)
   *
-  * @param {Rac.Angle|number} startInset - The inset from `0` in the range
+  * @param {Rac.Angle|Number} startInset - The inset from `0` in the range
   *   `[0,angleDistance.turn]` to use for `startLimit`
-  * @param {Rac.Angle|number} endInset - The inset from `angleDistance.turn`
+  * @param {Rac.Angle|Number} endInset - The inset from `angleDistance.turn`
   *   in the range `[0,angleDistance.turn]` to use for `endLimit`
   */
   setLimitsWithAngleDistanceInsets(startInset, endInset) {
@@ -1063,7 +1208,7 @@ class ArcControl extends Rac.Control {
   *
   * When `anchor` is not set, returns `null` instead.
   *
-  * @return {Rac.Point?}
+  * @return {?Rac.Point}
   */
   knob() {
     if (this.anchor === null) {
@@ -1133,15 +1278,23 @@ class ArcControl extends Rac.Control {
     knob.arc(this.rac.controller.knobRadius)
       .attachToComposite();
 
+    let isCircleControl = this.angleDistance.equals(this.rac.Angle.zero)
+      && this.startLimit == 0
+      && this.endLimit == 1
+    let hasNegativeRange = isCircleControl
+      || this.value >= this.startLimit + this.rac.unitaryEqualityThreshold
+    let hasPositiveRange = isCircleControl
+      || this.value <= this.endLimit - this.rac.unitaryEqualityThreshold
+
     // Negative arrow
-    if (this.value >= this.startLimit + this.rac.unitaryEqualityThreshold) {
+    if (hasNegativeRange) {
       let negAngle = angle.perpendicular(fixedAnchor.clockwise).inverse();
       Rac.Control.makeArrowShape(this.rac, knob, negAngle)
         .attachToComposite();
     }
 
     // Positive arrow
-    if (this.value <= this.endLimit - this.rac.unitaryEqualityThreshold) {
+    if (hasPositiveRange) {
       let posAngle = angle.perpendicular(fixedAnchor.clockwise);
       Rac.Control.makeArrowShape(this.rac, knob, posAngle)
         .attachToComposite();
@@ -1293,7 +1446,7 @@ class Control {
   * Creates a new `Control` instance.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
   */
   constructor(rac, value) {
@@ -1313,7 +1466,7 @@ class Control {
     *
     * May be further constrained to `[startLimit,endLimit]`.
     *
-    * @type {number}
+    * @type {Number}
     */
     this.value = value;
 
@@ -1321,7 +1474,7 @@ class Control {
     * [Projected value]{@link Rac.Control#projectedValue} to use when
     * `value` is `0`.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0
     */
     this.projectionStart = 0;
@@ -1330,7 +1483,7 @@ class Control {
     * [Projected value]{@link Rac.Control#projectedValue} to use when
     * `value` is `1`.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.projectionEnd = 1;
@@ -1338,7 +1491,7 @@ class Control {
     /**
     * Minimum `value` that can be selected through user interaction.
     *
-    * @type {number}
+    * @type {Number}
     * @default 0
     */
     this.startLimit = 0;
@@ -1346,7 +1499,7 @@ class Control {
     /**
     * Maximum `value` that can be selected through user interaction.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.endLimit = 1;
@@ -1363,7 +1516,7 @@ class Control {
     * Style to apply when drawing. This style gets applied after
     * `[rac.controller.controlStyle]{@link Rac.Controller#controlStyle}`.
     *
-    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer} [style=null]
+    * @type {?Rac.Stroke|Rac.Fill|Rac.StyleContainer}
     * @default null
     */
     this.style = null;
@@ -1382,20 +1535,21 @@ class Control {
   * `value` increases, the projection returned decreases from
   * `projectionStart` until reaching `projectionEnd`.
   *
-  * > E.g.
-  * > ```
-  * > For a control with a projection range of [100,200]
-  * > + when value is 0,   projectionValue() is 100
-  * > + when value is 0.5, projectionValue() is 150
-  * > + when value is 1,   projectionValue() is 200
-  * >
-  * > For a control with a projection range of [50,30]
-  * > + when value is 0,   projectionValue() is 50
-  * > + when value is 0.5, projectionValue() is 40
-  * > + when value is 1,   projectionValue() is 30
-  * > ```
+  * @example
+  * <caption>For a control with a projection range of [100,200]</caption>
+  * control.setProjectionRange(100, 200)
+  * control.value = 0;   control.projectionValue() // returns 100
+  * control.value = 0.5; control.projectionValue() // returns 150
+  * control.value = 1;   control.projectionValue() // returns 200
   *
-  * @returns {number}
+  * @example
+  * <caption>For a control with a projection range of [50,30]</caption>
+  * control.setProjectionRange(30, 50)
+  * control.value = 0;   control.projectionValue() // returns 50
+  * control.value = 0.5; control.projectionValue() // returns 40
+  * control.value = 1;   control.projectionValue() // returns 30
+  *
+  * @returns {Number}
   */
   projectedValue() {
     let projectionRange = this.projectionEnd - this.projectionStart;
@@ -1411,19 +1565,26 @@ class Control {
   // }
 
 
+  // TODO: document, test
+  setProjectionRange(start, end) {
+    this.projectionStart = start;
+    this.projectionEnd = end;
+  }
+
+
   /**
   * Sets both `startLimit` and `endLimit` with the given insets from `0`
   * and `1`, correspondingly.
   *
-  * > E.g.
-  * > ```
-  * > control.setLimitsWithInsets(0.1, 0.2)
-  * > // sets startLimit as 0.1
-  * > // sets endLimit   as 0.8
-  * > ```
+  * @example
+  * control.setLimitsWithInsets(0.1, 0.2)
+  * // returns 0.1, since 0 + 0.1 = 0.1
+  * control.startLimit
+  * // returns 0.8, since 1 - 0.2 = 0.8
+  * control.endLimit
   *
-  * @param {number} startInset - The inset from `0` to use for `startLimit`
-  * @param {number} endInset - The inset from `1` to use for `endLimit`
+  * @param {Number} startInset - The inset from `0` to use for `startLimit`
+  * @param {Number} endInset - The inset from `1` to use for `endLimit`
   */
   setLimitsWithInsets(startInset, endInset) {
     this.startLimit = startInset;
@@ -1450,7 +1611,7 @@ class Control {
   /**
   * Returns `true` when this control is the currently selected control.
   *
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   isSelected() {
     if (this.rac.controller.selection === null) {
@@ -1490,7 +1651,7 @@ class Control {
   * > implementation throws an error.
   *
   * @abstract
-  * @return {object}
+  * @return {Object}
   */
   affixAnchor() {
     throw Rac.Exception.abstractFunctionCalled(
@@ -1533,7 +1694,7 @@ class Control {
   * @abstract
   * @param {Rac.Point} pointerKnobCenter - The position of the knob center
   *   as interacted by the user pointer
-  * @param {object} fixedAnchor - Anchor produced when user interaction
+  * @param {Object} fixedAnchor - Anchor produced when user interaction
   *   started
   */
   updateWithPointer(pointerKnobCenter, fixedAnchor) {
@@ -1551,7 +1712,7 @@ class Control {
   *
   * @abstract
   * @param {Rac.Point} pointerCenter - The position of the user pointer
-  * @param {object} fixedAnchor - Anchor of the control produced when user
+  * @param {Object} fixedAnchor - Anchor of the control produced when user
   *   interaction started
   * @param {Rac.Segment} pointerToKnobOffset - A `Segment` that represents
   *   the offset from `pointerCenter` to the control knob when user
@@ -1660,7 +1821,7 @@ class ControlSelection{
     * to interact with the selected control in a fixed location, even if
     * the control moves during the interaction.
     *
-    * @type {object}
+    * @type {Object}
     */
     this.fixedAnchor = control.affixAnchor();
 
@@ -1730,7 +1891,7 @@ class Controller {
     * Distance at which the pointer is considered to interact with a
     * control knob. Also used by controls for drawing.
     *
-    * @type {number}
+    * @type {Number}
     */
     this.knobRadius = 22;
 
@@ -1750,7 +1911,7 @@ class Controller {
     * This property is a shared configuration. The behaviour is implemented
     * independently by each control constructor.
     *
-    * @type {boolean}
+    * @type {Boolean}
     * @default true
     */
     this.autoAddControls = true;
@@ -1971,9 +2132,9 @@ class RayControl extends Rac.Control {
   * interactive `length`.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} value - The initial value of the control, in the
+  * @param {Number} value - The initial value of the control, in the
   *   *[0,1]* range
-  * @param {number} length - The length of the `anchor` ray available for
+  * @param {Number} length - The length of the `anchor` ray available for
   *   user interaction
   */
   constructor(rac, value, length) {
@@ -1984,7 +2145,7 @@ class RayControl extends Rac.Control {
 
     /**
     * Length of the `anchor` ray available for user interaction.
-    * @type {number}
+    * @type {Number}
     */
     this.length = length;
 
@@ -1997,7 +2158,7 @@ class RayControl extends Rac.Control {
     *
     * The control cannot be drawn or selected until this property is set.
     *
-    * @type {Rac.Ray?}
+    * @type {?Rac.Ray}
     * @default null
     */
     this.anchor = null;
@@ -2008,11 +2169,22 @@ class RayControl extends Rac.Control {
   }
 
 
+  // TODO: document, test
+  startLimitLength() {
+    return this.startLimit * this.length;
+  }
+
+  // TODO: document, test
+  endLimitLength() {
+    return this.endLimit * this.length;
+  }
+
+
   /**
   * Sets `value` using the projection of `lengthValue` in the `[0,length]`
   * range.
   *
-  * @param {number} lengthValue - The length at which to set the current
+  * @param {Number} lengthValue - The length at which to set the current
   *   value
   */
   setValueWithLength(lengthValue) {
@@ -2026,19 +2198,22 @@ class RayControl extends Rac.Control {
   * and `length`, correspondingly, both projected in the `[0,length]`
   * range.
   *
-  * > E.g.
-  * > ```
-  * > // For a RayControl with length of 100
-  * > control.setLimitsWithLengthInsets(10, 20)
-  * > // sets startLimit as 0.1 which is at length 10
-  * > // sets endLimit   as 0.8 which is at length 80 from 100
-  * > //   10 inset from 0 = 10
-  * > //   20 inset from 100 = 80
-  * > ```
+  * @example
+  * <caption>For a RayControl with length of 200</caption>
+  * let control = new Rac.RayControl(rac, 0.5, 200);
+  * control.setLimitsWithLengthInsets(10, 20);
+  * // returns 10, since 0 + 10 = 10
+  * control.startLimitLength()
+  * // returns 0.05, since 0 + (10 / 200) = 0.05
+  * control.startLimit
+  * // returns 180, since 200 - 20 = 180
+  * control.endLimitLength()
+  * // returns 0.9, since 1 - (20 / 200) = 0.9
+  * control.endLimit
   *
-  * @param {number} startInset - The inset from `0` in the range
+  * @param {Number} startInset - The inset from `0` in the range
   *   `[0,length]` to use for `startLimit`
-  * @param {number} endInset - The inset from `length` in the range
+  * @param {Number} endInset - The inset from `length` in the range
   *   `[0,length]` to use for `endLimit`
   */
   setLimitsWithLengthInsets(startInset, endInset) {
@@ -2053,7 +2228,7 @@ class RayControl extends Rac.Control {
   *
   * Equivalent to the control `value` projected to the range `[0,length]`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   distance() {
     return this.length * this.value;
@@ -2065,7 +2240,7 @@ class RayControl extends Rac.Control {
   *
   * When `anchor` is not set, returns `null` instead.
   *
-  * @return {Rac.Point?}
+  * @return {?Rac.Point}
   */
   knob() {
     if (this.anchor === null) {
@@ -2297,20 +2472,40 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured by a `turn` value in the range *[0,1)* that represents the
-* amount of turn in a full circle.
+* Angle measured with a `turn` value in the range *[0,1)* that represents
+* the amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
 * also receive a `number` value that will be used as `turn` to instantiate
 * a new `Angle`. The main exception to this behaviour are constructors,
 * which always expect to receive `Angle` objects.
 *
-* For drawing operations the turn value is interpreted to be pointing to
-* the following directions:
-* + `0/4` - points right
-* + `1/4` - points downwards
-* + `2/4` - points left
-* + `3/4` - points upwards
+* For drawing operations the turn value of `0` points right, with the
+* direction rotating clockwise:
+* ```
+* rac.Angle(0/4) // points right
+* rac.Angle(1/4) // points downwards
+* rac.Angle(2/4) // points left
+* rac.Angle(3/4) // points upwards
+* ```
+*
+* ### `instance.Angle`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Angle` function]{@link Rac#Angle} to create `Angle` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Angle.quarter`]{@link instance.Angle#quarter}, listed under
+* [`instance.Angle`]{@link instance.Angle}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let angle = new Rac.Angle(rac, 3/8)
+* // or convenience function
+* let otherAngle = rac.Angle(3/8)
+*
+* @see [`rac.Angle`]{@link Rac#Angle}
+* @see [`instance.Angle`]{@link instance.Angle}
 *
 * @alias Rac.Angle
 */
@@ -2319,22 +2514,21 @@ class Angle {
   /**
   * Creates a new `Angle` instance.
   *
-  * The `turn` value is constrained to the rance *[0,1)*, any value
-  * outside is reduced back into range using a modulo operation.
-  *
+  * The `turn` value is constrained to the range *[0,1)*, any value
+  * outside is reduced into range using a modulo operation:
   * ```
-  * new Rac.Angle(rac, 1/4)  // turn is 1/4
-  * new Rac.Angle(rac, 5/4)  // turn is 1/4
-  * new Rac.Angle(rac, -1/4) // turn is 3/4
-  * new Rac.Angle(rac, 1)    // turn is 0
-  * new Rac.Angle(rac, 4)    // turn is 0
+  * (new Rac.Angle(rac, 1/4)) .turn // returns 1/4
+  * (new Rac.Angle(rac, 5/4)) .turn // returns 1/4
+  * (new Rac.Angle(rac, -1/4)).turn // returns 3/4
+  * (new Rac.Angle(rac, 1))   .turn // returns 0
+  * (new Rac.Angle(rac, 4))   .turn // returns 0
   * ```
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} turn - The turn value
+  * @param {Number} turn - The turn value
   */
   constructor(rac, turn) {
-    // TODO: changed to assertType, test
+    // TODO: changed to assertType, add tests
     utils.assertType(Rac, rac);
     utils.assertNumber(turn);
 
@@ -2353,7 +2547,7 @@ class Angle {
 
     /**
     * Turn value of the angle, constrained to the range *[0,1)*.
-    * @type {number}
+    * @type {Number}
     */
     this.turn = turn;
   }
@@ -2362,9 +2556,13 @@ class Angle {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @example
+  * // returns 'Angle(0.2)'
+  * rac.Angle(0.2)).toString()
+  *
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const turnStr = utils.cutDigits(this.turn, digits);
@@ -2375,19 +2573,20 @@ class Angle {
   /**
   * Returns `true` when the difference with the `turn` value of the angle
   * derived [from]{@link Rac.Angle.from} `angle` is under
-  * `{@link Rac#unitaryEqualityThreshold}`; otherwise returns `false`.
+  * [`rac.unitaryEqualityThreshold`]{@link Rac#unitaryEqualityThreshold};
+  * otherwise returns `false`.
   *
-  * For this method `otherAngle` can only be `Angle` or `number`, any other
+  * The `otherAngle` parameter can only be `Angle` or `number`, any other
   * type returns `false`.
   *
   * This method will consider turn values in the oposite ends of the range
   * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
   * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to compare
-  * @returns {boolean}
+  * @param {Rac.Angle|Number} angle - An `Angle` to compare
+  * @returns {Boolean}
   *
-  * @see Rac.Angle.from
+  * @see [`rac.Angle.from`]{@link Rac.Angle.from}
   */
   equals(otherAngle) {
     if (otherAngle instanceof Rac.Angle) {
@@ -2416,7 +2615,7 @@ class Angle {
   * + Otherwise an error is thrown.
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
-  * @param {Rac.Angle|Rac.Ray|Rac.Segment|number} something - An object to
+  * @param {Rac.Angle|Rac.Ray|Rac.Segment|Number} something - An object to
   * derive an `Angle` from
   * @returns {Rac.Angle}
   */
@@ -2443,7 +2642,7 @@ class Angle {
   * Returns an `Angle` derived from `radians`.
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
-  * @param {number} radians - The measure of the angle, in radians
+  * @param {Number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   */
   static fromRadians(rac, radians) {
@@ -2455,7 +2654,7 @@ class Angle {
   * Returns an `Angle` derived from `degrees`.
   *
   * @param {Rac} rac - Instance to pass along to newly created objects
-  * @param {number} degrees - The measure of the angle, in degrees
+  * @param {Number} degrees - The measure of the angle, in degrees
   * @returns {Rac.Angle}
   */
   static fromDegrees(rac, degrees) {
@@ -2465,10 +2664,12 @@ class Angle {
 
   /**
   * Returns a new `Angle` pointing in the opposite direction to `this`.
-  * ```
-  * rac.Angle(1/8).inverse() // turn is 1/8 + 1/2 = 5/8
-  * rac.Angle(7/8).inverse() // turn is 7/8 + 1/2 = 3/8
-  * ```
+  *
+  * @example
+  * // returns 3/8, since 1/8 + 1/2 = 5/8
+  * rac.Angle(1/8).inverse().turn
+  * // returns 3/8, since 7/8 + 1/2 = 3/8
+  * rac.Angle(7/8).inverse().turn
   *
   * @returns {Rac.Angle}
   */
@@ -2479,10 +2680,12 @@ class Angle {
 
   /**
   * Returns a new `Angle` with a turn value equivalent to `-turn`.
-  * ```
-  * rac.Angle(1/4).negative() // -1/4 becomes turn 3/4
-  * rac.Angle(3/8).negative() // -3/8 becomes turn 5/8
-  * ```
+  *
+  * @example
+  * // returns 3/4, since 1 - 1/4 = 3/4
+  * rac.Angle(1/4).negative().turn
+  * // returns 5/8, since 1 - 3/8 = 5/8
+  * rac.Angle(3/8).negative().turn
   *
   * @returns {Rac.Angle}
   */
@@ -2494,10 +2697,12 @@ class Angle {
   /**
   * Returns a new `Angle` which is perpendicular to `this` in the
   * `clockwise` orientation.
-  * ```
-  * rac.Angle(1/8).perpendicular(true)  // turn is 1/8 + 1/4 = 3/8
-  * rac.Angle(1/8).perpendicular(false) // turn is 1/8 - 1/4 = 7/8
-  * ```
+  *
+  * @example
+  * // returns 3/8, since 1/8 + 1/4 = 3/8
+  * rac.Angle(1/8).perpendicular(true).turn
+  * // returns 7/8, since 1/8 - 1/4 = 7/8
+  * rac.Angle(1/8).perpendicular(false).turn
   *
   * @returns {Rac.Angle}
   */
@@ -2509,7 +2714,7 @@ class Angle {
   /**
   * Returns the measure of the angle in radians.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   radians() {
     return this.turn * Rac.TAU;
@@ -2519,7 +2724,7 @@ class Angle {
   /**
   * Returns the measure of the angle in degrees.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   degrees() {
     return this.turn * 360;
@@ -2529,7 +2734,7 @@ class Angle {
   /**
   * Returns the sine of `this`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   sin() {
     return Math.sin(this.radians())
@@ -2539,7 +2744,7 @@ class Angle {
   /**
   * Returns the cosine of `this`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   cos() {
     return Math.cos(this.radians())
@@ -2549,7 +2754,7 @@ class Angle {
   /**
   * Returns the tangent of `this`.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   tan() {
     return Math.tan(this.radians())
@@ -2560,7 +2765,7 @@ class Angle {
   * Returns the `turn` value in the range `(0, 1]`. When `turn` is equal to
   * `0` returns `1` instead.
   *
-  * @returns {number}
+  * @returns {Number}
   */
   turnOne() {
     if (this.turn === 0) { return 1; }
@@ -2572,7 +2777,7 @@ class Angle {
   * Returns a new `Angle` with the sum of `this` and the angle derived from
   * `angle`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to add
+  * @param {Rac.Angle|Number} angle - An `Angle` to add
   * @returns {Rac.Angle}
   */
   add(angle) {
@@ -2585,7 +2790,7 @@ class Angle {
   * Returns a new `Angle` with the angle derived from `angle`
   * subtracted to `this`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to subtract
+  * @param {Rac.Angle|Number} angle - An `Angle` to subtract
   * @returns {Rac.Angle}
   */
   subtract(angle) {
@@ -2597,7 +2802,7 @@ class Angle {
   /**
   * Returns a new `Angle` with `turn` set to `this.turn * factor`.
   *
-  * @param {number} factor - The factor to multiply `turn` by
+  * @param {Number} factor - The factor to multiply `turn` by
   * @returns {Rac.Angle}
   */
   mult(factor) {
@@ -2610,30 +2815,33 @@ class Angle {
   * `{@link Rac.Angle#turnOne this.turnOne()} * factor`.
   *
   * Useful when doing ratio calculations where a zero angle corresponds to
-  * a complete-circle since:
-  * ```
-  * rac.Angle(0).mult(0.5)    // turn is 0
-  * // whereas
-  * rac.Angle(0).multOne(0.5) // turn is 0.5
-  * ```
+  * a complete-circle.
   *
-  * @param {number} factor - The factor to multiply `turn` by
-  * @returns {number}
+  * @example
+  * rac.Angle(0).mult(0.5).turn    // returns 0
+  * // whereas
+  * rac.Angle(0).multOne(0.5).turn // returns 0.5
+  *
+  * @param {Number} factor - The factor to multiply `turn` by
+  * @returns {Number}
   */
   multOne(factor) {
     return new Angle(this.rac, this.turnOne() * factor);
   }
 
+
   /**
   * Returns a new `Angle` that represents the distance from `this` to the
   * angle derived from `angle`.
-  * ```
-  * rac.Angle(1/4).distance(1/2, true)  // turn is 1/2
-  * rac.Angle(1/4).distance(1/2, false) // turn in 3/4
-  * ```
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
-  * @param {boolean} [clockwise=true] - The orientation of the measurement
+  * @example
+  * // returns 1/2, since 1/2 - 1/4 = 1/4
+  * rac.Angle(1/4).distance(1/2, true).turn
+  * // returns 3/4, since 1 - (1/2 - 1/4) = 3/4
+  * rac.Angle(1/4).distance(1/2, false).turn
+  *
+  * @param {Rac.Angle|Number} angle - An `Angle` to measure the distance to
+  * @param {Boolean} [clockwise=true] - The orientation of the measurement
   * @returns {Rac.Angle}
   */
   distance(angle, clockwise = true) {
@@ -2652,13 +2860,14 @@ class Angle {
   * + `this.add(angle)` when clockwise
   * + `this.subtract(angle)` when counter-clockwise
   *
-  * ```
-  * rac.Angle(0.1).shift(0.3, true)  // turn is 0.1 + 0.3 = 0.4
-  * rac.Angle(0.1).shift(0.3, false) // turn is 0.1 - 0.3 = 0.8
-  * ```
+  * @example
+  * // returns 0.4, since 0.1 + 0.3 = 0.4
+  * rac.Angle(0.1).shift(0.3, true).turn
+  * // returns 0.8, since 0.1 - 0.3 = 0.8
+  * rac.Angle(0.1).shift(0.3, false).turn
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to be shifted
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} angle - An `Angle` to be shifted
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Angle}
   */
   shift(angle, clockwise = true) {
@@ -2680,13 +2889,14 @@ class Angle {
   * + `origin.add(this)` when clockwise
   * + `origin.subtract(this)` when counter-clockwise
   *
-  * ```
-  * rac.Angle(0.1).shiftToOrigin(0.3, true)  // turn is 0.3 + 0.1 = 0.4
-  * rac.Angle(0.1).shiftToOrigin(0.3, false) // turn is 0.3 - 0.1 = 0.2
-  * ```
+  * @example
+  * // returns 0.4, since 0.3 + 0.1 = 0.4
+  * rac.Angle(0.1).shiftToOrigin(0.3, true).turn
+  * // returns 0.2, since 0.3 - 0.1 = 0.2
+  * rac.Angle(0.1).shiftToOrigin(0.3, false).turn
   *
-  * @param {Rac.Angle|number} origin - An `Angle` to use as origin
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} origin - An `Angle` to use as origin
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Angle}
   */
   shiftToOrigin(origin, clockwise) {
@@ -2715,6 +2925,28 @@ const utils = require('../util/utils');
 * Arcs that have [equal]{@link Rac.Angle#equals} `start` and `end` angles
 * are considered a complete circle.
 *
+* ### `instance.Arc`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Arc` function]{@link Rac#Arc} to create `Arc` objects from
+* primitive values. This function also contains ready-made convenience
+* objects, like [`rac.Arc.zero`]{@link instance.Arc#zero}, listed
+* under [`instance.Arc`]{@link instance.Arc}.
+*
+* @example
+* let rac = new Rac()
+* let center = rac.Point(55, 77)
+* let start = rac.Angle(1/8)
+* let end = rac.Angle(3/8)
+* // new instance with constructor
+* let arc = new Rac.Arc(rac, center, 100, start, end, true)
+* // or convenience function
+* let otherArc = rac.Arc(55, 77, 1/8, 3/8)
+*
+* @see [`angle.equals`]{@link Rac.Angle#equals}
+* @see [`rac.Arc`]{@link Rac#Arc}
+* @see [`instance.Arc`]{@link instance.Arc}
+*
 * @alias Rac.Arc
 */
 class Arc{
@@ -2724,10 +2956,10 @@ class Arc{
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {Rac.Point} center - The center of the arc
-  * @param {number} radius - The radius of the arc
+  * @param {Number} radius - The radius of the arc
   * @param {Rac.Angle} start - An `Angle` where the arc starts
   * @param {Rac.Angle} end - Ang `Angle` where the arc ends
-  * @param {boolean} clockwise - The orientation of the arc
+  * @param {Boolean} clockwise - The orientation of the arc
   */
   constructor(rac,
     center, radius,
@@ -2756,7 +2988,7 @@ class Arc{
 
     /**
     * The radius of the arc.
-    * @type {number}
+    * @type {Number}
     */
     this.radius = radius;
 
@@ -2768,7 +3000,7 @@ class Arc{
     * the arc is considered a complete circle.
     *
     * @type {Rac.Angle}
-    * @see Rac.Angle#equals
+    * @see [`angle.equals`]{@link Rac.Angle#equals}
     */
     this.start = start
 
@@ -2780,13 +3012,13 @@ class Arc{
     * the arc is considered a complete circle.
     *
     * @type {Rac.Angle}
-    * @see Rac.Angle#equals
+    * @see [`angle.equals`]{@link Rac.Angle#equals}
     */
     this.end = end;
 
     /**
     * The orientiation of the arc.
-    * @type {boolean}
+    * @type {Boolean}
     */
     this.clockwise = clockwise;
   }
@@ -2795,9 +3027,9 @@ class Arc{
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr      = utils.cutDigits(this.center.x,   digits);
@@ -2818,10 +3050,10 @@ class Arc{
   * Arcs' `radius` are compared using `{@link Rac#equals}`.
   *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
-  * @returns {boolean}
-  * @see Rac.Point#equals
-  * @see Rac.Angle#equals
-  * @see Rac#equals
+  * @returns {Boolean}
+  * @see [`point.equals`]{@link Rac.Point#equals}
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherArc) {
     return otherArc instanceof Arc
@@ -2836,7 +3068,7 @@ class Arc{
   /**
   * Returns the length of the arc: the part of the circumference the arc
   * represents.
-  * @returns {number}
+  * @returns {Number}
   */
   length() {
     return this.angleDistance().turnOne() * this.radius * Rac.TAU;
@@ -2846,7 +3078,7 @@ class Arc{
   /**
   * Returns the length of circumference of the arc considered as a complete
   * circle.
-  * @returns {number}
+  * @returns {Number}
   */
   circumference() {
     return this.radius * Rac.TAU;
@@ -2936,8 +3168,8 @@ class Arc{
   * Returns `true` if the arc is a complete circle, which is when `start`
   * and `end` are [equal angles]{@link Rac.Angle#equals}.
   *
-  * @returns {boolean}
-  * @see Rac.Angle#equals
+  * @returns {Boolean}
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
   */
   isCircle() {
     return this.start.equals(this.end);
@@ -2965,7 +3197,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newStart - The start for the new `Arc`
+  * @param {Rac.Angle|Number} newStart - The start for the new `Arc`
   * @returns {Rac.Arc}
   */
   withStart(newStart) {
@@ -2982,7 +3214,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newEnd - The end for the new `Arc`
+  * @param {Rac.Angle|Number} newEnd - The end for the new `Arc`
   * @returns {Rac.Arc}
   */
   withEnd(newEnd) {
@@ -2999,7 +3231,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newRadius - The radius for the new `Arc`
+  * @param {Number} newRadius - The radius for the new `Arc`
   * @returns {Rac.Arc}
   */
   withRadius(newRadius) {
@@ -3015,7 +3247,7 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {boolean} newClockwise - The orientation for the new `Arc`
+  * @param {Boolean} newClockwise - The orientation for the new `Arc`
   * @returns {Rac.Arc}
   */
   withClockwise(newClockwise) {
@@ -3033,10 +3265,10 @@ class Arc{
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angleDistance - The angle distance of the
+  * @param {Rac.Angle|Number} angleDistance - The angle distance of the
   * new `Arc`
   * @returns {Rac.Arc}
-  * @see Rac.Arc#angleDistance
+  * @see [`arc.angleDistance`]{@link Rac.Arc#angleDistance}
   */
   withAngleDistance(angleDistance) {
     const newEnd = this.shiftAngle(angleDistance);
@@ -3059,9 +3291,9 @@ class Arc{
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
-  * @param {number} length - The length of the new `Arc`
+  * @param {Number} length - The length of the new `Arc`
   * @returns {Rac.Arc}
-  * @see Rac.Arc#length
+  * @see [`length`]{@link Rac.Arc#length}
   */
   withLength(length) {
     const newAngleDistance = length / this.circumference();
@@ -3081,9 +3313,9 @@ class Arc{
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
-  * @param {number} length - The length to add
+  * @param {Number} length - The length to add
   * @returns {Rac.Arc}
-  * @see Rac.Arc#length
+  * @see [`length`]{@link Rac.Arc#length}
   */
   withLengthAdd(length) {
     const newAngleDistance = (this.length() + length) / this.circumference();
@@ -3102,10 +3334,10 @@ class Arc{
   * circumference of the arc as a complete circle, the resulting arc length
   * will be cut back into range through a modulo operation.
   *
-  * @param {number} ratio - The factor to multiply `length()` by
+  * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
   *
-  * @see Rac.Arc#length
+  * @see [`length`]{@link Rac.Arc#length}
   */
   withLengthRatio(ratio) {
     const newLength = this.length() * ratio;
@@ -3125,7 +3357,7 @@ class Arc{
   * @param {Rac.Point} point - A `Point` at the `startPoint() of the new `Arc`
   * @returns {Rac.Arc}
   *
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withStartPoint(point) {
     const newStart = this.center.angleToPoint(point, this.start);
@@ -3149,7 +3381,7 @@ class Arc{
   * @param {Rac.Point} point - A `Point` at the `endPoint() of the new `Arc`
   * @returns {Rac.Arc}
   *
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withEndPoint(point) {
     const newEnd = this.center.angleToPoint(point, this.end);
@@ -3173,7 +3405,7 @@ class Arc{
   * @param {Rac.Point} point - A `Point` to point `start` towards
   * @returns {Rac.Arc}
   *
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withStartTowardsPoint(point) {
     const newStart = this.center.angleToPoint(point, this.start);
@@ -3194,7 +3426,7 @@ class Arc{
   *
   * @param {Rac.Point} point - A `Point` to point `end` towards
   * @returns {Rac.Arc}
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withEndTowardsPoint(point) {
     const newEnd = this.center.angleToPoint(point, this.end);
@@ -3219,7 +3451,7 @@ class Arc{
   * @param {?Rac.Point} [endPoint=null] - A `Point` to point `end` towards;
   * when ommited or `null`, `startPoint` is used instead
   * @returns {Rac.Arc}
-  * @see Rac.Point#equals
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   withAnglesTowardsPoint(startPoint, endPoint = null) {
     const newStart = this.center.angleToPoint(startPoint, this.start);
@@ -3308,10 +3540,10 @@ class Arc{
   * returned value will be the centered between the range limits and still
   * clampled to `[start, end]`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to clamp
-  * @param {Rac.Angle|number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
+  * @param {Rac.Angle|Number} angle - An `Angle` to clamp
+  * @param {Rac.Angle|Number} [startInset={@link instance.Angle#zero rac.Angle.zero}] -
   *   The inset for the lower limit of the clamping range
-  * @param {Rac.Angle|number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
+  * @param {Rac.Angle|Number} [endInset={@link instance.Angle#zero rac.Angle.zero}] -
   *   The inset for the higher limit of the clamping range
   * @returns {Rac.Angle}
   */
@@ -3373,8 +3605,8 @@ class Arc{
   *
   * When the arc represents a complete circle, `true` is always returned.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to evaluate
-  * @returns {boolean}
+  * @param {Rac.Angle|Number} angle - An `Angle` to evaluate
+  * @returns {Boolean}
   */
   containsAngle(angle) {
     angle = Rac.Angle.from(this.rac, angle);
@@ -3398,7 +3630,7 @@ class Arc{
   * When the arc represents a complete circle, `true` is always returned.
   *
   * @param {Rac.Point} point - A `Point` to evaluate
-  * @returns {boolean}
+  * @returns {Boolean}
   */
   containsProjectedPoint(point) {
     if (this.isCircle()) { return true; }
@@ -3410,33 +3642,48 @@ class Arc{
   * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
   * `start` in the arc's orientation.
   *
-  * E.g.
-  * For a clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.6`.
-  * For a counter-clockwise arc starting at `0.5`: `shiftAngle(0.1)` is `0.4`.
+  * @example
+  * <caption>For a clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(0, 0, 0.5, null, true)
+  * // returns 0.6, since 0.5 + 0.1 = 0.6
+  * arc.shiftAngle(0.1)
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to shift
+  * @example
+  * <caption>For a counter-clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(0, 0, 0.5, null, false)
+  * // returns 0.3, since 0.5 - 0.2 = 0.3
+  * arc.shiftAngle(0.2)
+  *
+  * @param {Rac.Angle|Number} angle - An `Angle` to shift
   * @returns {Rac.Angle}
-  * @see Rac.Angle#shift
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   */
   shiftAngle(angle) {
     angle = Rac.Angle.from(this.rac, angle);
     return this.start.shift(angle, this.clockwise);
   }
 
-  // Returns an Angle that represents the distance from `this.start` to
-  // `angle` traveling in the `clockwise` orientation.
-  // Useful to determine for a given angle, where it sits inside the arc if
-  // the arc was the origin coordinate system.
-  //
+
   /**
   * Returns a new `Angle` that represents the angle distance from `start`
   * to `angle` in the arc's orientation.
   *
-  * E.g.
-  * For a clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.1`.
-  * For a counter-clockwise arc starting at `0.5`: `distanceFromStart(0.6)` is `0.9`.
+  * Can be used to determine, for a given angle, where it sits inside the
+  * arc if the arc `start` was the origin angle.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to measure the distance to
+  * @example
+  * <caption>For a clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(55, 77, 0.5, null, true)
+  * // returns 0.2, since 0.7 - 0.5 = 0.2
+  * arc.distanceFromStart(0.7)
+  *
+  * @example
+  * <caption>For a counter-clockwise arc starting at <code>0.5</code></caption>
+  * let arc = rac.Arc(55, 77, 0.5, null, false)
+  * // returns 0.8, since 1 - (0.7 - 0.5) = 0.8
+  * arc.distanceFromStart(0.7)
+  *
+  * @param {Rac.Angle|Number} angle - An `Angle` to measure the distance to
   * @returns {Rac.Angle}
   */
   distanceFromStart(angle) {
@@ -3451,7 +3698,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` towards the new `Point`
+  * @param {Rac.Angle|Number} angle - An `Angle` towards the new `Point`
   * @returns {Rac.Point}
   */
   pointAtAngle(angle) {
@@ -3481,7 +3728,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {number} length - The length from `startPoint()` to the new `Point`
+  * @param {Number} length - The length from `startPoint()` to the new `Point`
   * @returns {Rac.Point}
   */
   pointAtLength(length) {
@@ -3496,7 +3743,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {number} ratio - The factor to multiply `length()` by
+  * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Point}
   */
   pointAtLengthRatio(ratio) {
@@ -3513,7 +3760,7 @@ class Arc{
   *
   * The arc is considered a complete circle.
   *
-  * @param {Rac.Angle|number} angle - The direction of the radius to return
+  * @param {Rac.Angle|Number} angle - The direction of the radius to return
   * @returns {Rac.Segment}
   */
   radiusSegmentAtAngle(angle) {
@@ -3793,9 +4040,9 @@ class Arc{
   * Both `this` and `otherArc` are considered complete circles.
   *
   * @param {Rac.Arc} otherArc - An `Arc` to calculate a tangent segment towards
-  * @param {boolean} startClockwise - The orientation of the new `Segment`
+  * @param {Boolean} startClockwise - The orientation of the new `Segment`
   * start point in relation to the _center axis_
-  * @param {boolean} endClockwise - The orientation of the new `Segment`
+  * @param {Boolean} endClockwise - The orientation of the new `Segment`
   * end point in relation to the _center axis_
   * @returns {?Rac.Segment}
   */
@@ -3846,7 +4093,7 @@ class Arc{
   * When `count` is zero or lower, returns an empty array. When `count` is
   * `1` returns an arc equivalent to `this`.
   *
-  * @param {number} count - Number of arcs to divide `this` into
+  * @param {Number} count - Number of arcs to divide `this` into
   * @returns {Rac.Arc[]}
   */
   divideToArcs(count) {
@@ -3875,7 +4122,7 @@ class Arc{
   * `1` returns an arc equivalent to
   * `[this.chordSegment()]{@link Rac.Arc#chordSegment}`.
   *
-  * @param {number} count - Number of segments to divide `this` into
+  * @param {Number} count - Number of segments to divide `this` into
   * @returns {Rac.Segment[]}
   */
   divideToSegments(count) {
@@ -3905,10 +4152,10 @@ class Arc{
   *
   * When `count` is zero or lower, returns an empty `Composite`.
   *
-  * @param {number} count - Number of beziers to divide `this` into
+  * @param {Number} count - Number of beziers to divide `this` into
   * @returns {Rac.Composite}
   *
-  * @see Rac.Bezier
+  * @see [`Rac.Bezier`]{@link Rac.Bezier}
   */
   divideToBeziers(count) {
     if (count <= 0) { return new Rac.Composite(this.rac, []); }
@@ -3979,9 +4226,9 @@ class Bezier {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const startXStr       = utils.cutDigits(this.start.x,       digits);
@@ -4005,7 +4252,7 @@ class Bezier {
   * `false`.
   *
   * @param {Rac.Bezier} otherBezier - A `Bezier` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   *
   * @see Rac.Point#equals
   */
@@ -4105,6 +4352,24 @@ const utils = require('../util/utils');
 * points are considered equal. The [`equals`]{@link Rac.Point#equals}
 * method performs this check.
 *
+* ### `instance.Point`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Point` function]{@link Rac#Point} to create `Point` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Point.origin`]{@link instance.Point#origin}, listed under
+* [`instance.Point`]{@link instance.Point}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let point = new Rac.Point(rac, 55, 77)
+* // or convenience function
+* let otherPoint = rac.Point(55, 77)
+*
+* @see [`rac.Point`]{@link Rac#Point}
+* @see [`instance.Point`]{@link instance.Point}
+*
 * @alias Rac.Point
 */
 class Point{
@@ -4114,9 +4379,9 @@ class Point{
   * Creates a new `Point` instance.
   * @param {Rac} rac
   *   Instance to use for drawing and creating other objects
-  * @param {number} x
+  * @param {Number} x
   *   The x coordinate
-  * @param {number} y
+  * @param {Number} y
   *   The y coordinate
   */
   constructor(rac, x, y) {
@@ -4133,13 +4398,13 @@ class Point{
 
     /**
     * X coordinate of the point.
-    * @type {number}
+    * @type {Number}
     */
     this.x = x;
 
     /**
     * Y coordinate of the point.
-    * @type {number}
+    * @type {Number}
     */
     this.y = y;
   }
@@ -4148,14 +4413,13 @@ class Point{
   /**
   * Returns a string representation intended for human consumption.
   *
-  * ```
-  * (new Rac.Point(rac, 55, 77)).toString()
-  * // Returns: Point(55,77)
-  * ```
+  * @example
+  * // returns: 'Point(55,77)'
+  * rac.Point(55, 77).toString()
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.x, digits);
@@ -4171,11 +4435,11 @@ class Point{
   *
   * When `otherPoint` is any class other that `Rac.Point`, returns `false`.
   *
-  * Values are compared using [`Rac.equals`]{@link Rac#equals}.
+  * Values are compared using [`rac.equals`]{@link Rac#equals}.
   *
   * @param {Rac.Point} otherPoint - A `Point` to compare
-  * @returns {boolean}
-  * @see Rac#equals
+  * @returns {Boolean}
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherPoint) {
     return otherPoint instanceof Point
@@ -4186,7 +4450,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` set to `newX`.
-  * @param {number} newX - The x coordinate for the new `Point`
+  * @param {Number} newX - The x coordinate for the new `Point`
   * @returns {Rac.Point}
   */
   withX(newX) {
@@ -4196,7 +4460,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` set to `newX`.
-  * @param {number} newY - The y coordinate for the new `Point`
+  * @param {Number} newY - The y coordinate for the new `Point`
   * @returns {Rac.Point}
   */
   withY(newY) {
@@ -4206,7 +4470,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `x` added to `this.x`.
-  * @param {number} x - The x coordinate to add
+  * @param {Number} x - The x coordinate to add
   * @returns {Rac.Point}
   */
   addX(x) {
@@ -4217,7 +4481,7 @@ class Point{
 
   /**
   * Returns a new `Point` with `y` added to `this.y`.
-  * @param {number} y - The y coordinate to add
+  * @param {Number} y - The y coordinate to add
   * @returns {Rac.Point}
   */
   addY(y) {
@@ -4241,8 +4505,8 @@ class Point{
 
   /**
   * Returns a new `Point` by adding the `x` and `y` components to `this`.
-  * @param {number} x - The x coodinate to add
-  * @param {number} y - The y coodinate to add
+  * @param {Number} x - The x coodinate to add
+  * @param {Number} y - The y coodinate to add
   * @returns {Rac.Point}
   */
   add(x, y) {
@@ -4266,8 +4530,8 @@ class Point{
 
   /**
   * Returns a new `Point` by subtracting the `x` and `y` components.
-  * @param {number} x - The x coodinate to subtract
-  * @param {number} y - The y coodinate to subtract
+  * @param {Number} x - The x coodinate to subtract
+  * @param {Number} y - The y coodinate to subtract
   * @returns {Rac.Point}
   */
   subtract(x, y) {
@@ -4294,8 +4558,8 @@ class Point{
   * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the distance to
-  * @returns {number}
-  * @see Rac.Point#equals
+  * @returns {Number}
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   distanceToPoint(point) {
     if (this.equals(point)) {
@@ -4314,11 +4578,11 @@ class Point{
   * returns the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to measure the angle to
-  * @param {Rac.Angle|number}
+  * @param {Rac.Angle|Number}
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to return when `this` and `point` are equal
   * @returns {Rac.Angle}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   angleToPoint(point, defaultAngle = this.rac.Angle.zero) {
     if (this.equals(point)) {
@@ -4335,8 +4599,8 @@ class Point{
   * Returns a new `Point` at a `distance` from `this` in the direction of
   * `angle`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` towars the new `Point`
-  * @param {number} distance - The distance to the new `Point`
+  * @param {Rac.Angle|Number} angle - An `Angle` towars the new `Point`
+  * @param {Number} distance - The distance to the new `Point`
   * @returns {Rac.Point}
   */
   pointToAngle(angle, distance) {
@@ -4361,7 +4625,7 @@ class Point{
 
   /**
   * Returns a new `Ray` from `this` towards `angle`.
-  * @param {Rac.Angle|number} angle - The `Angle` of the new `Ray`
+  * @param {Rac.Angle|Number} angle - The `Angle` of the new `Ray`
   * @returns {Rac.Ray}
   */
   ray(angle) {
@@ -4377,7 +4641,7 @@ class Point{
   * the new `Ray` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
-  * @param {Rac.Angle|number}
+  * @param {Rac.Angle|Number}
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Ray}
@@ -4426,7 +4690,7 @@ class Point{
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
-  * @param {boolean} [clockwise=true] - the orientation of the new `Ray`
+  * @param {Boolean} [clockwise=true] - the orientation of the new `Ray`
   * @return {?Rac.Ray}
   */
   rayTangentToArc(arc, clockwise = true) {
@@ -4462,9 +4726,9 @@ class Point{
   * Returns a new `Segment` from `this` towards `angle` with the given
   * `length`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to point the segment
+  * @param {Rac.Angle|Number} angle - An `Angle` to point the segment
   * towards
-  * @param {number} length - The length of the new `Segment`
+  * @param {Number} length - The length of the new `Segment`
   * @returns {Rac.Segment}
   */
   segmentToAngle(angle, length) {
@@ -4481,11 +4745,11 @@ class Point{
   * the new `Segment` will use the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
-  * @param {Rac.Angle|number}
+  * @param {Rac.Angle|Number}
   *   [defaultAngle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   An `Angle` to use when `this` and `point` are equal
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  * @see [`equals`]{@link Rac.Point#equals}
   */
   segmentToPoint(point, defaultAngle = this.rac.Angle.zero) {
     defaultAngle = this.angleToPoint(point, defaultAngle);
@@ -4533,7 +4797,7 @@ class Point{
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
   * as a complete circle
-  * @param {boolean} [clockwise=true] - the orientation of the new `Segment`
+  * @param {Boolean} [clockwise=true] - the orientation of the new `Segment`
   * @return {?Rac.Segment}
   */
   segmentTangentToArc(arc, clockwise = true) {
@@ -4552,13 +4816,13 @@ class Point{
   /**
   * Returns a new `Arc` with center at `this` and the given arc properties.
   *
-  * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number}
+  * @param {Number} radius - The radius of the new `Arc`
+  * @param {Rac.Angle|Number}
   *   [start=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The start `Angle` of the new `Arc`
-  * @param {Rac.Angle|number} [end=null] - The end `Angle` of the new
+  * @param {Rac.Angle|Number} [end=null] - The end `Angle` of the new
   *   `Arc`; when `null` or ommited, `start` is used instead
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(
@@ -4579,7 +4843,7 @@ class Point{
   * Returns a new `Text` located at `this` with the given `string` and
   * `format`.
   *
-  * @param {string} string - The string of the new `Text`
+  * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
   *   The format of the new `Text`
   * @returns {Rac.Text}
@@ -4605,6 +4869,26 @@ const utils = require('../util/utils');
 /**
 * Unbounded ray from a `[Point]{@link Rac.Point}` in direction of an
 * `[Angle]{@link Rac.Angle}`.
+*
+* ### `instance.Ray`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Ray` function]{@link Rac#Ray} to create `Ray` objects from
+* primitive values. This function also contains ready-made convenience
+* objects, like [`rac.Ray.xAxis`]{@link instance.Ray#xAxis}, listed under
+* [`instance.Ray`]{@link instance.Ray}.
+*
+* @example
+* let rac = new Rac()
+* let point = rac.Point(55, 77)
+* let angle = rac.Angle(1/4)
+* // new instance with constructor
+* let ray = new Rac.Ray(rac, point, angle)
+* // or convenience function
+* let otherRay = rac.Ray(55, 77, 1/4)
+*
+* @see [`rac.Ray`]{@link Rac#Ray}
+* @see [`instance.Ray`]{@link instance.Ray}
 *
 * @alias Rac.Ray
 */
@@ -4646,9 +4930,9 @@ class Ray {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.start.x, digits);
@@ -4665,7 +4949,7 @@ class Ray {
   * When `otherRay` is any class other that `Rac.Ray`, returns `false`.
   *
   * @param {Rac.Ray} otherRay - A `Ray` to compare
-  * @returns {boolean}
+  * @returns {Boolean}
   * @see Rac.Point#equals
   * @see Rac.Angle#equals
   */
@@ -4681,7 +4965,7 @@ class Ray {
   *
   * In the line formula `y = mx + b` the slope is `m`.
   *
-  * @returns {?number}
+  * @returns {?Number}
   */
   slope() {
     let isVertical =
@@ -4702,7 +4986,7 @@ class Ray {
   *
   * In the line formula `y = mx + b` the y-intercept is `b`.
   *
-  * @returns {?number}
+  * @returns {?Number}
   */
   yIntercept() {
     let slope = this.slope();
@@ -4733,7 +5017,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newX - The x coordinate for the new `Ray`
+  * @param {Number} newX - The x coordinate for the new `Ray`
   * @returns {Rac.Ray}
   */
   withX(newX) {
@@ -4746,7 +5030,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newY - The y coordinate for the new `Ray`
+  * @param {Number} newY - The y coordinate for the new `Ray`
   * @returns {Rac.Ray}
   */
   withY(newY) {
@@ -4759,7 +5043,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Ray`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Ray`
   * @returns {Rac.Ray}
   */
   withAngle(newAngle) {
@@ -4773,7 +5057,7 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to add
+  * @param {Rac.Angle|Number} angle - The angle to add
   * @returns {Rac.Ray}
   */
   withAngleAdd(angle) {
@@ -4788,8 +5072,8 @@ class Ray {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to be shifted by
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} angle - The angle to be shifted by
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Ray}
   */
   withAngleShift(angle, clockwise = true) {
@@ -4814,7 +5098,7 @@ class Ray {
   * [perpendicular angle]{@link Rac.Angle#perpendicular} of
   * `angle` in the `clockwise` orientation.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Ray}
   * @see Rac.Angle#perpendicular
   */
@@ -4831,7 +5115,7 @@ class Ray {
   * When `distance` is negative, `start` is moved in
   * the inverse direction of `angle`.
   *
-  * @param {number} distance - The distance to move `start` by
+  * @param {Number} distance - The distance to move `start` by
   * @returns {Rac.Ray}
   */
   translateToDistance(distance) {
@@ -4844,8 +5128,8 @@ class Ray {
   * Returns a new `Ray` with `start` moved towards `angle` by the given
   * `distance`. All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to move `start` towards
-  * @param {number} distance - The distance to move `start` by
+  * @param {Rac.Angle|Number} angle - An `Angle` to move `start` towards
+  * @param {Number} distance - The distance to move `start` by
   * @returns {Rac.Ray}
   */
   translateToAngle(angle, distance) {
@@ -4858,8 +5142,8 @@ class Ray {
   * Returns a new `Ray` with `start` moved by the given distance toward the
   * `angle.perpendicular()`. All other properties are copied from `this`.
   *
-  * @param {number} distance - The distance to move `start` by
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Number} distance - The distance to move `start` by
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Ray}
   */
   translatePerpendicular(distance, clockwise = true) {
@@ -4890,7 +5174,7 @@ class Ray {
   *
   * The ray is considered a unbounded line.
   *
-  * @param {number} x - The x coordinate to calculate a point in the ray
+  * @param {Number} x - The x coordinate to calculate a point in the ray
   * @returns {Rac.Point}
   */
   pointAtX(x) {
@@ -4918,8 +5202,8 @@ class Ray {
   *
   * The ray is considered an unbounded line.
   *
-  * @param {number} y - The y coordinate to calculate a point in the ray
-  * @retursn {Rac.Point}
+  * @param {Number} y - The y coordinate to calculate a point in the ray
+  * @returns {Rac.Point}
   */
   pointAtY(y) {
     const slope = this.slope();
@@ -4945,7 +5229,7 @@ class Ray {
   * `this.start`. When `distance` is negative, the new `Point` is calculated
   * in the inverse direction of `angle`.
   *
-  * @param {number} distance - The distance from `this.start`
+  * @param {Number} distance - The distance from `this.start`
   * @returns {Rac.Point}
   */
   pointAtDistance(distance) {
@@ -5010,7 +5294,7 @@ class Ray {
   *
   * @param {Rac.Point} point - A `Point` to project and measure the
   * distance to
-  * @returns {number}
+  * @returns {Number}
   */
   distanceToProjectedPoint(point) {
     const projected = this.pointProjection(point);
@@ -5041,7 +5325,7 @@ class Ray {
   * counter-clockwise.
   *
   * @param {Rac.Point} point - A `Point` to measure the orientation to
-  * @returns {boolean}
+  * @returns {Boolean}
   *
   * @see Rac.Point#equals
   * @see Rac.Ray#inverse
@@ -5077,7 +5361,7 @@ class Ray {
 
   /**
   * Returns a new `Segment` using `this` and the given `length`.
-  * @param {number} length - The length of the new `Segment`
+  * @param {Number} length - The length of the new `Segment`
   * @returns {Rac.Segment}
   */
   segment(length) {
@@ -5130,10 +5414,10 @@ class Ray {
   * Returns a new `Arc` with center at `this.start`, start at `this.angle`
   * and the given arc properties.
   *
-  * @param {number} radius - The radius of the new `Arc`
-  * @param {?Rac.Angle|number} [endAngle=null] - The end `Angle` of the new
+  * @param {Number} radius - The radius of the new `Arc`
+  * @param {?Rac.Angle|Number} [endAngle=null] - The end `Angle` of the new
   * `Arc`; when `null` or ommited, `this.angle` is used instead
-  * @param {boolean=} clockwise=true - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(radius, endAngle = null, clockwise = true) {
@@ -5152,10 +5436,10 @@ class Ray {
   * and end at the given `angleDistance` from `this.start` in the
   * `clockwise` orientation.
   *
-  * @param {number} radius - The radius of the new `Arc`
-  * @param {Rac.Angle|number} angleDistance - The angle distance from
+  * @param {Number} radius - The radius of the new `Arc`
+  * @param {Rac.Angle|Number} angleDistance - The angle distance from
   * `this.start` to the new `Arc` end
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arcToAngleDistance(radius, angleDistance, clockwise = true) {
@@ -5242,7 +5526,26 @@ const utils = require('../util/utils');
 
 
 /**
-* Segment of a `[Ray]{@link Rac.Ray}` up to a given length.
+* Segment of a `[Ray]{@link Rac.Ray}` with a given length.
+*
+* ### `instance.Segment`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Segment` function]{@link Rac#Segment} to create `Segment` objects
+* from primitive values. This function also contains ready-made convenience
+* objects, like [`rac.Segment.zero`]{@link instance.Segment#zero}, listed
+* under [`instance.Segment`]{@link instance.Segment}.
+*
+* @example
+* let rac = new Rac()
+* let ray = rac.Ray(55, 77, 1/4)
+* // new instance with constructor
+* let segment = new Rac.Segment(rac, ray, 100)
+* // or convenience function
+* let otherSegment = rac.Segment(55, 77, 1/4, 100)
+*
+* @see [`rac.Segment`]{@link Rac#Segment}
+* @see [`instance.Segment`]{@link instance.Segment}
 *
 * @alias Rac.Segment
 */
@@ -5252,7 +5555,7 @@ class Segment {
   * Creates a new `Segment` instance.
   * @param {Rac} rac - Instance to use for drawing and creating other objects
   * @param {Rac.Ray} ray - A `Ray` the segment will be based of
-  * @param {number} length - The length of the segment
+  * @param {Number} length - The length of the segment
   */
   constructor(rac, ray, length) {
     // TODO: different approach to error throwing?
@@ -5283,7 +5586,7 @@ class Segment {
 
     /**
     * The length of the segment.
-    * @type {number}
+    * @type {Number}
     */
     this.length = length;
   }
@@ -5292,9 +5595,9 @@ class Segment {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.ray.start.x, digits);
@@ -5314,9 +5617,10 @@ class Segment {
   * Segments' `length` are compared using `{@link Rac#equals}`.
   *
   * @param {Rac.Segment} otherSegment - A `Segment` to compare
-  * @returns {boolean}
-  * @see Rac.Ray#equals
-  * @see Rac#equals
+  * @returns {Boolean}
+  *
+  * @see [`ray.equals`]{@link Rac.Ray#equals}
+  * @see [`rac.equals`]{@link Rac#equals}
   */
   equals(otherSegment) {
     return otherSegment instanceof Segment
@@ -5357,7 +5661,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Segment`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Segment`
   * @returns {Rac.Segment}
   */
   withAngle(newAngle) {
@@ -5400,7 +5704,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} newLength - The length for the new `Segment`
+  * @param {Number} newLength - The length for the new `Segment`
   * @returns {Rac.Segment}
   */
   withLength(newLength) {
@@ -5413,7 +5717,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} length - The length to add
+  * @param {Number} length - The length to add
   * @returns {Rac.Segment}
   */
   withLengthAdd(length) {
@@ -5426,7 +5730,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {number} ratio - The factor to multiply `length` by
+  * @param {Number} ratio - The factor to multiply `length` by
   * @returns {Rac.Segment}
   */
   withLengthRatio(ratio) {
@@ -5439,7 +5743,7 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to add
+  * @param {Rac.Angle|Number} angle - The angle to add
   * @returns {Rac.Segment}
   */
   withAngleAdd(angle) {
@@ -5454,8 +5758,8 @@ class Segment {
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - The angle to be shifted by
-  * @param {boolean} [clockwise=true] - The orientation of the shift
+  * @param {Rac.Angle|Number} angle - The angle to be shifted by
+  * @param {Boolean} [clockwise=true] - The orientation of the shift
   * @returns {Rac.Segment}
   */
   withAngleShift(angle, clockwise = true) {
@@ -5472,7 +5776,7 @@ class Segment {
   * Using a positive `distance` results in a longer segment, using a
   * negative `distance` results in a shorter one.
   *
-  * @param {number} distance - The distance to move the start point by
+  * @param {Number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
   withStartExtension(distance) {
@@ -5494,7 +5798,7 @@ class Segment {
   * This method performs the same operation as
   * `[withLengthAdd]{@link Rac.Segment#withLengthAdd}`.
   *
-  * @param {number} distance - The distance to add to `length`
+  * @param {Number} distance - The distance to add to `length`
   * @returns {Rac.Segment}
   */
   withEndExtension(distance) {
@@ -5510,7 +5814,8 @@ class Segment {
   * as `this`.
   *
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  *
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   inverse() {
     const newRay = this.ray.inverse();
@@ -5526,9 +5831,10 @@ class Segment {
   * The resulting `Segment` will have the same `startPoint()` and `length`
   * as `this`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  * @see Rac.Angle#perpendicular
+  *
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   perpendicular(clockwise = true) {
     const newRay = this.ray.perpendicular(clockwise);
@@ -5543,7 +5849,7 @@ class Segment {
   * same length as `this`.
   *
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   reverse() {
     const end = this.endPoint();
@@ -5556,9 +5862,9 @@ class Segment {
   * Returns a new `Segment` with the start point moved towards `angle` by
   * the given `distance`. All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|number} angle - An `Angle` to move the start point
+  * @param {Rac.Angle|Number} angle - An `Angle` to move the start point
     towards
-  * @param {number} distance - The distance to move the start point by
+  * @param {Number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
   translateToAngle(angle, distance) {
@@ -5574,7 +5880,7 @@ class Segment {
   * When `length` is negative, `start` is moved in the inverse direction of
   * `angle`.
   *
-  * @param {number} length - The length to move the start point by
+  * @param {Number} length - The length to move the start point by
   * @returns {Rac.Segment}
   */
   translateToLength(length) {
@@ -5588,8 +5894,8 @@ class Segment {
   * towards the perpendicular angle to `this.angle()` in the `clockwise`
   * orientaton. All other properties are copied from `this`.
   *
-  * @param {number} distance - The distance to move the start point by
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Number} distance - The distance to move the start point by
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   */
   translatePerpendicular(distance, clockwise = true) {
@@ -5606,12 +5912,12 @@ class Segment {
   * will be the centered between the range limits and still clampled to
   * `[0, length]`.
   *
-  * @param {number} value - A value to clamp
-  * @param {number} [startInset=0] - The inset for the lower limit of the
+  * @param {Number} value - A value to clamp
+  * @param {Number} [startInset=0] - The inset for the lower limit of the
   * clamping range
   * @param {endInset} [endInset=0] - The inset for the higher limit of the
   * clamping range
-  * @returns {number}
+  * @returns {Number}
   */
   clampToLength(value, startInset = 0, endInset = 0) {
     const endLimit = this.length - endInset;
@@ -5637,9 +5943,10 @@ class Segment {
   * `this.startPoint()`. When `length` is negative, the new `Point` is
   * calculated in the inverse direction of `this.angle()`.
   *
-  * @param {number} length - The distance from `this.startPoint()`
+  * @param {Number} length - The distance from `this.startPoint()`
   * @returns {Rac.Point}
-  * @see Rac.Ray#pointAtDistance
+  *
+  * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   */
   pointAtLength(length) {
     return this.ray.pointAtDistance(length);
@@ -5652,9 +5959,10 @@ class Segment {
   * negative, the new `Point` is calculated in the inverse direction of
   * `this.angle()`.
   *
-  * @param {number} ratio - The factor to multiply `length` by
+  * @param {Number} ratio - The factor to multiply `length` by
   * @returns {Rac.Point}
-  * @see Rac.Ray#pointAtDistance
+  *
+  * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   */
   pointAtLengthRatio(ratio) {
     return this.ray.pointAtDistance(this.length * ratio);
@@ -5680,7 +5988,8 @@ class Segment {
   *
   * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  *
+  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   moveStartPoint(newStartPoint) {
     const endPoint = this.endPoint();
@@ -5698,7 +6007,8 @@ class Segment {
   *
   * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  *
+  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   moveEndPoint(newEndPoint) {
     return this.ray.segmentToPoint(newEndPoint);
@@ -5710,7 +6020,7 @@ class Segment {
   * point.
   *
   * @returns {Rac.Segment}
-  * @see Rac.Segment#pointAtBisector
+  * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
   */
   segmentToBisector() {
     return new Segment(this.rac, this.ray, this.length/2);
@@ -5724,12 +6034,12 @@ class Segment {
   * The new `Segment` will have the given `length`, or when ommited or
   * `null` will use `this.length` instead.
   *
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
-  * @param {boolean} [clockwise=true] - The orientation of the perpendicular
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  * @see Rac.Segment#pointAtBisector
-  * @see Rac.Angle#perpendicular
+  * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   segmentBisector(length = null, clockwise = true) {
     const newStart = this.pointAtBisector();
@@ -5746,7 +6056,7 @@ class Segment {
   * Returns a new `Segment` starting from `endPoint()` with the given
   * `length` and the same angle as `this`.
   *
-  * @param {number} length - The length of the next `Segment`
+  * @param {Number} length - The length of the next `Segment`
   * @returns {Rac.Segment}
   */
   nextSegmentWithLength(length) {
@@ -5766,7 +6076,7 @@ class Segment {
   *
   * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
   * @returns {Rac.Segment}
-  * @see Rac.Point#equals
+  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   nextSegmentToPoint(nextEndPoint) {
     const newStart = this.endPoint();
@@ -5781,8 +6091,8 @@ class Segment {
   * The new `Segment` will have the given `length`, or when ommited or
   * `null` will use `this.length` instead.
   *
-  * @param {Rac.Angle|number} angle - The angle of the new `Segment`
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {Rac.Angle|Number} angle - The angle of the new `Segment`
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
   * @returns {Rac.Segment}
   */
@@ -5811,14 +6121,14 @@ class Segment {
   * `this`. As the `angleDistance` increases the two segments separate with
   * the pivot at `endPoint()`.
   *
-  * @param {Rac.Angle|number} angleDistance - An angle distance to apply to
+  * @param {Rac.Angle|Number} angleDistance - An angle distance to apply to
   * the segment's angle inverse
-  * @param {boolean} [clockwise=true] - The orientation of the angle shift
+  * @param {Boolean} [clockwise=true] - The orientation of the angle shift
   * from `endPoint()`
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null) {
     angleDistance = this.rac.Angle.from(angleDistance);
@@ -5843,12 +6153,12 @@ class Segment {
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
   * `Segment` will be pointing towards `this.angle().perpendicular(false)`.
   *
-  * @param {boolean} [clockwise=true] - The orientation of the
+  * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
-  * @param {?number} [length=null] - The length of the new `Segment`, or
+  * @param {?Number} [length=null] - The length of the new `Segment`, or
   * `null` to use `this.length`
   * @returns {Rac.Segment}
-  * @see Rac.Angle#perpendicular
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   nextSegmentPerpendicular(clockwise = true, length = null) {
     const newLength = length === null
@@ -5873,12 +6183,12 @@ class Segment {
   * When `hypotenuse` is smaller that the segment's `length`, returns
   * `null` since no right triangle is possible.
   *
-  * @param {number} hypotenuse - The length of the hypotenuse side of the
+  * @param {Number} hypotenuse - The length of the hypotenuse side of the
   * right triangle formed with `this` and the new `Segment`
-  * @param {boolean} [clockwise=true] - The orientation of the
+  * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
   * @returns {Rac.Segment}
-  * @see Rac.Angle#inverse
+  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   nextSegmentLegWithHyp(hypotenuse, clockwise = true) {
     if (hypotenuse < this.length) {
@@ -5906,7 +6216,7 @@ class Segment {
   *
   * @param {?Rac.Angle} [endAngle=null] - An `Angle` to use as end for the
   * new `Arc`, or `null` to use `this.angle()`
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arc(endAngle = null, clockwise = true) {
@@ -5928,9 +6238,9 @@ class Segment {
   * The returned `Arc` will use this segment's start as `center`, its angle
   * as `start`, and its length as `radius`.
   *
-  * @param {Rac.Angle|number} angleDistance - The angle distance from the
+  * @param {Rac.Angle|Number} angleDistance - The angle distance from the
   * segment's start to the new `Arc` end
-  * @param {boolean} [clockwise=true] - The orientation of the new `Arc`
+  * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
   arcWithAngleDistance(angleDistance, clockwise = true) {
@@ -5975,7 +6285,7 @@ const utils = require('../util/utils');
 * Used by `[P5Drawer]{@link Rac.P5Drawer}` to draw the composites as a
 * complex shape (`outline`) with an negative space shape inside (`contour`).
 *
-* ⚠️ The API for Shape is **planned to change** in a future minor release. ⚠️
+* ⚠️ The API for Shape is **planned to change** in a future release. ⚠️
 *
 * @class
 * @alias Rac.Shape
@@ -6013,6 +6323,26 @@ const utils = require('../util/utils');
 * Determines the alignment, angle, font, and size for drawing a
 * [`Text`]{@link Rac.Text} object.
 *
+* ### `instance.Text.Format`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Text.Format` function]{@link Rac#TextFormat} to create
+* `Text.Format` objects from primitive values. This function also contains
+* ready-made convenience objects, like
+* [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}, listed
+* under [`instance.Text.Format`]{@link instance.Text.Format}.
+*
+* @example
+* let rac = new Rac()
+* let angle = rac.Angle(1/8)
+* // new instance with constructor
+* let format = new Rac.Text.Format(rac, 'left', 'baseline', angle)
+* // or convenience function
+* let otherFormat = rac.Text.Format('left', 'baseline', 1/8)
+*
+* @see [`rac.Text.Format`]{@link Rac#TextFormat}
+* @see [`instance.Text.Format`]{@link instance.Text.Format}
+*
 * @alias Rac.Text.Format
 */
 class TextFormat {
@@ -6022,20 +6352,20 @@ class TextFormat {
   * dermines the left-to-right alignment of the drawn `Text` in relation
   * to its [`text.point`]{@link Rac.Text#point}.
   *
-  * @property {string} left
+  * @property {String} left
   *   aligns `text.point` to the left edge of the drawn text
-  * @property {string} center
+  * @property {String} center
   *   aligns `text.point` to the center, from side to
-  * @property {string} right
+  * @property {String} right
   *   aligns `text.point` to the right edge of the drawn text
   *
-  * @type {object}
+  * @type {Object}
   * @memberof Rac.Text.Format
   */
   static horizontalAlign = {
-    left: "left",
+    left:   "left",
     center: "horizontalCenter",
-    right: "right"
+    right:  "right"
   };
 
   /**
@@ -6043,23 +6373,23 @@ class TextFormat {
   * dermines the top-to-bottom alignment of the drawn `Text` in relation
   * to its [`text.point`]{@link Rac.Text#point}.
   *
-  * @property {string} top
+  * @property {String} top
   *   aligns `text.point` to the top edge of the drawn text
-  * @property {string} center
+  * @property {String} center
   *   aligns `text.point` to the center, from top to bottom, of the drawn text
-  * @property {string} baseline
+  * @property {String} baseline
   *   aligns `text.point` to the baseline of the drawn text
-  * @property {string} bottom
+  * @property {String} bottom
   *   aligns `text.point` to the bottom edge of the drawn text
   *
-  * @type {object}
+  * @type {Object}
   * @memberof Rac.Text.Format
   */
   static verticalAlign = {
-    top: "top",
-    center: "verticalCenter",
+    top:      "top",
+    center:   "verticalCenter",
     baseline: "baseline",
-    bottom: "bottom"
+    bottom:   "bottom"
   };
 
 
@@ -6068,17 +6398,17 @@ class TextFormat {
   *
   * @param {Rac} rac
   *   Instance to use for drawing and creating other objects
-  * @param {string} hAlign
+  * @param {String} hAlign
   *   The horizontal alignment, left-to-right; one of the values from
   *   [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign}
-  * @param {string} vAlign
+  * @param {String} vAlign
   *   The vertical alignment, top-to-bottom; one of the values from
   *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {string} [font=null]
+  * @param {String} [font=null]
   *   The font name
-  * @param {number} [size=null]
+  * @param {Number} [size=null]
   *   The font size
   */
   constructor(
@@ -6110,7 +6440,7 @@ class TextFormat {
     * Supported values are available through the
     * [`horizontalAlign`]{@link Rac.Text.Format.horizontalAlign} object.
     *
-    * @type {string}
+    * @type {String}
     */
     this.hAlign = hAlign;
 
@@ -6121,7 +6451,7 @@ class TextFormat {
     * Supported values are available through the
     * [`verticalAlign`]{@link Rac.Text.Format.verticalAlign} object.
     *
-    * @type {string}
+    * @type {String}
     */
     this.vAlign = vAlign;
 
@@ -6142,7 +6472,7 @@ class TextFormat {
     * [`rac.textFormatDefaults.font`]{@link Rac#textFormatDefaults} is
     * used instead upon drawing.
     *
-    * @type {?string}
+    * @type {?String}
     */
     this.font = font;
 
@@ -6153,7 +6483,7 @@ class TextFormat {
     * [`rac.textFormatDefaults.size`]{@link Rac#textFormatDefaults} is
     * used instead upon drawing.
     *
-    * @type {?number}
+    * @type {?Number}
     */
     this.size = size;
   } // constructor
@@ -6162,14 +6492,14 @@ class TextFormat {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * ```
-  * (new Rac.Text.Format(rac, 'left', 'top', 0.5, 'sans', 14)).toString()
-  * // Returns: Text.Format(ha:left va:top a:0.5 f:"sans" s:14)
-  * ```
+  * @example
+  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14)'
+  * rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()
   *
-  * @param {number} [digits] - The number of digits to print after the
+  *
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const angleStr = utils.cutDigits(this.angle.turn, digits);
@@ -6191,23 +6521,23 @@ class TextFormat {
   * `false`.
   *
   * @param {Rac.Text.Format} otherFormat - A `Text.Format` to compare
-  * @returns {boolean}
-  * @see Rac.Angle#equals
+  * @returns {Boolean}
+  * @see [`angle.equals`]{@link Rac.Angle#equals}
   */
   equals(otherFormat) {
     return otherFormat instanceof TextFormat
       && this.hAlign === otherFormat.hAlign
       && this.vAlign === otherFormat.vAlign
-      && this.angle.equals(otherFormat.angle)
-      && this.font === otherFormat.font
-      && this.size === otherFormat.size;
+      && this.font   === otherFormat.font
+      && this.size   === otherFormat.size
+      && this.angle.equals(otherFormat.angle);
   }
 
 
   /**
   * Returns a new `Text.Format` with `angle` set to the `Angle` derived
   * from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text.Format`
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text.Format`
   * @returns {Rac.Text.Format}
   */
   withAngle(newAngle) {
@@ -6222,7 +6552,7 @@ class TextFormat {
 
   /**
   * Returns a new `Text.Format` with `font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text.Format`;
+  * @param {?String} newFont - The font name for the new `Text.Format`;
   *   can be set to `null`.
   * @returns {Rac.Text.Format}
   */
@@ -6237,7 +6567,7 @@ class TextFormat {
 
   /**
   * Returns a new `Text.Format` with `size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text.Format`;
+  * @param {?Number} newSize - The font size for the new `Text.Format`;
   *   can be set to `null`.
   * @returns {Rac.Text.Format}
   */
@@ -6304,7 +6634,28 @@ var minifyHelper = TextFormat
 * An instance of this object contains the string and a `Point` used to
 * determine the location of the drawn text. The
 * [`Text.Format`]{@link Rac.Text.Format} object determines the font, size,
-* orientation angle, and the alignment relative to `point` to draw the text.
+* orientation angle, and the alignment relative to
+* [`point`]{@link Rac.Text#point} to draw the text.
+*
+* ### `instance.Text`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Text` function]{@link Rac#Text} to create `Text` objects with fewer
+* parameters. This function also contains ready-made convenience
+* objects, like [`rac.Text.hello`]{@link instance.Text#hello}, listed under
+* [`instance.Text`]{@link instance.Text}.
+*
+* @example
+* let rac = new Rac()
+* let point = rac.Point(55, 77)
+* let format = rac.Text.Format('left', 'baseline')
+* // new instance with constructor
+* let text = new Rac.Text(rac, point, 'black quartz', format)
+* // or convenience function
+* let otherText = rac.Text(55, 77, 'black quartz', format)
+*
+* @see [`rac.Text`]{@link Rac#Text}
+* @see [`instance.Text`]{@link instance.Text}
 *
 * @alias Rac.Text
 */
@@ -6319,7 +6670,7 @@ class Text {
   *   Instance to use for drawing and creating other objects
   * @param {Rac.Point} point
   *   The location for the drawn text
-  * @param {string} string
+  * @param {String} string
   *   The string to draw
   * @param {Rac.Text.Format} format
   *   The format for the drawn text
@@ -6351,7 +6702,7 @@ class Text {
 
     /**
     * The string to draw.
-    * @type {string}
+    * @type {String}
     */
     this.string = string;
 
@@ -6366,9 +6717,13 @@ class Text {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @param {number} [digits] - The number of digits to print after the
+  * @example
+  * // returns 'Text((55,77) "sphinx of black quartz")'
+  * rac.Text(55, 77, 'sphinx of black quartz').toString()
+  *
+  * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
-  * @returns {string}
+  * @returns {String}
   */
   toString(digits = null) {
     const xStr = utils.cutDigits(this.point.x, digits);
@@ -6388,8 +6743,8 @@ class Text {
   * The `format` objects are ignored in this comparison.
   *
   * @param {Rac.Text} otherText - A `Text` to compare
-  * @returns {boolean}
-  * @see Rac.Point#equals
+  * @returns {Boolean}
+  * @see [`point.equals`]{@link Rac.Point#equals}
   */
   equals(otherText) {
     return otherText instanceof Text
@@ -6401,7 +6756,7 @@ class Text {
   /**
   * Returns a new `Text` and `Format` with `format.angle` set to the
   * `Angle` derived from `newAngle`.
-  * @param {Rac.Angle|number} newAngle - The angle for the new `Text` and
+  * @param {Rac.Angle|Number} newAngle - The angle for the new `Text` and
   *   `Text.Format`
   * @returns {Rac.Text}
   */
@@ -6413,7 +6768,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.font` set to `newFont`.
-  * @param {?string} newFont - The font name for the new `Text` and
+  * @param {?String} newFont - The font name for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */
@@ -6425,7 +6780,7 @@ class Text {
 
   /**
   * Returns a new `Text` and `Format` with `format.size` set to `newSize`.
-  * @param {?number} newSize - The font size for the new `Text` and
+  * @param {?Number} newSize - The font size for the new `Text` and
   *   `Text.Format`; can be set to `null`.
   * @returns {Rac.Text}
   */
@@ -6449,9 +6804,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The [`instance.Angle` function]{@link Rac#Angle} contains convenience
-* methods and members for `{@link Rac.Angle}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Angle` function]{@link Rac#Angle}.
+*
+* The function contains ready-made convenience
+* [`Angle`]{@link Rac.Angle} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Angle.quarter // ready-made quarter angle
+* rac.Angle.quarter.rac === rac // true
 *
 * @namespace instance.Angle
 */
@@ -6484,7 +6847,7 @@ module.exports = function attachRacAngle(rac) {
   *
   * @see Rac.Angle.fromRadians
   *
-  * @param {number} radians - The measure of the angle, in radians
+  * @param {Number} radians - The measure of the angle, in radians
   * @returns {Rac.Angle}
   *
   * @function fromRadians
@@ -6502,7 +6865,7 @@ module.exports = function attachRacAngle(rac) {
   *
   * @see Rac.Angle.fromDegrees
   *
-  * @param {number} degrees - The measure of the angle, in degrees
+  * @param {Number} degrees - The measure of the angle, in degrees
   * @returns {Rac.Angle}
   *
   * @function fromDegrees
@@ -6673,8 +7036,17 @@ module.exports = function attachRacAngle(rac) {
 
 
 /**
-* The `instance.Arc` function contains convenience methods and members
-* for `{@link Rac.Arc}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Arc` function]{@link Rac#Arc}.
+*
+* The function contains ready-made convenience
+* [`Arc` objects]{@link Rac.Arc} for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Arc.zero // ready-made zero arc
+* rac.Arc.zero.rac === rac // true
 *
 * @namespace instance.Arc
 */
@@ -6725,9 +7097,17 @@ module.exports = function attachInstanceBezier(rac) {
 
 
 /**
-* The [`instance.Point` function]{@link Rac#Point} contains convenience
-* methods and members for `{@link Rac.Point}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Point` function]{@link Rac#Point}.
+*
+* The function contains ready-made convenience
+* [`Point`]{@link Rac.Point} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Point.origin // ready-made origin point
+* rac.Point.origin.rac === rac // true
 *
 * @namespace instance.Point
 */
@@ -6746,7 +7126,7 @@ module.exports = function attachRacPoint(rac) {
   /**
   * A `Point` at `(0, 0)`.
   *
-  * Equal to `{@link instance.Point#zero}`.
+  * Equal to [`rac.Point.zero`]{@link instance.Point#zero}.
   *
   * @name origin
   * @type {Rac.Point}
@@ -6763,8 +7143,17 @@ module.exports = function attachRacPoint(rac) {
 
 
 /**
-* The `instance.Ray` function contains convenience methods and members
-* for `{@link Rac.Ray}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Ray` function]{@link Rac#Ray}.
+*
+* The function contains ready-made convenience
+* [`Ray`]{@link Rac.Ray} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Ray.xAxis // ready-made x-axis ray
+* rac.Ray.xAxis.rac === rac // true
 *
 * @namespace instance.Ray
 */
@@ -6773,42 +7162,38 @@ module.exports = function attachRacRay(rac) {
 
   /**
   * A `Ray` with all values set to zero, starts at
-  * `{@link instance.Point#zero}` and points to
-  * `{@link instance.Angle#zero}`.
+  * [`rac.Point.zero`]{@link instance.Point#zero} and points to
+  * [`rac.Angle.zero`]{@link instance.Angle#zero}.
   *
   * @name zero
   * @type {Rac.Ray}
   * @memberof instance.Ray#
-  * @see instance.Point#zero
-  * @see instance.Angle#zero
   */
   rac.Ray.zero = rac.Ray(0, 0, rac.Angle.zero);
 
 
   /**
-  * A `Ray` over the x-axis, starts at `{@link instance.Point#origin}` and
-  * points to `{@link instance.Angle#zero}`.
+  * A `Ray` over the x-axis, starts at
+  * [`rac.Point.origin`]{@link instance.Point#origin} and points to
+  * [`rac.Angle.zero`]{@link instance.Angle#zero}.
   *
-  * Equal to `{@link instance.Ray#zero}`.
+  * Equal to [`rac.Ray.zero`]{@link instance.Ray#zero}.
   *
   * @name xAxis
   * @type {Rac.Ray}
   * @memberof instance.Ray#
-  * @see instance.Point#origin
-  * @see instance.Angle#zero
   */
   rac.Ray.xAxis = rac.Ray.zero;
 
 
   /**
-  * A `Ray` over the y-axis, starts at`{@link instance.Point#origin}` and
-  * points to `{@link instance.Angle#quarter}`.
+  * A `Ray` over the y-axis, starts at
+  * [`rac.Point.origin`]{@link instance.Point#origin} and points to
+  * [`rac.Angle.quarter`]{@link instance.Angle#quarter}.
   *
   * @name yAxis
   * @type {Rac.Ray}
   * @memberof instance.Ray#
-  * @see instance.Point#origin
-  * @see instance.Angle#quarter
   */
   rac.Ray.yAxis = rac.Ray(0, 0, rac.Angle.quarter);
 
@@ -6820,8 +7205,17 @@ module.exports = function attachRacRay(rac) {
 
 
 /**
-* The `instance.Segment` function contains convenience methods and members
-* for `{@link Rac.Segment}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Segment` function]{@link Rac#Segment}.
+*
+* The function contains ready-made convenience
+* [`Segment`]{@link Rac.Segment} objects for usual values, all setup with
+* the owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Segment.zero // ready-made zero segment
+* rac.Segment.zero.rac === rac // true
 *
 * @namespace instance.Segment
 */
@@ -6829,9 +7223,10 @@ module.exports = function attachRacSegment(rac) {
   // Intended to receive a Rac instance as parameter
 
   /**
-  * A `Segment` with all values set to zero, , starts at
-  * `{@link instance.Point#zero}`, points to
-  * `{@link instance.Angle#zero}`, and has a length of zero.
+  * A `Segment` with all values set to zero, starts at
+  * [`rac.Point.zero`]{@link instance.Point#zero}, points to
+  * [`rac.Angle.zero`]{@link instance.Angle#zero}, and has a length of
+  * zero.
   *
   * @name zero
   * @type {Rac.Segment}
@@ -6850,9 +7245,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The [`instance.Text` function]{@link Rac#Text} contains convenience
-* methods and members for `{@link Rac.Text}` objects setup with the owning
-* `Rac` instance.
+* Members and methods attached to the
+* [`rac.Text` function]{@link Rac#Text}.
+*
+* The function contains ready-made convenience
+* [`Text`]{@link Rac.Text} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Text.hello // ready-made hello-world text
+* rac.Text.hello.rac === rac // true
 *
 * @namespace instance.Text
 */
@@ -6861,9 +7264,17 @@ module.exports = function attachRacText(rac) {
 
 
   /**
-  * The [`instance.Text.Format` function]{@link instance.Text#Format}
-  * contains convenience methods and members for `{@link Rac.Text.Format}`
-  * objects setup with the owning `Rac` instance.
+  * Members and methods attached to the
+  * [`rac.Text.Format` function]{@link Rac#TextFormat}.
+  *
+  * The function contains ready-made convenience
+  * [`Text.Format`]{@link Rac.Text.Format} objects for usual values, all
+  * setup with the owning `Rac` instance.
+  *
+  * @example
+  * let rac = new Rac()
+  * rac.Text.Format.topLeft // ready-made top-left text format
+  * rac.Text.Format.topLeft.rac === rac // true
   *
   * @namespace instance.Text.Format
   */
@@ -7036,7 +7447,8 @@ class P5Drawer {
     * Style used for debug drawing, when `null` the style already applied
     * is used.
     *
-    * @type {object}
+    * @type {Object}
+    * @default null
     */
     this.debugStyle = null;
 
@@ -7044,37 +7456,43 @@ class P5Drawer {
     * Style used for text for debug drawing, when `null` the style already
     * applied is used.
     *
-    * @type {object}
+    * @type {Object}
+    * @default null
     */
     this.debugTextStyle = null;
 
     /**
     * Settings used by the default implementation of `drawable.debug()`.
     *
-    * @property {string} font='monospace'
+    * @property {String} font='monospace'
     *   Font to use when drawing with `debug()`
-    * @property {number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    * @property {Number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
     *   Font size to use when drawing with `debug()`
-    * @property {number} fixedDigits=2
+    * @property {Number} fixedDigits=2
     *   Number of decimal digits to print when drawing with `debug()`
     *
-    * @type {object}
+    * @type {Object}
     */
     this.debugTextOptions = {
       font: 'monospace',
+      // TODO: documentation displays this as being optional
+      // in order to make the link work it has to be wrapped in [],
+      // which makes it an optional
       size: rac.textFormatDefaults.size,
       fixedDigits: 2
     };
 
     /**
     * Radius of point markers for debug drawing.
-    * @type {number}
+    * @type {Number}
+    * @default 22
     */
     this.debugPointRadius = 4;
 
     /**
     * Radius of the main visual elements for debug drawing.
-    * @type {number}
+    * @type {Number}
+    * @default 22
     */
     this.debugMarkerRadius = 22;
 
@@ -7082,7 +7500,7 @@ class P5Drawer {
     * Factor applied to stroke weight setting. Stroke weight is set to
     * `stroke.weight * strokeWeightFactor` when applicable.
     *
-    * @type {number}
+    * @type {Number}
     * @default 1
     */
     this.strokeWeightFactor = 1;
@@ -7601,7 +8019,7 @@ module.exports = function attachPointFunctions(rac) {
   /**
   * Returns a `Point` at the current position of the pointer.
   *
-  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `rac.Point` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Point}
@@ -7616,7 +8034,7 @@ module.exports = function attachPointFunctions(rac) {
   /**
   * Returns a `Point` at the center of the canvas.
   *
-  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `rac.Point` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Point}
@@ -7632,7 +8050,7 @@ module.exports = function attachPointFunctions(rac) {
   * Returns a `Point` at the end of the canvas, that is, at the position
   * `(width,height)`.
   *
-  * Added to `instance.Point` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `rac.Point` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Point}
@@ -7782,7 +8200,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the top of the canvas, from top-left to
   * top-right.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -7800,7 +8218,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the left of the canvas, from top-left
   * to bottom-left.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -7818,7 +8236,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the right of the canvas, from top-right
   * to bottom-right.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -7837,7 +8255,7 @@ module.exports = function attachSegmentFunctions(rac) {
   * Returns a `Segment` that covers the bottom of the canvas, from
   * bottom-left to bottom-right.
   *
-  * Added  to `instance.Segment` when `{@link Rac.P5Drawer}` is setup as
+  * Added  to `rac.Segment` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {Rac.Segment}
@@ -8445,7 +8863,25 @@ const utils = require('../util/utils');
 
 
 /**
-* Color with RBGA values, each one on the *[0,1]* range.
+* Color with RBGA values, each one in the *[0,1]* range.
+*
+* ### `instance.Color`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Color` function]{@link Rac#Color} to create `Color` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Color.red`]{@link instance.Color#red}, listed
+* under [`instance.Color`]{@link instance.Color}.
+*
+* @example
+* let rac = new Rac()
+* // new instance with constructor
+* let color = new Rac.Color(rac, 0.2, 0.4, 0.6)
+* // or convenience function
+* let otherColor = rac.Color(0.2, 0.4, 0.6)
+*
+* @see [`rac.Color`]{@link Rac#Color}
+* @see [`instance.Color`]{@link instance.Color}
 *
 * @alias Rac.Color
 */
@@ -8455,10 +8891,10 @@ class Color {
   * Creates a new `Color` instance.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} r - The red channel value, in the *[0,1]* range
-  * @param {number} g - The green channel value, in the *[0,1]* range
-  * @param {number} b - The blue channel value, in the *[0,1]* range
-  * @param {number} [a=1] - The alpha channel value, in the *[0,1]* range
+  * @param {Number} r - The red channel value, in the *[0,1]* range
+  * @param {Number} g - The green channel value, in the *[0,1]* range
+  * @param {Number} b - The blue channel value, in the *[0,1]* range
+  * @param {Number} [a=1] - The alpha channel value, in the *[0,1]* range
   */
   constructor(rac, r, g, b, a = 1) {
     utils.assertExists(rac, r, g, b, a);
@@ -8474,25 +8910,25 @@ class Color {
 
     /**
     * The red channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.r = r;
 
     /**
     * The green channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.g = g;
 
     /**
     * The blue channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.b = b;
 
     /**
     * The alpha channel of the color, in the *[0,1]* range.
-    * @type {number}
+    * @type {Number}
     */
     this.a = a;
   }
@@ -8501,7 +8937,7 @@ class Color {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @returns {string}
+  * @returns {String}
   */
   toString() {
     return `Color(${this.r},${this.g},${this.b},${this.a})`;
@@ -8513,10 +8949,10 @@ class Color {
   * *[0,255]* range
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {number} r - The red channel value, in the *[0,255]* range
-  * @param {number} g - The green channel value, in the *[0,255]* range
-  * @param {number} b - The blue channel value, in the *[0,255]* range
-  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
+  * @param {Number} r - The red channel value, in the *[0,255]* range
+  * @param {Number} g - The green channel value, in the *[0,255]* range
+  * @param {Number} b - The blue channel value, in the *[0,255]* range
+  * @param {Number} [a=255] - The alpha channel value, in the *[0,255]* range
   *
   * @returns {Rac.Color}
   */
@@ -8535,7 +8971,7 @@ class Color {
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {string} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The RGB hex triplet to interpret
   *
   * @returns {Rac.Color}
   */
@@ -8579,7 +9015,7 @@ class Color {
   /**
   * Returns a new `Stroke` that uses `this` as `color`.
   *
-  * @param {?number} weight - The weight of the new `Stroke`
+  * @param {?Number} weight - The weight of the new `Stroke`
   * @returns {Rac.Stroke}
   */
   stroke(weight = null) {
@@ -8590,7 +9026,7 @@ class Color {
   /**
   * Returns a new `Color` with `a` set to `newAlpha`.
   *
-  * @param {number} newAlpha - The alpha channel for the new `Color`, in the
+  * @param {Number} newAlpha - The alpha channel for the new `Color`, in the
   *   *[0,1]* range
   * @returns {Rac.Color}
   */
@@ -8602,7 +9038,7 @@ class Color {
   /**
   * Returns a new `Color` with `a` set to `this.a * ratio`.
   *
-  * @param {number} ratio - The factor to multiply `a` by
+  * @param {Number} ratio - The factor to multiply `a` by
   * @returns {Rac.Color}
   */
   withAlphaRatio(ratio) {
@@ -8618,7 +9054,7 @@ class Color {
   * when `ratio` is `1` or larger the new `Color` is equivalent to
   * `target`.
   *
-  * @param {number} ratio - The transition ratio for the new `Color`
+  * @param {Number} ratio - The transition ratio for the new `Color`
   * @param {Rac.Color} target - The transition target `Color`
   * @returns {Rac.Color}
   */
@@ -8653,9 +9089,28 @@ const utils = require('../util/utils');
 *
 * Can be used as `fill.apply()` to apply the fill settings globally, or as
 * the parameter of `drawable.draw(fill)` to apply the fill only for that
-* `draw`.
+* call.
 *
 * When `color` is `null` a *no-fill* setting is applied.
+*
+* ### `instance.Fill`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Fill` function]{@link Rac#Fill} to create `Fill` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Fill.none`]{@link instance.Fill#none}, listed
+* under [`instance.Fill`]{@link instance.Fill}.
+*
+* @example
+* let rac = new Rac()
+* let color = rac.Color(0.2, 0.4, 0.6)
+* // new instance with constructor
+* let fill = new Rac.Fill(rac, color)
+* // or convenience function
+* let otherFill = rac.Fill(color)
+*
+* @see [`rac.Fill`]{@link Rac#Fill}
+* @see [`instance.Fill`]{@link instance.Fill}
 *
 * @alias Rac.Fill
 */
@@ -8748,7 +9203,7 @@ class Fill {
   *   a `Stroke` from
   * @returns {Rac.StyleContainer}
   *
-  * @see Rac.Stroke.from
+  * @see [`rac.Stroke.from`]{@link Rac.Stroke.from}
   */
   appendStroke(someStroke) {
     let stroke = Rac.Stroke.from(this.rac, someStroke);
@@ -8776,16 +9231,32 @@ const utils = require('../util/utils');
 * as the parameter of `drawable.draw(stroke)` to apply the stroke only for
 * that `draw`.
 *
-* The instance applies the stroke color and weight settings in the
-* following combinations:
-* + when `color = null` and `weight = null`: a *no-stroke* setting is
-*   applied
-* + when `color` is set and `weight = null`: only the stroke color is
-*   applied, stroke weight is not modified
-* + when `weight` is set and `color = null`: only the stroke weight is
-*   applied, stroke color is not modified
-* + when both `color` and `weight` are set: both stroke color and weight
-*   are applied
+* Applying the instance can have the following behaviours:
+* + Applies a **no-stroke** setting; when `color = null` and `weight = null`
+* + Applies **only stroke color**, leaving weight unchanged; when `color`
+*   is set and `weight = null`
+* + Applies **only stroke weight**, leaving color unchanged; when `weight`
+*   is set and `color = null`
+* + Applies **both weight and color**; when both `color` and `weight` are set
+*
+* ### `instance.Stroke`
+*
+* Instances of `Rac` contain a convenience
+* [`rac.Stroke` function]{@link Rac#Stroke} to create `Stroke` objects with
+* fewer parameters. This function also contains ready-made convenience
+* objects, like [`rac.Stroke.none`]{@link instance.Stroke#none}, listed
+* under [`instance.Stroke`]{@link instance.Stroke}.
+*
+* @example
+* let rac = new Rac()
+* let color = rac.Color(0.2, 0.4, 0.6)
+* // new instance with constructor
+* let stroke = new Rac.Stroke(rac, 2, color)
+* // or convenience function
+* let otherStroke = rac.Stroke(2, color)
+*
+* @see [`rac.Stroke`]{@link Rac#Stroke}
+* @see [`instance.Stroke`]{@link instance.Stroke}
 *
 * @alias Rac.Stroke
 */
@@ -8795,7 +9266,7 @@ class Stroke {
   * Creates a new `Stroke` instance.
   *
   * @param {Rac} rac -  Instance to use for drawing and creating other objects
-  * @param {?number} weight - The weight of the stroke, or `null` to skip weight
+  * @param {?Number} weight - The weight of the stroke, or `null` to skip weight
   * @param {?Rac.Color} [color=null] - A `Color` for the stroke, or `null`
   *   to skip color
   */
@@ -8850,7 +9321,7 @@ class Stroke {
   /**
   * Returns a new `Stroke` with `weight` set to `newWeight`.
   *
-  * @param {?number} newWeight - The weight of the stroke, or `null` to skip
+  * @param {?Number} newWeight - The weight of the stroke, or `null` to skip
   *   weight
   * @returns {Rac.Stroke}
   */
@@ -8866,7 +9337,7 @@ class Stroke {
   * When `this.color` is set to `null`, returns a new `Stroke` that is a
   * copy of `this`.
   *
-  * @param {number} newAlpha - The alpha channel of the `color` of the new
+  * @param {Number} newAlpha - The alpha channel of the `color` of the new
   *   `Stroke`
   * @returns {Rac.Stroke}
   */
@@ -8914,7 +9385,7 @@ class Stroke {
   *   a `Fill` from
   * @returns {Rac.StyleContainer}
   *
-  * @see Rac.Fill.from
+  * @see [`rac.Fill.from`]{@link Rac.Fill.from}
   */
   appendFill(someFill) {
     let fill = Rac.Fill.from(this.rac, someFill);
@@ -8975,7 +9446,7 @@ class StyleContainer {
   /**
   * Returns a string representation intended for human consumption.
   *
-  * @returns {string}
+  * @returns {String}
   */
   toString() {
     let contents = this.styles.join(' ');
@@ -9028,8 +9499,17 @@ const Rac = require('../Rac');
 
 
 /**
-* The `instance.Color` function contains convenience methods and members
-* for `{@link Rac.Color}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Color` function]{@link Rac#Color}.
+*
+* The function contains ready-made convenience
+* [`Color`]{@link Rac.Color} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Color.red // ready-made red color
+* rac.Color.red.rac === rac // true
 *
 * @namespace instance.Color
 */
@@ -9040,10 +9520,10 @@ module.exports = function attachRacColor(rac) {
   /**
   * Returns a new `Color` with each channel received in the *[0,255]* range.
   *
-  * @param {number} r - The red channel value, in the *[0,255]* range
-  * @param {number} g - The green channel value, in the *[0,255]* range
-  * @param {number} b - The blue channel value, in the *[0,255]* range
-  * @param {number} [a=255] - The alpha channel value, in the *[0,255]* range
+  * @param {Number} r - The red channel value, in the *[0,255]* range
+  * @param {Number} g - The green channel value, in the *[0,255]* range
+  * @param {Number} b - The blue channel value, in the *[0,255]* range
+  * @param {Number} [a=255] - The alpha channel value, in the *[0,255]* range
   *
   * @returns {Rac.Color}
   *
@@ -9064,7 +9544,7 @@ module.exports = function attachRacColor(rac) {
   *
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
-  * @param {string} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The RGB hex triplet to interpret
   * @returns {Rac.Color}
   */
   rac.Color.fromHex = function(hexString) {
@@ -9103,8 +9583,17 @@ module.exports = function attachRacColor(rac) {
 
 
 /**
-* The `instance.Fill` function contains convenience methods and members
-* for `{@link Rac.Fill}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Fill` function]{@link Rac#Fill}.
+*
+* The function contains ready-made convenience
+* [`Fill`]{@link Rac.Fill} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Fill.none // ready-made none fill
+* rac.Fill.none.rac === rac // true
 *
 * @namespace instance.Fill
 */
@@ -9126,8 +9615,17 @@ module.exports = function attachRacFill(rac) {
 
 
 /**
-* The `instance.Stroke` function contains convenience methods and members
-* for `{@link Rac.Stroke}` objects setup with the owning `Rac` instance.
+* Members and methods attached to the
+* [`rac.Stroke` function]{@link Rac#Stroke}.
+*
+* The function contains ready-made convenience
+* [`Stroke`]{@link Rac.Stroke} objects for usual values, all setup with the
+* owning `Rac` instance.
+*
+* @example
+* let rac = new Rac()
+* rac.Stroke.none // ready-made none stroke
+* rac.Stroke.none.rac === rac // true
 *
 * @namespace instance.Stroke
 */
@@ -9145,8 +9643,9 @@ module.exports = function attachRacStroke(rac) {
 
 
   /**
-  * A `Stroke` with `weight` of `1` and no color. Using or applying this
-  * stroke will only set the stroke weight to `1`.
+  * A `Stroke` with `weight = 1` and no color. Using or applying this
+  * stroke will only set the stroke weight to `1` leaving stroke color
+  * unchanged.
   *
   * @name one
   * @memberof instance.Stroke#
@@ -9328,46 +9827,93 @@ module.exports = EaseFunction;
 
 
 /**
-* Exception builder for throwable objects.
+* Throwable object to report errors, and container of convenience functions
+* to create these.
+*
+* The static functions create either `Exception` or `Error` instances,
+* since different environments respond differentely to these throws. For
+* more details see [`buildsErrors`]{@link Rac.Exception.buildsErrors}.
+*
 * @alias Rac.Exception
 */
 class Exception {
 
+  /**
+  * Creates a new `Exception` instance.
+  * @param {String} name
+  *   The name of the exception
+  * @param {String} message
+  *   The message of the exception
+  */
   constructor(name, message) {
     this.name = name;
     this.message = message;
   }
 
+
+  /**
+  * Returns a string representation intended for human consumption.
+  *
+  * @example
+  * (new Rac.Exception('NotAPangram', 'Waltz, bad nymph')).toString()
+  * // Returns: 'Exception:NotAPangram - Waltz, bad nymph'
+  *
+  * @returns {String}
+  */
   toString() {
     return `Exception:${this.name} - ${this.message}`;
   }
+
 
   /**
   * When `true` the convenience static functions of this class will
   * build `Error` objects, otherwise `Exception` objects are built.
   *
-  * Set as `false` by default for browser use: throwing an `Exception`
-  * in chrome displays the error stack using source-maps when available,
-  * while throwing an `Error` object displays the error stack relative to
-  * the bundled file which is harder to read.
+  * Defaults to `false` for browser use: throwing an `Exception` in chrome
+  * displays the error stack using source-maps when available. In contrast
+  * throwing an `Error` object displays the error stack relative to the
+  * bundled file, which is harder to read.
   *
   * Used as `true` for test runs in Jest: throwing an `Error` will be
   * reported in the test report, while throwing a custom object (like
   * `Exception`) within a matcher results in the expectation hanging
   * indefinitely.
+  *
+  * @type {Boolean}
+  * @default false
+  *
+  * @memberof Rac.Exception
   */
   static buildsErrors = false;
 
+
   /**
-  * Returns an convenience function for building throwable objects.
+  * Returns a factory function that builds throwable objects with the given
+  * `name`.
   *
-  * The function can can be used as following:
-  * ```
-  * func(message) // returns an `Exception`` object with `name` and `message`
-  * func.exceptionName // returns the `name` of the built throwable objects
-  * ```
+  * @example
+  * let factory = Rac.Exception.named('NotAPangram')
+  * factory.exceptionName // returns 'NotAPangram'
+  * factory('Waltz, bad nymph').toString()
+  * // returns: 'Exception:NotAPangram - Waltz, bad nymph'
+  *
+  * @param {String} name - The name for the produced throwable objects
+  * @return {Rac.Exception~namedFactory}
   */
   static named(name) {
+    /**
+    * Factory function that returns a throwable object with the given
+    * `message`.
+    *
+    * @callback Rac.Exception~namedFactory
+    *
+    * @property {String} exceptionName
+    *   The name for the produced throwable objects
+    * @param {String} message
+    *   The message for the produced throwable object.
+    *
+    * @return {Exception|Error}
+    */
     let func = (message) => {
       if (Exception.buildsErrors) {
         const error = new Error(message);
@@ -9419,7 +9965,7 @@ const Rac = require('../Rac');
 * is thrown.
 *
 * @param {...(Object|primitive)} parameters
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertExists
 * @memberof utils#
@@ -9448,7 +9994,7 @@ exports.assertExists = function(...parameters) {
 * @param {function} type
 * @param {...Object} elements
 *
-* @returns {boolean}
+* @returns {Boolean}
 *
 * @function assertType
 * @memberof utils#
@@ -9467,8 +10013,8 @@ exports.assertType = function(type, ...elements) {
 * Asserts that all `elements` are number primitives and not NaN, otherwise
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...number} elements
-* @returns {boolean}
+* @param {...Number} elements
+* @returns {Boolean}
 *
 * @function assertNumber
 * @memberof utils#
@@ -9487,8 +10033,8 @@ exports.assertNumber = function(...elements) {
 * Asserts that all `elements` are string primitives, otherwise
 * a `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...string} elements
-* @returns {boolean}
+* @param {...String} elements
+* @returns {Boolean}
 *
 * @function assertString
 * @memberof utils#
@@ -9507,8 +10053,8 @@ exports.assertString = function(...elements) {
 * Asserts that all `elements` are boolean primitives, otherwise a
 * `{@link Rac.Exception.failedAssert}` is thrown.
 *
-* @param {...boolean} elements
-* @returns {boolean}
+* @param {...Boolean} elements
+* @returns {Boolean}
 *
 * @function assertBoolean
 * @memberof utils#
@@ -9527,8 +10073,8 @@ exports.assertBoolean = function(...elements) {
 * Returns the constructor name of `obj`, or its type name.
 * Convenience function for debugging and errors.
 *
-* @param {object} obj - An `Object` to get its type name
-* @returns {string}
+* @param {Object} obj - An `Object` to get its type name
+* @returns {String}
 *
 * @function typeName
 * @memberof utils#
@@ -9568,11 +10114,11 @@ exports.addConstantTo = function(obj, propName, value) {
 * Returns a string of `number` format using fixed-point notation or the
 * complete `number` string.
 *
-* @param {number} number - The number to format
-* @param {?number} [digits] - The amount of digits to print, or `null` to
+* @param {Number} number - The number to format
+* @param {?Number} [digits] - The amount of digits to print, or `null` to
 * print all digits.
 *
-* @returns {string}
+* @returns {String}
 *
 * @function cutDigits
 * @memberof utils#

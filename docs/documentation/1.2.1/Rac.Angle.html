@@ -1,0 +1,3670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac.Angle - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-home-link"><a href="index.html">RAC — Ruler and Compass</a></li>
+    <li class="nav-version"><code>1.2.1</code></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Angle.html#rac">rac</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Angle.html#turn">turn</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#.from">from</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#.fromDegrees">fromDegrees</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#.fromRadians">fromRadians</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#add">add</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#cos">cos</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#degrees">degrees</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#distance">distance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#equals">equals</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#inverse">inverse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#mult">mult</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#multOne">multOne</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#negative">negative</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#perpendicular">perpendicular</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#radians">radians</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#shift">shift</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#shiftToOrigin">shiftToOrigin</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#sin">sin</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#subtract">subtract</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#tan">tan</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#toString">toString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Angle.html#turnOne">turnOne</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.RayControl.html">Rac.RayControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.Format.html">instance.Text.Format</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="version.html">version</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>
+        
+        Angle
+        </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        <div class="header-details-mini">
+        <span><a href="Rac.Angle.html">#</a></span>
+        
+            <span> | source:
+            <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line46">line 46</a>
+            </span>
+        
+        </div>
+
+        
+            <div class="class-description"><p>Angle measured with a <code>turn</code> value in the range <em>[0,1)</em> that represents
+the amount of turn in a full circle.</p>
+<p>Most functions through RAC that can receive an <code>Angle</code> parameter can
+also receive a <code>number</code> value that will be used as <code>turn</code> to instantiate
+a new <code>Angle</code>. The main exception to this behaviour are constructors,
+which always expect to receive <code>Angle</code> objects.</p>
+<p>For drawing operations the turn value of <code>0</code> points right, with the
+direction rotating clockwise:</p>
+<pre class="prettyprint source"><code>rac.Angle(0/4) // points right
+rac.Angle(1/4) // points downwards
+rac.Angle(2/4) // points left
+rac.Angle(3/4) // points upwards
+</code></pre>
+<h3><code>instance.Angle</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Angle"><code>rac.Angle</code> function</a> to create <code>Angle</code> objects with
+fewer parameters. This function also contains ready-made convenience
+objects, like <a href="instance.Angle.html#quarter"><code>rac.Angle.quarter</code></a>, listed under
+<a href="instance.Angle.html"><code>instance.Angle</code></a>.</p></div>
+        
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+// new instance with constructor
+let angle = new Rac.Angle(rac, 3/8)
+// or convenience function
+let otherAngle = rac.Angle(3/8)</code></pre>
+
+        
+
+        
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.html#Angle"><code>rac.Angle</code></a></p></li>
+        
+            <li><p><a href="instance.Angle.html"><code>instance.Angle</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Angle"><span class="type-signature"></span>new Angle<span class="signature">(rac, turn)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line46">line 46</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Angle</code> instance.</p>
+<p>The <code>turn</code> value is constrained to the range <em>[0,1)</em>, any value
+outside is reduced into range using a modulo operation:</p>
+<pre class="prettyprint source"><code>(new Rac.Angle(rac, 1/4)) .turn // returns 1/4
+(new Rac.Angle(rac, 5/4)) .turn // returns 1/4
+(new Rac.Angle(rac, -1/4)).turn // returns 3/4
+(new Rac.Angle(rac, 1))   .turn // returns 0
+(new Rac.Angle(rac, 4))   .turn // returns 0
+</code></pre>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>turn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The turn value</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="rac"><span class="type-signature"></span>rac<span class="type-signature"> :<a href="Rac.html">Rac</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Angle.html#rac">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line75">line 75</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Instance of <code>Rac</code> used for drawing and passed along to any created
+object.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="turn"><span class="type-signature"></span>turn<span class="type-signature"> :Number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Angle.html#turn">#</a></span>
+
+    <span> | source:
+    <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line86">line 86</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Turn value of the angle, constrained to the range <em>[0,1)</em>.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title methods-subsection">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id=".from"><span class="type-signature">(static) </span>from<span class="signature">(rac, something)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#.from">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line156">line 156</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns an <code>Angle</code> derived from <code>something</code>.</p>
+<ul>
+<li>When <code>something</code> is an instance of <code>Angle</code>, returns that same object.</li>
+<li>When <code>something</code> is a <code>number</code>, returns a new <code>Angle</code> with
+<code>something</code> as <code>turn</code>.</li>
+<li>When <code>something</code> is a <code><a href="Rac.Ray.html">Rac.Ray</a></code>, returns its angle.</li>
+<li>When <code>something</code> is a <code><a href="Rac.Segment.html">Rac.Segment</a></code>, returns its angle.</li>
+<li>Otherwise an error is thrown.</li>
+</ul>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to pass along to newly created objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>something</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code><a href="Rac.Ray.html">Rac.Ray</a></code></span>
+|
+
+<span class="param-type"><code><a href="Rac.Segment.html">Rac.Segment</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An object to
+derive an <code>Angle</code> from</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id=".fromDegrees"><span class="type-signature">(static) </span>fromDegrees<span class="signature">(rac, degrees)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#.fromDegrees">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line194">line 194</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns an <code>Angle</code> derived from <code>degrees</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to pass along to newly created objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>degrees</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The measure of the angle, in degrees</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id=".fromRadians"><span class="type-signature">(static) </span>fromRadians<span class="signature">(rac, radians)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#.fromRadians">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line182">line 182</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns an <code>Angle</code> derived from <code>radians</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to pass along to newly created objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>radians</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The measure of the angle, in radians</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="add"><span class="type-signature"></span>add<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#add">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line317">line 317</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> with the sum of <code>this</code> and the angle derived from
+<code>angle</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to add</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="cos"><span class="type-signature"></span>cos<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#cos">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line283">line 283</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the cosine of <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="degrees"><span class="type-signature"></span>degrees<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#degrees">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line263">line 263</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the measure of the angle in degrees.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="distance"><span class="type-signature"></span>distance<span class="signature">(angle, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#distance">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line381">line 381</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> that represents the distance from <code>this</code> to the
+angle derived from <code>angle</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to measure the distance to</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The orientation of the measurement</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 1/2, since 1/2 - 1/4 = 1/4
+rac.Angle(1/4).distance(1/2, true).turn
+// returns 3/4, since 1 - (1/2 - 1/4) = 3/4
+rac.Angle(1/4).distance(1/2, false).turn</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="equals"><span class="type-signature"></span>equals<span class="signature">(angle)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#equals">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line125">line 125</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns <code>true</code> when the difference with the <code>turn</code> value of the angle
+derived <a href="Rac.Angle.html#.from">from</a> <code>angle</code> is under
+<a href="Rac.html#unitaryEqualityThreshold"><code>rac.unitaryEqualityThreshold</code></a>;
+otherwise returns <code>false</code>.</p>
+<p>The <code>otherAngle</code> parameter can only be <code>Angle</code> or <code>number</code>, any other
+type returns <code>false</code>.</p>
+<p>This method will consider turn values in the oposite ends of the range
+<em>[0,1)</em> as equals. E.g. <code>Angle</code> objects with <code>turn</code> values of <code>0</code> and
+<code>1 - rac.unitaryEqualityThreshold/2</code> will be considered equal.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.Angle.html#.from"><code>rac.Angle.from</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to compare</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="inverse"><span class="type-signature"></span>inverse<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#inverse">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line210">line 210</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> pointing in the opposite direction to <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 3/8, since 1/8 + 1/2 = 5/8
+rac.Angle(1/8).inverse().turn
+// returns 3/8, since 7/8 + 1/2 = 3/8
+rac.Angle(7/8).inverse().turn</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="mult"><span class="type-signature"></span>mult<span class="signature">(factor)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#mult">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line342">line 342</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> with <code>turn</code> set to <code>this.turn * factor</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>factor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The factor to multiply <code>turn</code> by</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="multOne"><span class="type-signature"></span>multOne<span class="signature">(factor)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#multOne">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line362">line 362</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> with <code>turn</code> set to
+<code><a href="Rac.Angle.html#turnOne">this.turnOne()</a> * factor</code>.</p>
+<p>Useful when doing ratio calculations where a zero angle corresponds to
+a complete-circle.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>factor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The factor to multiply <code>turn</code> by</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>rac.Angle(0).mult(0.5).turn    // returns 0
+// whereas
+rac.Angle(0).multOne(0.5).turn // returns 0.5</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="negative"><span class="type-signature"></span>negative<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#negative">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line226">line 226</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> with a turn value equivalent to <code>-turn</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 3/4, since 1 - 1/4 = 3/4
+rac.Angle(1/4).negative().turn
+// returns 5/8, since 1 - 3/8 = 5/8
+rac.Angle(3/8).negative().turn</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="perpendicular"><span class="type-signature"></span>perpendicular<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#perpendicular">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line243">line 243</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> which is perpendicular to <code>this</code> in the
+<code>clockwise</code> orientation.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 3/8, since 1/8 + 1/4 = 3/8
+rac.Angle(1/8).perpendicular(true).turn
+// returns 7/8, since 1/8 - 1/4 = 7/8
+rac.Angle(1/8).perpendicular(false).turn</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="radians"><span class="type-signature"></span>radians<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#radians">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line253">line 253</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the measure of the angle in radians.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="shift"><span class="type-signature"></span>shift<span class="signature">(angle, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#shift">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line407">line 407</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> result of shifting the angle derived from
+<code>angle</code> to have <code>this</code> as its origin.</p>
+<p>This operation is the equivalent to</p>
+<ul>
+<li><code>this.add(angle)</code> when clockwise</li>
+<li><code>this.subtract(angle)</code> when counter-clockwise</li>
+</ul>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to be shifted</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The orientation of the shift</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 0.4, since 0.1 + 0.3 = 0.4
+rac.Angle(0.1).shift(0.3, true).turn
+// returns 0.8, since 0.1 - 0.3 = 0.8
+rac.Angle(0.1).shift(0.3, false).turn</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="shiftToOrigin"><span class="type-signature"></span>shiftToOrigin<span class="signature">(origin, clockwise<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#shiftToOrigin">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line436">line 436</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> result of shifting <code>this</code> to have the angle
+derived from <code>origin</code> as its origin.</p>
+<p>The result of <code>angle.shiftToOrigin(origin)</code> is equivalent to
+<code>origin.shift(angle)</code>.</p>
+<p>This operation is the equivalent to</p>
+<ul>
+<li><code>origin.add(this)</code> when clockwise</li>
+<li><code>origin.subtract(this)</code> when counter-clockwise</li>
+</ul>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>origin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to use as origin</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>clockwise</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Boolean</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The orientation of the shift</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 0.4, since 0.3 + 0.1 = 0.4
+rac.Angle(0.1).shiftToOrigin(0.3, true).turn
+// returns 0.2, since 0.3 - 0.1 = 0.2
+rac.Angle(0.1).shiftToOrigin(0.3, false).turn</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="sin"><span class="type-signature"></span>sin<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#sin">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line273">line 273</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the sine of <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="subtract"><span class="type-signature"></span>subtract<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Angle.html">Rac.Angle</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#subtract">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line330">line 330</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Angle</code> with the angle derived from <code>angle</code>
+subtracted to <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Angle.html">Rac.Angle</a></code></span>
+|
+
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>An <code>Angle</code> to subtract</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="tan"><span class="type-signature"></span>tan<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#tan">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line293">line 293</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the tangent of <code>this</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="toString"><span class="type-signature"></span>toString<span class="signature">(digits<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#toString">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line101">line 101</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a string representation intended for human consumption.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>digits</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The number of digits to print after the
+decimal point, when ommited all digits are printed</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <div class="section-examples">
+    <h5>Example</h5>
+    
+    <pre class="prettyprint example"><code>// returns 'Angle(0.2)'
+rac.Angle(0.2)).toString()</code></pre>
+
+    </div>
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="turnOne"><span class="type-signature"></span>turnOne<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Angle.html#turnOne">#</a></span>
+    
+        <span> | source:
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line304">line 304</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns the <code>turn</code> value in the range <code>(0, 1]</code>. When <code>turn</code> is equal to
+<code>0</code> returns <code>1</code> instead.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+    
+    using the <a href="https://github.com/lopsae/minami-rac">Minami-rac 1.4.1</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
