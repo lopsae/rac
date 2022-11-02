@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,500i,500,600,600i|Consolas:300,400,400i,500i,500,600,600i);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,500i,500,600,600i|Inconsolata:300,400,400i,500i,500,600,600i);
 
 * {
   box-sizing: border-box
@@ -120,9 +120,9 @@ h6 {
 }
 
 tt, code, kbd, samp {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace;
   background: #eaeaea;
-  padding: 3px 4px 1px;
+  padding: 2px 4px;
   border-radius: 5px;
 }
 
@@ -385,7 +385,7 @@ footer {
 }
 
 .name, .signature {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace
 }
 
 .name .type-signature, .name .signature-attributes {
@@ -444,7 +444,7 @@ footer {
   padding-left: 8px;
   border-left: 2px solid #DDD;
   font-size: 14px;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace;
 }
 
 .header-details-mini {
@@ -452,7 +452,7 @@ footer {
   padding-left: 8px;
   border-left: 2px solid #DDD;
   font-size: 14px;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace;
   margin: 0.5em 0px 1em 0px;
 }
 
@@ -535,7 +535,7 @@ pre.prettyprint.linenums code {
 }
 
 .prettyprint.linenums ol {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace;
   font-size: 80%;
   color: #aaa;
   padding-left: 0;
@@ -568,7 +568,7 @@ pre.prettyprint.linenums code {
 
 .params .name, .props .name, .name code {
   color: #4D4E53;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace;
 }
 
 .params td.description code, .props td.description code,
@@ -627,7 +627,7 @@ dl.param-type {
 }
 
 .param-type dd {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: Inconsolata, Monaco, 'Andale Mono', monospace;
   display: inline-block;
   padding: 0;
   margin: 0;
