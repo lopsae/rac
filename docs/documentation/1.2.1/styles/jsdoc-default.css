@@ -129,7 +129,7 @@ tt, code, kbd, samp {
   font-family: var(--monospace-family);
   font-size: var(--monospace-size);
   background: #eaeaea;
-  padding: 2px 5px;
+  padding: 1px 4px 2px;
   border-radius: 5px;
 }
 
@@ -149,7 +149,7 @@ blockquote {
 }
 
 .class-description pre.prettyprint code {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .class-description:empty {
@@ -517,7 +517,7 @@ pre.prettyprint.linenums li.L9 {
 }
 
 pre.prettyprint.linenums code {
-  font-size: 14px;
+  font-size: 15px;
   padding: 0 0 0 15px;
   border-radius: 0;
   background-color: transparent;
