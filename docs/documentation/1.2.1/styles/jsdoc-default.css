@@ -1,4 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,500i,500,600,600i|Consolas:300,400,400i,500i,500,600,600i);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,500i,500,600,600i|Source+Code+Pro:300,400,400i,500i,500,600,600i);
+
+:root {
+  --monospace-family: 'Source Code Pro', Monaco, 'Andale Mono', monospace;
+  --monospace-size: 92%;
+  --details-mini-font-size: 13px;
+}
 
 * {
   box-sizing: border-box
@@ -120,9 +126,10 @@ h6 {
 }
 
 tt, code, kbd, samp {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: var(--monospace-family);
+  font-size: var(--monospace-size);
   background: #eaeaea;
-  padding: 3px 4px 1px;
+  padding: 1px 4px 2px;
   border-radius: 5px;
 }
 
@@ -142,7 +149,7 @@ blockquote {
 }
 
 .class-description pre.prettyprint code {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .class-description:empty {
@@ -385,7 +392,7 @@ footer {
 }
 
 .name, .signature {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace
+  font-family: var(--monospace-family);
 }
 
 .name .type-signature, .name .signature-attributes {
@@ -395,7 +402,6 @@ footer {
 .name.method-name {
   background: #B3E5FC;
   color: hsl(230deg 5% 25%);
-  /*color: #0288D1;*/
   padding: 6px 6px 3px;
   border-radius: 5px;
 }
@@ -443,17 +449,17 @@ footer {
 .details-mini {
   padding-left: 8px;
   border-left: 2px solid #DDD;
-  font-size: 14px;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: var(--monospace-family);
+  font-size: var(--details-mini-font-size);
 }
 
 .header-details-mini {
   color: #888;
   padding-left: 8px;
   border-left: 2px solid #DDD;
-  font-size: 14px;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
   margin: 0.5em 0px 1em 0px;
+  font-family: var(--monospace-family);
+  font-size: var(--details-mini-font-size);
 }
 
 .description {
@@ -511,7 +517,7 @@ pre.prettyprint.linenums li.L9 {
 }
 
 pre.prettyprint.linenums code {
-  font-size: 14px;
+  font-size: 15px;
   padding: 0 0 0 15px;
   border-radius: 0;
   background-color: transparent;
@@ -535,7 +541,7 @@ pre.prettyprint.linenums code {
 }
 
 .prettyprint.linenums ol {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: var(--monospace-family);
   font-size: 80%;
   color: #aaa;
   padding-left: 0;
@@ -568,7 +574,7 @@ pre.prettyprint.linenums code {
 
 .params .name, .props .name, .name code {
   color: #4D4E53;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: var(--monospace-family);
 }
 
 .params td.description code, .props td.description code,
@@ -626,8 +632,9 @@ dl.param-type {
   display: inline-block
 }
 
+/* Seemingly only used in returns.tmpl, when return has a caption */
 .param-type dd {
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  font-family: var(--monospace-family);
   display: inline-block;
   padding: 0;
   margin: 0;

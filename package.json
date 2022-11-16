@@ -40,7 +40,7 @@
     "grunt-exec": "^3.0.0",
     "grunt-jsdoc": "^2.4.1",
     "jest": "^26.6.3",
-    "minami-rac": "1.4.1"
+    "minami-rac": "1.4.2"
   },
   "jest": {
     "testMatch": [
