@@ -16,7 +16,7 @@ RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/
 
 ### Documentation
 
-[Latest (1.2.1)](./documentation/1.2.1/)
+[Latest](./documentation/latest/) — [1.2.1](./documentation/1.2.1/)
 
 Previous versions:
 + [1.2.0](./documentation/1.2.0/)
