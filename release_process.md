@@ -55,6 +55,13 @@ In files:
 + hardcoded in `docs/index.md`
 + hardcoded in `readme.md`
 
+Update `latest` symlink
+```
+cd docs/documentation
+rm latest
+ln -s n.e.w latest
+```
+
 Update `package-lock.json` by running:
 ```
 npm install
