@@ -43,7 +43,7 @@ class P5Drawer {
     *
     * @property {String} font='monospace'
     *   Font to use when drawing with `debug()`
-    * @property {Number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    * @property {Number} [size=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
     *   Font size to use when drawing with `debug()`
     * @property {Number} fixedDigits=2
     *   Number of decimal digits to print when drawing with `debug()`
