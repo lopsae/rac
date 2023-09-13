@@ -8,6 +8,9 @@ In progress
 
 For version change
 ------------------
++ ray.text, segment.text
++ TextFormat padding
++ arc.shift, sets start to start.shift(angle), and modifies end to keeps the same angleDistance
 
 
 

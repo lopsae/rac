@@ -1,6 +1,11 @@
 Changelog
 =========
 
+dev
+---
++ Overall documentation improvements and corrections
+
+
 1.2.1 - 2022 October 27th
 -------------------------
 Add Rac.dated and overhaul documentation examples and code blocks
