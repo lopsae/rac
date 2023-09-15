@@ -1,8 +1,8 @@
 Changelog
 =========
 
-dev
----
+1.3.0-dev - Work in progress
+----------------------------
 + Overall documentation improvements and corrections
 
 
