@@ -22,10 +22,15 @@ const Rac = require('./Rac');
 */
 
 
-// Attaches the convenience functions to create objects with this instance
-// of Rac. These functions are attached as properties (instead of into the
+// Attaches convenience functions to create objects with this instance of
+// Rac. E.g. `rac.Color(...)`, `rac.Point(...)`.
+//
+// These functions are attached as properties (instead of into the
 // prototype) because these are later populated with more properties and
 // methods, and thus need to be independent for each instance.
+//
+// Ready made objects attached to these functions (E.g. `rac.Point.zero`)
+// are defined in the `instance.Point.js` and equivalent files.
 //
 // Intended to receive the a Rac instance as parameter.
 module.exports = function attachInstanceFunctions(rac) {

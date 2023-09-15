@@ -17,7 +17,9 @@
 * @namespace instance.Segment
 */
 module.exports = function attachRacSegment(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Segment` is attached in `attachInstanceFunctions.js`.
 
   /**
   * A `Segment` with all values set to zero, starts at

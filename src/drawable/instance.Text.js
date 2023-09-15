@@ -20,7 +20,9 @@ const Rac = require('../Rac');
 * @namespace instance.Text
 */
 module.exports = function attachRacText(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Text` is attached in `attachInstanceFunctions.js`.
 
 
   /**
