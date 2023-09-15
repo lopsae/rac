@@ -68,7 +68,7 @@ Update `package-lock.json` by running:
 npm install
 ```
 
-Commit message: `bump version to n.e.w`
+Commit with message: `bump version to n.e.w`
 
 
 
@@ -78,14 +78,14 @@ Promote docs to current version
 mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
 ```
 
-Commit message: `promote documentation to n.e.w`
+Commit with message: `promote documentation to n.e.w`
 
 And rebuild to take version change:
 ```
 npm run docs
 ```
 
-Commit message: `rebuild docs for n.e.w`
+Commit with message: `rebuild docs for n.e.w`
 
 
 
@@ -114,7 +114,7 @@ http://localhost:9001/rac.js
 http://localhost:9001/rac.min.js
 ```
 
-Commit message: `commit dist build n.e.w count-hash`
+Commit with message: `commit dist build n.e.w count-hash`
 
 
 
@@ -156,7 +156,7 @@ Rebuild current docs
 npm run docs:fresh
 ```
 
-Commit message: `rebuild docs for n.e.w`
+Commit with message: `rebuild docs for n.e.w`
 
 
 
