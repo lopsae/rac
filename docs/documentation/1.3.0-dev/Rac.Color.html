@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rac.Color - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-home-link"><a href="index.html">RAC — Ruler and Compass</a></li>
+    <li class="nav-version"><code>1.2.1</code></li>
+    <li class="nav-heading type-container"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Color.html#a">a</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Color.html#b">b</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Color.html#g">g</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Color.html#r">r</a></span></li><li class="nav-item"><span class="nav-item-type type-member">M</span><span class="nav-item-name"><a href="Rac.Color.html#rac">rac</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#.fromHex">fromHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#.fromRgba">fromRgba</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#fill">fill</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#linearTransition">linearTransition</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#stroke">stroke</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#toString">toString</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#withAlpha">withAlpha</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Rac.Color.html#withAlphaRatio">withAlphaRatio</a></span></li>
+    <li class="nav-heading type-container">Classes</li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.html">Rac</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Angle.html">Rac.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Arc.html">Rac.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.ArcControl.html">Rac.ArcControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Bezier.html">Rac.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Color.html">Rac.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Composite.html">Rac.Composite</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Control.html">Rac.Control</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.html">Rac.Controller</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Controller.Selection.html">Rac.Controller.Selection</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Exception.html">Rac.Exception</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Fill.html">Rac.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Point.html">Rac.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Ray.html">Rac.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.RayControl.html">Rac.RayControl</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Segment.html">Rac.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Shape.html">Rac.Shape</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Stroke.html">Rac.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.StyleContainer.html">Rac.StyleContainer</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.html">Rac.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Rac.Text.Format.html">Rac.Text.Format</a></span></li><li class="nav-heading type-container">Namespaces</li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.html">instance</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Angle.html">instance.Angle</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Arc.html">instance.Arc</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Bezier.html">instance.Bezier</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Color.html">instance.Color</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Fill.html">instance.Fill</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Point.html">instance.Point</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Ray.html">instance.Ray</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Segment.html">instance.Segment</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Stroke.html">instance.Stroke</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.html">instance.Text</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="instance.Text.Format.html">instance.Text.Format</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="utils.html">utils</a></span></li><li class="nav-heading no-members"><span class="nav-item-type type-namespace">N</span><span class="nav-item-name"><a href="version.html">version</a></span></li>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2 class="longname">
+            <span class="ancestors"><a href="Rac.html">Rac</a>.</span>
+        
+        Color
+        </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+        <div class="header-details-mini">
+        <span><a href="Rac.Color.html">#</a></span>
+        
+            <span> | source:
+            <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line31">line 31</a>
+            </span>
+        
+        </div>
+
+        
+            <div class="class-description"><p>Color with RBGA values, each one in the <em>[0,1]</em> range.</p>
+<h3><code>instance.Color</code></h3>
+<p>Instances of <code>Rac</code> contain a convenience
+<a href="Rac.html#Color"><code>rac.Color</code> function</a> to create <code>Color</code> objects with
+fewer parameters. This function also contains ready-made convenience
+objects, like <a href="instance.Color.html#red"><code>rac.Color.red</code></a>, listed
+under <a href="instance.Color.html"><code>instance.Color</code></a>.</p></div>
+        
+
+        
+            <h5>Example</h5>
+            
+    <pre class="prettyprint example"><code>let rac = new Rac()
+// new instance with constructor
+let color = new Rac.Color(rac, 0.2, 0.4, 0.6)
+// or convenience function
+let otherColor = rac.Color(0.2, 0.4, 0.6)</code></pre>
+
+        
+
+        
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-see">See also:</dt>
+    <dd class="tag-see">
+        <ul>
+            <li><p><a href="Rac.html#Color"><code>rac.Color</code></a></p></li>
+        
+            <li><p><a href="instance.Color.html"><code>instance.Color</code></a></p></li>
+        </ul>
+    </dd>
+    
+
+    
+</dl>
+
+
+        
+        
+<div class="section-method">
+
+    
+    <h3 class="subsection-constructor">Constructor</h3>
+    
+
+    
+    <h4 class="name method-name" id="Color"><span class="type-signature"></span>new Color<span class="signature">(rac, r, g, b, a<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line31">line 31</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Color</code> instance.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The red channel value, in the <em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>g</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The green channel value, in the <em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The blue channel value, in the <em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>1</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The alpha channel value, in the <em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title members-subsection">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="a"><span class="type-signature"></span>a<span class="type-signature"> :Number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Color.html#a">#</a></span>
+
+    <span> | source:
+    <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line76">line 76</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The alpha channel of the color, in the <em>[0,1]</em> range.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="b"><span class="type-signature"></span>b<span class="type-signature"> :Number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Color.html#b">#</a></span>
+
+    <span> | source:
+    <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line70">line 70</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The blue channel of the color, in the <em>[0,1]</em> range.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="g"><span class="type-signature"></span>g<span class="type-signature"> :Number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Color.html#g">#</a></span>
+
+    <span> | source:
+    <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line64">line 64</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The green channel of the color, in the <em>[0,1]</em> range.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="r"><span class="type-signature"></span>r<span class="type-signature"> :Number</span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Color.html#r">#</a></span>
+
+    <span> | source:
+    <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line58">line 58</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>The red channel of the color, in the <em>[0,1]</em> range.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+            
+<div class="section-members">
+<h4 class="name member-name" id="rac"><span class="type-signature"></span>rac<span class="type-signature"> :<a href="Rac.html">Rac</a></span></h4>
+
+<div class="details-mini">
+<span><a href="Rac.Color.html#rac">#</a></span>
+
+    <span> | source:
+    <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line52">line 52</a>
+    </span>
+
+</div>
+
+
+
+
+
+<div class="description">
+    <p>Instance of <code>Rac</code> used for drawing and passed along to any created
+object.</p>
+</div>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+</div>
+
+        
+    
+
+    
+        <h3 class="subsection-title methods-subsection">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id=".fromHex"><span class="type-signature">(static) </span>fromHex<span class="signature">(rac, hexString)</span><span class="type-signature"> &rarr; {<a href="Rac.Color.html">Rac.Color</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#.fromHex">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line121">line 121</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Color</code> instance from a hexadecimal triplet string.</p>
+<p>The <code>hexString</code> is expected to have 6 digits and can optionally start
+with <code>#</code>. <code>AABBCC</code> and <code>#DDEEFF</code> are both valid inputs, the three digit
+shorthand is not yet supported.</p>
+<p>An error is thrown if <code>hexString</code> is misformatted or cannot be parsed.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hexString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The RGB hex triplet to interpret</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id=".fromRgba"><span class="type-signature">(static) </span>fromRgba<span class="signature">(rac, r, g, b, a<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Color.html">Rac.Color</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#.fromRgba">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line102">line 102</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Creates a new <code>Color</code> instance with each channel received in the
+<em>[0,255]</em> range</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>r</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The red channel value, in the <em>[0,255]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>g</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The green channel value, in the <em>[0,255]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The blue channel value, in the <em>[0,255]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>255</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The alpha channel value, in the <em>[0,255]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="fill"><span class="type-signature"></span>fill<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="Rac.Fill.html">Rac.Fill</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#fill">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line153">line 153</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Fill</code> that uses <code>this</code> as <code>color</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="linearTransition"><span class="type-signature"></span>linearTransition<span class="signature">(ratio, target)</span><span class="type-signature"> &rarr; {<a href="Rac.Color.html">Rac.Color</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#linearTransition">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line204">line 204</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Color</code> in the linear transition between <code>this</code> and
+<code>target</code> at a <code>ratio</code> in the range <em>[0,1]</em>.</p>
+<p>When <code>ratio</code> is <code>0</code> or less the new <code>Color</code> is equivalent to <code>this</code>,
+when <code>ratio</code> is <code>1</code> or larger the new <code>Color</code> is equivalent to
+<code>target</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ratio</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The transition ratio for the new <code>Color</code></p>
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.Color.html">Rac.Color</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The transition target <code>Color</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="stroke"><span class="type-signature"></span>stroke<span class="signature">(weight<span class="signature-attributes">nullable</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Stroke.html">Rac.Stroke</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#stroke">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line164">line 164</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Stroke</code> that uses <code>this</code> as <code>color</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>weight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+                    &lt;nullable><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last">
+                <p>The weight of the new <code>Stroke</code></p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="toString"><span class="type-signature"></span>toString<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#toString">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line85">line 85</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a string representation intended for human consumption.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withAlpha"><span class="type-signature"></span>withAlpha<span class="signature">(newAlpha)</span><span class="type-signature"> &rarr; {<a href="Rac.Color.html">Rac.Color</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#withAlpha">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line176">line 176</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Color</code> with <code>a</code> set to <code>newAlpha</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newAlpha</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The alpha channel for the new <code>Color</code>, in the
+<em>[0,1]</em> range</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+            
+<div class="section-method">
+
+    
+
+    
+    <h4 class="name method-name" id="withAlphaRatio"><span class="type-signature"></span>withAlphaRatio<span class="signature">(ratio)</span><span class="type-signature"> &rarr; {<a href="Rac.Color.html">Rac.Color</a>}</span></h4>
+    
+
+
+    <div class="details-mini">
+    <span><a href="Rac.Color.html#withAlphaRatio">#</a></span>
+    
+        <span> | source:
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line187">line 187</a>
+        </span>
+    
+    </div>
+
+
+
+    
+
+
+
+<div class="description">
+    <p>Returns a new <code>Color</code> with <code>a</code> set to <code>this.a * ratio</code>.</p>
+</div>
+
+
+
+
+    
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ratio</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Number</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>The factor to multiply <code>a</code> by</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a>
+    
+    using the <a href="https://github.com/lopsae/minami-rac">Minami-rac 1.4.2</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
