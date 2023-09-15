@@ -3,6 +3,17 @@ Development Setup
 
 Steps for setting up a development environment for RAC.
 
+
+
+RAC Repository
+--------------
+Clone the RAC repository:
+```
+git clone https://github.com/lopsae/rac.git
+```
+
+
+
 Node and NPM
 ------------
 Install nvm:
@@ -15,6 +26,7 @@ Set the latest node version as default:
 ```
 nvm use node
 ```
+
 
 
 Install npm packages
@@ -31,6 +43,7 @@ npm test
 ```
 
 
+
 Run github.io docs
 ------------------
 The `docs` folder may need an updated version of bundle:
@@ -39,16 +52,15 @@ cd rac/docs
 gem install bundler:2.3.9 # may need sudo
 ```
 
-With the updated `bundle`, run bundle to check for the installed bundles:
+With the updated `bundle`, run it to check for the installed bundles:
 ```
 cd rac/docs
 bundle
 ```
 
-Back in the `rac` directory, run the gb-pages to see these working locally:
+Back in the `rac` directory, run the github.io pages to see these working locally:
 ```
 cd rac
 npm run pages
 ```
-
 
