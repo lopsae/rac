@@ -28,6 +28,12 @@ Commit with message: `rebuild docs with {short description}`
 
 
 
+Start changelog update
+----------------------
++ Start or update `changelog.md` section with `n.e.w-dev`
+
+
+
 Develop!
 --------
 🛠🛠🛠
@@ -44,7 +50,7 @@ git flow release start n.e.w
 
 Check changelog update
 ----------------------
-+ update and date n.e.w version
++ Update and date `changelog.md` section with `n.e.w` version
 
 
 
