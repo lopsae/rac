@@ -5,25 +5,26 @@ Set dev version
 ---------------
 Update `package.json`, set `version` to `n.e.w-dev`
 
-Commit message: `bump version to n.e.w-dev`
+Commit with message: `bump version to n.e.w-dev`
 
 
 
 Create new documentation
 ------------------------
-Update `jsdoc.json`, set `o.l.d` to `n.e.w-dev`
+Update `jsdoc.json`, set `versionNavItem` from `o.l.d` to `n.e.w-dev`
 
-Commit message: `update jsdoc homelabel with n.e.w-dev`
+Commit with message: `update jsdoc versionNavItem with n.e.w-dev`
 
+Build docs for `n.e.w-dev` to create the new folder:
 ```
 npm run docs
 ```
 
-Commit message: `build new docs for n.e.w-dev`
+Commit with message: `build new docs for n.e.w-dev`
 
 As documentation changes:
 
-Commit message: `rebuild docs with ...`
+Commit with message: `rebuild docs with {short description}`
 
 
 
