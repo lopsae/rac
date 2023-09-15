@@ -9,8 +9,12 @@ In progress
 For version change
 ------------------
 + ray.text, segment.text
++ ray.inverseText, segment.inverseText
 + TextFormat padding
 + arc.shift, sets start to start.shift(angle), and modifies end to keeps the same angleDistance
++ add instance.Composite?
++ Create Drawable namespace, and document the drawable methods
++ rename version namespace to versioning
 
 
 
