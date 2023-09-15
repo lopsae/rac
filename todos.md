@@ -15,6 +15,7 @@ For version change
 + add instance.Composite?
 + Create Drawable namespace, and document the drawable methods
 + rename version namespace to versioning
++ search `example return` replace `returns E.g.`
 
 
 
