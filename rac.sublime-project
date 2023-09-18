@@ -21,23 +21,23 @@
 
       // Prevents folders from appering in folder list
       "folder_exclude_patterns": [
-        "dist",
         "node_modules",
+        "coverage",
         "docs/_site",
         "docs/vendor",
-        // TODO: outdated?
-        "docs/docs/*/*",
-        "coverage"
+        // documentation sub-folders are displayed, but not further subfolders
+        "docs/documentation/*/*"
       ],
-      // TODO: try binary_file_patterns to remove from search only
-      // for dist
+
+      // Ignores these files in _Goto Anything_ and _Find in Files_
+      "binary_file_patterns": [
+        "dist/*"
+      ],
 
       // Prevents files from appearing in index operations
       // E.g. `Goto Symbol...` or `Goto Definition...
       "index_exclude_patterns": [
-        "dist/*",
-        // TODO: outdated?
-        "docs/docs/**/*"
+        "dist/*"
       ]
     }
   ]
