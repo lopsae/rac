@@ -22,10 +22,6 @@ npm run docs
 
 Commit with message: `build new docs for n.e.w-dev`
 
-As documentation changes:
-
-Commit with message: `rebuild docs with {short description}`
-
 
 
 Start changelog update
@@ -37,6 +33,9 @@ Start changelog update
 Develop!
 --------
 🛠🛠🛠
+
+As documentation changes:
+Commit with message: `rebuild docs with {short description}`
 
 
 
