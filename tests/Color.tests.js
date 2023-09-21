@@ -106,5 +106,22 @@ tools.test( function thrownErrors() {
 });
 
 
+tools.test( function instanceMembers() {
+  expect(rac.Color.zero)   .equalsColor(0, 0, 0, 0);
+  expect(rac.Color.one)    .equalsColor(1, 1, 1, 1);
+
+  expect(rac.Color.white)  .equalsColor(1, 1, 1, 1);
+  expect(rac.Color.black)  .equalsColor(0, 0, 0, 1);
+
+  expect(rac.Color.red)    .equalsColor(1, 0, 0, 1);
+  expect(rac.Color.green)  .equalsColor(0, 1, 0, 1);
+  expect(rac.Color.blue)   .equalsColor(0, 0, 1, 1);
+
+  expect(rac.Color.yellow) .equalsColor(1, 1, 0, 1);
+  expect(rac.Color.magenta).equalsColor(1, 0, 1, 1);
+  expect(rac.Color.cyan)   .equalsColor(0, 1, 1, 1);
+});
+
+
 // RELEASE-TODO: Full Coverage!
 
