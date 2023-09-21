@@ -61,8 +61,8 @@ const dated   = require('../built/version').dated;
 * build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
-* `[setupDrawer]{@link Rac#setupDrawer}`. Currently the only available
-* implementation is `[P5Drawer]{@link Rac.P5Drawer}`.
+* [`setupDrawer`]{@link Rac#setupDrawer}. Currently the only available
+* implementation is [`P5Drawer`]{@link Rac.P5Drawer}.
 */
 class Rac {
 
@@ -110,7 +110,7 @@ class Rac {
     /**
     * Value used to determine equality between two numeric values. Used for
     * values that tend to be integers, like screen coordinates. Used by
-    * `{@link Rac#equals}`.
+    * [`equals`]{@link Rac#equals}.
     *
     * When checking for equality `x` is equal to non-inclusive
     * `(x-equalityThreshold, x+equalityThreshold)`:
@@ -133,9 +133,11 @@ class Rac {
     /**
     * Value used to determine equality between two unitary numeric values.
     * Used for values that tend to exist in the `[0, 1]` range, like
-    * `{@link Rac.Angle#turn}`. Used by `{@link Rac#unitaryEquals}`.
+    * [`angle.turn`]{@link Rac.Angle#turn}. Used by
+    * [`unitaryEquals`]{@link Rac#unitaryEquals}.
     *
-    * Equality logic is the same as `{@link Rac#equalityThreshold}`.
+    * Equality logic is the same as
+    * [`equalityThreshold`]{@link Rac#equalityThreshold}.
     *
     * The default value is based on 1/1000 of the turn of an complete
     * circle arc of radius 500:
@@ -150,8 +152,8 @@ class Rac {
 
 
     /**
-    * Container of utility functions. See `{@link utils}` for the available
-    * members.
+    * Container of utility functions. See the
+    * [`utils` namespace]{@link utils} for the available members.
     *
     * Also available through `{@link Rac.utils}`.
     *
@@ -162,8 +164,6 @@ class Rac {
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
-
-
 
 
     /**
@@ -214,12 +214,14 @@ class Rac {
     // Depends on instance.Point and instance.Angle being already setup
     require('./drawable/instance.Text')(this);
 
+
     /**
     * Controller of the instance. This objecs handles all of the controls
     * and pointer events related to this instance of `Rac`.
     */
     this.controller = new Rac.Controller(this);
   }
+
 
   /**
   * Sets the drawer for the instance. Currently only a p5.js instance is
@@ -238,7 +240,7 @@ class Rac {
 
   /**
   * Returns `true` if the absolute distance between `a` and `b` is
-  * under `{@link Rac#equalityThreshold}`.
+  * under [`equalityThreshold`]{@link Rac#equalityThreshold}.
   *
   * @param {Number} a - First number to compare
   * @param {Number} b - Second number to compare
@@ -254,7 +256,7 @@ class Rac {
 
   /**
   * Returns `true` if the absolute distance between `a` and `b` is
-  * under `{@link Rac#unitaryEqualityThreshold}`.
+  * under [`unitaryEqualityThreshold`]{@link Rac#unitaryEqualityThreshold}.
   *
   * @param {Number} a First number to compare
   * @param {Number} b Second number to compare
@@ -345,10 +347,10 @@ module.exports = Rac;
 
 
 /**
-* Container of utility functions. See `{@link utils}` for the available
-* members.
+* Container of utility functions. See the [`utils` namespace]{@link utils}
+* for the available members.
 *
-* Also available through `{@link Rac#utils}`.
+* Also available through [`rac.utils`]{@link Rac#utils}.
 *
 * @var {utils}
 * @memberof Rac
@@ -362,7 +364,6 @@ Rac.utils = utils;
 *
 * @example
 * Rac.version // example return: '1.2.1'
-*
 *
 * @constant {String} version
 * @memberof Rac
