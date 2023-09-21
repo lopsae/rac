@@ -16,6 +16,12 @@ For version change
 + Create Drawable namespace, and document the drawable methods
 + rename version namespace to versioning
 + search `example return` replace `returns E.g.`
++ add rac.Text.Format.tl, tc, tr shorthands
++ add Color.hexString()
++ add Color.fromHex() support for 8 hex numerals, so that it is compatible with hexString
++ add textFormat.withAlign(otherFormt) to copy only align properties
++ add text.withAlign(otherFormat) to copy only align properties
++ FIX all RELEASE-TODO
 
 
 

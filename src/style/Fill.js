@@ -55,6 +55,8 @@ class Fill {
     * @type {Rac}
     */
     this.rac = rac;
+
+    // RELEASE-TODO: document
     this.color = color;
   }
 
