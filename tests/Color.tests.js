@@ -76,5 +76,35 @@ tools.test( function toString() {
 });
 
 
+tools.test( function thrownErrors() {
+  expect(() => {new Rac.Color(rac, 1, 1, 1);})
+    .not.toThrow();
+  expect(() => {new Rac.Color(rac, 1, 1, 1, 1);})
+    .not.toThrow();
+
+  // Missing parameter
+  expect(() => {new Rac.Color(null, 1, 1, 1, 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, null, 1, 1, 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, 1, null, 1, 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, 1, 1, null, 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, 1, 1, 1, null);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  // Invalid values
+  expect(() => {new Rac.Color(rac, NaN, 1, 1, 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, 1, 'nonsense', 1, 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, 1, 1, '', 1);})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {new Rac.Color(rac, 1, 1, 1, {});})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
 // RELEASE-TODO: Full Coverage!
 
