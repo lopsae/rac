@@ -23,7 +23,7 @@ tools.test( function identity() {
   expect(hunty).equalsPoint(100, 100);
   expect(fifty).equalsPoint(55, 55);
 
-  // Inequality
+  // Assertion Inequality
   expect(rac.Point.zero).not.equalsPoint(7, 0);
   expect(rac.Point.zero).not.equalsPoint(0, 7);
 

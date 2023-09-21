@@ -368,6 +368,35 @@ expect.extend({ equalsBezier(bezier,
 }}); // equalsBezier
 
 
+expect.extend({ equalsColor(color, r, g, b, a = 1) {
+  const msg = new Messenger(this,
+    'equalsColor',
+    'equal Color properties');
+
+  const expected = rac.Color(r, g, b, a);
+  if (color == null) {
+    return msg.fail('null', expected);
+  }
+
+  if (!(color instanceof Rac.Color)) {
+    let colorTypeName = Rac.utils.typeName(color);
+    return msg.fail(color.toString(), expected,
+      `Received type: ${msg.r(colorTypeName)}`,
+      `Expected type: ${msg.e('Rac.Color')}`);
+  }
+
+  if (color.rac !== expected.rac) {
+    return msg.fail(color.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(color.rac)}`);
+  }
+
+  const isEqual = expected.equals(color);
+  return msg.done(isEqual, color, expected,
+    `Received: ${msg.r(color.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
+}}); // equalsColor
+
+
 expect.extend({ toThrowNamed(closure, name, expectsError = true) {
   const options = {
     comment: 'throws named Exception or Error',

@@ -88,6 +88,28 @@ class Color {
 
 
   /**
+  * Returns `true` when the difference with `otherColor` for each channel
+  * is under [`rac.equalityThreshold`]{@link Rac#equalityThreshold};
+  * otherwise returns `false`.
+  *
+  * When `otherColor` is any class other that `Rac.Color`, returns `false`.
+  *
+  * Values are compared using [`rac.unitaryEquals`]{@link Rac#unitaryEquals}.
+  *
+  * @param {Rac.Color} otherColor - A `Color` to compare
+  * @returns {Boolean}
+  * @see [`rac.unitaryEquals`]{@link Rac#unitaryEquals}
+  */
+  equals(otherColor) {
+    return otherColor instanceof Color
+      && this.rac.unitaryEquals(this.r, otherColor.r)
+      && this.rac.unitaryEquals(this.g, otherColor.g)
+      && this.rac.unitaryEquals(this.b, otherColor.b)
+      && this.rac.unitaryEquals(this.a, otherColor.a);
+  }
+
+
+  /**
   * Creates a new `Color` instance with each channel received in the
   * *[0,255]* range
   *

@@ -59,12 +59,32 @@ module.exports = function attachRacColor(rac) {
 
 
   /**
+  * A `Color` with all channels set to `0`.
+  *
+  * @name zero
+  * @memberof instance.Color#
+  */
+  rac.Color.zero = rac.Color(0, 0, 0, 0);
+
+
+  /**
   * A black `Color`.
   *
   * @name black
   * @memberof instance.Color#
   */
   rac.Color.black   = rac.Color(0, 0, 0);
+
+  /**
+  * A white `Color`, with all channels set to `1`.
+  *
+  * Also named as `one`.
+  *
+  * @name white
+  * @memberof instance.Color#
+  */
+  rac.Color.white   = rac.Color(1, 1, 1);
+  rac.Color.one = rac.Color.white;
 
   /**
   * A red `Color`.
@@ -79,7 +99,6 @@ module.exports = function attachRacColor(rac) {
   rac.Color.yellow  = rac.Color(1, 1, 0);
   rac.Color.magenta = rac.Color(1, 0, 1);
   rac.Color.cyan    = rac.Color(0, 1, 1);
-  rac.Color.white   = rac.Color(1, 1, 1);
 
 } // attachRacColor
 
