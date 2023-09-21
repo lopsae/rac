@@ -80,10 +80,20 @@ class Color {
   /**
   * Returns a string representation intended for human consumption.
   *
+  * @example
+  * // returns: 'Color(0.1,0.2,0.3,0.4)'
+  * rac.Color(0.1, 0.2, 0.3, 0.4).toString()
+  *
+  * @param {Number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {String}
   */
-  toString() {
-    return `Color(${this.r},${this.g},${this.b},${this.a})`;
+  toString(digits = null) {
+    const rStr = utils.cutDigits(this.r, digits);
+    const gStr = utils.cutDigits(this.g, digits);
+    const bStr = utils.cutDigits(this.b, digits);
+    const aStr = utils.cutDigits(this.a, digits);
+    return `Color(${rStr},${gStr},${bStr},${aStr})`;
   }
 
 

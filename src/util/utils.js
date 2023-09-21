@@ -162,8 +162,8 @@ exports.addConstantTo = function(obj, propName, value) {
 
 
 /**
-* Returns a string of `number` format using fixed-point notation or the
-* complete `number` string.
+* Returns a string representation of `number` displaying all available
+* digits, or formmatted used fixed-point notation limited to `digits`.
 *
 * @param {Number} number - The number to format
 * @param {?Number} [digits] - The amount of digits to print, or `null` to

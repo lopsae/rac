@@ -72,7 +72,7 @@ tools.test( function toString() {
   const color = rac.Color(0.12345, 0.23456, 0.34567, 0.45678)
 
   expect(color.toString()) .toBe('Color(0.12345,0.23456,0.34567,0.45678)');
-  expect(color.toString(2)).toBe('Color(0.12,0.23,0.34,0.45)');
+  expect(color.toString(2)).toBe('Color(0.12,0.23,0.35,0.46)');
 });
 
 
