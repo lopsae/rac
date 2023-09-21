@@ -368,7 +368,7 @@ expect.extend({ equalsBezier(bezier,
 }}); // equalsBezier
 
 
-expect.extend({ equalsColor(color, r, g, b, a = 1) {
+expect.extend({ equalsColor(color, r, g, b, a) {
   const msg = new Messenger(this,
     'equalsColor',
     'equal Color properties');

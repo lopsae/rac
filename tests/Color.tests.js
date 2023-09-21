@@ -24,7 +24,6 @@ tools.test( function identity() {
   expect(blackish).equalsColor(0.9, 0.9, 0.9, 0.9);
 
   // Assertion Inequality
-  expect(rac.Color.zero).not.equalsColor(0, 0, 0);
   expect(rac.Color.zero).not.equalsColor(1, 0, 0, 0);
   expect(rac.Color.zero).not.equalsColor(0, 1, 0, 0);
   expect(rac.Color.zero).not.equalsColor(0, 0, 1, 0);
