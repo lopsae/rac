@@ -136,6 +136,7 @@ class Color {
   }
 
 
+// RELEASE-TODO: update docs here and in instance.fromHex
   /**
   * Creates a new `Color` instance from a hexadecimal triplet string.
   *
@@ -155,7 +156,7 @@ class Color {
       hexString = hexString.substring(1);
     }
 
-    if (hexString.length != 6) {
+    if (![6, 8].includes(hexString.length)) {
       throw Rac.Exception.failedAssert(
         `Unexpected length for hex triplet string: ${hexString}`);
     }
@@ -163,17 +164,22 @@ class Color {
     let rStr = hexString.substring(0, 2);
     let gStr = hexString.substring(2, 4);
     let bStr = hexString.substring(4, 6);
+    let aStr = 'ff';
+    if (hexString.length == 8) {
+      aStr = hexString.substring(6, 8);
+    }
 
     let newR = parseInt(rStr, 16);
     let newG = parseInt(gStr, 16);
     let newB = parseInt(bStr, 16);
+    let newA = parseInt(aStr, 16);
 
-    if (isNaN(newR) || isNaN(newG) || isNaN(newB)) {
+    if (isNaN(newR) || isNaN(newG) || isNaN(newB) || isNaN(newA)) {
       throw Rac.Exception.failedAssert(
         `Could not parse hex triplet string: ${hexString}`);
     }
 
-    return new Color(rac, newR/255, newG/255, newB/255);
+    return new Color(rac, newR/255, newG/255, newB/255, newA/255);
   }
 
 

@@ -123,5 +123,46 @@ tools.test( function instanceMembers() {
 });
 
 
+tools.test( function fromRgba() {
+  expect(rac.Color.fromRgba(0, 0, 0)).equalsColor(0, 0, 0, 1);
+
+  expect(rac.Color.fromRgba(255, 255, 255, 255)).equalsColor(1, 1, 1, 1);
+  expect(rac.Color.fromRgba(0, 0, 0, 0))        .equalsColor(0, 0, 0, 0);
+
+  expect(rac.Color.fromRgba(10, 10, 10, 10)).equalsColor(10/255, 10/255, 10/255, 10/255);
+});
+
+
+tools.test( function fromHexThrows() {
+  expect(() => {rac.Color.fromHex('');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {rac.Color.fromHex('#');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+
+  expect(() => {rac.Color.fromHex('#a');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {rac.Color.fromHex('#aabbc');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {rac.Color.fromHex('aabbccd');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+  expect(() => {rac.Color.fromHex('aabbccdde');})
+    .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+tools.test( function fromHex() {
+  const aa = 170/255;
+  const bb = 187/255;
+  const cc = 204/255;
+  const dd = 221/255;
+
+  expect(rac.Color.fromHex('aabbcc')).equalsColor(aa, bb, cc, 1);
+  expect(rac.Color.fromHex('#aabbcc')).equalsColor(aa, bb, cc, 1);
+
+  expect(rac.Color.fromHex('aabbccdd')).equalsColor(aa, bb, cc, dd);
+  expect(rac.Color.fromHex('aabbccdd')).equalsColor(aa, bb, cc, dd);
+});
+
+
 // RELEASE-TODO: Full Coverage!
 
