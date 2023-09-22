@@ -4,6 +4,8 @@ Changelog
 1.3.0-dev - Work in progress
 ----------------------------
 + Overall documentation improvements and corrections
++ Add tests for `Color`
+
 
 
 1.2.1 - 2022 October 27th

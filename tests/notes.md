@@ -1,5 +1,6 @@
 Order of tests
 ==============
+Preferred order of testing functions.
 
 
 identity
@@ -24,5 +25,10 @@ thrownErrors
 instanceMembers
 ----------------
 check for expected values of rac.X.members, like rac.Point.zero
+
+
+allOtherFunctions
+-----------------
+Tests for all remaining functions
 
 
