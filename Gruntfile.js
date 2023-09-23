@@ -280,8 +280,8 @@ module.exports = function(grunt) {
 
 
   // Saves the version file with the current version and build, saved into
-  // `built/version.js`.
-  grunt.registerTask('saveVersionFile', function() {
+  // `built/versioning.js`.
+  grunt.registerTask('saveVersioningFile', function() {
     grunt.config.requires(
       'pkg.version',
       'makeBuildString.buildString',
@@ -293,17 +293,17 @@ module.exports = function(grunt) {
 
     const versionString = '' + pkgVersion;
 
-    const templateContents = grunt.file.read('template/version.js.template');
+    const templateContents = grunt.file.read('template/versioning.js.template');
     const processedTemplate = grunt.template.process(templateContents, {data: {
       versionString: versionString,
       buildString:   buildString,
       datedString:   datedString
     }});
 
-    const outputFile = 'built/version.js';
+    const outputFile = 'built/versioning.js';
     grunt.file.write(outputFile, processedTemplate);
 
-    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green} ${datedString.green}`);
+    grunt.log.writeln(`Saved versioning file ${versionString.green} ${buildString.green} ${datedString.green}`);
   });
 
 
@@ -326,7 +326,7 @@ module.exports = function(grunt) {
       'exec:statusCount',
       `makeBuildString:${target}`,
       'makeDatedString',
-      'saveVersionFile');
+      'saveVersioningFile');
     if (target === undefined) {
       grunt.log.writeln(`Queued all tasks to make version file`);
     } else {

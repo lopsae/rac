@@ -2,9 +2,10 @@
 
 
 // Ruler and Compass
-const version = require('../built/version').version;
-const build   = require('../built/version').build;
-const dated   = require('../built/version').dated;
+const versioning = require('../built/versioning')
+const version = versioning.version;
+const build   = versioning.build;
+const dated   = versioning.dated;
 
 
 /**

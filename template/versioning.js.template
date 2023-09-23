@@ -2,8 +2,8 @@
 
 // Ruler and Compass - version and build
 /**
-* Container of the version data for the package.
-* @namespace version
+* Container of the versioning data for the package.
+* @namespace versioning
 */
 module.exports = {
 
@@ -13,7 +13,7 @@ module.exports = {
   * @constant {String} version
   * @memberof version#
   */
-  version: '1.2.1',
+  version: '<%= versionString %>',
 
   /**
   * Build of the package. Exposed through
@@ -21,7 +21,7 @@ module.exports = {
   * @constant {String} build
   * @memberof version#
   */
-  build: '1160-47702d3',
+  build: '<%= buildString %>',
 
   /**
   * Date of build of the package. Exposed through
@@ -29,6 +29,6 @@ module.exports = {
   * @constant {String} dated
   * @memberof version#
   */
-  dated: '2022-10-27T21:44:08.026Z'
+  dated: '<%= datedString %>'
 };
 
