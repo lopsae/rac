@@ -126,10 +126,42 @@ class Color {
   /**
   * Returns a string representation intended for human consumption.
   *
+  * @example
+  * // returns: 'Color(0.1,0.2,0.3,0.4)'
+  * rac.Color(0.1, 0.2, 0.3, 0.4).toString()
+  *
+  * @param {Number} [digits] - The number of digits to print after the
+  * decimal point, when ommited all digits are printed
   * @returns {String}
   */
-  toString() {
-    return `Color(${this.r},${this.g},${this.b},${this.a})`;
+  toString(digits = null) {
+    const rStr = utils.cutDigits(this.r, digits);
+    const gStr = utils.cutDigits(this.g, digits);
+    const bStr = utils.cutDigits(this.b, digits);
+    const aStr = utils.cutDigits(this.a, digits);
+    return `Color(${rStr},${gStr},${bStr},${aStr})`;
+  }
+
+
+  /**
+  * Returns `true` when the difference with `otherColor` for each channel
+  * is under [`rac.equalityThreshold`]{@link Rac#equalityThreshold};
+  * otherwise returns `false`.
+  *
+  * When `otherColor` is any class other that `Rac.Color`, returns `false`.
+  *
+  * Values are compared using [`rac.unitaryEquals`]{@link Rac#unitaryEquals}.
+  *
+  * @param {Rac.Color} otherColor - A `Color` to compare
+  * @returns {Boolean}
+  * @see [`rac.unitaryEquals`]{@link Rac#unitaryEquals}
+  */
+  equals(otherColor) {
+    return otherColor instanceof Color
+      &amp;&amp; this.rac.unitaryEquals(this.r, otherColor.r)
+      &amp;&amp; this.rac.unitaryEquals(this.g, otherColor.g)
+      &amp;&amp; this.rac.unitaryEquals(this.b, otherColor.b)
+      &amp;&amp; this.rac.unitaryEquals(this.a, otherColor.a);
   }
 
 
@@ -150,6 +182,7 @@ class Color {
   }
 
 
+// RELEASE-TODO: update docs here and in instance.fromHex
   /**
   * Creates a new `Color` instance from a hexadecimal triplet string.
   *
@@ -169,7 +202,7 @@ class Color {
       hexString = hexString.substring(1);
     }
 
-    if (hexString.length != 6) {
+    if (![6, 8].includes(hexString.length)) {
       throw Rac.Exception.failedAssert(
         `Unexpected length for hex triplet string: ${hexString}`);
     }
@@ -177,17 +210,22 @@ class Color {
     let rStr = hexString.substring(0, 2);
     let gStr = hexString.substring(2, 4);
     let bStr = hexString.substring(4, 6);
+    let aStr = 'ff';
+    if (hexString.length == 8) {
+      aStr = hexString.substring(6, 8);
+    }
 
     let newR = parseInt(rStr, 16);
     let newG = parseInt(gStr, 16);
     let newB = parseInt(bStr, 16);
+    let newA = parseInt(aStr, 16);
 
-    if (isNaN(newR) || isNaN(newG) || isNaN(newB)) {
+    if (isNaN(newR) || isNaN(newG) || isNaN(newB) || isNaN(newA)) {
       throw Rac.Exception.failedAssert(
         `Could not parse hex triplet string: ${hexString}`);
     }
 
-    return new Color(rac, newR/255, newG/255, newB/255);
+    return new Color(rac, newR/255, newG/255, newB/255, newA/255);
   }
 
 

@@ -52,6 +52,9 @@ module.exports = function attachRacColor(rac) {
   *
   * @param {String} hexString - The RGB hex triplet to interpret
   * @returns {Rac.Color}
+  *
+  * @function fromHex
+  * @memberof instance.Color#
   */
   rac.Color.fromHex = function(hexString) {
     return Rac.Color.fromHex(rac, hexString);
