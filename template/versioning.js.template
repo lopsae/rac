@@ -11,7 +11,7 @@ module.exports = {
   * Version of the package. Exposed through
   * [`Rac.version`]{@link Rac.version}.
   * @constant {String} version
-  * @memberof version#
+  * @memberof versioning#
   */
   version: '<%= versionString %>',
 
@@ -19,7 +19,7 @@ module.exports = {
   * Build of the package. Exposed through
   * [`Rac.build`]{@link Rac.build}.
   * @constant {String} build
-  * @memberof version#
+  * @memberof versioning#
   */
   build: '<%= buildString %>',
 
@@ -27,7 +27,7 @@ module.exports = {
   * Date of build of the package. Exposed through
   * [`Rac.dated`]{@link Rac.dated}.
   * @constant {String} dated
-  * @memberof version#
+  * @memberof versioning#
   */
   dated: '<%= datedString %>'
 };
