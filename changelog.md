@@ -5,6 +5,7 @@ Changelog
 ----------------------------
 + Overall documentation improvements and corrections
 + Add tests for `Color`
++ Renamed `version` file to `versioning`
 
 
 

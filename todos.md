@@ -18,7 +18,7 @@ For version change
 + search `example return` replace `returns E.g.`
 + add rac.Text.Format.tl, tc, tr shorthands
 + add Color.hexString()
-+ add Color.fromHex() support for 8 hex numerals, so that it is compatible with hexString
++ Update docs for Color.fromHex support for 8 hex numerals
 + add textFormat.withAlign(otherFormt) to copy only align properties
 + add text.withAlign(otherFormat) to copy only align properties
 + maybe update all toString examples to comment after code (like in Point)
