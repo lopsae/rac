@@ -4,6 +4,7 @@
 console.log('❎ Running debug-test');
 
 
+// RELEASE-TODO: check if dist can also be hosted with pages
 const racLocation = window.location.hostname == 'localhost'
   ? 'http://localhost:9001/rac.dev.js'
   // ? 'http://localhost:9001/rac.js'
@@ -205,54 +206,60 @@ function buildSketch(sketch, Rac) {
       .text(`ell: ${distanceControl.endLimitLength().toFixed(3)}`, distanceTextFormat).draw();
 
 
-      // North-east Example
+    // North-east Example
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
       (egCenter, movingCenter) => {
-
-      egCenter.arc(5).draw();
-
-      // Default text format
       let hEnum = Rac.Text.Format.horizontalAlign;
       let vEnum = Rac.Text.Format.verticalAlign;
-      egCenter.add(10, 10)
-        .text('Text without format')
+
+      egCenter.arc(5).draw();
+      // RELEASE-TODO: could use a format.bottomCenter
+      let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
+      egCenter.text('North-east Example:\nText formatting and point.text', bottomCenter)
+        .draw()
+
+      // Default text format
+      egCenter = egCenter.addY(30);
+      egCenter.segmentToAngle(0, 100).draw(palette.orangePeel.stroke());
+      egCenter.text('Text without format')
         .draw();
 
-      egCenter.add(10, 10)
-        .text('Text with bottomLeft Format', rac.Text.Format.bottomLeft)
+      egCenter.text('Text with bottomLeft Format', rac.Text.Format.bottomLeft)
         .draw();
 
       let noSizeFormat = rac.Text.Format(hEnum.left, vEnum.top)
-      egCenter.add(10, 30)
-        .text('Text without size in format', noSizeFormat)
+      egCenter = egCenter.addY(20);
+      egCenter.text('Text without size in format', noSizeFormat)
         .draw();
 
+      // Save defaults
       let fontDefault = rac.textFormatDefaults.font;
       let sizeDefault = rac.textFormatDefaults.size;
       rac.textFormatDefaults.font = null;
       rac.textFormatDefaults.size = 12;
-      egCenter.add(10, 50)
-        .text('Text after removing defaults')
+
+      egCenter = egCenter.addY(20);
+      egCenter.text('Text after removing defaults')
         .draw();
 
       // Restore defaults
       rac.textFormatDefaults.font = fontDefault;
       rac.textFormatDefaults.size = sizeDefault;
 
-      egCenter.add(10, 80)
-        .text('Mutating format size, font, angle')
+      egCenter = egCenter.addY(30);
+      egCenter.text('Mutating format size, font, angle')
         .withSize(20)
         .withFont('Futura')
         .withAngle(controlAngle)
         .draw();
 
       let reversableFormat = rac.Text.Format(hEnum.left, vEnum.top, controlAngle)
-      egCenter.add(10, 120)
-        .text('Text with reversableFormat', reversableFormat)
+      egCenter = egCenter.addY(30);
+      egCenter.text('Text with reversableFormat', reversableFormat)
         .draw();
 
-      egCenter.add(10, 140)
-        .text('Text with reversableFormat.reverse', reversableFormat.reverse())
+      egCenter = egCenter.addY(20);
+      egCenter.text('Text with reversableFormat.reverse', reversableFormat.reverse())
         .draw();
     }); // North-east Example
 
@@ -354,7 +361,7 @@ function buildSketch(sketch, Rac) {
     rac.controller.drawControls();
 
 
-    // console.log(`👑 ~finis coronat opus ${sketch.frameCount}`);
+    console.log(`👑 ~finis coronat opus ${sketch.frameCount}`);
   } // draw
 
 } // buildSketch

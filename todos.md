@@ -16,10 +16,12 @@ For version change
 + Create Drawable namespace, and document the drawable methods
 + rename version namespace to versioning
 + search `example return` replace `returns E.g.`
++ missing formats? bottomCenter?
 + add rac.Text.Format.tl, tc, tr shorthands
 + add Color.hexString()
 + Update docs for Color.fromHex support for 8 hex numerals
-+ add textFormat.withAlign(otherFormt) to copy only align properties
++ add textFormat.withFormatAlign(otherFormt) to copy only align properties
++ add textFormat.withAlign(x, y) to set align properties
 + add text.withAlign(otherFormat) to copy only align properties
 + maybe update all toString examples to comment after code (like in Point)
 + FIX all RELEASE-TODO
