@@ -5,6 +5,7 @@ Changelog
 ----------------------------
 + Overall documentation improvements and corrections
 + Add `ray.text`, `segment.text`
++ Add `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
 + Add tests for `Color`
 + Renamed `version` file to `versioning`
 

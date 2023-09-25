@@ -218,21 +218,72 @@ class Arc{
   }
 
 
+  // RELEASE-TODO: Unit Test and Visual Test
   /**
-  * Returns a new `Segment` from `center` to `startPoint()`.
+  * Returns a new `Ray` tangent to the arc starting at `startPoint()` and
+  * towards the arc's orientation.
+  */
+  startTangentRay() {
+    let tangentAngle = this.start.perpendicular(this.clockwise);
+    return this.startPoint().ray(tangentAngle);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Ray` tangent to the arc starting at `endPoint()` and
+  * against the arc's orientation.
+  */
+  endTangentRay() {
+    let tangentAngle = this.end.perpendicular(!this.clockwise);
+    return this.endPoint().ray(tangentAngle);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Segment` representing the radius of the arc at `start`.
+  * The segment starts starts at `center` and ends at `startPoint()`.
   * @returns {Rac.Segment}
   */
-  startSegment() {
+  startRadiusSegment() {
     return new Rac.Segment(this.rac, this.startRay(), this.radius);
   }
 
 
   /**
-  * Returns a new `Segment` from `center` to `endPoint()`.
+  * Returns a new `Segment` representing the radius of the arc at `start`.
+  * The segment starts starts at `center` and ends at `startPoint()`.
+  *
+  * Equivalent to [`startRadiusSegment`]{@link Rac.Arc#startRadiusSegment}.
+  * @returns {Rac.Segment}
+  */
+  startSegment() {
+    return this.startRadiusSegment()
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Segment` representing the radius of the arc at `end`.
+  * The segment starts starts at `center` and ends at `endPoint()`.
+  * @returns {Rac.Segment}
+  */
+  endRadiusSegment() {
+    return new Rac.Segment(this.rac, this.endRay(), this.radius);
+  }
+
+
+  /**
+  * * Returns a new `Segment` representing the radius of the arc at `end`.
+  * The segment starts starts at `center` and ends at `endPoint()`.
+  *
+  * Equivalent to [`endRadiusSegment`]{@link Rac.Arc#endRadiusSegment}.
+  *
   * @returns {Rac.Segment}
   */
   endSegment() {
-    return new Rac.Segment(this.rac, this.endRay(), this.radius);
+    return this.endRadiusSegment();
   }
 
 
@@ -598,7 +649,7 @@ class Arc{
 
   /**
   * Returns a new `Arc` with its `start` and `end` exchanged, and the
-  * opposite clockwise orientation. The center and radius remain be the
+  * opposite clockwise orientation. The center and radius remain the
   * same as `this`.
   *
   * @returns {Rac.Arc}
