@@ -11,30 +11,23 @@ const racLocation = window.location.hostname == 'localhost'
   // ? 'https://cdn.jsdelivr.net/gh/lopsae/rac/dist/rac.js'
   : 'https://cdn.jsdelivr.net/gh/lopsae/rac@develop/dist/rac.js';
 
-if (typeof requirejs === "function") {
+if (typeof requirejs === 'function') {
   console.log(`📚 Requesting rac from: ${racLocation}`);
+  // RELEASE-TODO: can both libraries be loaded at the same time?
   requirejs([racLocation], racConstructor => {
     console.log('📚 Loaded RAC');
     console.log(`🗃 ${racConstructor.version} ${racConstructor.build}`);
     console.log(`🕰 ${racConstructor.dated}`);
     let timed = racConstructor.dated.split('T').at(-1);
-    console.log(`⏱ ${timed}`);
+    console.log(`⏱️ ${timed}`);
 
+    // RELEASE-TODO: update to p5 1.7.0
     requirejs(['https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js'], p5Func => {
       console.log(`📚 Loaded p5:${typeof p5Func}`);
       new p5Func(sketch => buildSketch(sketch, racConstructor));
     });
   });
 }
-
-
-// d3.require("p5@1.0.0").then(p5 => {
-//   console.log(`loaded p5`);
-//   d3.require("./rac-0.9.9.x.js").then(rac => {
-//     window.rac = rac;
-//     console.log(`loaded rac`);
-//   });
-// });
 
 
 function buildSketch(sketch, Rac) {
@@ -49,15 +42,13 @@ function buildSketch(sketch, Rac) {
     console.log(`📚 New RAC constructed`);
     rac.setupDrawer(sketch);
 
-    // rac.unitaryEqualityThreshold = 0.1;
-
     distanceControl = new Rac.RayControl(rac, 0, 300);
     distanceControl.setValueWithLength(140);
     distanceControl.setLimitsWithLengthInsets(10, 10);
     distanceControl.addMarkerAtCurrentValue();
 
     angleControl = new Rac.ArcControl(rac, 0, rac.Angle(1));
-    angleControl.setValueWithAngleDistance(-1/32);
+    angleControl.setValueWithAngleDistance(1/16);
     angleControl.addMarkerAtCurrentValue();
 
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
@@ -78,6 +69,7 @@ function buildSketch(sketch, Rac) {
   }
 
 
+  // RELEASE-TODO: remove timing code
   let lapses = [];
   sketch.mouseDragged = function(event) {
     rac.controller.pointerDragged(rac.Point.pointer());
@@ -120,14 +112,15 @@ function buildSketch(sketch, Rac) {
   sketch.draw = function() {
     sketch.clear();
 
+    // RELEASE-TODO: move palette and other visual setup out
     // https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c-9e22f1
     let palette = {
-      richBlack:   rac.Color.fromHex("011627"),//(1, 22, 39),
-      babyPowder:  rac.Color.fromHex("fdfffc"),//(253, 255, 252),
-      tiffanyBlue: rac.Color.fromHex("2ec4b6"),//(46, 196, 182),
-      roseMadder:  rac.Color.fromHex("#e71d36"),//(231, 29, 54),
-      orangePeel:  rac.Color.fromHex("#ff9f1c"),//(255, 159, 28),
-      purpleX11:   rac.Color.fromHex("#9e22f1")//(158, 34, 241)
+      richBlack:   rac.Color.fromHex('011627'),//(1, 22, 39),
+      babyPowder:  rac.Color.fromHex('fdfffc'),//(253, 255, 252),
+      tiffanyBlue: rac.Color.fromHex('2ec4b6'),//(46, 196, 182),
+      roseMadder:  rac.Color.fromHex('e71d36'),//(231, 29, 54),
+      orangePeel:  rac.Color.fromHex('ff9f1c'),//(255, 159, 28),
+      purpleX11:   rac.Color.fromHex('9e22f1')//(158, 34, 241)
     };
 
     // Stroke weigth
@@ -212,38 +205,57 @@ function buildSketch(sketch, Rac) {
       .text(`ell: ${distanceControl.endLimitLength().toFixed(3)}`, distanceTextFormat).draw();
 
 
-    // Tests for default text format
-    let hEnum = Rac.Text.Format.horizontalAlign;
-    let vEnum = Rac.Text.Format.verticalAlign;
-    rac.Point(10, 10)
-      .text("Default Text", rac.Text.Format.topLeft)
-      .draw();
-    rac.Point(10, 30)
-      .text("Text with font-size-less format", rac.Text.Format(hEnum.left, vEnum.top))
-      .draw();
-    rac.Point(10, 50)
-      .text("Text without format")
-      .draw();
-    rac.Point(10, 70)
-      .text("Mutating format")
-      .withSize(20)
-      .withFont("Futura")
-      .withAngle(0.01)
-      .draw();
-    let reversableFormat = rac.Text.Format(hEnum.left, vEnum.top, 0.01)
-    rac.Point(50, 100).debug()
-      .text("reversable text", reversableFormat)
-      .draw();
-    rac.Point(50, 120)
-      .text("reverse text", reversableFormat.reverse())
-      .draw();
+      // North-east Example
+    makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
+      (egCenter, movingCenter) => {
 
-    rac.textFormatDefaults.font = null;
-    rac.textFormatDefaults.size = 12;
+      egCenter.arc(5).draw();
 
-    rac.Point(10, 150)
-      .text("Text after changing defaults")
-      .draw();
+      // Default text format
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      egCenter.add(10, 10)
+        .text('Text without format')
+        .draw();
+
+      egCenter.add(10, 10)
+        .text('Text with bottomLeft Format', rac.Text.Format.bottomLeft)
+        .draw();
+
+      let noSizeFormat = rac.Text.Format(hEnum.left, vEnum.top)
+      egCenter.add(10, 30)
+        .text('Text without size in format', noSizeFormat)
+        .draw();
+
+      let fontDefault = rac.textFormatDefaults.font;
+      let sizeDefault = rac.textFormatDefaults.size;
+      rac.textFormatDefaults.font = null;
+      rac.textFormatDefaults.size = 12;
+      egCenter.add(10, 50)
+        .text('Text after removing defaults')
+        .draw();
+
+      // Restore defaults
+      rac.textFormatDefaults.font = fontDefault;
+      rac.textFormatDefaults.size = sizeDefault;
+
+      egCenter.add(10, 80)
+        .text('Mutating format size, font, angle')
+        .withSize(20)
+        .withFont('Futura')
+        .withAngle(controlAngle)
+        .draw();
+
+      let reversableFormat = rac.Text.Format(hEnum.left, vEnum.top, controlAngle)
+      egCenter.add(10, 120)
+        .text('Text with reversableFormat', reversableFormat)
+        .draw();
+
+      egCenter.add(10, 140)
+        .text('Text with reversableFormat.reverse', reversableFormat.reverse())
+        .draw();
+    }); // North-east Example
+
 
 
     // Tests for divideToSegments
@@ -289,33 +301,6 @@ function buildSketch(sketch, Rac) {
         .draw().debug(verbose);
 
     }); // Example 1
-
-
-    // Example 2 - B
-    makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
-      (egCenter, movingCenter) => {
-
-      egCenter.segmentToPoint(movingCenter, controlAngle)
-        // Segment
-        .draw().debug()
-        // Segment verbose
-        .translatePerpendicular(70, true)
-        .draw().debug(verbose);
-
-      egCenter
-        // Angle through point
-        .addX(100).debugAngle(controlAngle, verbose)
-        .addY(-100).push();
-      // Angle through angle
-      controlAngle.inverse().debug(rac.popStack());
-
-      egCenter
-        .addY(-100)
-        .ray(controlAngle.inverse()).debug()
-        .start
-        .addX(-70)
-        .ray(controlAngle.inverse()).debug(true);
-    }); // Example 2
 
 
     // Example 3 - C
