@@ -4,6 +4,7 @@ Changelog
 1.3.0-dev - Work in progress
 ----------------------------
 + Overall documentation improvements and corrections
++ Add `ray.text`, `segment.text`
 + Add tests for `Color`
 + Renamed `version` file to `versioning`
 
