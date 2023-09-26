@@ -275,7 +275,7 @@ class Arc{
 
 
   /**
-  * * Returns a new `Segment` representing the radius of the arc at `end`.
+  * Returns a new `Segment` representing the radius of the arc at `end`.
   * The segment starts starts at `center` and ends at `endPoint()`.
   *
   * Equivalent to [`endRadiusSegment`]{@link Rac.Arc#endRadiusSegment}.
@@ -1337,9 +1337,9 @@ class Arc{
   *
   * When `format` is ommited or `null`, the format used for the returned
   * text will be:
-  * + [`rac.Text.Format.bottomLeft`]{@link instance.Text.Format#bottomLeft}]
+  * + [`rac.Text.Format.bottomLeft`]{@link instance.Text.Format#bottomLeft}
   * format for arcs with `clockwise` orientation set to `true`
-  * + [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}]
+  * + [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}
   * format for arcs with `clockwise` orientation set to `false`
   *
   * When `format` is provided, the angle for the returned text will still
