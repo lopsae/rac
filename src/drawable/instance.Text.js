@@ -42,9 +42,18 @@ module.exports = function attachRacText(rac) {
   */
 
 
+  // RELEASE-TODO: test all abbreviated forms
+
+  // ======================================================================
+  // Tops =================================================================
+  // ======================================================================
+
   /**
-  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to the
   * top-left edge of the drawn text.
+  *
+  * Also available as: `tl`.
+  *
   * @name topLeft
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -52,10 +61,30 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.topLeft = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.top);
+  rac.Text.Format.tl = rac.Text.Format.topLeft;
 
   /**
-  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
-  * top-right edge of the drawn text.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the center-left edge of the drawn text.
+  *
+  * Also available as: `tc`.
+  *
+  * @name topCenter
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  // RELEASE-TODO: add to tests
+  rac.Text.Format.topCenter = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.center,
+    Rac.Text.Format.verticalAlign.top);
+  rac.Text.Format.tc = rac.Text.Format.topCenter;
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the center-right edge of the drawn text.
+  *
+  * Also available as: `tr`.
+  *
   * @name topRight
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -63,10 +92,19 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.topRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.top);
+  rac.Text.Format.tr = rac.Text.Format.topRight;
+
+
+  // ======================================================================
+  // Centers ==============================================================
+  // ======================================================================
 
   /**
-  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
-  * center-left edge of the drawn text.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the center-left edge of the drawn text.
+  *
+  * Also available as: `cl`.
+  *
   * @name centerLeft
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -74,12 +112,13 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.centerLeft = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.center);
+  rac.Text.Format.cl = rac.Text.Format.centerLeft;
 
   /**
-  * A `Text.Format` to position the [`text.point`]{@link Rac.Text#point} at the
-  * center of the drawn text.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the center of the drawn text.
   *
-  * Also available as: `centered`.
+  * Also available as: `cc`, `centered`.
   *
   * @name centerCenter
   * @type {Rac.Text.Format}
@@ -89,10 +128,14 @@ module.exports = function attachRacText(rac) {
     Rac.Text.Format.horizontalAlign.center,
     Rac.Text.Format.verticalAlign.center);
   rac.Text.Format.centered = rac.Text.Format.centerCenter;
+  rac.Text.Format.cc       = rac.Text.Format.centerCenter;
 
   /**
-  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
-  * center-right of the drawn text.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the center-right of the drawn text.
+  *
+  * Also available as: `cr`.
+  *
   * @name centerRight
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -100,10 +143,19 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.centerRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.center);
+  rac.Text.Format.cr = rac.Text.Format.centerRight;
+
+
+  // ======================================================================
+  // Bottoms ==============================================================
+  // ======================================================================
 
   /**
-  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
-  * bottom-left of the drawn text.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the bottom-left of the drawn text.
+  *
+  * Also available as: `bl`.
+  *
   * @name bottomLeft
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -111,10 +163,30 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.bottomLeft = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.bottom);
+  rac.Text.Format.bl = rac.Text.Format.bottomLeft;
 
   /**
-  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} at the
-  * bottom-right of the drawn text.
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the bottom-center of the drawn text.
+  *
+  * Also available as: `bc`.
+  *
+  * @name bottomCenter
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  // RELEASE-TODO: add to tests
+  rac.Text.Format.bottomCenter = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.center,
+    Rac.Text.Format.verticalAlign.bottom);
+  rac.Text.Format.bc = rac.Text.Format.bottomCenter;
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the bottom-right of the drawn text.
+  *
+  * Also available as: `br`.
+  *
   * @name bottomRight
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
@@ -122,6 +194,7 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.bottomRight = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.right,
     Rac.Text.Format.verticalAlign.bottom);
+  rac.Text.Format.br = rac.Text.Format.bottomRight;
 
 
   /**
