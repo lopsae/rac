@@ -5,7 +5,7 @@ console.log('❎ Running debug-test');
 
 
 // RELEASE-TODO: check if dist can also be hosted with pages
-const racLocation = window.location.hostname == 'localhost'
+const racLocation = window.location.hostname == '127.0.0.1' // 'localhost'
   ? 'http://localhost:9001/rac.dev.js'
   // ? 'http://localhost:9001/rac.js'
   // ? 'http://localhost:9001/rac.min.js'
@@ -100,12 +100,13 @@ function buildSketch(sketch, Rac) {
   function makeExampleContext(center, exampleAngle, arcsAngle, arcsDistance, closure) {
     let distanceToExample = 250;
     let egCenter = center.pointToAngle(exampleAngle, distanceToExample);
-    let movingCenter = egCenter.pointToAngle(arcsAngle, arcsDistance);
+    let segmentEnd = egCenter.pointToAngle(arcsAngle, arcsDistance);
 
-    closure(egCenter, movingCenter);
+    closure(egCenter, segmentEnd);
   }
 
 
+  // RELEASE-TODO: needed?
   // Debug verbose
   let verbose = true;
 
@@ -172,7 +173,7 @@ function buildSketch(sketch, Rac) {
     let center = rac.Point.canvasCenter();
 
 
-    // Controls
+    // Controls values
     let controlAngle = angleControl.distance();
     let controlDistance = distanceControl.distance();
 
@@ -206,16 +207,18 @@ function buildSketch(sketch, Rac) {
       .text(`ell: ${distanceControl.endLimitLength().toFixed(3)}`, distanceTextFormat).draw();
 
 
-    // North-east Example
+    // ====================================================================
+    // North-East Example =================================================
+    // ====================================================================
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
-      (egCenter, movingCenter) => {
+    (egCenter, segmentEnd) => {
       let hEnum = Rac.Text.Format.horizontalAlign;
       let vEnum = Rac.Text.Format.verticalAlign;
 
       egCenter.arc(5).draw();
       // RELEASE-TODO: could use a format.bottomCenter
       let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
-      egCenter.text('North-east Example:\nText formatting and point.text', bottomCenter)
+      egCenter.text('North-East Example:\nText formatting and point.text', bottomCenter)
         .draw()
 
       // Default text format
@@ -246,7 +249,7 @@ function buildSketch(sketch, Rac) {
       rac.textFormatDefaults.font = fontDefault;
       rac.textFormatDefaults.size = sizeDefault;
 
-      egCenter = egCenter.addY(30);
+      egCenter = egCenter.addY(50).debug();
       egCenter.text('Mutating format size, font, angle')
         .withSize(20)
         .withFont('Futura')
@@ -261,77 +264,72 @@ function buildSketch(sketch, Rac) {
       egCenter = egCenter.addY(20);
       egCenter.text('Text with reversableFormat.reverse', reversableFormat.reverse())
         .draw();
-    }); // North-east Example
+    }); // North-East Example
 
 
-
-    // Tests for divideToSegments
-    let circle = center.addY(-250).arc(150).draw();
-    let circleTop = circle.pointAtAngle(rac.Angle.up);
-
-    circle.radiusSegmentAtAngle(rac.Angle.left).draw(rac.Stroke(5, palette.tiffanyBlue));
-    circle.radiusSegmentAtAngle(rac.Angle.nw).draw(rac.Stroke(null, palette.orangePeel));
-    circle.radiusSegmentAtAngle(rac.Angle.n).draw(rac.Stroke(15));
-    circle.radiusSegmentAtAngle(rac.Angle.ne).draw(rac.Stroke.none);
-
-    circle.radiusSegmentAtAngle(rac.Angle.e).draw(palette.orangePeel.stroke());
-    circle.radiusSegmentAtAngle(rac.Angle.see).draw(palette.orangePeel.stroke(5));
-    circle.radiusSegmentAtAngle(rac.Angle.se).draw(Rac.Stroke.from(rac, palette.orangePeel));
-    circle.radiusSegmentAtAngle(rac.Angle.ses).draw(Rac.Stroke.from(rac, palette.orangePeel.stroke(5)));
-    circle.radiusSegmentAtAngle(rac.Angle.s).draw(Rac.Stroke.from(rac, rac.Stroke(10)));
-
-    circle.radiusSegmentAtAngle(rac.Angle.sw).draw(palette.orangePeel.stroke(5).withWeight(10));
-    circle.radiusSegmentAtAngle(rac.Angle.sww).draw(palette.orangePeel.stroke(5).withAlpha(0.5));
-    circle.radiusSegmentAtAngle(rac.Angle.sws).draw(rac.Stroke(10).withAlpha(0.5));
-
-
-    // Tests for linearTransition
-
-    let transCircle = center.addY(250).arc(150).draw();
-    let totalIndex = 20;
-    for (let index = 0; index <= totalIndex; index++) {
-      let ratio = index / totalIndex;
-      let angle = ratio * 0.5;
-
-      let transColor = palette.roseMadder.linearTransition(ratio, palette.tiffanyBlue);
-      let stroke = transColor.stroke(5);
-
-      transCircle.radiusSegmentAtAngle(angle).draw(stroke);
-    }
-
-    // Example 1 - A
+    // ====================================================================
+    // North-West Example =================================================
+    // ====================================================================
     makeExampleContext(center, rac.Angle.nw, controlAngle, controlDistance,
-      (egCenter, movingCenter) => {
+    (egCenter, segmentEnd) => {
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      let translation = 60;
+      egCenter.arc(5).draw();
+      egCenter.arc(translation).draw()
 
-      // Variable radius arc, clockwise
-      egCenter.arc(controlDistance, rac.Angle.sw, controlAngle)
-        .draw().debug(verbose);
+      // RELEASE-TODO: could use a format.bottomCenter
+      let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
+      egCenter.text('North-West Example:\nray.text, segment.text', bottomCenter)
+        .draw()
 
-    }); // Example 1
+
+      let ray = egCenter.ray(controlAngle)
+        .translateToDistance(translation).debug();
+      let segment = egCenter.ray(controlAngle.perpendicular(false))
+        .translateToDistance(translation)
+        .segment(100).debug();
+
+      ray.text('Text with ray.text').draw();
+      segment.text('Text with segment.text').draw();
 
 
-    // Example 3 - C
+    }); // North-West Example
+
+
+    // ====================================================================
+    // South-West Example =================================================
+    // ====================================================================
     makeExampleContext(center, rac.Angle.sw, controlAngle, controlDistance,
-      (egCenter, movingCenter) => {
+    (egCenter, segmentEnd) => {
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
+      egCenter.arc(5).draw();
 
-      // Variable radius arc, counter-clockwise
-      egCenter.arc(controlDistance, rac.Angle.sw, controlAngle, false)
-        .draw().debug(verbose);
+      // RELEASE-TODO: could use a format.bottomCenter
+      let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
+      egCenter.text('South-West Example:\nray.text', bottomCenter)
+        .draw();
 
-    }); // Example 3
+      egCenter.arc(controlDistance, controlAngle, 1/4).debug()
+        .text('Text with arc.text,\nfor clockwise text').draw();
+
+      egCenter.arc(controlDistance, controlAngle.inverse(), 2/4, false).debug()
+        .text('Text with arc.text,\nfor couter-clockwise text').draw();
+    }); // South-West Example
 
 
     // Example 4 - D
     makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
-      (egCenter, movingCenter) => {
+      (egCenter, segmentEnd) => {
 
       // Point
       egCenter.debug();
       // Point verbose
-      movingCenter.debug(verbose);
+      segmentEnd.debug(verbose);
 
       let translatedSegment = egCenter
-        .segmentToPoint(movingCenter, controlAngle)
+        .segmentToPoint(segmentEnd, controlAngle)
         .translatePerpendicular(100, true)
         .draw();
 
@@ -343,7 +341,7 @@ function buildSketch(sketch, Rac) {
         .arc(1, rac.Angle.w, rac.Angle.w, false).draw().debug();
 
       translatedSegment = egCenter
-        .segmentToPoint(movingCenter, controlAngle)
+        .segmentToPoint(segmentEnd, controlAngle)
         .translatePerpendicular(100, false)
         .draw();
 
