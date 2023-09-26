@@ -1329,6 +1329,37 @@ class Arc{
     return new Rac.Composite(this.rac, beziers);
   }
 
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Text` located and oriented towards `startTangentRay()`
+  * with the given `string` and `format`.
+  *
+  * When `format` is ommited or `null`, the format used for the returned
+  * text will be:
+  * + [`rac.Text.Format.bottomLeft`]{@link instance.Text.Format#bottomLeft}]
+  * format for arcs with `clockwise` orientation set to `true`
+  * + [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}]
+  * format for arcs with `clockwise` orientation set to `false`
+  *
+  * When `format` is provided, the angle for the returned text will still
+  * be set to `startTangentRay().angle`.
+  *
+  * @param {String} string - The string of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format of the new `Text`; when ommited or `null`, a default
+  *   format is used instead
+  * @returns {Rac.Text}
+  */
+  text(string, format = null) {
+    if (format === null) {
+      format = this.clockwise
+        ? this.rac.Text.Format.bottomLeft
+        : this.rac.Text.Format.topLeft;
+    }
+    return this.startTangentRay().text(string, format);
+  }
+
 } // class Arc
 
 
