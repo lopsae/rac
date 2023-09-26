@@ -16,8 +16,6 @@ For version change
 + Create Drawable namespace, and document the drawable methods
 + rename version namespace to versioning
 + search `example return` replace `returns E.g.`
-+ missing formats? bottomCenter?
-+ add rac.Text.Format.tl, tc, tr shorthands
 + add Color.hexString()
 + Update docs for Color.fromHex support for 8 hex numerals
 + add textFormat.withFormatAlign(otherFormt) to copy only align properties

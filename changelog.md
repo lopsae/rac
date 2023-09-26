@@ -8,7 +8,7 @@ Changelog
 + Add `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
 + Add `rac.Text.Format.bottomCenter`, `rac.Text.Format.bottomRight`
 + Add `rac.Text.Format.baselineX` constants
-+ Add several abbreviated shorthands for `rac.Text.Format` formats
++ Add abbreviated shorthands for `rac.Text.Format` ready-made formats, like `rac.Text.Format.tl`
 + Add tests for `Color`
 + Renamed `version` file to `versioning`
 

@@ -42,8 +42,6 @@ module.exports = function attachRacText(rac) {
   */
 
 
-  // RELEASE-TODO: test all abbreviated forms
-
   // ======================================================================
   // Tops =================================================================
   // ======================================================================
@@ -73,7 +71,6 @@ module.exports = function attachRacText(rac) {
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
   */
-  // RELEASE-TODO: add to tests
   rac.Text.Format.topCenter = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.center,
     Rac.Text.Format.verticalAlign.top);
@@ -175,7 +172,6 @@ module.exports = function attachRacText(rac) {
   * @type {Rac.Text.Format}
   * @memberof instance.Text.Format#
   */
-  // RELEASE-TODO: add to tests
   rac.Text.Format.bottomCenter = rac.Text.Format(
     Rac.Text.Format.horizontalAlign.center,
     Rac.Text.Format.verticalAlign.bottom);
@@ -197,7 +193,6 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.br = rac.Text.Format.bottomRight;
 
 
-  // RELEASE-TODO: add baselines to tests
   // ======================================================================
   // Baselines ============================================================
   // ======================================================================
