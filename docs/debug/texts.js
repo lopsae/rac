@@ -212,13 +212,8 @@ function buildSketch(sketch, Rac) {
     // ====================================================================
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
-      let hEnum = Rac.Text.Format.horizontalAlign;
-      let vEnum = Rac.Text.Format.verticalAlign;
-
       egCenter.arc(5).draw();
-      // RELEASE-TODO: could use a format.bottomCenter
-      let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
-      egCenter.text('North-East Example:\nText formatting and point.text', bottomCenter)
+      egCenter.text('North-East Example:\nText formatting and point.text', rac.Text.Format.bc)
         .draw()
 
       // Default text format
@@ -229,6 +224,9 @@ function buildSketch(sketch, Rac) {
 
       egCenter.text('Text with bottomLeft Format', rac.Text.Format.bottomLeft)
         .draw();
+
+      let hEnum = Rac.Text.Format.horizontalAlign;
+      let vEnum = Rac.Text.Format.verticalAlign;
 
       let noSizeFormat = rac.Text.Format(hEnum.left, vEnum.top)
       egCenter = egCenter.addY(20);
@@ -272,15 +270,11 @@ function buildSketch(sketch, Rac) {
     // ====================================================================
     makeExampleContext(center, rac.Angle.nw, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
-      let hEnum = Rac.Text.Format.horizontalAlign;
-      let vEnum = Rac.Text.Format.verticalAlign;
       let translation = 60;
       egCenter.arc(5).draw();
       egCenter.arc(translation).draw()
 
-      // RELEASE-TODO: could use a format.bottomCenter
-      let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
-      egCenter.text('North-West Example:\nray.text, segment.text', bottomCenter)
+      egCenter.text('North-West Example:\nray.text, segment.text', rac.Text.Format.bc)
         .draw()
 
 
@@ -302,13 +296,8 @@ function buildSketch(sketch, Rac) {
     // ====================================================================
     makeExampleContext(center, rac.Angle.sw, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
-      let hEnum = Rac.Text.Format.horizontalAlign;
-      let vEnum = Rac.Text.Format.verticalAlign;
       egCenter.arc(5).draw();
-
-      // RELEASE-TODO: could use a format.bottomCenter
-      let bottomCenter = rac.Text.Format(hEnum.center, vEnum.bottom)
-      egCenter.text('South-West Example:\nray.text', bottomCenter)
+      egCenter.text('South-West Example:\nray.text', rac.Text.Format.bc)
         .draw();
 
       egCenter.arc(controlDistance, controlAngle, 1/4).debug()
@@ -319,40 +308,15 @@ function buildSketch(sketch, Rac) {
     }); // South-West Example
 
 
-    // Example 4 - D
+    // ====================================================================
+    // South-East Example =================================================
+    // ====================================================================
     makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
-      (egCenter, segmentEnd) => {
-
-      // Point
-      egCenter.debug();
-      // Point verbose
-      segmentEnd.debug(verbose);
-
-      let translatedSegment = egCenter
-        .segmentToPoint(segmentEnd, controlAngle)
-        .translatePerpendicular(100, true)
+    (egCenter, segmentEnd) => {
+      egCenter.arc(5).draw();
+      egCenter.text('South-East Example:\nempty', rac.Text.Format.blc)
         .draw();
-
-      // Small complete-circle arc
-      translatedSegment.startPoint()
-        .arc(10).draw().debug();
-      // Tiny complete-circle arc
-      translatedSegment.endPoint()
-        .arc(1, rac.Angle.w, rac.Angle.w, false).draw().debug();
-
-      translatedSegment = egCenter
-        .segmentToPoint(segmentEnd, controlAngle)
-        .translatePerpendicular(100, false)
-        .draw();
-
-      // Small arc
-      translatedSegment.startPoint()
-        .arc(10, rac.Angle.w, rac.Angle.n).draw().debug();
-      // Tiny arc
-      translatedSegment.endPoint()
-        .arc(1, rac.Angle.w, rac.Angle.n, false).draw().debug();
-
-    }); // Example 4
+    }); // South-East Example
 
 
     // Controls draw on top
