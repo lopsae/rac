@@ -197,6 +197,57 @@ module.exports = function attachRacText(rac) {
   rac.Text.Format.br = rac.Text.Format.bottomRight;
 
 
+  // RELEASE-TODO: add baselines to tests
+  // ======================================================================
+  // Baselines ============================================================
+  // ======================================================================
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the baseline and left of the drawn text.
+  *
+  * Also available as: `bll`.
+  *
+  * @name baselineLeft
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.baselineLeft = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.left,
+    Rac.Text.Format.verticalAlign.baseline);
+  rac.Text.Format.bll = rac.Text.Format.baselineLeft;
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the baseline and center of the drawn text.
+  *
+  * Also available as: `blc`.
+  *
+  * @name baselineCenter
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.baselineCenter = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.center,
+    Rac.Text.Format.verticalAlign.baseline);
+  rac.Text.Format.blc = rac.Text.Format.baselineCenter;
+
+  /**
+  * A `Text.Format` to align the [`text.point`]{@link Rac.Text#point} to
+  * the baseline and right of the drawn text.
+  *
+  * Also available as: `blr`.
+  *
+  * @name baselineRight
+  * @type {Rac.Text.Format}
+  * @memberof instance.Text.Format#
+  */
+  rac.Text.Format.baselineRight = rac.Text.Format(
+    Rac.Text.Format.horizontalAlign.right,
+    Rac.Text.Format.verticalAlign.baseline);
+  rac.Text.Format.blr = rac.Text.Format.baselineRight;
+
+
   /**
   * A `Text` for drawing `hello world` with `topLeft` format at
   * `Point.zero`.
