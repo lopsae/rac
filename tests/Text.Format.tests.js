@@ -11,8 +11,8 @@ const ha = Rac.Text.Format.horizontalAlign;
 const va = Rac.Text.Format.verticalAlign;
 
 const centered = rac.Text.Format(ha.center, va.center);
-const upright =  rac.Text.Format(ha.left, va.baseline, 3/4);
-const mono =     rac.Text.Format(ha.left, va.top, 0, 'mono', 14);
+const upright  = rac.Text.Format(ha.left, va.baseline, 3/4);
+const mono     = rac.Text.Format(ha.left, va.top, 0, 'mono', 14);
 
 tools.test( function identity() {
   // Rac instance
@@ -45,7 +45,6 @@ tools.test( function identity() {
   expect(mono).not.equalsTextFormat(ha.left, va.top);
   expect(mono).not.equalsTextFormat(ha.left, va.top, 1/2);
   expect(mono).not.equalsTextFormat(ha.left, va.top, 1/2, null);
-
 
   // Unexpected type for equalsTextFormat
   expect(null)            .not.equalsTextFormat(ha.center, va.center);
@@ -132,20 +131,41 @@ tools.test( function thrownErrors() {
 });
 
 
+tools.test( function defaultParameters() {
+  expect(centered).equalsTextFormat(ha.center, va.center);
+  expect(centered).equalsTextFormat(ha.center, va.center, 0, null, null);
+});
+
+
 tools.test( function instanceMembers() {
-  expect(rac.TextFormat(ha.left, va.baseline, 1/8, 'mono', 14))
-    .equalsTextFormat(ha.left, va.baseline, 1/8, 'mono', 14);
+  expect(rac.Text.Format.topLeft)     .equalsTextFormat(ha.left,   va.top);
+  expect(rac.Text.Format.tl)          .equalsTextFormat(ha.left,   va.top);
+  expect(rac.Text.Format.topCenter)   .equalsTextFormat(ha.center, va.top);
+  expect(rac.Text.Format.tc)          .equalsTextFormat(ha.center, va.top);
+  expect(rac.Text.Format.topRight)    .equalsTextFormat(ha.right,  va.top);
+  expect(rac.Text.Format.tr)          .equalsTextFormat(ha.right,  va.top);
 
-  expect(rac.Text.Format.topLeft)     .equalsTextFormat(ha.left, va.top);
-  expect(rac.Text.Format.topRight)    .equalsTextFormat(ha.right, va.top);
-
-  expect(rac.Text.Format.centerLeft)  .equalsTextFormat(ha.left, va.center);
+  expect(rac.Text.Format.centerLeft)  .equalsTextFormat(ha.left,   va.center);
+  expect(rac.Text.Format.cl)          .equalsTextFormat(ha.left,   va.center);
   expect(rac.Text.Format.centerCenter).equalsTextFormat(ha.center, va.center);
   expect(rac.Text.Format.centered)    .equalsTextFormat(ha.center, va.center);
-  expect(rac.Text.Format.centerRight) .equalsTextFormat(ha.right, va.center);
+  expect(rac.Text.Format.cc)          .equalsTextFormat(ha.center, va.center);
+  expect(rac.Text.Format.centerRight) .equalsTextFormat(ha.right,  va.center);
+  expect(rac.Text.Format.cr)          .equalsTextFormat(ha.right,  va.center);
 
-  expect(rac.Text.Format.bottomLeft)  .equalsTextFormat(ha.left, va.bottom);
-  expect(rac.Text.Format.bottomRight) .equalsTextFormat(ha.right, va.bottom);
+  expect(rac.Text.Format.bottomLeft)  .equalsTextFormat(ha.left,   va.bottom);
+  expect(rac.Text.Format.bl)          .equalsTextFormat(ha.left,   va.bottom);
+  expect(rac.Text.Format.bottomCenter).equalsTextFormat(ha.center, va.bottom);
+  expect(rac.Text.Format.bc)          .equalsTextFormat(ha.center, va.bottom);
+  expect(rac.Text.Format.bottomRight) .equalsTextFormat(ha.right,  va.bottom);
+  expect(rac.Text.Format.br)          .equalsTextFormat(ha.right,  va.bottom);
+
+  expect(rac.Text.Format.baselineLeft)  .equalsTextFormat(ha.left,   va.baseline);
+  expect(rac.Text.Format.bll)           .equalsTextFormat(ha.left,   va.baseline);
+  expect(rac.Text.Format.baselineCenter).equalsTextFormat(ha.center, va.baseline);
+  expect(rac.Text.Format.blc)           .equalsTextFormat(ha.center, va.baseline);
+  expect(rac.Text.Format.baselineRight) .equalsTextFormat(ha.right,  va.baseline);
+  expect(rac.Text.Format.blr)           .equalsTextFormat(ha.right,  va.baseline);
 });
 
 
