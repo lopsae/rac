@@ -15,10 +15,10 @@
   ],
   "scripts": {
     "start": "npm test && grunt serve",
-    "test": "jest",
+    "test": "jest --config=tests/config.js",
+    "test:coverage": "jest --coverage --config=tests/config.js && npm run test:open",
     "test:clean": "rm -rf ./coverage",
     "test:fresh": "npm run test:clean; npm test",
-    "test:coverage": "jest --coverage && npm run test:open",
     "test:c": "npm run test:coverage",
     "test:cc": "npm run test:clean; npm run test:coverage",
     "test:open": "open ./coverage/lcov-report/index.html",
@@ -41,10 +41,5 @@
     "grunt-jsdoc": "^2.4.1",
     "jest": "^29.7.0",
     "minami-rac": "1.4.2"
-  },
-  "jest": {
-    "testMatch": [
-      "**/tests/*.tests.js"
-    ]
   }
 }
