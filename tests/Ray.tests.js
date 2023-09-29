@@ -18,11 +18,9 @@ tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
   expect(otherRac.Ray.zero).not.equalsRay(0, 0, 0);
+  expect(rac.Ray.zero)         .equalsRay(0, 0, 0);
 
-  // Instance members
-  expect(rac.Ray.zero).equalsRay(0, 0, 0);
-  expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
-  expect(rac.Ray.yAxis).equalsRay(0, 0, 1/4);
+  expect(otherRac.Ray.zero.equals(rac.Ray.zero)).toBe(true);
 
   // Testing Constants
   expect(diagonal).equalsRay(55, 55, 1/8);
@@ -33,12 +31,12 @@ tools.test( function identity() {
   expect(diagonal).equalsRay(55, 55, 1/8);
   expect(diagonal).equalsRay(55, 55, rac.Angle.eighth);
 
-  // Inequality
+  // Assertion Inequality
   expect(rac.Ray.zero).not.equalsRay(7, 0, .0);
   expect(rac.Ray.zero).not.equalsRay(0, 7, .0);
   expect(rac.Ray.zero).not.equalsRay(0, 0, .7);
 
-  // Unexpected type for equalsRay
+  // Unexpected types for equalsRay
   expect(null)            .not.equalsRay(0, 0, 0);
   expect('')              .not.equalsRay(0, 0, 0);
   expect(0)               .not.equalsRay(0, 0, 0);
@@ -49,11 +47,11 @@ tools.test( function identity() {
   expect(rac.Point.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Segment.zero).not.equalsRay(0, 0, 0);
 
-  // Expected type for equals
+  // Expected types for equals
   expect(diagonal.equals(diagonal)).toBe(true);
   expect(diagonal.equals(vertical)).toBe(false);
 
-  // Unexpected type for equals
+  // Unexpected types for equals
   expect(diagonal.equals(null))            .toBe(false);
   expect(diagonal.equals(''))              .toBe(false);
   expect(diagonal.equals(0))               .toBe(false);
@@ -69,26 +67,14 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const ray = rac.Ray(1.12345, 2.12345, 0.12345);
+  const ray = rac.Ray(1.12345, 2.23456, 0.34567);
 
-  const string = ray.toString();
-  expect(string).toMatch('Ray');
-  expect(string).toMatch('0.12345');
-  expect(string).toMatch('1.12345');
-  expect(string).toMatch('2.12345');
-
-  const cutString = ray.toString(2);
-  expect(cutString).toMatch('Ray');
-  expect(cutString).toMatch('0.12');
-  expect(cutString).toMatch('1.12');
-  expect(cutString).toMatch('2.12');
-  expect(cutString).not.toMatch('0.123');
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
+  expect(ray.toString()) .toBe('Ray((1.12345,2.23456) a:0.34567)');
+  expect(ray.toString(2)).toBe('Ray((1.12,2.23) a:0.35)');
 });
 
 
-test('Errors', () => {
+tools.test( function thrownErrors() {
   const eighth = rac.Angle.eighth;
   expect(() => {new Rac.Ray(rac, fifty, eighth);})
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
@@ -112,6 +98,13 @@ test('Errors', () => {
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
   expect(() => {new Rac.Ray(rac, fifty, NaN);})
     .toThrowNamed(Rac.Exception.failedAssert.exceptionName);
+});
+
+
+tools.test( function instanceMembers() {
+  expect(rac.Ray.zero).equalsRay(0, 0, 0);
+  expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
+  expect(rac.Ray.yAxis).equalsRay(0, 0, 1/4);
 });
 
 
@@ -439,6 +432,9 @@ test('Transforms to Arc', () => {
   expect(diagonal.arcToAngleDistance(100, 1/4, false))
     .equalsArc(55, 55, 100, 1/8, 7/8, false);
 });
+
+
+
 
 
 
