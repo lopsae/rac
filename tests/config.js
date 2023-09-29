@@ -1,9 +1,13 @@
 
+// Configuration for Jest 29.7
+// https://jestjs.io/docs/configuration
+
 let config = {
   // verbose: true,
   rootDir: '../',
   testMatch: [
       '**/tests/*.tests.js'],
+  coverageReporters: ["lcov"],
   coverageThreshold: {
       global: {
         branches: 40,
