@@ -1,10 +1,14 @@
 
 
+// Simple script to check if RAC is installed as a local package.
+//
 // To be run with
 // ```
+// cd rac
+// npm link # creates global link
+// npm link ruler-and-compass # link-install the package
 // node test/nodeCheck.js
 // ```
-// Just to check if RAC package is installed
 
 let Rac = require('ruler-and-compass');
 
