@@ -25,7 +25,7 @@ let config = {
 [
   './src/drawable/Angle.js',
   './src/drawable/Point.js',
-  // './src/drawable/Ray.js',
+  './src/drawable/Ray.js',
   './src/drawable/Segment.js',
   './src/drawable/Arc.js',
   './src/drawable/Text.js',
@@ -40,8 +40,6 @@ let config = {
 ].forEach(item => {
   config.coverageThreshold[item] = {lines: 100};
 });
-
-config.coverageThreshold['./src/drawable/Ray.js'] = {lines: 80};
 
 
 module.exports = config;

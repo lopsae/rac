@@ -592,6 +592,7 @@ class Ray {
 
   // TODO: Leaving undocumented for now, until better use/explanation is found
   // based on https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
+  /* istanbul ignore next */
   bezierArc(otherRay) {
     if (this.start.equals(otherRay.start)) {
       // When both rays have the same start, returns a point bezier.
