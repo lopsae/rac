@@ -34,7 +34,7 @@ tools.test( function identity() {
   expect(nymph).equalsText(77, 77, 'quiz nymph');
   expect(nymph.format).equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14);
 
-  // Inequality
+  // Assertion Inequality
   expect(zebras).not.equalsText(0,  55, 'daft zebras');
   expect(zebras).not.equalsText(55, 0,  'daft zebras');
   expect(zebras).not.equalsText(55, 55, 'boxing wizards');

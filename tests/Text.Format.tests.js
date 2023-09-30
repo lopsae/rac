@@ -32,7 +32,7 @@ tools.test( function identity() {
   expect(upright).equalsTextFormat(ha.left, va.baseline, rac.Angle.up);
   expect(upright).equalsTextFormat(ha.left, va.baseline, 3/4);
 
-  // Inequality
+  // Assertion Inequality
   expect(centered).not.equalsTextFormat(ha.left,   va.center, 0,   null,  null);
   expect(centered).not.equalsTextFormat(ha.center, va.top,    0,   null,  null);
   expect(centered).not.equalsTextFormat(ha.center, va.center, 1/2, null,  null);
@@ -134,6 +134,12 @@ tools.test( function thrownErrors() {
 tools.test( function defaultParameters() {
   expect(centered).equalsTextFormat(ha.center, va.center);
   expect(centered).equalsTextFormat(ha.center, va.center, 0, null, null);
+
+  expect(upright)    .equalsTextFormat(ha.left, va.baseline, 3/4);
+  expect(upright).not.equalsTextFormat(ha.left, va.baseline);
+
+  expect(mono)    .equalsTextFormat(ha.left, va.top, 0, 'mono', 14);
+  expect(mono).not.equalsTextFormat(ha.left, va.top);
 });
 
 
