@@ -434,10 +434,19 @@ test('Transforms to Arc', () => {
 });
 
 
+tools.test( function text() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = diagonal.text('sphinx');
+  expect(defaultSphinx).equalsText(55, 55, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, 1/8);
+
+  const formattedVow = vertical.text('vow', rac.Text.Format.centered);
+  expect(formattedVow).equalsText(100, 100, 'vow');
+  expect(formattedVow.format).equalsTextFormat(ha.center, va.center, 1/4);
+});
 
 
-
-
-// test.todo('Check for coverage!');
-// ALMOST Full coverage! only missing undocumented functions
+// Full coverage!
 

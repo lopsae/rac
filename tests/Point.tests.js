@@ -407,15 +407,15 @@ tools.test(function transformsToArc() {
 });
 
 
-tools.test(function miscelaneous() {
+tools.test(function text() {
   const ha = Rac.Text.Format.horizontalAlign;
   const va = Rac.Text.Format.verticalAlign;
 
-  const defaultSphinx = hunty.text("sphinx");
+  const defaultSphinx = hunty.text('sphinx');
   expect(defaultSphinx).equalsText(100, 100, 'sphinx');
   expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top);
 
-  const formattedVow = hunty.text("vow", rac.Text.Format.centered);
+  const formattedVow = hunty.text('vow', rac.Text.Format.centered);
   expect(formattedVow).equalsText(100, 100, 'vow');
   expect(formattedVow.format).equalsTextFormat(ha.center, va.center);
 });
