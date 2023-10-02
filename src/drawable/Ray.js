@@ -670,6 +670,49 @@ class Ray {
     return new Rac.Text(this.rac, this.start, string, format);
   }
 
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Text` located at `start` and oriented towards
+  * `angle.inverse()` with the given `string` and a reversed `format`.
+  *
+  * When `format` is provided, the returned format will be `format.reverse()`.
+  * The angle for the returned text will still be set to `angle.inverse()`.
+  *
+  * @param {String} string - The string of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format to reverse for the new `Text`
+  * @returns {Rac.Text}
+  */
+  reverseText(string, format = this.rac.Text.Format.topLeft) {
+    format = format.reverse()
+      .withAngle(this.angle.inverse());
+    return new Rac.Text(this.rac, this.start, string, format);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Text` located at `start` and oriented to be always
+  * upright.
+  *
+  * For rays with an `angle.turn` between _[3/4, 1/4)_ then
+  * `text()` is  used for the returned text; otherwise `reveseText()` is
+  * used.
+  *
+  * @param {String} string - The string of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The upright format of the new `Text`
+  * @returns {Rac.Text}
+  */
+  uprightText(string, format = this.rac.Text.Format.topLeft) {
+    if (utils.isUprightText(this.angle.turn)) {
+      return this.text(string, format);
+    } else {
+      return this.reverseText(string, format);
+    }
+  }
+
 } // class Ray
 
 
