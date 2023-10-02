@@ -277,17 +277,26 @@ function buildSketch(sketch, Rac) {
       egCenter.text('North-West Example:\nray.text, segment.text', rac.Text.Format.bc)
         .draw()
 
-
-      let ray = egCenter.ray(controlAngle)
-        .translateToDistance(translation).debug();
-      let segment = egCenter.ray(controlAngle.perpendicular(false))
+      egCenter.ray(controlAngle.add(0/16))
         .translateToDistance(translation)
-        .segment(100).debug();
+        .debug()
+        .text('Text with ray.text').draw();
 
-      ray.text('Text with ray.text').draw();
-      segment.text('Text with segment.text').draw();
+      egCenter.ray(controlAngle.add(1/16))
+        .translateToDistance(translation)
+        .debug()
+        .reverseText('Text with ray.reverseText').draw();
 
+      egCenter.ray(controlAngle.add(2/16))
+        .translateToDistance(translation)
+        .debug()
+        .uprightText('Text with ray.uprightText').draw();
 
+      egCenter.ray(controlAngle.add(5/16))
+        .translateToDistance(translation)
+        .segment(100)
+        .debug()
+        .text('Text with segment.text').draw();
     }); // North-West Example
 
 
