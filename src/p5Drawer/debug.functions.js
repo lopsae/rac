@@ -4,6 +4,7 @@
 const Rac = require('../Rac');
 
 
+// RELEASE-TODO: use uprightText for these cases
 function reversesText(angle) {
   return angle.turn < 3/4 && angle.turn >= 1/4;
 }
