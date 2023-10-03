@@ -219,6 +219,43 @@ class Text {
   }
 
 
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Text` which is an upside-down equivalent of `this`
+  * and generally in the same location.
+  *
+  * The returned text is at the same location as `this`, using a
+  * [reversed]{@link Rac.Text.Format#reverse} format and oriented
+  * towards the [inverse]{@link Rac.Angle#inverse} of `format.angle`.
+  *
+  * @returns {Rac.Text}
+  */
+  reverse() {
+    let reverseFormat = this.format.reverse();
+    return new Text(this.rac, this.point, this.string, reverseFormat);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns `this` or a new `Text` and `Format` that will always be
+  * oriented to be upright and readable.
+  *
+  * Returns `this` when [`format.angle`]{@link Rac.Text.Format#angle} turn
+  * value is between _[3/4, 1/4)_, since `this` is an upright text already;
+  * otheriwse [`this.reverse()`]}{@link Rac.Text#reverse} is returned.
+  *
+  * @returns {Rac.Text}
+  */
+  upright() {
+    if (utils.isUprightText(this.format.angle.turn)) {
+      return this;
+    } else {
+      return this.reverse();
+    }
+  }
+
+
 } // class Text
 
 

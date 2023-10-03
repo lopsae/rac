@@ -213,7 +213,7 @@ exports.addConstantTo = function(obj, propName, value) {
 *
 * @param {Number} number - The number to format
 * @param {?Number} [digits] - The amount of digits to print, or `null` to
-* print all digits.
+* print all digits
 *
 * @returns {String}
 *
@@ -224,6 +224,23 @@ exports.cutDigits = function(number, digits = null) {
   return digits === null
     ? number.toString()
     : number.toFixed(digits);
+}
+
+
+/**
+* Returns `true` if text oriented with the given `angleTurn` would be
+* printed upright.
+*
+* Angle turn values in the range _[3/4, 1/4)_ are considered upright.
+*
+* @param {Number} angleTurn - The turn value of the angle to check
+* @returns {Boolean}
+*
+* @function isUprightText
+* @memberof utils#
+*/
+exports.isUprightText = function(angleTurn) {
+  return angleTurn >= 3/4 || angleTurn &lt; 1/4;
 }
 
 </code></pre>

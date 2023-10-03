@@ -1467,7 +1467,7 @@ equal, otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Text.Format.html#reverse">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Text.Format.js.html">src/drawable/Text.Format.js</a>, <a href="src_drawable_Text.Format.js.html#line274">line 274</a>
+        <a href="src_drawable_Text.Format.js.html">src/drawable/Text.Format.js</a>, <a href="src_drawable_Text.Format.js.html#line280">line 280</a>
         </span>
     
     </div>
@@ -1479,8 +1479,12 @@ equal, otherwise returns <code>false</code>.</p>
 
 
 <div class="description">
-    <p>Returns a new <code>Text.Format</code> that will draw a text reversed, upside-down,
-in generally the same position as <code>this</code> would draw the same text.</p>
+    <p>Returns a new <code>Text.Format</code> that formats a text reversed, upside-down,
+generally in the same position as <code>this</code>.</p>
+<p>The returned format will be oriented towards the
+<a href="Rac.Angle.html#inverse">inverse</a> of <code>angle</code>; alignments for <code>left</code>
+becomes <code>right</code> and viceversa; <code>top</code> becomes <code>bottom</code> and viceversa;
+<code>center</code> and <code>baseline</code> remain the same.</p>
 </div>
 
 
