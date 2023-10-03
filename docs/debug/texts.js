@@ -330,7 +330,9 @@ function buildSketch(sketch, Rac) {
         .text('Text with arc.text,\nfor clockwise text').draw();
 
       egCenter.arc(controlDistance, controlAngle.inverse(), 2/4, false).debug()
-        .text('Text with arc.text,\nfor couter-clockwise text').draw();
+        .text('Text with arc.text.upright,\nfor couter-clockwise text')
+        .upright()
+        .draw();
     }); // South-West Example
 
 
