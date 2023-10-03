@@ -287,7 +287,7 @@ function buildSketch(sketch, Rac) {
         .debug()
         .text('Text with ray.text.reverse and padding')
         .withPaddings(10, 5)
-        .reverse().draw().log();
+        .reverse().draw();
 
       egCenter.ray(controlAngle.add(2/16))
         .translateToDistance(translation)
@@ -347,25 +347,71 @@ function buildSketch(sketch, Rac) {
       egCenter.text('South-East Example:\ndebug texts', rac.Text.Format.blc)
         .draw();
 
+      let genPadding = controlDistance - 135;
       egCenter = egCenter.addY(50);
-      egCenter.debug()
-        .text('Debug Text without format').debug();
 
-      let hPadding = controlDistance -100;
-      let paddingStr = `(${rac.utils.cutDigits(hPadding,1)},10)`;
-      egCenter = egCenter.addY(50);
-      egCenter.debug()
-        .text(`Debug Text with cc format and padding ${paddingStr}`, rac.Text.Format.cc)
-        .withPaddings(hPadding, 10)
+      let lCenter = egCenter.addX(100);
+      let cCenter = egCenter.addY(70);
+      let rCenter = egCenter.addX(-100);
+
+      // Lefts
+      lCenter.text('Debug Text with bl', rac.Text.Format.bl)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      lCenter = lCenter.addY(50);
+      lCenter.text('Debug Text with bll', rac.Text.Format.bll)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      lCenter = lCenter.addY(50);
+      lCenter.text('Debug Text with cl', rac.Text.Format.cl)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      lCenter = lCenter.addY(50);
+      lCenter.text('Debug Text with tl', rac.Text.Format.tl)
+        .withPaddings(genPadding*3/2, genPadding)
         .debug();
 
-      let vPadding = controlDistance -100;
-      paddingStr = `(0,${rac.utils.cutDigits(hPadding,1)})`;
-      egCenter = egCenter.addY(100);
-      egCenter.debug()
-        .text(`Debug Text with blc format and padding ${paddingStr}`, rac.Text.Format.blc)
+      // Centers
+      cCenter.text('Debug Text with bc', rac.Text.Format.bc)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      cCenter = cCenter.addY(50);
+      cCenter.text('Debug Text with blc', rac.Text.Format.blc)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      cCenter = cCenter.addY(50);
+      cCenter.text('Debug Text with cc', rac.Text.Format.cc)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      cCenter = cCenter.addY(50);
+      cCenter.text('Debug Text with tc', rac.Text.Format.tc)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+
+      // Rights
+      rCenter.text('Debug Text with br', rac.Text.Format.br)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      rCenter = rCenter.addY(50);
+      rCenter.text('Debug Text with blr', rac.Text.Format.blr)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      rCenter = rCenter.addY(50);
+      rCenter.text('Debug Text with cr', rac.Text.Format.cr)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+      rCenter = rCenter.addY(50);
+      rCenter.text('Debug Text with tr', rac.Text.Format.tr)
+        .withPaddings(genPadding*3/2, genPadding)
+        .debug();
+
+      let vPadding = controlDistance -120;
+      let paddingStr = `(0,${rac.utils.cutDigits(vPadding,1)})`;
+      cCenter.addY(100)
+        .text(`Debug angled Text with blc format and padding ${paddingStr}`, rac.Text.Format.blc)
+        .withAngle(controlAngle)
         .withPaddings(0, vPadding)
-        .debug();
+        .debug(true);
     }); // South-East Example
 
 
