@@ -285,13 +285,15 @@ function buildSketch(sketch, Rac) {
       egCenter.ray(controlAngle.add(1/16))
         .translateToDistance(translation)
         .debug()
-        .text('Text with ray.text.reverse')
-        .reverse().draw();
+        .text('Text with ray.text.reverse and padding')
+        .withPaddings(10, 5)
+        .reverse().draw().log();
 
       egCenter.ray(controlAngle.add(2/16))
         .translateToDistance(translation)
         .debug()
-        .text('Text with ray.text.upright')
+        .text('Text with ray.text.upright and padding')
+        .withPaddings(10, 5)
         .upright().draw();
 
       egCenter.ray(controlAngle.add(5/16))
@@ -342,8 +344,28 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
-      egCenter.text('South-East Example:\nempty', rac.Text.Format.blc)
+      egCenter.text('South-East Example:\ndebug texts', rac.Text.Format.blc)
         .draw();
+
+      egCenter = egCenter.addY(50);
+      egCenter.debug()
+        .text('Debug Text without format').debug();
+
+      let hPadding = controlDistance -100;
+      let paddingStr = `(${rac.utils.cutDigits(hPadding,1)},10)`;
+      egCenter = egCenter.addY(50);
+      egCenter.debug()
+        .text(`Debug Text with cc format and padding ${paddingStr}`, rac.Text.Format.cc)
+        .withPaddings(hPadding, 10)
+        .debug();
+
+      let vPadding = controlDistance -100;
+      paddingStr = `(0,${rac.utils.cutDigits(hPadding,1)})`;
+      egCenter = egCenter.addY(100);
+      egCenter.debug()
+        .text(`Debug Text with blc format and padding ${paddingStr}`, rac.Text.Format.blc)
+        .withPaddings(0, vPadding)
+        .debug();
     }); // South-East Example
 
 
