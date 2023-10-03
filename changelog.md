@@ -6,8 +6,9 @@ Changelog
 + Overall documentation improvements and corrections
 + Add `ray.text`, `segment.text`, `arc.text`
 + Add `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
++ Add `text.reverse`, `text.upright`
 + Add `rac.Text.Format.bottomCenter`, `rac.Text.Format.bottomRight`
-+ Add `rac.Text.Format.baselineX` constants
++ Add `rac.Text.Format.baseline...` constants
 + Add abbreviated shorthands for `rac.Text.Format` ready-made formats, like `rac.Text.Format.tl`
 + Add tests for `Color`
 + Renamed `version` file to `versioning`
