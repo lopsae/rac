@@ -285,12 +285,14 @@ function buildSketch(sketch, Rac) {
       egCenter.ray(controlAngle.add(1/16))
         .translateToDistance(translation)
         .debug()
-        .reverseText('Text with ray.reverseText').draw();
+        .text('Text with ray.text.reverse')
+        .reverse().draw();
 
       egCenter.ray(controlAngle.add(2/16))
         .translateToDistance(translation)
         .debug()
-        .uprightText('Text with ray.uprightText').draw();
+        .text('Text with ray.text.upright')
+        .upright().draw();
 
       egCenter.ray(controlAngle.add(5/16))
         .translateToDistance(translation)
