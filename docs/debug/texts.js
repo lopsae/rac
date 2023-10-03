@@ -299,6 +299,21 @@ function buildSketch(sketch, Rac) {
         .segment(100)
         .debug()
         .text('Text with segment.text').draw();
+
+      egCenter.ray(controlAngle.add(7/16))
+        .translateToDistance(translation)
+        .segment(100)
+        .debug()
+        .text('Text with segment.text and bll format', rac.Text.Format.bll)
+        .draw();
+
+      egCenter.ray(controlAngle.add(9/16))
+        .translateToDistance(translation)
+        .segment(100)
+        .debug()
+        .text('Text with segment.text.upright\nand bll format', rac.Text.Format.bll)
+        .upright()
+        .draw();
     }); // North-West Example
 
 
