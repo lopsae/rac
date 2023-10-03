@@ -270,6 +270,7 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
 }}); // equalsArc
 
 
+// RELEASE-TODO: add padding values
 expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle = 0, font = null, size = null) {
   const msg = new Messenger(this,
     'equalsTextFormat',

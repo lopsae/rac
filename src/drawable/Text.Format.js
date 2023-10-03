@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Determines the alignment, angle, font, and size for drawing a
+* Determines the alignment, angle, font, size, and padding for drawing a
 * [`Text`]{@link Rac.Text} object.
 *
 * ### `instance.Text.Format`
@@ -96,6 +96,10 @@ class TextFormat {
   *   The font name
   * @param {Number} [size=null]
   *   The font size
+  * @param {Number} [hPadding=0]
+  *   The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0]
+  *   The vertical padding, top-to-bottom
   */
   constructor(
     rac,
@@ -103,13 +107,16 @@ class TextFormat {
     vAlign,
     angle = rac.Angle.zero,
     font = null,
-    size = null)
+    size = null,
+    hPadding = 0,
+    vPadding = 0)
   {
     utils.assertType(Rac, rac);
     utils.assertString(hAlign, vAlign);
     utils.assertType(Rac.Angle, angle);
     font !== null && utils.assertString(font);
     size !== null && utils.assertNumber(size);
+    utils.assertNumber(hPadding, vPadding);
 
     /**
     * Instance of `Rac` used for drawing and passed along to any created
@@ -172,6 +179,21 @@ class TextFormat {
     * @type {?Number}
     */
     this.size = size;
+
+    /**
+    * The horizontal padding, left-to-right, to distance a `Text`
+    * relative to its [`point`]{@link Rac.Text#point}.
+    *
+    * @type {Number}
+    */
+    this.hPadding = hPadding;
+
+    /**
+    * The vertical padding, top-to-bottom, to distance a `Text` relative
+    * to its [`point`]{@link Rac.Text#point}.
+    * @type {String}
+    */
+    this.vPadding = vPadding;
   } // constructor
 
 
@@ -195,7 +217,9 @@ class TextFormat {
     const fontStr = this.font === null
       ? 'null'
       : `"${this.font}"`;
-    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr})`;
+    const paddingStr =
+      `(${utils.cutDigits(this.hPadding, digits)},${utils.cutDigits(this.vPadding, digits)})`
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr} p:${paddingStr})`;
   }
 
 
@@ -212,10 +236,12 @@ class TextFormat {
   */
   equals(otherFormat) {
     return otherFormat instanceof TextFormat
-      && this.hAlign === otherFormat.hAlign
-      && this.vAlign === otherFormat.vAlign
-      && this.font   === otherFormat.font
-      && this.size   === otherFormat.size
+      && this.hAlign   === otherFormat.hAlign
+      && this.vAlign   === otherFormat.vAlign
+      && this.font     === otherFormat.font
+      && this.size     === otherFormat.size
+      && this.hPadding === otherFormat.hPadding
+      && this.vPadding === otherFormat.vPadding
       && this.angle.equals(otherFormat.angle);
   }
 
@@ -231,8 +257,8 @@ class TextFormat {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       newAngle,
-      this.font,
-      this.size);
+      this.font, this.size,
+      this.hPadding, this.vPadding);
   }
 
 
@@ -246,8 +272,8 @@ class TextFormat {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       this.angle,
-      newFont,
-      this.size);
+      newFont, this.size,
+      this.hPadding, this.vPadding);
   }
 
 
@@ -261,8 +287,25 @@ class TextFormat {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       this.angle,
-      this.font,
-      newSize);
+      this.font, newSize,
+      this.hPadding, this.vPadding);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Text.Format` with paddings set to the given values.
+  *
+  * @param {Number} hPadding - The horizontal padding for the new `Text.Format`
+  * @param {Number} vPadding - The vertical padding for the new `Text.Format`
+  *
+  * @returns {Rac.Text.Format}
+  */
+  withPaddings(hPadding, vPadding) {
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      this.angle, this.font, this.size,
+      hPadding, vPadding);
   }
 
 
@@ -296,8 +339,8 @@ class TextFormat {
       this.rac,
       hAlign, vAlign,
       this.angle.inverse(),
-      this.font,
-      this.size)
+      this.font, this.size,
+      this.hPadding, this.vPadding);
   }
 
 } // class TextFormat

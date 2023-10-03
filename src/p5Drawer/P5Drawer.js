@@ -472,8 +472,30 @@ class P5Drawer {
 
       // Positioning
       this.rac.drawer.p5.translate(point.x, point.y);
-      if (this.angle.turn != 0) {
+
+      // Rotation
+      if (this.angle.turn !== 0) {
         this.rac.drawer.p5.rotate(this.angle.radians());
+      }
+
+      // Padding
+      let xPad = 0;
+      let yPad = 0;
+
+      switch (this.hAlign) {
+        case hEnum.left:   xPad += this.hPadding; break;
+        case hEnum.center: xPad += this.hPadding; break;
+        case hEnum.right:  xPad -= this.hPadding; break;
+      }
+      switch (this.vAlign) {
+        case vEnum.top:      yPad += this.vPadding; break;
+        case vEnum.center:   yPad += this.vPadding; break;
+        case vEnum.baseline: yPad += this.vPadding; break;
+        case vEnum.bottom:   yPad -= this.vPadding; break;
+      }
+
+      if (xPad !== 0 || yPad !== 0) {
+        this.rac.drawer.p5.translate(xPad, yPad);
       }
     } // Rac.Text.Format.prototype.apply
 
