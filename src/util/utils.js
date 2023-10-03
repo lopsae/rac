@@ -185,7 +185,7 @@ exports.cutDigits = function(number, digits = null) {
 * Returns `true` if text oriented with the given `angleTurn` would be
 * printed upright.
 *
-* Values for `angleTurn` in the range _[3/4, 1/4)_ are considered upright.
+* Angle turn values in the range _[3/4, 1/4)_ are considered upright.
 *
 * @param {Number} angleTurn - The turn value of the angle to check
 * @returns {Boolean}

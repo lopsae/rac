@@ -272,7 +272,7 @@ class TextFormat {
   *
   * The returned format will be oriented towards the
   * [inverse]{@link Rac.Angle#inverse} of `angle`; alignments for `left`
-  * becomes `right`, and viceversa; `top` becomes `bottom` and viceversa;
+  * becomes `right` and viceversa; `top` becomes `bottom` and viceversa;
   * `center` and `baseline` remain the same.
   *
   * @returns {Rac.Text.Format}
