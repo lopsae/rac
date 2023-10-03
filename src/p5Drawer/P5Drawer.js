@@ -292,6 +292,13 @@ class P5Drawer {
       this.divideToBeziers(divisions).vertex();
     };
 
+    // Text
+    this.setDrawFunction(Rac.Text, functions.drawText);
+    // Text drawing uses `text.format.apply`, which translate and rotation
+    // modifications to the drawing matrix
+    // this requires a push-pop on every draw
+    this.setDrawOptions(Rac.Text, {requiresPushPop: true});
+
     // Bezier
     this.setDrawFunction(Rac.Bezier, (drawer, bezier) => {
       drawer.p5.bezier(
@@ -335,15 +342,6 @@ class P5Drawer {
       this.outline.vertex();
       this.contour.vertex();
     };
-
-    // Text
-    this.setDrawFunction(Rac.Text, (drawer, text) => {
-      text.format.apply(text.point);
-      drawer.p5.text(text.string, 0, 0);
-    });
-    // `text.format.apply` makes translate and rotation modifications to
-    // the drawing matrix, this requires a push-pop on every draw
-    this.setDrawOptions(Rac.Text, {requiresPushPop: true});
   } // setupAllDrawFunctions
 
 

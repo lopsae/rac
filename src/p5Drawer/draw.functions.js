@@ -56,3 +56,9 @@ exports.drawArc = function(drawer, arc) {
     start.radians(), end.radians());
 }; // drawArc
 
+
+exports.drawText = function(drawer, text) {
+  text.format.apply(text.point);
+  drawer.p5.text(text.string, 0, 0);
+}; // drawText
+
