@@ -547,11 +547,21 @@ exports.debugText = function(drawer, text, drawsText) {
               .reverse().withLengthRatio(1/2).draw()
               .nextSegmentPerpendicular(true, text.format.hPadding).draw()
               .nextSegmentPerpendicular(false, markerRadius/2).draw();
-            // rac.Point.zero.segmentToAngle(1/4, markerRadius).draw();
             break;
           case vEnum.center:break;
           case vEnum.baseline:break;
-          case vEnum.bottom:break;
+          case vEnum.bottom:
+            rac.Point.zero
+              .segmentToAngle(0/4, markerRadius)
+              .reverse().withLengthRatio(1/2).draw()
+              .nextSegmentPerpendicular(true, text.format.vPadding).draw()
+              .nextSegmentPerpendicular(false, markerRadius/2).draw();
+            rac.Point.zero
+              .segmentToAngle(3/4, markerRadius)
+              .reverse().withLengthRatio(1/2).draw()
+              .nextSegmentPerpendicular(false, text.format.hPadding).draw()
+              .nextSegmentPerpendicular(true, markerRadius/2).draw();
+            break;
         }
         break;
       case hEnum.center:break;
