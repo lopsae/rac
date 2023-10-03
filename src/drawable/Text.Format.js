@@ -39,11 +39,11 @@ class TextFormat {
   * to its [`text.point`]{@link Rac.Text#point}.
   *
   * @property {String} left
-  *   aligns `text.point` to the left edge of the drawn text
+  *   aligns `text.point` at the left edge of the drawn text
   * @property {String} center
-  *   aligns `text.point` to the center, from side to
+  *   aligns `text.point` at the center, from side to side, of the drawn text
   * @property {String} right
-  *   aligns `text.point` to the right edge of the drawn text
+  *   aligns `text.point` at the right edge of the drawn text
   *
   * @type {Object}
   * @memberof Rac.Text.Format
@@ -60,13 +60,13 @@ class TextFormat {
   * to its [`text.point`]{@link Rac.Text#point}.
   *
   * @property {String} top
-  *   aligns `text.point` to the top edge of the drawn text
+  *   aligns `text.point` at the top edge of the drawn text
   * @property {String} center
-  *   aligns `text.point` to the center, from top to bottom, of the drawn text
+  *   aligns `text.point` at the center, from top to bottom, of the drawn text
   * @property {String} baseline
-  *   aligns `text.point` to the baseline of the drawn text
+  *   aligns `text.point` at the baseline of the drawn text
   * @property {String} bottom
-  *   aligns `text.point` to the bottom edge of the drawn text
+  *   aligns `text.point` at the bottom edge of the drawn text
   *
   * @type {Object}
   * @memberof Rac.Text.Format
