@@ -267,13 +267,13 @@ class TextFormat {
 
 
   /**
-  * Returns a new `Text.Format` that will draw a text reversed, upside-down,
-  * oriented towards `angle.inverse()` and generally in the same position
-  * as `this` would be drawn.
+  * Returns a new `Text.Format` that formats a text reversed, upside-down,
+  * generally in the same position as `this`.
   *
-  * In the returned reversed text `left` becomes `right`, and viceversa;
-  * `top` becomes `bottom` and viceversa; `center` and `baseline` remain
-  * the same.
+  * The returned format will be oriented towards the
+  * [inverse]{@link Rac.Angle#inverse} of `angle`; alignments for `left`
+  * becomes `right`, and viceversa; `top` becomes `bottom` and viceversa;
+  * `center` and `baseline` remain the same.
   *
   * @returns {Rac.Text.Format}
   */
