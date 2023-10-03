@@ -352,6 +352,7 @@ class P5Drawer {
     this.setDebugFunction(Rac.Ray, functions.debugRay);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
+    this.setDebugFunction(Rac.Text, functions.debugText);
 
     Rac.Angle.prototype.debug = function(point, drawsText = false) {
       const drawer = this.rac.drawer;

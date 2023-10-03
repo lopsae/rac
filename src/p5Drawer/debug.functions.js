@@ -512,8 +512,95 @@ exports.debugArc = function(drawer, arc, drawsText) {
 }; // debugArc
 
 
+// RELEASE-TODO: finalize, clean
+exports.debugText = function(drawer, text, drawsText) {
+  const rac =          drawer.rac;
+  const pointRadius =  drawer.debugPointRadius;
+  const markerRadius = drawer.debugMarkerRadius;
+  const digits =       drawer.debugTextOptions.fixedDigits;
+
+  // Point marker
+  text.point.arc(pointRadius).draw();
+  text.point.segmentToAngle(3/4, markerRadius)
+    .reverse().withLengthRatio(1/2)
+    .draw();
+  text.point.segmentToAngle(2/4, markerRadius)
+    .reverse().withLengthRatio(1/2)
+    .draw();
+
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
+
+  drawer.p5.push();
+    text.format.apply(text.point);
+    switch (text.format.hAlign) {
+      case hEnum.left:
+        switch (text.format.vAlign) {
+          case vEnum.top:
+            rac.Point.zero
+              .segmentToAngle(0/4, markerRadius)
+              .reverse().withLengthRatio(1/2).draw()
+              .nextSegmentPerpendicular(false, text.format.vPadding).draw()
+              .nextSegmentPerpendicular(true, markerRadius/2).draw();
+            rac.Point.zero
+              .segmentToAngle(1/4, markerRadius)
+              .reverse().withLengthRatio(1/2).draw()
+              .nextSegmentPerpendicular(true, text.format.hPadding).draw()
+              .nextSegmentPerpendicular(false, markerRadius/2).draw();
+            // rac.Point.zero.segmentToAngle(1/4, markerRadius).draw();
+            break;
+          case vEnum.center:break;
+          case vEnum.baseline:break;
+          case vEnum.bottom:break;
+        }
+        break;
+      case hEnum.center:break;
+      case hEnum.right:break;
+    }
+    // switch (this.vAlign) {
+    //   case vEnum.top:      yPad += this.vPadding; break;
+    //   case vEnum.center:   yPad += this.vPadding; break;
+    //   case vEnum.baseline: yPad += this.vPadding; break;
+    //   case vEnum.bottom:   yPad -= this.vPadding; break;
+    // }
+
+
+  drawer.p5.pop();
+
+  // Text
+  text.draw(drawer.debugTextStyle);
+
+  // Point reticule marker
+  // let arc = point
+  //   .arc(markerRadius, rac.Angle.s, rac.Angle.e)
+  //   .draw();
+  // arc.startSegment().reverse()
+  //   .withLengthRatio(1/2)
+  //   .draw();
+  // arc.endSegment()
+  //   .reverse()
+  //   .withLengthRatio(1/2)
+  //   .draw();
+
+  // Text
+  // if (drawsText !== true) { return; }
+
+  // let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
+  // let format = new Rac.Text.Format(
+  //   rac,
+  //   Rac.Text.Format.horizontalAlign.left,
+  //   Rac.Text.Format.verticalAlign.top,
+  //   rac.Angle.e,
+  //   drawer.debugTextOptions.font,
+  //   drawer.debugTextOptions.size);
+  // point
+  //   .pointToAngle(rac.Angle.se, pointRadius*2)
+  //   .text(string, format)
+  //   .draw(drawer.debugTextStyle);
+}; // debugText
+
+
 // TODO: debug routine of Bezier
 // TODO: debug routine of Composite
 // TODO: debug routine of Shape
-// TODO: debug routine of Text
 
