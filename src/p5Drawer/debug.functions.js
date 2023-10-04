@@ -10,6 +10,16 @@ function reversesText(angle) {
 }
 
 
+function dashedDraw(drawer, segment, closure) {
+  const context = drawer.p5.drawingContext;
+  context.save();
+  context.lineCap = 'butt';
+  context.setLineDash(segment);
+  closure();
+  context.restore();
+}
+
+
 exports.debugAngle = function(drawer, angle, point, drawsText) {
   const rac =          drawer.rac;
   const pointRadius =  drawer.debugPointRadius;
@@ -31,26 +41,17 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     .withLengthAdd(pointRadius)
     .draw();
 
-  // Mini arc markers
+  // Mini angle arc markers
   let angleArc = point.arc(markerRadius, rac.Angle.zero, angle);
-  let context = drawer.p5.drawingContext;
-  let strokeWeight = context.lineWidth;
-  context.save(); {
-    context.lineCap = 'butt';
-    context.setLineDash([6, 4]);
-    // Angle arc
-    angleArc.draw();
+  dashedDraw(drawer, [6, 4], ()=>{ angleArc.draw(); });
 
-    if (!angleArc.isCircle()) {
-      // Outside angle arc
-      context.setLineDash([2, 4]);
-      angleArc
-        .withRadius(markerRadius*3/4)
-        .withClockwise(false)
-        .draw();
-    }
-  };
-  context.restore();
+  // Outside angle arc
+  if (!angleArc.isCircle()) {
+    let outsideAngleArc = angleArc
+      .withRadius(markerRadius*3/4)
+      .withClockwise(false);
+    dashedDraw(drawer, [2, 4], ()=>{ outsideAngleArc.draw(); });
+  }
 
   // Text
   if (drawsText !== true) { return; }
@@ -338,24 +339,15 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .draw();
   }
 
-  // Mini arc markers
-  let context = drawer.p5.drawingContext;
-  let strokeWeight = context.lineWidth;
-  context.save(); {
-    // Inside angle arc - big dashes
-    context.lineCap = 'butt';
-    context.setLineDash([6, 4]);
-    centerArc.draw();
+  // Inside angle arc - big dashes
+  dashedDraw(drawer, [6, 4], ()=>{ centerArc.draw(); });
 
-    if (!centerArc.isCircle()) {
-      // Outside angle arc - small dashes
-      context.setLineDash([2, 4]);
-      centerArc
-        .withClockwise(!centerArc.clockwise)
-        .draw();
-    }
-  };
-  context.restore();
+  // Outside angle arc - small dashes
+  if (!centerArc.isCircle()) {
+    let outsideAngleArc = centerArc
+      .withClockwise(!centerArc.clockwise);
+    dashedDraw(drawer, [2, 4], ()=>{ outsideAngleArc.draw(); });
+  }
 
   // Center end segment
   if (!arc.isCircle()) {
@@ -540,14 +532,8 @@ exports.debugText = function(drawer, text, drawsText) {
       .nextSegmentPerpendicular(!rotation, atOriginLength).draw() // line at origin
       .nextSegmentWithLength(pointRadius*4)
       .nextSegmentWithLength(markerRadius-pointRadius*2).draw(); // opposite side line
-
       // Dashed elbow turn
-      let context = drawer.p5.drawingContext;
-      context.save();
-      context.lineCap = 'butt';
-      context.setLineDash([5, 2]);
-      drawer.rac.popStack().draw();
-      context.restore()
+      dashedDraw(drawer, [5, 2], ()=>{ rac.popStack().draw(); });
   }
 
   drawer.p5.push();
