@@ -524,17 +524,64 @@ exports.debugText = function(drawer, text, drawsText) {
   text.point.arc(pointRadius).draw();
 
   let cornerReticule = function(angle, padding, perpPadding, rotation) {
-    let atOriginLength = perpPadding;
     rac.Point.zero
       .segmentToAngle(angle, markerRadius)
       .reverse().withLength(markerRadius-pointRadius*2).draw() // line at text edge
       .nextSegmentPerpendicular(rotation, padding).push() // elbow turn
-      .nextSegmentPerpendicular(!rotation, atOriginLength).draw() // line at origin
+      .nextSegmentPerpendicular(!rotation, perpPadding).draw() // line at origin
       .nextSegmentWithLength(pointRadius*4)
       .nextSegmentWithLength(markerRadius-pointRadius*2).draw(); // opposite side line
       // Dashed elbow turn
       dashedDraw(drawer, [5, 2], ()=>{ rac.popStack().draw(); });
-  }
+  };
+
+  let centerReticule = function(angle, padding, perpPadding, rotation) {
+    angle = rac.Angle.from(angle);
+    // lines at edge of text
+    rac.Point.zero
+      .ray(angle.perpendicular(rotation))
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+    let reticuleCenter = rac.Point.zero
+      .segmentToAngle(angle.inverse(), padding)
+      .push() // dashed line to elbow
+      .nextSegmentPerpendicular(rotation, pointRadius)
+      .reverse().draw() // elbow mark
+      .nextSegmentPerpendicular(rotation, pointRadius)
+      .reverse().draw() // elbow mark
+      .nextSegmentPerpendicular(rotation, perpPadding)
+      .push() // dashed line to center
+      .endPoint();
+    dashedDraw(drawer, [5, 2], ()=>{
+      rac.popStack().draw();
+      rac.popStack().draw();
+    });
+
+    // lines around reticule center
+    reticuleCenter.ray(angle.inverse())
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+    reticuleCenter.ray(angle.perpendicular(!rotation))
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+    let lastCenterLine =
+      reticuleCenter.ray(angle)
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+
+    if (Math.abs(perpPadding) <= 2) return;
+
+    // short dashed lines back to text edge
+    lastCenterLine
+      .nextSegmentWithLength(padding - markerRadius)
+      .push()
+      .nextSegmentPerpendicular(!rotation, format.hPadding)
+      .push();
+    dashedDraw(drawer, [2, 3], ()=>{
+      rac.popStack().draw();
+      rac.popStack().draw();
+    });
+  };
 
   drawer.p5.push();
     format.apply(text.point);
@@ -546,8 +593,11 @@ exports.debugText = function(drawer, text, drawsText) {
             cornerReticule(1/4, format.hPadding, format.vPadding, true);
             break;
           case vEnum.center:
+            centerReticule(0/4, format.hPadding, format.vPadding, true);
             break;
-          case vEnum.baseline:break;
+          case vEnum.baseline:
+            centerReticule(0/4, format.hPadding, format.vPadding, true);
+            break;
           case vEnum.bottom:
             cornerReticule(0/4, format.vPadding, format.hPadding, true);
             cornerReticule(3/4, format.hPadding, format.vPadding, false);
@@ -558,49 +608,17 @@ exports.debugText = function(drawer, text, drawsText) {
       case hEnum.center:
         switch (format.vAlign) {
           case vEnum.top:
-            // lines at edge of text
-            rac.Point.zero
-              .ray(0/4).translateToDistance(pointRadius*2)
-              .segment(markerRadius - pointRadius*2).draw();
-            let elbowMarker = rac.Point.zero
-              .segmentToAngle(3/4, format.vPadding).push() //distance to elbow
-              .nextSegmentPerpendicular(false, pointRadius)
-              .reverse().draw()
-              .nextSegmentPerpendicular(false, pointRadius)
-              .reverse().draw()
-
-            let center = elbowMarker
-              .nextSegmentPerpendicular(false, format.hPadding).push()
-              .endPoint();
-            dashedDraw(drawer, [5, 2], ()=>{
-              rac.popStack().draw();
-              rac.popStack().draw();
-            });
-
-            // lines around point
-            center.ray(3/4).translateToDistance(pointRadius*2)
-              .segment(markerRadius - pointRadius*2).draw();
-            center.ray(2/4).translateToDistance(pointRadius*2)
-              .segment(markerRadius - pointRadius*2).draw();
-            let lastPointLine =
-              center.ray(1/4).translateToDistance(pointRadius*2)
-              .segment(markerRadius - pointRadius*2).draw()
-
-            if (Math.abs(format.hPadding) <= 2) break;
-
-            lastPointLine
-              .nextSegmentWithLength(format.vPadding - markerRadius)
-              .push()
-              .nextSegmentPerpendicular(true, format.hPadding)
-              .push();
-            dashedDraw(drawer, [2, 3], ()=>{
-              rac.popStack().draw();
-              rac.popStack().draw();
-            });
+            centerReticule(1/4, format.vPadding, format.hPadding, false);
             break;
-          case vEnum.center: break;
-          case vEnum.baseline: break;
-          case vEnum.bottom: break;
+          case vEnum.center:
+            centerReticule(1/4, format.vPadding, format.hPadding, false);
+            break;
+          case vEnum.baseline:
+            centerReticule(1/4, format.vPadding, format.hPadding, false);
+            break;
+          case vEnum.bottom:
+            centerReticule(3/4, format.vPadding, format.hPadding, true);
+            break;
         }
         break;
 
@@ -610,8 +628,12 @@ exports.debugText = function(drawer, text, drawsText) {
             cornerReticule(2/4, format.vPadding, format.hPadding, true);
             cornerReticule(1/4, format.hPadding, format.vPadding, false);
             break;
-          case vEnum.center:break;
-          case vEnum.baseline:break;
+          case vEnum.center:
+            centerReticule(2/4, format.hPadding, format.vPadding, false);
+            break;
+          case vEnum.baseline:
+            centerReticule(2/4, format.hPadding, format.vPadding, false);
+            break;
           case vEnum.bottom:
             cornerReticule(2/4, format.vPadding, format.hPadding, false);
             cornerReticule(3/4, format.hPadding, format.vPadding, true);
@@ -619,18 +641,9 @@ exports.debugText = function(drawer, text, drawsText) {
         }
         break;
     }
-
-    // switch (format.vAlign) {
-    //       case vEnum.top: break;
-    //       case vEnum.center: break;
-    //       case vEnum.baseline: break;
-    //       case vEnum.bottom: break;
-    //     }
-
-
   drawer.p5.pop();
 
-  // Text
+  // Text object
   text.draw(drawer.debugTextStyle);
 
   // Point reticule marker
