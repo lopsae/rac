@@ -577,12 +577,18 @@ exports.debugText = function(drawer, text, drawsText) {
               rac.popStack().draw();
             });
 
+            // lines around point
             center.ray(3/4).translateToDistance(pointRadius*2)
               .segment(markerRadius - pointRadius*2).draw();
             center.ray(2/4).translateToDistance(pointRadius*2)
               .segment(markerRadius - pointRadius*2).draw();
-            center.ray(1/4).translateToDistance(pointRadius*2)
+            let lastPointLine =
+              center.ray(1/4).translateToDistance(pointRadius*2)
               .segment(markerRadius - pointRadius*2).draw()
+
+            if (Math.abs(format.hPadding) <= 2) break;
+
+            lastPointLine
               .nextSegmentWithLength(format.vPadding - markerRadius)
               .push()
               .nextSegmentPerpendicular(true, format.hPadding)
