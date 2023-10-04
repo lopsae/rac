@@ -545,7 +545,8 @@ exports.debugText = function(drawer, text, drawsText) {
             cornerReticule(0/4, format.vPadding, format.hPadding, false);
             cornerReticule(1/4, format.hPadding, format.vPadding, true);
             break;
-          case vEnum.center:break;
+          case vEnum.center:
+            break;
           case vEnum.baseline:break;
           case vEnum.bottom:
             cornerReticule(0/4, format.vPadding, format.hPadding, true);
@@ -553,7 +554,50 @@ exports.debugText = function(drawer, text, drawsText) {
             break;
         }
         break;
-      case hEnum.center:break;
+
+      case hEnum.center:
+        switch (format.vAlign) {
+          case vEnum.top:
+            // lines at edge of text
+            rac.Point.zero
+              .ray(0/4).translateToDistance(pointRadius*2)
+              .segment(markerRadius - pointRadius*2).draw();
+            let elbowMarker = rac.Point.zero
+              .segmentToAngle(3/4, format.vPadding).push() //distance to elbow
+              .nextSegmentPerpendicular(false, pointRadius)
+              .reverse().draw()
+              .nextSegmentPerpendicular(false, pointRadius)
+              .reverse().draw()
+
+            let center = elbowMarker
+              .nextSegmentPerpendicular(false, format.hPadding).push()
+              .endPoint();
+            dashedDraw(drawer, [5, 2], ()=>{
+              rac.popStack().draw();
+              rac.popStack().draw();
+            });
+
+            center.ray(3/4).translateToDistance(pointRadius*2)
+              .segment(markerRadius - pointRadius*2).draw();
+            center.ray(2/4).translateToDistance(pointRadius*2)
+              .segment(markerRadius - pointRadius*2).draw();
+            center.ray(1/4).translateToDistance(pointRadius*2)
+              .segment(markerRadius - pointRadius*2).draw()
+              .nextSegmentWithLength(format.vPadding - markerRadius)
+              .push()
+              .nextSegmentPerpendicular(true, format.hPadding)
+              .push();
+            dashedDraw(drawer, [2, 3], ()=>{
+              rac.popStack().draw();
+              rac.popStack().draw();
+            });
+            break;
+          case vEnum.center: break;
+          case vEnum.baseline: break;
+          case vEnum.bottom: break;
+        }
+        break;
+
       case hEnum.right:
         switch (format.vAlign) {
           case vEnum.top:
@@ -569,12 +613,13 @@ exports.debugText = function(drawer, text, drawsText) {
         }
         break;
     }
-    // switch (this.vAlign) {
-    //   case vEnum.top:      yPad += this.vPadding; break;
-    //   case vEnum.center:   yPad += this.vPadding; break;
-    //   case vEnum.baseline: yPad += this.vPadding; break;
-    //   case vEnum.bottom:   yPad -= this.vPadding; break;
-    // }
+
+    // switch (format.vAlign) {
+    //       case vEnum.top: break;
+    //       case vEnum.center: break;
+    //       case vEnum.baseline: break;
+    //       case vEnum.bottom: break;
+    //     }
 
 
   drawer.p5.pop();
