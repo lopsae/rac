@@ -519,53 +519,56 @@ exports.debugText = function(drawer, text, drawsText) {
   const markerRadius = drawer.debugMarkerRadius;
   const digits =       drawer.debugTextOptions.fixedDigits;
 
-  // Point marker
-  text.point.arc(pointRadius).draw();
-  text.point.segmentToAngle(3/4, markerRadius)
-    .reverse().withLengthRatio(1/2)
-    .draw();
-  text.point.segmentToAngle(2/4, markerRadius)
-    .reverse().withLengthRatio(1/2)
-    .draw();
-
   const hEnum = Rac.Text.Format.horizontalAlign;
   const vEnum = Rac.Text.Format.verticalAlign;
 
+  const format = text.format;
+
+  // Point marker
+  text.point.arc(pointRadius).draw();
+
+  function cornerReticule(angle, padding, perpPadding, rotation) {
+    rac.Point.zero
+      .segmentToAngle(angle, markerRadius)
+      .reverse().withLengthRatio(1/2).draw() // line at text edge
+      .nextSegmentPerpendicular(rotation, padding).draw() // elbow turn
+      .nextSegmentPerpendicular(!rotation, markerRadius/2).draw() // line at origin
+      .ray.translateToDistance(perpPadding + markerRadius)
+      .segment(markerRadius/2).draw() // opposite side line
+  }
+
   drawer.p5.push();
-    text.format.apply(text.point);
-    switch (text.format.hAlign) {
+    format.apply(text.point);
+    switch (format.hAlign) {
       case hEnum.left:
-        switch (text.format.vAlign) {
+        switch (format.vAlign) {
           case vEnum.top:
-            rac.Point.zero
-              .segmentToAngle(0/4, markerRadius)
-              .reverse().withLengthRatio(1/2).draw()
-              .nextSegmentPerpendicular(false, text.format.vPadding).draw()
-              .nextSegmentPerpendicular(true, markerRadius/2).draw();
-            rac.Point.zero
-              .segmentToAngle(1/4, markerRadius)
-              .reverse().withLengthRatio(1/2).draw()
-              .nextSegmentPerpendicular(true, text.format.hPadding).draw()
-              .nextSegmentPerpendicular(false, markerRadius/2).draw();
+            cornerReticule(0/4, format.vPadding, format.hPadding, false);
+            cornerReticule(1/4, format.hPadding, format.vPadding, true);
             break;
           case vEnum.center:break;
           case vEnum.baseline:break;
           case vEnum.bottom:
-            rac.Point.zero
-              .segmentToAngle(0/4, markerRadius)
-              .reverse().withLengthRatio(1/2).draw()
-              .nextSegmentPerpendicular(true, text.format.vPadding).draw()
-              .nextSegmentPerpendicular(false, markerRadius/2).draw();
-            rac.Point.zero
-              .segmentToAngle(3/4, markerRadius)
-              .reverse().withLengthRatio(1/2).draw()
-              .nextSegmentPerpendicular(false, text.format.hPadding).draw()
-              .nextSegmentPerpendicular(true, markerRadius/2).draw();
+            cornerReticule(0/4, format.vPadding, format.hPadding, true);
+            cornerReticule(3/4, format.hPadding, format.vPadding, false);
             break;
         }
         break;
       case hEnum.center:break;
-      case hEnum.right:break;
+      case hEnum.right:
+        switch (format.vAlign) {
+          case vEnum.top:
+            cornerReticule(2/4, format.vPadding, format.hPadding, true);
+            cornerReticule(1/4, format.hPadding, format.vPadding, false);
+            break;
+          case vEnum.center:break;
+          case vEnum.baseline:break;
+          case vEnum.bottom:
+            cornerReticule(2/4, format.vPadding, format.hPadding, false);
+            cornerReticule(3/4, format.hPadding, format.vPadding, true);
+            break;
+        }
+        break;
     }
     // switch (this.vAlign) {
     //   case vEnum.top:      yPad += this.vPadding; break;
