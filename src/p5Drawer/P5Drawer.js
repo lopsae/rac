@@ -64,7 +64,7 @@ class P5Drawer {
     * @type {Number}
     * @default 22
     */
-    this.debugPointRadius = 4;
+    this.debugPointRadius = 5;
 
     /**
     * Radius of the main visual elements for debug drawing.
