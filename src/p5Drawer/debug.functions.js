@@ -525,17 +525,29 @@ exports.debugText = function(drawer, text, drawsText) {
 
   const format = text.format;
 
+  // RELEASE-TODO: delete when done
+  let mark = drawer.rac.Color.red.stroke(2);
+
   // Point marker
   text.point.arc(pointRadius).draw();
 
-  function cornerReticule(angle, padding, perpPadding, rotation) {
+  let cornerReticule = function(angle, padding, perpPadding, rotation) {
+    let atOriginLength = perpPadding;
     rac.Point.zero
       .segmentToAngle(angle, markerRadius)
-      .reverse().withLengthRatio(1/2).draw() // line at text edge
-      .nextSegmentPerpendicular(rotation, padding).draw() // elbow turn
-      .nextSegmentPerpendicular(!rotation, markerRadius/2).draw() // line at origin
-      .ray.translateToDistance(perpPadding + markerRadius)
-      .segment(markerRadius/2).draw() // opposite side line
+      .reverse().withLength(markerRadius-pointRadius*2).draw() // line at text edge
+      .nextSegmentPerpendicular(rotation, padding).push() // elbow turn
+      .nextSegmentPerpendicular(!rotation, atOriginLength).draw() // line at origin
+      .nextSegmentWithLength(pointRadius*4)
+      .nextSegmentWithLength(markerRadius-pointRadius*2).draw(); // opposite side line
+
+      // Dashed elbow turn
+      let context = drawer.p5.drawingContext;
+      context.save();
+      context.lineCap = 'butt';
+      context.setLineDash([5, 2]);
+      drawer.rac.popStack().draw();
+      context.restore()
   }
 
   drawer.p5.push();
