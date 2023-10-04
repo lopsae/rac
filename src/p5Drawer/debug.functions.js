@@ -342,12 +342,13 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let context = drawer.p5.drawingContext;
   let strokeWeight = context.lineWidth;
   context.save(); {
+    // Inside angle arc - big dashes
     context.lineCap = 'butt';
     context.setLineDash([6, 4]);
     centerArc.draw();
 
     if (!centerArc.isCircle()) {
-      // Outside angle arc
+      // Outside angle arc - small dashes
       context.setLineDash([2, 4]);
       centerArc
         .withClockwise(!centerArc.clockwise)
