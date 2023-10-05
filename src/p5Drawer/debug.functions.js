@@ -3,6 +3,7 @@
 
 const Rac = require('../Rac');
 
+// RELEASE-TODO: update debug texts to use paddings instead of pointToAngle
 
 // RELEASE-TODO: use uprightText for these cases
 function reversesText(angle) {
@@ -53,7 +54,7 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     dashedDraw(drawer, [2, 4], ()=>{ outsideAngleArc.draw(); });
   }
 
-  // Text
+  // Debug Text
   if (drawsText !== true) { return; }
 
   // Normal orientation
@@ -101,7 +102,7 @@ exports.debugPoint = function(drawer, point, drawsText) {
     .withLengthRatio(1/2)
     .draw();
 
-  // Text
+  // Debug Text
   if (drawsText !== true) { return; }
 
   let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
@@ -163,7 +164,7 @@ exports.debugRay = function(drawer, ray, drawsText) {
       .draw();
   }
 
-  // Text
+  // Debug Text
   if (drawsText !== true) { return; }
 
   const angle  = ray.angle;
@@ -264,7 +265,7 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .draw();
 
 
-  // Text
+  // Debug Text
   if (drawsText !== true) { return; }
 
   let angle = segment.angle();
@@ -411,11 +412,11 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .draw();
   }
 
-  // Text
+  // Debug Text
   if (drawsText !== true) { return; }
 
-  let hEnum = Rac.Text.Format.horizontalAlign;
-  let vEnum = Rac.Text.Format.verticalAlign;
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
 
   let headVertical = arc.clockwise
     ? vEnum.top
@@ -518,12 +519,12 @@ exports.debugText = function(drawer, text, drawsText) {
   const format = text.format;
 
   // RELEASE-TODO: delete when done
-  let mark = drawer.rac.Color.red.stroke(2);
+  const mark = drawer.rac.Color.red.stroke(2);
 
   // Point marker
   text.point.arc(pointRadius).draw();
 
-  let cornerReticule = function(angle, padding, perpPadding, rotation) {
+  const cornerReticule = function(angle, padding, perpPadding, rotation) {
     rac.Point.zero
       .segmentToAngle(angle, markerRadius)
       .reverse().withLength(markerRadius-pointRadius*2).draw() // line at text edge
@@ -535,7 +536,7 @@ exports.debugText = function(drawer, text, drawsText) {
       dashedDraw(drawer, [5, 2], ()=>{ rac.popStack().draw(); });
   };
 
-  let centerReticule = function(angle, padding, perpPadding, rotation) {
+  const centerReticule = function(angle, padding, perpPadding, rotation) {
     angle = rac.Angle.from(angle);
     // lines at edge of text
     rac.Point.zero
@@ -646,33 +647,27 @@ exports.debugText = function(drawer, text, drawsText) {
   // Text object
   text.draw(drawer.debugTextStyle);
 
-  // Point reticule marker
-  // let arc = point
-  //   .arc(markerRadius, rac.Angle.s, rac.Angle.e)
-  //   .draw();
-  // arc.startSegment().reverse()
-  //   .withLengthRatio(1/2)
-  //   .draw();
-  // arc.endSegment()
-  //   .reverse()
-  //   .withLengthRatio(1/2)
-  //   .draw();
+  // Debug Text
+  if (drawsText !== true) { return; }
 
-  // Text
-  // if (drawsText !== true) { return; }
+  const fix = function(number) {
+    return number.toFixed(digits);
+  };
 
-  // let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
-  // let format = new Rac.Text.Format(
-  //   rac,
-  //   Rac.Text.Format.horizontalAlign.left,
-  //   Rac.Text.Format.verticalAlign.top,
-  //   rac.Angle.e,
-  //   drawer.debugTextOptions.font,
-  //   drawer.debugTextOptions.size);
-  // point
-  //   .pointToAngle(rac.Angle.se, pointRadius*2)
-  //   .text(string, format)
-  //   .draw(drawer.debugTextStyle);
+  let stringPa = `p:(${fix(text.point.x)},${fix(text.point.y)}) a:${fix(format.angle.turn)}`;
+  let stringAl = `al:${format.hAlign},${format.vAlign}`;
+  let stringPad = `pa:${fix(format.hPadding)},${fix(format.vPadding)}`;
+  let debugString = `${stringPa}\n${stringAl}\n${stringPad}`;
+
+  let debugFormat = new Rac.Text.Format(
+    rac,
+    hEnum.right, vEnum.bottom,
+    rac.Angle.zero,
+    drawer.debugTextOptions.font,
+    drawer.debugTextOptions.size,
+    pointRadius, pointRadius);
+  text.point.text(`${debugString}`, debugFormat)
+    .draw(drawer.debugTextStyle);
 }; // debugText
 
 
