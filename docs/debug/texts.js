@@ -70,24 +70,9 @@ function buildSketch(sketch, Rac) {
   }
 
 
-  // RELEASE-TODO: remove timing code
-  let lapses = [];
   sketch.mouseDragged = function(event) {
     rac.controller.pointerDragged(rac.Point.pointer());
-
-
-    let start = performance.now();
     sketch.redraw();
-    let elapsed = performance.now() - start;
-    if (lapses.length > 40) {
-      lapses.shift();
-    }
-
-    lapses.push(elapsed*1000);
-    let sum = lapses.reduce((accumulator, currentValue) => {
-      return accumulator + currentValue
-    });
-    // console.log(`⏰ mouseDragged count: ${lapses.length} avg-elapsed:${sum/lapses.length}`);
   }
 
 
@@ -104,11 +89,6 @@ function buildSketch(sketch, Rac) {
 
     closure(egCenter, segmentEnd);
   }
-
-
-  // RELEASE-TODO: needed?
-  // Debug verbose
-  let verbose = true;
 
 
   sketch.draw = function() {
