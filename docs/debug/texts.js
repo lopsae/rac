@@ -11,11 +11,12 @@ const racLocation = window.location.hostname == '127.0.0.1' // 'localhost'
   // ? 'http://localhost:9001/rac.min.js'
   // ? 'https://cdn.jsdelivr.net/gh/lopsae/rac/dist/rac.js'
   : 'https://cdn.jsdelivr.net/gh/lopsae/rac@develop/dist/rac.js';
-// RELEASE-TODO: update to 1.7.0?
-const p5Location = 'https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js';
+
+const p5Location = 'https://cdn.jsdelivr.net/npm/p5@1.7.0/lib/p5.min.js';
 
 if (typeof requirejs === 'function') {
   console.log(`📚 Requesting rac from: ${racLocation}`);
+  console.log(`📚 Requesting p5js from: ${p5Location}`);
   requirejs([racLocation, p5Location],
   (racConstructor, p5Func) => {
     console.log('📚 Loaded Libraries');
