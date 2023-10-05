@@ -11,22 +11,21 @@ const racLocation = window.location.hostname == '127.0.0.1' // 'localhost'
   // ? 'http://localhost:9001/rac.min.js'
   // ? 'https://cdn.jsdelivr.net/gh/lopsae/rac/dist/rac.js'
   : 'https://cdn.jsdelivr.net/gh/lopsae/rac@develop/dist/rac.js';
+// RELEASE-TODO: update to 1.7.0?
+const p5Location = 'https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js';
 
 if (typeof requirejs === 'function') {
   console.log(`📚 Requesting rac from: ${racLocation}`);
-  // RELEASE-TODO: can both libraries be loaded at the same time?
-  requirejs([racLocation], racConstructor => {
-    console.log('📚 Loaded RAC');
-    console.log(`🗃 ${racConstructor.version} ${racConstructor.build}`);
+  requirejs([racLocation, p5Location],
+  (racConstructor, p5Func) => {
+    console.log('📚 Loaded Libraries');
+    console.log(`🗃 RAC:${racConstructor.version} ${racConstructor.build}`);
     console.log(`🕰 ${racConstructor.dated}`);
     let timed = racConstructor.dated.split('T').at(-1);
     console.log(`⏱️ ${timed}`);
 
-    // RELEASE-TODO: update to p5 1.7.0
-    requirejs(['https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js'], p5Func => {
-      console.log(`📚 Loaded p5:${typeof p5Func}`);
-      new p5Func(sketch => buildSketch(sketch, racConstructor));
-    });
+    console.log(`📚 p5js:${typeof p5Func}`);
+    new p5Func(sketch => buildSketch(sketch, racConstructor));
   });
 }
 
@@ -40,7 +39,7 @@ function buildSketch(sketch, Rac) {
 
   sketch.setup = function() {
     rac = new Rac();
-    console.log(`📚 New RAC constructed`);
+    console.log('🛠️ New RAC constructed');
     rac.setupDrawer(sketch);
 
     distanceControl = new Rac.RayControl(rac, 0, 300);
