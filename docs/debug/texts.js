@@ -35,27 +35,17 @@ function buildSketch(sketch, Rac) {
 
   let rac = null;
 
-  let distanceControl = null;
-  let angleControl = null;
-
   sketch.setup = function() {
     rac = new Rac();
     console.log('🛠️ New RAC constructed');
     rac.setupDrawer(sketch);
 
-    distanceControl = new Rac.RayControl(rac, 0, 300);
-    distanceControl.setValueWithLength(140);
-    distanceControl.setLimitsWithLengthInsets(10, 10);
-    distanceControl.addMarkerAtCurrentValue();
-
-    angleControl = new Rac.ArcControl(rac, 0, rac.Angle(1));
-    angleControl.setValueWithAngleDistance(1/16);
-    angleControl.addMarkerAtCurrentValue();
-
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
     sketch.noLoop();
     sketch.noStroke();
     sketch.noFill();
+
+    runOnce();
   };
 
 
@@ -91,30 +81,41 @@ function buildSketch(sketch, Rac) {
   }
 
 
-  sketch.draw = function() {
-    sketch.clear();
+  let distanceControl = null;
+  let angleControl = null;
 
-    // RELEASE-TODO: move palette and other visual setup out
+  let palette
+
+
+  // Builds controls and applies styles
+  function runOnce() {
+    distanceControl = new Rac.RayControl(rac, 0, 300);
+    distanceControl.setValueWithLength(140);
+    distanceControl.setLimitsWithLengthInsets(10, 10);
+    distanceControl.addMarkerAtCurrentValue();
+
+    angleControl = new Rac.ArcControl(rac, 0, rac.Angle(1));
+    angleControl.setValueWithAngleDistance(1/16);
+    angleControl.addMarkerAtCurrentValue();
+
     // https://coolors.co/011627-fdfffc-2ec4b6-e71d36-ff9f1c-9e22f1
-    let palette = {
-      richBlack:   rac.Color.fromHex('011627'),//(1, 22, 39),
-      babyPowder:  rac.Color.fromHex('fdfffc'),//(253, 255, 252),
-      tiffanyBlue: rac.Color.fromHex('2ec4b6'),//(46, 196, 182),
-      roseMadder:  rac.Color.fromHex('e71d36'),//(231, 29, 54),
-      orangePeel:  rac.Color.fromHex('ff9f1c'),//(255, 159, 28),
-      purpleX11:   rac.Color.fromHex('9e22f1')//(158, 34, 241)
+    palette = {
+      richBlack:   rac.Color.fromHex('011627'),
+      babyPowder:  rac.Color.fromHex('fdfffc'),
+      tiffanyBlue: rac.Color.fromHex('2ec4b6'),
+      roseMadder:  rac.Color.fromHex('e71d36'),
+      orangePeel:  rac.Color.fromHex('ff9f1c'),
+      purpleX11:   rac.Color.fromHex('9e22f1')
     };
 
     // Stroke weigth
-    rac.drawer.strokeWeightFactor = 1.5;
+    rac.drawer.strokeWeightFactor = 1;
 
     // Default font
     rac.textFormatDefaults.font = "Spot Mono Medium, Spot Mono, Menlo, monospace";
     rac.textFormatDefaults.size = 15;
 
-    // Root styles
-    palette.richBlack.applyBackground();
-    // Default style mostly used for reticules
+    // Default style
     palette.babyPowder.withAlpha(.5).stroke(2)
       .apply();
 
@@ -124,25 +125,25 @@ function buildSketch(sketch, Rac) {
       .appendStroke(textStroke)
       .applyToClass(Rac.Text);
 
-    // debug style
-    rac.drawer.debugStyle = palette.purpleX11.stroke(1.5);
+    // Debug style
+    rac.drawer.debugStyle = palette.purpleX11.stroke(2);
     rac.drawer.debugTextStyle = palette
       .richBlack.withAlpha(0.5).stroke(2)
       .appendFill(palette.purpleX11);
 
-    let controlStyle = palette.roseMadder.stroke(3)
-      .appendFill(palette.babyPowder);
-
-
+    // Controll Style
     rac.controller.controlStyle = palette.babyPowder.fill()
       .appendStroke(palette.roseMadder.stroke(3));
-    // angleControl.style = palette.roseMadder.stroke(3);
     distanceControl.style = palette.orangePeel.stroke(3);
 
+    // Pointer Style
     rac.controller.pointerStyle = palette.orangePeel.withAlpha(.5).stroke(2)
       .appendFill(palette.babyPowder.withAlpha(1/3));
-    // rac.controller.pointerStyle = null;
+  }
 
+
+  sketch.draw = function() {
+    sketch.clear();
 
     // General measurements
     let startArcRadius = 30;
