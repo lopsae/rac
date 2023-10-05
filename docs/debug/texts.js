@@ -149,10 +149,8 @@ function buildSketch(sketch, Rac) {
     let startArcRadius = 30;
     let endArcRadius = 80;
 
-
     // Center point
     let center = rac.Point.canvasCenter();
-
 
     // Controls values
     let controlAngle = angleControl.distance();
@@ -175,19 +173,15 @@ function buildSketch(sketch, Rac) {
       .withAngle(controlAngle);
     let distanceAffixAnchor = distanceControl.affixAnchor();
 
-    distanceAffixAnchor.withLengthAdd(30)
-      .endPoint()
-      .text(`${controlDistance.toFixed(3)}`, distanceTextFormat).draw();
-    distanceAffixAnchor.withLengthAdd(30)
-      .nextSegmentPerpendicular(false, 15)
-      .endPoint()
-      .text(`sll: ${distanceControl.startLimitLength().toFixed(3)}`, distanceTextFormat).draw();
-    distanceAffixAnchor.withLengthAdd(30)
-      .nextSegmentPerpendicular(false, 30)
-      .endPoint()
-      .text(`ell: ${distanceControl.endLimitLength().toFixed(3)}`, distanceTextFormat).draw();
+    let distanceStr   = `d:${controlDistance.toFixed(3)}`;
+    let startLimitStr = `sll: ${distanceControl.startLimitLength().toFixed(3)}`;
+    let endLimitStr   = `ell: ${distanceControl.endLimitLength().toFixed(3)}`;
+    let distanceControlStr = `${distanceStr}\n${startLimitStr}\n${endLimitStr}`;
 
-    center.addY(-200).debugAngle(controlAngle);
+    distanceAffixAnchor.nextSegmentWithLength(0)
+      .ray.text(distanceControlStr)
+      .withPaddings(30, 0)
+      .draw();
 
 
     // ====================================================================
