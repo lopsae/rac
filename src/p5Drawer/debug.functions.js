@@ -506,7 +506,6 @@ exports.debugArc = function(drawer, arc, drawsText) {
 }; // debugArc
 
 
-// RELEASE-TODO: finalize, clean
 exports.debugText = function(drawer, text, drawsText) {
   const rac =          drawer.rac;
   const pointRadius =  drawer.debugPointRadius;
@@ -517,9 +516,6 @@ exports.debugText = function(drawer, text, drawsText) {
   const vEnum = Rac.Text.Format.verticalAlign;
 
   const format = text.format;
-
-  // RELEASE-TODO: delete when done
-  const mark = drawer.rac.Color.red.stroke(2);
 
   // Point marker
   text.point.arc(pointRadius).draw();
