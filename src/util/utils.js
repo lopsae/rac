@@ -6,6 +6,9 @@ const Rac = require('../Rac');
 
 /**
 * Internal utilities.
+*
+* Available through `{@link Rac.utils}` or [`rac.utils`]{@link Rac#utils}.
+*
 * @namespace utils
 */
 

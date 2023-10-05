@@ -327,6 +327,7 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
+// RELEASE-TODO: update with paddings
   /**
   * Convenience function to create a new `Text.Format`. The created
   * `format.rac` is setup with `this`.
@@ -365,8 +366,10 @@ module.exports = function attachInstanceFunctions(rac) {
     font = null,
     size = null)
   {
-    // This functions uses `rac` instead of `this`, since `this` points to
-    // `rac` here and to `rac.Text` in the `Text.Format` alias
+    // This functions uses `rac` instead of `this`, since `this` may point
+    // to different objects:
+    // + `rac` in this function body
+    // + `rac.Text` in the `Text.Format` alias bellow
     angle = Rac.Angle.from(rac, angle);
     return new Rac.Text.Format(
       rac,
