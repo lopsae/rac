@@ -221,6 +221,23 @@ class Text {
 
   // RELEASE-TODO: Unit Test and Visual Test
   /**
+  * Returns a new `Text` and `Format` with paddings set to the given values.
+  *
+  * @param {Number} hPadding - The horizontal padding for the new `Text`
+  *   and `Text.Format`
+  * @param {Number} vPadding - The vertical padding for the new `Text` and
+  *   `Text.Format`
+  *
+  * @returns {Rac.Text.Format}
+  */
+  withPaddings(hPadding, vPadding) {
+    const newFormat = this.format.withPaddings(hPadding, vPadding);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
   * Returns a new `Text` which is an upside-down equivalent of `this`
   * and generally in the same location.
   *
