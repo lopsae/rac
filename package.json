@@ -29,6 +29,7 @@
     "docs:fresh": "grunt --debug deleteDocs makeDocs openDocs",
     "docs:repack": "npm update minami-rac && npm run docs",
     "pages": "cd docs; bundle exec jekyll serve --open-url",
+    "pagesSetup": "npm test && grunt pagesSetup",
     "dist": "npm test && grunt dist"
   },
   "devDependencies": {
