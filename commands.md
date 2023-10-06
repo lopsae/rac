@@ -21,8 +21,9 @@ Produces a debug build and starts localhost server, rebuilds whenever a source f
 ### `npm run pages`
 Starts the local jekyll server for the github-io pages, and opens its index.
 
+
 ### `npm run pagesSetup`
-// RELEASE-TODO: document
+Produces a debug build and copies it to the github-io pages folder, to make it available through the `run pages` command.
 
 
 ### `npm run docs`
