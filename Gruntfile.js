@@ -75,7 +75,17 @@ module.exports = function(grunt) {
     watch: {
       serve_again: {
         files: ['src/**/*.js'],
-        tasks: ['makeVersionFile:local', 'browserify:dev_dirty']
+        tasks: [
+          'makeVersionFile:local',
+          'browserify:dev_dirty']
+      },
+      // RELEASE-TODO: rename to copy_dist_to_pages_again
+      copy_to_pages_again: {
+        files: ['src/**/*.js'],
+        tasks: [
+          'makeVersionFile:local',
+          'browserify:dev_dirty',
+          'copyDistToPages:dev']
       }
     }, // watch
 
@@ -313,6 +323,7 @@ module.exports = function(grunt) {
   //   modifications are present in the workspace.
   // + `production` - Makes a production version file, the workspace MUST
   //   be clean of any modifications.
+  // MAICTODO: rename to makeVersioningFile
   grunt.registerTask('makeVersionFile', function(target) {
     let validTargets = ['local', 'production'];
     if (!validTargets.includes(target)) {
@@ -336,6 +347,31 @@ module.exports = function(grunt) {
   });
 
 
+  // Copies files present in `dist` to the `docs/dist/version` folder, to
+  // make these available to the pages server.
+  grunt.registerTask('copyDistToPages', function(target) {
+    let validTargets = ['dev', 'production'];
+    if (!validTargets.includes(target)) {
+      grunt.fatal(`Unsupported target: ${target}`)
+      return
+    }
+
+    grunt.config.requires('pkg.version');
+    const pkgVersion  = grunt.config('pkg.version');
+    const versionString = '' + pkgVersion;
+
+    const versionFolder = `docs/dist/${versionString}`;
+
+    // `dev` target files are default
+    grunt.file.copy('dist/rac.dev.js', `${versionFolder}/rac.dev.js`);
+
+    if (target === 'production') {
+      grunt.file.copy('dist/rac.min.js', `${versionFolder}/rac.min.js`);
+      grunt.file.copy('dist/rac.js', `${versionFolder}/rac.js`);
+    }
+  });
+
+
   // Queues the tasks to produce all documentation.
   grunt.registerTask('makeDocs', [
     'makeDocsReadme', 'jsdoc']);
@@ -347,12 +383,22 @@ module.exports = function(grunt) {
 
 
 
-  // Builds a dev bundle, serves it, and watches for source changes
+  // Builds a dev bundle, serves it though a web-server, and watches for
+  // source changes to update the served files
   grunt.registerTask('serve', [
     'makeVersionFile:local',
     'browserify:dev_dirty',
     'connect:server',
     'watch:serve_again']);
+
+
+  // Builds a dev bundle, copies it to pages, and watches to rebuild and
+  // update the copied files
+  grunt.registerTask('pagesSetup', [
+    'makeVersionFile:local',
+    'browserify:dev_dirty',
+    'copyDistToPages:dev',
+    'watch:copy_to_pages_again']);
 
 
   // Builds a dev/main/mini bundle with a clean version, serves it for
