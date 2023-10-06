@@ -31,13 +31,15 @@
 
       // Ignores these files in _Goto Anything_ and _Find in Files_
       "binary_file_patterns": [
-        "dist/*"
+        "dist/*",
+        "docs/dist/*/*"
       ],
 
       // Prevents files from appearing in index operations
       // E.g. `Goto Symbol...` or `Goto Definition...
       "index_exclude_patterns": [
-        "dist/*"
+        "dist/*",
+        "docs/dist/*/*"
       ]
     }
   ]
