@@ -76,14 +76,13 @@ module.exports = function(grunt) {
       serve_again: {
         files: ['src/**/*.js'],
         tasks: [
-          'makeVersionFile:local',
+          'makeVersioningFile:local',
           'browserify:dev_dirty']
       },
-      // RELEASE-TODO: rename to copy_dist_to_pages_again
-      copy_to_pages_again: {
+      copy_dist_to_pages_again: {
         files: ['src/**/*.js'],
         tasks: [
-          'makeVersionFile:local',
+          'makeVersioningFile:local',
           'browserify:dev_dirty',
           'copyDistToPages:dev']
       }
@@ -215,7 +214,6 @@ module.exports = function(grunt) {
     grunt.config.requires('pkg.version');
     const pkgVersion = grunt.config('pkg.version');
 
-    // TODO: why is this necessary? does a 0.1 version becomes a float?
     const versionString = '' + pkgVersion;
 
     let templateContents = grunt.file.read('template/docs_home.md.template');
@@ -323,8 +321,7 @@ module.exports = function(grunt) {
   //   modifications are present in the workspace.
   // + `production` - Makes a production version file, the workspace MUST
   //   be clean of any modifications.
-  // MAICTODO: rename to makeVersioningFile
-  grunt.registerTask('makeVersionFile', function(target) {
+  grunt.registerTask('makeVersioningFile', function(target) {
     let validTargets = ['local', 'production'];
     if (!validTargets.includes(target)) {
       grunt.fatal(`Unsupported target: ${target}`)
@@ -386,7 +383,7 @@ module.exports = function(grunt) {
   // Builds a dev bundle, serves it though a web-server, and watches for
   // source changes to update the served files
   grunt.registerTask('serve', [
-    'makeVersionFile:local',
+    'makeVersioningFile:local',
     'browserify:dev_dirty',
     'connect:server',
     'watch:serve_again']);
@@ -395,16 +392,16 @@ module.exports = function(grunt) {
   // Builds a dev bundle, copies it to pages, and watches to rebuild and
   // update the copied files
   grunt.registerTask('pagesSetup', [
-    'makeVersionFile:local',
+    'makeVersioningFile:local',
     'browserify:dev_dirty',
     'copyDistToPages:dev',
-    'watch:copy_to_pages_again']);
+    'watch:copy_dist_to_pages_again']);
 
 
   // Builds a dev/main/mini bundle with a clean version, serves it for
   // confirmation.
   grunt.registerTask('dist', [
-    'makeVersionFile:production',
+    'makeVersioningFile:production',
     'browserify:dev_clean',
     'browserify:main',
     'uglify',
