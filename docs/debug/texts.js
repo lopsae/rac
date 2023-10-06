@@ -4,9 +4,8 @@
 console.log('❎ Running debug-test');
 
 
-// RELEASE-TODO: check if dist can also be hosted with pages
 const racLocation = window.location.hostname == '127.0.0.1' // 'localhost'
-  ? 'http://localhost:9001/rac.dev.js'
+  ? '../dist/1.3.0-dev/rac.dev.js'
   // ? 'http://localhost:9001/rac.js'
   // ? 'http://localhost:9001/rac.min.js'
   // ? 'https://cdn.jsdelivr.net/gh/lopsae/rac/dist/rac.js'

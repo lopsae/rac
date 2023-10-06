@@ -64,3 +64,19 @@ cd rac
 npm run pages
 ```
 
+Pages should be available at: `http://127.0.0.1:4000/`
+
+
+
+Run debug Pages
+---------------
+The pages in `docs/debug/*.html` can be accessed through the github.io local server described above.
+
+To desploy to pages a locally built version of rac:
+```
+cd rac
+npm run pagesSetup
+```
+
+Update the debug page to load the new version of the distribution file.
+
