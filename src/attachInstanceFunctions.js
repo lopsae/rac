@@ -327,7 +327,8 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
-// RELEASE-TODO: update with paddings
+
+  // RELEASE-TODO: document padding parameters
   /**
   * Convenience function to create a new `Text.Format`. The created
   * `format.rac` is setup with `this`.
@@ -359,6 +360,7 @@ module.exports = function attachInstanceFunctions(rac) {
   * @function TextFormat
   * @memberof Rac#
   */
+  // RELEASE-TODO: update function with paddings
   rac.TextFormat = function makeTextFormat(
     hAlign,
     vAlign,

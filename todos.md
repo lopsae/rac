@@ -8,7 +8,6 @@ In progress
 
 For version change
 ------------------
-+ TextFormat padding
 + arc.shift, sets start to start.shift(angle), and modifies end to keeps the same angleDistance
 + add instance.Composite?
 + Create Drawable namespace, and document the drawable methods
