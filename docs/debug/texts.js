@@ -332,8 +332,13 @@ function buildSketch(sketch, Rac) {
       let rCenter = egCenter.addX(-100);
 
       // Lefts
-      lCenter.text('Debug Text with bl', rac.Text.Format.bl)
-        .withPaddings(genPadding*3/2, genPadding)
+      let blFormat = rac.Text.Format(
+        Rac.Text.Format.horizontalAlign.left,
+        Rac.Text.Format.verticalAlign.bottom,
+        rac.Angle.zero,
+        null, null,
+        genPadding*3/2, genPadding);
+      lCenter.text('Debug Text with bl', blFormat)
         .debug(true);
       lCenter = lCenter.addY(60);
       lCenter.text('Debug Text with bll', rac.Text.Format.bll)

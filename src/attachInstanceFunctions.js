@@ -327,8 +327,6 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
-
-  // RELEASE-TODO: document padding parameters
   /**
   * Convenience function to create a new `Text.Format`. The created
   * `format.rac` is setup with `this`.
@@ -352,6 +350,8 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The angle towards which the text is drawn
   * @param {String} [font=null] - The font name
   * @param {Number} [size=null] - The font size
+  * @param {Number} [hPadding=0] - The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0] - The vertical padding, top-to-bottom
   *
   * @returns {Rac.Text.Format}
   *
@@ -360,13 +360,14 @@ module.exports = function attachInstanceFunctions(rac) {
   * @function TextFormat
   * @memberof Rac#
   */
-  // RELEASE-TODO: update function with paddings
   rac.TextFormat = function makeTextFormat(
     hAlign,
     vAlign,
     angle = rac.Angle.zero,
     font = null,
-    size = null)
+    size = null,
+    hPadding = 0,
+    vPadding = 0)
   {
     // This functions uses `rac` instead of `this`, since `this` may point
     // to different objects:
@@ -376,7 +377,8 @@ module.exports = function attachInstanceFunctions(rac) {
     return new Rac.Text.Format(
       rac,
       hAlign, vAlign,
-      angle, font, size);
+      angle, font, size,
+      hPadding, vPadding);
   };
 
 
@@ -392,6 +394,8 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The angle towards which the text is drawn
   * @param {String} [font=null] - The font name
   * @param {Number} [size=null] - The font size
+  * @param {Number} [hPadding=0] - The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0] - The vertical padding, top-to-bottom
   *
   * @function Format
   * @memberof instance.Text#
