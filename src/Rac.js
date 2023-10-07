@@ -167,7 +167,9 @@ class Rac {
     require('./drawable/instance.Bezier') (this);
 
     // Depends on instance.Point and instance.Angle being already setup
-    require('./drawable/instance.Text')(this);
+    require('./drawable/instance.Text.Format')(this);
+    require('./drawable/instance.Text')       (this);
+
 
 
     /**
