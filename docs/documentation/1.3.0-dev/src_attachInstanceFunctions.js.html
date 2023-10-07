@@ -100,8 +100,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Color}
   *
-  * @see instance.Color
-  *
   * @function Color
   * @memberof Rac#
   */
@@ -128,8 +126,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Stroke}
   *
-  * @see instance.Stroke
-  *
   * @function Stroke
   * @memberof Rac#
   */
@@ -153,8 +149,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @param {Rac.Color} [color=null]
   * @returns {Rac.Fill}
-  *
-  * @see instance.Fill
   *
   * @function Fill
   * @memberof Rac#
@@ -182,8 +176,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Style}
   *
-  * @see instance.Style
-  *
   * @function Style
   * @memberof Rac#
   */
@@ -206,8 +198,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
-  *
-  * @see instance.Angle
   *
   * @function Angle
   * @memberof Rac#
@@ -234,8 +224,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Point}
   *
-  * @see instance.Point
-  *
   * @function Point
   * @memberof Rac#
   */
@@ -261,8 +249,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Rac.Angle|Number} angle
   *
   * @returns {Rac.Ray}
-  *
-  * @see instance.Ray
   *
   * @function Ray
   * @memberof Rac#
@@ -292,8 +278,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Number} length
   *
   * @returns {Rac.Segment}
-  *
-  * @see instance.Segment
   *
   * @function Segment
   * @memberof Rac#
@@ -326,8 +310,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
-  *
-  * @see instance.Arc
   *
   * @function Arc
   * @memberof Rac#
@@ -362,8 +344,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Text}
   *
-  * @see instance.Text
-  *
   * @function Text
   * @memberof Rac#
   */
@@ -373,8 +353,6 @@ module.exports = function attachInstanceFunctions(rac) {
   };
 
 
-
-  // RELEASE-TODO: document padding parameters
   /**
   * Convenience function to create a new `Text.Format`. The created
   * `format.rac` is setup with `this`.
@@ -398,21 +376,22 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The angle towards which the text is drawn
   * @param {String} [font=null] - The font name
   * @param {Number} [size=null] - The font size
+  * @param {Number} [hPadding=0] - The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0] - The vertical padding, top-to-bottom
   *
   * @returns {Rac.Text.Format}
-  *
-  * @see instance.Text.Format
   *
   * @function TextFormat
   * @memberof Rac#
   */
-  // RELEASE-TODO: update function with paddings
   rac.TextFormat = function makeTextFormat(
     hAlign,
     vAlign,
     angle = rac.Angle.zero,
     font = null,
-    size = null)
+    size = null,
+    hPadding = 0,
+    vPadding = 0)
   {
     // This functions uses `rac` instead of `this`, since `this` may point
     // to different objects:
@@ -422,7 +401,8 @@ module.exports = function attachInstanceFunctions(rac) {
     return new Rac.Text.Format(
       rac,
       hAlign, vAlign,
-      angle, font, size);
+      angle, font, size,
+      hPadding, vPadding);
   };
 
 
@@ -438,6 +418,8 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The angle towards which the text is drawn
   * @param {String} [font=null] - The font name
   * @param {Number} [size=null] - The font size
+  * @param {Number} [hPadding=0] - The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0] - The vertical padding, top-to-bottom
   *
   * @function Format
   * @memberof instance.Text#
@@ -461,8 +443,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Number} endY
   *
   * @returns {Rac.Bezier}
-  *
-  * @see instance.Bezier
   *
   * @function Bezier
   * @memberof Rac#
