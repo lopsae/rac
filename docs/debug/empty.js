@@ -194,6 +194,9 @@ function buildSketch(sketch, Rac) {
       egCenter.arc(5).draw();
       egCenter.text('North-East Example:\nempty', rac.Text.Format.bc)
         .draw();
+
+        // EMPTY
+
     }); // North-East Example
 
 
@@ -205,6 +208,9 @@ function buildSketch(sketch, Rac) {
       egCenter.arc(5).draw();
       egCenter.text('South-East Example:\nempty', rac.Text.Format.bc)
         .draw();
+
+        // EMPTY
+
     }); // South-East Example
 
 
@@ -217,6 +223,9 @@ function buildSketch(sketch, Rac) {
       egCenter.arc(5).draw();
       egCenter.text('North-West Example:\nempty', rac.Text.Format.bc)
         .draw();
+
+        // EMPTY
+
     }); // North-West Example
 
 
@@ -228,6 +237,9 @@ function buildSketch(sketch, Rac) {
       egCenter.arc(5).draw();
       egCenter.text('South-West Example:\nempty', rac.Text.Format.bc)
         .draw();
+
+        // EMPTY
+
     }); // South-West Example
 
 
