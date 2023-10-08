@@ -1,4 +1,4 @@
 # Visual tests
 
-Html pages for visually testing RAC features.
+Html pages for visual testing of RAC features.
 

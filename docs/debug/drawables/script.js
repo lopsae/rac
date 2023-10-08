@@ -212,40 +212,6 @@ function buildSketch(sketch, Rac) {
       .text(`ell: ${distanceControl.endLimitLength().toFixed(3)}`, distanceTextFormat).draw();
 
 
-    // Tests for default text format
-    let hEnum = Rac.Text.Format.horizontalAlign;
-    let vEnum = Rac.Text.Format.verticalAlign;
-    rac.Point(10, 10)
-      .text("Default Text", rac.Text.Format.topLeft)
-      .draw();
-    rac.Point(10, 30)
-      .text("Text with font-size-less format", rac.Text.Format(hEnum.left, vEnum.top))
-      .draw();
-    rac.Point(10, 50)
-      .text("Text without format")
-      .draw();
-    rac.Point(10, 70)
-      .text("Mutating format")
-      .withSize(20)
-      .withFont("Futura")
-      .withAngle(0.01)
-      .draw();
-    let reversableFormat = rac.Text.Format(hEnum.left, vEnum.top, 0.01)
-    rac.Point(50, 100).debug()
-      .text("reversable text", reversableFormat)
-      .draw();
-    rac.Point(50, 120)
-      .text("reverse text", reversableFormat.reverse())
-      .draw();
-
-    rac.textFormatDefaults.font = null;
-    rac.textFormatDefaults.size = 12;
-
-    rac.Point(10, 150)
-      .text("Text after changing defaults")
-      .draw();
-
-
     // Tests for divideToSegments
     let circle = center.addY(-250).arc(150).draw();
     let circleTop = circle.pointAtAngle(rac.Angle.up);
