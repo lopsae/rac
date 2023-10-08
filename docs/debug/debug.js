@@ -83,7 +83,10 @@ function buildSketch(sketch, Rac) {
   let distanceControl = null;
   let angleControl = null;
 
-  let palette
+  let palette = null;
+
+  // Debug verbose
+  let verbose = true;
 
 
   // Builds controls and applies styles
@@ -189,32 +192,31 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
-      egCenter.text('North-East Example:\nempty', rac.Text.Format.bc)
-        .draw()
-    }); // North-East Example
-
-
-    // ====================================================================
-    // North-West Example =================================================
-    // ====================================================================
-    makeExampleContext(center, rac.Angle.nw, controlAngle, controlDistance,
-    (egCenter, segmentEnd) => {
-      let translation = 60;
-      egCenter.arc(5).draw();
-      egCenter.text('North-West Example:\nempty', rac.Text.Format.bc)
-        .draw()
-    }); // North-West Example
-
-
-    // ====================================================================
-    // South-West Example =================================================
-    // ====================================================================
-    makeExampleContext(center, rac.Angle.sw, controlAngle, controlDistance,
-    (egCenter, segmentEnd) => {
-      egCenter.arc(5).draw();
-      egCenter.text('South-West Example:\nempty', rac.Text.Format.bc)
+      egCenter.text('North-East Example:\nsegments, rays, point, angles', rac.Text.Format.bc)
         .draw();
-    }); // South-West Example
+
+      let radius = egCenter.segmentToPoint(segmentEnd, controlAngle);
+
+      // Point
+      radius.withLengthRatio(1/2).endPoint().debug(verbose);
+
+      // Angle
+      radius.translatePerpendicular(-30)
+        .endPoint().debugAngle(controlAngle, verbose);
+      let pointForAngle = radius
+        .translatePerpendicular(30)
+        .endPoint();
+      controlAngle.debug(pointForAngle, verbose);
+
+      // Segment
+      radius
+        .translatePerpendicular(70)
+        .debug(verbose);
+
+      // Ray
+      radius.translatePerpendicular(-70)
+        .ray.debug(verbose);
+    }); // North-East Example
 
 
     // ====================================================================
@@ -226,6 +228,37 @@ function buildSketch(sketch, Rac) {
       egCenter.text('South-East Example:\nempty', rac.Text.Format.bc)
         .draw();
     }); // South-East Example
+
+
+    // ====================================================================
+    // North-West Example =================================================
+    // ====================================================================
+    makeExampleContext(center, rac.Angle.nw, controlAngle, controlDistance,
+    (egCenter, segmentEnd) => {
+      let translation = 60;
+      egCenter.arc(5).draw();
+      egCenter.text('North-West Example:\nclockwise arc', rac.Text.Format.bc)
+        .draw();
+
+      egCenter.addY(20)
+        .arc(controlDistance, rac.Angle.sw, controlAngle, true)
+        .draw().debug(verbose);
+    }); // North-West Example
+
+
+    // ====================================================================
+    // South-West Example =================================================
+    // ====================================================================
+    makeExampleContext(center, rac.Angle.sw, controlAngle, controlDistance,
+    (egCenter, segmentEnd) => {
+      egCenter.arc(5).draw();
+      egCenter.text('South-West Example:\ncounter-clockwise arc', rac.Text.Format.bc)
+        .draw();
+
+      egCenter.addY(20)
+        .arc(controlDistance, rac.Angle.sw, controlAngle, false)
+        .draw().debug(verbose);
+    }); // South-West Example
 
 
     // Controls draw on top

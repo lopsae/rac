@@ -250,10 +250,6 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.nw, controlAngle, controlDistance,
       (egCenter, movingCenter) => {
 
-      // Variable radius arc, clockwise
-      egCenter.arc(controlDistance, rac.Angle.sw, controlAngle)
-        .draw().debug(verbose);
-
     }); // Example 1
 
 
@@ -261,36 +257,12 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
       (egCenter, movingCenter) => {
 
-      egCenter.segmentToPoint(movingCenter, controlAngle)
-        // Segment
-        .draw().debug()
-        // Segment verbose
-        .translatePerpendicular(70, true)
-        .draw().debug(verbose);
-
-      egCenter
-        // Angle through point
-        .addX(100).debugAngle(controlAngle, verbose)
-        .addY(-100).push();
-      // Angle through angle
-      controlAngle.inverse().debug(rac.popStack());
-
-      egCenter
-        .addY(-100)
-        .ray(controlAngle.inverse()).debug()
-        .start
-        .addX(-70)
-        .ray(controlAngle.inverse()).debug(true);
     }); // Example 2
 
 
     // Example 3 - C
     makeExampleContext(center, rac.Angle.sw, controlAngle, controlDistance,
       (egCenter, movingCenter) => {
-
-      // Variable radius arc, counter-clockwise
-      egCenter.arc(controlDistance, rac.Angle.sw, controlAngle, false)
-        .draw().debug(verbose);
 
     }); // Example 3
 
