@@ -84,6 +84,7 @@ function buildSketch(sketch, Rac) {
   let angleControl = null;
 
   let palette = null;
+  let titleText = null;
 
   // Debug verbose
   let verbose = true;
@@ -121,11 +122,13 @@ function buildSketch(sketch, Rac) {
     palette.babyPowder.withAlpha(.5).stroke(2)
       .apply();
 
-    // Text style
-    let textStroke = palette.richBlack.withAlpha(0.6).stroke(3);
-    palette.orangePeel.fill()
+    // Text styles
+    let textStroke = palette.richBlack.withAlpha(0.6).stroke(2);
+    palette.babyPowder.fill()
       .appendStroke(textStroke)
       .applyToClass(Rac.Text);
+    titleText = palette.richBlack.withAlpha(0.6).stroke(2)
+      .appendFill(palette.orangePeel);
 
     // Debug style
     rac.drawer.debugStyle = palette.purpleX11.stroke(2);
@@ -183,7 +186,7 @@ function buildSketch(sketch, Rac) {
     distanceAffixAnchor.nextSegmentWithLength(0)
       .ray.text(distanceControlStr)
       .withPaddings(30, 0)
-      .draw();
+      .draw(titleText);
 
 
     // ====================================================================
@@ -192,8 +195,8 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
-      egCenter.text('North-East Example:\nsegments, rays, point, angles', rac.Text.Format.bc)
-        .draw();
+      egCenter.text('North-East Example:\nsegments, rays, point, angles', rac.Text.Format.tc)
+        .draw(titleText);
 
       let radius = egCenter.segmentToPoint(segmentEnd, controlAngle);
 
@@ -201,21 +204,36 @@ function buildSketch(sketch, Rac) {
       radius.withLengthRatio(1/2).endPoint().debug(verbose);
 
       // Angle
-      radius.translatePerpendicular(-30)
-        .endPoint().debugAngle(controlAngle, verbose);
+      radius.translatePerpendicular(-40)
+        .endPoint().debugAngle(controlAngle, verbose)
+        .ray(controlAngle)
+        .text('angle through point.debugAngle')
+        .upright().withPaddings(20, 8)
+        .draw();
+
       let pointForAngle = radius
         .translatePerpendicular(30)
         .endPoint();
       controlAngle.debug(pointForAngle, verbose);
+      pointForAngle.ray(controlAngle)
+        .text('angle through angle.debug(point)')
+        .upright().withPaddings(20, 8)
+        .draw();
 
       // Segment
       radius
-        .translatePerpendicular(70)
-        .debug(verbose);
+        .translatePerpendicular(80)
+        .debug(verbose)
+        .text('segment.debug')
+        .upright().withPaddings(5, 28)
+        .draw();
 
       // Ray
-      radius.translatePerpendicular(-70)
-        .ray.debug(verbose);
+      radius.translatePerpendicular(-80)
+        .ray.debug(verbose)
+        .text('ray.debug')
+        .upright().withPaddings(5, 28)
+        .draw();
     }); // North-East Example
 
 
@@ -226,7 +244,10 @@ function buildSketch(sketch, Rac) {
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
       egCenter.text('South-East Example:\nempty', rac.Text.Format.bc)
-        .draw();
+        .draw(titleText);
+
+        // EMPTY
+
     }); // South-East Example
 
 
@@ -238,11 +259,16 @@ function buildSketch(sketch, Rac) {
       let translation = 60;
       egCenter.arc(5).draw();
       egCenter.text('North-West Example:\nclockwise arc', rac.Text.Format.bc)
-        .draw();
+        .draw(titleText);
 
       egCenter.addY(20)
         .arc(controlDistance, rac.Angle.sw, controlAngle, true)
-        .draw().debug(verbose);
+        .draw().debug(verbose)
+        .startRadiusSegment()
+        .reverse()
+        .text('arc\nclockwise', rac.Text.Format.bl)
+        .upright().withPaddings(10, 5)
+        .draw();
     }); // North-West Example
 
 
@@ -253,11 +279,16 @@ function buildSketch(sketch, Rac) {
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
       egCenter.text('South-West Example:\ncounter-clockwise arc', rac.Text.Format.bc)
-        .draw();
+        .draw(titleText);
 
       egCenter.addY(20)
         .arc(controlDistance, rac.Angle.sw, controlAngle, false)
-        .draw().debug(verbose);
+        .draw().debug(verbose)
+        .startRadiusSegment()
+        .reverse()
+        .text('arc\nc-clockwise')
+        .upright().withPaddings(10, 5)
+        .draw();
     }); // South-West Example
 
 
