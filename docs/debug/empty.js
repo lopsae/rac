@@ -85,6 +85,9 @@ function buildSketch(sketch, Rac) {
 
   let palette = null;
 
+  // Debug verbose
+  let verbose = true;
+
 
   // Builds controls and applies styles
   function runOnce() {
@@ -189,56 +192,20 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.ne, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
-      egCenter.text('North-East Example:\nText formatting and point.text', rac.Text.Format.bc)
-        .draw();
-
-      // Default text format
-      egCenter = egCenter.addY(30);
-      egCenter.segmentToAngle(0, 100).draw(palette.orangePeel.stroke());
-      egCenter.text('Text without format')
-        .draw();
-
-      egCenter.text('Text with bottomLeft Format', rac.Text.Format.bottomLeft)
-        .draw();
-
-      let hEnum = Rac.Text.Format.horizontalAlign;
-      let vEnum = Rac.Text.Format.verticalAlign;
-
-      let noSizeFormat = rac.Text.Format(hEnum.left, vEnum.top)
-      egCenter = egCenter.addY(20);
-      egCenter.text('Text without size in format', noSizeFormat)
-        .draw();
-
-      // Save defaults
-      let fontDefault = rac.textFormatDefaults.font;
-      let sizeDefault = rac.textFormatDefaults.size;
-      rac.textFormatDefaults.font = null;
-      rac.textFormatDefaults.size = 12;
-
-      egCenter = egCenter.addY(20);
-      egCenter.text('Text after removing defaults')
-        .draw();
-
-      // Restore defaults
-      rac.textFormatDefaults.font = fontDefault;
-      rac.textFormatDefaults.size = sizeDefault;
-
-      egCenter = egCenter.addY(50).debug();
-      egCenter.text('Mutating format size, font, angle')
-        .withSize(20)
-        .withFont('Futura')
-        .withAngle(controlAngle)
-        .draw();
-
-      let reversableFormat = rac.Text.Format(hEnum.left, vEnum.top, controlAngle)
-      egCenter = egCenter.addY(30);
-      egCenter.text('Text with reversableFormat', reversableFormat)
-        .draw();
-
-      egCenter = egCenter.addY(20);
-      egCenter.text('Text with reversableFormat.reverse', reversableFormat.reverse())
+      egCenter.text('North-East Example:\nempty', rac.Text.Format.bc)
         .draw();
     }); // North-East Example
+
+
+    // ====================================================================
+    // South-East Example =================================================
+    // ====================================================================
+    makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
+    (egCenter, segmentEnd) => {
+      egCenter.arc(5).draw();
+      egCenter.text('South-East Example:\nempty', rac.Text.Format.bc)
+        .draw();
+    }); // South-East Example
 
 
     // ====================================================================
@@ -248,49 +215,7 @@ function buildSketch(sketch, Rac) {
     (egCenter, segmentEnd) => {
       let translation = 60;
       egCenter.arc(5).draw();
-      egCenter.arc(translation).draw();
-
-      egCenter.text('North-West Example:\nray.text, segment.text', rac.Text.Format.bc)
-        .draw();
-
-      egCenter.ray(controlAngle.add(0/16))
-        .translateToDistance(translation)
-        .debug()
-        .text('Text with ray.text').draw();
-
-      egCenter.ray(controlAngle.add(1/16))
-        .translateToDistance(translation)
-        .debug()
-        .text('Text with ray.text.reverse and padding')
-        .withPaddings(10, 5)
-        .reverse().draw();
-
-      egCenter.ray(controlAngle.add(2/16))
-        .translateToDistance(translation)
-        .debug()
-        .text('Text with ray.text.upright and padding')
-        .withPaddings(10, 5)
-        .upright().draw();
-
-      egCenter.ray(controlAngle.add(5/16))
-        .translateToDistance(translation)
-        .segment(100)
-        .debug()
-        .text('Text with segment.text').draw();
-
-      egCenter.ray(controlAngle.add(7/16))
-        .translateToDistance(translation)
-        .segment(100)
-        .debug()
-        .text('Text with segment.text and bll format', rac.Text.Format.bll)
-        .draw();
-
-      egCenter.ray(controlAngle.add(9/16))
-        .translateToDistance(translation)
-        .segment(100)
-        .debug()
-        .text('Text with segment.text.upright\nand bll format', rac.Text.Format.bll)
-        .upright()
+      egCenter.text('North-West Example:\nempty', rac.Text.Format.bc)
         .draw();
     }); // North-West Example
 
@@ -301,103 +226,9 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.sw, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
-      egCenter.text('South-West Example:\nray.text', rac.Text.Format.bc)
-        .draw();
-
-      egCenter.arc(controlDistance, controlAngle, 1/4).debug()
-        .text('Text with arc.text,\nfor clockwise text').draw();
-
-      egCenter = egCenter.addY(100);
-      egCenter.arc(controlDistance, controlAngle.inverse(), 2/4, false).debug()
-        .text('Text with arc.text.upright,\nfor couter-clockwise text')
-        .upright()
+      egCenter.text('South-West Example:\nempty', rac.Text.Format.bc)
         .draw();
     }); // South-West Example
-
-
-    // ====================================================================
-    // South-East Example =================================================
-    // ====================================================================
-    makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
-    (egCenter, segmentEnd) => {
-      egCenter.arc(5).draw();
-      egCenter.text('South-East Example:\ndebug texts', rac.Text.Format.blc)
-        .draw();
-
-      let genPadding = controlDistance - 130;
-      egCenter = egCenter.addY(50);
-
-      let lCenter = egCenter.addX(100);
-      let cCenter = egCenter.addY(70);
-      let rCenter = egCenter.addX(-100);
-
-      // Lefts
-      let blFormat = rac.Text.Format(
-        Rac.Text.Format.horizontalAlign.left,
-        Rac.Text.Format.verticalAlign.bottom,
-        rac.Angle.zero,
-        null, null,
-        genPadding*3/2, genPadding);
-      lCenter.text('Debug Text with bl', blFormat)
-        .debug(true);
-      lCenter = lCenter.addY(60);
-      lCenter.text('Debug Text with bll', rac.Text.Format.bll)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      lCenter = lCenter.addY(60);
-      lCenter.text('Debug Text with cl', rac.Text.Format.cl)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      lCenter = lCenter.addY(60);
-      lCenter.text('Debug Text with tl', rac.Text.Format.tl)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-
-      // Centers
-      cCenter.text('Debug Text with bc', rac.Text.Format.bc)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      cCenter = cCenter.addY(60);
-      cCenter.text('Debug Text with blc', rac.Text.Format.blc)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      cCenter = cCenter.addY(60);
-      cCenter.text('Debug Text with cc', rac.Text.Format.cc)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      cCenter = cCenter.addY(60);
-      cCenter.text('Debug Text with tc', rac.Text.Format.tc)
-        // .withPaddings(0, genPadding)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-
-      // Rights
-      rCenter.text('Debug Text with br', rac.Text.Format.br)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      rCenter = rCenter.addY(60);
-      rCenter.text('Debug Text with blr', rac.Text.Format.blr)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      rCenter = rCenter.addY(60);
-      rCenter.text('Debug Text with cr', rac.Text.Format.cr)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-      rCenter = rCenter.addY(60);
-      rCenter.text('Debug Text with tr', rac.Text.Format.tr)
-        .withPaddings(genPadding*3/2, genPadding)
-        .debug();
-
-      let vPadding = controlDistance -120;
-      let paddingStr = `(0,${rac.utils.cutDigits(vPadding,1)})`;
-      cCenter.addY(100)
-        // .text(`Debug angled Text with blc format and padding ${paddingStr}`, rac.Text.Format.blc)
-        .text(`Debug angled upright Text with bl format and padding ${paddingStr}`, rac.Text.Format.bl)
-        .withAngle(controlAngle)
-        .withPaddings(0, vPadding)
-        .upright()
-        .debug(true);
-    }); // South-East Example
 
 
     // Controls draw on top
