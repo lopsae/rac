@@ -201,8 +201,8 @@ class TextFormat {
   * Returns a string representation intended for human consumption.
   *
   * @example
-  * rac.Text.Format('left', 'top', 0.5, 'sans', 14, 7, 5)).toString()
-  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14 p:(7,5))'
+  * rac.Text.Format('left', 'top', 0.2, 'sans', 14, 7, 5)).toString()
+  * // returns: 'Text.Format(ha:left va:top a:0.2 f:"sans" s:14 p:(7,5))'
   *
   *
   * @param {Number} [digits] - The number of digits to print after the

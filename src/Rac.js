@@ -27,7 +27,7 @@ class Rac {
   constructor() {
 
     /**
-    * Version of the instance, same as `{@link Rac.version}`.
+    * Version of the instance, equivalent to `{@link Rac.version}`.
     *
     * @example
     * rac.version // returns E.g. '1.2.1'
@@ -39,7 +39,7 @@ class Rac {
 
 
     /**
-    * Build of the instance, same as `{@link Rac.build}`.
+    * Build of the instance, equivalent to `{@link Rac.build}`.
     *
     * @example
     * rac.build // returns E.g. '1057-94b059d'
@@ -51,7 +51,7 @@ class Rac {
 
 
     /**
-    * Date of the build of the instance, same as `{@link Rac.dated}`.
+    * Date of the build of the instance, equivalent to `{@link Rac.dated}`.
     *
     * @example
     * rac.dated // returns E.g. '2022-10-13T23:06:12.500Z'
@@ -317,7 +317,7 @@ Rac.utils = utils;
 
 
 /**
-* Version of the class. Same as the version used for the npm package.
+* Version of the class. Equivalent to the version used for the npm package.
 *
 * @example
 * Rac.version // returns E.g. '1.2.1'
