@@ -143,7 +143,7 @@ let otherFormat = rac.Text.Format('left', 'baseline', 1/8)</code></pre>
     
 
     
-    <h4 class="name method-name" id="Format"><span class="type-signature"></span>new Format<span class="signature">(rac, hAlign, vAlign, angle<span class="signature-attributes">opt</span>, font<span class="signature-attributes">opt</span>, size<span class="signature-attributes">opt</span>, hPadding<span class="signature-attributes">opt</span>, vPadding<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name method-name" id="Format"><span class="type-signature"></span>new Format<span class="signature">(rac, hAlign, vAlign, angle<span class="signature-attributes">opt</span>, font<span class="signature-attributes">opt, nullable</span>, size<span class="signature-attributes">opt, nullable</span>, hPadding<span class="signature-attributes">opt</span>, vPadding<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
 
@@ -383,6 +383,8 @@ let otherFormat = rac.Text.Format('left', 'baseline', 1/8)</code></pre>
                 
 
                 
+                    &lt;nullable><br>
+                
 
                 
                 </td>
@@ -424,6 +426,8 @@ let otherFormat = rac.Text.Format('left', 'baseline', 1/8)</code></pre>
                     &lt;optional><br>
                 
 
+                
+                    &lt;nullable><br>
                 
 
                 
@@ -1689,7 +1693,7 @@ equal, otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Text.Format.html#reverse">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Text.Format.js.html">src/drawable/Text.Format.js</a>, <a href="src_drawable_Text.Format.js.html#line323">line 323</a>
+        <a href="src_drawable_Text.Format.js.html">src/drawable/Text.Format.js</a>, <a href="src_drawable_Text.Format.js.html#line330">line 330</a>
         </span>
     
     </div>
@@ -2296,7 +2300,7 @@ can be set to <code>null</code>.</p>
     
 
     
-    <h4 class="name method-name" id="withPaddings"><span class="type-signature"></span>withPaddings<span class="signature">(hPadding, vPadding)</span><span class="type-signature"> &rarr; {<a href="Rac.Text.Format.html">Rac.Text.Format</a>}</span></h4>
+    <h4 class="name method-name" id="withPaddings"><span class="type-signature"></span>withPaddings<span class="signature">(hPadding, vPadding<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Rac.Text.Format.html">Rac.Text.Format</a>}</span></h4>
     
 
 
@@ -2304,7 +2308,7 @@ can be set to <code>null</code>.</p>
     <span><a href="Rac.Text.Format.html#withPaddings">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Text.Format.js.html">src/drawable/Text.Format.js</a>, <a href="src_drawable_Text.Format.js.html#line304">line 304</a>
+        <a href="src_drawable_Text.Format.js.html">src/drawable/Text.Format.js</a>, <a href="src_drawable_Text.Format.js.html#line308">line 308</a>
         </span>
     
     </div>
@@ -2317,6 +2321,8 @@ can be set to <code>null</code>.</p>
 
 <div class="description">
     <p>Returns a new <code>Text.Format</code> with paddings set to the given values.</p>
+<p>When only <code>hPadding</code> is provided, that value is used for both
+horizontal and vertical padding.</p>
 </div>
 
 
@@ -2381,7 +2387,11 @@ can be set to <code>null</code>.</p>
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
+        
+        <th>Default</th>
         
 
         <th class="last">Description</th>
@@ -2406,7 +2416,19 @@ can be set to <code>null</code>.</p>
             </td>
 
             
+                <td class="attributes">
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last">
@@ -2432,11 +2454,28 @@ can be set to <code>null</code>.</p>
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
             
 
             <td class="description last">
-                <p>The vertical padding for the new <code>Text.Format</code></p>
+                <p>The vertical padding for the new <code>Text.Format</code>;
+when ommited, <code>hPadding</code> is used instead</p>
                 
             </td>
         </tr>
