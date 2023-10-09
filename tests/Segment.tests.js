@@ -55,23 +55,12 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const segment = rac.Segment(1.12345, 2.12345, 0.12345, 3.12345);
+  const segment = rac.Segment(1.23456, 2.34567, 0.12345, 3.45678);
 
-  const string = segment.toString();
-  expect(string).toMatch('Segment');
-  expect(string).toMatch('(1.12345,2.12345)');
-  expect(string).toMatch('a:0.12345');
-  expect(string).toMatch('l:3.12345');
-
-  const cutString = segment.toString(2);
-  expect(cutString).toMatch('Segment');
-  expect(cutString).toMatch('(1.12,2.12)');
-  expect(cutString).toMatch('a:0.12');
-  expect(cutString).toMatch('l:3.12');
-  expect(cutString).not.toMatch('0.123');
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
-  expect(cutString).not.toMatch('3.123');
+  expect(segment.toString())
+    .toBe('Segment((1.23456,2.34567) a:0.12345 l:3.45678)');
+  expect(segment.toString(2))
+    .toBe('Segment((1.23,2.35) a:0.12 l:3.46)');
 });
 
 

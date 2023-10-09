@@ -58,36 +58,17 @@ tools.test( function identity() {
 });
 
 
-// RELEASE-TODO: fix for direct test
 tools.test( function toString() {
   const arc = rac.Arc(
-    1.12345, 2.12345, // point
-    3.12345, // radius
+    1.23456, 2.34567, // point
+    3.45678, // radius
     0.12345, 0.23456, // start end
     true);
 
-  const string = arc.toString();
-  expect(string).toMatch('Arc');
-  expect(string).toMatch('(1.12345,2.12345)');
-  expect(string).toMatch('r:3.12345');
-  expect(string).toMatch('s:0.12345');
-  expect(string).toMatch('e:0.23456');
-  expect(string).toMatch('c:true');
-
-
-  const cutString = arc.toString(2);
-  expect(cutString).toMatch('Arc');
-  expect(cutString).toMatch('(1.12,2.12)');
-  expect(cutString).toMatch('r:3.12');
-  expect(cutString).toMatch('s:0.12');
-  expect(cutString).toMatch('e:0.23');
-  expect(cutString).toMatch('c:true');
-
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
-  expect(cutString).not.toMatch('3.123');
-  expect(cutString).not.toMatch('0.123');
-  expect(cutString).not.toMatch('0.234');
+  expect(arc.toString())
+    .toBe('Arc((1.23456,2.34567) r:3.45678 s:0.12345 e:0.23456 c:true)');
+  expect(arc.toString(2))
+    .toBe('Arc((1.23,2.35) r:3.46 s:0.12 e:0.23 c:true)');
 });
 
 

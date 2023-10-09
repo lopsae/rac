@@ -59,14 +59,10 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const string = rac.Angle(0.12345).toString();
-  expect(string).toMatch('Angle');
-  expect(string).toMatch('0.12345');
+  const angle = rac.Angle(0.12345);
 
-  const cutString = rac.Angle(0.12345).toString(2);
-  expect(cutString).toMatch('Angle');
-  expect(cutString).toMatch('0.12');
-  expect(cutString).not.toMatch('0.123');
+  expect(angle.toString()) .toBe('Angle(0.12345)');
+  expect(angle.toString(2)).toBe('Angle(0.12)');
 });
 
 
