@@ -114,6 +114,10 @@ class Arc{
   /**
   * Returns a string representation intended for human consumption.
   *
+  * @example
+  * rac.Arc(55, 77, 0.2, 0.4, 100).toString()
+  * // returns: 'Arc((55,77) r:100 s:0.2 e:0.4 c:true)'
+  *
   * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
@@ -124,7 +128,7 @@ class Arc{
     const radiusStr = utils.cutDigits(this.radius,     digits);
     const startStr  = utils.cutDigits(this.start.turn, digits);
     const endStr    = utils.cutDigits(this.end.turn,   digits);
-    return `Arc((${xStr},${yStr}) r:${radiusStr} s:${startStr} e:${endStr} c:${this.clockwise}})`;
+    return `Arc((${xStr},${yStr}) r:${radiusStr} s:${startStr} e:${endStr} c:${this.clockwise})`;
   }
 
 

@@ -147,7 +147,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let angle = rac.Angle(1/2)
+  * let angle = rac.Angle(0.2)
   * angle.rac === rac // true
   *
   * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
@@ -195,7 +195,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let ray = rac.Ray(55, 77, 1/2)
+  * let ray = rac.Ray(55, 77, 0.2)
   * ray.rac === rac // true
   *
   * @param {Number} x
@@ -223,7 +223,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let segment = rac.Segment(55, 77, 1/2, 100)
+  * let segment = rac.Segment(55, 77, 0.2, 100)
   * segment.rac === rac // true
   *
   * @param {Number} x
@@ -253,7 +253,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let arc = rac.Arc(55, 77, 1/4)
+  * let arc = rac.Arc(55, 77, 0.2)
   * arc.rac === rac // true
   *
   * @param {Number} x - The _x_ coordinate for the arc center
@@ -287,7 +287,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let text = rac.Text(55, 77, "black quartz")
+  * let text = rac.Text(55, 77, 'black quartz')
   * text.rac === rac // true
   *
   * @param {Number} x - The x coordinate location for the drawn text
@@ -319,7 +319,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let format = rac.Text.Format('left', 'baseline', 1/8)
+  * let format = rac.Text.Format('left', 'baseline', 0.2)
   * format.rac === rac // true
   *
   * @param {String} hAlign - The horizontal alignment, left-to-right; one

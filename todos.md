@@ -8,17 +8,14 @@ In progress
 
 For version change
 ------------------
-+ format.withPaddings can take a single param?
 + arc.shift, sets start to start.shift(angle), and modifies end to keeps the same angleDistance
 + add instance.Composite?
 + Create Drawable namespace, and document the drawable methods
-+ search `example return` replace `returns E.g.`
 + add Color.hexString()
 + Update docs for Color.fromHex support for 8 hex numerals
 + add textFormat.withFormatAlign(otherFormt) to copy only align properties
 + add textFormat.withAlign(x, y) to set align properties
 + add text.withAlign(otherFormat) to copy only align properties
-+ maybe update all toString examples to comment after code (like in Point)
 + FIX all RELEASE-TODO
 
 

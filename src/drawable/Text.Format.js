@@ -201,8 +201,8 @@ class TextFormat {
   * Returns a string representation intended for human consumption.
   *
   * @example
-  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14)'
-  * rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()
+  * rac.Text.Format('left', 'top', 0.5, 'sans', 14, 7, 5)).toString()
+  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14 p:(7,5))'
   *
   *
   * @param {Number} [digits] - The number of digits to print after the
@@ -217,9 +217,10 @@ class TextFormat {
     const fontStr = this.font === null
       ? 'null'
       : `"${this.font}"`;
-    const paddingStr =
-      `(${utils.cutDigits(this.hPadding, digits)},${utils.cutDigits(this.vPadding, digits)})`
-    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr} p:${paddingStr})`;
+    const hPaddingStr = utils.cutDigits(this.hPadding, digits);
+    const vPaddingStr = utils.cutDigits(this.vPadding, digits);
+    const paddingsStr = `${hPaddingStr},${vPaddingStr}`
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr} p:(${paddingsStr}))`;
   }
 
 

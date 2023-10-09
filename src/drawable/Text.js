@@ -101,8 +101,8 @@ class Text {
   * Returns a string representation intended for human consumption.
   *
   * @example
-  * // returns 'Text((55,77) "sphinx of black quartz")'
   * rac.Text(55, 77, 'sphinx of black quartz').toString()
+  * // returns 'Text((55,77) "sphinx of black quartz")'
   *
   * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed

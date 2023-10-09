@@ -58,6 +58,7 @@ tools.test( function identity() {
 });
 
 
+// RELEASE-TODO: fix for direct test
 tools.test( function toString() {
   const arc = rac.Arc(
     1.12345, 2.12345, // point
