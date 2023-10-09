@@ -177,14 +177,17 @@ class Text {
   /**
   * Returns a new `Text` and `Format` with paddings set to the given values.
   *
+  * When only `hPadding` is provided, that value is used for both
+  * horizontal and vertical padding.
+  *
   * @param {Number} hPadding - The horizontal padding for the new `Text`
   *   and `Text.Format`
-  * @param {Number} vPadding - The vertical padding for the new `Text` and
-  *   `Text.Format`
+  * @param {Number} [vPadding] - The vertical padding for the new `Text`
+  *   and `Text.Format`; when ommited, `hPadding` is used instead
   *
   * @returns {Rac.Text.Format}
   */
-  withPaddings(hPadding, vPadding) {
+  withPaddings(hPadding, vPadding = null) {
     const newFormat = this.format.withPaddings(hPadding, vPadding);
     return new Text(this.rac, this.point, this.string, newFormat);
   }

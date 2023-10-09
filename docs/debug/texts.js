@@ -359,11 +359,11 @@ function buildSketch(sketch, Rac) {
         .debug();
       cCenter = cCenter.addY(60);
       cCenter.text('Debug Text with blc', rac.Text.Format.blc)
-        .withPaddings(genPadding*3/2, genPadding)
+        .withPaddings(genPadding)
         .debug();
       cCenter = cCenter.addY(60);
       cCenter.text('Debug Text with cc', rac.Text.Format.cc)
-        .withPaddings(genPadding*3/2, genPadding)
+        .withPaddings(genPadding)
         .debug();
       cCenter = cCenter.addY(60);
       cCenter.text('Debug Text with tc', rac.Text.Format.tc)

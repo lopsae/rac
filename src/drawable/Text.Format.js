@@ -92,9 +92,9 @@ class TextFormat {
   *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {String} [font=null]
+  * @param {?String} [font=null]
   *   The font name
-  * @param {Number} [size=null]
+  * @param {?Number} [size=null]
   *   The font size
   * @param {Number} [hPadding=0]
   *   The horizontal padding, left-to-right
@@ -296,12 +296,19 @@ class TextFormat {
   /**
   * Returns a new `Text.Format` with paddings set to the given values.
   *
+  * When only `hPadding` is provided, that value is used for both
+  * horizontal and vertical padding.
+  *
   * @param {Number} hPadding - The horizontal padding for the new `Text.Format`
-  * @param {Number} vPadding - The vertical padding for the new `Text.Format`
+  * @param {Number} [vPadding] - The vertical padding for the new `Text.Format`;
+  *   when ommited, `hPadding` is used instead
   *
   * @returns {Rac.Text.Format}
   */
-  withPaddings(hPadding, vPadding) {
+  withPaddings(hPadding, vPadding = null) {
+    if (vPadding === null) {
+      vPadding = hPadding;
+    }
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       this.angle, this.font, this.size,
