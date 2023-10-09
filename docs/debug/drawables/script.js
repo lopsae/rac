@@ -271,34 +271,6 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
       (egCenter, movingCenter) => {
 
-      // Point
-      egCenter.debug();
-      // Point verbose
-      movingCenter.debug(verbose);
-
-      let translatedSegment = egCenter
-        .segmentToPoint(movingCenter, controlAngle)
-        .translatePerpendicular(100, true)
-        .draw();
-
-      // Small complete-circle arc
-      translatedSegment.startPoint()
-        .arc(10).draw().debug();
-      // Tiny complete-circle arc
-      translatedSegment.endPoint()
-        .arc(1, rac.Angle.w, rac.Angle.w, false).draw().debug();
-
-      translatedSegment = egCenter
-        .segmentToPoint(movingCenter, controlAngle)
-        .translatePerpendicular(100, false)
-        .draw();
-
-      // Small arc
-      translatedSegment.startPoint()
-        .arc(10, rac.Angle.w, rac.Angle.n).draw().debug();
-      // Tiny arc
-      translatedSegment.endPoint()
-        .arc(1, rac.Angle.w, rac.Angle.n, false).draw().debug();
 
     }); // Example 4
 

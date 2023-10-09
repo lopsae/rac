@@ -94,7 +94,6 @@ function buildSketch(sketch, Rac) {
   function runOnce() {
     distanceControl = new Rac.RayControl(rac, 0, 300);
     distanceControl.setValueWithLength(140);
-    distanceControl.setLimitsWithLengthInsets(10, 10);
     distanceControl.addMarkerAtCurrentValue();
 
     angleControl = new Rac.ArcControl(rac, 0, rac.Angle(1));
@@ -178,13 +177,8 @@ function buildSketch(sketch, Rac) {
       .withAngle(controlAngle);
     let distanceAffixAnchor = distanceControl.affixAnchor();
 
-    let distanceStr   = `d:${controlDistance.toFixed(3)}`;
-    let startLimitStr = `sll: ${distanceControl.startLimitLength().toFixed(3)}`;
-    let endLimitStr   = `ell: ${distanceControl.endLimitLength().toFixed(3)}`;
-    let distanceControlStr = `${distanceStr}\n${startLimitStr}\n${endLimitStr}`;
-
     distanceAffixAnchor.nextSegmentWithLength(0)
-      .ray.text(distanceControlStr)
+      .ray.text(`d:${controlDistance.toFixed(3)}`, rac.Text.Format.cl)
       .withPaddings(30, 0)
       .draw(titleText);
 
@@ -238,20 +232,6 @@ function buildSketch(sketch, Rac) {
 
 
     // ====================================================================
-    // South-East Example =================================================
-    // ====================================================================
-    makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
-    (egCenter, segmentEnd) => {
-      egCenter.arc(5).draw();
-      egCenter.text('South-East Example:\nempty', rac.Text.Format.bc)
-        .draw(titleText);
-
-        // EMPTY
-
-    }); // South-East Example
-
-
-    // ====================================================================
     // North-West Example =================================================
     // ====================================================================
     makeExampleContext(center, rac.Angle.nw, controlAngle, controlDistance,
@@ -290,6 +270,60 @@ function buildSketch(sketch, Rac) {
         .upright().withPaddings(10, 5)
         .draw();
     }); // South-West Example
+
+
+    // ====================================================================
+    // South-East Example =================================================
+    // ====================================================================
+    makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
+    (egCenter, segmentEnd) => {
+      egCenter.arc(5).draw();
+      egCenter.text('South-East Example:\nsmall arcs and whole-circle arcs', rac.Text.Format.bc)
+        .draw(titleText);
+
+      let radius = egCenter.segmentToPoint(segmentEnd, controlAngle);
+
+      let circleSegment = radius
+        .translatePerpendicular(40)
+        .draw();
+
+      // Tiny complete-circle arc
+      circleSegment.startPoint()
+        .arc(0, controlAngle.inverse(), null, false)
+        .debug(verbose)
+        .text('0 radius\ncircle', rac.Text.Format.tr)
+        .withPaddings(5, 0).upright()
+        .draw();
+
+      // Small complete-circle arc
+      circleSegment.endPoint()
+        .arc(10, controlAngle, null, true)
+        .debug(verbose)
+        .text('10 radius\ncircle', rac.Text.Format.br)
+        .withPaddings(5, 0).upright()
+        .draw();
+
+      let arcCenter = circleSegment
+        .translatePerpendicular(80)
+        .draw();
+
+      // Tiny arc
+      arcCenter.startPoint()
+        .arc(0, controlAngle.inverse(), controlAngle.add(1/4), true)
+        .debug(verbose)
+        .text('0 radius\narc', rac.Text.Format.br)
+        .withPaddings(5, 0).upright()
+        .draw();
+
+      // Small arc
+      arcCenter.endPoint()
+        .arc(10, controlAngle, controlAngle.add(1/4), false)
+        .debug(verbose)
+        .text('10 radius\narc', rac.Text.Format.tr)
+        .withPaddings(5, 0).upright()
+        .draw();
+
+    }); // South-East Example
 
 
     // Controls draw on top
