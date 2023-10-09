@@ -322,7 +322,7 @@ was done.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>Rac.build // example return: '1057-94b059d'</code></pre>
+    <pre class="prettyprint example"><code>Rac.build // returns E.g. '1057-94b059d'</code></pre>
 
 
 </div>
@@ -397,7 +397,7 @@ date when the build was done.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>Rac.dated // example return: '2022-10-13T23:06:12.500Z'</code></pre>
+    <pre class="prettyprint example"><code>Rac.dated // returns E.g. '2022-10-13T23:06:12.500Z'</code></pre>
 
 
 </div>
@@ -560,7 +560,7 @@ for the available members.</p>
 
 
 <div class="description">
-    <p>Version of the class. Same as the version used for the npm package.</p>
+    <p>Version of the class. Equivalent to the version used for the npm package.</p>
 </div>
 
 
@@ -609,7 +609,7 @@ for the available members.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>Rac.version // example return: '1.2.1'</code></pre>
+    <pre class="prettyprint example"><code>Rac.version // returns E.g. '1.2.1'</code></pre>
 
 
 </div>
@@ -633,7 +633,7 @@ for the available members.</p>
 
 
 <div class="description">
-    <p>Build of the instance, same as <code><a href="Rac.html#.build">Rac.build</a></code>.</p>
+    <p>Build of the instance, equivalent to <code><a href="Rac.html#.build">Rac.build</a></code>.</p>
 </div>
 
 
@@ -682,7 +682,7 @@ for the available members.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>rac.build // example return: '1057-94b059d'</code></pre>
+    <pre class="prettyprint example"><code>rac.build // returns E.g. '1057-94b059d'</code></pre>
 
 
 </div>
@@ -775,7 +775,7 @@ and pointer events related to this instance of <code>Rac</code>.</p>
 
 
 <div class="description">
-    <p>Date of the build of the instance, same as <code><a href="Rac.html#.dated">Rac.dated</a></code>.</p>
+    <p>Date of the build of the instance, equivalent to <code><a href="Rac.html#.dated">Rac.dated</a></code>.</p>
 </div>
 
 
@@ -824,7 +824,7 @@ and pointer events related to this instance of <code>Rac</code>.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>rac.dated // example return: '2022-10-13T23:06:12.500Z'</code></pre>
+    <pre class="prettyprint example"><code>rac.dated // returns E.g. '2022-10-13T23:06:12.500Z'</code></pre>
 
 
 </div>
@@ -1345,7 +1345,7 @@ circle arc of radius 500:</p>
 
 
 <div class="description">
-    <p>Version of the instance, same as <code><a href="Rac.html#.version">Rac.version</a></code>.</p>
+    <p>Version of the instance, equivalent to <code><a href="Rac.html#.version">Rac.version</a></code>.</p>
 </div>
 
 
@@ -1394,7 +1394,7 @@ circle arc of radius 500:</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>rac.version // example return: '1.2.1'</code></pre>
+    <pre class="prettyprint example"><code>rac.version // returns E.g. '1.2.1'</code></pre>
 
 
 </div>
@@ -1720,7 +1720,7 @@ is setup with <code>this</code>.</p>
     <h5>Example</h5>
     
     <pre class="prettyprint example"><code>let rac = new Rac()
-let angle = rac.Angle(1/2)
+let angle = rac.Angle(0.2)
 angle.rac === rac // true</code></pre>
 
     </div>
@@ -2069,7 +2069,7 @@ ommited or set to <code>null</code>, <code>start</code> is used instead</p>
     <h5>Example</h5>
     
     <pre class="prettyprint example"><code>let rac = new Rac()
-let arc = rac.Arc(55, 77, 1/4)
+let arc = rac.Arc(55, 77, 0.2)
 arc.rac === rac // true</code></pre>
 
     </div>
@@ -3488,7 +3488,7 @@ values. The created <code>ray.rac</code> is setup with <code>this</code>.</p>
     <h5>Example</h5>
     
     <pre class="prettyprint example"><code>let rac = new Rac()
-let ray = rac.Ray(55, 77, 1/2)
+let ray = rac.Ray(55, 77, 0.2)
 ray.rac === rac // true</code></pre>
 
     </div>
@@ -3735,7 +3735,7 @@ values. The created <code>segment.rac</code> is setup with <code>this</code>.</p
     <h5>Example</h5>
     
     <pre class="prettyprint example"><code>let rac = new Rac()
-let segment = rac.Segment(55, 77, 1/2, 100)
+let segment = rac.Segment(55, 77, 0.2, 100)
 segment.rac === rac // true</code></pre>
 
     </div>
@@ -4649,7 +4649,7 @@ setup with <code>this</code>.</p>
     <h5>Example</h5>
     
     <pre class="prettyprint example"><code>let rac = new Rac()
-let text = rac.Text(55, 77, "black quartz")
+let text = rac.Text(55, 77, 'black quartz')
 text.rac === rac // true</code></pre>
 
     </div>
@@ -5083,7 +5083,7 @@ the values from <a href="Rac.Text.Format.html#.verticalAlign"><code>verticalAlig
     <h5>Example</h5>
     
     <pre class="prettyprint example"><code>let rac = new Rac()
-let format = rac.Text.Format('left', 'baseline', 1/8)
+let format = rac.Text.Format('left', 'baseline', 0.2)
 format.rac === rac // true</code></pre>
 
     </div>
