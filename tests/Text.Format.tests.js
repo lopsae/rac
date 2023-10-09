@@ -14,6 +14,7 @@ const centered = rac.Text.Format(ha.center, va.center);
 const upright  = rac.Text.Format(ha.left, va.baseline, 3/4);
 const mono     = rac.Text.Format(ha.left, va.top, 0, 'mono', 14);
 
+// RELEASE-TODO: test with padding values
 tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
@@ -85,25 +86,33 @@ tools.test( function identity() {
 });
 
 
-// RELEASE-TODO: test with padding values
 tools.test( function toString() {
-  const format = rac.Text.Format(ha.right, va.bottom, 0.12345, 'monospace', 14);
+  const format = rac.Text.Format(
+    ha.right, va.bottom,
+    0.12345, 'monospace', 14,
+    1.23456, 2.34567);
   expect(format.toString())
-    .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"monospace" s:14 p:(0,0))');
+    .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"monospace" s:14 p:(1.23456,2.34567))');
   expect(format.toString(2))
-    .toBe('Text.Format(ha:right va:bottom a:0.12 f:"monospace" s:14.00 p:(0.00,0.00))');
+    .toBe('Text.Format(ha:right va:bottom a:0.12 f:"monospace" s:14.00 p:(1.23,2.35))');
 
-  const zeroFormat = rac.Text.Format(ha.right, va.bottom, 0.12345, '', 0);
+  const zeroFormat = rac.Text.Format(
+    ha.right, va.bottom,
+    0.12345, '', 0,
+    1.23456, 2.34567);
   expect(zeroFormat.toString())
-    .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"" s:0 p:(0,0))');
+    .toBe('Text.Format(ha:right va:bottom a:0.12345 f:"" s:0 p:(1.23456,2.34567))');
   expect(zeroFormat.toString(2))
-    .toBe('Text.Format(ha:right va:bottom a:0.12 f:"" s:0.00 p:(0.00,0.00))');
+    .toBe('Text.Format(ha:right va:bottom a:0.12 f:"" s:0.00 p:(1.23,2.35))');
 
-  const nullFormat = rac.Text.Format(ha.right, va.bottom, 0.12345, null, null);
+  const nullFormat = rac.Text.Format(
+    ha.right, va.bottom,
+    0.12345, null, null,
+    1.23456, 2.34567);
   expect(nullFormat.toString())
-    .toBe('Text.Format(ha:right va:bottom a:0.12345 f:null s:null p:(0,0))');
+    .toBe('Text.Format(ha:right va:bottom a:0.12345 f:null s:null p:(1.23456,2.34567))');
   expect(nullFormat.toString(2))
-    .toBe('Text.Format(ha:right va:bottom a:0.12 f:null s:null p:(0.00,0.00))');
+    .toBe('Text.Format(ha:right va:bottom a:0.12 f:null s:null p:(1.23,2.35))');
 });
 
 
