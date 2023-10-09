@@ -13,7 +13,9 @@ Changelog
 + Add `rac.Text.Format.bottomCenter`, `rac.Text.Format.bottomRight`
 + Add `rac.Text.Format.baseline...` constants
 + Add abbreviated shorthands for `rac.Text.Format` ready-made formats, like `rac.Text.Format.tl`
-+ Add tests for `Color`
++ Implement debug routines for `Text`
++ Improve debug routines for `Angle`, `Point`, `Ray`, `Segment` and `Arc`
++ Improve tests for `Color`
 + Renamed `version` file to `versioning`
 
 

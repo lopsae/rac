@@ -8,6 +8,7 @@ In progress
 
 For version change
 ------------------
++ format.withPaddings can take a single param?
 + arc.shift, sets start to start.shift(angle), and modifies end to keeps the same angleDistance
 + add instance.Composite?
 + Create Drawable namespace, and document the drawable methods
