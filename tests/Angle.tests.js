@@ -79,7 +79,28 @@ tools.test( function thrownErrors() {
 });
 
 
-tools.test( function equality() {
+tools.test( function instanceMembers() {
+  expect(rac.Angle.zero).equalsAngle(0.0);
+
+  expect(rac.Angle.half).equalsAngle(0.5);
+  expect(rac.Angle.inverse).equalsAngle(0.5);
+
+  expect(rac.Angle.quarter).equalsAngle(0.25);
+  expect(rac.Angle.square).equalsAngle(0.25);
+
+  expect(rac.Angle.eighth).equalsAngle(0.125);
+  expect(rac.Angle.neighth).equalsAngle(-0.125);
+
+  expect(rac.Angle.sixteenth).equalsAngle(0.0625);
+
+  expect(rac.Angle.tenth).equalsAngle(0.1);
+
+  // TODO: is there an easy way to check for a collection of angles
+  // to match a single one? to test the rest of instance members
+});
+
+
+tools.test( function equalityThresholds() {
   const threshold = rac.unitaryEqualityThreshold;
   const bump = threshold/16;
   const aboveThreshold = threshold + bump;
@@ -192,7 +213,7 @@ tools.test( function radianDegreesTransforms() {
 });
 
 
-tools.test( function sineCosineTangent() {
+tools.test( function sinCosTan() {
   expect(rac.Angle.zero.sin())   .uniThresEquals(0)
   expect(rac.Angle.quarter.sin()).uniThresEquals(1)
   expect(rac.Angle.half.sin())   .uniThresEquals(0)

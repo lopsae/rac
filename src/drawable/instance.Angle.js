@@ -123,7 +123,7 @@ module.exports = function attachRacAngle(rac) {
   * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
-  rac.Angle.eighth =  rac.Angle(1/8);
+  rac.Angle.eighth = rac.Angle(1/8);
 
   /**
   * An `Angle` with turn `7/8`, negative angle of
@@ -135,7 +135,7 @@ module.exports = function attachRacAngle(rac) {
   * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
-  rac.Angle.neighth =  rac.Angle(-1/8);
+  rac.Angle.neighth = rac.Angle(-1/8);
 
 
   /**
@@ -146,6 +146,16 @@ module.exports = function attachRacAngle(rac) {
   * @memberof instance.Angle#
   */
   rac.Angle.sixteenth = rac.Angle(1/16);
+
+
+  /**
+  * An `Angle` with turn `1/10`.
+  *
+  * @name tenth
+  * @type {Rac.Angle}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.tenth = rac.Angle(1/10);
 
   /**
   * An `Angle` with turn `3/4`.
