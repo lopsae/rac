@@ -389,6 +389,7 @@ module.exports = function(grunt) {
     'watch:serve_again']);
 
 
+// RELEASE-TODO: rename to serveToPages
   // Builds a dev bundle, copies it to pages, and watches to rebuild and
   // update the copied files
   grunt.registerTask('pagesSetup', [
