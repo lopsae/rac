@@ -431,7 +431,7 @@ class Arc{
   * The actual `length()` of the resulting `Arc` will always be in the
   * range `[0,radius*TAU)`. When the given `length` is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
-  * will be cut back into range through a modulo operation.
+  * will be reduced into range through a modulo operation.
   *
   * @param {Number} length - The length of the new `Arc`
   * @returns {Rac.Arc}
