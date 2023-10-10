@@ -780,9 +780,47 @@ class Arc{
   }
 
 
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Arc` with `start` and `end` [shifted by]{@link Rac.Angle#shift}
+  * the given `angle` towards the arc's orientation.
+  *
+  * Notice that this method shifts both `start` and `end` towards the arc's
+  * orientation, resulting in a new `Arc` with the same `angleDistance()`.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
+  *
+  * @example
+  * <caption>For a clockwise arc</caption>
+  * let arc = rac.Arc(0, 0, 0.4, 0.6, true)
+  * let shiftedArc = arc.shift(0.1)
+  * shiftedArc.start.turn // returns 0.5
+  * shiftedArc.end.turn   // returns 0.7
+  *
+  * @example
+  * <caption>For a counter-clockwise arc</caption>
+  * let arc = rac.Arc(0, 0, 0.4, 0.6, false)
+  * let shiftedArc = arc.shift(0.1)
+  * shiftedArc.start.turn // returns 0.3
+  * shiftedArc.end.turn   // returns 0.5
+  *
+  * @param {Rac.Angle|Number} angle - An `Angle` to shift the arc by
+  * @returns {Rac.Arc}
+  */
+  shift(angle) {
+    const newStart = this.start.shift(angle, this.clockwise);
+    const newEnd = this.end.shift(angle, this.clockwise);
+
+    return new Arc(this.rac,
+      this.center, this.radius,
+      newStart, newEnd,
+      this.clockwise);
+  }
+
+
   /**
   * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
-  * `start` in the arc's orientation.
+  * `start` towards the arc's orientation.
   *
   * @see [`angle.shift`]{@link Rac.Angle#shift}
   *

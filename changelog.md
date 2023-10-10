@@ -7,7 +7,7 @@ Changelog
 + Implement padding for `Text` drawing through `Text.Format`
 + Add `rac.Angle.tenth`
 + Add `ray.text`, `segment.text`, `arc.text`
-+ Add `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
++ Add `arc.shift`, `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
 + Add `text.reverse`, `text.upright`, `text.withPaddings`
 + Add properties `textFormat.hPadding`, `textFormat.vPadding`
 + Add `textFormat.withPaddings`
