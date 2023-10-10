@@ -64,7 +64,7 @@ class Bezier {
       && this.end        .equals(otherBezier.end);
   }
 
-}
+} // class Bezier
 
 
 module.exports = Bezier;
