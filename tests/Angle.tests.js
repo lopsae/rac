@@ -374,26 +374,36 @@ test('Function distance', () => {
 });
 
 
-test('Function shift/shiftToOrigin', () => {
-  expect(rac.Angle.zero.shift(rac.Angle.quarter))
-    .equalsAngle(1/4);
-  expect(rac.Angle.zero.shift(1/4, false))
-    .equalsAngle(3/4);
+tools.test( function shiftAndShiftToOrigin() {
+  expect(rac.Angle.zero.shift(rac.Angle.zero))
+    .equalsAngle(0.0);
+  expect(rac.Angle.zero.shift(0.0, false))
+    .equalsAngle(0.0);
 
-  expect(rac.Angle.half.shift(rac.Angle.quarter))
-    .equalsAngle(3/4);
-  expect(rac.Angle.half.shift(1/4, false))
-    .equalsAngle(1/4);
+  expect(rac.Angle.zero.shift(rac.Angle.tenth))
+    .equalsAngle(0.1);
+  expect(rac.Angle.zero.shift(0.1, false))
+    .equalsAngle(0.9);
 
-  expect(rac.Angle.zero.shiftToOrigin(rac.Angle.quarter))
-    .equalsAngle(1/4);
-  expect(rac.Angle.zero.shiftToOrigin(1/4, false))
-    .equalsAngle(1/4);
+  expect(rac.Angle.half.shift(rac.Angle.tenth))
+    .equalsAngle(0.6);
+  expect(rac.Angle.half.shift(0.1, false))
+    .equalsAngle(0.4);
 
-  expect(rac.Angle.quarter.shiftToOrigin(rac.Angle.quarter))
-    .equalsAngle(1/2);
-  expect(rac.Angle.quarter.shiftToOrigin(1/4, false))
-    .equalsAngle(0);
+  expect(rac.Angle.zero.shiftToOrigin(rac.Angle.zero))
+    .equalsAngle(0.0);
+  expect(rac.Angle.zero.shiftToOrigin(0.0, false))
+    .equalsAngle(0.0);
+
+  expect(rac.Angle.tenth.shiftToOrigin(rac.Angle.zero))
+    .equalsAngle(0.1);
+  expect(rac.Angle.tenth.shiftToOrigin(0.0, false))
+    .equalsAngle(0.9);
+
+  expect(rac.Angle.tenth.shiftToOrigin(rac.Angle.half))
+    .equalsAngle(0.6);
+  expect(rac.Angle.tenth.shiftToOrigin(0.5, false))
+    .equalsAngle(0.4);
 });
 
 
