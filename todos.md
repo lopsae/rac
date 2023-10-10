@@ -23,6 +23,7 @@ For version change
 Future
 ------
 + Create a namespace for `CanBeAngle` to replace `{Rac.Angle|Number}` and the phrases `derived from angle`. Angleable? CanBeAngle? ContainsAngle? AngleProvider?
++ A lot of `@see` now seem superfluous, remove?
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + Control.anchor, make it a method to type check
 + Controller.pointer..., type check the received object

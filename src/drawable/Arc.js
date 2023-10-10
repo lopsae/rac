@@ -784,21 +784,22 @@ class Arc{
   * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
   * `start` in the arc's orientation.
   *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
+  *
   * @example
   * <caption>For a clockwise arc starting at <code>0.5</code></caption>
   * let arc = rac.Arc(0, 0, 0.5, null, true)
+  * arc.shiftAngle(0.1).turn
   * // returns 0.6, since 0.5 + 0.1 = 0.6
-  * arc.shiftAngle(0.1)
   *
   * @example
   * <caption>For a counter-clockwise arc starting at <code>0.5</code></caption>
   * let arc = rac.Arc(0, 0, 0.5, null, false)
-  * // returns 0.3, since 0.5 - 0.2 = 0.3
-  * arc.shiftAngle(0.2)
+  * arc.shiftAngle(0.1).turn
+  * // returns 0.4, since 0.5 - 0.1 = 0.4
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to shift
   * @returns {Rac.Angle}
-  * @see [`angle.shift`]{@link Rac.Angle#shift}
   */
   shiftAngle(angle) {
     angle = Rac.Angle.from(this.rac, angle);
