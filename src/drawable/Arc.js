@@ -176,6 +176,7 @@ class Arc{
   }
 
 
+  // TODO: replace `in the orientation` to `towards the arc's orientation`?
   /**
   * Returns a new `Angle` that represents the distance between `start` and
   * `end`, in the orientation of the arc.
@@ -453,7 +454,7 @@ class Arc{
   * The actual `length()` of the resulting `Arc` will always be in the
   * range `[0,radius*TAU)`. When the resulting `length` is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
-  * will be cut back into range through a modulo operation.
+  * will be reduced into range through a modulo operation.
   *
   * @param {Number} length - The length to add
   * @returns {Rac.Arc}
@@ -474,7 +475,7 @@ class Arc{
   * The actual `length()` of the resulting `Arc` will always be in the
   * range *[0,radius*TAU)*. When the calculated length is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
-  * will be cut back into range through a modulo operation.
+  * will be reduced into range through a modulo operation.
   *
   * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
@@ -608,14 +609,16 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `start` shifted by the given `angle` in the
-  * arc's opposite orientation.
+  * Returns a new `Arc` with `start` [shifted by]{@link Rac.Angle#shift}
+  * the given `angle` towards the arc's opposite orientation.
   *
   * All other properties are copied from `this`.
   *
-  * Notice that this method shifts `start` to the arc's *opposite*
-  * orientation, intending to result in a new `Arc` with an increase to
+  * Notice that this method shifts `start` towards the arc's *opposite*
+  * orientation, resulting in a new `Arc` with an increase to
   * `angleDistance()`.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @param {Rac.Angle} angle - An `Angle` to shift `start` against
   * @returns {Rac.Arc}
@@ -630,14 +633,15 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `end` shifted by the given `angle` in the
-  * arc's orientation.
+  * Returns a new `Arc` with `end` [shifted by]{@link Rac.Angle#shift} the
+  * given `angle` towards the arc's orientation.
   *
   * All other properties are copied from `this`.
   *
   * Notice that this method shifts `end` towards the arc's orientation,
-  * intending to result in a new `Arc` with an increase to
-  * `angleDistance()`.
+  * resulting in a new `Arc` with an increase to `angleDistance()`.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @param {Rac.Angle} angle - An `Angle` to shift `start` against
   * @returns {Rac.Arc}
@@ -888,11 +892,17 @@ class Arc{
   }
 
 
+  // TODO: check other instances of `arc is considered` and add note of
+  // the possible impact, using this as example
   /**
   * Returns a new `Point` located in the arc at the given `angle`
-  * [shifted by]{@link Rac.Angle#shift} `start` in arc's orientation.
+  * [shifted by]{@link Rac.Angle#shift} `start` towards the arc's
+  * orientation.
   *
-  * The arc is considered a complete circle.
+  * For this operation the arc is considered a complete circle, the
+  * returned `Point` may be outside the arc's bounds.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @param {Rac.Angle} angle - An `Angle` to be shifted by `start`
   * @returns {Rac.Point}
