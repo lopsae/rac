@@ -2544,7 +2544,7 @@ rac.Angle(1/8).perpendicular(false).turn</code></pre>
     <span><a href="Rac.Angle.html#shift">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line407">line 407</a>
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line411">line 411</a>
         </span>
     
     </div>
@@ -2556,9 +2556,11 @@ rac.Angle(1/8).perpendicular(false).turn</code></pre>
 
 
 <div class="description">
-    <p>Returns a new <code>Angle</code> result of shifting the angle derived from
-<code>angle</code> to have <code>this</code> as its origin.</p>
-<p>This operation is the equivalent to</p>
+    <p>Returns a new <code>Angle</code> result of adding <code>angle</code> to <code>this</code>, in the
+given <code>clockwise</code> orientation.</p>
+<p>This operation is equivalent to shifting <code>angle</code> where <code>this</code> is
+considered the angle of origin.</p>
+<p>The return is equivalent to:</p>
 <ul>
 <li><code>this.add(angle)</code> when clockwise</li>
 <li><code>this.subtract(angle)</code> when counter-clockwise</li>
@@ -2751,10 +2753,11 @@ rac.Angle(1/8).perpendicular(false).turn</code></pre>
     <div class="section-examples">
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>// returns 0.4, since 0.1 + 0.3 = 0.4
-rac.Angle(0.1).shift(0.3, true).turn
-// returns 0.8, since 0.1 - 0.3 = 0.8
-rac.Angle(0.1).shift(0.3, false).turn</code></pre>
+    <pre class="prettyprint example"><code>rac.Angle(0.1).shift(0.5, true).turn
+// returns 0.6, since 0.5 + 0.1 = 0.6
+
+rac.Angle(0.1).shift(0.5, false).turn
+// returns 0.4, since 0.5 - 0.1 = 0.4</code></pre>
 
     </div>
     
@@ -2775,7 +2778,7 @@ rac.Angle(0.1).shift(0.3, false).turn</code></pre>
     <span><a href="Rac.Angle.html#shiftToOrigin">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line436">line 436</a>
+        <a href="src_drawable_Angle.js.html">src/drawable/Angle.js</a>, <a href="src_drawable_Angle.js.html#line441">line 441</a>
         </span>
     
     </div>
@@ -2787,11 +2790,11 @@ rac.Angle(0.1).shift(0.3, false).turn</code></pre>
 
 
 <div class="description">
-    <p>Returns a new <code>Angle</code> result of shifting <code>this</code> to have the angle
-derived from <code>origin</code> as its origin.</p>
-<p>The result of <code>angle.shiftToOrigin(origin)</code> is equivalent to
-<code>origin.shift(angle)</code>.</p>
-<p>This operation is the equivalent to</p>
+    <p>Returns a new <code>Angle</code> result of adding <code>this</code> to <code>origin</code>, in the given
+<code>clockwise</code> orientation.</p>
+<p>This operation is equivalent to shifting <code>this</code> where <code>origin</code> is
+considered the angle of origin.</p>
+<p>The return is equivalent to:</p>
 <ul>
 <li><code>origin.add(this)</code> when clockwise</li>
 <li><code>origin.subtract(this)</code> when counter-clockwise</li>
@@ -2984,10 +2987,11 @@ derived from <code>origin</code> as its origin.</p>
     <div class="section-examples">
     <h5>Example</h5>
     
-    <pre class="prettyprint example"><code>// returns 0.4, since 0.3 + 0.1 = 0.4
-rac.Angle(0.1).shiftToOrigin(0.3, true).turn
-// returns 0.2, since 0.3 - 0.1 = 0.2
-rac.Angle(0.1).shiftToOrigin(0.3, false).turn</code></pre>
+    <pre class="prettyprint example"><code>rac.Angle(0.1).shiftToOrigin(0.5, true).turn
+// returns 0.6, since 0.5 + 0.1 = 0.6
+
+rac.Angle(0.1).shiftToOrigin(0.5, false).turn
+// returns 0.4, since 0.5 - 0.1 = 0.4</code></pre>
 
     </div>
     
