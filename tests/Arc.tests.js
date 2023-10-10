@@ -932,5 +932,5 @@ tools.test( function divideToBeziers() {
 });
 
 
-// Full coverage!
+// RELEASE-TODO: Full coverage!
 
