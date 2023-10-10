@@ -214,10 +214,25 @@ function buildSketch(sketch, Rac) {
     makeExampleContext(center, rac.Angle.se, controlAngle, controlDistance,
     (egCenter, segmentEnd) => {
       egCenter.arc(5).draw();
-      egCenter.text('South-East Example:\nempty', rac.Text.Format.bc)
+      egCenter.text('South-East Example:\ncomposite and shape', rac.Text.Format.bc)
         .draw();
 
-        // EMPTY
+      let composite = rac.Composite();
+
+      let sides = 5;
+      for (let index = 0; index < sides; index += 1) {
+        let ratio = index/sides;
+        let currentAngle = rac.Angle.zero.add(ratio)
+          .shiftToOrigin(controlAngle);
+
+        egCenter.pointToAngle(currentAngle, controlDistance)
+          .debug()
+          .attachTo(composite);
+      }
+
+      let shape = new Rac.Shape(rac);
+      shape.outline = composite;
+      shape.draw(palette.babyPowder.withAlpha(0.5).fill());
 
     }); // South-East Example
 
