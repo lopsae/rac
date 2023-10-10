@@ -5,6 +5,7 @@ Changelog
 ----------------------------
 + Overall documentation improvements and corrections
 + Implement padding for `Text` drawing through `Text.Format`
++ Add `rac.Composite` function
 + Add `rac.Angle.tenth`
 + Add `ray.text`, `segment.text`, `arc.text`
 + Add `arc.shift`, `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`

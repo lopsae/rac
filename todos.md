@@ -8,7 +8,6 @@ In progress
 
 For version change
 ------------------
-+ add instance.Composite?
 + Create Drawable namespace, and document the drawable methods
 + add Color.hexString()
 + Update docs for Color.fromHex support for 8 hex numerals
