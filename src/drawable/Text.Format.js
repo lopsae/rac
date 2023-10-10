@@ -293,7 +293,6 @@ class TextFormat {
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Text.Format` with paddings set to the given values.
   *

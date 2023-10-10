@@ -10,10 +10,10 @@ const rac = tools.rac;
 const ha = Rac.Text.Format.horizontalAlign;
 const va = Rac.Text.Format.verticalAlign;
 
-// RELEASE-TODO: add some paddings
 const centered = rac.Text.Format(ha.center, va.center);
-const standing = rac.Text.Format(ha.left, va.baseline, 3/4);
-const mono     = rac.Text.Format(ha.left, va.top, 0, 'mono', 14, 7, 5);
+const standing = rac.Text.Format(ha.left,   va.baseline, 3/4);
+const diagonal = rac.Text.Format(ha.right,  va.bottom,   7/8, null, null, 10);
+const mono     = rac.Text.Format(ha.left,   va.top,      0, 'mono', 14, 7, 5);
 
 
 tools.test( function identity() {
@@ -28,6 +28,7 @@ tools.test( function identity() {
   // Testing Constants
   expect(centered).equalsTextFormat(ha.center, va.center);
   expect(standing).equalsTextFormat(ha.left, va.baseline, 3/4);
+  expect(diagonal).equalsTextFormat(ha.right, va.bottom, 7/8, null, null, 10);
   expect(mono)    .equalsTextFormat(ha.left, va.top, 0, 'mono', 14, 7, 5);
 
   // Angle/number parameter
@@ -59,24 +60,24 @@ tools.test( function identity() {
   expect(mono).not.equalsTextFormat(ha.left, va.top);
 
   // Unexpected type for equalsTextFormat
-  expect(null)            .not.equalsTextFormat(ha.center, va.center);
-  expect(undefined)       .not.equalsTextFormat(ha.center, va.center);
-  expect(0)               .not.equalsTextFormat(ha.center, va.center);
-  expect('')              .not.equalsTextFormat(ha.center, va.center);
-  expect('0')             .not.equalsTextFormat(ha.center, va.center);
-  expect(55)              .not.equalsTextFormat(ha.center, va.center);
-  expect('55')            .not.equalsTextFormat(ha.center, va.center);
-  expect('some')          .not.equalsTextFormat(ha.center, va.center);
-  expect(true)            .not.equalsTextFormat(ha.center, va.center);
-  expect(false)           .not.equalsTextFormat(ha.center, va.center);
-  expect(rac.Angle.zero)  .not.equalsTextFormat(ha.center, va.center);
-  expect(rac.Point.zero)  .not.equalsTextFormat(ha.center, va.center);
-  expect(rac.Ray.zero)    .not.equalsTextFormat(ha.center, va.center);
-  expect(rac.Text.sphinx) .not.equalsTextFormat(ha.center, va.center);
+  expect(null)           .not.equalsTextFormat(ha.center, va.center);
+  expect(undefined)      .not.equalsTextFormat(ha.center, va.center);
+  expect(0)              .not.equalsTextFormat(ha.center, va.center);
+  expect('')             .not.equalsTextFormat(ha.center, va.center);
+  expect('0')            .not.equalsTextFormat(ha.center, va.center);
+  expect(55)             .not.equalsTextFormat(ha.center, va.center);
+  expect('55')           .not.equalsTextFormat(ha.center, va.center);
+  expect('some')         .not.equalsTextFormat(ha.center, va.center);
+  expect(true)           .not.equalsTextFormat(ha.center, va.center);
+  expect(false)          .not.equalsTextFormat(ha.center, va.center);
+  expect(rac.Angle.zero) .not.equalsTextFormat(ha.center, va.center);
+  expect(rac.Point.zero) .not.equalsTextFormat(ha.center, va.center);
+  expect(rac.Ray.zero)   .not.equalsTextFormat(ha.center, va.center);
+  expect(rac.Text.sphinx).not.equalsTextFormat(ha.center, va.center);
 
   // Expected type for equals
   expect(centered.equals(rac.Text.Format.centerCenter)).toBe(true);
-  expect(centered.equals(rac.Text.Format.bottomRight))     .toBe(false);
+  expect(centered.equals(rac.Text.Format.bottomRight)) .toBe(false);
 
   // Unexpected type for equals
   expect(centered.equals(null))            .toBe(false);
@@ -167,10 +168,15 @@ tools.test( function thrownErrors() {
 
 tools.test( function defaultParameters() {
   expect(centered).equalsTextFormat(ha.center, va.center, 0, null, null);
+  expect(centered).equalsTextFormat(ha.center, va.center, 0, null);
+  expect(centered).equalsTextFormat(ha.center, va.center, 0);
   expect(centered).equalsTextFormat(ha.center, va.center);
 
   expect(standing)    .equalsTextFormat(ha.left, va.baseline, 3/4);
   expect(standing).not.equalsTextFormat(ha.left, va.baseline);
+
+  expect(diagonal)    .equalsTextFormat(ha.right, va.bottom, 7/8, null, null, 10);
+  expect(diagonal).not.equalsTextFormat(ha.right, va.bottom, 7/8, null, null);
 
   expect(mono)    .equalsTextFormat(ha.left, va.top, 0, 'mono', 14, 7, 5);
   expect(mono).not.equalsTextFormat(ha.left, va.top, 0, 'mono', 14);
@@ -245,6 +251,15 @@ tools.test( function withAngleFontSize() {
 
   expect(standing.withSize(14)).equalsTextFormat(ha.left, va.baseline, 3/4, null, 14);
   expect(mono.withSize(null)).equalsTextFormat(ha.left, va.top, 0, 'mono', null, 7, 5);
+});
+
+
+tools.test( function withPaddings() {
+  expect(centered.withPaddings(77, 55)).equalsTextFormat(ha.center, va.center, 0, null, null, 77, 55);
+  expect(diagonal.withPaddings(77, 55)).equalsTextFormat(ha.right, va.bottom, 7/8, null, null, 77, 55);
+
+  expect(centered.withPaddings(77)).equalsTextFormat(ha.center, va.center, 0, null, null, 77, 77);
+  expect(diagonal.withPaddings(55)).equalsTextFormat(ha.right, va.bottom, 7/8, null, null, 55, 55);
 });
 
 

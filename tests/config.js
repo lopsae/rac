@@ -37,6 +37,7 @@ let config = {
   './src/drawable/instance.Arc.js',
   './src/drawable/instance.Bezier.js',
   './src/drawable/instance.Text.js',
+  './src/drawable/instance.Text.Format.js',
 ].forEach(item => {
   config.coverageThreshold[item] = {lines: 100};
 });
