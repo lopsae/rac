@@ -8,6 +8,7 @@ Changelog
 + Add `rac.Composite` function
 + Add `rac.Angle.tenth`
 + Add `ray.text`, `segment.text`, `arc.text`
++ Add `segment.translateToLengthRatio`
 + Add `arc.shift`, `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
 + Add `text.reverse`, `text.upright`, `text.withPaddings`
 + Add properties `textFormat.hPadding`, `textFormat.vPadding`

@@ -364,11 +364,35 @@ class Segment {
   * When `length` is negative, `start` is moved in the inverse direction of
   * `angle`.
   *
+  * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
+  *
   * @param {Number} length - The length to move the start point by
   * @returns {Rac.Segment}
   */
   translateToLength(length) {
     const newRay = this.ray.translateToDistance(length);
+    return new Segment(this.rac, newRay, this.length);
+  }
+
+
+  // RELEASE-TODO: replace moved with translated
+  // RELEASE-TODO: check doc uses of `this.x`
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Segment` with the start point translated along the
+  * segment's ray by a distance of `length * ratio`. All other properties
+  * are copied from `this`.
+  *
+  * When `ratio` is negative, `start` is translated in the inverse
+  * direction of the segment's angle.
+  *
+  * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
+  *
+  * @param {Number} ratio - The factor to multiply `length` by
+  * @returns {Rac.Segment}
+  */
+  translateToLengthRatio(ratio) {
+    const newRay = this.ray.translateToDistance(this.length * ratio);
     return new Segment(this.rac, newRay, this.length);
   }
 

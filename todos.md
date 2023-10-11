@@ -8,7 +8,6 @@ In progress
 
 For version change
 ------------------
-+ add segment.translateToLengthRatio
 + FIX all RELEASE-TODO
 
 
