@@ -252,10 +252,11 @@ class Segment {
   }
 
 
+
   /**
-  * Returns a new `Segment` with the start point moved in the inverse
-  * direction of the segment's ray by the given `distance`. The resulting
-  * `Segment` will have the same `endPoint()` and `angle()` as `this`.
+  * Returns a new `Segment` with the start point translated against the
+  * segment's ray by the given `distance`, while keeping the same
+  * `endPoint()`. The resulting segment keeps the same angle as `this`.
   *
   * Using a positive `distance` results in a longer segment, using a
   * negative `distance` results in a shorter one.
@@ -343,8 +344,9 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with the start point moved towards `angle` by
-  * the given `distance`. All other properties are copied from `this`.
+  * Returns a new `Segment` with the start point translated by `distance`
+  * towards the given `angle`. The resulting segment keeps the same angle
+  * and length as `this`.
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to move the start point
     towards
@@ -358,10 +360,11 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with the start point moved along the segment's
-  * ray by the given `length`. All other properties are copied from `this`.
+  * Returns a new `Segment` with the start point translated along the
+  * segment's ray by the given `length`. The resulting segment keeps the
+  * same angle and length as `this`.
   *
-  * When `length` is negative, `start` is moved in the inverse direction of
+  * When `length` is negative, `start` is translated in the inverse direction of
   * `angle`.
   *
   * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
@@ -375,13 +378,13 @@ class Segment {
   }
 
 
-  // RELEASE-TODO: replace moved with translated
   // RELEASE-TODO: check doc uses of `this.x`
+  // RELEASE-TODO: replace angle() for ray.angle
   // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Segment` with the start point translated along the
-  * segment's ray by a distance of `length * ratio`. All other properties
-  * are copied from `this`.
+  * segment's ray by a distance of `length * ratio`. The resulting segment
+  * keeps the same angle and length as `this`.
   *
   * When `ratio` is negative, `start` is translated in the inverse
   * direction of the segment's angle.
@@ -398,9 +401,10 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with the start point moved the given `distance`
-  * towards the perpendicular angle to `this.angle()` in the `clockwise`
-  * orientaton. All other properties are copied from `this`.
+  * Returns a new `Segment` with the start point translated by `distance`
+  * towards the perpendicular angle to `ray.angle` in the `clockwise`
+  * orientaton. The resulting segment keeps the same angle and length as
+  * `this`.
   *
   * @param {Number} distance - The distance to move the start point by
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
