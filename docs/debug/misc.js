@@ -242,10 +242,12 @@ function buildSketch(sketch, Rac) {
     (egCenter, segmentEnd) => {
       let translation = 60;
       egCenter.arc(5).draw();
-      egCenter.text('North-West Example:\nempty', rac.Text.Format.bc)
+      egCenter.text('North-West Example:\nsegment', rac.Text.Format.bc)
         .draw();
 
-        // EMPTY
+        egCenter.segmentToPoint(segmentEnd).draw()
+          .translateToLengthRatio(0.5)
+          .translatePerpendicular(10).debug();
 
     }); // North-West Example
 
