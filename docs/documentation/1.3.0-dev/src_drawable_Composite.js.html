@@ -57,15 +57,25 @@ const utils = require('../util/utils');
 * Used by `[P5Drawer]{@link Rac.P5Drawer}` to perform specific vertex
 * operations with drawables to draw complex shapes.
 *
-* @class
 * @alias Rac.Composite
 */
-function Composite(rac, sequence = []) {
-  utils.assertExists(rac, sequence);
+class Composite {
 
-  this.rac = rac;
-  this.sequence = sequence;
-};
+  /**
+  * Creates a new `Composite` instance.
+  * @param {Rac} rac
+  *   Instance to use for drawing and creating other objects
+  * @param {Array} [sequence]
+  *   An array of drawable objects to contain
+  */
+  constructor(rac, sequence = []) {
+    utils.assertExists(rac, sequence);
+
+    this.rac = rac;
+    this.sequence = sequence;
+  }
+
+} // class Composite
 
 
 module.exports = Composite;

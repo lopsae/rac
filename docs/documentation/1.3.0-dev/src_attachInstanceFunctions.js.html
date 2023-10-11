@@ -458,6 +458,28 @@ module.exports = function attachInstanceFunctions(rac) {
     return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
   };
 
+
+  /**
+  * Convenience function to create a new `Composite`. The created
+  * `composite.rac` is setup with `this`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let composite = rac.Composite()
+  * composite.rac === rac // true
+  *
+  * @param {Array} sequence - An array of drawable objects to contain
+  *
+  * @returns {Rac.Composite}
+  *
+  * @function Composite
+  * @memberof Rac#
+  */
+  rac.Composite = function makeComposite(sequence = []) {
+    return new Rac.Composite(this, sequence);
+  };
+
+
 }; // attachInstanceFunctions
 
 </code></pre>

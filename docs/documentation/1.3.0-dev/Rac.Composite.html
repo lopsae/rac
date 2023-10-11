@@ -58,11 +58,15 @@
         <span><a href="Rac.Composite.html">#</a></span>
         
             <span> | source:
-            <a href="src_drawable_Composite.js.html">src/drawable/Composite.js</a>, <a href="src_drawable_Composite.js.html#line17">line 17</a>
+            <a href="src_drawable_Composite.js.html">src/drawable/Composite.js</a>, <a href="src_drawable_Composite.js.html#line16">line 16</a>
             </span>
         
         </div>
 
+        
+            <div class="class-description"><p>Container of a sequence of drawable objects that can be drawn together.</p>
+<p>Used by <code><a href="Rac.P5Drawer.html">P5Drawer</a></code> to perform specific vertex
+operations with drawables to draw complex shapes.</p></div>
         
 
         
@@ -110,9 +114,11 @@
 <div class="section-method">
 
     
+    <h3 class="subsection-constructor">Constructor</h3>
+    
 
     
-    <h4 class="name method-name" id="Composite"><span class="type-signature"></span>new Composite<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name method-name" id="Composite"><span class="type-signature"></span>new Composite<span class="signature">(rac, sequence<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
     
 
 
@@ -120,7 +126,7 @@
     <span><a href="Rac.Composite.html">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Composite.js.html">src/drawable/Composite.js</a>, <a href="src_drawable_Composite.js.html#line17">line 17</a>
+        <a href="src_drawable_Composite.js.html">src/drawable/Composite.js</a>, <a href="src_drawable_Composite.js.html#line16">line 16</a>
         </span>
     
     </div>
@@ -132,50 +138,116 @@
 
 
 <div class="description">
-    <p>Container of a sequence of drawable objects that can be drawn together.</p>
-<p>Used by <code><a href="Rac.P5Drawer.html">P5Drawer</a></code> to perform specific vertex
-operations with drawables to draw complex shapes.</p>
+    <p>Creates a new <code>Composite</code> instance.</p>
 </div>
 
 
 
 
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
     
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rac</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Rac.html">Rac</a></code></span>
 
 
-<dl class="details">
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>Instance to use for drawing and creating other objects</p>
+                
+            </td>
+        </tr>
 
     
 
-    
+        <tr>
+            
+                <td class="name"><code>sequence</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array</code></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">
+                <p>An array of drawable objects to contain</p>
+                
+            </td>
+        </tr>
 
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+    </tbody>
+</table>
 
 
 
@@ -197,17 +269,6 @@ operations with drawables to draw complex shapes.</p>
 
 
 
-
-
-
-
-
-
-
-
-
-    
-    </div>
 
 
     
