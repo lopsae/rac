@@ -105,6 +105,16 @@ Built file is available at:
 http://localhost:9001/rac.dev.js
 ```
 
+Or build for pages to copy built files to github-io folder:
+```
+npm run serveToPages
+```
+
+And access through run pages debug at `http://127.0.0.1:4000/debug/`:
+```
+npm run pages
+```
+
 
 
 Build dist, test, and commit
@@ -116,6 +126,7 @@ npm run dist
 Built files are available at:
 ```
 http://localhost:9001/rac.js
+http://localhost:9001/rac.dev.js
 http://localhost:9001/rac.min.js
 ```
 
