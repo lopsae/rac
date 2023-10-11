@@ -86,9 +86,6 @@ function buildSketch(sketch, Rac) {
 
   let palette = null;
 
-  // Debug verbose
-  let verbose = true;
-
 
   // Builds controls and applies styles
   function runOnce() {
