@@ -291,8 +291,6 @@ class Segment {
   }
 
 
-// RELEASE-TODO: replace `will have` with `keeps`, also check `Segment` is used
-  // RELEASE-TODO: could also be found by `resulting`
   /**
   * Returns a new `Segment` pointing towards
   * `ray.angle.[inverse()]{@link Rac.Angle#inverse}`.
@@ -329,7 +327,7 @@ class Segment {
   * Returns a new `Segment` starting at `endPoint()` and ending at
   * `startPoint()`.
   *
-  * The resulting `Segment` has the [inverse]{@link Rac.Angle#inverse}
+  * The resulting `Segment` uses the [inverse]{@link Rac.Angle#inverse}
   * angle to `ray.angle` and keeps the same length as `this`.
   *
   * @returns {Rac.Segment}
@@ -377,7 +375,6 @@ class Segment {
 
 
   // RELEASE-TODO: check doc uses of `this.x`
-  // RELEASE-TODO: replace angle() for ray.angle
   // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Segment` with the start point translated along the
@@ -450,8 +447,8 @@ class Segment {
 
   /**
   * Returns a new `Point` along the segment's ray at the given `length`
-  * from `ray.start`. When `length` is negative, the new `Point` will be
-  * located in the opposite direction of the segment's ray.
+  * from `ray.start`. When `length` is negative, the resulting `Point` will
+  * be located in the opposite direction of the segment's ray.
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   *
@@ -465,8 +462,9 @@ class Segment {
 
   /**
   * Returns a new `Point` along the segment's ray at a distance of
-  * `length * ratio` from `ray.start`. When `ratio` is negative, the new
-  * `Point` will be located in the opposite direction of the segment's ray.
+  * `length * ratio` from `ray.start`. When `ratio` is negative, the
+  * resulting `Point` will be located in the opposite direction of the
+  * segment's ray.
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   *
@@ -492,8 +490,8 @@ class Segment {
   * `endPoint()`.
   *
   * When `newStartPoint` and `endPoint()` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will default to
-  * `ray.angle`.
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` will default
+  * to `ray.angle`.
   *
   * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
   * @returns {Rac.Segment}
@@ -509,7 +507,7 @@ class Segment {
   * `newEndPoint`.
   *
   * When `startPoint()` and `newEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will default to
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` will default to
   * `ray.angle`.
   *
   * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
@@ -536,23 +534,23 @@ class Segment {
   * Returns a new `Segment` from the segment's middle point towards the
   * perpendicular angle in the `clockwise` orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will use `this.length` instead.
+  * The resulting `Segment` will use `newLength`, or when ommited or `null`
+  * will default to `length` instead.
   *
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
   * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
   * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
-  segmentBisector(length = null, clockwise = true) {
+  segmentBisector(newLength = null, clockwise = true) {
     const newStart = this.pointAtBisector();
     const newAngle = this.ray.angle.perpendicular(clockwise);
     const newRay = new Rac.Ray(this.rac, newStart, newAngle);
-    const newLength = length === null
+    newLength = newLength === null
       ? this.length
-      : length;
+      : newLength;
     return new Segment(this.rac, newRay, newLength);
   }
 
@@ -576,8 +574,8 @@ class Segment {
   * `nextEndPoint`.
   *
   * When `endPoint()` and `nextEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will default to
-  * `ray.angle`.
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` will default
+  * to `ray.angle`.
   *
   * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
   * @returns {Rac.Segment}
@@ -590,36 +588,34 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` towards `angle`
-  * with the given `length`.
+  * Returns a new `Segment` starting from `endPoint()` and towards `angle`.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will use `this.length` instead.
+  * The resulting `Segment` will use `newLength`, or when ommited
+  * or `null` will default to `length` instead.
   *
   * @param {Rac.Angle|Number} angle - The angle of the new `Segment`
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @returns {Rac.Segment}
   */
-  nextSegmentToAngle(angle, length = null) {
+  nextSegmentToAngle(angle, newLength = null) {
     angle = Rac.Angle.from(this.rac, angle);
-    const newLength = length === null
+    newLength = newLength === null
       ? this.length
-      : length;
+      : newLength;
     const newStart = this.endPoint();
     const newRay = new Rac.Ray(this.rac, newStart, angle);
     return new Segment(this.rac, newRay, newLength);
   }
 
-// RELEASE-TODO: look for "The new `Segment`", check if `resulting` sounds better
 // RELEASE-TODO: replace `will use` to `will default to`
   /**
   * Returns a new `Segment` starting from `endPoint()` and pointing towards
   * `ray.angle.inverse()` shifted by `angleDistance` in the `clockwise`
   * orientation.
   *
-  * The resulting `Segment` will have the given `length`, or when ommited or
-  * `null` will default to `this.length` instead.
+  * The resulting `Segment` will use `newLength`, or when ommited  or
+  * `null` will default to `length` instead.
   *
   * Notice that the `angleDistance` is applied to the
   * [inverse]{@link Rac.Angle#inverse} of the segment's angle. E.g. with
@@ -633,13 +629,13 @@ class Segment {
   * the segment's angle inverse
   * @param {Boolean} [clockwise=true] - The orientation of the angle shift
   * from `endPoint()`
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @returns {Rac.Segment}
   */
-  nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null) {
+  nextSegmentToAngleDistance(angleDistance, clockwise = true, newLength = null) {
     angleDistance = this.rac.Angle.from(angleDistance);
-    const newLength = length === null ? this.length : length;
+    newLength = newLength === null ? this.length : newLength;
     const newRay = this.ray
       .translateToDistance(this.length)
       .inverse()
@@ -648,31 +644,28 @@ class Segment {
   }
 
 
-// RELEASE-TODO: search for `length = null`, those could be `newLength`
   /**
   * Returns a new `Segment` starting from `endPoint()` towards the
   * `[perpendicular angle]{@link Rac.Angle#perpendicular}` of
   * `ray.angle.inverse()` in the `clockwise` orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will default to `this.length` instead.
+  * The resulting `Segment` will use `newLength`, or when ommited or `null`
+  * will default to `length` instead.
   *
   * Notice that the perpendicular is calculated from the inverse of the
-  * segment's angle. E.g. with `clockwise` as `true`, the new `Segment`
-  * will be pointing towards `ray.angle.perpendicular(false)`.
+  * segment's angle. E.g. with `clockwise` as `true`, the resulting
+  * `Segment` will be pointing towards `ray.angle.perpendicular(false)`.
   *
   * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   *
   * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @returns {Rac.Segment}
   */
-  nextSegmentPerpendicular(clockwise = true, length = null) {
-    const newLength = length === null
-      ? this.length
-      : length;
+  nextSegmentPerpendicular(clockwise = true, newLength = null) {
+    newLength = newLength === null ? this.length : newLength;
     const newRay = this.ray
       .translateToDistance(this.length)
       .perpendicular(!clockwise);
@@ -686,7 +679,7 @@ class Segment {
   * to the leg of a right triangle where `this` is the other cathetus and
   * the hypotenuse is of length `hypotenuse`.
   *
-  * The new `Segment` will point towards the perpendicular angle of
+  * The resulting `Segment` will point towards the perpendicular angle of
   * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
   * orientation.
   *
@@ -778,8 +771,8 @@ class Segment {
   * Returns a new `Text` located at `start` and oriented towards `ray.angle`
   * with the given `string` and `format`.
   *
-  * When `format` is provided, the angle for the resulting `Text` will still
-  * be set to `ray.angle`.
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `ray.angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
