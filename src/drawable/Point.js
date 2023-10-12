@@ -342,7 +342,7 @@ class Point{
   * from `this` towards `arc.center`. `arc` is considered a complete
   * circle.
   *
-  * Returns `null` when `this` is inside `arc`, since no tangent segment is
+  * When `this` is inside `arc`, returns `null` since no tangent segment is
   * possible.
   *
   * A special case is considered when `arc.radius` is considered to be `0`
@@ -449,7 +449,7 @@ class Point{
   * from `this` towards `arc.center`, and its end point will be at the
   * contact point with `arc` which is considered as a complete circle.
   *
-  * Returns `null` when `this` is inside `arc`, since no tangent segment is
+  * When `this` is inside `arc`, returns `null` since no tangent segment is
   * possible.
   *
   * A special case is considered when `arc.radius` is considered to be `0`

@@ -432,7 +432,7 @@ class Ray {
   * Returns the distance from `this.start` to the projection of `point`
   * onto the ray.
   *
-  * The returned distance is positive when the projected point is towards
+  * The resulting distance is positive when the projected point is towards
   * the direction of the ray, and negative when it is behind.
   *
   * @param {Rac.Point} point - A `Point` to project and measure the
@@ -661,8 +661,8 @@ class Ray {
   * Returns a new `Text` located at `start` and oriented towards `angle`
   * with the given `string` and `format`.
   *
-  * When `format` is provided, the angle for the returned text will still
-  * be set to `angle`.
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]

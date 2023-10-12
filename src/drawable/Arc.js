@@ -982,7 +982,7 @@ class Arc{
   * Returns a new `Segment` for the chord formed by the intersection of
   * `this` and `otherArc`, or `null` when there is no intersection.
   *
-  * The returned `Segment` will point towards the `this` orientation.
+  * The resulting `Segment` will point towards `this` orientation.
   *
   * Both arcs are considered complete circles for the calculation of the
   * chord, thus the endpoints of the returned segment may not lay inside
@@ -1056,7 +1056,7 @@ class Arc{
   * Returns a new `Segment` representing the chord formed by the
   * intersection of the arc and 'ray', or `null` when no chord is possible.
   *
-  * The returned `Segment` will always have the same angle as `ray`.
+  * The resulting `Segment` will always have the same angle as `ray`.
   *
   * The arc is considered a complete circle and `ray` is considered an
   * unbounded line.
@@ -1161,7 +1161,7 @@ class Arc{
   /**
   * Returns a new `Arc` representing the section of `this` that is inside
   * `otherArc` and bounded by `this.start` and `this.end`, or `null` when
-  * there is no intersection. The returned arc will have the same center,
+  * there is no intersection. The resulting `Arc` will have the same center,
   * radius, and orientation as `this`.
   *
   * `otherArc` is considered a complete circle, while the start and end of
@@ -1388,15 +1388,15 @@ class Arc{
   * Returns a new `Text` located and oriented towards `startTangentRay()`
   * with the given `string` and `format`.
   *
-  * When `format` is ommited or `null`, the format used for the returned
-  * text will be:
+  * When `format` is ommited or `null`, the format used for the resulting
+  * `Text` will be:
   * + [`rac.Text.Format.bottomLeft`]{@link instance.Text.Format#bottomLeft}
   * format for arcs with `clockwise` orientation set to `true`
   * + [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}
   * format for arcs with `clockwise` orientation set to `false`
   *
-  * When `format` is provided, the angle for the returned text will still
-  * be set to `startTangentRay().angle`.
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `startTangentRay().angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]

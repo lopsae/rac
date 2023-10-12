@@ -198,7 +198,7 @@ class Text {
   * Returns a new `Text` which is an upside-down equivalent of `this`
   * and generally in the same location.
   *
-  * The returned text is at the same location as `this`, using a
+  * The resulting `Text` is at the same location as `this`, using a
   * [reversed]{@link Rac.Text.Format#reverse} format and oriented
   * towards the [inverse]{@link Rac.Angle#inverse} of `format.angle`.
   *

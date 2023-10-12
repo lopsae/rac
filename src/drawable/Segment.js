@@ -713,13 +713,12 @@ class Segment {
   }
 
 
-// RELEASE-TODO: replace returned with resulting
   /**
   * Returns a new `Arc` based on this segment, with the given `endAngle`
   * and `clockwise` orientation.
   *
   * The resulting `Arc` will be centered at `ray.start`, starting at
-  * `ray.angle` and with a radius of `length`.
+  * `ray.angle`, and with a radius of `length`.
   *
   * When `endAngle` is ommited or `null`, the segment's angle is used
   * instead resulting in a complete-circle arc.
@@ -745,8 +744,8 @@ class Segment {
   * `angleDistance` from the segment's angle in the `clockwise`
   * orientation.
   *
-  * The returned `Arc` will use this segment's start as `center`, its angle
-  * as `start`, and its length as `radius`.
+  * The resulting `Arc` will be centered at `ray.start`, starting at
+  * `ray.angle`, and with a radius of `length`.
   *
   * @param {Rac.Angle|Number} angleDistance - The angle distance from the
   * segment's start to the new `Arc` end
@@ -779,7 +778,7 @@ class Segment {
   * Returns a new `Text` located at `start` and oriented towards `ray.angle`
   * with the given `string` and `format`.
   *
-  * When `format` is provided, the angle for the returned text will still
+  * When `format` is provided, the angle for the resulting `Text` will still
   * be set to `ray.angle`.
   *
   * @param {String} string - The string of the new `Text`
