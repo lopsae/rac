@@ -197,15 +197,15 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `length` added to `this.length`.
+  * Returns a new `Segment` with `increment` added to `length`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Number} length - The length to add
+  * @param {Number} increment - The length to add
   * @returns {Rac.Segment}
   */
-  withLengthAdd(length) {
-    return new Segment(this.rac, this.ray, this.length + length);
+  withLengthAdd(increment) {
+    return new Segment(this.rac, this.ray, this.length + increment);
   }
 
 
@@ -341,8 +341,8 @@ class Segment {
 
   /**
   * Returns a new `Segment` with the start point translated by `distance`
-  * towards the given `angle`. The resulting segment keeps the same angle
-  * and length as `this`.
+  * towards the given `angle`, and keeping the same angle and length as
+  * `this`.
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to move the start point
     towards
@@ -356,20 +356,20 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with the start point translated along the
-  * segment's ray by the given `length`. The resulting segment keeps the
-  * same angle and length as `this`.
+  * Returns a new `Segment` with the start point translated by `distance`
+  * along the segment's ray, and keeping the same angle and length as
+  * `this`.
   *
-  * When `length` is negative, `start` is translated in the inverse direction of
-  * `angle`.
+  * When `distance` is negative, the resulting `Segment` is translated in
+  * the opposite direction of the segment's ray.
   *
   * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
   *
-  * @param {Number} length - The length to move the start point by
+  * @param {Number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
-  translateToLength(length) {
-    const newRay = this.ray.translateToDistance(length);
+  translateToLength(distance) {
+    const newRay = this.ray.translateToDistance(distance);
     return new Segment(this.rac, newRay, this.length);
   }
 
@@ -381,8 +381,8 @@ class Segment {
   * segment's ray by a distance of `length * ratio`. The resulting segment
   * keeps the same angle and length as `this`.
   *
-  * When `ratio` is negative, `start` is translated in the inverse
-  * direction of the segment's angle.
+  * When `ratio` is negative, the resulting `Segment` is translated in the
+  * opposite direction of the segment's ray.
   *
   * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
   *
@@ -397,9 +397,8 @@ class Segment {
 
   /**
   * Returns a new `Segment` with the start point translated by `distance`
-  * towards the perpendicular angle to `ray.angle` in the `clockwise`
-  * orientaton. The resulting segment keeps the same angle and length as
-  * `this`.
+  * towards the perpendicular of `ray.angle` in the `clockwise` orientaton.
+  * The resulting segment keeps the same angle and length as `this`.
   *
   * @param {Number} distance - The distance to move the start point by
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
@@ -445,18 +444,21 @@ class Segment {
   }
 
 
+// RELEASE-TODO: search again for `will` and check tenses
   /**
-  * Returns a new `Point` along the segment's ray at the given `length`
-  * from `ray.start`. When `length` is negative, the resulting `Point` will
-  * be located in the opposite direction of the segment's ray.
+  * Returns a new `Point` along the segment's ray at the given `distance`
+  * from `ray.start`.
+  *
+  * When `distance` is negative, the resulting `Point` is located in the
+  * opposite direction of the segment's ray.
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   *
-  * @param {Number} length - The distance from `this.startPoint()`
+  * @param {Number} distance - The distance from `this.startPoint()`
   * @returns {Rac.Point}
   */
-  pointAtLength(length) {
-    return this.ray.pointAtDistance(length);
+  pointAtLength(distance) {
+    return this.ray.pointAtDistance(distance);
   }
 
 
@@ -556,16 +558,16 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` with the given
-  * `length` and the same angle as `this`.
+  * Returns a new `Segment` starting from `endPoint()`, with the given
+  * `newLength`, and keeping the same angle as `this`.
   *
-  * @param {Number} length - The length of the next `Segment`
+  * @param {Number} newLength - The length of the next `Segment`
   * @returns {Rac.Segment}
   */
-  nextSegmentWithLength(length) {
+  nextSegmentWithLength(newLength) {
     const newStart = this.endPoint();
     const newRay = this.ray.withStart(newStart);
-    return new Segment(this.rac, newRay, length);
+    return new Segment(this.rac, newRay, newLength);
   }
 
 
