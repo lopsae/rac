@@ -611,8 +611,8 @@ class Segment {
 
   /**
   * Returns a new `Segment` starting from `endPoint()` and pointing towards
-  * `ray.angle.inverse()` shifted by `angleDistance` in the `clockwise`
-  * orientation.
+  * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` shifted by
+  * `angleDistance` in the `clockwise` orientation.
   *
   * The resulting `Segment` uses `newLength`, when ommited or
   * `null` defaults to `length` instead.
@@ -622,8 +622,6 @@ class Segment {
   * an `angleDistance` of `0` the resulting `Segment` is directly over and
   * pointing in the inverse angle of `this`. As the `angleDistance`
   * increases the two segments separate with the pivot at `endPoint()`.
-  *
-  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   *
   * @param {Rac.Angle|Number} angleDistance - An angle distance to apply to
   * the segment's angle inverse
@@ -647,14 +645,16 @@ class Segment {
   /**
   * Returns a new `Segment` starting from `endPoint()` towards the
   * `[perpendicular angle]{@link Rac.Angle#perpendicular}` of
-  * `ray.angle.inverse()` in the `clockwise` orientation.
+  * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
+  * orientation.
   *
   * The resulting `Segment` uses `newLength`, when ommited or `null`
   * defaults to `length` instead.
   *
-  * Notice that the perpendicular is calculated from the inverse of the
-  * segment's angle. E.g. with `clockwise` as `true`, the resulting
-  * `Segment` points towards `ray.angle.perpendicular(false)`.
+  * Notice that the perpendicular is calculated from the
+  * [inverse]{@link Rac.Angle#inverse} of the segment's angle. E.g. with
+  * `clockwise` as `true`, the resulting `Segment` points towards
+  * `ray.angle.perpendicular(false)`.
   *
   * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   *
@@ -673,7 +673,6 @@ class Segment {
   }
 
 
-// RELEASE-TODO: search for .inverse()`, and it could be a link
   /**
   * Returns a new `Segment` that starts from `endPoint()` and corresponds
   * to the leg of a right triangle where `this` is the other cathetus and
