@@ -64,11 +64,11 @@
         </div>
 
         
-            <div class="class-description"><p>Angle measured with a <code>turn</code> value in the range <em>[0,1)</em> that represents
-the amount of turn in a full circle.</p>
+            <div class="class-description"><p>Angle measured through a <code>turn</code> value in the range <em>[0,1)</em> that
+represents the amount of turn in a full circle.</p>
 <p>Most functions through RAC that can receive an <code>Angle</code> parameter can
-also receive a <code>number</code> value that will be used as <code>turn</code> to instantiate
-a new <code>Angle</code>. The main exception to this behaviour are constructors,
+also receive a <code>number</code> value that is used as <code>turn</code> to instantiate a new
+<code>Angle</code>. The main exception to this behaviour are constructors,
 which always expect to receive <code>Angle</code> objects.</p>
 <p>For drawing operations the turn value of <code>0</code> points right, with the
 direction rotating clockwise:</p>
@@ -1631,9 +1631,9 @@ derived <a href="Rac.Angle.html#.from">from</a> <code>angle</code> is under
 otherwise returns <code>false</code>.</p>
 <p>The <code>otherAngle</code> parameter can only be <code>Angle</code> or <code>number</code>, any other
 type returns <code>false</code>.</p>
-<p>This method will consider turn values in the oposite ends of the range
+<p>This method considers turn values in the oposite ends of the range
 <em>[0,1)</em> as equals. E.g. <code>Angle</code> objects with <code>turn</code> values of <code>0</code> and
-<code>1 - rac.unitaryEqualityThreshold/2</code> will be considered equal.</p>
+<code>1 - rac.unitaryEqualityThreshold/2</code> are considered equal.</p>
 </div>
 
 

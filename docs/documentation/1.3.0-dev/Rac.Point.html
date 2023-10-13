@@ -65,12 +65,12 @@
 
         
             <div class="class-description"><p>Point in a two dimentional coordinate system.</p>
-<p>Several methods will return an adjusted value or perform adjustments in
-their operation when two points are close enough as to be considered
-equal. When the the difference of each coordinate of two points
-is under the <a href="Rac.html#equalityThreshold"><code>equalityThreshold</code></a> the
-points are considered equal. The <a href="Rac.Point.html#equals"><code>equals</code></a>
-method performs this check.</p>
+<p>Several methods return an adjusted value or perform adjustments in their
+operation when two points are close enough as to be considered equal.
+When the the difference of each coordinate of two points is under the
+<a href="Rac.html#equalityThreshold"><code>equalityThreshold</code></a> the points are
+considered equal. The <a href="Rac.Point.html#equals"><code>equals</code></a> method performs
+this check.</p>
 <h3><code>instance.Point</code></h3>
 <p>Instances of <code>Rac</code> contain a convenience
 <a href="Rac.html#Point"><code>rac.Point</code> function</a> to create <code>Point</code> objects with
@@ -1413,7 +1413,7 @@ returns the angle produced with <code>defaultAngle</code>.</p>
     <span><a href="Rac.Point.html#arc">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line491">line 491</a>
+        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line492">line 492</a>
         </span>
     
     </div>
@@ -2656,15 +2656,15 @@ no tangent is possible returns <code>null</code>.</p></p>
 
 
 <div class="description">
-    <p>The new <code>Ray</code> will be in the <code>clockwise</code> side of the ray formed
+    <p>The resulting <code>Ray</code> is in the <code>clockwise</code> side of the ray formed
 from <code>this</code> towards <code>arc.center</code>. <code>arc</code> is considered a complete
 circle.</p>
-<p>When <code>this</code> is inside <code>arc</code> no tangent segment is possible and <code>null</code>
-is returned.</p>
+<p>When <code>this</code> is inside <code>arc</code>, returns <code>null</code> since no tangent segment is
+possible.</p>
 <p>A special case is considered when <code>arc.radius</code> is considered to be <code>0</code>
 and <code>this</code> is equal to <code>arc.center</code>. In this case the angle between
 <code>this</code> and <code>arc.center</code> is assumed to be the inverse of <code>arc.start</code>,
-thus the new <code>Ray</code> will have an angle perpendicular to
+thus the resulting <code>Ray</code> defaults to an angle perpendicular to
 <code>arc.start.inverse()</code>, in the <code>clockwise</code> orientation.</p>
 </div>
 
@@ -2880,7 +2880,7 @@ as a complete circle</p>
 <div class="description">
     <p>Returns a new <code>Ray</code> from <code>this</code> towards <code>point</code>.</p>
 <p>When <code>this</code> and <code>point</code> are <a href="Rac.Point.html#equals">considered equal</a>,
-the new <code>Ray</code> will use the angle produced with <code>defaultAngle</code>.</p>
+the resulting <code>Ray</code> uses the angle produced with <code>defaultAngle</code>.</p>
 </div>
 
 
@@ -3097,8 +3097,8 @@ the new <code>Ray</code> will use the angle produced with <code>defaultAngle</co
 <div class="description">
     <p>Returns a new <code>Ray</code> from <code>this</code> to the projection of <code>this</code> in <code>ray</code>.</p>
 <p>When the projected point and <code>this</code> are
-<a href="Rac.Point.html#equals">considered equal</a> the produced ray will have
-an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
+<a href="Rac.Point.html#equals">considered equal</a> the resulting <code>Ray</code> defaults
+to an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
 </div>
 
 
@@ -3240,7 +3240,7 @@ an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#segmentTangentToArc">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line466">line 466</a>
+        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line467">line 467</a>
         </span>
     
     </div>
@@ -3255,15 +3255,15 @@ when no tangent is possible returns <code>null</code>.</p></p>
 
 
 <div class="description">
-    <p>The new <code>Segment</code> will be in the <code>clockwise</code> side of the ray formed
-from <code>this</code> towards <code>arc.center</code>, and its end point will be at the
-contact point with <code>arc</code> which is considered as a complete circle.</p>
-<p>When <code>this</code> is inside <code>arc</code> no tangent segment is possible and <code>null</code>
-is returned.</p>
+    <p>The resulting <code>Segment</code> is in the <code>clockwise</code> side of the ray formed
+from <code>this</code> towards <code>arc.center</code>, and ends at the contact point with
+<code>arc</code> which is considered as a complete circle.</p>
+<p>When <code>this</code> is inside <code>arc</code>, returns <code>null</code> since no tangent segment is
+possible.</p>
 <p>A special case is considered when <code>arc.radius</code> is considered to be <code>0</code>
 and <code>this</code> is equal to <code>arc.center</code>. In this case the angle between
 <code>this</code> and <code>arc.center</code> is assumed to be the inverse of <code>arc.start</code>,
-thus the new <code>Segment</code> will have an angle perpendicular to
+thus the resulting <code>Segment</code> defaults to an angle perpendicular to
 <code>arc.start.inverse()</code>, in the <code>clockwise</code> orientation.</p>
 </div>
 
@@ -3650,7 +3650,7 @@ towards</p>
     <span><a href="Rac.Point.html#segmentToPoint">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line417">line 417</a>
+        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line418">line 418</a>
         </span>
     
     </div>
@@ -3664,7 +3664,8 @@ towards</p>
 <div class="description">
     <p>Returns a new <code>Segment</code> from <code>this</code> to <code>point</code>.</p>
 <p>When <code>this</code> and <code>point</code> are <a href="Rac.Point.html#equals">considered equal</a>,
-the new <code>Segment</code> will use the angle produced with <code>defaultAngle</code>.</p>
+the resulting <code>Segment</code> defaults to the angle produced with
+<code>defaultAngle</code>.</p>
 </div>
 
 
@@ -3874,7 +3875,7 @@ the new <code>Segment</code> will use the angle produced with <code>defaultAngle
     <span><a href="Rac.Point.html#segmentToProjectionInRay">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line435">line 435</a>
+        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line436">line 436</a>
         </span>
     
     </div>
@@ -3888,8 +3889,8 @@ the new <code>Segment</code> will use the angle produced with <code>defaultAngle
 <div class="description">
     <p>Returns a new <code>Segment</code> from <code>this</code> to the projection of <code>this</code> in
 <code>ray</code>.</p>
-<p>When the projected point is equal to <code>this</code>, the new <code>Segment</code> will
-have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
+<p>When the projected point is equal to <code>this</code>, the resulting <code>Segment</code>
+defaults to an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
 </div>
 
 
@@ -4365,7 +4366,7 @@ have an angle perpendicular to <code>ray</code> in the clockwise direction.</p>
     <span><a href="Rac.Point.html#text">#</a></span>
     
         <span> | source:
-        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line514">line 514</a>
+        <a href="src_drawable_Point.js.html">src/drawable/Point.js</a>, <a href="src_drawable_Point.js.html#line515">line 515</a>
         </span>
     
     </div>

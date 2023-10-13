@@ -1236,7 +1236,7 @@ and end at the given <code>angleDistance</code> from <code>this.start</code> in 
 <div class="description">
     <p>Returns the distance from <code>this.start</code> to the projection of <code>point</code>
 onto the ray.</p>
-<p>The returned distance is positive when the projected point is towards
+<p>The resulting distance is positive when the projected point is towards
 the direction of the ray, and negative when it is behind.</p>
 </div>
 
@@ -1844,9 +1844,9 @@ otherwise returns <code>false</code>.</p>
 
 <div class="description">
     <p>Returns a new <code>Point</code> located where the ray touches the canvas edge.</p>
-<p>When the ray is outside the canvas and pointing away, <code>null</code> is
-returned.</p>
-<p>Added  to <code>Rac.Ray.prototype</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
+<p>When the ray is outside the canvas and pointing away, returns <code>null</code>
+since no point in the canvas is possible.</p>
+<p>Added to <code>Rac.Ray.prototype</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
 <code><a href="Rac.html#drawer">rac.drawer</a></code>.</p>
 </div>
 
@@ -2905,9 +2905,9 @@ projected point is the closest possible point to <code>point</code>.</p>
 <div class="description">
     <p>Returns a new <code>Ray</code> that starts at the point where the <code>this</code> touches
 the canvas edge and pointed towards the inside of the canvas.</p>
-<p>When the ray is outside the canvas and pointing away, <code>null</code> is
-returned.</p>
-<p>Added  to <code>Rac.Ray.prototype</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
+<p>When the ray is outside the canvas and pointing away, returns <code>null</code>
+since no point in the canvas is possible.</p>
+<p>Added to <code>Rac.Ray.prototype</code> when <code><a href="Rac.P5Drawer.html">Rac.P5Drawer</a></code> is setup as
 <code><a href="Rac.html#drawer">rac.drawer</a></code>.</p>
 </div>
 
@@ -3757,8 +3757,8 @@ possible.</p>
 <div class="description">
     <p>Returns a new <code>Text</code> located at <code>start</code> and oriented towards <code>angle</code>
 with the given <code>string</code> and <code>format</code>.</p>
-<p>When <code>format</code> is provided, the angle for the returned text will still
-be set to <code>angle</code>.</p>
+<p>When <code>format</code> is provided, the angle for the resulting <code>Text</code> will
+still be set to <code>angle</code>.</p>
 </div>
 
 
@@ -4845,7 +4845,7 @@ the inverse direction of <code>angle</code>.</p>
     
 
     
-    <h4 class="name method-name" id="withAngleAdd"><span class="type-signature"></span>withAngleAdd<span class="signature">(angle)</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
+    <h4 class="name method-name" id="withAngleAdd"><span class="type-signature"></span>withAngleAdd<span class="signature">(increment)</span><span class="type-signature"> &rarr; {<a href="Rac.Ray.html">Rac.Ray</a>}</span></h4>
     
 
 
@@ -4865,7 +4865,7 @@ the inverse direction of <code>angle</code>.</p>
 
 
 <div class="description">
-    <p>Returns a new <code>Ray</code> with <code>angle</code> added to <code>this.angle</code>.</p>
+    <p>Returns a new <code>Ray</code> with <code>increment</code> added to <code>this.angle</code>.</p>
 <p>All other properties are copied from <code>this</code>.</p>
 </div>
 
@@ -4943,7 +4943,7 @@ the inverse direction of <code>angle</code>.</p>
 
         <tr>
             
-                <td class="name"><code>angle</code></td>
+                <td class="name"><code>increment</code></td>
             
 
             <td class="type">
