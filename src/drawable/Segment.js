@@ -223,22 +223,22 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `angle` added to `ray.angle`.
+  * Returns a new `Segment` with `increment` added to `ray.angle`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|Number} angle - The angle to add
+  * @param {Rac.Angle|Number} increment - The angle to add
   * @returns {Rac.Segment}
   */
-  withAngleAdd(angle) {
-    const newRay = this.ray.withAngleAdd(angle);
+  withAngleAdd(increment) {
+    const newRay = this.ray.withAngleAdd(increment);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
   /**
   * Returns a new `Segment` with `angle` set to
-  * `this.ray.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
+  * `ray.[angle.shift]{@link Rac.Angle#shift}(angle, clockwise)`.
   *
   * All other properties are copied from `this`.
   *

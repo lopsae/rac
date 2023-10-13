@@ -196,15 +196,15 @@ class Ray {
 
 
   /**
-  * Returns a new `Ray` with `angle` added to `this.angle`.
+  * Returns a new `Ray` with `increment` added to `this.angle`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|Number} angle - The angle to add
+  * @param {Rac.Angle|Number} increment - The angle to add
   * @returns {Rac.Ray}
   */
-  withAngleAdd(angle) {
-    let newAngle = this.angle.add(angle);
+  withAngleAdd(increment) {
+    let newAngle = this.angle.add(increment);
     return new Ray(this.rac, this.start, newAngle);
   }
 
