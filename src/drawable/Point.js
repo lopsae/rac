@@ -296,12 +296,12 @@ class Point{
     return new Rac.Ray(this.rac, this, angle);
   }
 
-// RELEASE-TODO: look for `the new`, `produced` and replace `the resulting`
+
   /**
   * Returns a new `Ray` from `this` towards `point`.
   *
   * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
-  * the new `Ray` uses the angle produced with `defaultAngle`.
+  * the resulting `Ray` uses the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
   * @param {Rac.Angle|Number}
@@ -405,7 +405,8 @@ class Point{
   * Returns a new `Segment` from `this` to `point`.
   *
   * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
-  * the new `Segment` defaults to the angle produced with `defaultAngle`.
+  * the resulting `Segment` defaults to the angle produced with
+  * `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
   * @param {Rac.Angle|Number}
@@ -426,8 +427,8 @@ class Point{
   * Returns a new `Segment` from `this` to the projection of `this` in
   * `ray`.
   *
-  * When the projected point is equal to `this`, the new `Segment` defaults
-  * to an angle perpendicular to `ray` in the clockwise direction.
+  * When the projected point is equal to `this`, the resulting `Segment`
+  * defaults to an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
   * @returns {Rac.Segment}
