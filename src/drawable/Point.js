@@ -8,12 +8,12 @@ const utils = require('../util/utils');
 /**
 * Point in a two dimentional coordinate system.
 *
-* Several methods will return an adjusted value or perform adjustments in
-* their operation when two points are close enough as to be considered
-* equal. When the the difference of each coordinate of two points
-* is under the [`equalityThreshold`]{@link Rac#equalityThreshold} the
-* points are considered equal. The [`equals`]{@link Rac.Point#equals}
-* method performs this check.
+* Several methods return an adjusted value or perform adjustments in their
+* operation when two points are close enough as to be considered equal.
+* When the the difference of each coordinate of two points is under the
+* [`equalityThreshold`]{@link Rac#equalityThreshold} the points are
+* considered equal. The [`equals`]{@link Rac.Point#equals} method performs
+* this check.
 *
 * ### `instance.Point`
 *
@@ -296,12 +296,12 @@ class Point{
     return new Rac.Ray(this.rac, this, angle);
   }
 
-
+// RELEASE-TODO: look for `the new`, `produced` and replace `the resulting`
   /**
   * Returns a new `Ray` from `this` towards `point`.
   *
   * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
-  * the new `Ray` will use the angle produced with `defaultAngle`.
+  * the new `Ray` uses the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
   * @param {Rac.Angle|Number}
@@ -319,8 +319,8 @@ class Point{
   * Returns a new `Ray` from `this` to the projection of `this` in `ray`.
   *
   * When the projected point and `this` are
-  * [considered equal]{@link Rac.Point#equals} the produced ray will have
-  * an angle perpendicular to `ray` in the clockwise direction.
+  * [considered equal]{@link Rac.Point#equals} the resulting `Ray` defaults
+  * to an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
   * @returns {Rac.Ray}
@@ -338,7 +338,7 @@ class Point{
   * no tangent is possible returns `null`.
   *
   * @description
-  * The new `Ray` will be in the `clockwise` side of the ray formed
+  * The resulting `Ray` is in the `clockwise` side of the ray formed
   * from `this` towards `arc.center`. `arc` is considered a complete
   * circle.
   *
@@ -348,7 +348,7 @@ class Point{
   * A special case is considered when `arc.radius` is considered to be `0`
   * and `this` is equal to `arc.center`. In this case the angle between
   * `this` and `arc.center` is assumed to be the inverse of `arc.start`,
-  * thus the new `Ray` will have an angle perpendicular to
+  * thus the resulting `Ray` defaults to an angle perpendicular to
   * `arc.start.inverse()`, in the `clockwise` orientation.
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
@@ -405,7 +405,7 @@ class Point{
   * Returns a new `Segment` from `this` to `point`.
   *
   * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
-  * the new `Segment` will use the angle produced with `defaultAngle`.
+  * the new `Segment` defaults to the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
   * @param {Rac.Angle|Number}
@@ -426,8 +426,8 @@ class Point{
   * Returns a new `Segment` from `this` to the projection of `this` in
   * `ray`.
   *
-  * When the projected point is equal to `this`, the new `Segment` will
-  * have an angle perpendicular to `ray` in the clockwise direction.
+  * When the projected point is equal to `this`, the new `Segment` defaults
+  * to an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
   * @returns {Rac.Segment}
@@ -445,9 +445,9 @@ class Point{
   * when no tangent is possible returns `null`.
   *
   * @description
-  * The new `Segment` will be in the `clockwise` side of the ray formed
-  * from `this` towards `arc.center`, and its end point will be at the
-  * contact point with `arc` which is considered as a complete circle.
+  * The resulting `Segment` is in the `clockwise` side of the ray formed
+  * from `this` towards `arc.center`, and ends at the contact point with
+  * `arc` which is considered as a complete circle.
   *
   * When `this` is inside `arc`, returns `null` since no tangent segment is
   * possible.
@@ -455,7 +455,7 @@ class Point{
   * A special case is considered when `arc.radius` is considered to be `0`
   * and `this` is equal to `arc.center`. In this case the angle between
   * `this` and `arc.center` is assumed to be the inverse of `arc.start`,
-  * thus the new `Segment` will have an angle perpendicular to
+  * thus the resulting `Segment` defaults to an angle perpendicular to
   * `arc.start.inverse()`, in the `clockwise` orientation.
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
