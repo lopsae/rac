@@ -21,7 +21,7 @@ module.exports = {
   * @constant {String} build
   * @memberof versioning#
   */
-  build: '1332-0cc23de',
+  build: '1350-535b27d',
 
   /**
   * Date of build of the package. Exposed through
@@ -29,6 +29,6 @@ module.exports = {
   * @constant {String} dated
   * @memberof versioning#
   */
-  dated: '2023-10-11T00:37:11.221Z'
+  dated: '2023-10-13T06:12:05.522Z'
 };
 

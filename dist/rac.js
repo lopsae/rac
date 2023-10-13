@@ -1,4 +1,4 @@
-// RAC - ruler-and-compass - 1.3.0-dev 1332-0cc23de 2023-10-11T00:37:11.221Z
+// RAC - ruler-and-compass - 1.3.0-dev 1350-535b27d 2023-10-13T06:12:05.522Z
 // Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
@@ -24,7 +24,7 @@ module.exports = {
   * @constant {String} build
   * @memberof versioning#
   */
-  build: '1332-0cc23de',
+  build: '1350-535b27d',
 
   /**
   * Date of build of the package. Exposed through
@@ -32,7 +32,7 @@ module.exports = {
   * @constant {String} dated
   * @memberof versioning#
   */
-  dated: '2023-10-11T00:37:11.221Z'
+  dated: '2023-10-13T06:12:05.522Z'
 };
 
 
@@ -2488,12 +2488,12 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured with a `turn` value in the range *[0,1)* that represents
-* the amount of turn in a full circle.
+* Angle measured through a `turn` value in the range *[0,1)* that
+* represents the amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
-* also receive a `number` value that will be used as `turn` to instantiate
-* a new `Angle`. The main exception to this behaviour are constructors,
+* also receive a `number` value that is used as `turn` to instantiate a new
+* `Angle`. The main exception to this behaviour are constructors,
 * which always expect to receive `Angle` objects.
 *
 * For drawing operations the turn value of `0` points right, with the
@@ -2595,9 +2595,9 @@ class Angle {
   * The `otherAngle` parameter can only be `Angle` or `number`, any other
   * type returns `false`.
   *
-  * This method will consider turn values in the oposite ends of the range
+  * This method considers turn values in the oposite ends of the range
   * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
-  * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
+  * `1 - rac.unitaryEqualityThreshold/2` are considered equal.
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to compare
   * @returns {Boolean}
@@ -3379,23 +3379,24 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `length` added to the part of the
+  * Returns a new `Arc` with `increment` added to the part of the
   * circumference `this` represents. This changes `end` for the
   * new `Arc`.
   *
   * All other properties are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
-  * range `[0,radius*TAU)`. When the resulting `length` is larger that the
+  * range `[0,radius*TAU)`. When the resulting length is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
   * will be reduced into range through a modulo operation.
   *
-  * @param {Number} length - The length to add
-  * @returns {Rac.Arc}
   * @see [`length`]{@link Rac.Arc#length}
+  *
+  * @param {Number} increment - The length to add
+  * @returns {Rac.Arc}
   */
-  withLengthAdd(length) {
-    const newAngleDistance = (this.length() + length) / this.circumference();
+  withLengthAdd(increment) {
+    const newAngleDistance = (this.length() + increment) / this.circumference();
     return this.withAngleDistance(newAngleDistance);
   }
 
@@ -3916,7 +3917,7 @@ class Arc{
   * Returns a new `Segment` for the chord formed by the intersection of
   * `this` and `otherArc`, or `null` when there is no intersection.
   *
-  * The returned `Segment` will point towards the `this` orientation.
+  * The resulting `Segment` will point towards `this` orientation.
   *
   * Both arcs are considered complete circles for the calculation of the
   * chord, thus the endpoints of the returned segment may not lay inside
@@ -3990,7 +3991,7 @@ class Arc{
   * Returns a new `Segment` representing the chord formed by the
   * intersection of the arc and 'ray', or `null` when no chord is possible.
   *
-  * The returned `Segment` will always have the same angle as `ray`.
+  * The resulting `Segment` will always have the same angle as `ray`.
   *
   * The arc is considered a complete circle and `ray` is considered an
   * unbounded line.
@@ -4095,7 +4096,7 @@ class Arc{
   /**
   * Returns a new `Arc` representing the section of `this` that is inside
   * `otherArc` and bounded by `this.start` and `this.end`, or `null` when
-  * there is no intersection. The returned arc will have the same center,
+  * there is no intersection. The resulting `Arc` will have the same center,
   * radius, and orientation as `this`.
   *
   * `otherArc` is considered a complete circle, while the start and end of
@@ -4322,15 +4323,15 @@ class Arc{
   * Returns a new `Text` located and oriented towards `startTangentRay()`
   * with the given `string` and `format`.
   *
-  * When `format` is ommited or `null`, the format used for the returned
-  * text will be:
+  * When `format` is ommited or `null`, the format used for the resulting
+  * `Text` will be:
   * + [`rac.Text.Format.bottomLeft`]{@link instance.Text.Format#bottomLeft}
   * format for arcs with `clockwise` orientation set to `true`
   * + [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}
   * format for arcs with `clockwise` orientation set to `false`
   *
-  * When `format` is provided, the angle for the returned text will still
-  * be set to `startTangentRay().angle`.
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `startTangentRay().angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
@@ -4511,12 +4512,12 @@ const utils = require('../util/utils');
 /**
 * Point in a two dimentional coordinate system.
 *
-* Several methods will return an adjusted value or perform adjustments in
-* their operation when two points are close enough as to be considered
-* equal. When the the difference of each coordinate of two points
-* is under the [`equalityThreshold`]{@link Rac#equalityThreshold} the
-* points are considered equal. The [`equals`]{@link Rac.Point#equals}
-* method performs this check.
+* Several methods return an adjusted value or perform adjustments in their
+* operation when two points are close enough as to be considered equal.
+* When the the difference of each coordinate of two points is under the
+* [`equalityThreshold`]{@link Rac#equalityThreshold} the points are
+* considered equal. The [`equals`]{@link Rac.Point#equals} method performs
+* this check.
 *
 * ### `instance.Point`
 *
@@ -4804,7 +4805,7 @@ class Point{
   * Returns a new `Ray` from `this` towards `point`.
   *
   * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
-  * the new `Ray` will use the angle produced with `defaultAngle`.
+  * the resulting `Ray` uses the angle produced with `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Ray` towards
   * @param {Rac.Angle|Number}
@@ -4822,8 +4823,8 @@ class Point{
   * Returns a new `Ray` from `this` to the projection of `this` in `ray`.
   *
   * When the projected point and `this` are
-  * [considered equal]{@link Rac.Point#equals} the produced ray will have
-  * an angle perpendicular to `ray` in the clockwise direction.
+  * [considered equal]{@link Rac.Point#equals} the resulting `Ray` defaults
+  * to an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
   * @returns {Rac.Ray}
@@ -4841,17 +4842,17 @@ class Point{
   * no tangent is possible returns `null`.
   *
   * @description
-  * The new `Ray` will be in the `clockwise` side of the ray formed
+  * The resulting `Ray` is in the `clockwise` side of the ray formed
   * from `this` towards `arc.center`. `arc` is considered a complete
   * circle.
   *
-  * When `this` is inside `arc` no tangent segment is possible and `null`
-  * is returned.
+  * When `this` is inside `arc`, returns `null` since no tangent segment is
+  * possible.
   *
   * A special case is considered when `arc.radius` is considered to be `0`
   * and `this` is equal to `arc.center`. In this case the angle between
   * `this` and `arc.center` is assumed to be the inverse of `arc.start`,
-  * thus the new `Ray` will have an angle perpendicular to
+  * thus the resulting `Ray` defaults to an angle perpendicular to
   * `arc.start.inverse()`, in the `clockwise` orientation.
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
@@ -4908,7 +4909,8 @@ class Point{
   * Returns a new `Segment` from `this` to `point`.
   *
   * When `this` and `point` are [considered equal]{@link Rac.Point#equals},
-  * the new `Segment` will use the angle produced with `defaultAngle`.
+  * the resulting `Segment` defaults to the angle produced with
+  * `defaultAngle`.
   *
   * @param {Rac.Point} point - A `Point` to point the `Segment` towards
   * @param {Rac.Angle|Number}
@@ -4929,8 +4931,8 @@ class Point{
   * Returns a new `Segment` from `this` to the projection of `this` in
   * `ray`.
   *
-  * When the projected point is equal to `this`, the new `Segment` will
-  * have an angle perpendicular to `ray` in the clockwise direction.
+  * When the projected point is equal to `this`, the resulting `Segment`
+  * defaults to an angle perpendicular to `ray` in the clockwise direction.
   *
   * @param {Rac.Ray} ray - A `Ray` to project `this` onto
   * @returns {Rac.Segment}
@@ -4948,17 +4950,17 @@ class Point{
   * when no tangent is possible returns `null`.
   *
   * @description
-  * The new `Segment` will be in the `clockwise` side of the ray formed
-  * from `this` towards `arc.center`, and its end point will be at the
-  * contact point with `arc` which is considered as a complete circle.
+  * The resulting `Segment` is in the `clockwise` side of the ray formed
+  * from `this` towards `arc.center`, and ends at the contact point with
+  * `arc` which is considered as a complete circle.
   *
-  * When `this` is inside `arc` no tangent segment is possible and `null`
-  * is returned.
+  * When `this` is inside `arc`, returns `null` since no tangent segment is
+  * possible.
   *
   * A special case is considered when `arc.radius` is considered to be `0`
   * and `this` is equal to `arc.center`. In this case the angle between
   * `this` and `arc.center` is assumed to be the inverse of `arc.start`,
-  * thus the new `Segment` will have an angle perpendicular to
+  * thus the resulting `Segment` defaults to an angle perpendicular to
   * `arc.start.inverse()`, in the `clockwise` orientation.
   *
   * @param {Rac.Arc} arc - An `Arc` to calculate a tangent to, considered
@@ -5223,15 +5225,15 @@ class Ray {
 
 
   /**
-  * Returns a new `Ray` with `angle` added to `this.angle`.
+  * Returns a new `Ray` with `increment` added to `this.angle`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|Number} angle - The angle to add
+  * @param {Rac.Angle|Number} increment - The angle to add
   * @returns {Rac.Ray}
   */
-  withAngleAdd(angle) {
-    let newAngle = this.angle.add(angle);
+  withAngleAdd(increment) {
+    let newAngle = this.angle.add(increment);
     return new Ray(this.rac, this.start, newAngle);
   }
 
@@ -5459,7 +5461,7 @@ class Ray {
   * Returns the distance from `this.start` to the projection of `point`
   * onto the ray.
   *
-  * The returned distance is positive when the projected point is towards
+  * The resulting distance is positive when the projected point is towards
   * the direction of the ray, and negative when it is behind.
   *
   * @param {Rac.Point} point - A `Point` to project and measure the
@@ -5688,8 +5690,8 @@ class Ray {
   * Returns a new `Text` located at `start` and oriented towards `angle`
   * with the given `string` and `format`.
   *
-  * When `format` is provided, the angle for the returned text will still
-  * be set to `angle`.
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
@@ -5745,7 +5747,7 @@ class Segment {
   /**
   * Creates a new `Segment` instance.
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {Rac.Ray} ray - A `Ray` the segment will be based of
+  * @param {Rac.Ray} ray - A `Ray` the segment is based of
   * @param {Number} length - The length of the segment
   */
   constructor(rac, ray, length) {
@@ -5908,20 +5910,20 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `length` added to `this.length`.
+  * Returns a new `Segment` with `increment` added to `length`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Number} length - The length to add
+  * @param {Number} increment - The length to add
   * @returns {Rac.Segment}
   */
-  withLengthAdd(length) {
-    return new Segment(this.rac, this.ray, this.length + length);
+  withLengthAdd(increment) {
+    return new Segment(this.rac, this.ray, this.length + increment);
   }
 
 
   /**
-  * Returns a new `Segment` with `length` set to `this.length * ratio`.
+  * Returns a new `Segment` with a length of `length * ratio`.
   *
   * All other properties are copied from `this`.
   *
@@ -5934,22 +5936,22 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `angle` added to `this.angle()`.
+  * Returns a new `Segment` with `increment` added to `ray.angle`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|Number} angle - The angle to add
+  * @param {Rac.Angle|Number} increment - The angle to add
   * @returns {Rac.Segment}
   */
-  withAngleAdd(angle) {
-    const newRay = this.ray.withAngleAdd(angle);
+  withAngleAdd(increment) {
+    const newRay = this.ray.withAngleAdd(increment);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
   /**
   * Returns a new `Segment` with `angle` set to
-  * `this.ray.{@link Rac.Angle#shift angle.shift}(angle, clockwise)`.
+  * `ray.[angle.shift]{@link Rac.Angle#shift}(angle, clockwise)`.
   *
   * All other properties are copied from `this`.
   *
@@ -5963,10 +5965,11 @@ class Segment {
   }
 
 
+
   /**
-  * Returns a new `Segment` with the start point moved in the inverse
-  * direction of the segment's ray by the given `distance`. The resulting
-  * `Segment` will have the same `endPoint()` and `angle()` as `this`.
+  * Returns a new `Segment` with the start point translated against the
+  * segment's ray by the given `distance`, while keeping the same
+  * `endPoint()`. The resulting segment keeps the same angle as `this`.
   *
   * Using a positive `distance` results in a longer segment, using a
   * negative `distance` results in a shorter one.
@@ -5981,7 +5984,7 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `distance` added to `this.length`, which
+  * Returns a new `Segment` with `distance` added to `length`, which
   * results in `endPoint()` for the resulting `Segment` moving in the
   * direction of the segment's ray by the given `distance`.
   *
@@ -6002,15 +6005,12 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` poiting towards the
-  * [inverse angle]{@link Rac.Angle#inverse} of `this.angle()`.
+  * Returns a new `Segment` pointing towards
+  * `ray.angle.[inverse()]{@link Rac.Angle#inverse}`.
   *
-  * The resulting `Segment` will have the same `startPoint()` and `length`
-  * as `this`.
+  * The resulting `Segment` keeps the same start and length as `this`.
   *
   * @returns {Rac.Segment}
-  *
-  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   inverse() {
     const newRay = this.ray.inverse();
@@ -6021,15 +6021,14 @@ class Segment {
   /**
   * Returns a new `Segment` pointing towards the
   * [perpendicular angle]{@link Rac.Angle#perpendicular} of
-  * `this.angle()` in the `clockwise` orientation.
+  * `ray.angle` in the `clockwise` orientation.
   *
-  * The resulting `Segment` will have the same `startPoint()` and `length`
-  * as `this`.
+  * The resulting `Segment` keeps the same start and length as `this`.
+  *
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   *
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  *
-  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   perpendicular(clockwise = true) {
     const newRay = this.ray.perpendicular(clockwise);
@@ -6038,13 +6037,13 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with its start point set at
-  * `[this.endPoint()]{@link Rac.Segment#endPoint}`,
-  * angle set to `this.angle().[inverse()]{@link Rac.Angle#inverse}`, and
-  * same length as `this`.
+  * Returns a new `Segment` starting at `endPoint()` and ending at
+  * `startPoint()`.
+  *
+  * The resulting `Segment` uses the [inverse]{@link Rac.Angle#inverse}
+  * angle to `ray.angle` and keeps the same length as `this`.
   *
   * @returns {Rac.Segment}
-  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   reverse() {
     const end = this.endPoint();
@@ -6054,8 +6053,9 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with the start point moved towards `angle` by
-  * the given `distance`. All other properties are copied from `this`.
+  * Returns a new `Segment` with the start point translated by `distance`
+  * towards the given `angle`, and keeping the same angle and length as
+  * `this`.
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to move the start point
     towards
@@ -6069,25 +6069,48 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with the start point moved along the segment's
-  * ray by the given `length`. All other properties are copied from `this`.
+  * Returns a new `Segment` with the start point translated by `distance`
+  * along the segment's ray, and keeping the same angle and length as
+  * `this`.
   *
-  * When `length` is negative, `start` is moved in the inverse direction of
-  * `angle`.
+  * When `distance` is negative, the resulting `Segment` is translated in
+  * the opposite direction of the segment's ray.
   *
-  * @param {Number} length - The length to move the start point by
+  * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
+  *
+  * @param {Number} distance - The distance to move the start point by
   * @returns {Rac.Segment}
   */
-  translateToLength(length) {
-    const newRay = this.ray.translateToDistance(length);
+  translateToLength(distance) {
+    const newRay = this.ray.translateToDistance(distance);
+    return new Segment(this.rac, newRay, this.length);
+  }
+
+
+  // RELEASE-TODO: Unit Test and Visual Test
+  /**
+  * Returns a new `Segment` with the start point translated along the
+  * segment's ray by a distance of `length * ratio`. The resulting segment
+  * keeps the same angle and length as `this`.
+  *
+  * When `ratio` is negative, the resulting `Segment` is translated in the
+  * opposite direction of the segment's ray.
+  *
+  * @see [`ray.translateToDistance`]{@link Rac.Ray#translateToDistance}
+  *
+  * @param {Number} ratio - The factor to multiply `length` by
+  * @returns {Rac.Segment}
+  */
+  translateToLengthRatio(ratio) {
+    const newRay = this.ray.translateToDistance(this.length * ratio);
     return new Segment(this.rac, newRay, this.length);
   }
 
 
   /**
-  * Returns a new `Segment` with the start point moved the given `distance`
-  * towards the perpendicular angle to `this.angle()` in the `clockwise`
-  * orientaton. All other properties are copied from `this`.
+  * Returns a new `Segment` with the start point translated by `distance`
+  * towards the perpendicular of `ray.angle` in the `clockwise` orientaton.
+  * The resulting segment keeps the same angle and length as `this`.
   *
   * @param {Number} distance - The distance to move the start point by
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
@@ -6104,8 +6127,7 @@ class Segment {
   *
   * When `startInset` is greater that `length-endInset` the range for the
   * clamp becomes imposible to fulfill. In this case the returned value
-  * will be the centered between the range limits and still clampled to
-  * `[0, length]`.
+  * is centered between the range limits and still clampled to `[0, length]`.
   *
   * @param {Number} value - A value to clamp
   * @param {Number} [startInset=0] - The inset for the lower limit of the
@@ -6134,30 +6156,32 @@ class Segment {
 
 
   /**
-  * Returns a new `Point` in the segment's ray at the given `length` from
-  * `this.startPoint()`. When `length` is negative, the new `Point` is
-  * calculated in the inverse direction of `this.angle()`.
+  * Returns a new `Point` along the segment's ray at the given `distance`
+  * from `ray.start`.
   *
-  * @param {Number} length - The distance from `this.startPoint()`
-  * @returns {Rac.Point}
+  * When `distance` is negative, the resulting `Point` is located in the
+  * opposite direction of the segment's ray.
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
+  *
+  * @param {Number} distance - The distance from `startPoint()`
+  * @returns {Rac.Point}
   */
-  pointAtLength(length) {
-    return this.ray.pointAtDistance(length);
+  pointAtLength(distance) {
+    return this.ray.pointAtDistance(distance);
   }
 
 
   /**
-  * Returns a new `Point` in the segment's ray at a distance of
-  * `this.length * ratio` from `this.startPoint()`. When `ratio` is
-  * negative, the new `Point` is calculated in the inverse direction of
-  * `this.angle()`.
+  * Returns a new `Point` along the segment's ray at a distance of
+  * `length * ratio` from `ray.start`. When `ratio` is negative, the
+  * resulting `Point` is located in the opposite direction of the
+  * segment's ray.
+  *
+  * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   *
   * @param {Number} ratio - The factor to multiply `length` by
   * @returns {Rac.Point}
-  *
-  * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   */
   pointAtLengthRatio(ratio) {
     return this.ray.pointAtDistance(this.length * ratio);
@@ -6175,16 +6199,14 @@ class Segment {
 
   /**
   * Returns a new `Segment` starting at `newStartPoint` and ending at
-  * `this.endPoint()`.
+  * `endPoint()`.
   *
-  * When `newStartPoint` and `this.endPoint()` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.angle()`.
+  * When `newStartPoint` and `endPoint()` are considered
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` defaults
+  * to `ray.angle`.
   *
   * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
   * @returns {Rac.Segment}
-  *
-  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   moveStartPoint(newStartPoint) {
     const endPoint = this.endPoint();
@@ -6193,17 +6215,15 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting at `this.startPoint()` and ending at
+  * Returns a new `Segment` starting at `startPoint()` and ending at
   * `newEndPoint`.
   *
-  * When `this.startPoint()` and `newEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.angle()`.
+  * When `startPoint()` and `newEndPoint` are considered
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` defaults to
+  * `ray.angle`.
   *
   * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
   * @returns {Rac.Segment}
-  *
-  * @see [`rac.equals`]{@link Rac.Point#equals}
   */
   moveEndPoint(newEndPoint) {
     return this.ray.segmentToPoint(newEndPoint);
@@ -6226,48 +6246,49 @@ class Segment {
   * Returns a new `Segment` from the segment's middle point towards the
   * perpendicular angle in the `clockwise` orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will use `this.length` instead.
+  * The resulting `Segment` uses `newLength`, or when ommited or `null`
+  * defaults to `length` instead.
   *
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
-  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
-  * @returns {Rac.Segment}
   * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
   * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
+  *
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
+  * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
+  * @returns {Rac.Segment}
   */
-  segmentBisector(length = null, clockwise = true) {
+  segmentBisector(newLength = null, clockwise = true) {
     const newStart = this.pointAtBisector();
     const newAngle = this.ray.angle.perpendicular(clockwise);
     const newRay = new Rac.Ray(this.rac, newStart, newAngle);
-    const newLength = length === null
+    newLength = newLength === null
       ? this.length
-      : length;
+      : newLength;
     return new Segment(this.rac, newRay, newLength);
   }
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` with the given
-  * `length` and the same angle as `this`.
+  * Returns a new `Segment` starting from `endPoint()`, with the given
+  * `newLength`, and keeping the same angle as `this`.
   *
-  * @param {Number} length - The length of the next `Segment`
+  * @param {Number} newLength - The length of the next `Segment`
   * @returns {Rac.Segment}
   */
-  nextSegmentWithLength(length) {
+  nextSegmentWithLength(newLength) {
     const newStart = this.endPoint();
     const newRay = this.ray.withStart(newStart);
-    return new Segment(this.rac, newRay, length);
+    return new Segment(this.rac, newRay, newLength);
   }
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` and up to the given
+  * Returns a new `Segment` starting from `endPoint()` and ending at
   * `nextEndPoint`.
   *
   * When `endPoint()` and `nextEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the new `Segment` will use
-  * `this.angle()`.
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` defaults
+  * to `ray.angle`.
   *
   * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
   * @returns {Rac.Segment}
@@ -6280,22 +6301,21 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` towards `angle`
-  * with the given `length`.
+  * Returns a new `Segment` starting from `endPoint()` and towards `angle`.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will use `this.length` instead.
+  * The resulting `Segment` uses `newLength`, or when ommited or `null`
+  * defaults to `length` instead.
   *
   * @param {Rac.Angle|Number} angle - The angle of the new `Segment`
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @returns {Rac.Segment}
   */
-  nextSegmentToAngle(angle, length = null) {
+  nextSegmentToAngle(angle, newLength = null) {
     angle = Rac.Angle.from(this.rac, angle);
-    const newLength = length === null
+    newLength = newLength === null
       ? this.length
-      : length;
+      : newLength;
     const newStart = this.endPoint();
     const newRay = new Rac.Ray(this.rac, newStart, angle);
     return new Segment(this.rac, newRay, newLength);
@@ -6303,31 +6323,30 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` towards the given
-  * `angleDistance` from `this.angle().inverse()` in the `clockwise`
-  * orientation.
+  * Returns a new `Segment` starting from `endPoint()` and pointing towards
+  * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` shifted by
+  * `angleDistance` in the `clockwise` orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will use `this.length` instead.
+  * The resulting `Segment` uses `newLength`, when ommited or
+  * `null` defaults to `length` instead.
   *
-  * Notice that the `angleDistance` is applied to the inverse of the
-  * segment's angle. E.g. with an `angleDistance` of `0` the resulting
-  * `Segment` will be directly over and pointing in the inverse angle of
-  * `this`. As the `angleDistance` increases the two segments separate with
-  * the pivot at `endPoint()`.
+  * Notice that the `angleDistance` is applied to the
+  * [inverse]{@link Rac.Angle#inverse} of the segment's angle. E.g. with
+  * an `angleDistance` of `0` the resulting `Segment` is directly over and
+  * pointing in the inverse angle of `this`. As the `angleDistance`
+  * increases the two segments separate with the pivot at `endPoint()`.
   *
   * @param {Rac.Angle|Number} angleDistance - An angle distance to apply to
   * the segment's angle inverse
   * @param {Boolean} [clockwise=true] - The orientation of the angle shift
   * from `endPoint()`
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @returns {Rac.Segment}
-  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
-  nextSegmentToAngleDistance(angleDistance, clockwise = true, length = null) {
+  nextSegmentToAngleDistance(angleDistance, clockwise = true, newLength = null) {
     angleDistance = this.rac.Angle.from(angleDistance);
-    const newLength = length === null ? this.length : length;
+    newLength = newLength === null ? this.length : newLength;
     const newRay = this.ray
       .translateToDistance(this.length)
       .inverse()
@@ -6339,26 +6358,27 @@ class Segment {
   /**
   * Returns a new `Segment` starting from `endPoint()` towards the
   * `[perpendicular angle]{@link Rac.Angle#perpendicular}` of
-  * `this.angle().inverse()` in the `clockwise` orientation.
+  * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
+  * orientation.
   *
-  * The new `Segment` will have the given `length`, or when ommited or
-  * `null` will use `this.length` instead.
+  * The resulting `Segment` uses `newLength`, when ommited or `null`
+  * defaults to `length` instead.
   *
-  * Notice that the perpendicular is calculated from the inverse of the
-  * segment's angle. E.g. with `clockwise` as `true`, the resulting
-  * `Segment` will be pointing towards `this.angle().perpendicular(false)`.
+  * Notice that the perpendicular is calculated from the
+  * [inverse]{@link Rac.Angle#inverse} of the segment's angle. E.g. with
+  * `clockwise` as `true`, the resulting `Segment` points towards
+  * `ray.angle.perpendicular(false)`.
+  *
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   *
   * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
-  * @param {?Number} [length=null] - The length of the new `Segment`, or
-  * `null` to use `this.length`
+  * @param {?Number} [newLength=null] - The length of the new `Segment`, or
+  * `null` to use `length`
   * @returns {Rac.Segment}
-  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
-  nextSegmentPerpendicular(clockwise = true, length = null) {
-    const newLength = length === null
-      ? this.length
-      : length;
+  nextSegmentPerpendicular(clockwise = true, newLength = null) {
+    newLength = newLength === null ? this.length : newLength;
     const newRay = this.ray
       .translateToDistance(this.length)
       .perpendicular(!clockwise);
@@ -6367,12 +6387,12 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` starting from `endPoint()` which corresponds
+  * Returns a new `Segment` that starts from `endPoint()` and corresponds
   * to the leg of a right triangle where `this` is the other cathetus and
   * the hypotenuse is of length `hypotenuse`.
   *
-  * The new `Segment` will point towards the perpendicular angle of
-  * `[this.angle().[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
+  * The resulting `Segment` points towards the perpendicular angle of
+  * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
   * orientation.
   *
   * When `hypotenuse` is smaller that the segment's `length`, returns
@@ -6383,7 +6403,6 @@ class Segment {
   * @param {Boolean} [clockwise=true] - The orientation of the
   * perpendicular angle from `endPoint()`
   * @returns {Rac.Segment}
-  * @see [`angle.inverse`]{@link Rac.Angle#inverse}
   */
   nextSegmentLegWithHyp(hypotenuse, clockwise = true) {
     if (hypotenuse < this.length) {
@@ -6403,14 +6422,14 @@ class Segment {
   * Returns a new `Arc` based on this segment, with the given `endAngle`
   * and `clockwise` orientation.
   *
-  * The returned `Arc` will use this segment's start as `center`, its angle
-  * as `start`, and its length as `radius`.
+  * The resulting `Arc` is centered at `ray.start`, starting at
+  * `ray.angle`, and with a radius of `length`.
   *
   * When `endAngle` is ommited or `null`, the segment's angle is used
   * instead resulting in a complete-circle arc.
   *
   * @param {?Rac.Angle} [endAngle=null] - An `Angle` to use as end for the
-  * new `Arc`, or `null` to use `this.angle()`
+  * new `Arc`, or `null` to use `ray.angle`
   * @param {Boolean} [clockwise=true] - The orientation of the new `Arc`
   * @returns {Rac.Arc}
   */
@@ -6430,8 +6449,8 @@ class Segment {
   * `angleDistance` from the segment's angle in the `clockwise`
   * orientation.
   *
-  * The returned `Arc` will use this segment's start as `center`, its angle
-  * as `start`, and its length as `radius`.
+  * The resulting `Arc` is centered at `ray.start`, starting at
+  * `ray.angle`, and with a radius of `length`.
   *
   * @param {Rac.Angle|Number} angleDistance - The angle distance from the
   * segment's start to the new `Arc` end
@@ -6464,8 +6483,8 @@ class Segment {
   * Returns a new `Text` located at `start` and oriented towards `ray.angle`
   * with the given `string` and `format`.
   *
-  * When `format` is provided, the angle for the returned text will still
-  * be set to `ray.angle`.
+  * When `format` is provided, the angle for the resulting `Text` is still
+  * set to `ray.angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
@@ -6848,7 +6867,7 @@ class TextFormat {
   * Returns a new `Text.Format` that formats a text reversed, upside-down,
   * generally in the same position as `this`.
   *
-  * The returned format will be oriented towards the
+  * The resulting `Format` will be oriented towards the
   * [inverse]{@link Rac.Angle#inverse} of `angle`; alignments for `left`
   * becomes `right` and viceversa; `top` becomes `bottom` and viceversa;
   * `center` and `baseline` remain the same.
@@ -7085,7 +7104,7 @@ class Text {
   * Returns a new `Text` which is an upside-down equivalent of `this`
   * and generally in the same location.
   *
-  * The returned text is at the same location as `this`, using a
+  * The resulting `Text` is at the same location as `this`, using a
   * [reversed]{@link Rac.Text.Format#reverse} format and oriented
   * towards the [inverse]{@link Rac.Angle#inverse} of `format.angle`.
   *
@@ -8585,10 +8604,10 @@ module.exports = function attachRayFunctions(rac) {
   /**
   * Returns a new `Point` located where the ray touches the canvas edge.
   *
-  * When the ray is outside the canvas and pointing away, `null` is
-  * returned.
+  * When the ray is outside the canvas and pointing away, returns `null`
+  * since no point in the canvas is possible.
   *
-  * Added  to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   * @returns {?Rac.Point}
   */
@@ -8606,10 +8625,10 @@ module.exports = function attachRayFunctions(rac) {
   * Returns a new `Ray` that starts at the point where the `this` touches
   * the canvas edge and pointed towards the inside of the canvas.
   *
-  * When the ray is outside the canvas and pointing away, `null` is
-  * returned.
+  * When the ray is outside the canvas and pointing away, returns `null`
+  * since no point in the canvas is possible.
   *
-  * Added  to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
+  * Added to `Rac.Ray.prototype` when `{@link Rac.P5Drawer}` is setup as
   * `[rac.drawer]{@link Rac#drawer}`.
   *
   * @returns {?Rac.Ray}
