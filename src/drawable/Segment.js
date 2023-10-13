@@ -410,7 +410,7 @@ class Segment {
 
 
   /**
-  * Returns the given `value` clamped to [startInset, length-endInset].
+  * Returns the given `value` clamped to `[startInset, length-endInset]`.
   *
   * When `startInset` is greater that `length-endInset` the range for the
   * clamp becomes imposible to fulfill. In this case the returned value
@@ -461,9 +461,10 @@ class Segment {
 
   /**
   * Returns a new `Point` along the segment's ray at a distance of
-  * `length * ratio` from `ray.start`. When `ratio` is negative, the
-  * resulting `Point` is located in the opposite direction of the
-  * segment's ray.
+  * `length * ratio` from `ray.start`.
+  *
+  * When `ratio` is negative, the resulting `Point` is located in the
+  * opposite direction of the segment's ray.
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   *
@@ -712,8 +713,8 @@ class Segment {
   * The resulting `Arc` is centered at `ray.start`, starting at
   * `ray.angle`, and with a radius of `length`.
   *
-  * When `endAngle` is ommited or `null`, the segment's angle is used
-  * instead resulting in a complete-circle arc.
+  * When `endAngle` is ommited or `null`, the segment's angle is used as
+  * default resulting in a complete-circle arc.
   *
   * @param {?Rac.Angle} [endAngle=null] - An `Angle` to use as end for the
   * new `Arc`, or `null` to use `ray.angle`
