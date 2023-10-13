@@ -34,7 +34,7 @@ class Segment {
   /**
   * Creates a new `Segment` instance.
   * @param {Rac} rac - Instance to use for drawing and creating other objects
-  * @param {Rac.Ray} ray - A `Ray` the segment will be based of
+  * @param {Rac.Ray} ray - A `Ray` the segment is based of
   * @param {Number} length - The length of the segment
   */
   constructor(rac, ray, length) {
@@ -415,8 +415,7 @@ class Segment {
   *
   * When `startInset` is greater that `length-endInset` the range for the
   * clamp becomes imposible to fulfill. In this case the returned value
-  * will be the centered between the range limits and still clampled to
-  * `[0, length]`.
+  * is centered between the range limits and still clampled to `[0, length]`.
   *
   * @param {Number} value - A value to clamp
   * @param {Number} [startInset=0] - The inset for the lower limit of the
@@ -444,7 +443,6 @@ class Segment {
   }
 
 
-// RELEASE-TODO: search again for `will` and check tenses
   /**
   * Returns a new `Point` along the segment's ray at the given `distance`
   * from `ray.start`.
@@ -465,7 +463,7 @@ class Segment {
   /**
   * Returns a new `Point` along the segment's ray at a distance of
   * `length * ratio` from `ray.start`. When `ratio` is negative, the
-  * resulting `Point` will be located in the opposite direction of the
+  * resulting `Point` is located in the opposite direction of the
   * segment's ray.
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
@@ -492,7 +490,7 @@ class Segment {
   * `endPoint()`.
   *
   * When `newStartPoint` and `endPoint()` are considered
-  * [equal]{@link Rac.Point#equals}, the resulting `Segment` will default
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` defaults
   * to `ray.angle`.
   *
   * @param {Rac.Point} newStartPoint - The start point of the new `Segment`
@@ -509,7 +507,7 @@ class Segment {
   * `newEndPoint`.
   *
   * When `startPoint()` and `newEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the resulting `Segment` will default to
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` defaults to
   * `ray.angle`.
   *
   * @param {Rac.Point} newEndPoint - The end point of the new `Segment`
@@ -536,8 +534,8 @@ class Segment {
   * Returns a new `Segment` from the segment's middle point towards the
   * perpendicular angle in the `clockwise` orientation.
   *
-  * The resulting `Segment` will use `newLength`, or when ommited or `null`
-  * will default to `length` instead.
+  * The resulting `Segment` uses `newLength`, or when ommited or `null`
+  * defaults to `length` instead.
   *
   * @param {?Number} [newLength=null] - The length of the new `Segment`, or
   * `null` to use `length`
@@ -576,7 +574,7 @@ class Segment {
   * `nextEndPoint`.
   *
   * When `endPoint()` and `nextEndPoint` are considered
-  * [equal]{@link Rac.Point#equals}, the resulting `Segment` will default
+  * [equal]{@link Rac.Point#equals}, the resulting `Segment` defaults
   * to `ray.angle`.
   *
   * @param {Rac.Point} nextEndPoint - The end point of the next `Segment`
@@ -592,8 +590,8 @@ class Segment {
   /**
   * Returns a new `Segment` starting from `endPoint()` and towards `angle`.
   *
-  * The resulting `Segment` will use `newLength`, or when ommited
-  * or `null` will default to `length` instead.
+  * The resulting `Segment` uses `newLength`, or when ommited or `null`
+  * defaults to `length` instead.
   *
   * @param {Rac.Angle|Number} angle - The angle of the new `Segment`
   * @param {?Number} [newLength=null] - The length of the new `Segment`, or
@@ -610,19 +608,19 @@ class Segment {
     return new Segment(this.rac, newRay, newLength);
   }
 
-// RELEASE-TODO: replace `will use` to `will default to`
+
   /**
   * Returns a new `Segment` starting from `endPoint()` and pointing towards
   * `ray.angle.inverse()` shifted by `angleDistance` in the `clockwise`
   * orientation.
   *
-  * The resulting `Segment` will use `newLength`, or when ommited  or
-  * `null` will default to `length` instead.
+  * The resulting `Segment` uses `newLength`, when ommited or
+  * `null` defaults to `length` instead.
   *
   * Notice that the `angleDistance` is applied to the
   * [inverse]{@link Rac.Angle#inverse} of the segment's angle. E.g. with
-  * an `angleDistance` of `0` the resulting `Segment` will be directly over
-  * and pointing in the inverse angle of `this`. As the `angleDistance`
+  * an `angleDistance` of `0` the resulting `Segment` is directly over and
+  * pointing in the inverse angle of `this`. As the `angleDistance`
   * increases the two segments separate with the pivot at `endPoint()`.
   *
   * @see [`angle.inverse`]{@link Rac.Angle#inverse}
@@ -651,12 +649,12 @@ class Segment {
   * `[perpendicular angle]{@link Rac.Angle#perpendicular}` of
   * `ray.angle.inverse()` in the `clockwise` orientation.
   *
-  * The resulting `Segment` will use `newLength`, or when ommited or `null`
-  * will default to `length` instead.
+  * The resulting `Segment` uses `newLength`, when ommited or `null`
+  * defaults to `length` instead.
   *
   * Notice that the perpendicular is calculated from the inverse of the
   * segment's angle. E.g. with `clockwise` as `true`, the resulting
-  * `Segment` will be pointing towards `ray.angle.perpendicular(false)`.
+  * `Segment` points towards `ray.angle.perpendicular(false)`.
   *
   * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   *
@@ -681,7 +679,7 @@ class Segment {
   * to the leg of a right triangle where `this` is the other cathetus and
   * the hypotenuse is of length `hypotenuse`.
   *
-  * The resulting `Segment` will point towards the perpendicular angle of
+  * The resulting `Segment` points towards the perpendicular angle of
   * `ray.angle.[inverse()]{@link Rac.Angle#inverse}` in the `clockwise`
   * orientation.
   *
@@ -712,7 +710,7 @@ class Segment {
   * Returns a new `Arc` based on this segment, with the given `endAngle`
   * and `clockwise` orientation.
   *
-  * The resulting `Arc` will be centered at `ray.start`, starting at
+  * The resulting `Arc` is centered at `ray.start`, starting at
   * `ray.angle`, and with a radius of `length`.
   *
   * When `endAngle` is ommited or `null`, the segment's angle is used
@@ -739,7 +737,7 @@ class Segment {
   * `angleDistance` from the segment's angle in the `clockwise`
   * orientation.
   *
-  * The resulting `Arc` will be centered at `ray.start`, starting at
+  * The resulting `Arc` is centered at `ray.start`, starting at
   * `ray.angle`, and with a radius of `length`.
   *
   * @param {Rac.Angle|Number} angleDistance - The angle distance from the
@@ -773,8 +771,8 @@ class Segment {
   * Returns a new `Text` located at `start` and oriented towards `ray.angle`
   * with the given `string` and `format`.
   *
-  * When `format` is provided, the angle for the resulting `Text` will
-  * still be set to `ray.angle`.
+  * When `format` is provided, the angle for the resulting `Text` is still
+  * set to `ray.angle`.
   *
   * @param {String} string - The string of the new `Text`
   * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
