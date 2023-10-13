@@ -210,7 +210,7 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `length` set to `this.length * ratio`.
+  * Returns a new `Segment` with a length of `length * ratio`.
   *
   * All other properties are copied from `this`.
   *
@@ -271,7 +271,7 @@ class Segment {
 
 
   /**
-  * Returns a new `Segment` with `distance` added to `this.length`, which
+  * Returns a new `Segment` with `distance` added to `length`, which
   * results in `endPoint()` for the resulting `Segment` moving in the
   * direction of the segment's ray by the given `distance`.
   *
@@ -312,10 +312,10 @@ class Segment {
   *
   * The resulting `Segment` keeps the same start and length as `this`.
   *
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
+  *
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  *
-  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   perpendicular(clockwise = true) {
     const newRay = this.ray.perpendicular(clockwise);
@@ -374,7 +374,6 @@ class Segment {
   }
 
 
-  // RELEASE-TODO: check doc uses of `this.x`
   // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Segment` with the start point translated along the
@@ -452,7 +451,7 @@ class Segment {
   *
   * @see [`ray.pointAtDistance`]{@link Rac.Ray#pointAtDistance}
   *
-  * @param {Number} distance - The distance from `this.startPoint()`
+  * @param {Number} distance - The distance from `startPoint()`
   * @returns {Rac.Point}
   */
   pointAtLength(distance) {
@@ -537,12 +536,13 @@ class Segment {
   * The resulting `Segment` uses `newLength`, or when ommited or `null`
   * defaults to `length` instead.
   *
+  * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
+  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
+  *
   * @param {?Number} [newLength=null] - The length of the new `Segment`, or
   * `null` to use `length`
   * @param {Boolean} [clockwise=true] - The orientation of the perpendicular
   * @returns {Rac.Segment}
-  * @see [`pointAtBisector`]{@link Rac.Segment#pointAtBisector}
-  * @see [`angle.perpendicular`]{@link Rac.Angle#perpendicular}
   */
   segmentBisector(newLength = null, clockwise = true) {
     const newStart = this.pointAtBisector();
