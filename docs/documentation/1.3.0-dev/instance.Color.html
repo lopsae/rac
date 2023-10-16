@@ -143,7 +143,7 @@ rac.Color.red.rac === rac // true</code></pre>
 <span><a href="instance.Color.html#black">#</a></span>
 
     <span> | source:
-    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line73">line 73</a>
+    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line76">line 76</a>
     </span>
 
 </div>
@@ -211,7 +211,7 @@ rac.Color.red.rac === rac // true</code></pre>
 <span><a href="instance.Color.html#red">#</a></span>
 
     <span> | source:
-    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line92">line 92</a>
+    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line95">line 95</a>
     </span>
 
 </div>
@@ -279,7 +279,7 @@ rac.Color.red.rac === rac // true</code></pre>
 <span><a href="instance.Color.html#white">#</a></span>
 
     <span> | source:
-    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line81">line 81</a>
+    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line84">line 84</a>
     </span>
 
 </div>
@@ -348,7 +348,7 @@ rac.Color.red.rac === rac // true</code></pre>
 <span><a href="instance.Color.html#zero">#</a></span>
 
     <span> | source:
-    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line64">line 64</a>
+    <a href="src_style_instance.Color.js.html">src/style/instance.Color.js</a>, <a href="src_style_instance.Color.js.html#line67">line 67</a>
     </span>
 
 </div>
@@ -440,10 +440,12 @@ rac.Color.red.rac === rac // true</code></pre>
 
 
 <div class="description">
-    <p>Returns a new <code>Color</code> instance from a hexadecimal triplet string.</p>
-<p>The <code>hexString</code> is expected to have 6 digits and can optionally start
-with <code>#</code>. <code>AABBCC</code> and <code>#DDEEFF</code> are both valid inputs, the three digit
-shorthand is not yet supported.</p>
+    <p>Returns a new <code>Color</code> instance from a hexadecimal triplet or quadruplet
+string.</p>
+<p>The <code>hexString</code> is expected to have 6 or 8 hex digits for the RGB and
+optionally alpha channels. It can start with <code>#</code>. <code>AABBCC</code> and
+<code>#CCDDEEFF</code> are both valid inputs.</p>
+<p>The three digit shorthand is not yet supported.</p>
 <p>An error is thrown if <code>hexString</code> is misformatted or cannot be parsed.</p>
 </div>
 
@@ -538,7 +540,7 @@ shorthand is not yet supported.</p>
             
 
             <td class="description last">
-                <p>The RGB hex triplet to interpret</p>
+                <p>The hex string to interpret</p>
                 
             </td>
         </tr>

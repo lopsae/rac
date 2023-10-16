@@ -797,7 +797,7 @@ object.</p>
     <span><a href="Rac.Color.html#.fromHex">#</a></span>
     
         <span> | source:
-        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line154">line 154</a>
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line156">line 156</a>
         </span>
     
     </div>
@@ -809,10 +809,12 @@ object.</p>
 
 
 <div class="description">
-    <p>Creates a new <code>Color</code> instance from a hexadecimal triplet string.</p>
-<p>The <code>hexString</code> is expected to have 6 digits and can optionally start
-with <code>#</code>. <code>AABBCC</code> and <code>#DDEEFF</code> are both valid inputs, the three digit
-shorthand is not yet supported.</p>
+    <p>Creates a new <code>Color</code> instance from a hexadecimal triplet or quadruplet
+string.</p>
+<p>The <code>hexString</code> is expected to have 6 or 8 hex digits for the RGB and
+optionally alpha channels. It can start with <code>#</code>. <code>AABBCC</code> and
+<code>#CCDDEEFF</code> are both valid inputs.</p>
+<p>The three digit shorthand is not yet supported.</p>
 <p>An error is thrown if <code>hexString</code> is misformatted or cannot be parsed.</p>
 </div>
 
@@ -933,7 +935,7 @@ shorthand is not yet supported.</p>
             
 
             <td class="description last">
-                <p>The RGB hex triplet to interpret</p>
+                <p>The hex string to interpret</p>
                 
             </td>
         </tr>
@@ -1473,7 +1475,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Color.html#fill">#</a></span>
     
         <span> | source:
-        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line191">line 191</a>
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line193">line 193</a>
         </span>
     
     </div>
@@ -1575,7 +1577,7 @@ otherwise returns <code>false</code>.</p>
     <span><a href="Rac.Color.html#linearTransition">#</a></span>
     
         <span> | source:
-        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line242">line 242</a>
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line244">line 244</a>
         </span>
     
     </div>
@@ -1759,7 +1761,7 @@ when <code>ratio</code> is <code>1</code> or larger the new <code>Color</code> i
     <span><a href="Rac.Color.html#stroke">#</a></span>
     
         <span> | source:
-        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line202">line 202</a>
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line204">line 204</a>
         </span>
     
     </div>
@@ -2116,7 +2118,7 @@ decimal point, when ommited all digits are printed</p>
     <span><a href="Rac.Color.html#withAlpha">#</a></span>
     
         <span> | source:
-        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line214">line 214</a>
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line216">line 216</a>
         </span>
     
     </div>
@@ -2271,7 +2273,7 @@ decimal point, when ommited all digits are printed</p>
     <span><a href="Rac.Color.html#withAlphaRatio">#</a></span>
     
         <span> | source:
-        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line225">line 225</a>
+        <a href="src_style_Color.js.html">src/style/Color.js</a>, <a href="src_style_Color.js.html#line227">line 227</a>
         </span>
     
     </div>
