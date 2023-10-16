@@ -42,15 +42,18 @@ module.exports = function attachRacColor(rac) {
 
 
   /**
-  * Returns a new `Color` instance from a hexadecimal triplet string.
+  * Returns a new `Color` instance from a hexadecimal triplet or quadruplet
+  * string.
   *
-  * The `hexString` is expected to have 6 digits and can optionally start
-  * with `#`. `AABBCC` and `#DDEEFF` are both valid inputs, the three digit
-  * shorthand is not yet supported.
+  * The `hexString` is expected to have 6 or 8 hex digits for the RGB and
+  * optionally alpha channels. It can start with `#`. `AABBCC` and
+  * `#CCDDEEFF` are both valid inputs.
+  *
+  * The three digit shorthand is not yet supported.
   *
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
-  * @param {String} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The hex string to interpret
   * @returns {Rac.Color}
   *
   * @function fromHex
