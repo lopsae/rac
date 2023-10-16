@@ -173,7 +173,6 @@ class Text {
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Text` and `Format` with paddings set to the given values.
   *
@@ -193,7 +192,6 @@ class Text {
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Text` which is an upside-down equivalent of `this`
   * and generally in the same location.
@@ -210,7 +208,6 @@ class Text {
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns `this` or a new `Text` and `Format` that will always be
   * oriented to be upright and readable.
