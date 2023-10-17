@@ -164,5 +164,5 @@ tools.test( function fromHex() {
 });
 
 
-// RELEASE-TODO: Full Coverage!
+// TODO: Full Coverage!
 

@@ -14,7 +14,7 @@
     "dist/*.js"
   ],
   "scripts": {
-    "start": "npm test && grunt serve",
+    "start": "npm test && grunt serveToPages",
     "test": "jest --config=tests/config.js",
     "test:coverage": "jest --coverage --config=tests/config.js && npm run test:open",
     "test:clean": "rm -rf ./coverage",
@@ -29,7 +29,7 @@
     "docs:fresh": "grunt --debug deleteDocs makeDocs openDocs",
     "docs:repack": "npm update minami-rac && npm run docs",
     "pages": "cd docs; bundle exec jekyll serve --open-url",
-    "serveToPages": "npm test && grunt serveToPages",
+    "serveStandalone": "npm test && grunt serveStandalone",
     "dist": "npm test && grunt dist"
   },
   "devDependencies": {

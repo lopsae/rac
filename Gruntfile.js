@@ -64,7 +64,7 @@ module.exports = function(grunt) {
           port: 9001,
           base: './dist',
           directory: {
-            path: './',
+            path: './dist',
             options: {icons: true, view: 'detail'}
           },
           debug: true
@@ -73,13 +73,13 @@ module.exports = function(grunt) {
     }, // connect
 
     watch: {
-      serve_again: {
+      rebuild_dev_dirty: {
         files: ['src/**/*.js'],
         tasks: [
           'makeVersioningFile:local',
           'browserify:dev_dirty']
       },
-      copy_dist_to_pages_again: {
+      rebuild_to_pages: {
         files: ['src/**/*.js'],
         tasks: [
           'makeVersioningFile:local',
@@ -380,13 +380,13 @@ module.exports = function(grunt) {
 
 
 
-  // Builds a dev bundle, serves it though a web-server, and watches for
-  // source changes to update the served files
-  grunt.registerTask('serve', [
+  // Builds a dev bundle, serves it though a standalone web-server, and
+  // watches for source changes to update the served files
+  grunt.registerTask('serveStandalone', [
     'makeVersioningFile:local',
     'browserify:dev_dirty',
     'connect:server',
-    'watch:serve_again']);
+    'watch:rebuild_dev_dirty']);
 
 
   // Builds a dev bundle, copies it to pages, and watches to rebuild and
@@ -395,9 +395,11 @@ module.exports = function(grunt) {
     'makeVersioningFile:local',
     'browserify:dev_dirty',
     'copyDistToPages:dev',
-    'watch:copy_dist_to_pages_again']);
+    'watch:rebuild_to_pages']);
 
 
+  // RELEASE-TODO: dist should deploy to pages
+  // RELEASE-TODO: maybe create serveCurrent to just serve the dist folder
   // Builds a dev/main/mini bundle with a clean version, serves it for
   // confirmation.
   grunt.registerTask('dist', [
@@ -405,10 +407,11 @@ module.exports = function(grunt) {
     'browserify:dev_clean',
     'browserify:main',
     'uglify',
+    // RELEASE-TODO: add copyDistToPages:production
     'connect:server:keepalive']);
 
 
-  grunt.registerTask('default', ['serve']);
+  grunt.registerTask('default', ['serveToPages']);
 
 };
 

@@ -96,23 +96,19 @@ Commit with message: `rebuild docs for n.e.w`
 
 Build dev and test locally
 --------------------------
+Build a dev distribution for the github-io local server:
 ```
 npm start
 ```
 
-Built file is available at:
-```
-http://localhost:9001/rac.dev.js
-```
-
-Or build for pages to copy built files to github-io folder:
-```
-npm run serveToPages
-```
-
-And access through run pages debug at `http://127.0.0.1:4000/debug/`:
+Start the github-io local server at `http://127.0.0.1:4000/debug/`:
 ```
 npm run pages
+```
+
+Or build for a standalone server at `http://localhost:9001/`:
+```
+npm run serveStandalone
 ```
 
 
@@ -176,8 +172,8 @@ Commit with message: `rebuild docs for n.e.w`
 
 
 
-Check gh-pages locally
-----------------------
+Check gh-pages local server
+---------------------------
 ```
 npm run pages
 ```
