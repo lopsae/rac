@@ -189,7 +189,8 @@ tools.test( function transformations() {
 });
 
 
-tools.test( function transToAngle_Length() {
+tools.test( function transToAngle_Length_LengthRatio() {
+  // translateToAngle
   expect(diagonal.translateToAngle(0, 0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translateToAngle(rac.Angle.zero, 0))
@@ -201,12 +202,30 @@ tools.test( function transToAngle_Length() {
   expect(diagonal.translateToAngle(3/8, hyp))
     .equalsSegment(0, 110, 1/8, 72);
 
+  // translateToLength
   expect(diagonal.translateToLength(0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translateToLength(hyp))
     .equalsSegment(110, 110, 1/8, 72);
   expect(diagonal.translateToLength(-hyp))
     .equalsSegment(0, 0, 1/8, 72);
+
+  // translateToLengthRatio
+  expect(horizontal.translateToLengthRatio(0))  .equalsSegment(100, 100, 0, 72);
+  expect(horizontal.translateToLengthRatio(1/2)).equalsSegment(136, 100, 0, 72);
+  expect(horizontal.translateToLengthRatio(1))  .equalsSegment(172, 100, 0, 72);
+  expect(horizontal.translateToLengthRatio(-1)) .equalsSegment(28, 100, 0, 72);
+
+  const cat = tools.cathetus(72/2);
+  expect(diagonal.translateToLengthRatio(0))   .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.translateToLengthRatio(1/2)) .equalsSegment(55+cat, 55+cat, 1/8, 72);
+  expect(diagonal.translateToLengthRatio(-1/2)).equalsSegment(55-cat, 55-cat, 1/8, 72);
+
+  const zero = rac.Segment.zero;
+  expect(zero.translateToLengthRatio(0))  .equalsSegment(0, 0, 0, 0);
+  expect(zero.translateToLengthRatio(1/2)).equalsSegment(0, 0, 0, 0);
+  expect(zero.translateToLengthRatio(1))  .equalsSegment(0, 0, 0, 0);
+  expect(zero.translateToLengthRatio(-1)) .equalsSegment(0, 0, 0, 0);
 });
 
 
@@ -519,5 +538,19 @@ tools.test( function arcWithAngleDistance() {
 });
 
 
-// RELEASE-TODO: Full coverage!
+tools.test( function text() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = diagonal.text('sphinx');
+  expect(defaultSphinx).equalsText(55, 55, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, 1/8);
+
+  const formattedVow = vertical.text('vow', rac.Text.Format.centered);
+  expect(formattedVow).equalsText(100, 100, 'vow');
+  expect(formattedVow.format).equalsTextFormat(ha.center, va.center, 1/4);
+});
+
+
+// Full coverage!
 

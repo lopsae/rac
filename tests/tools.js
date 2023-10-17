@@ -16,7 +16,8 @@ exports.rac = rac;
 const digits = 3;
 
 
-// Returns the hypotenuse of a triangle with catheti a,b, or a,a.
+// Returns the hypotenuse of a triangle with catheti `a` and `b`; when `b`
+// is ommited, both caththi are `a`.
 exports.hypotenuse = function(a, b = null) {
   b = b === null ? a : b;
   return Math.sqrt(a*a + b*b);

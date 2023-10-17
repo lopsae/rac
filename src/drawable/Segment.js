@@ -374,7 +374,6 @@ class Segment {
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Segment` with the start point translated along the
   * segment's ray by a distance of `length * ratio`. The resulting segment
@@ -766,7 +765,6 @@ class Segment {
   // }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Text` located at `start` and oriented towards `ray.angle`
   * with the given `string` and `format`.
