@@ -108,7 +108,7 @@ tools.test( function instanceMembers() {
 });
 
 
-test('Function slope/yIntercept', () => {
+tools.test( function slope_yIntercept() {
   expect(hunty.ray(rac.Angle.zero).slope()).thresEquals(0);
   expect(hunty.ray(rac.Angle.half).slope()).thresEquals(0);
 
@@ -141,7 +141,7 @@ test('Function slope/yIntercept', () => {
 });
 
 
-test('Function withStart/withAngle/withX/withY', () => {
+tools.test( function withStart_Angle_X_Y() {
   expect(diagonal.withStart(hunty))
     .equalsRay(100, 100, 1/8);
 
@@ -155,7 +155,7 @@ test('Function withStart/withAngle/withX/withY', () => {
 });
 
 
-test('Function withAngleAdd/withAngleShift', () => {
+tools.test( function withAngleAdd_AngleShift() {
   expect(diagonal.withAngleAdd(rac.Angle.zero))
     .equalsRay(55, 55, 1/8);
   expect(diagonal.withAngleAdd(1/4))
@@ -175,7 +175,7 @@ test('Function withAngleAdd/withAngleShift', () => {
 });
 
 
-test('Transformations', () => {
+tools.test( function transformations() {
   expect(diagonal.inverse()).equalsRay(55, 55, 5/8);
   expect(horizontal.inverse()).equalsRay(100, 100, 1/2);
   expect(vertical.inverse()).equalsRay(100, 100, 3/4);
@@ -185,7 +185,7 @@ test('Transformations', () => {
 });
 
 
-test('Translations', () => {
+tools.test( function translations() {
   const distance = tools.hypotenuse(55);
 
   expect(diagonal.translateToDistance(0))
@@ -225,7 +225,7 @@ test('Translations', () => {
 });
 
 
-test('Point operations', () => {
+tools.test( function pointOperations() {
   expect(diagonal.angleToPoint(rac.Point.zero))
     .equalsAngle(rac.Angle.nw);
   expect(diagonal.angleToPoint(rac.Point(0, 55)))
@@ -249,7 +249,7 @@ test('Point operations', () => {
 });
 
 
-test('Axis intersection', () => {
+tools.test( function axisIntersection() {
   expect(vertical.pointAtX(55)).toBe(null);
   expect(vertical.pointAtY(55)).equalsPoint(100, 55);
 
@@ -271,7 +271,7 @@ test('Axis intersection', () => {
 });
 
 
-test('Ray intersection', () => {
+tools.test( function rayIntersection() {
   // diagonal-vertical
   expect(diagonal.pointAtIntersection(vertical))
     .equalsPoint(100, 100);
@@ -304,7 +304,7 @@ test('Ray intersection', () => {
 });
 
 
-test('Ray parallel intersection', () => {
+tools.test( function rayParallelIntersection() {
   const shiftedVertical = vertical.withStart(rac.Point.zero);
   expect(shiftedVertical.pointAtIntersection(vertical))
     .toBe(null);
@@ -357,7 +357,7 @@ tools.test( function pointProjection() {
 });
 
 
-test('Transforms to Segment', () => {
+tools.test( function transformsToSegment() {
   expect(diagonal.segment(100)).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal.segment(0)).equalsSegment(55, 55, 1/8, 0);
 
@@ -391,7 +391,7 @@ test('Transforms to Segment', () => {
 });
 
 
-test('Transforms to Arc', () => {
+tools.test( function transformsToArc() {
   // Angle/Number parameter
   expect(diagonal.arc(100, 1/2))
     .equalsArc(55, 55, 100, 1/8, 1/2, true);
@@ -448,5 +448,5 @@ tools.test( function text() {
 });
 
 
-// RELEASE-TODO: Full coverage!
+// Full coverage!
 

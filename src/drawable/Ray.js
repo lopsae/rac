@@ -656,7 +656,6 @@ class Ray {
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Text` located at `start` and oriented towards `angle`
   * with the given `string` and `format`.
