@@ -781,7 +781,6 @@ class Arc{
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Arc` with `start` and `end` [shifted by]{@link Rac.Angle#shift}
   * the given `angle` towards the arc's orientation.

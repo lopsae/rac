@@ -533,13 +533,27 @@ tools.test( function containsProjectedPoint() {
 });
 
 
+tools.test( function shift() {
+  // Angle/number parameter
+  expect(quarter.shift(rac.Angle.eighth)).equalsArc(0, 0, 36, 5/8, 3/8, false);
+  expect(quarter.shift(1/8))             .equalsArc(0, 0, 36, 5/8, 3/8, false);
+  expect(quarter.shift(-1/8))            .equalsArc(0, 0, 36, 7/8, 5/8, false);
+
+  expect(circle.shift(0))   .equalsArc(72, 72, 72, 1/4, 1/4, true);
+  expect(circle.shift(1/4)) .equalsArc(72, 72, 72, 2/4, 2/4, true);
+  expect(circle.shift(-1/4)).equalsArc(72, 72, 72, 0/4, 0/4, true);
+});
+
+
 tools.test( function shiftAngle() {
   // Angle/number parameter
   expect(quarter.shiftAngle(rac.Angle.eighth)).equalsAngle(5/8);
   expect(quarter.shiftAngle(1/8))             .equalsAngle(5/8);
+  expect(quarter.shiftAngle(-1/8))            .equalsAngle(7/8);
 
-  expect(circle.shiftAngle(0))  .equalsAngle(rac.Angle.down);
-  expect(circle.shiftAngle(1/4)).equalsAngle(rac.Angle.left);
+  expect(circle.shiftAngle(0))   .equalsAngle(rac.Angle.down);
+  expect(circle.shiftAngle(1/4)) .equalsAngle(rac.Angle.left);
+  expect(circle.shiftAngle(-1/4)).equalsAngle(rac.Angle.right);
 });
 
 
