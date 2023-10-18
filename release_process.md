@@ -60,13 +60,7 @@ In files:
 + hardcoded in `jsdoc.json`
 + hardcoded in `docs/index.md`
 + hardcoded in `readme.md`
-
-Update `latest` symlink
-```
-cd docs/documentation
-rm latest
-ln -s n.e.w latest
-```
++ `changelog.md`
 
 Update `package-lock.json` by running:
 ```
@@ -81,6 +75,14 @@ Promote docs to current version
 -------------------------------
 ```
 mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
+mv docs/dist/n.e.w-dev docs/dist/n.e.w
+```
+
+Update `latest` symlink
+```
+cd docs/documentation
+rm latest
+ln -s n.e.w latest
 ```
 
 Commit with message: `promote documentation to n.e.w`
@@ -158,7 +160,7 @@ Rebuild current docs
 npm run docs:fresh
 ```
 
-Commit with message: `rebuild docs for n.e.w`
+Commit with message: `rebuild docs clean for n.e.w`
 
 
 

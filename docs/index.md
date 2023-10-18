@@ -16,9 +16,10 @@ RAC can be used in browser with drawing done through a [P5.js](https://p5js.org/
 
 ### Documentation
 
-[Latest](./documentation/latest/) — [1.2.1](./documentation/1.2.1/)
+[Latest](./documentation/latest/) — [1.3.0](./documentation/1.3.0/)
 
 Previous versions:
++ [1.2.1](./documentation/1.2.1/)
 + [1.2.0](./documentation/1.2.0/)
 + [1.1.0](./documentation/1.1.0/)
 + [1.0.1](./documentation/1.0.1/)
@@ -105,7 +106,7 @@ A collection of [interactive tutorials]({{ page.homeTutorialLink }}) is availabl
 
 RAC is available as an npm package at [npm/ruler-and-compass](https://www.npmjs.com/package/ruler-and-compass):
 ```
-npm install ruler-and-compass@1.2.1
+npm install ruler-and-compass@1.3.0
 ```
 
 
@@ -114,14 +115,14 @@ npm install ruler-and-compass@1.2.1
 
 For browser use, RAC is available as a single file library through [UNPKG](https://unpkg.com/) at [unpkg.com/ruler-and-compass](https://unpkg.com/ruler-and-compass).
 
-It can be imported directly as a script, which will assign the [`Rac` constructor](./documentation/1.2.1/Rac.html) to the `Rac` global variable:
+It can be imported directly as a script, which will assign the [`Rac` constructor](./documentation/1.3.0/Rac.html) to the `Rac` global variable:
 ```
-<script src="https://unpkg.com/ruler-and-compass@1.2.1"></script>
+<script src="https://unpkg.com/ruler-and-compass@1.3.0"></script>
 ```
 
 Or imported as an [AMD package](https://github.com/amdjs/amdjs-api/blob/master/AMD.md) with a module loader like [RequireJS](https://requirejs.org/):
 ```
-requirejs(["https://unpkg.com/ruler-and-compass@1.2.1"], Rac => { ... })
+requirejs(["https://unpkg.com/ruler-and-compass@1.3.0"], Rac => { ... })
 ```
 
 
