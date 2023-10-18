@@ -1379,7 +1379,6 @@ class Arc{
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Text` located and oriented towards `startTangentRay()`
   * with the given `string` and `format`.

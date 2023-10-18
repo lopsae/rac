@@ -958,5 +958,19 @@ tools.test( function divideToBeziers() {
 });
 
 
+tools.test( function text() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = quarter.text('sphinx');
+  expect(defaultSphinx).equalsText(0, -36, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, rac.Angle.left);
+
+  const formattedVow = circle.text('vow', rac.Text.Format.centered);
+  expect(formattedVow).equalsText(72, 144, 'vow');
+  expect(formattedVow.format).equalsTextFormat(ha.center, va.center, rac.Angle.left);
+});
+
+
 // RELEASE-TODO: Full coverage!
 
