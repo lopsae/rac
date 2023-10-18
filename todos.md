@@ -8,7 +8,8 @@ In progress
 
 For version change
 ------------------
-
++ check package with `npm pkg fix`
++ check npm summary page, links are to https://lopsae.github.io/rac
 
 
 Future
