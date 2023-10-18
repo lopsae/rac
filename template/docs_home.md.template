@@ -1,6 +1,6 @@
 # RAC — Ruler and Compass
 
-Documentation for RAC version: `<%= versionString %>`
+Documentation for RAC `<%= versionString %>`
 
 `{@link Rac}` is the main class and container of all other classes.
 

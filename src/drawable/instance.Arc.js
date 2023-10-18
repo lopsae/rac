@@ -17,7 +17,9 @@
 * @namespace instance.Arc
 */
 module.exports = function attachRacArc(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Arc` is attached in `attachInstanceFunctions.js`.
 
   /**
   * A clockwise `Arc` with all values set to zero.

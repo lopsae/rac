@@ -114,6 +114,10 @@ class Arc{
   /**
   * Returns a string representation intended for human consumption.
   *
+  * @example
+  * rac.Arc(55, 77, 0.2, 0.4, 100).toString()
+  * // returns: 'Arc((55,77) r:100 s:0.2 e:0.4 c:true)'
+  *
   * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
@@ -124,7 +128,7 @@ class Arc{
     const radiusStr = utils.cutDigits(this.radius,     digits);
     const startStr  = utils.cutDigits(this.start.turn, digits);
     const endStr    = utils.cutDigits(this.end.turn,   digits);
-    return `Arc((${xStr},${yStr}) r:${radiusStr} s:${startStr} e:${endStr} c:${this.clockwise}})`;
+    return `Arc((${xStr},${yStr}) r:${radiusStr} s:${startStr} e:${endStr} c:${this.clockwise})`;
   }
 
 
@@ -172,6 +176,7 @@ class Arc{
   }
 
 
+  // TODO: replace `in the orientation` to `towards the arc's orientation`?
   /**
   * Returns a new `Angle` that represents the distance between `start` and
   * `end`, in the orientation of the arc.
@@ -219,20 +224,67 @@ class Arc{
 
 
   /**
-  * Returns a new `Segment` from `center` to `startPoint()`.
+  * Returns a new `Ray` tangent to the arc starting at `startPoint()` and
+  * towards the arc's orientation.
+  */
+  startTangentRay() {
+    let tangentAngle = this.start.perpendicular(this.clockwise);
+    return this.startPoint().ray(tangentAngle);
+  }
+
+
+  /**
+  * Returns a new `Ray` tangent to the arc starting at `endPoint()` and
+  * against the arc's orientation.
+  */
+  endTangentRay() {
+    let tangentAngle = this.end.perpendicular(!this.clockwise);
+    return this.endPoint().ray(tangentAngle);
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the radius of the arc at `start`.
+  * The segment starts starts at `center` and ends at `startPoint()`.
   * @returns {Rac.Segment}
   */
-  startSegment() {
+  startRadiusSegment() {
     return new Rac.Segment(this.rac, this.startRay(), this.radius);
   }
 
 
   /**
-  * Returns a new `Segment` from `center` to `endPoint()`.
+  * Returns a new `Segment` representing the radius of the arc at `start`.
+  * The segment starts starts at `center` and ends at `startPoint()`.
+  *
+  * Equivalent to [`startRadiusSegment`]{@link Rac.Arc#startRadiusSegment}.
+  * @returns {Rac.Segment}
+  */
+  startSegment() {
+    return this.startRadiusSegment()
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the radius of the arc at `end`.
+  * The segment starts starts at `center` and ends at `endPoint()`.
+  * @returns {Rac.Segment}
+  */
+  endRadiusSegment() {
+    return new Rac.Segment(this.rac, this.endRay(), this.radius);
+  }
+
+
+  /**
+  * Returns a new `Segment` representing the radius of the arc at `end`.
+  * The segment starts starts at `center` and ends at `endPoint()`.
+  *
+  * Equivalent to [`endRadiusSegment`]{@link Rac.Arc#endRadiusSegment}.
+  *
   * @returns {Rac.Segment}
   */
   endSegment() {
-    return new Rac.Segment(this.rac, this.endRay(), this.radius);
+    return this.endRadiusSegment();
   }
 
 
@@ -376,7 +428,7 @@ class Arc{
   * The actual `length()` of the resulting `Arc` will always be in the
   * range `[0,radius*TAU)`. When the given `length` is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
-  * will be cut back into range through a modulo operation.
+  * will be reduced into range through a modulo operation.
   *
   * @param {Number} length - The length of the new `Arc`
   * @returns {Rac.Arc}
@@ -389,23 +441,24 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `length` added to the part of the
+  * Returns a new `Arc` with `increment` added to the part of the
   * circumference `this` represents. This changes `end` for the
   * new `Arc`.
   *
   * All other properties are copied from `this`.
   *
   * The actual `length()` of the resulting `Arc` will always be in the
-  * range `[0,radius*TAU)`. When the resulting `length` is larger that the
+  * range `[0,radius*TAU)`. When the resulting length is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
-  * will be cut back into range through a modulo operation.
+  * will be reduced into range through a modulo operation.
   *
-  * @param {Number} length - The length to add
-  * @returns {Rac.Arc}
   * @see [`length`]{@link Rac.Arc#length}
+  *
+  * @param {Number} increment - The length to add
+  * @returns {Rac.Arc}
   */
-  withLengthAdd(length) {
-    const newAngleDistance = (this.length() + length) / this.circumference();
+  withLengthAdd(increment) {
+    const newAngleDistance = (this.length() + increment) / this.circumference();
     return this.withAngleDistance(newAngleDistance);
   }
 
@@ -419,7 +472,7 @@ class Arc{
   * The actual `length()` of the resulting `Arc` will always be in the
   * range *[0,radius*TAU)*. When the calculated length is larger that the
   * circumference of the arc as a complete circle, the resulting arc length
-  * will be cut back into range through a modulo operation.
+  * will be reduced into range through a modulo operation.
   *
   * @param {Number} ratio - The factor to multiply `length()` by
   * @returns {Rac.Arc}
@@ -553,14 +606,16 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `start` shifted by the given `angle` in the
-  * arc's opposite orientation.
+  * Returns a new `Arc` with `start` [shifted by]{@link Rac.Angle#shift}
+  * the given `angle` towards the arc's opposite orientation.
   *
   * All other properties are copied from `this`.
   *
-  * Notice that this method shifts `start` to the arc's *opposite*
-  * orientation, intending to result in a new `Arc` with an increase to
+  * Notice that this method shifts `start` towards the arc's *opposite*
+  * orientation, resulting in a new `Arc` with an increase to
   * `angleDistance()`.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @param {Rac.Angle} angle - An `Angle` to shift `start` against
   * @returns {Rac.Arc}
@@ -575,14 +630,15 @@ class Arc{
 
 
   /**
-  * Returns a new `Arc` with `end` shifted by the given `angle` in the
-  * arc's orientation.
+  * Returns a new `Arc` with `end` [shifted by]{@link Rac.Angle#shift} the
+  * given `angle` towards the arc's orientation.
   *
   * All other properties are copied from `this`.
   *
   * Notice that this method shifts `end` towards the arc's orientation,
-  * intending to result in a new `Arc` with an increase to
-  * `angleDistance()`.
+  * resulting in a new `Arc` with an increase to `angleDistance()`.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @param {Rac.Angle} angle - An `Angle` to shift `start` against
   * @returns {Rac.Arc}
@@ -598,7 +654,7 @@ class Arc{
 
   /**
   * Returns a new `Arc` with its `start` and `end` exchanged, and the
-  * opposite clockwise orientation. The center and radius remain be the
+  * opposite clockwise orientation. The center and radius remain the
   * same as `this`.
   *
   * @returns {Rac.Arc}
@@ -726,24 +782,62 @@ class Arc{
 
 
   /**
+  * Returns a new `Arc` with `start` and `end` [shifted by]{@link Rac.Angle#shift}
+  * the given `angle` towards the arc's orientation.
+  *
+  * Notice that this method shifts both `start` and `end` towards the arc's
+  * orientation, resulting in a new `Arc` with the same `angleDistance()`.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
+  *
+  * @example
+  * <caption>For a clockwise arc</caption>
+  * let arc = rac.Arc(0, 0, 0.4, 0.6, true)
+  * let shiftedArc = arc.shift(0.1)
+  * shiftedArc.start.turn // returns 0.5
+  * shiftedArc.end.turn   // returns 0.7
+  *
+  * @example
+  * <caption>For a counter-clockwise arc</caption>
+  * let arc = rac.Arc(0, 0, 0.4, 0.6, false)
+  * let shiftedArc = arc.shift(0.1)
+  * shiftedArc.start.turn // returns 0.3
+  * shiftedArc.end.turn   // returns 0.5
+  *
+  * @param {Rac.Angle|Number} angle - An `Angle` to shift the arc by
+  * @returns {Rac.Arc}
+  */
+  shift(angle) {
+    const newStart = this.start.shift(angle, this.clockwise);
+    const newEnd = this.end.shift(angle, this.clockwise);
+
+    return new Arc(this.rac,
+      this.center, this.radius,
+      newStart, newEnd,
+      this.clockwise);
+  }
+
+
+  /**
   * Returns a new `Angle` with `angle` [shifted by]{@link Rac.Angle#shift}
-  * `start` in the arc's orientation.
+  * `start` towards the arc's orientation.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @example
   * <caption>For a clockwise arc starting at <code>0.5</code></caption>
   * let arc = rac.Arc(0, 0, 0.5, null, true)
+  * arc.shiftAngle(0.1).turn
   * // returns 0.6, since 0.5 + 0.1 = 0.6
-  * arc.shiftAngle(0.1)
   *
   * @example
   * <caption>For a counter-clockwise arc starting at <code>0.5</code></caption>
   * let arc = rac.Arc(0, 0, 0.5, null, false)
-  * // returns 0.3, since 0.5 - 0.2 = 0.3
-  * arc.shiftAngle(0.2)
+  * arc.shiftAngle(0.1).turn
+  * // returns 0.4, since 0.5 - 0.1 = 0.4
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to shift
   * @returns {Rac.Angle}
-  * @see [`angle.shift`]{@link Rac.Angle#shift}
   */
   shiftAngle(angle) {
     angle = Rac.Angle.from(this.rac, angle);
@@ -794,11 +888,17 @@ class Arc{
   }
 
 
+  // TODO: check other instances of `arc is considered` and add note of
+  // the possible impact, using this as example
   /**
   * Returns a new `Point` located in the arc at the given `angle`
-  * [shifted by]{@link Rac.Angle#shift} `start` in arc's orientation.
+  * [shifted by]{@link Rac.Angle#shift} `start` towards the arc's
+  * orientation.
   *
-  * The arc is considered a complete circle.
+  * For this operation the arc is considered a complete circle, the
+  * returned `Point` may be outside the arc's bounds.
+  *
+  * @see [`angle.shift`]{@link Rac.Angle#shift}
   *
   * @param {Rac.Angle} angle - An `Angle` to be shifted by `start`
   * @returns {Rac.Point}
@@ -878,7 +978,7 @@ class Arc{
   * Returns a new `Segment` for the chord formed by the intersection of
   * `this` and `otherArc`, or `null` when there is no intersection.
   *
-  * The returned `Segment` will point towards the `this` orientation.
+  * The resulting `Segment` will point towards `this` orientation.
   *
   * Both arcs are considered complete circles for the calculation of the
   * chord, thus the endpoints of the returned segment may not lay inside
@@ -952,7 +1052,7 @@ class Arc{
   * Returns a new `Segment` representing the chord formed by the
   * intersection of the arc and 'ray', or `null` when no chord is possible.
   *
-  * The returned `Segment` will always have the same angle as `ray`.
+  * The resulting `Segment` will always have the same angle as `ray`.
   *
   * The arc is considered a complete circle and `ray` is considered an
   * unbounded line.
@@ -1057,7 +1157,7 @@ class Arc{
   /**
   * Returns a new `Arc` representing the section of `this` that is inside
   * `otherArc` and bounded by `this.start` and `this.end`, or `null` when
-  * there is no intersection. The returned arc will have the same center,
+  * there is no intersection. The resulting `Arc` will have the same center,
   * radius, and orientation as `this`.
   *
   * `otherArc` is considered a complete circle, while the start and end of
@@ -1276,6 +1376,36 @@ class Arc{
     });
 
     return new Rac.Composite(this.rac, beziers);
+  }
+
+
+  /**
+  * Returns a new `Text` located and oriented towards `startTangentRay()`
+  * with the given `string` and `format`.
+  *
+  * When `format` is ommited or `null`, the format used for the resulting
+  * `Text` will be:
+  * + [`rac.Text.Format.bottomLeft`]{@link instance.Text.Format#bottomLeft}
+  * format for arcs with `clockwise` orientation set to `true`
+  * + [`rac.Text.Format.topLeft`]{@link instance.Text.Format#topLeft}
+  * format for arcs with `clockwise` orientation set to `false`
+  *
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `startTangentRay().angle`.
+  *
+  * @param {String} string - The string of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format of the new `Text`; when ommited or `null`, a default
+  *   format is used instead
+  * @returns {Rac.Text}
+  */
+  text(string, format = null) {
+    if (format === null) {
+      format = this.clockwise
+        ? this.rac.Text.Format.bottomLeft
+        : this.rac.Text.Format.topLeft;
+    }
+    return this.startTangentRay().text(string, format);
   }
 
 } // class Arc

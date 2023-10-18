@@ -2,9 +2,10 @@
 
 
 // Ruler and Compass
-const version = require('../built/version').version;
-const build   = require('../built/version').build;
-const dated   = require('../built/version').dated;
+const versioning = require('../built/versioning')
+const version = versioning.version;
+const build   = versioning.build;
+const dated   = versioning.dated;
 
 
 /**
@@ -15,8 +16,8 @@ const dated   = require('../built/version').dated;
 * build drawable, style, and other objects.
 *
 * To perform drawing operations, a drawer must be setup with
-* `[setupDrawer]{@link Rac#setupDrawer}`. Currently the only available
-* implementation is `[P5Drawer]{@link Rac.P5Drawer}`.
+* [`setupDrawer`]{@link Rac#setupDrawer}. Currently the only available
+* implementation is [`P5Drawer`]{@link Rac.P5Drawer}.
 */
 class Rac {
 
@@ -26,10 +27,10 @@ class Rac {
   constructor() {
 
     /**
-    * Version of the instance, same as `{@link Rac.version}`.
+    * Version of the instance, equivalent to `{@link Rac.version}`.
     *
     * @example
-    * rac.version // returns as example '1.2.1'
+    * rac.version // returns E.g. '1.2.1'
     *
     * @constant {String} version
     * @memberof Rac#
@@ -38,10 +39,10 @@ class Rac {
 
 
     /**
-    * Build of the instance, same as `{@link Rac.build}`.
+    * Build of the instance, equivalent to `{@link Rac.build}`.
     *
     * @example
-    * rac.build // returns as example '1057-94b059d'
+    * rac.build // returns E.g. '1057-94b059d'
     *
     * @constant {String} build
     * @memberof Rac#
@@ -50,10 +51,10 @@ class Rac {
 
 
     /**
-    * Date of the build of the instance, same as `{@link Rac.dated}`.
+    * Date of the build of the instance, equivalent to `{@link Rac.dated}`.
     *
     * @example
-    * rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+    * rac.dated // returns E.g. '2022-10-13T23:06:12.500Z'
     *
     * @constant {String} dated
     * @memberof Rac#
@@ -64,7 +65,7 @@ class Rac {
     /**
     * Value used to determine equality between two numeric values. Used for
     * values that tend to be integers, like screen coordinates. Used by
-    * `{@link Rac#equals}`.
+    * [`equals`]{@link Rac#equals}.
     *
     * When checking for equality `x` is equal to non-inclusive
     * `(x-equalityThreshold, x+equalityThreshold)`:
@@ -87,9 +88,11 @@ class Rac {
     /**
     * Value used to determine equality between two unitary numeric values.
     * Used for values that tend to exist in the `[0, 1]` range, like
-    * `{@link Rac.Angle#turn}`. Used by `{@link Rac#unitaryEquals}`.
+    * [`angle.turn`]{@link Rac.Angle#turn}. Used by
+    * [`unitaryEquals`]{@link Rac#unitaryEquals}.
     *
-    * Equality logic is the same as `{@link Rac#equalityThreshold}`.
+    * Equality logic is the same as
+    * [`equalityThreshold`]{@link Rac#equalityThreshold}.
     *
     * The default value is based on 1/1000 of the turn of an complete
     * circle arc of radius 500:
@@ -104,8 +107,8 @@ class Rac {
 
 
     /**
-    * Container of utility functions. See `{@link utils}` for the available
-    * members.
+    * Container of utility functions. See the
+    * [`utils` namespace]{@link utils} for the available members.
     *
     * Also available through `{@link Rac.utils}`.
     *
@@ -116,8 +119,6 @@ class Rac {
     this.stack = [];
     this.shapeStack = [];
     this.compositeStack = [];
-
-
 
 
     /**
@@ -166,7 +167,10 @@ class Rac {
     require('./drawable/instance.Bezier') (this);
 
     // Depends on instance.Point and instance.Angle being already setup
-    require('./drawable/instance.Text')(this);
+    require('./drawable/instance.Text.Format')(this);
+    require('./drawable/instance.Text')       (this);
+
+
 
     /**
     * Controller of the instance. This objecs handles all of the controls
@@ -174,6 +178,7 @@ class Rac {
     */
     this.controller = new Rac.Controller(this);
   }
+
 
   /**
   * Sets the drawer for the instance. Currently only a p5.js instance is
@@ -192,7 +197,7 @@ class Rac {
 
   /**
   * Returns `true` if the absolute distance between `a` and `b` is
-  * under `{@link Rac#equalityThreshold}`.
+  * under [`equalityThreshold`]{@link Rac#equalityThreshold}.
   *
   * @param {Number} a - First number to compare
   * @param {Number} b - Second number to compare
@@ -208,7 +213,7 @@ class Rac {
 
   /**
   * Returns `true` if the absolute distance between `a` and `b` is
-  * under `{@link Rac#unitaryEqualityThreshold}`.
+  * under [`unitaryEqualityThreshold`]{@link Rac#unitaryEqualityThreshold}.
   *
   * @param {Number} a First number to compare
   * @param {Number} b Second number to compare
@@ -299,10 +304,10 @@ module.exports = Rac;
 
 
 /**
-* Container of utility functions. See `{@link utils}` for the available
-* members.
+* Container of utility functions. See the [`utils` namespace]{@link utils}
+* for the available members.
 *
-* Also available through `{@link Rac#utils}`.
+* Also available through [`rac.utils`]{@link Rac#utils}.
 *
 * @var {utils}
 * @memberof Rac
@@ -312,11 +317,10 @@ Rac.utils = utils;
 
 
 /**
-* Version of the class. Same as the version used for the npm package.
+* Version of the class. Equivalent to the version used for the npm package.
 *
 * @example
-* Rac.version // returns as example '1.2.1'
-*
+* Rac.version // returns E.g. '1.2.1'
 *
 * @constant {String} version
 * @memberof Rac
@@ -331,7 +335,7 @@ utils.addConstantTo(Rac, 'version', version);
 * was done.
 *
 * @example
-* Rac.build // returns as example '1057-94b059d'
+* Rac.build // returns E.g. '1057-94b059d'
 *
 * @constant {String} build
 * @memberof Rac
@@ -347,7 +351,7 @@ utils.addConstantTo(Rac, 'build', build);
 * date when the build was done.
 *
 * @example
-* Rac.dated // returns as example '2022-10-13T23:06:12.500Z'
+* Rac.dated // returns E.g. '2022-10-13T23:06:12.500Z'
 *
 * @constant {String} dated
 * @memberof Rac

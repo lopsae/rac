@@ -17,7 +17,9 @@
 * @namespace instance.Point
 */
 module.exports = function attachRacPoint(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Point` is attached in `attachInstanceFunctions.js`.
 
   /**
   * A `Point` with all values set to zero.

@@ -42,20 +42,35 @@ module.exports = function attachRacColor(rac) {
 
 
   /**
-  * Returns a new `Color` instance from a hexadecimal triplet string.
+  * Returns a new `Color` instance from a hexadecimal triplet or quadruplet
+  * string.
   *
-  * The `hexString` is expected to have 6 digits and can optionally start
-  * with `#`. `AABBCC` and `#DDEEFF` are both valid inputs, the three digit
-  * shorthand is not yet supported.
+  * The `hexString` is expected to have 6 or 8 hex digits for the RGB and
+  * optionally alpha channels. It can start with `#`. `AABBCC` and
+  * `#CCDDEEFF` are both valid inputs.
+  *
+  * The three digit shorthand is not yet supported.
   *
   * An error is thrown if `hexString` is misformatted or cannot be parsed.
   *
-  * @param {String} hexString - The RGB hex triplet to interpret
+  * @param {String} hexString - The hex string to interpret
   * @returns {Rac.Color}
+  *
+  * @function fromHex
+  * @memberof instance.Color#
   */
   rac.Color.fromHex = function(hexString) {
     return Rac.Color.fromHex(rac, hexString);
   }
+
+
+  /**
+  * A `Color` with all channels set to `0`.
+  *
+  * @name zero
+  * @memberof instance.Color#
+  */
+  rac.Color.zero = rac.Color(0, 0, 0, 0);
 
 
   /**
@@ -65,6 +80,17 @@ module.exports = function attachRacColor(rac) {
   * @memberof instance.Color#
   */
   rac.Color.black   = rac.Color(0, 0, 0);
+
+  /**
+  * A white `Color`, with all channels set to `1`.
+  *
+  * Also available as `one`.
+  *
+  * @name white
+  * @memberof instance.Color#
+  */
+  rac.Color.white   = rac.Color(1, 1, 1);
+  rac.Color.one = rac.Color.white;
 
   /**
   * A red `Color`.
@@ -79,7 +105,6 @@ module.exports = function attachRacColor(rac) {
   rac.Color.yellow  = rac.Color(1, 1, 0);
   rac.Color.magenta = rac.Color(1, 0, 1);
   rac.Color.cyan    = rac.Color(0, 1, 1);
-  rac.Color.white   = rac.Color(1, 1, 1);
 
 } // attachRacColor
 

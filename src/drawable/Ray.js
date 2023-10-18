@@ -69,6 +69,10 @@ class Ray {
   /**
   * Returns a string representation intended for human consumption.
   *
+  * @example
+  * rac.Ray(55, 77, 0.2).toString()
+  * // returns: 'Ray((55,77) a:0.2)'
+  *
   * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
   * @returns {String}
@@ -192,15 +196,15 @@ class Ray {
 
 
   /**
-  * Returns a new `Ray` with `angle` added to `this.angle`.
+  * Returns a new `Ray` with `increment` added to `this.angle`.
   *
   * All other properties are copied from `this`.
   *
-  * @param {Rac.Angle|Number} angle - The angle to add
+  * @param {Rac.Angle|Number} increment - The angle to add
   * @returns {Rac.Ray}
   */
-  withAngleAdd(angle) {
-    let newAngle = this.angle.add(angle);
+  withAngleAdd(increment) {
+    let newAngle = this.angle.add(increment);
     return new Ray(this.rac, this.start, newAngle);
   }
 
@@ -428,7 +432,7 @@ class Ray {
   * Returns the distance from `this.start` to the projection of `point`
   * onto the ray.
   *
-  * The returned distance is positive when the projected point is towards
+  * The resulting distance is positive when the projected point is towards
   * the direction of the ray, and negative when it is behind.
   *
   * @param {Rac.Point} point - A `Point` to project and measure the
@@ -592,6 +596,7 @@ class Ray {
 
   // TODO: Leaving undocumented for now, until better use/explanation is found
   // based on https://stackoverflow.com/questions/1734745/how-to-create-circle-with-b%C3%A9zier-curves
+  /* istanbul ignore next */
   bezierArc(otherRay) {
     if (this.start.equals(otherRay.start)) {
       // When both rays have the same start, returns a point bezier.
@@ -649,6 +654,25 @@ class Ray {
         this.start, anchorA,
         anchorB, otherRay.start);
   }
+
+
+  /**
+  * Returns a new `Text` located at `start` and oriented towards `angle`
+  * with the given `string` and `format`.
+  *
+  * When `format` is provided, the angle for the resulting `Text` will
+  * still be set to `angle`.
+  *
+  * @param {String} string - The string of the new `Text`
+  * @param {Rac.Text.Format} [format=[rac.Text.Format.topLeft]{@link instance.Text.Format#topLeft}]
+  *   The format of the new `Text`
+  * @returns {Rac.Text}
+  */
+  text(string, format = this.rac.Text.Format.topLeft) {
+    format = format.withAngle(this.angle);
+    return new Rac.Text(this.rac, this.start, string, format);
+  }
+
 
 } // class Ray
 

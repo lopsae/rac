@@ -8,7 +8,9 @@
 * @namespace instance.Bezier
 */
 module.exports = function attachInstanceBezier(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Bezier` is attached in `attachInstanceFunctions.js`.
 
   /**
   * A `Bezier` with all values set to zero.

@@ -43,7 +43,7 @@ class P5Drawer {
     *
     * @property {String} font='monospace'
     *   Font to use when drawing with `debug()`
-    * @property {Number} [font=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
+    * @property {Number} [size=[rac.textFormatDefaults.size]{@link Rac#textFormatDefaults}]
     *   Font size to use when drawing with `debug()`
     * @property {Number} fixedDigits=2
     *   Number of decimal digits to print when drawing with `debug()`
@@ -64,7 +64,7 @@ class P5Drawer {
     * @type {Number}
     * @default 22
     */
-    this.debugPointRadius = 4;
+    this.debugPointRadius = 5;
 
     /**
     * Radius of the main visual elements for debug drawing.
@@ -292,6 +292,13 @@ class P5Drawer {
       this.divideToBeziers(divisions).vertex();
     };
 
+    // Text
+    this.setDrawFunction(Rac.Text, functions.drawText);
+    // Text drawing uses `text.format.apply`, which translate and rotation
+    // modifications to the drawing matrix
+    // this requires a push-pop on every draw
+    this.setDrawOptions(Rac.Text, {requiresPushPop: true});
+
     // Bezier
     this.setDrawFunction(Rac.Bezier, (drawer, bezier) => {
       drawer.p5.bezier(
@@ -335,15 +342,6 @@ class P5Drawer {
       this.outline.vertex();
       this.contour.vertex();
     };
-
-    // Text
-    this.setDrawFunction(Rac.Text, (drawer, text) => {
-      text.format.apply(text.point);
-      drawer.p5.text(text.string, 0, 0);
-    });
-    // `text.format.apply` makes translate and rotation modifications to
-    // the drawing matrix, this requires a push-pop on every draw
-    this.setDrawOptions(Rac.Text, {requiresPushPop: true});
   } // setupAllDrawFunctions
 
 
@@ -354,7 +352,9 @@ class P5Drawer {
     this.setDebugFunction(Rac.Ray, functions.debugRay);
     this.setDebugFunction(Rac.Segment, functions.debugSegment);
     this.setDebugFunction(Rac.Arc, functions.debugArc);
+    this.setDebugFunction(Rac.Text, functions.debugText);
 
+    // Returns calling angle
     Rac.Angle.prototype.debug = function(point, drawsText = false) {
       const drawer = this.rac.drawer;
       if (drawer.debugStyle !== null) {
@@ -370,6 +370,7 @@ class P5Drawer {
       return this;
     };
 
+    // Returns calling point
     Rac.Point.prototype.debugAngle = function(angle, drawsText = false) {
       angle = this.rac.Angle.from(angle);
       angle.debug(this, drawsText);
@@ -474,8 +475,30 @@ class P5Drawer {
 
       // Positioning
       this.rac.drawer.p5.translate(point.x, point.y);
-      if (this.angle.turn != 0) {
+
+      // Rotation
+      if (this.angle.turn !== 0) {
         this.rac.drawer.p5.rotate(this.angle.radians());
+      }
+
+      // Padding
+      let xPad = 0;
+      let yPad = 0;
+
+      switch (this.hAlign) {
+        case hEnum.left:   xPad += this.hPadding; break;
+        case hEnum.center: xPad += this.hPadding; break;
+        case hEnum.right:  xPad -= this.hPadding; break;
+      }
+      switch (this.vAlign) {
+        case vEnum.top:      yPad += this.vPadding; break;
+        case vEnum.center:   yPad += this.vPadding; break;
+        case vEnum.baseline: yPad += this.vPadding; break;
+        case vEnum.bottom:   yPad -= this.vPadding; break;
+      }
+
+      if (xPad !== 0 || yPad !== 0) {
+        this.rac.drawer.p5.translate(xPad, yPad);
       }
     } // Rac.Text.Format.prototype.apply
 

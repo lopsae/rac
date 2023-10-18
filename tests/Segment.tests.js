@@ -55,23 +55,12 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const segment = rac.Segment(1.12345, 2.12345, 0.12345, 3.12345);
+  const segment = rac.Segment(1.23456, 2.34567, 0.12345, 3.45678);
 
-  const string = segment.toString();
-  expect(string).toMatch('Segment');
-  expect(string).toMatch('(1.12345,2.12345)');
-  expect(string).toMatch('a:0.12345');
-  expect(string).toMatch('l:3.12345');
-
-  const cutString = segment.toString(2);
-  expect(cutString).toMatch('Segment');
-  expect(cutString).toMatch('(1.12,2.12)');
-  expect(cutString).toMatch('a:0.12');
-  expect(cutString).toMatch('l:3.12');
-  expect(cutString).not.toMatch('0.123');
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
-  expect(cutString).not.toMatch('3.123');
+  expect(segment.toString())
+    .toBe('Segment((1.23456,2.34567) a:0.12345 l:3.45678)');
+  expect(segment.toString(2))
+    .toBe('Segment((1.23,2.35) a:0.12 l:3.46)');
 });
 
 
@@ -200,7 +189,8 @@ tools.test( function transformations() {
 });
 
 
-tools.test( function transToAngle_Length() {
+tools.test( function transToAngle_Length_LengthRatio() {
+  // translateToAngle
   expect(diagonal.translateToAngle(0, 0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translateToAngle(rac.Angle.zero, 0))
@@ -212,12 +202,30 @@ tools.test( function transToAngle_Length() {
   expect(diagonal.translateToAngle(3/8, hyp))
     .equalsSegment(0, 110, 1/8, 72);
 
+  // translateToLength
   expect(diagonal.translateToLength(0))
     .equalsSegment(55, 55, 1/8, 72);
   expect(diagonal.translateToLength(hyp))
     .equalsSegment(110, 110, 1/8, 72);
   expect(diagonal.translateToLength(-hyp))
     .equalsSegment(0, 0, 1/8, 72);
+
+  // translateToLengthRatio
+  expect(horizontal.translateToLengthRatio(0))  .equalsSegment(100, 100, 0, 72);
+  expect(horizontal.translateToLengthRatio(1/2)).equalsSegment(136, 100, 0, 72);
+  expect(horizontal.translateToLengthRatio(1))  .equalsSegment(172, 100, 0, 72);
+  expect(horizontal.translateToLengthRatio(-1)) .equalsSegment(28, 100, 0, 72);
+
+  const cat = tools.cathetus(72/2);
+  expect(diagonal.translateToLengthRatio(0))   .equalsSegment(55, 55, 1/8, 72);
+  expect(diagonal.translateToLengthRatio(1/2)) .equalsSegment(55+cat, 55+cat, 1/8, 72);
+  expect(diagonal.translateToLengthRatio(-1/2)).equalsSegment(55-cat, 55-cat, 1/8, 72);
+
+  const zero = rac.Segment.zero;
+  expect(zero.translateToLengthRatio(0))  .equalsSegment(0, 0, 0, 0);
+  expect(zero.translateToLengthRatio(1/2)).equalsSegment(0, 0, 0, 0);
+  expect(zero.translateToLengthRatio(1))  .equalsSegment(0, 0, 0, 0);
+  expect(zero.translateToLengthRatio(-1)) .equalsSegment(0, 0, 0, 0);
 });
 
 
@@ -527,6 +535,22 @@ tools.test( function arcWithAngleDistance() {
     .equalsArc(55, 55, 72, 1/8, 1/8, true);
   expect(diagonal.arcWithAngleDistance(0, false))
     .equalsArc(55, 55, 72, 1/8, 1/8, false);
+});
+
+
+tools.test( function text() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = diagonal.text('sphinx');
+  expect(defaultSphinx).equalsText(55, 55, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, 1/8);
+
+  const format = rac.Text.Format(ha.center, va.center, 3/4, 'sans', 14, 7, 5);
+  const formattedVow = vertical.text('vow', format);
+  expect(formattedVow).equalsText(100, 100, 'vow');
+  expect(formattedVow.format)
+    .equalsTextFormat(ha.center, va.center, 1/4, 'sans', 14, 7, 5);
 });
 
 

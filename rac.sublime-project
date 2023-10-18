@@ -1,24 +1,45 @@
+// Ruler and Compass - Sublime Project
+//
+// To use this named project file use the menu command:
+// ```
+// Project / Open Project...
+// ```
+//
 // https://www.sublimetext.com/docs/3/projects.html
 {
   "folders":
   [
     {
       "path": ".",
+
+      // Prevents files from appering in folder list
       "file_exclude_patterns": [
         "package-lock.json",
+        // documentation sub-folders are displayed, but not files
         "docs/documentation/*/*"
       ],
+
+      // Prevents folders from appering in folder list
       "folder_exclude_patterns": [
-        "dist",
         "node_modules",
+        "coverage",
         "docs/_site",
         "docs/vendor",
-        "docs/docs/*/*",
-        "coverage"
+        // documentation sub-folders are displayed, but not further subfolders
+        "docs/documentation/*/*"
       ],
+
+      // Ignores these files in _Goto Anything_ and _Find in Files_
+      "binary_file_patterns": [
+        "dist/*",
+        "docs/dist/*/*"
+      ],
+
+      // Prevents files from appearing in index operations
+      // E.g. `Goto Symbol...` or `Goto Definition...
       "index_exclude_patterns": [
         "dist/*",
-        "docs/docs/**/*"
+        "docs/dist/*/*"
       ]
     }
   ]

@@ -6,6 +6,9 @@ const Rac = require('../Rac');
 
 /**
 * Internal utilities.
+*
+* Available through `{@link Rac.utils}` or [`rac.utils`]{@link Rac#utils}.
+*
 * @namespace utils
 */
 
@@ -162,12 +165,12 @@ exports.addConstantTo = function(obj, propName, value) {
 
 
 /**
-* Returns a string of `number` format using fixed-point notation or the
-* complete `number` string.
+* Returns a string representation of `number` displaying all available
+* digits, or formmatted used fixed-point notation limited to `digits`.
 *
 * @param {Number} number - The number to format
 * @param {?Number} [digits] - The amount of digits to print, or `null` to
-* print all digits.
+* print all digits
 *
 * @returns {String}
 *
@@ -178,5 +181,22 @@ exports.cutDigits = function(number, digits = null) {
   return digits === null
     ? number.toString()
     : number.toFixed(digits);
+}
+
+
+/**
+* Returns `true` if text oriented with the given `angleTurn` would be
+* printed upright.
+*
+* Angle turn values in the range _[3/4, 1/4)_ are considered upright.
+*
+* @param {Number} angleTurn - The turn value of the angle to check
+* @returns {Boolean}
+*
+* @function isUprightText
+* @memberof utils#
+*/
+exports.isUprightText = function(angleTurn) {
+  return angleTurn >= 3/4 || angleTurn < 1/4;
 }
 

@@ -18,11 +18,9 @@ tools.test( function identity() {
   // Rac instance
   const otherRac = new Rac();
   expect(otherRac.Ray.zero).not.equalsRay(0, 0, 0);
+  expect(rac.Ray.zero)         .equalsRay(0, 0, 0);
 
-  // Instance members
-  expect(rac.Ray.zero).equalsRay(0, 0, 0);
-  expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
-  expect(rac.Ray.yAxis).equalsRay(0, 0, 1/4);
+  expect(otherRac.Ray.zero.equals(rac.Ray.zero)).toBe(true);
 
   // Testing Constants
   expect(diagonal).equalsRay(55, 55, 1/8);
@@ -33,12 +31,12 @@ tools.test( function identity() {
   expect(diagonal).equalsRay(55, 55, 1/8);
   expect(diagonal).equalsRay(55, 55, rac.Angle.eighth);
 
-  // Inequality
+  // Assertion Inequality
   expect(rac.Ray.zero).not.equalsRay(7, 0, .0);
   expect(rac.Ray.zero).not.equalsRay(0, 7, .0);
   expect(rac.Ray.zero).not.equalsRay(0, 0, .7);
 
-  // Unexpected type for equalsRay
+  // Unexpected types for equalsRay
   expect(null)            .not.equalsRay(0, 0, 0);
   expect('')              .not.equalsRay(0, 0, 0);
   expect(0)               .not.equalsRay(0, 0, 0);
@@ -49,11 +47,11 @@ tools.test( function identity() {
   expect(rac.Point.zero)  .not.equalsRay(0, 0, 0);
   expect(rac.Segment.zero).not.equalsRay(0, 0, 0);
 
-  // Expected type for equals
+  // Expected types for equals
   expect(diagonal.equals(diagonal)).toBe(true);
   expect(diagonal.equals(vertical)).toBe(false);
 
-  // Unexpected type for equals
+  // Unexpected types for equals
   expect(diagonal.equals(null))            .toBe(false);
   expect(diagonal.equals(''))              .toBe(false);
   expect(diagonal.equals(0))               .toBe(false);
@@ -69,26 +67,14 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const ray = rac.Ray(1.12345, 2.12345, 0.12345);
+  const ray = rac.Ray(1.12345, 2.23456, 0.34567);
 
-  const string = ray.toString();
-  expect(string).toMatch('Ray');
-  expect(string).toMatch('0.12345');
-  expect(string).toMatch('1.12345');
-  expect(string).toMatch('2.12345');
-
-  const cutString = ray.toString(2);
-  expect(cutString).toMatch('Ray');
-  expect(cutString).toMatch('0.12');
-  expect(cutString).toMatch('1.12');
-  expect(cutString).toMatch('2.12');
-  expect(cutString).not.toMatch('0.123');
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
+  expect(ray.toString()) .toBe('Ray((1.12345,2.23456) a:0.34567)');
+  expect(ray.toString(2)).toBe('Ray((1.12,2.23) a:0.35)');
 });
 
 
-test('Errors', () => {
+tools.test( function thrownErrors() {
   const eighth = rac.Angle.eighth;
   expect(() => {new Rac.Ray(rac, fifty, eighth);})
     .not.toThrowNamed(Rac.Exception.failedAssert.exceptionName);
@@ -115,7 +101,14 @@ test('Errors', () => {
 });
 
 
-test('Function slope/yIntercept', () => {
+tools.test( function instanceMembers() {
+  expect(rac.Ray.zero).equalsRay(0, 0, 0);
+  expect(rac.Ray.xAxis).equalsRay(0, 0, 0);
+  expect(rac.Ray.yAxis).equalsRay(0, 0, 1/4);
+});
+
+
+tools.test( function slope_yIntercept() {
   expect(hunty.ray(rac.Angle.zero).slope()).thresEquals(0);
   expect(hunty.ray(rac.Angle.half).slope()).thresEquals(0);
 
@@ -148,7 +141,7 @@ test('Function slope/yIntercept', () => {
 });
 
 
-test('Function withStart/withAngle/withX/withY', () => {
+tools.test( function withStart_Angle_X_Y() {
   expect(diagonal.withStart(hunty))
     .equalsRay(100, 100, 1/8);
 
@@ -162,7 +155,7 @@ test('Function withStart/withAngle/withX/withY', () => {
 });
 
 
-test('Function withAngleAdd/withAngleShift', () => {
+tools.test( function withAngleAdd_AngleShift() {
   expect(diagonal.withAngleAdd(rac.Angle.zero))
     .equalsRay(55, 55, 1/8);
   expect(diagonal.withAngleAdd(1/4))
@@ -182,7 +175,7 @@ test('Function withAngleAdd/withAngleShift', () => {
 });
 
 
-test('Transformations', () => {
+tools.test( function transformations() {
   expect(diagonal.inverse()).equalsRay(55, 55, 5/8);
   expect(horizontal.inverse()).equalsRay(100, 100, 1/2);
   expect(vertical.inverse()).equalsRay(100, 100, 3/4);
@@ -192,7 +185,7 @@ test('Transformations', () => {
 });
 
 
-test('Translations', () => {
+tools.test( function translations() {
   const distance = tools.hypotenuse(55);
 
   expect(diagonal.translateToDistance(0))
@@ -232,7 +225,7 @@ test('Translations', () => {
 });
 
 
-test('Point operations', () => {
+tools.test( function pointOperations() {
   expect(diagonal.angleToPoint(rac.Point.zero))
     .equalsAngle(rac.Angle.nw);
   expect(diagonal.angleToPoint(rac.Point(0, 55)))
@@ -256,7 +249,7 @@ test('Point operations', () => {
 });
 
 
-test('Axis intersection', () => {
+tools.test( function axisIntersection() {
   expect(vertical.pointAtX(55)).toBe(null);
   expect(vertical.pointAtY(55)).equalsPoint(100, 55);
 
@@ -278,7 +271,7 @@ test('Axis intersection', () => {
 });
 
 
-test('Ray intersection', () => {
+tools.test( function rayIntersection() {
   // diagonal-vertical
   expect(diagonal.pointAtIntersection(vertical))
     .equalsPoint(100, 100);
@@ -311,7 +304,7 @@ test('Ray intersection', () => {
 });
 
 
-test('Ray parallel intersection', () => {
+tools.test( function rayParallelIntersection() {
   const shiftedVertical = vertical.withStart(rac.Point.zero);
   expect(shiftedVertical.pointAtIntersection(vertical))
     .toBe(null);
@@ -364,7 +357,7 @@ tools.test( function pointProjection() {
 });
 
 
-test('Transforms to Segment', () => {
+tools.test( function transformsToSegment() {
   expect(diagonal.segment(100)).equalsSegment(55, 55, 1/8, 100);
   expect(diagonal.segment(0)).equalsSegment(55, 55, 1/8, 0);
 
@@ -398,7 +391,7 @@ test('Transforms to Segment', () => {
 });
 
 
-test('Transforms to Arc', () => {
+tools.test( function transformsToArc() {
   // Angle/Number parameter
   expect(diagonal.arc(100, 1/2))
     .equalsArc(55, 55, 100, 1/8, 1/2, true);
@@ -441,7 +434,21 @@ test('Transforms to Arc', () => {
 });
 
 
+tools.test( function text() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
 
-// test.todo('Check for coverage!');
-// ALMOST Full coverage! only missing undocumented functions
+  const defaultSphinx = diagonal.text('sphinx');
+  expect(defaultSphinx).equalsText(55, 55, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, 1/8);
+
+  const format = rac.Text.Format(ha.center, va.center, 3/4, 'sans', 14, 7, 5);
+  const formattedVow = vertical.text('vow', format);
+  expect(formattedVow).equalsText(100, 100, 'vow');
+  expect(formattedVow.format)
+    .equalsTextFormat(ha.center, va.center, 1/4, 'sans', 14, 7, 5);
+});
+
+
+// Full coverage!
 

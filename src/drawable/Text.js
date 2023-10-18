@@ -101,8 +101,8 @@ class Text {
   * Returns a string representation intended for human consumption.
   *
   * @example
-  * // returns 'Text((55,77) "sphinx of black quartz")'
   * rac.Text(55, 77, 'sphinx of black quartz').toString()
+  * // returns 'Text((55,77) "sphinx of black quartz")'
   *
   * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
@@ -170,6 +170,60 @@ class Text {
   withSize(newSize) {
     const newFormat = this.format.withSize(newSize);
     return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  /**
+  * Returns a new `Text` and `Format` with paddings set to the given values.
+  *
+  * When only `hPadding` is provided, that value is used for both
+  * horizontal and vertical padding.
+  *
+  * @param {Number} hPadding - The horizontal padding for the new `Text`
+  *   and `Text.Format`
+  * @param {Number} [vPadding] - The vertical padding for the new `Text`
+  *   and `Text.Format`; when ommited, `hPadding` is used instead
+  *
+  * @returns {Rac.Text.Format}
+  */
+  withPaddings(hPadding, vPadding = null) {
+    const newFormat = this.format.withPaddings(hPadding, vPadding);
+    return new Text(this.rac, this.point, this.string, newFormat);
+  }
+
+
+  /**
+  * Returns a new `Text` which is an upside-down equivalent of `this`
+  * and generally in the same location.
+  *
+  * The resulting `Text` is at the same location as `this`, using a
+  * [reversed]{@link Rac.Text.Format#reverse} format and oriented
+  * towards the [inverse]{@link Rac.Angle#inverse} of `format.angle`.
+  *
+  * @returns {Rac.Text}
+  */
+  reverse() {
+    let reverseFormat = this.format.reverse();
+    return new Text(this.rac, this.point, this.string, reverseFormat);
+  }
+
+
+  /**
+  * Returns `this` or a new `Text` and `Format` that will always be
+  * oriented to be upright and readable.
+  *
+  * Returns `this` when [`format.angle`]{@link Rac.Text.Format#angle} turn
+  * value is between _[3/4, 1/4)_, since `this` is an upright text already;
+  * otheriwse [`this.reverse()`]}{@link Rac.Text#reverse} is returned.
+  *
+  * @returns {Rac.Text}
+  */
+  upright() {
+    if (utils.isUprightText(this.format.angle.turn)) {
+      return this;
+    } else {
+      return this.reverse();
+    }
   }
 
 

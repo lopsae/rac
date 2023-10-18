@@ -6,12 +6,12 @@ const utils = require('../util/utils');
 
 
 /**
-* Angle measured with a `turn` value in the range *[0,1)* that represents
-* the amount of turn in a full circle.
+* Angle measured through a `turn` value in the range *[0,1)* that
+* represents the amount of turn in a full circle.
 *
 * Most functions through RAC that can receive an `Angle` parameter can
-* also receive a `number` value that will be used as `turn` to instantiate
-* a new `Angle`. The main exception to this behaviour are constructors,
+* also receive a `number` value that is used as `turn` to instantiate a new
+* `Angle`. The main exception to this behaviour are constructors,
 * which always expect to receive `Angle` objects.
 *
 * For drawing operations the turn value of `0` points right, with the
@@ -91,8 +91,8 @@ class Angle {
   * Returns a string representation intended for human consumption.
   *
   * @example
-  * // returns 'Angle(0.2)'
   * rac.Angle(0.2)).toString()
+  * // returns: 'Angle(0.2)'
   *
   * @param {Number} [digits] - The number of digits to print after the
   * decimal point, when ommited all digits are printed
@@ -113,9 +113,9 @@ class Angle {
   * The `otherAngle` parameter can only be `Angle` or `number`, any other
   * type returns `false`.
   *
-  * This method will consider turn values in the oposite ends of the range
+  * This method considers turn values in the oposite ends of the range
   * *[0,1)* as equals. E.g. `Angle` objects with `turn` values of `0` and
-  * `1 - rac.unitaryEqualityThreshold/2` will be considered equal.
+  * `1 - rac.unitaryEqualityThreshold/2` are considered equal.
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to compare
   * @returns {Boolean}
@@ -387,18 +387,22 @@ class Angle {
   }
 
   /**
-  * Returns a new `Angle` result of shifting the angle derived from
-  * `angle` to have `this` as its origin.
+  * Returns a new `Angle` result of adding `angle` to `this`, in the
+  * given `clockwise` orientation.
   *
-  * This operation is the equivalent to
+  * This operation is equivalent to shifting `angle` where `this` is
+  * considered the angle of origin.
+  *
+  * The return is equivalent to:
   * + `this.add(angle)` when clockwise
   * + `this.subtract(angle)` when counter-clockwise
   *
   * @example
-  * // returns 0.4, since 0.1 + 0.3 = 0.4
-  * rac.Angle(0.1).shift(0.3, true).turn
-  * // returns 0.8, since 0.1 - 0.3 = 0.8
-  * rac.Angle(0.1).shift(0.3, false).turn
+  * rac.Angle(0.1).shift(0.5, true).turn
+  * // returns 0.6, since 0.5 + 0.1 = 0.6
+  *
+  * rac.Angle(0.1).shift(0.5, false).turn
+  * // returns 0.4, since 0.5 - 0.1 = 0.4
   *
   * @param {Rac.Angle|Number} angle - An `Angle` to be shifted
   * @param {Boolean} [clockwise=true] - The orientation of the shift
@@ -413,21 +417,22 @@ class Angle {
 
 
   /**
-  * Returns a new `Angle` result of shifting `this` to have the angle
-  * derived from `origin` as its origin.
+  * Returns a new `Angle` result of adding `this` to `origin`, in the given
+  * `clockwise` orientation.
   *
-  * The result of `angle.shiftToOrigin(origin)` is equivalent to
-  * `origin.shift(angle)`.
+  * This operation is equivalent to shifting `this` where `origin` is
+  * considered the angle of origin.
   *
-  * This operation is the equivalent to
+  * The return is equivalent to:
   * + `origin.add(this)` when clockwise
   * + `origin.subtract(this)` when counter-clockwise
   *
   * @example
-  * // returns 0.4, since 0.3 + 0.1 = 0.4
-  * rac.Angle(0.1).shiftToOrigin(0.3, true).turn
-  * // returns 0.2, since 0.3 - 0.1 = 0.2
-  * rac.Angle(0.1).shiftToOrigin(0.3, false).turn
+  * rac.Angle(0.1).shiftToOrigin(0.5, true).turn
+  * // returns 0.6, since 0.5 + 0.1 = 0.6
+  *
+  * rac.Angle(0.1).shiftToOrigin(0.5, false).turn
+  * // returns 0.4, since 0.5 - 0.1 = 0.4
   *
   * @param {Rac.Angle|Number} origin - An `Angle` to use as origin
   * @param {Boolean} [clockwise=true] - The orientation of the shift

@@ -56,3 +56,11 @@ exports.drawArc = function(drawer, arc) {
     start.radians(), end.radians());
 }; // drawArc
 
+
+exports.drawText = function(drawer, text) {
+  // Text drawRoutine is sets `requiresPushPop`
+  // This `apply` gets reverted at `p5Drawer.drawObject`
+  text.format.apply(text.point);
+  drawer.p5.text(text.string, 0, 0);
+}; // drawText
+

@@ -79,6 +79,20 @@ Documentation that refers to the instance itself should use `this`.
 + Not: Returns a new `Segment` using the object and the given `length`.
 + Instead: Returns a new `Segment` using `this` and the given `length`.
 
+Preffer present tense to future tense.
++ Not: This method will consider turn values...
++ Innstead: This method considers turn values...
+
+Most functions that return objects start with _Returns a new `Object`_:
++ > Returns a new `Segment` from `this` to `point`.
+Afterwards in the documentation body, refer to the object being returned as _The resulting `Object`:
++ Not: When `this` and `point` are considered equal the new `Segment` defaults to...
++ Instead: When `this` and `point` are considered equal the resulting `Segment` defaults to...
+However, param descriptions should use _the new `Object`_:
++ > The length of the new `Segment`
+
+
+
 
 
 Usual Cases

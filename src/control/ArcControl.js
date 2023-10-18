@@ -41,7 +41,7 @@ class ArcControl extends Rac.Control {
 
     /**
     * Angle distance of the `anchor` arc available for user interaction.
-    * @type {Number}
+    * @type {Rac.Angle}
     */
     this.angleDistance = Rac.Angle.from(rac, angleDistance);
 

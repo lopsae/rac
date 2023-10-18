@@ -16,7 +16,8 @@ exports.rac = rac;
 const digits = 3;
 
 
-// Returns the hypotenuse of a triangle with catheti a,b, or a,a.
+// Returns the hypotenuse of a triangle with catheti `a` and `b`; when `b`
+// is ommited, both caththi are `a`.
 exports.hypotenuse = function(a, b = null) {
   b = b === null ? a : b;
   return Math.sqrt(a*a + b*b);
@@ -270,12 +271,19 @@ expect.extend({ equalsArc(arc, x, y, radius, someStartAngle, someEndAngle, clock
 }}); // equalsArc
 
 
-expect.extend({ equalsTextFormat(format, hAlign, vAlign, angle = 0, font = null, size = null) {
+expect.extend({ equalsTextFormat(format,
+  hAlign, vAlign,
+  angle = 0, font = null, size = null,
+  hPadding = 0, vPadding = 0)
+{
   const msg = new Messenger(this,
     'equalsTextFormat',
     'equal Text.Format properties');
 
-  const expected = rac.Text.Format(hAlign, vAlign, angle, font, size);
+  const expected = rac.Text.Format(
+    hAlign, vAlign,
+    angle, font, size,
+    hPadding, vPadding);
 
   if (format == null) {
     return msg.fail('null', expected);
@@ -366,6 +374,35 @@ expect.extend({ equalsBezier(bezier,
     `Received: ${msg.r(bezier.toString(digits))}`,
     `Expected: ${msg.e(expected.toString(digits))}`);
 }}); // equalsBezier
+
+
+expect.extend({ equalsColor(color, r, g, b, a) {
+  const msg = new Messenger(this,
+    'equalsColor',
+    'equal Color properties');
+
+  const expected = rac.Color(r, g, b, a);
+  if (color == null) {
+    return msg.fail('null', expected);
+  }
+
+  if (!(color instanceof Rac.Color)) {
+    let colorTypeName = Rac.utils.typeName(color);
+    return msg.fail(color.toString(), expected,
+      `Received type: ${msg.r(colorTypeName)}`,
+      `Expected type: ${msg.e('Rac.Color')}`);
+  }
+
+  if (color.rac !== expected.rac) {
+    return msg.fail(color.toString(digits), expected,
+      `Unexpected Rac instance: ${Rac.utils.typeName(color.rac)}`);
+  }
+
+  const isEqual = expected.equals(color);
+  return msg.done(isEqual, color, expected,
+    `Received: ${msg.r(color.toString(digits))}`,
+    `Expected: ${msg.e(expected.toString(digits))}`);
+}}); // equalsColor
 
 
 expect.extend({ toThrowNamed(closure, name, expectsError = true) {

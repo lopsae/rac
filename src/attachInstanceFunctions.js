@@ -22,10 +22,15 @@ const Rac = require('./Rac');
 */
 
 
-// Attaches the convenience functions to create objects with this instance
-// of Rac. These functions are attached as properties (instead of into the
+// Attaches convenience functions to create objects with this instance of
+// Rac. E.g. `rac.Color(...)`, `rac.Point(...)`.
+//
+// These functions are attached as properties (instead of into the
 // prototype) because these are later populated with more properties and
 // methods, and thus need to be independent for each instance.
+//
+// Ready made objects attached to these functions (E.g. `rac.Point.zero`)
+// are defined in the `instance.Point.js` and equivalent files.
 //
 // Intended to receive the a Rac instance as parameter.
 module.exports = function attachInstanceFunctions(rac) {
@@ -48,8 +53,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Number} [a=1]
   *
   * @returns {Rac.Color}
-  *
-  * @see instance.Color
   *
   * @function Color
   * @memberof Rac#
@@ -77,8 +80,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Stroke}
   *
-  * @see instance.Stroke
-  *
   * @function Stroke
   * @memberof Rac#
   */
@@ -102,8 +103,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @param {Rac.Color} [color=null]
   * @returns {Rac.Fill}
-  *
-  * @see instance.Fill
   *
   * @function Fill
   * @memberof Rac#
@@ -131,8 +130,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Style}
   *
-  * @see instance.Style
-  *
   * @function Style
   * @memberof Rac#
   */
@@ -150,13 +147,11 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let angle = rac.Angle(1/2)
+  * let angle = rac.Angle(0.2)
   * angle.rac === rac // true
   *
   * @param {Number} turn - The turn value of the angle, in the range `[O,1)`
   * @returns {Rac.Angle}
-  *
-  * @see instance.Angle
   *
   * @function Angle
   * @memberof Rac#
@@ -183,8 +178,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Point}
   *
-  * @see instance.Point
-  *
   * @function Point
   * @memberof Rac#
   */
@@ -202,7 +195,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let ray = rac.Ray(55, 77, 1/2)
+  * let ray = rac.Ray(55, 77, 0.2)
   * ray.rac === rac // true
   *
   * @param {Number} x
@@ -210,8 +203,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Rac.Angle|Number} angle
   *
   * @returns {Rac.Ray}
-  *
-  * @see instance.Ray
   *
   * @function Ray
   * @memberof Rac#
@@ -232,7 +223,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let segment = rac.Segment(55, 77, 1/2, 100)
+  * let segment = rac.Segment(55, 77, 0.2, 100)
   * segment.rac === rac // true
   *
   * @param {Number} x
@@ -241,8 +232,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Number} length
   *
   * @returns {Rac.Segment}
-  *
-  * @see instance.Segment
   *
   * @function Segment
   * @memberof Rac#
@@ -264,7 +253,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let arc = rac.Arc(55, 77, 1/4)
+  * let arc = rac.Arc(55, 77, 0.2)
   * arc.rac === rac // true
   *
   * @param {Number} x - The _x_ coordinate for the arc center
@@ -275,8 +264,6 @@ module.exports = function attachInstanceFunctions(rac) {
   * @param {Boolean} [clockwise=true] The orientation of the arc
   *
   * @returns {Rac.Arc}
-  *
-  * @see instance.Arc
   *
   * @function Arc
   * @memberof Rac#
@@ -300,7 +287,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let text = rac.Text(55, 77, "black quartz")
+  * let text = rac.Text(55, 77, 'black quartz')
   * text.rac === rac // true
   *
   * @param {Number} x - The x coordinate location for the drawn text
@@ -310,8 +297,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The format for the drawn text
   *
   * @returns {Rac.Text}
-  *
-  * @see instance.Text
   *
   * @function Text
   * @memberof Rac#
@@ -334,7 +319,7 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @example
   * let rac = new Rac()
-  * let format = rac.Text.Format('left', 'baseline', 1/8)
+  * let format = rac.Text.Format('left', 'baseline', 0.2)
   * format.rac === rac // true
   *
   * @param {String} hAlign - The horizontal alignment, left-to-right; one
@@ -345,10 +330,10 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The angle towards which the text is drawn
   * @param {String} [font=null] - The font name
   * @param {Number} [size=null] - The font size
+  * @param {Number} [hPadding=0] - The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0] - The vertical padding, top-to-bottom
   *
   * @returns {Rac.Text.Format}
-  *
-  * @see instance.Text.Format
   *
   * @function TextFormat
   * @memberof Rac#
@@ -358,15 +343,20 @@ module.exports = function attachInstanceFunctions(rac) {
     vAlign,
     angle = rac.Angle.zero,
     font = null,
-    size = null)
+    size = null,
+    hPadding = 0,
+    vPadding = 0)
   {
-    // This functions uses `rac` instead of `this`, since `this` points to
-    // `rac` here and to `rac.Text` in the `Text.Format` alias
+    // This functions uses `rac` instead of `this`, since `this` may point
+    // to different objects:
+    // + `rac` in this function body
+    // + `rac.Text` in the `Text.Format` alias bellow
     angle = Rac.Angle.from(rac, angle);
     return new Rac.Text.Format(
       rac,
       hAlign, vAlign,
-      angle, font, size);
+      angle, font, size,
+      hPadding, vPadding);
   };
 
 
@@ -382,6 +372,8 @@ module.exports = function attachInstanceFunctions(rac) {
   *   The angle towards which the text is drawn
   * @param {String} [font=null] - The font name
   * @param {Number} [size=null] - The font size
+  * @param {Number} [hPadding=0] - The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0] - The vertical padding, top-to-bottom
   *
   * @function Format
   * @memberof instance.Text#
@@ -406,8 +398,6 @@ module.exports = function attachInstanceFunctions(rac) {
   *
   * @returns {Rac.Bezier}
   *
-  * @see instance.Bezier
-  *
   * @function Bezier
   * @memberof Rac#
   */
@@ -421,6 +411,28 @@ module.exports = function attachInstanceFunctions(rac) {
     const end = new Rac.Point(this, endX, endY);
     return new Rac.Bezier(this, start, startAnchor, endAnchor, end);
   };
+
+
+  /**
+  * Convenience function to create a new `Composite`. The created
+  * `composite.rac` is setup with `this`.
+  *
+  * @example
+  * let rac = new Rac()
+  * let composite = rac.Composite()
+  * composite.rac === rac // true
+  *
+  * @param {Array} sequence - An array of drawable objects to contain
+  *
+  * @returns {Rac.Composite}
+  *
+  * @function Composite
+  * @memberof Rac#
+  */
+  rac.Composite = function makeComposite(sequence = []) {
+    return new Rac.Composite(this, sequence);
+  };
+
 
 }; // attachInstanceFunctions
 

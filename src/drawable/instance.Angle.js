@@ -20,7 +20,9 @@ const Rac = require('../Rac');
 * @namespace instance.Angle
 */
 module.exports = function attachRacAngle(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Angle` is attached in `attachInstanceFunctions.js`.
 
   /**
   * Returns an `Angle` derived from `something`.
@@ -80,7 +82,7 @@ module.exports = function attachRacAngle(rac) {
   /**
   * An `Angle` with turn `0`.
   *
-  * Also named as: `right`, `r`, `east`, `e`.
+  * Also available as: `right`, `r`, `east`, `e`.
   *
   * @name zero
   * @type {Rac.Angle}
@@ -91,7 +93,7 @@ module.exports = function attachRacAngle(rac) {
   /**
   * An `Angle` with turn `1/2`.
   *
-  * Also named as: `left`, `l`, `west`, `w`, `inverse`.
+  * Also available as: `left`, `l`, `west`, `w`, `inverse`.
   *
   * @name half
   * @type {Rac.Angle}
@@ -103,7 +105,7 @@ module.exports = function attachRacAngle(rac) {
   /**
   * An `Angle` with turn `1/4`.
   *
-  * Also named as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
+  * Also available as: `down`, `d`, `bottom`, `b`, `south`, `s`, `square`.
   *
   * @name quarter
   * @type {Rac.Angle}
@@ -115,25 +117,25 @@ module.exports = function attachRacAngle(rac) {
   /**
   * An `Angle` with turn `1/8`.
   *
-  * Also named as: `bottomRight`, `br`, `se`.
+  * Also available as: `bottomRight`, `br`, `se`.
   *
   * @name eighth
   * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
-  rac.Angle.eighth =  rac.Angle(1/8);
+  rac.Angle.eighth = rac.Angle(1/8);
 
   /**
   * An `Angle` with turn `7/8`, negative angle of
   * [`eighth`]{@link instance.Angle#eighth}.
   *
-  * Also named as: `topRight`, `tr`, `ne`.
+  * Also available as: `topRight`, `tr`, `ne`.
   *
   * @name neighth
   * @type {Rac.Angle}
   * @memberof instance.Angle#
   */
-  rac.Angle.neighth =  rac.Angle(-1/8);
+  rac.Angle.neighth = rac.Angle(-1/8);
 
 
   /**
@@ -145,10 +147,20 @@ module.exports = function attachRacAngle(rac) {
   */
   rac.Angle.sixteenth = rac.Angle(1/16);
 
+
+  /**
+  * An `Angle` with turn `1/10`.
+  *
+  * @name tenth
+  * @type {Rac.Angle}
+  * @memberof instance.Angle#
+  */
+  rac.Angle.tenth = rac.Angle(1/10);
+
   /**
   * An `Angle` with turn `3/4`.
   *
-  * Also named as: `up`, `u`, `top`, `t`.
+  * Also available as: `up`, `u`, `top`, `t`.
   *
   * @name north
   * @type {Rac.Angle}

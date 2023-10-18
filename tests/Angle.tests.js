@@ -59,14 +59,10 @@ tools.test( function identity() {
 
 
 tools.test( function toString() {
-  const string = rac.Angle(0.12345).toString();
-  expect(string).toMatch('Angle');
-  expect(string).toMatch('0.12345');
+  const angle = rac.Angle(0.12345);
 
-  const cutString = rac.Angle(0.12345).toString(2);
-  expect(cutString).toMatch('Angle');
-  expect(cutString).toMatch('0.12');
-  expect(cutString).not.toMatch('0.123');
+  expect(angle.toString()) .toBe('Angle(0.12345)');
+  expect(angle.toString(2)).toBe('Angle(0.12)');
 });
 
 
@@ -83,7 +79,28 @@ tools.test( function thrownErrors() {
 });
 
 
-tools.test( function equality() {
+tools.test( function instanceMembers() {
+  expect(rac.Angle.zero).equalsAngle(0.0);
+
+  expect(rac.Angle.half).equalsAngle(0.5);
+  expect(rac.Angle.inverse).equalsAngle(0.5);
+
+  expect(rac.Angle.quarter).equalsAngle(0.25);
+  expect(rac.Angle.square).equalsAngle(0.25);
+
+  expect(rac.Angle.eighth).equalsAngle(0.125);
+  expect(rac.Angle.neighth).equalsAngle(-0.125);
+
+  expect(rac.Angle.sixteenth).equalsAngle(0.0625);
+
+  expect(rac.Angle.tenth).equalsAngle(0.1);
+
+  // TODO: is there an easy way to check for a collection of angles
+  // to match a single one? to test the rest of instance members
+});
+
+
+tools.test( function equalityThresholds() {
   const threshold = rac.unitaryEqualityThreshold;
   const bump = threshold/16;
   const aboveThreshold = threshold + bump;
@@ -196,7 +213,7 @@ tools.test( function radianDegreesTransforms() {
 });
 
 
-tools.test( function sineCosineTangent() {
+tools.test( function sinCosTan() {
   expect(rac.Angle.zero.sin())   .uniThresEquals(0)
   expect(rac.Angle.quarter.sin()).uniThresEquals(1)
   expect(rac.Angle.half.sin())   .uniThresEquals(0)
@@ -357,26 +374,36 @@ test('Function distance', () => {
 });
 
 
-test('Function shift/shiftToOrigin', () => {
-  expect(rac.Angle.zero.shift(rac.Angle.quarter))
-    .equalsAngle(1/4);
-  expect(rac.Angle.zero.shift(1/4, false))
-    .equalsAngle(3/4);
+tools.test( function shiftAndShiftToOrigin() {
+  expect(rac.Angle.zero.shift(rac.Angle.zero))
+    .equalsAngle(0.0);
+  expect(rac.Angle.zero.shift(0.0, false))
+    .equalsAngle(0.0);
 
-  expect(rac.Angle.half.shift(rac.Angle.quarter))
-    .equalsAngle(3/4);
-  expect(rac.Angle.half.shift(1/4, false))
-    .equalsAngle(1/4);
+  expect(rac.Angle.zero.shift(rac.Angle.tenth))
+    .equalsAngle(0.1);
+  expect(rac.Angle.zero.shift(0.1, false))
+    .equalsAngle(0.9);
 
-  expect(rac.Angle.zero.shiftToOrigin(rac.Angle.quarter))
-    .equalsAngle(1/4);
-  expect(rac.Angle.zero.shiftToOrigin(1/4, false))
-    .equalsAngle(1/4);
+  expect(rac.Angle.half.shift(rac.Angle.tenth))
+    .equalsAngle(0.6);
+  expect(rac.Angle.half.shift(0.1, false))
+    .equalsAngle(0.4);
 
-  expect(rac.Angle.quarter.shiftToOrigin(rac.Angle.quarter))
-    .equalsAngle(1/2);
-  expect(rac.Angle.quarter.shiftToOrigin(1/4, false))
-    .equalsAngle(0);
+  expect(rac.Angle.zero.shiftToOrigin(rac.Angle.zero))
+    .equalsAngle(0.0);
+  expect(rac.Angle.zero.shiftToOrigin(0.0, false))
+    .equalsAngle(0.0);
+
+  expect(rac.Angle.tenth.shiftToOrigin(rac.Angle.zero))
+    .equalsAngle(0.1);
+  expect(rac.Angle.tenth.shiftToOrigin(0.0, false))
+    .equalsAngle(0.9);
+
+  expect(rac.Angle.tenth.shiftToOrigin(rac.Angle.half))
+    .equalsAngle(0.6);
+  expect(rac.Angle.tenth.shiftToOrigin(0.5, false))
+    .equalsAngle(0.4);
 });
 
 

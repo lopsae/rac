@@ -17,7 +17,9 @@
 * @namespace instance.Ray
 */
 module.exports = function attachRacRay(rac) {
-  // Intended to receive a Rac instance as parameter
+  // Intended to receive a Rac instance as parameter.
+  //
+  // The function `rac.Ray` is attached in `attachInstanceFunctions.js`.
 
   /**
   * A `Ray` with all values set to zero, starts at

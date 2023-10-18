@@ -11,15 +11,24 @@ Runs tests for RAC.
 
 
 ### `npm run dist`
-Produces a distribution build and starts localhost server.
+Produces a distribution build and copies it to github-io pages.
+
 
 
 ### `npm start`
-Produces a debug build and starts localhost server, rebuilds whenever a source file changes.
+Produces a debug build and copies it to `docs/dist/a.b.c` making the files available to the github-io local server; rebuilds and updates these files whenever a source file changes.
 
 
 ### `npm run pages`
-Starts the local jekyll server for the github-io pages, and opens its index.
+Starts the local jekyll server for the github-io pages at `http://127.0.0.1:4000`, and opens the index.
+
+
+### `npm run serveStandalone`
+Produces a debug build and starts standalone server at `http://localhost:9001`, rebuilds whenever a source file changes.
+
+
+### `npm run serveDist`
+Starts a standalone server at `http://localhost:9001` that serves the current contents of `dist`.
 
 
 ### `npm run docs`

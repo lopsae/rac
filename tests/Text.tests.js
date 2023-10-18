@@ -10,10 +10,13 @@ const rac = tools.rac;
 const ha = Rac.Text.Format.horizontalAlign;
 const va = Rac.Text.Format.verticalAlign;
 
-const zebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.centered);
+// With default format, topLeft
 const quartz = rac.Text(100, 100, 'black quartz');
+// With ready-built format
+const zebras = rac.Text(55, 55, 'daft zebras', rac.Text.Format.centered);
+// With custom format
 const nymph = rac.Text(77, 77, 'quiz nymph',
-  rac.Text.Format(ha.right, va.baseline, 3/4, 'sans', 14));
+  rac.Text.Format(ha.right, va.baseline, 3/4, 'sans', 14, 7, 5));
 
 
 tools.test( function identity() {
@@ -25,16 +28,16 @@ tools.test( function identity() {
   expect(otherRac.Text.sphinx.equals(rac.Text.sphinx)).toBe(true);
 
   // Testing Constants
-  expect(zebras).equalsText(55, 55, 'daft zebras');
-  expect(zebras.format).equalsTextFormat(ha.center, va.center);
-
   expect(quartz).equalsText(100, 100, 'black quartz');
   expect(quartz.format).equalsTextFormat(ha.left, va.top);
 
-  expect(nymph).equalsText(77, 77, 'quiz nymph');
-  expect(nymph.format).equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14);
+  expect(zebras).equalsText(55, 55, 'daft zebras');
+  expect(zebras.format).equalsTextFormat(ha.center, va.center);
 
-  // Inequality
+  expect(nymph).equalsText(77, 77, 'quiz nymph');
+  expect(nymph.format).equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14, 7, 5);
+
+  // Assertion Inequality
   expect(zebras).not.equalsText(0,  55, 'daft zebras');
   expect(zebras).not.equalsText(55, 0,  'daft zebras');
   expect(zebras).not.equalsText(55, 55, 'boxing wizards');
@@ -160,12 +163,50 @@ tools.test(function withAngle_Font_Size() {
   expect(quartz.withFont('sans').format)
     .equalsTextFormat(ha.left, va.top, 0, 'sans');
   expect(nymph.withFont(null).format)
-    .equalsTextFormat(ha.right, va.baseline, 3/4, null, 14);
+    .equalsTextFormat(ha.right, va.baseline, 3/4, null, 14, 7, 5);
 
   expect(quartz.withSize(55).format)
     .equalsTextFormat(ha.left, va.top, 0, null, 55);
   expect(nymph.withSize(null).format)
-    .equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', null);
+    .equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', null, 7, 5);
+});
+
+
+tools.test(function withPaddings() {
+  expect(quartz.withPaddings(77, 55).format)
+    .equalsTextFormat(ha.left, va.top, 0, null, null, 77, 55);
+  expect(nymph.withPaddings(77, 55).format)
+    .equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14, 77, 55);
+
+  expect(quartz.withPaddings(77).format)
+    .equalsTextFormat(ha.left, va.top, 0, null, null, 77, 77);
+  expect(nymph.withPaddings(55).format)
+    .equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14, 55, 55);
+});
+
+
+tools.test( function reverse() {
+  expect(quartz.reverse().format).equalsTextFormat(ha.right, va.bottom, 1/2);
+  expect(zebras.reverse().format).equalsTextFormat(ha.center, va.center, 1/2);
+  expect(nymph .reverse().format).equalsTextFormat(ha.left, va.baseline, 1/4, 'sans', 14, 7, 5);
+
+  expect(zebras.withAngle(3/8).reverse().format)
+    .equalsTextFormat(ha.center, va.center, 7/8);
+});
+
+
+tools.test( function upright() {
+  // None of the constants are reversed, so none change
+  expect(quartz.upright().format).equalsTextFormat(ha.left, va.top, 0);
+  expect(zebras.upright().format).equalsTextFormat(ha.center, va.center, 0);
+  expect(nymph .upright().format).equalsTextFormat(ha.right, va.baseline, 3/4, 'sans', 14, 7, 5);
+
+  expect(quartz.withAngle(1/4).upright().format)
+    .equalsTextFormat(ha.right, va.bottom, 3/4);
+  expect(zebras.withAngle(3/8).upright().format)
+    .equalsTextFormat(ha.center, va.center, 7/8);
+  expect(nymph .withAngle(1/2).upright().format)
+    .equalsTextFormat(ha.left, va.baseline, 0, 'sans', 14, 7, 5);
 });
 
 

@@ -64,7 +64,7 @@ module.exports = function(grunt) {
           port: 9001,
           base: './dist',
           directory: {
-            path: './',
+            path: './dist',
             options: {icons: true, view: 'detail'}
           },
           debug: true
@@ -73,9 +73,18 @@ module.exports = function(grunt) {
     }, // connect
 
     watch: {
-      serve_again: {
+      rebuild_dev_dirty: {
         files: ['src/**/*.js'],
-        tasks: ['makeVersionFile:local', 'browserify:dev_dirty']
+        tasks: [
+          'makeVersioningFile:local',
+          'browserify:dev_dirty']
+      },
+      rebuild_to_pages: {
+        files: ['src/**/*.js'],
+        tasks: [
+          'makeVersioningFile:local',
+          'browserify:dev_dirty',
+          'copyDistToPages:dev']
       }
     }, // watch
 
@@ -205,7 +214,6 @@ module.exports = function(grunt) {
     grunt.config.requires('pkg.version');
     const pkgVersion = grunt.config('pkg.version');
 
-    // TODO: why is this necessary? does a 0.1 version becomes a float?
     const versionString = '' + pkgVersion;
 
     let templateContents = grunt.file.read('template/docs_home.md.template');
@@ -245,7 +253,7 @@ module.exports = function(grunt) {
     const statusCount = grunt.config('exec.statusCount.value');
 
     if (isProduction && statusCount != 0) {
-      grunt.fatal(`Production build string must have a clean workspace - statusCount:${statusCount}`)
+      grunt.fatal(`Production build must have a clean workspace - statusCount:${statusCount}`)
       return
     }
 
@@ -280,8 +288,8 @@ module.exports = function(grunt) {
 
 
   // Saves the version file with the current version and build, saved into
-  // `built/version.js`.
-  grunt.registerTask('saveVersionFile', function() {
+  // `built/versioning.js`.
+  grunt.registerTask('saveVersioningFile', function() {
     grunt.config.requires(
       'pkg.version',
       'makeBuildString.buildString',
@@ -293,17 +301,17 @@ module.exports = function(grunt) {
 
     const versionString = '' + pkgVersion;
 
-    const templateContents = grunt.file.read('template/version.js.template');
+    const templateContents = grunt.file.read('template/versioning.js.template');
     const processedTemplate = grunt.template.process(templateContents, {data: {
       versionString: versionString,
       buildString:   buildString,
       datedString:   datedString
     }});
 
-    const outputFile = 'built/version.js';
+    const outputFile = 'built/versioning.js';
     grunt.file.write(outputFile, processedTemplate);
 
-    grunt.log.writeln(`Saved version file ${versionString.green} ${buildString.green} ${datedString.green}`);
+    grunt.log.writeln(`Saved versioning file ${versionString.green} ${buildString.green} ${datedString.green}`);
   });
 
 
@@ -313,7 +321,7 @@ module.exports = function(grunt) {
   //   modifications are present in the workspace.
   // + `production` - Makes a production version file, the workspace MUST
   //   be clean of any modifications.
-  grunt.registerTask('makeVersionFile', function(target) {
+  grunt.registerTask('makeVersioningFile', function(target) {
     let validTargets = ['local', 'production'];
     if (!validTargets.includes(target)) {
       grunt.fatal(`Unsupported target: ${target}`)
@@ -326,13 +334,38 @@ module.exports = function(grunt) {
       'exec:statusCount',
       `makeBuildString:${target}`,
       'makeDatedString',
-      'saveVersionFile');
+      'saveVersioningFile');
     if (target === undefined) {
       grunt.log.writeln(`Queued all tasks to make version file`);
     } else {
       grunt.log.writeln(`Queued all tasks to make version file - target:${target}`);
     }
 
+  });
+
+
+  // Copies files present in `dist` to the `docs/dist/version` folder, to
+  // make these available to the pages server.
+  grunt.registerTask('copyDistToPages', function(target) {
+    let validTargets = ['dev', 'production'];
+    if (!validTargets.includes(target)) {
+      grunt.fatal(`Unsupported target: ${target}`)
+      return
+    }
+
+    grunt.config.requires('pkg.version');
+    const pkgVersion  = grunt.config('pkg.version');
+    const versionString = '' + pkgVersion;
+
+    const versionFolder = `docs/dist/${versionString}`;
+
+    // `dev` target files are default
+    grunt.file.copy('dist/rac.dev.js', `${versionFolder}/rac.dev.js`);
+
+    if (target === 'production') {
+      grunt.file.copy('dist/rac.min.js', `${versionFolder}/rac.min.js`);
+      grunt.file.copy('dist/rac.js', `${versionFolder}/rac.js`);
+    }
   });
 
 
@@ -346,26 +379,39 @@ module.exports = function(grunt) {
   grunt.registerTask('deleteDocs', ['exec:deleteDocs']);
 
 
+  // Serves the files currently in `dist`
+  grunt.registerTask('serveDist', ['connect:server:keepalive']);
 
-  // Builds a dev bundle, serves it, and watches for source changes
-  grunt.registerTask('serve', [
-    'makeVersionFile:local',
+
+  // Builds a dev bundle, serves it though a standalone web-server, and
+  // watches for source changes to update the served files
+  grunt.registerTask('serveStandalone', [
+    'makeVersioningFile:local',
     'browserify:dev_dirty',
     'connect:server',
-    'watch:serve_again']);
+    'watch:rebuild_dev_dirty']);
 
 
-  // Builds a dev/main/mini bundle with a clean version, serves it for
-  // confirmation.
+  // Builds a dev bundle, copies it to pages, and watches to rebuild and
+  // update the copied files
+  grunt.registerTask('serveToPages', [
+    'makeVersioningFile:local',
+    'browserify:dev_dirty',
+    'copyDistToPages:dev',
+    'watch:rebuild_to_pages']);
+
+
+  // Builds a dev/main/mini bundle with a clean version, and copies these
+  // to the github-io pages
   grunt.registerTask('dist', [
-    'makeVersionFile:production',
+    'makeVersioningFile:production',
     'browserify:dev_clean',
     'browserify:main',
     'uglify',
-    'connect:server:keepalive']);
+    'copyDistToPages:production']);
 
 
-  grunt.registerTask('default', ['serve']);
+  grunt.registerTask('default', ['serveToPages']);
 
 };
 

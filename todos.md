@@ -13,6 +13,16 @@ For version change
 
 Future
 ------
++ add segment.endRay, segment.rayAtLengthRatio, segment.rayAtLength
++ Create Drawable namespace, and document the drawable methods
++ add Color.hexString()
++ Update docs for Color.fromHex support for 8 hex numerals
++ add textFormat.withFormatAlign(otherFormt) to copy only align properties
++ add textFormat.withAlign(x, y) to set align properties
++ add text.withAlign(otherFormat) to copy only align properties
+
++ Create a namespace for `CanBeAngle` to replace `{Rac.Angle|Number}` and the phrases `derived from angle` or `produced from angle`. Angleable? CanBeAngle? ContainsAngle? AngleProvider? AngleTransformable?
++ A lot of `@see` now seem superfluous, remove?
 + see if a test page can be created for an example of tags, see https://jsdoc.app/tags-ignore.html
 + Control.anchor, make it a method to type check
 + Controller.pointer..., type check the received object

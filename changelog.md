@@ -1,9 +1,31 @@
 Changelog
 =========
 
+1.3.0 - 2023 October 18th
+-------------------------
++ Implement padding for `Text` drawing through `Text.Format`
++ Add properties `textFormat.hPadding`, `textFormat.vPadding`
++ Add `ray.text`, `segment.text`, `arc.text`
++ Add `text.reverse`, `text.upright`, `text.withPaddings`
++ Add `textFormat.withPaddings`
++ Add `segment.translateToLengthRatio`
++ Add `arc.shift`, `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
++ Add `rac.Text.Format.bottomCenter`, `rac.Text.Format.bottomRight`
++ Add `rac.Text.Format.baseline...` constants
++ Add abbreviated shorthands for `rac.Text.Format` ready-made formats, like `rac.Text.Format.tl`
++ Add `rac.Angle.tenth`
++ Add `rac.Composite` function
++ Implement debug routines for `Text`
++ Improve debug routines for `Angle`, `Point`, `Ray`, `Segment` and `Arc`
++ Improve tests for `Color`
++ Renamed `version` file to `versioning`
++ Overall documentation improvements and corrections
+
+
+
 1.2.1 - 2022 October 27th
 -------------------------
-Add Rac.Dated and overhaul documentation examples and code blocks
+Add Rac.dated and overhaul documentation examples and code blocks
 + Fix incorrect arrows showing for ArcControl with a full circle `angleDistance`
 + Add `Rac.dated` with the date of the build
 + Update `minami-rac` to `1.4.1` with overhauls to `example` and `code` blocks

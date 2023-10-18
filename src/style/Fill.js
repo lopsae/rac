@@ -8,9 +8,9 @@ const utils = require('../util/utils');
 /**
 * Fill [color]{@link Rac.Color} for drawing.
 *
-* Can be used as `fill.apply()` to apply the fill settings globally, or as
-* the parameter of `drawable.draw(fill)` to apply the fill only for that
-* call.
+* Can be used with `fill.apply()` to apply the fill settings globally, or
+* as the parameter of `drawable.draw(fill)` to apply the fill only during
+* that call.
 *
 * When `color` is `null` a *no-fill* setting is applied.
 *
@@ -55,6 +55,12 @@ class Fill {
     * @type {Rac}
     */
     this.rac = rac;
+
+    /**
+    * The `Color` to apply for fills, when `null` a *no-fill* setting is
+    * applied.
+    * @type {?Color}
+    */
     this.color = color;
   }
 

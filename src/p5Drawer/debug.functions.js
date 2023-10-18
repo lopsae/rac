@@ -4,8 +4,15 @@
 const Rac = require('../Rac');
 
 
-function reversesText(angle) {
-  return angle.turn < 3/4 && angle.turn >= 1/4;
+// Creates and restores the drawing context for a dashed stroke while
+// `closure` is called.
+function dashedDraw(drawer, segment, closure) {
+  const context = drawer.p5.drawingContext;
+  context.save();
+  context.lineCap = 'butt';
+  context.setLineDash(segment);
+  closure();
+  context.restore();
 }
 
 
@@ -30,48 +37,33 @@ exports.debugAngle = function(drawer, angle, point, drawsText) {
     .withLengthAdd(pointRadius)
     .draw();
 
-  // Mini arc markers
+  // Mini angle arc markers
   let angleArc = point.arc(markerRadius, rac.Angle.zero, angle);
-  let context = drawer.p5.drawingContext;
-  let strokeWeight = context.lineWidth;
-  context.save(); {
-    context.lineCap = 'butt';
-    context.setLineDash([6, 4]);
-    // Angle arc
-    angleArc.draw();
+  dashedDraw(drawer, [6, 4], ()=>{ angleArc.draw(); });
 
-    if (!angleArc.isCircle()) {
-      // Outside angle arc
-      context.setLineDash([2, 4]);
-      angleArc
-        .withRadius(markerRadius*3/4)
-        .withClockwise(false)
-        .draw();
-    }
-  };
-  context.restore();
+  // Outside angle arc
+  if (!angleArc.isCircle()) {
+    let outsideAngleArc = angleArc
+      .withRadius(markerRadius*3/4)
+      .withClockwise(false);
+    dashedDraw(drawer, [2, 4], ()=>{ outsideAngleArc.draw(); });
+  }
 
-  // Text
-  if (drawsText !== true) { return; }
+  // Debug Text
+  if (drawsText !== true) return;
 
-  // Normal orientation
-  let format = new Rac.Text.Format(
-    rac,
+  let format = new Rac.Text.Format(rac,
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.center,
     angle,
     drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
-  if (reversesText(angle)) {
-    // Reverse orientation
-    format = format.reverse();
-  }
+    drawer.debugTextOptions.size,
+    markerRadius*2, 0);
 
   // Turn text
   let turnString = `turn:${angle.turn.toFixed(digits)}`;
-  point
-    .pointToAngle(angle, markerRadius*2)
-    .text(turnString, format)
+  point.text(turnString, format)
+    .upright()
     .draw(drawer.debugTextStyle);
 }; // debugAngle
 
@@ -99,22 +91,51 @@ exports.debugPoint = function(drawer, point, drawsText) {
     .withLengthRatio(1/2)
     .draw();
 
-  // Text
-  if (drawsText !== true) { return; }
+  // Debug Text
+  if (drawsText !== true) return;
 
-  let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
   let format = new Rac.Text.Format(
     rac,
     Rac.Text.Format.horizontalAlign.left,
     Rac.Text.Format.verticalAlign.top,
     rac.Angle.e,
     drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
-  point
-    .pointToAngle(rac.Angle.se, pointRadius*2)
-    .text(string, format)
+    drawer.debugTextOptions.size,
+    pointRadius, pointRadius);
+
+  let string = `x:${point.x.toFixed(digits)}\ny:${point.y.toFixed(digits)}`;
+  point.text(string, format)
     .draw(drawer.debugTextStyle);
 }; // debugPoint
+
+
+// Shared text drawing for ray and segment
+function drawRayTexts(drawer, ray, topString, bottomString) {
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
+  const font        = drawer.debugTextOptions.font;
+  const size        = drawer.debugTextOptions.size;
+  const pointRadius = drawer.debugPointRadius;
+
+  let topFormat = new Rac.Text.Format(
+    drawer.rac,
+    hEnum.left, vEnum.bottom,
+    ray.angle, font, size,
+    pointRadius, pointRadius);
+  let bottomFormat = new Rac.Text.Format(
+    drawer.rac,
+    hEnum.left, vEnum.top,
+    ray.angle, font, size,
+    pointRadius, pointRadius);
+
+  // Texts
+  ray.text(topString, topFormat)
+    .upright()
+    .draw(drawer.debugTextStyle);
+  ray.text(bottomString, bottomFormat)
+    .upright()
+    .draw(drawer.debugTextStyle);
+};
 
 
 exports.debugRay = function(drawer, ray, drawsText) {
@@ -161,44 +182,13 @@ exports.debugRay = function(drawer, ray, drawsText) {
       .draw();
   }
 
-  // Text
-  if (drawsText !== true) { return; }
+  // Debug Text
+  if (drawsText !== true) return;
 
-  const angle  = ray.angle;
-  const hEnum = Rac.Text.Format.horizontalAlign;
-  const vEnum = Rac.Text.Format.verticalAlign;
-  const font   = drawer.debugTextOptions.font;
-  const size   = drawer.debugTextOptions.size;
   const digits = drawer.debugTextOptions.fixedDigits;
-
-  // Normal orientation
-  let startFormat = new Rac.Text.Format(rac,
-    hEnum.left, vEnum.bottom,
-    angle, font, size);
-  let angleFormat = new Rac.Text.Format(rac,
-    hEnum.left, vEnum.top,
-    angle, font, size);
-  if (reversesText(angle)) {
-    // Reverse orientation
-    startFormat = startFormat.reverse();
-    angleFormat = angleFormat.reverse();
-  }
-
-  // Start text
   const startString = `start:(${ray.start.x.toFixed(digits)},${ray.start.y.toFixed(digits)})`;
-  ray.start
-    .pointToAngle(angle, pointRadius)
-    .pointToAngle(angle.subtract(1/4), markerRadius/2)
-    .text(startString, startFormat)
-    .draw(drawer.debugTextStyle);
-
-  // Angle text
-  const angleString = `angle:${angle.turn.toFixed(digits)}`;
-  ray.start
-    .pointToAngle(angle, pointRadius)
-    .pointToAngle(angle.add(1/4), markerRadius/2)
-    .text(angleString, angleFormat)
-    .draw(drawer.debugTextStyle);
+  const angleString = `angle:${ray.angle.turn.toFixed(digits)}`;
+  drawRayTexts(drawer, ray, startString, angleString);
 }; // debugRay
 
 
@@ -206,7 +196,6 @@ exports.debugSegment = function(drawer, segment, drawsText) {
   const rac =          drawer.rac;
   const pointRadius =  drawer.debugPointRadius;
   const markerRadius = drawer.debugMarkerRadius;
-  const digits =       drawer.debugTextOptions.fixedDigits;
 
   segment.draw();
 
@@ -261,47 +250,13 @@ exports.debugSegment = function(drawer, segment, drawsText) {
     .nextSegmentToPoint(endMarkerEnd.endPoint())
     .draw();
 
+  // Debug Text
+  if (drawsText !== true) return;
 
-  // Text
-  if (drawsText !== true) { return; }
-
-  let angle = segment.angle();
-  // Normal orientation
-  let lengthFormat = new Rac.Text.Format(
-    rac,
-    Rac.Text.Format.horizontalAlign.left,
-    Rac.Text.Format.verticalAlign.bottom,
-    angle,
-    drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
-  let angleFormat = new Rac.Text.Format(
-    rac,
-    Rac.Text.Format.horizontalAlign.left,
-    Rac.Text.Format.verticalAlign.top,
-    angle,
-    drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
-  if (reversesText(angle)) {
-    // Reverse orientation
-    lengthFormat = lengthFormat.reverse();
-    angleFormat = angleFormat.reverse();
-  }
-
-  // Length
+  const digits = drawer.debugTextOptions.fixedDigits;
   let lengthString = `length:${segment.length.toFixed(digits)}`;
-  segment.startPoint()
-    .pointToAngle(angle, pointRadius)
-    .pointToAngle(angle.subtract(1/4), markerRadius/2)
-    .text(lengthString, lengthFormat)
-    .draw(drawer.debugTextStyle);
-
-    // Angle
-  let angleString = `angle:${angle.turn.toFixed(digits)}`;
-  segment.startPoint()
-    .pointToAngle(angle, pointRadius)
-    .pointToAngle(angle.add(1/4), markerRadius/2)
-    .text(angleString, angleFormat)
-    .draw(drawer.debugTextStyle);
+  let angleString  = `angle:${segment.ray.angle.turn.toFixed(digits)}`;
+  drawRayTexts(drawer, segment.ray, lengthString, angleString);
 }; // debugSegment
 
 
@@ -309,7 +264,6 @@ exports.debugArc = function(drawer, arc, drawsText) {
   const rac =          drawer.rac;
   const pointRadius =  drawer.debugPointRadius;
   const markerRadius = drawer.debugMarkerRadius;
-  const digits =       drawer.debugTextOptions.fixedDigits;
 
   arc.draw();
 
@@ -337,23 +291,15 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .draw();
   }
 
-  // Mini arc markers
-  let context = drawer.p5.drawingContext;
-  let strokeWeight = context.lineWidth;
-  context.save(); {
-    context.lineCap = 'butt';
-    context.setLineDash([6, 4]);
-    centerArc.draw();
+  // Inside angle arc - big dashes
+  dashedDraw(drawer, [6, 4], ()=>{ centerArc.draw(); });
 
-    if (!centerArc.isCircle()) {
-      // Outside angle arc
-      context.setLineDash([2, 4]);
-      centerArc
-        .withClockwise(!centerArc.clockwise)
-        .draw();
-    }
-  };
-  context.restore();
+  // Outside angle arc - small dashes
+  if (!centerArc.isCircle()) {
+    let outsideAngleArc = centerArc
+      .withClockwise(!centerArc.clockwise);
+    dashedDraw(drawer, [2, 4], ()=>{ outsideAngleArc.draw(); });
+  }
 
   // Center end segment
   if (!arc.isCircle()) {
@@ -417,11 +363,14 @@ exports.debugArc = function(drawer, arc, drawsText) {
       .draw();
   }
 
-  // Text
-  if (drawsText !== true) { return; }
+  // Debug Text
+  if (drawsText !== true) return;
 
-  let hEnum = Rac.Text.Format.horizontalAlign;
-  let vEnum = Rac.Text.Format.verticalAlign;
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
+  const font   = drawer.debugTextOptions.font;
+  const size   = drawer.debugTextOptions.size;
+  const digits = drawer.debugTextOptions.fixedDigits;
 
   let headVertical = arc.clockwise
     ? vEnum.top
@@ -433,41 +382,25 @@ exports.debugArc = function(drawer, arc, drawsText) {
     ? vEnum.bottom
     : vEnum.top;
 
-  // Normal orientation
-  let headFormat = new Rac.Text.Format(
-    rac,
-    hEnum.left,
-    headVertical,
+  let headFormat = new Rac.Text.Format(rac,
+    hEnum.left, headVertical,
     arc.start,
-    drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
-  let tailFormat = new Rac.Text.Format(
-    rac,
-    hEnum.left,
-    tailVertical,
+    font, size,
+    pointRadius, 0);
+  let tailFormat = new Rac.Text.Format(rac,
+    hEnum.left, tailVertical,
     arc.end,
-    drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
-  let radiusFormat = new Rac.Text.Format(
-    rac,
-    hEnum.left,
-    radiusVertical,
+    font, size,
+    pointRadius, 0);
+  let radiusFormat = new Rac.Text.Format(rac,
+    hEnum.left, radiusVertical,
     arc.start,
-    drawer.debugTextOptions.font,
-    drawer.debugTextOptions.size);
+    font, size,
+    markerRadius, pointRadius);
 
-  // Reverse orientation
-  if (reversesText(arc.start)) {
-    headFormat = headFormat.reverse();
-    radiusFormat = radiusFormat.reverse();
-  }
-  if (reversesText(arc.end)) {
-    tailFormat = tailFormat.reverse();
-  }
-
-  let startString = `start:${arc.start.turn.toFixed(digits)}`;
+  let startString  = `start:${arc.start.turn.toFixed(digits)}`;
   let radiusString = `radius:${arc.radius.toFixed(digits)}`;
-  let endString = `end:${arc.end.turn.toFixed(digits)}`;
+  let endString    = `end:${arc.end.turn.toFixed(digits)}`;
 
   let angleDistance = arc.angleDistance();
   let distanceString = `distance:${angleDistance.turn.toFixed(digits)}`;
@@ -476,43 +409,203 @@ exports.debugArc = function(drawer, arc, drawsText) {
   let headString;
 
   // Radius label
-  if (angleDistance.turn <= 3/4 && !arc.isCircle()) {
+  const endIsAway = angleDistance.turn <= 3/4 || angleDistance.equals(3/4);
+  if (endIsAway && !arc.isCircle()) {
     // Radius drawn separately
-    let perpAngle = arc.start.perpendicular(!arc.clockwise);
-    arc.center
-      .pointToAngle(arc.start, markerRadius)
-      .pointToAngle(perpAngle, pointRadius*2)
-      .text(radiusString, radiusFormat)
-      .draw(drawer.debugTextStyle);
     headString = startString;
+    arc.center
+      .text(radiusString, radiusFormat)
+      .upright()
+      .draw(drawer.debugTextStyle);
+
   } else {
     // Radius joined to head
     headString = `${startString}\n${radiusString}`;
   }
 
   if (lengthAtOrientationArc > textJoinThreshold) {
-    // Draw strings separately
+    // Draw head and tail separately
     orientationArc.startPoint()
-      .pointToAngle(arc.start, markerRadius/2)
       .text(headString, headFormat)
+      .upright()
       .draw(drawer.debugTextStyle);
     orientationArc.pointAtAngle(arc.end)
-      .pointToAngle(arc.end, markerRadius/2)
       .text(tailString, tailFormat)
+      .upright()
       .draw(drawer.debugTextStyle);
   } else {
-    // Draw strings together
-    let allStrings = `${headString}\n${tailString}`;
+    // Draw head and tail together
+    let bothStrings = `${headString}\n${tailString}`;
     orientationArc.startPoint()
-      .pointToAngle(arc.start, markerRadius/2)
-      .text(allStrings, headFormat)
+      .text(bothStrings, headFormat)
+      .upright()
       .draw(drawer.debugTextStyle);
   }
 }; // debugArc
 
 
+exports.debugText = function(drawer, text, drawsText) {
+  const rac =          drawer.rac;
+  const pointRadius =  drawer.debugPointRadius;
+  const markerRadius = drawer.debugMarkerRadius;
+  const digits =       drawer.debugTextOptions.fixedDigits;
+
+  const hEnum = Rac.Text.Format.horizontalAlign;
+  const vEnum = Rac.Text.Format.verticalAlign;
+
+  const format = text.format;
+
+  // Point marker
+  text.point.arc(pointRadius).draw();
+
+  const cornerReticule = function(angle, padding, perpPadding, rotation) {
+    rac.Point.zero
+      .segmentToAngle(angle, markerRadius)
+      .reverse().withLength(markerRadius-pointRadius*2).draw() // line at text edge
+      .nextSegmentPerpendicular(rotation, padding).push() // elbow turn
+      .nextSegmentPerpendicular(!rotation, perpPadding).draw() // line at origin
+      .nextSegmentWithLength(pointRadius*4)
+      .nextSegmentWithLength(markerRadius-pointRadius*2).draw(); // opposite side line
+      // Dashed elbow turn
+      dashedDraw(drawer, [5, 2], ()=>{ rac.popStack().draw(); });
+  };
+
+  const centerReticule = function(angle, padding, perpPadding, rotation) {
+    angle = rac.Angle.from(angle);
+    // lines at edge of text
+    rac.Point.zero
+      .ray(angle.perpendicular(rotation))
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+    let reticuleCenter = rac.Point.zero
+      .segmentToAngle(angle.inverse(), padding)
+      .push() // dashed line to elbow
+      .nextSegmentPerpendicular(rotation, pointRadius)
+      .reverse().draw() // elbow mark
+      .nextSegmentPerpendicular(rotation, pointRadius)
+      .reverse().draw() // elbow mark
+      .nextSegmentPerpendicular(rotation, perpPadding)
+      .push() // dashed line to center
+      .endPoint();
+    dashedDraw(drawer, [5, 2], ()=>{
+      rac.popStack().draw();
+      rac.popStack().draw();
+    });
+
+    // lines around reticule center
+    reticuleCenter.ray(angle.inverse())
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+    reticuleCenter.ray(angle.perpendicular(!rotation))
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+    let lastCenterLine =
+      reticuleCenter.ray(angle)
+      .translateToDistance(pointRadius*2)
+      .segment(markerRadius - pointRadius*2).draw();
+
+    if (Math.abs(perpPadding) <= 2) return;
+
+    // short dashed lines back to text edge
+    lastCenterLine
+      .nextSegmentWithLength(padding - markerRadius)
+      .push()
+      .nextSegmentPerpendicular(!rotation, format.hPadding)
+      .push();
+    dashedDraw(drawer, [2, 3], ()=>{
+      rac.popStack().draw();
+      rac.popStack().draw();
+    });
+  };
+
+  drawer.p5.push();
+    format.apply(text.point);
+    switch (format.hAlign) {
+      case hEnum.left:
+        switch (format.vAlign) {
+          case vEnum.top:
+            cornerReticule(0/4, format.vPadding, format.hPadding, false);
+            cornerReticule(1/4, format.hPadding, format.vPadding, true);
+            break;
+          case vEnum.center:
+            centerReticule(0/4, format.hPadding, format.vPadding, true);
+            break;
+          case vEnum.baseline:
+            centerReticule(0/4, format.hPadding, format.vPadding, true);
+            break;
+          case vEnum.bottom:
+            cornerReticule(0/4, format.vPadding, format.hPadding, true);
+            cornerReticule(3/4, format.hPadding, format.vPadding, false);
+            break;
+        }
+        break;
+
+      case hEnum.center:
+        switch (format.vAlign) {
+          case vEnum.top:
+            centerReticule(1/4, format.vPadding, format.hPadding, false);
+            break;
+          case vEnum.center:
+            centerReticule(1/4, format.vPadding, format.hPadding, false);
+            break;
+          case vEnum.baseline:
+            centerReticule(1/4, format.vPadding, format.hPadding, false);
+            break;
+          case vEnum.bottom:
+            centerReticule(3/4, format.vPadding, format.hPadding, true);
+            break;
+        }
+        break;
+
+      case hEnum.right:
+        switch (format.vAlign) {
+          case vEnum.top:
+            cornerReticule(2/4, format.vPadding, format.hPadding, true);
+            cornerReticule(1/4, format.hPadding, format.vPadding, false);
+            break;
+          case vEnum.center:
+            centerReticule(2/4, format.hPadding, format.vPadding, false);
+            break;
+          case vEnum.baseline:
+            centerReticule(2/4, format.hPadding, format.vPadding, false);
+            break;
+          case vEnum.bottom:
+            cornerReticule(2/4, format.vPadding, format.hPadding, false);
+            cornerReticule(3/4, format.hPadding, format.vPadding, true);
+            break;
+        }
+        break;
+    }
+  drawer.p5.pop();
+
+  // Text object
+  text.draw(drawer.debugTextStyle);
+
+  // Debug Text
+  if (drawsText !== true) { return; }
+
+  const fix = function(number) {
+    return number.toFixed(digits);
+  };
+
+  let stringPa = `p:(${fix(text.point.x)},${fix(text.point.y)}) a:${fix(format.angle.turn)}`;
+  let stringAl = `al:${format.hAlign},${format.vAlign}`;
+  let stringPad = `pa:${fix(format.hPadding)},${fix(format.vPadding)}`;
+  let debugString = `${stringPa}\n${stringAl}\n${stringPad}`;
+
+  let debugFormat = new Rac.Text.Format(
+    rac,
+    hEnum.right, vEnum.bottom,
+    rac.Angle.zero,
+    drawer.debugTextOptions.font,
+    drawer.debugTextOptions.size,
+    pointRadius, pointRadius);
+  text.point.text(`${debugString}`, debugFormat)
+    .draw(drawer.debugTextStyle);
+}; // debugText
+
+
 // TODO: debug routine of Bezier
 // TODO: debug routine of Composite
 // TODO: debug routine of Shape
-// TODO: debug routine of Text
 

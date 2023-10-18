@@ -60,33 +60,15 @@ tools.test( function identity() {
 
 tools.test( function toString() {
   const arc = rac.Arc(
-    1.12345, 2.12345, // point
-    3.12345, // radius
+    1.23456, 2.34567, // point
+    3.45678, // radius
     0.12345, 0.23456, // start end
     true);
 
-  const string = arc.toString();
-  expect(string).toMatch('Arc');
-  expect(string).toMatch('(1.12345,2.12345)');
-  expect(string).toMatch('r:3.12345');
-  expect(string).toMatch('s:0.12345');
-  expect(string).toMatch('e:0.23456');
-  expect(string).toMatch('c:true');
-
-
-  const cutString = arc.toString(2);
-  expect(cutString).toMatch('Arc');
-  expect(cutString).toMatch('(1.12,2.12)');
-  expect(cutString).toMatch('r:3.12');
-  expect(cutString).toMatch('s:0.12');
-  expect(cutString).toMatch('e:0.23');
-  expect(cutString).toMatch('c:true');
-
-  expect(cutString).not.toMatch('1.123');
-  expect(cutString).not.toMatch('2.123');
-  expect(cutString).not.toMatch('3.123');
-  expect(cutString).not.toMatch('0.123');
-  expect(cutString).not.toMatch('0.234');
+  expect(arc.toString())
+    .toBe('Arc((1.23456,2.34567) r:3.45678 s:0.12345 e:0.23456 c:true)');
+  expect(arc.toString(2))
+    .toBe('Arc((1.23,2.35) r:3.46 s:0.12 e:0.23 c:true)');
 });
 
 
@@ -151,21 +133,33 @@ tools.test( function accesors() {
   expect(half.angleDistance())   .equalsAngle(1/2);
   expect(circle.angleDistance()) .equalsAngle(0);
 
-  expect(quarter.startPoint())  .equalsPoint(0,-36);
-  expect(quarter.endPoint())    .equalsPoint(-36,0);
-  expect(quarter.startRay())    .equalsRay(0, 0, rac.Angle.up);
-  expect(quarter.endRay())      .equalsRay(0, 0, rac.Angle.left);
-  expect(quarter.startSegment()).equalsSegment(0, 0, rac.Angle.up, 36);
-  expect(quarter.endSegment())  .equalsSegment(0, 0, rac.Angle.left, 36);
-  expect(quarter.chordSegment()).equalsSegment(0, -36, rac.Angle.sw, tools.hypotenuse(36));
+  expect(quarter.startPoint()).equalsPoint(0,-36);
+  expect(quarter.endPoint())  .equalsPoint(-36,0);
+
+  expect(quarter.startRay())       .equalsRay(0, 0, rac.Angle.up);
+  expect(quarter.endRay())         .equalsRay(0, 0, rac.Angle.left);
+  expect(quarter.startTangentRay()).equalsRay(0, -36, rac.Angle.left);
+  expect(quarter.endTangentRay())  .equalsRay(-36, 0, rac.Angle.up);
+
+  expect(quarter.startRadiusSegment()).equalsSegment(0, 0, rac.Angle.up, 36);
+  expect(quarter.startSegment())      .equalsSegment(0, 0, rac.Angle.up, 36);
+  expect(quarter.endRadiusSegment())  .equalsSegment(0, 0, rac.Angle.left, 36);
+  expect(quarter.endSegment())        .equalsSegment(0, 0, rac.Angle.left, 36);
+  expect(quarter.chordSegment())      .equalsSegment(0, -36, rac.Angle.sw, tools.hypotenuse(36));
 
   expect(circle.startPoint())  .equalsPoint(72, 144);
   expect(circle.endPoint())    .equalsPoint(72, 144);
-  expect(circle.startRay())    .equalsRay(72, 72, rac.Angle.down);
-  expect(circle.endRay())      .equalsRay(72, 72, rac.Angle.down);
-  expect(circle.startSegment()).equalsSegment(72, 72, rac.Angle.down, 72);
-  expect(circle.endSegment())  .equalsSegment(72, 72, rac.Angle.down, 72);
-  expect(circle.chordSegment()).equalsSegment(72, 144, rac.Angle.left, 0);
+
+  expect(circle.startRay())       .equalsRay(72, 72, rac.Angle.down);
+  expect(circle.endRay())         .equalsRay(72, 72, rac.Angle.down);
+  expect(circle.startTangentRay()).equalsRay(72, 144, rac.Angle.left);
+  expect(circle.endTangentRay())  .equalsRay(72, 144, rac.Angle.right);
+
+  expect(circle.startRadiusSegment()).equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.startSegment())      .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.endRadiusSegment())  .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.endSegment())        .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.chordSegment())      .equalsSegment(72, 144, rac.Angle.left, 0);
 });
 
 
@@ -539,13 +533,27 @@ tools.test( function containsProjectedPoint() {
 });
 
 
+tools.test( function shift() {
+  // Angle/number parameter
+  expect(quarter.shift(rac.Angle.eighth)).equalsArc(0, 0, 36, 5/8, 3/8, false);
+  expect(quarter.shift(1/8))             .equalsArc(0, 0, 36, 5/8, 3/8, false);
+  expect(quarter.shift(-1/8))            .equalsArc(0, 0, 36, 7/8, 5/8, false);
+
+  expect(circle.shift(0))   .equalsArc(72, 72, 72, 1/4, 1/4, true);
+  expect(circle.shift(1/4)) .equalsArc(72, 72, 72, 2/4, 2/4, true);
+  expect(circle.shift(-1/4)).equalsArc(72, 72, 72, 0/4, 0/4, true);
+});
+
+
 tools.test( function shiftAngle() {
   // Angle/number parameter
   expect(quarter.shiftAngle(rac.Angle.eighth)).equalsAngle(5/8);
   expect(quarter.shiftAngle(1/8))             .equalsAngle(5/8);
+  expect(quarter.shiftAngle(-1/8))            .equalsAngle(7/8);
 
-  expect(circle.shiftAngle(0))  .equalsAngle(rac.Angle.down);
-  expect(circle.shiftAngle(1/4)).equalsAngle(rac.Angle.left);
+  expect(circle.shiftAngle(0))   .equalsAngle(rac.Angle.down);
+  expect(circle.shiftAngle(1/4)) .equalsAngle(rac.Angle.left);
+  expect(circle.shiftAngle(-1/4)).equalsAngle(rac.Angle.right);
 });
 
 
@@ -947,6 +955,22 @@ tools.test( function divideToBeziers() {
     147.631, 72.500, 157.456, 89.517, 157.456, 110.483, 147.631, 127.500);
   expect(halfComposite.sequence[2]).equalsBezier(
     147.631, 127.500, 137.807, 144.517, 119.650, 155.000, 100.000, 155.000);
+});
+
+
+tools.test( function text() {
+  const ha = Rac.Text.Format.horizontalAlign;
+  const va = Rac.Text.Format.verticalAlign;
+
+  const defaultSphinx = quarter.text('sphinx');
+  expect(defaultSphinx).equalsText(0, -36, 'sphinx');
+  expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, rac.Angle.left);
+
+  const format = rac.Text.Format(ha.center, va.center, 3/4, 'sans', 14, 7, 5);
+  const formattedVow = circle.text('vow', format);
+  expect(formattedVow).equalsText(72, 144, 'vow');
+  expect(formattedVow.format)
+    .equalsTextFormat(ha.center, va.center, rac.Angle.left, 'sans', 14, 7, 5);
 });
 
 

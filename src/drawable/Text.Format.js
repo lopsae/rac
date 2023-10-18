@@ -6,7 +6,7 @@ const utils = require('../util/utils');
 
 
 /**
-* Determines the alignment, angle, font, and size for drawing a
+* Determines the alignment, angle, font, size, and padding for drawing a
 * [`Text`]{@link Rac.Text} object.
 *
 * ### `instance.Text.Format`
@@ -39,11 +39,11 @@ class TextFormat {
   * to its [`text.point`]{@link Rac.Text#point}.
   *
   * @property {String} left
-  *   aligns `text.point` to the left edge of the drawn text
+  *   aligns `text.point` at the left edge of the drawn text
   * @property {String} center
-  *   aligns `text.point` to the center, from side to
+  *   aligns `text.point` at the center, from side to side, of the drawn text
   * @property {String} right
-  *   aligns `text.point` to the right edge of the drawn text
+  *   aligns `text.point` at the right edge of the drawn text
   *
   * @type {Object}
   * @memberof Rac.Text.Format
@@ -60,13 +60,13 @@ class TextFormat {
   * to its [`text.point`]{@link Rac.Text#point}.
   *
   * @property {String} top
-  *   aligns `text.point` to the top edge of the drawn text
+  *   aligns `text.point` at the top edge of the drawn text
   * @property {String} center
-  *   aligns `text.point` to the center, from top to bottom, of the drawn text
+  *   aligns `text.point` at the center, from top to bottom, of the drawn text
   * @property {String} baseline
-  *   aligns `text.point` to the baseline of the drawn text
+  *   aligns `text.point` at the baseline of the drawn text
   * @property {String} bottom
-  *   aligns `text.point` to the bottom edge of the drawn text
+  *   aligns `text.point` at the bottom edge of the drawn text
   *
   * @type {Object}
   * @memberof Rac.Text.Format
@@ -92,10 +92,14 @@ class TextFormat {
   *   [`verticalAlign`]{@link Rac.Text.Format.verticalAlign}
   * @param {Rac.Angle} [angle=[rac.Angle.zero]{@link instance.Angle#zero}]
   *   The angle towards which the text is drawn
-  * @param {String} [font=null]
+  * @param {?String} [font=null]
   *   The font name
-  * @param {Number} [size=null]
+  * @param {?Number} [size=null]
   *   The font size
+  * @param {Number} [hPadding=0]
+  *   The horizontal padding, left-to-right
+  * @param {Number} [vPadding=0]
+  *   The vertical padding, top-to-bottom
   */
   constructor(
     rac,
@@ -103,13 +107,16 @@ class TextFormat {
     vAlign,
     angle = rac.Angle.zero,
     font = null,
-    size = null)
+    size = null,
+    hPadding = 0,
+    vPadding = 0)
   {
     utils.assertType(Rac, rac);
     utils.assertString(hAlign, vAlign);
     utils.assertType(Rac.Angle, angle);
     font !== null && utils.assertString(font);
     size !== null && utils.assertNumber(size);
+    utils.assertNumber(hPadding, vPadding);
 
     /**
     * Instance of `Rac` used for drawing and passed along to any created
@@ -172,6 +179,21 @@ class TextFormat {
     * @type {?Number}
     */
     this.size = size;
+
+    /**
+    * The horizontal padding, left-to-right, to distance a `Text`
+    * relative to its [`point`]{@link Rac.Text#point}.
+    *
+    * @type {Number}
+    */
+    this.hPadding = hPadding;
+
+    /**
+    * The vertical padding, top-to-bottom, to distance a `Text` relative
+    * to its [`point`]{@link Rac.Text#point}.
+    * @type {String}
+    */
+    this.vPadding = vPadding;
   } // constructor
 
 
@@ -179,8 +201,8 @@ class TextFormat {
   * Returns a string representation intended for human consumption.
   *
   * @example
-  * // returns: 'Text.Format(ha:left va:top a:0.5 f:"sans" s:14)'
-  * rac.Text.Format('left', 'top', 0.5, 'sans', 14)).toString()
+  * rac.Text.Format('left', 'top', 0.2, 'sans', 14, 7, 5)).toString()
+  * // returns: 'Text.Format(ha:left va:top a:0.2 f:"sans" s:14 p:(7,5))'
   *
   *
   * @param {Number} [digits] - The number of digits to print after the
@@ -195,7 +217,10 @@ class TextFormat {
     const fontStr = this.font === null
       ? 'null'
       : `"${this.font}"`;
-    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr})`;
+    const hPaddingStr = utils.cutDigits(this.hPadding, digits);
+    const vPaddingStr = utils.cutDigits(this.vPadding, digits);
+    const paddingsStr = `${hPaddingStr},${vPaddingStr}`
+    return `Text.Format(ha:${this.hAlign} va:${this.vAlign} a:${angleStr} f:${fontStr} s:${sizeStr} p:(${paddingsStr}))`;
   }
 
 
@@ -212,10 +237,12 @@ class TextFormat {
   */
   equals(otherFormat) {
     return otherFormat instanceof TextFormat
-      && this.hAlign === otherFormat.hAlign
-      && this.vAlign === otherFormat.vAlign
-      && this.font   === otherFormat.font
-      && this.size   === otherFormat.size
+      && this.hAlign   === otherFormat.hAlign
+      && this.vAlign   === otherFormat.vAlign
+      && this.font     === otherFormat.font
+      && this.size     === otherFormat.size
+      && this.hPadding === otherFormat.hPadding
+      && this.vPadding === otherFormat.vPadding
       && this.angle.equals(otherFormat.angle);
   }
 
@@ -231,8 +258,8 @@ class TextFormat {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       newAngle,
-      this.font,
-      this.size);
+      this.font, this.size,
+      this.hPadding, this.vPadding);
   }
 
 
@@ -246,8 +273,8 @@ class TextFormat {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       this.angle,
-      newFont,
-      this.size);
+      newFont, this.size,
+      this.hPadding, this.vPadding);
   }
 
 
@@ -261,14 +288,43 @@ class TextFormat {
     return new TextFormat(this.rac,
       this.hAlign, this.vAlign,
       this.angle,
-      this.font,
-      newSize);
+      this.font, newSize,
+      this.hPadding, this.vPadding);
   }
 
 
   /**
-  * Returns a new `Text.Format` that will draw a text reversed, upside-down,
-  * in generally the same position as `this` would draw the same text.
+  * Returns a new `Text.Format` with paddings set to the given values.
+  *
+  * When only `hPadding` is provided, that value is used for both
+  * horizontal and vertical padding.
+  *
+  * @param {Number} hPadding - The horizontal padding for the new `Text.Format`
+  * @param {Number} [vPadding] - The vertical padding for the new `Text.Format`;
+  *   when ommited, `hPadding` is used instead
+  *
+  * @returns {Rac.Text.Format}
+  */
+  withPaddings(hPadding, vPadding = null) {
+    if (vPadding === null) {
+      vPadding = hPadding;
+    }
+    return new TextFormat(this.rac,
+      this.hAlign, this.vAlign,
+      this.angle, this.font, this.size,
+      hPadding, vPadding);
+  }
+
+
+  /**
+  * Returns a new `Text.Format` that formats a text reversed, upside-down,
+  * generally in the same position as `this`.
+  *
+  * The resulting `Format` will be oriented towards the
+  * [inverse]{@link Rac.Angle#inverse} of `angle`; alignments for `left`
+  * becomes `right` and viceversa; `top` becomes `bottom` and viceversa;
+  * `center` and `baseline` remain the same.
+  *
   * @returns {Rac.Text.Format}
   */
   reverse() {
@@ -290,8 +346,8 @@ class TextFormat {
       this.rac,
       hAlign, vAlign,
       this.angle.inverse(),
-      this.font,
-      this.size)
+      this.font, this.size,
+      this.hPadding, this.vPadding);
   }
 
 } // class TextFormat
