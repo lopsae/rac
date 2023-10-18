@@ -223,7 +223,6 @@ class Arc{
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Ray` tangent to the arc starting at `startPoint()` and
   * towards the arc's orientation.
@@ -234,7 +233,6 @@ class Arc{
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Ray` tangent to the arc starting at `endPoint()` and
   * against the arc's orientation.
@@ -245,7 +243,6 @@ class Arc{
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Segment` representing the radius of the arc at `start`.
   * The segment starts starts at `center` and ends at `startPoint()`.
@@ -268,7 +265,6 @@ class Arc{
   }
 
 
-  // RELEASE-TODO: Unit Test and Visual Test
   /**
   * Returns a new `Segment` representing the radius of the arc at `end`.
   * The segment starts starts at `center` and ends at `endPoint()`.

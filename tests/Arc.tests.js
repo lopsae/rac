@@ -133,21 +133,33 @@ tools.test( function accesors() {
   expect(half.angleDistance())   .equalsAngle(1/2);
   expect(circle.angleDistance()) .equalsAngle(0);
 
-  expect(quarter.startPoint())  .equalsPoint(0,-36);
-  expect(quarter.endPoint())    .equalsPoint(-36,0);
-  expect(quarter.startRay())    .equalsRay(0, 0, rac.Angle.up);
-  expect(quarter.endRay())      .equalsRay(0, 0, rac.Angle.left);
-  expect(quarter.startSegment()).equalsSegment(0, 0, rac.Angle.up, 36);
-  expect(quarter.endSegment())  .equalsSegment(0, 0, rac.Angle.left, 36);
-  expect(quarter.chordSegment()).equalsSegment(0, -36, rac.Angle.sw, tools.hypotenuse(36));
+  expect(quarter.startPoint()).equalsPoint(0,-36);
+  expect(quarter.endPoint())  .equalsPoint(-36,0);
+
+  expect(quarter.startRay())       .equalsRay(0, 0, rac.Angle.up);
+  expect(quarter.endRay())         .equalsRay(0, 0, rac.Angle.left);
+  expect(quarter.startTangentRay()).equalsRay(0, -36, rac.Angle.left);
+  expect(quarter.endTangentRay())  .equalsRay(-36, 0, rac.Angle.up);
+
+  expect(quarter.startRadiusSegment()).equalsSegment(0, 0, rac.Angle.up, 36);
+  expect(quarter.startSegment())      .equalsSegment(0, 0, rac.Angle.up, 36);
+  expect(quarter.endRadiusSegment())  .equalsSegment(0, 0, rac.Angle.left, 36);
+  expect(quarter.endSegment())        .equalsSegment(0, 0, rac.Angle.left, 36);
+  expect(quarter.chordSegment())      .equalsSegment(0, -36, rac.Angle.sw, tools.hypotenuse(36));
 
   expect(circle.startPoint())  .equalsPoint(72, 144);
   expect(circle.endPoint())    .equalsPoint(72, 144);
-  expect(circle.startRay())    .equalsRay(72, 72, rac.Angle.down);
-  expect(circle.endRay())      .equalsRay(72, 72, rac.Angle.down);
-  expect(circle.startSegment()).equalsSegment(72, 72, rac.Angle.down, 72);
-  expect(circle.endSegment())  .equalsSegment(72, 72, rac.Angle.down, 72);
-  expect(circle.chordSegment()).equalsSegment(72, 144, rac.Angle.left, 0);
+
+  expect(circle.startRay())       .equalsRay(72, 72, rac.Angle.down);
+  expect(circle.endRay())         .equalsRay(72, 72, rac.Angle.down);
+  expect(circle.startTangentRay()).equalsRay(72, 144, rac.Angle.left);
+  expect(circle.endTangentRay())  .equalsRay(72, 144, rac.Angle.right);
+
+  expect(circle.startRadiusSegment()).equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.startSegment())      .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.endRadiusSegment())  .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.endSegment())        .equalsSegment(72, 72, rac.Angle.down, 72);
+  expect(circle.chordSegment())      .equalsSegment(72, 144, rac.Angle.left, 0);
 });
 
 
