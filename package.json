@@ -30,6 +30,7 @@
     "docs:repack": "npm update minami-rac && npm run docs",
     "pages": "cd docs; bundle exec jekyll serve --open-url",
     "serveStandalone": "npm test && grunt serveStandalone",
+    "serveDist": "grunt serveDist",
     "dist": "npm test && grunt dist"
   },
   "devDependencies": {

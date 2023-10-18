@@ -101,14 +101,9 @@ Build a dev distribution for the github-io local server:
 npm start
 ```
 
-Start the github-io local server at `http://127.0.0.1:4000/debug/`:
+Start the github-io local server for visual testing at `http://127.0.0.1:4000/debug/`:
 ```
 npm run pages
-```
-
-Or build for a standalone server at `http://localhost:9001/`:
-```
-npm run serveStandalone
 ```
 
 
@@ -119,12 +114,7 @@ Build dist, test, and commit
 npm run dist
 ```
 
-Built files are available at:
-```
-http://localhost:9001/rac.js
-http://localhost:9001/rac.dev.js
-http://localhost:9001/rac.min.js
-```
+Built files are copied to github-io pages, verify at `http://127.0.0.1:4000/debug/`
 
 Commit with message: `commit dist build n.e.w count-hash`
 

@@ -253,7 +253,7 @@ module.exports = function(grunt) {
     const statusCount = grunt.config('exec.statusCount.value');
 
     if (isProduction && statusCount != 0) {
-      grunt.fatal(`Production build string must have a clean workspace - statusCount:${statusCount}`)
+      grunt.fatal(`Production build must have a clean workspace - statusCount:${statusCount}`)
       return
     }
 
@@ -379,6 +379,9 @@ module.exports = function(grunt) {
   grunt.registerTask('deleteDocs', ['exec:deleteDocs']);
 
 
+  // Serves the files currently in `dist`
+  grunt.registerTask('serveDist', ['connect:server:keepalive']);
+
 
   // Builds a dev bundle, serves it though a standalone web-server, and
   // watches for source changes to update the served files
@@ -398,17 +401,14 @@ module.exports = function(grunt) {
     'watch:rebuild_to_pages']);
 
 
-  // RELEASE-TODO: dist should deploy to pages
-  // RELEASE-TODO: maybe create serveCurrent to just serve the dist folder
-  // Builds a dev/main/mini bundle with a clean version, serves it for
-  // confirmation.
+  // Builds a dev/main/mini bundle with a clean version, and copies these
+  // to the github-io pages
   grunt.registerTask('dist', [
     'makeVersioningFile:production',
     'browserify:dev_clean',
     'browserify:main',
     'uglify',
-    // RELEASE-TODO: add copyDistToPages:production
-    'connect:server:keepalive']);
+    'copyDistToPages:production']);
 
 
   grunt.registerTask('default', ['serveToPages']);
