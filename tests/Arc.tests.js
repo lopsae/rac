@@ -974,5 +974,5 @@ tools.test( function text() {
 });
 
 
-// RELEASE-TODO: Full coverage!
+// Full coverage!
 
