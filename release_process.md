@@ -75,6 +75,7 @@ Promote docs to current version
 -------------------------------
 ```
 mv docs/documentation/n.e.w-dev docs/documentation/n.e.w
+mv docs/dist/n.e.w-dev docs/dist/n.e.w
 ```
 
 Update `latest` symlink
