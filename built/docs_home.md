@@ -1,6 +1,6 @@
 # RAC — Ruler and Compass
 
-Documentation for RAC version: `1.3.0`
+Documentation for RAC `1.3.0`
 
 `{@link Rac}` is the main class and container of all other classes.
 
