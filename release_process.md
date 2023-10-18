@@ -160,7 +160,7 @@ Rebuild current docs
 npm run docs:fresh
 ```
 
-Commit with message: `rebuild docs for n.e.w`
+Commit with message: `rebuild docs clean for n.e.w`
 
 
 
