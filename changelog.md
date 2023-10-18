@@ -1,25 +1,25 @@
 Changelog
 =========
 
-1.3.0-dev - Work in progress
-----------------------------
-+ Overall documentation improvements and corrections
+1.3.0-dev - 2023 October 18th
+-----------------------------
 + Implement padding for `Text` drawing through `Text.Format`
-+ Add `rac.Composite` function
-+ Add `rac.Angle.tenth`
++ Add properties `textFormat.hPadding`, `textFormat.vPadding`
 + Add `ray.text`, `segment.text`, `arc.text`
++ Add `text.reverse`, `text.upright`, `text.withPaddings`
++ Add `textFormat.withPaddings`
 + Add `segment.translateToLengthRatio`
 + Add `arc.shift`, `arc.startTangentRay`, `arc.endTangentRay`, `arc.startRadiusSegment`, `arc.endRadiusSegment`
-+ Add `text.reverse`, `text.upright`, `text.withPaddings`
-+ Add properties `textFormat.hPadding`, `textFormat.vPadding`
-+ Add `textFormat.withPaddings`
 + Add `rac.Text.Format.bottomCenter`, `rac.Text.Format.bottomRight`
 + Add `rac.Text.Format.baseline...` constants
 + Add abbreviated shorthands for `rac.Text.Format` ready-made formats, like `rac.Text.Format.tl`
++ Add `rac.Angle.tenth`
++ Add `rac.Composite` function
 + Implement debug routines for `Text`
 + Improve debug routines for `Angle`, `Point`, `Ray`, `Segment` and `Arc`
 + Improve tests for `Color`
 + Renamed `version` file to `versioning`
++ Overall documentation improvements and corrections
 
 
 
