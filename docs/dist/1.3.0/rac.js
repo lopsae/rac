@@ -1,4 +1,4 @@
-// RAC - ruler-and-compass - 1.3.0-dev 1367-79933d5 2023-10-18T01:25:15.113Z
+// RAC - ruler-and-compass - 1.3.0 1375-a1012dd 2023-10-18T20:11:17.183Z
 // Production distribution
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'useStrict';
@@ -16,7 +16,7 @@ module.exports = {
   * @constant {String} version
   * @memberof versioning#
   */
-  version: '1.3.0-dev',
+  version: '1.3.0',
 
   /**
   * Build of the package. Exposed through
@@ -24,7 +24,7 @@ module.exports = {
   * @constant {String} build
   * @memberof versioning#
   */
-  build: '1367-79933d5',
+  build: '1375-a1012dd',
 
   /**
   * Date of build of the package. Exposed through
@@ -32,7 +32,7 @@ module.exports = {
   * @constant {String} dated
   * @memberof versioning#
   */
-  dated: '2023-10-18T01:25:15.113Z'
+  dated: '2023-10-18T20:11:17.183Z'
 };
 
 
