@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.3.0-dev - 2023 October 18th
------------------------------
+1.3.0 - 2023 October 18th
+-------------------------
 + Implement padding for `Text` drawing through `Text.Format`
 + Add properties `textFormat.hPadding`, `textFormat.vPadding`
 + Add `ray.text`, `segment.text`, `arc.text`
