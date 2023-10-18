@@ -8,7 +8,6 @@ In progress
 
 For version change
 ------------------
-+ FIX all RELEASE-TODO
 
 
 
