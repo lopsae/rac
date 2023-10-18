@@ -546,9 +546,11 @@ tools.test( function text() {
   expect(defaultSphinx).equalsText(55, 55, 'sphinx');
   expect(defaultSphinx.format).equalsTextFormat(ha.left, va.top, 1/8);
 
-  const formattedVow = vertical.text('vow', rac.Text.Format.centered);
+  const format = rac.Text.Format(ha.center, va.center, 3/4, 'sans', 14, 7, 5);
+  const formattedVow = vertical.text('vow', format);
   expect(formattedVow).equalsText(100, 100, 'vow');
-  expect(formattedVow.format).equalsTextFormat(ha.center, va.center, 1/4);
+  expect(formattedVow.format)
+    .equalsTextFormat(ha.center, va.center, 1/4, 'sans', 14, 7, 5);
 });
 
 
