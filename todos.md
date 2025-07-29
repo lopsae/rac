@@ -10,6 +10,9 @@ For version change
 ------------------
 + check package with `npm pkg fix`
 + check npm summary page, links are to https://lopsae.github.io/rac
++ add jsdelivr and browser, as per: https://www.jsdelivr.com/documentation
++ mention https://observablehq.com/@observablehq/require
++ add versioning property to diferentiate different processors, `file`? `processor`? likely builds have to be done in order, build version then min, build version then maps, build version then browserify, the leave last version for npm
 
 
 Future
