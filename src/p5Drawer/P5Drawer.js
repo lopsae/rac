@@ -62,7 +62,7 @@ class P5Drawer {
     /**
     * Radius of point markers for debug drawing.
     * @type {Number}
-    * @default 22
+    * @default 5
     */
     this.debugPointRadius = 5;
 
